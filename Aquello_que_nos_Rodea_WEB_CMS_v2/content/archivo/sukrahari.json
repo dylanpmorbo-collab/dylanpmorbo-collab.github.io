@@ -3,7 +3,7 @@
   "archive_number": "001",
   "category": "ENTIDAD",
   "published": true,
-  "image": "/assets/img/entidad.webp",
+  "image": "/assets/uploads/designer-8-2.png",
   "status": "Documentado",
   "summary": "Ser de apariencia híbrida entre rata y primate. La información disponible procede de testimonios incompletos y de individuos vinculados a LA PLAGA.",
   "note": "Información adicional bloqueada hasta que el archivo narrativo la revele.",
@@ -21,5 +21,9 @@
       "value": "████████████████"
     }
   ],
-  "body": ""
+  "gallery": [
+    {
+      "image": "/assets/uploads/designer-10.png"
+    }
+  ]
 }
