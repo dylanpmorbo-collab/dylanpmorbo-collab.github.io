@@ -200,14 +200,14 @@ function connectionDossier(c){
 const archiveByCategory=(cat)=>archiveEntries.filter(x=>(x.category||'ARCHIVO')===cat);
 
 const archiveSectionDefs=[
- {key:'entidades',label:'ENTIDADES',eyebrow:'CATÁLOGO // ENTIDADES',desc:'Seres, presencias y formas de vida cuya existencia ha quedado registrada.',items:archiveByCategory('ENTIDAD'),render:archiveDossier,file:'archivo-entidades.html'},
- {key:'personajes',label:'PERSONAJES',eyebrow:'CATÁLOGO // PERSONAS',desc:'Individuos relacionados con los expedientes, los sucesos y aquello que permanece oculto.',items:characters,render:characterDossier,file:'archivo-personajes.html'},
- {key:'lugares',label:'LUGARES',eyebrow:'CATÁLOGO // LUGARES',desc:'Localizaciones vinculadas a anomalías, testimonios o acontecimientos registrados.',items:archiveByCategory('LUGAR'),render:archiveDossier,file:'archivo-lugares.html'},
- {key:'organizaciones',label:'ORGANIZACIONES',eyebrow:'CATÁLOGO // ORGANIZACIONES',desc:'Grupos, cultos, instituciones y redes cuya actividad aparece en los archivos.',items:archiveByCategory('ORGANIZACIÓN'),render:archiveDossier,file:'archivo-organizaciones.html'},
- {key:'documentos',label:'DOCUMENTOS',eyebrow:'CATÁLOGO // DOCUMENTOS',desc:'Textos, pruebas, registros y materiales recuperados o parcialmente descifrados.',items:archiveByCategory('DOCUMENTO'),render:archiveDossier,file:'archivo-documentos.html'},
- {key:'sucesos',label:'SUCESOS',eyebrow:'CATÁLOGO // SUCESOS',desc:'Incidentes cuya explicación permanece incompleta, contradictoria o clasificada.',items:archiveByCategory('SUCESO'),render:archiveDossier,file:'archivo-sucesos.html'},
- {key:'otros',label:'OTROS ARCHIVOS',eyebrow:'CATÁLOGO // OTROS',desc:'Anotaciones que todavía no encajan en una clasificación estable.',items:archiveByCategory('OTRO'),render:archiveDossier,file:'archivo-otros.html'},
- {key:'conexiones',label:'CONEXIONES',eyebrow:'ÍNDICE // CONEXIONES',desc:'Coincidencias, vínculos y patrones que conectan expedientes aparentemente independientes.',items:connections,render:connectionDossier,file:'archivo-conexiones.html'}
+ {key:'entidades',label:'ENTIDADES',eyebrow:'CATÁLOGO // ENTIDADES',desc:'Seres, presencias y formas de vida cuya existencia ha quedado registrada.',items:archiveByCategory('ENTIDAD'),render:archiveDossier,file:'archivo-entidades.html',image:'/assets/img/archivo-secciones/entidades.png'},
+ {key:'personajes',label:'PERSONAJES',eyebrow:'CATÁLOGO // PERSONAS',desc:'Individuos relacionados con los expedientes, los sucesos y aquello que permanece oculto.',items:characters,render:characterDossier,file:'archivo-personajes.html',image:'/assets/img/archivo-secciones/personajes.png'},
+ {key:'lugares',label:'LUGARES',eyebrow:'CATÁLOGO // LUGARES',desc:'Localizaciones vinculadas a anomalías, testimonios o acontecimientos registrados.',items:archiveByCategory('LUGAR'),render:archiveDossier,file:'archivo-lugares.html',image:'/assets/img/archivo-secciones/lugares.png'},
+ {key:'organizaciones',label:'ORGANIZACIONES',eyebrow:'CATÁLOGO // ORGANIZACIONES',desc:'Grupos, cultos, instituciones y redes cuya actividad aparece en los archivos.',items:archiveByCategory('ORGANIZACIÓN'),render:archiveDossier,file:'archivo-organizaciones.html',image:'/assets/img/archivo-secciones/organizaciones.png'},
+ {key:'documentos',label:'DOCUMENTOS',eyebrow:'CATÁLOGO // DOCUMENTOS',desc:'Textos, pruebas, registros y materiales recuperados o parcialmente descifrados.',items:archiveByCategory('DOCUMENTO'),render:archiveDossier,file:'archivo-documentos.html',image:'/assets/img/archivo-secciones/documentos.png'},
+ {key:'sucesos',label:'SUCESOS',eyebrow:'CATÁLOGO // SUCESOS',desc:'Incidentes cuya explicación permanece incompleta, contradictoria o clasificada.',items:archiveByCategory('SUCESO'),render:archiveDossier,file:'archivo-sucesos.html',image:'/assets/img/archivo-secciones/sucesos.png'},
+ {key:'otros',label:'OTROS ARCHIVOS',eyebrow:'CATÁLOGO // OTROS',desc:'Anotaciones que todavía no encajan en una clasificación estable.',items:archiveByCategory('OTRO'),render:archiveDossier,file:'archivo-otros.html',image:'/assets/img/archivo-secciones/otros.png'},
+ {key:'conexiones',label:'CONEXIONES',eyebrow:'ÍNDICE // CONEXIONES',desc:'Coincidencias, vínculos y patrones que conectan expedientes aparentemente independientes.',items:connections,render:connectionDossier,file:'archivo-conexiones.html',image:'/assets/img/archivo-secciones/conexiones.png'}
 ];
 
 function latestItem(section){
@@ -341,11 +341,14 @@ for(const section of archiveSectionDefs){
    : `<div class="archive-empty reveal"><p class="archive-code">SIN DATOS DISPONIBLES</p><h2>NO HAY EXPEDIENTES PÚBLICOS.</h2><p>Esta sección permanece vacía o clasificada por el momento.</p></div>`;
  const sectionPage=`${head(`${section.label} | El Archivo | ${site.site_title}`,section.desc)}
  <body>${header('archivo')}<main>
- <section class="page-hero compact archive-section-hero"><div>
-   <p class="eyebrow">${section.eyebrow}</p>
-   <h1>${section.label}</h1>
-   <p>${section.desc}</p>
- </div></section>
+ <section class="page-hero compact archive-section-hero">
+   <div class="archive-section-hero-copy">
+     <p class="eyebrow">${section.eyebrow}</p>
+     <h1>${section.label}</h1>
+     <p>${section.desc}</p>
+   </div>
+   <div class="archive-section-hero-art reveal" aria-hidden="true"><img src="${section.image}" alt=""></div>
+ </section>
  <section class="section archive-section-shell">
    <div class="archive-back-row"><a class="text-link" href="archivo.html">← VOLVER AL ÍNDICE GENERAL</a><span>${String(section.items.length).padStart(2,'0')} EXPEDIENTE${section.items.length===1?'':'S'}</span></div>
    ${archiveSectionNav()}
