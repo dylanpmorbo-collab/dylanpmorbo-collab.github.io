@@ -63,3 +63,12 @@
 .archive-book-caption{position:absolute;right:5%;bottom:1.5%;font:600 8px/1 var(--display);letter-spacing:.18em;color:rgba(208,170,88,.46);text-shadow:0 1px 8px #000}
 @media(max-width:1050px){.archive-hero{grid-template-columns:1fr minmax(360px,.82fr);padding-right:2vw}.archive-book-shell{width:min(650px,45vw)}}
 @media(max-width:860px){.archive-hero{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;gap:28px;padding:118px 20px 50px;min-height:auto}.archive-book-shell{width:min(720px,100%);align-self:center;justify-self:auto}.archive-hero-copy{width:100%}.archive-book-caption{display:none}}
+
+/* EL ARCHIVO — acceso a secciones dentro de la cabecera */
+.archive-hero{padding-bottom:94px}
+.archive-hero>.archive-section-nav{position:absolute;left:0;right:0;bottom:0;z-index:5;margin:0;padding:18px 4vw 20px;justify-content:center;gap:8px;border-top:1px solid rgba(173,132,55,.18);background:linear-gradient(to top,rgba(5,5,4,.94),rgba(5,5,4,.62),transparent)}
+.archive-hero>.archive-section-nav a{background:rgba(8,8,7,.78);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);white-space:nowrap;padding:10px 12px}
+.archive-book-caption{display:none!important}
+@media(max-width:1050px){.archive-hero>.archive-section-nav{padding-inline:2vw}.archive-hero>.archive-section-nav a{font-size:8px;padding:9px 10px}}
+@media(max-width:860px){.archive-hero{padding-bottom:48px}.archive-hero>.archive-section-nav{position:static;width:100%;padding:0;margin:2px 0 0;background:none;border-top:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.archive-hero>.archive-section-nav a{text-align:center;white-space:normal;padding:12px 8px}}
+@media(max-width:520px){.archive-hero>.archive-section-nav{grid-template-columns:1fr}}
