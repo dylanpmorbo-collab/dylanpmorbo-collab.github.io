@@ -1,7 +1,3 @@
-# AQUELLO QUE NOS RODEA — Panel de administración
-# IMPORTANTE: cuando creemos el repositorio de GitHub cambiaremos SOLO
-# TU_USUARIO_GITHUB por tu usuario real. Yo te guiaré en ese paso.
-
 backend:
   name: github
   repo: dylanpmorbo-collab/aquello-que-nos-rodea
@@ -36,6 +32,61 @@ collections:
       - { label: "Portada", name: "cover", widget: "image", choose_url: false }
       - { label: "Advertencia de contenido", name: "content_warning", widget: "text", required: false }
       - { label: "Texto del relato", name: "body", widget: "markdown" }
+
+  - name: "archivo"
+    label: "El Archivo"
+    label_singular: "Ficha de archivo"
+    folder: "Aquello_que_nos_Rodea_WEB_CMS_v2/content/archivo"
+    create: true
+    delete: true
+    extension: "json"
+    format: "json"
+    identifier_field: "title"
+    summary: "{{category}} // {{archive_number}} · {{title}}"
+    sortable_fields: ["category", "archive_number", "title"]
+    fields:
+      - { label: "Nombre / título", name: "title", widget: "string" }
+      - { label: "Número", name: "archive_number", widget: "string", default: "002" }
+      - label: "Tipo de ficha"
+        name: "category"
+        widget: "select"
+        options: ["ENTIDAD", "PERSONA", "LUGAR", "ORGANIZACIÓN", "DOCUMENTO", "SUCESO", "OTRO"]
+        default: "ENTIDAD"
+      - { label: "Publicado", name: "published", widget: "boolean", default: true }
+      - { label: "Imagen", name: "image", widget: "image", choose_url: false, required: false }
+      - { label: "Estado", name: "status", widget: "string", default: "Documentado" }
+      - { label: "Descripción", name: "summary", widget: "text" }
+      - { label: "Nota de archivo", name: "note", widget: "text", required: false }
+      - label: "Datos de la ficha"
+        name: "facts"
+        widget: "list"
+        required: false
+        summary: "{{fields.label}}: {{fields.value}}"
+        fields:
+          - { label: "Campo", name: "label", widget: "string", hint: "Ej.: Procedencia, Tamaño, Ocupación, Localización…" }
+          - { label: "Valor", name: "value", widget: "string" }
+      - { label: "Información adicional", name: "body", widget: "markdown", required: false }
+
+  - name: "conexiones"
+    label: "Conexiones"
+    label_singular: "Conexión"
+    folder: "Aquello_que_nos_Rodea_WEB_CMS_v2/content/conexiones"
+    create: true
+    delete: true
+    extension: "json"
+    format: "json"
+    identifier_field: "title"
+    summary: "{{archive_number}} · {{title}} · {{status}}"
+    sortable_fields: ["archive_number", "title", "status"]
+    fields:
+      - { label: "Número", name: "archive_number", widget: "string" }
+      - { label: "Nombre", name: "title", widget: "string" }
+      - label: "Estado"
+        name: "status"
+        widget: "select"
+        options: ["DISPONIBLE", "RESTRINGIDO", "CORRUPTO", "DESCONOCIDO"]
+        default: "RESTRINGIDO"
+      - { label: "Publicado", name: "published", widget: "boolean", default: true }
 
   - name: "configuracion"
     label: "Configuración del sitio"
