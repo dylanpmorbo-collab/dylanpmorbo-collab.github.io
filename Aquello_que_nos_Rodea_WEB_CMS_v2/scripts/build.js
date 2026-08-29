@@ -72,6 +72,20 @@ const stories=fs.readdirSync(storyDir).filter(x=>x.endsWith('.json')).map(x=>rea
  .filter(s=>s.published!==false)
  .sort((a,b)=>String(a.archive_number).localeCompare(String(b.archive_number),undefined,{numeric:true}));
 
+const archiveDir=path.join(ROOT,'content/archivo');
+const archiveEntries=fs.existsSync(archiveDir)
+ ? fs.readdirSync(archiveDir).filter(x=>x.endsWith('.json')).map(x=>readJSON(path.join(archiveDir,x)))
+    .filter(x=>x.published!==false)
+    .sort((a,b)=>String(a.category).localeCompare(String(b.category)) || String(a.archive_number).localeCompare(String(b.archive_number),undefined,{numeric:true}))
+ : [];
+
+const connectionsDir=path.join(ROOT,'content/conexiones');
+const connections=fs.existsSync(connectionsDir)
+ ? fs.readdirSync(connectionsDir).filter(x=>x.endsWith('.json')).map(x=>readJSON(path.join(connectionsDir,x)))
+    .filter(x=>x.published!==false)
+    .sort((a,b)=>String(a.archive_number).localeCompare(String(b.archive_number),undefined,{numeric:true}))
+ : [];
+
 const featured=stories.find(s=>s.featured)||stories[0];
 
 // HOME
@@ -132,15 +146,53 @@ for(const s of stories){
  fs.writeFileSync(path.join(DIST,`relato-${s.slug}.html`),page);
 }
 
-// Existing archive/about pages — normalize root asset links so they work online.
-for(const [srcName,outName] of [['archivo.static.html','archivo.html'],['sobre.static.html','sobre.html']]){
- let x=fs.readFileSync(path.join(ROOT,srcName),'utf8');
- x=x.replaceAll('href="assets/','href="/assets/').replaceAll('src="assets/','src="/assets/')
-    .replaceAll('href="index.html"','href="index.html"').replaceAll('href="relatos.html"','href="relatos.html"')
-    .replaceAll('href="archivo.html"','href="archivo.html"').replaceAll('href="sobre.html"','href="sobre.html"')
-    .replaceAll('relato-la-carne-ofrecida.html','relato-la-carne-ofrecida.html');
- fs.writeFileSync(path.join(DIST,outName),x);
+// EL ARCHIVO — generado desde contenido editable del CMS
+function archiveDossier(x){
+ const facts=(x.facts||[]).map(f=>`<dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd>`).join('');
+ const status=x.status?`<dt>Estado</dt><dd>${esc(x.status)}</dd>`:'';
+ const image=x.image?`<div class="dossier-image"><img src="${esc(x.image)}" alt="${esc(x.title)}"></div>`:'';
+ const body=x.body?`<div class="archive-extra">${markdownToHTML(x.body)}</div>`:'';
+ const note=x.note?`<p class="note">${esc(x.note)}</p>`:'';
+ return `<div class="dossier reveal">${image}<div class="dossier-body">
+ <p class="archive-code">${esc(x.category||'ARCHIVO')} // ${esc(x.archive_number||'—')}</p>
+ <h2>${esc(String(x.title||'').toUpperCase())}</h2>
+ ${(status||facts)?`<dl>${status}${facts}</dl>`:''}
+ <p>${esc(x.summary||'')}</p>${body}${note}</div></div>`;
 }
+
+const archiveGroups=[...new Set(archiveEntries.map(x=>x.category||'ARCHIVO'))];
+const archiveSections=archiveGroups.map(cat=>`<section class="section archive-index">
+ <div class="section-label">${esc(cat)}</div>
+ ${archiveEntries.filter(x=>(x.category||'ARCHIVO')===cat).map(archiveDossier).join('')}
+ </section>`).join('');
+
+const connectionRows=connections.map(c=>{
+ const locked=String(c.status).toUpperCase()==='DISPONIBLE'?'':' class="locked-text"';
+ return `<li><span>${esc(c.archive_number)}</span> ${esc(c.title)} <b${locked}>${esc(c.status)}</b></li>`;
+}).join('');
+
+const archivePage=`${head(`El Archivo | ${site.site_title}`,'Entidades, conexiones, documentos y fragmentos del universo '+site.site_title)}
+<body>${header('archivo')}<main>
+<section class="page-hero archive-hero"><div><p class="eyebrow">SECCIÓN // ARCHIVO</p><h1>EL ARCHIVO</h1><p>No deberías saber todo esto todavía.</p></div></section>
+${archiveSections || `<section class="section"><div class="section-label">ARCHIVO</div><p>No hay fichas disponibles.</p></section>`}
+<section class="section" id="conexiones"><div class="section-label">CONEXIONES</div><div class="connection-board reveal">
+<img src="/assets/img/conexiones.webp" alt="Conexiones del archivo">
+<div class="connection-copy"><h2>Las coincidencias empiezan a acumularse.</h2>
+<p>Fechas, lugares, nombres, símbolos y testimonios contradictorios. Esta sección crecerá a medida que nuevos relatos abran partes del universo.</p>
+<ul class="archive-list">${connectionRows}</ul></div></div></section>
+<section class="section"><div class="section-label">ADVERTENCIA</div><div class="terminal reveal">
+<p>&gt; NO CONFÍES EN TODO LO QUE LEAS AQUÍ.</p>
+<p>&gt; ALGUNOS TESTIMONIOS MIENTEN.</p>
+<p>&gt; OTROS NO SABEN QUE ESTÁN MINTIENDO.</p>
+<p class="blink">&gt; _</p></div></section>
+</main>${footer(site)}</body></html>`;
+
+fs.writeFileSync(path.join(DIST,'archivo.html'),archivePage);
+
+// La página "Sobre" sigue siendo fija por ahora
+let about=fs.readFileSync(path.join(ROOT,'sobre.static.html'),'utf8');
+about=about.replaceAll('href="assets/','href="/assets/').replaceAll('src="assets/','src="/assets/');
+fs.writeFileSync(path.join(DIST,'sobre.html'),about);
 
 // robots + sitemap placeholder
 fs.writeFileSync(path.join(DIST,'robots.txt'),'User-agent: *\\nAllow: /\\n');
