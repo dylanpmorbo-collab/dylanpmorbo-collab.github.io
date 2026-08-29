@@ -88,3 +88,70 @@
   .archive-section-hero{display:flex!important;flex-direction:column;align-items:flex-start;gap:22px;padding-right:22px}
   .archive-section-hero-art{width:100%;max-width:760px;align-self:center;margin:0 auto -10px}
 }
+
+/* ARCHIVO — menú superior permanente en índice y secciones */
+.archive-top-nav{
+  position:fixed;
+  top:78px;
+  left:0;
+  right:0;
+  z-index:990;
+  border-top:1px solid rgba(173,132,55,.08);
+  border-bottom:1px solid rgba(173,132,55,.24);
+  background:rgba(7,7,6,.94);
+  -webkit-backdrop-filter:blur(10px);
+  backdrop-filter:blur(10px);
+  box-shadow:0 8px 28px rgba(0,0,0,.26);
+}
+.archive-top-nav-inner{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:0;
+  max-width:1500px;
+  margin:0 auto;
+  padding:0 3vw;
+  overflow-x:auto;
+  overscroll-behavior-x:contain;
+  scrollbar-width:none;
+}
+.archive-top-nav-inner::-webkit-scrollbar{display:none}
+.archive-top-nav a{
+  position:relative;
+  flex:0 0 auto;
+  padding:15px 13px 14px;
+  border-left:1px solid rgba(173,132,55,.09);
+  font:600 8px/1 var(--display);
+  letter-spacing:.12em;
+  color:#8f877a;
+  white-space:nowrap;
+  transition:color .2s ease,background .2s ease;
+}
+.archive-top-nav a:last-child{border-right:1px solid rgba(173,132,55,.09)}
+.archive-top-nav a:hover{color:var(--gold2);background:rgba(173,132,55,.055)}
+.archive-top-nav a.active{color:#d2b66f;background:rgba(173,132,55,.08)}
+.archive-top-nav a.active:after{
+  content:"";
+  position:absolute;
+  left:12px;
+  right:12px;
+  bottom:-1px;
+  height:1px;
+  background:var(--gold2);
+  box-shadow:0 0 8px rgba(208,170,88,.4);
+}
+/* El menú anterior ya no vive dentro de la cabecera del Archivo. */
+.archive-hero>.archive-section-nav{display:none!important}
+.archive-hero{padding-bottom:90px}
+
+@media(max-width:1100px){
+  .archive-top-nav-inner{justify-content:flex-start;padding-inline:2vw}
+  .archive-top-nav a{padding-inline:11px;font-size:7.5px}
+}
+@media(max-width:860px){
+  .archive-top-nav{top:66px}
+  .archive-top-nav-inner{justify-content:flex-start;padding:0 10px}
+  .archive-top-nav a{padding:13px 11px 12px;font-size:8px}
+  .archive-area .page-hero{padding-top:138px}
+  .archive-area .archive-hero{padding-top:138px;padding-bottom:50px}
+}
