@@ -157,76 +157,153 @@ for(const s of stories){
 }
 
 
-// EL ARCHIVO — portada por secciones + una página propia para cada sección
-function archiveDossier(x){
- const facts=(x.facts||[]).map(f=>`<dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd>`).join('');
- const status=x.status?`<dt>Estado</dt><dd>${esc(x.status)}</dd>`:'';
- const image=x.image?`<div class="dossier-image"><img src="${esc(x.image)}" alt="${esc(x.title)}"></div>`:'';
- const body=x.body?`<div class="archive-extra">${markdownToHTML(x.body)}</div>`:'';
- const note=x.note?`<p class="note">${esc(x.note)}</p>`:'';
- return `<article class="dossier reveal">${image}<div class="dossier-body">
- <p class="archive-code">${esc(x.category||'ARCHIVO')} // ${esc(x.archive_number||'—')}</p>
- <h2>${esc(String(x.title||'').toUpperCase())}</h2>
- ${(status||facts)?`<dl>${status}${facts}</dl>`:''}
- <p>${esc(x.summary||'')}</p>${body}${note}</div></article>`;
+// EL ARCHIVO — índice por secciones + tarjetas de resumen + expediente completo por entrada
+function archiveSlug(value=''){
+ return String(value)
+   .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+   .toLowerCase()
+   .replace(/[^a-z0-9]+/g,'-')
+   .replace(/^-+|-+$/g,'');
 }
-
-function characterDossier(x){
- const autoFacts=[];
- if(x.alias) autoFacts.push({label:'Alias',value:x.alias});
- if(x.age) autoFacts.push({label:'Edad',value:x.age});
- if(x.occupation) autoFacts.push({label:'Ocupación',value:x.occupation});
- const allFacts=[...autoFacts,...(x.facts||[])];
- const facts=allFacts.map(f=>`<dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd>`).join('');
- const status=x.status?`<dt>Estado</dt><dd>${esc(x.status)}</dd>`:'';
- const image=x.image?`<div class="dossier-image"><img src="${esc(x.image)}" alt="${esc(x.name)}"></div>`:'';
- const body=x.body?`<div class="archive-extra">${markdownToHTML(x.body)}</div>`:'';
- return `<article class="dossier reveal">${image}<div class="dossier-body">
- <p class="archive-code">PERSONA // ${esc(x.archive_number||'—')}</p>
- <h2>${esc(String(x.name||'').toUpperCase())}</h2>
- ${(status||facts)?`<dl>${status}${facts}</dl>`:''}
- <p>${esc(x.summary||'')}</p>${body}</div></article>`;
+function plainArchiveText(value=''){
+ return String(value)
+   .replace(/<[^>]*>/g,' ')
+   .replace(/[#*_>`~\[\]()!-]/g,' ')
+   .replace(/\s+/g,' ')
+   .trim();
 }
-
-function connectionDossier(c){
- const locked=String(c.status||'').toUpperCase()==='DISPONIBLE'?'':' locked-text';
- return `<article class="connection-record reveal">
- <p class="archive-code">CONEXIÓN // ${esc(c.archive_number||'—')}</p>
- <h2>${esc(String(c.title||'').toUpperCase())}</h2>
- <p class="connection-status${locked}">${esc(c.status||'DESCONOCIDO')}</p>
- </article>`;
+function shortArchiveText(value='',max=230){
+ const text=plainArchiveText(value);
+ return text.length>max ? `${text.slice(0,max).trimEnd()}…` : text;
 }
-
-const archiveByCategory=(cat)=>archiveEntries.filter(x=>(x.category||'ARCHIVO')===cat);
+function archiveByCategory(cat){ return archiveEntries.filter(x=>(x.category||'ARCHIVO')===cat); }
 
 const archiveSectionDefs=[
- {key:'entidades',label:'ENTIDADES',eyebrow:'CATÁLOGO // ENTIDADES',desc:'Seres, presencias y formas de vida cuya existencia ha quedado registrada.',items:archiveByCategory('ENTIDAD'),render:archiveDossier,file:'archivo-entidades.html',image:'/assets/img/archivo-secciones/entidades.png'},
- {key:'personajes',label:'PERSONAJES',eyebrow:'CATÁLOGO // PERSONAS',desc:'Individuos relacionados con los expedientes, los sucesos y aquello que permanece oculto.',items:characters,render:characterDossier,file:'archivo-personajes.html',image:'/assets/img/archivo-secciones/personajes.png'},
- {key:'lugares',label:'LUGARES',eyebrow:'CATÁLOGO // LUGARES',desc:'Localizaciones vinculadas a anomalías, testimonios o acontecimientos registrados.',items:archiveByCategory('LUGAR'),render:archiveDossier,file:'archivo-lugares.html',image:'/assets/img/archivo-secciones/lugares.png'},
- {key:'planos',label:'PLANOS',eyebrow:'CATÁLOGO // PLANOS',desc:'Capas de realidad, territorios dimensionales y estructuras que existen fuera de las coordenadas ordinarias.',items:archiveByCategory('PLANO'),render:archiveDossier,file:'archivo-planos.html',image:'/assets/img/archivo-secciones/planos.png'},
- {key:'organizaciones',label:'ORGANIZACIONES',eyebrow:'CATÁLOGO // ORGANIZACIONES',desc:'Grupos, cultos, instituciones y redes cuya actividad aparece en los archivos.',items:archiveByCategory('ORGANIZACIÓN'),render:archiveDossier,file:'archivo-organizaciones.html',image:'/assets/img/archivo-secciones/organizaciones.png'},
- {key:'documentos',label:'DOCUMENTOS',eyebrow:'CATÁLOGO // DOCUMENTOS',desc:'Textos, pruebas, registros y materiales recuperados o parcialmente descifrados.',items:archiveByCategory('DOCUMENTO'),render:archiveDossier,file:'archivo-documentos.html',image:'/assets/img/archivo-secciones/documentos.png'},
- {key:'sucesos',label:'SUCESOS',eyebrow:'CATÁLOGO // SUCESOS',desc:'Incidentes cuya explicación permanece incompleta, contradictoria o clasificada.',items:archiveByCategory('SUCESO'),render:archiveDossier,file:'archivo-sucesos.html',image:'/assets/img/archivo-secciones/sucesos.png'},
- {key:'otros',label:'OTROS ARCHIVOS',eyebrow:'CATÁLOGO // OTROS',desc:'Anotaciones que todavía no encajan en una clasificación estable.',items:archiveByCategory('OTRO'),render:archiveDossier,file:'archivo-otros.html',image:'/assets/img/archivo-secciones/otros.png'},
- {key:'conexiones',label:'CONEXIONES',eyebrow:'ÍNDICE // CONEXIONES',desc:'Coincidencias, vínculos y patrones que conectan expedientes aparentemente independientes.',items:connections,render:connectionDossier,file:'archivo-conexiones.html',image:'/assets/img/archivo-secciones/conexiones.png'}
+ {key:'entidades',label:'ENTIDADES',typeLabel:'ENTIDAD',eyebrow:'CATÁLOGO // ENTIDADES',desc:'Seres, presencias y formas de vida cuya existencia ha quedado registrada.',items:archiveByCategory('ENTIDAD'),file:'archivo-entidades.html',image:'/assets/img/archivo-secciones/entidades.png'},
+ {key:'personajes',label:'PERSONAJES',typeLabel:'PERSONA',eyebrow:'CATÁLOGO // PERSONAS',desc:'Individuos relacionados con los expedientes, los sucesos y aquello que permanece oculto.',items:characters,file:'archivo-personajes.html',image:'/assets/img/archivo-secciones/personajes.png'},
+ {key:'lugares',label:'LUGARES',typeLabel:'LUGAR',eyebrow:'CATÁLOGO // LUGARES',desc:'Localizaciones vinculadas a anomalías, testimonios o acontecimientos registrados.',items:archiveByCategory('LUGAR'),file:'archivo-lugares.html',image:'/assets/img/archivo-secciones/lugares.png'},
+ {key:'planos',label:'PLANOS',typeLabel:'PLANO',eyebrow:'CATÁLOGO // PLANOS',desc:'Capas de realidad, territorios dimensionales y estructuras que existen fuera de las coordenadas ordinarias.',items:archiveByCategory('PLANO'),file:'archivo-planos.html',image:'/assets/img/archivo-secciones/planos.png'},
+ {key:'organizaciones',label:'ORGANIZACIONES',typeLabel:'ORGANIZACIÓN',eyebrow:'CATÁLOGO // ORGANIZACIONES',desc:'Grupos, cultos, instituciones y redes cuya actividad aparece en los archivos.',items:archiveByCategory('ORGANIZACIÓN'),file:'archivo-organizaciones.html',image:'/assets/img/archivo-secciones/organizaciones.png'},
+ {key:'documentos',label:'DOCUMENTOS',typeLabel:'DOCUMENTO',eyebrow:'CATÁLOGO // DOCUMENTOS',desc:'Textos, pruebas, registros y materiales recuperados o parcialmente descifrados.',items:archiveByCategory('DOCUMENTO'),file:'archivo-documentos.html',image:'/assets/img/archivo-secciones/documentos.png'},
+ {key:'sucesos',label:'SUCESOS',typeLabel:'SUCESO',eyebrow:'CATÁLOGO // SUCESOS',desc:'Incidentes cuya explicación permanece incompleta, contradictoria o clasificada.',items:archiveByCategory('SUCESO'),file:'archivo-sucesos.html',image:'/assets/img/archivo-secciones/sucesos.png'},
+ {key:'otros',label:'OTROS ARCHIVOS',typeLabel:'ARCHIVO',eyebrow:'CATÁLOGO // OTROS',desc:'Anotaciones que todavía no encajan en una clasificación estable.',items:archiveByCategory('OTRO'),file:'archivo-otros.html',image:'/assets/img/archivo-secciones/otros.png'},
+ {key:'conexiones',label:'CONEXIONES',typeLabel:'CONEXIÓN',eyebrow:'ÍNDICE // CONEXIONES',desc:'Coincidencias, vínculos y patrones que conectan expedientes aparentemente independientes.',items:connections,file:'archivo-conexiones.html',image:'/assets/img/archivo-secciones/conexiones.png'}
 ];
 
-function latestItem(section){
- return section.items.length ? section.items[section.items.length-1] : null;
-}
 function itemTitle(section,item){
  if(!item) return 'SIN ANOTACIONES';
- return section.key==='personajes' ? item.name : item.title;
+ return section.key==='personajes' ? (item.name||item.title||'SIN NOMBRE') : (item.title||item.name||'SIN TÍTULO');
 }
 function itemSummary(section,item){
  if(!item) return 'Todavía no hay información pública en esta sección.';
+ if(item.summary) return shortArchiveText(item.summary);
+ if(item.note) return shortArchiveText(item.note);
+ if(item.body) return shortArchiveText(item.body);
  if(section.key==='conexiones') return `Estado: ${item.status||'DESCONOCIDO'}.`;
- return item.summary || item.note || item.body || 'Expediente disponible para consulta.';
+ return 'Expediente disponible para consulta.';
 }
+function itemImage(item){ return item && item.image ? item.image : ''; }
+function itemStatus(item){ return item && item.status ? item.status : ''; }
+function itemArchiveNumber(item){ return item && item.archive_number ? item.archive_number : '—'; }
+function itemSlug(section,item){
+ const custom=archiveSlug(item.slug||'');
+ const fromTitle=archiveSlug(itemTitle(section,item));
+ const fromNumber=archiveSlug(itemArchiveNumber(item));
+ return custom || fromTitle || `expediente-${fromNumber||'sin-numero'}`;
+}
+function itemHref(section,item){ return `archivo-${section.key}-${itemSlug(section,item)}.html`; }
+function itemFacts(section,item){
+ const facts=[];
+ if(itemStatus(item)) facts.push({label:'Estado',value:itemStatus(item)});
+ if(section.key==='personajes'){
+   if(item.alias) facts.push({label:'Alias',value:item.alias});
+   if(item.age) facts.push({label:'Edad',value:item.age});
+   if(item.occupation) facts.push({label:'Ocupación',value:item.occupation});
+ }
+ for(const fact of (Array.isArray(item.facts)?item.facts:[])){
+   if(fact && (fact.label || fact.value)) facts.push({label:fact.label||'Dato',value:fact.value||'—'});
+ }
+ return facts;
+}
+function latestItem(section){ return section.items.length ? section.items[section.items.length-1] : null; }
 function archiveTopNav(activeKey='index'){
  const indexLink=`<a href="archivo.html" class="${activeKey==='index'?'active':''}" ${activeKey==='index'?'aria-current="page"':''}>EL ARCHIVO</a>`;
  const sectionLinks=archiveSectionDefs.map(s=>`<a href="${s.file}" class="${activeKey===s.key?'active':''}" ${activeKey===s.key?'aria-current="page"':''}>${s.label}</a>`).join('');
  return `<div class="archive-top-nav" aria-label="Navegación interna del Archivo"><nav class="archive-top-nav-inner">${indexLink}${sectionLinks}</nav></div>`;
+}
+function archiveEntryCard(section,item){
+ const title=itemTitle(section,item);
+ const image=itemImage(item);
+ const facts=itemFacts(section,item).slice(0,2);
+ const compactFacts=facts.length ? `<dl class="archive-entry-card-facts">${facts.map(f=>`<div><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div>`).join('')}</dl>` : '';
+ return `<a class="archive-entry-card reveal" href="${itemHref(section,item)}">
+   ${image?`<div class="archive-entry-card-image"><img src="${esc(image)}" alt="${esc(title)}"></div>`:`<div class="archive-entry-card-image archive-entry-card-placeholder" aria-hidden="true"><span>◉</span></div>`}
+   <div class="archive-entry-card-body">
+     <div class="archive-entry-card-top"><p class="archive-code">${section.typeLabel} // ${esc(itemArchiveNumber(item))}</p>${itemStatus(item)?`<span class="archive-entry-status">${esc(itemStatus(item))}</span>`:''}</div>
+     <h2>${esc(String(title).toUpperCase())}</h2>
+     <p class="archive-entry-summary">${esc(itemSummary(section,item))}</p>
+     ${compactFacts}
+     <span class="archive-entry-open">CONSULTAR EXPEDIENTE →</span>
+   </div>
+ </a>`;
+}
+function archiveGallery(item){
+ const gallery=(Array.isArray(item.gallery)?item.gallery:[]).filter(g=>g && g.image).slice(0,10);
+ if(!gallery.length) return '';
+ return `<section class="archive-entry-gallery-block">
+   <div class="section-label">EVIDENCIAS VISUALES // ${String(gallery.length).padStart(2,'0')}</div>
+   <div class="archive-entry-gallery">${gallery.map((g,i)=>`<figure class="archive-gallery-item reveal">
+     <a href="${esc(g.image)}" target="_blank" rel="noopener"><img src="${esc(g.image)}" alt="${esc(g.caption||`${item.title||item.name||'Expediente'} — imagen ${i+1}`)}"></a>
+     ${(g.caption||g.description)?`<figcaption>${g.caption?`<strong>${esc(g.caption)}</strong>`:''}${g.description?`<span>${esc(g.description)}</span>`:''}</figcaption>`:''}
+   </figure>`).join('')}</div>
+ </section>`;
+}
+function archiveInformationBlocks(item){
+ const blocks=(Array.isArray(item.sections)?item.sections:[]).filter(x=>x && (x.title || x.body));
+ return blocks.map((block,i)=>`<section class="archive-info-block reveal">
+   <p class="archive-code">ANOTACIÓN // ${String(i+1).padStart(2,'0')}</p>
+   ${block.title?`<h2>${esc(block.title)}</h2>`:''}
+   ${block.body?`<div class="archive-extra">${markdownToHTML(block.body)}</div>`:''}
+ </section>`).join('');
+}
+function archiveEntryPage(section,item){
+ const title=itemTitle(section,item);
+ const summary=itemSummary(section,item);
+ const image=itemImage(item);
+ const facts=itemFacts(section,item);
+ const body=item.body ? markdownToHTML(item.body) : '';
+ const blocks=archiveInformationBlocks(item);
+ const note=item.note ? `<aside class="archive-entry-note reveal"><p class="archive-code">NOTA DE ARCHIVO</p><p>${esc(item.note)}</p></aside>` : '';
+ const fullInformation=(body||blocks||note) ? `${body?`<div class="archive-entry-main-text reveal">${body}</div>`:''}${blocks}${note}` : `<div class="archive-entry-empty-copy reveal"><p>La ficha está abierta, pero todavía no contiene información adicional desclasificada.</p></div>`;
+ const factList=facts.length ? `<dl class="archive-entry-facts">${facts.map(f=>`<div><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div>`).join('')}</dl>` : `<p class="archive-entry-no-facts">Sin datos complementarios publicados.</p>`;
+ const heroClass=image?'':' no-image';
+ return `${head(`${title} | ${section.label} | El Archivo | ${site.site_title}`,summary,image||section.image)}
+ <body class="archive-area archive-entry-page">${header('archivo')}${archiveTopNav(section.key)}<main>
+ <section class="archive-entry-hero${heroClass}">
+   <div class="archive-entry-hero-copy">
+     <p class="eyebrow">${section.typeLabel} // EXPEDIENTE ${esc(itemArchiveNumber(item))}</p>
+     <h1>${esc(String(title).toUpperCase())}</h1>
+     <p>${esc(summary)}</p>
+     ${itemStatus(item)?`<span class="archive-entry-hero-status">${esc(itemStatus(item))}</span>`:''}
+   </div>
+   ${image?`<figure class="archive-entry-hero-image reveal"><img src="${esc(image)}" alt="${esc(title)}"></figure>`:''}
+ </section>
+ <section class="section archive-entry-shell">
+   <div class="archive-back-row"><a class="text-link" href="${section.file}">← VOLVER A ${section.label}</a><a class="text-link" href="archivo.html">ÍNDICE GENERAL</a></div>
+   <div class="archive-entry-layout">
+     <aside class="archive-entry-sidebar reveal">
+       <p class="archive-code">DATOS DEL EXPEDIENTE</p>
+       <h2>${esc(section.typeLabel)}</h2>
+       ${factList}
+     </aside>
+     <article class="archive-entry-content">
+       <div class="section-label">INFORMACIÓN ARCHIVADA</div>
+       ${fullInformation}
+     </article>
+   </div>
+   ${archiveGallery(item)}
+ </section>
+ </main>${footer(site)}</body></html>`;
 }
 
 const hubCards=archiveSectionDefs.map(section=>{
@@ -256,7 +333,7 @@ const archivePage=`${head(`El Archivo | ${site.site_title}`,'Índice general del
 <section class="page-hero archive-hero"><div class="archive-hero-copy"><p class="eyebrow">SECCIÓN // ARCHIVO</p><h1>EL ARCHIVO</h1><p class="archive-random-phrase" id="archiveRandomPhrase">No deberías saber todo esto todavía.</p></div>${archiveBookMarkup}</section>
 <section class="section archive-hub">
  <div class="section-label">ÍNDICE GENERAL // ACCESO PARCIAL</div>
- <p class="archive-hub-intro">El archivo está dividido en secciones. Cada una conserva sus propios expedientes. Debajo aparece la anotación pública más reciente de cada categoría.</p>
+ <p class="archive-hub-intro">El archivo está dividido en secciones. Cada una conserva sus propios expedientes. Entra en una sección para consultar las fichas resumidas y abrir cada expediente completo.</p>
  <div class="archive-hub-grid">${hubCards}</div>
 </section>
 <section class="section"><div class="section-label">ADVERTENCIA</div><div class="terminal reveal">
@@ -335,10 +412,10 @@ const archivePage=`${head(`El Archivo | ${site.site_title}`,'Índice general del
 
 fs.writeFileSync(path.join(DIST,'archivo.html'),archivePage);
 
-// Páginas independientes de cada sección
+// Páginas de cada sección + página completa de cada expediente
 for(const section of archiveSectionDefs){
  const list=section.items.length
-   ? `<div class="archive-dossier-stack">${section.items.map(section.render).join('')}</div>`
+   ? `<div class="archive-entry-grid">${section.items.map(item=>archiveEntryCard(section,item)).join('')}</div>`
    : `<div class="archive-empty reveal"><p class="archive-code">SIN DATOS DISPONIBLES</p><h2>NO HAY EXPEDIENTES PÚBLICOS.</h2><p>Esta sección permanece vacía o clasificada por el momento.</p></div>`;
  const sectionPage=`${head(`${section.label} | El Archivo | ${site.site_title}`,section.desc)}
  <body class="archive-area">${header('archivo')}${archiveTopNav(section.key)}<main>
@@ -356,7 +433,11 @@ for(const section of archiveSectionDefs){
  </section>
  </main>${footer(site)}</body></html>`;
  fs.writeFileSync(path.join(DIST,section.file),sectionPage);
+ for(const item of section.items){
+   fs.writeFileSync(path.join(DIST,itemHref(section,item)),archiveEntryPage(section,item));
+ }
 }
+
 
 // La página "Sobre" sigue siendo fija por ahora
 let about=fs.readFileSync(path.join(ROOT,'sobre.static.html'),'utf8');
