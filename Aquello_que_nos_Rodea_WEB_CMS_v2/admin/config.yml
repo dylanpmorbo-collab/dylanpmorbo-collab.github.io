@@ -4,7 +4,7 @@
 
 backend:
   name: github
-  repo: TU_USUARIO_GITHUB/aquello-que-nos-rodea
+  repo: dylanpmorbo-collab/aquello-que-nos-rodea
   branch: main
 
 media_folder: "assets/uploads"
