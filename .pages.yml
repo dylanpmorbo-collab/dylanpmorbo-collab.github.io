@@ -1,0 +1,270 @@
+media:
+  input: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads
+  output: /assets/uploads
+  rename: safe
+  categories: [image]
+
+content:
+  - name: relatos
+    label: Relatos
+    type: collection
+    path: Aquello_que_nos_Rodea_WEB_CMS_v2/content/relatos
+    format: json
+    filename:
+      template: "{slug}.json"
+      field: create
+    view:
+      fields: [archive_number, title, published, featured]
+      primary: title
+      sort: [archive_number, title]
+      search: [title, excerpt, archive_number]
+    fields:
+      - name: title
+        label: Título
+        type: string
+        required: true
+      - name: slug
+        label: Dirección web
+        type: string
+        required: true
+        description: "Ejemplo: el-legado-de-rasputin. Solo letras, números y guiones."
+        pattern:
+          regex: "^[a-z0-9-]+$"
+          message: "Usa solo minúsculas, números y guiones."
+      - name: archive_number
+        label: Número de archivo
+        type: string
+        default: "002"
+      - name: published
+        label: Publicado
+        type: boolean
+        default: true
+      - name: featured
+        label: Destacar en portada
+        type: boolean
+        default: false
+      - name: age_restricted
+        label: Contenido +18
+        type: boolean
+        default: false
+      - name: reading_time
+        label: Tiempo de lectura
+        type: string
+        default: "10 min aprox."
+      - name: excerpt
+        label: Frase / descripción breve
+        type: text
+      - name: cover
+        label: Portada
+        type: image
+      - name: content_warning
+        label: Advertencia de contenido
+        type: text
+        required: false
+      - name: body
+        label: Texto del relato
+        type: rich-text
+
+  - name: archivo
+    label: El Archivo
+    type: collection
+    path: Aquello_que_nos_Rodea_WEB_CMS_v2/content/archivo
+    format: json
+    filename:
+      template: "{title}.json"
+      field: create
+    view:
+      fields: [category, archive_number, title, status, published]
+      primary: title
+      sort: [category, archive_number, title]
+      search: [title, summary, category, archive_number]
+    fields:
+      - name: title
+        label: Nombre / título
+        type: string
+        required: true
+      - name: archive_number
+        label: Número
+        type: string
+        default: "002"
+      - name: category
+        label: Tipo de ficha
+        type: select
+        default: ENTIDAD
+        options:
+          values: [ENTIDAD, LUGAR, ORGANIZACIÓN, DOCUMENTO, SUCESO, OTRO]
+      - name: published
+        label: Publicado
+        type: boolean
+        default: true
+      - name: image
+        label: Imagen
+        type: image
+        required: false
+      - name: status
+        label: Estado
+        type: string
+        default: Documentado
+      - name: summary
+        label: Descripción
+        type: text
+      - name: note
+        label: Nota de archivo
+        type: text
+        required: false
+      - name: facts
+        label: Datos de la ficha
+        type: object
+        required: false
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{label}: {value}"
+        fields:
+          - name: label
+            label: Campo
+            type: string
+          - name: value
+            label: Valor
+            type: string
+      - name: body
+        label: Información adicional
+        type: rich-text
+        required: false
+
+  - name: personajes
+    label: Personajes
+    type: collection
+    path: Aquello_que_nos_Rodea_WEB_CMS_v2/content/personajes
+    format: json
+    exclude: [".gitkeep"]
+    filename:
+      template: "{name}.json"
+      field: create
+    view:
+      fields: [archive_number, name, status, published]
+      primary: name
+      sort: [archive_number, name, status]
+      search: [name, alias, summary, archive_number]
+    fields:
+      - name: name
+        label: Nombre
+        type: string
+        required: true
+      - name: archive_number
+        label: Número de expediente
+        type: string
+        default: P-001
+      - name: published
+        label: Publicado
+        type: boolean
+        default: true
+      - name: image
+        label: Imagen
+        type: image
+        required: false
+      - name: status
+        label: Estado
+        type: string
+        default: Documentado
+      - name: alias
+        label: Alias
+        type: string
+        required: false
+      - name: age
+        label: Edad
+        type: string
+        required: false
+      - name: occupation
+        label: Ocupación
+        type: string
+        required: false
+      - name: summary
+        label: Descripción breve
+        type: text
+      - name: facts
+        label: Datos de la ficha
+        type: object
+        required: false
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{label}: {value}"
+        fields:
+          - name: label
+            label: Campo
+            type: string
+          - name: value
+            label: Valor
+            type: string
+      - name: body
+        label: Información adicional
+        type: rich-text
+        required: false
+
+  - name: conexiones
+    label: Conexiones
+    type: collection
+    path: Aquello_que_nos_Rodea_WEB_CMS_v2/content/conexiones
+    format: json
+    filename:
+      template: "{title}.json"
+      field: create
+    view:
+      fields: [archive_number, title, status, published]
+      primary: title
+      sort: [archive_number, title, status]
+      search: [title, archive_number, status]
+    fields:
+      - name: archive_number
+        label: Número
+        type: string
+        required: true
+      - name: title
+        label: Nombre
+        type: string
+        required: true
+      - name: status
+        label: Estado
+        type: select
+        default: RESTRINGIDO
+        options:
+          values: [DISPONIBLE, RESTRINGIDO, CORRUPTO, DESCONOCIDO]
+      - name: published
+        label: Publicado
+        type: boolean
+        default: true
+
+  - name: configuracion
+    label: Configuración del sitio
+    type: file
+    path: Aquello_que_nos_Rodea_WEB_CMS_v2/content/config/site.json
+    format: json
+    fields:
+      - name: site_title
+        label: Nombre del universo
+        type: string
+      - name: author
+        label: Autor
+        type: string
+      - name: tagline
+        label: Frase principal
+        type: string
+      - name: intro_title
+        label: Título de presentación
+        type: string
+      - name: intro_text
+        label: Presentación 1
+        type: text
+      - name: intro_text_2
+        label: Presentación 2
+        type: text
+      - name: footer_note
+        label: Nota del pie
+        type: text
+
+  - name: frases_archivo
+    label: Frases inquietantes
+    type: file
+    path: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/data/frases-archivo.txt
+    format: raw
