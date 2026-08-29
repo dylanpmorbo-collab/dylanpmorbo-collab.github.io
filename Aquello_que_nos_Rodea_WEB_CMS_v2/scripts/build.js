@@ -248,16 +248,14 @@ const archiveBookMarkup=archiveBook.enabled!==false && archiveBook.book_image ? 
     <img id="archiveBookPageImage" class="archive-book-page-image" alt="Anotación del Archivo">
   </div>
   <script type="application/json" id="archiveBookPagesData">${JSON.stringify(archiveBookPages).replace(/</g,'\u003c')}</script>
-  <span class="archive-book-caption">REGISTRO // PÁGINA VARIABLE</span>
 </div>` : '';
 
 const archivePage=`${head(`El Archivo | ${site.site_title}`,'Índice general del archivo de '+site.site_title)}
 <body>${header('archivo')}<main>
-<section class="page-hero archive-hero"><div class="archive-hero-copy"><p class="eyebrow">SECCIÓN // ARCHIVO</p><h1>EL ARCHIVO</h1><p class="archive-random-phrase" id="archiveRandomPhrase">No deberías saber todo esto todavía.</p></div>${archiveBookMarkup}</section>
+<section class="page-hero archive-hero"><div class="archive-hero-copy"><p class="eyebrow">SECCIÓN // ARCHIVO</p><h1>EL ARCHIVO</h1><p class="archive-random-phrase" id="archiveRandomPhrase">No deberías saber todo esto todavía.</p></div>${archiveBookMarkup}${archiveSectionNav()}</section>
 <section class="section archive-hub">
  <div class="section-label">ÍNDICE GENERAL // ACCESO PARCIAL</div>
  <p class="archive-hub-intro">El archivo está dividido en secciones. Cada una conserva sus propios expedientes. Debajo aparece la anotación pública más reciente de cada categoría.</p>
- ${archiveSectionNav()}
  <div class="archive-hub-grid">${hubCards}</div>
 </section>
 <section class="section"><div class="section-label">ADVERTENCIA</div><div class="terminal reveal">
