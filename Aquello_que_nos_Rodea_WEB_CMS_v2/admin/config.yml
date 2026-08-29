@@ -7,7 +7,7 @@ backend:
   repo: dylanpmorbo-collab/aquello-que-nos-rodea
   branch: main
 
-media_folder: "assets/uploads"
+media_folder: "Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads"
 public_folder: "/assets/uploads"
 
 locale: "es"
@@ -16,7 +16,7 @@ collections:
   - name: "relatos"
     label: "Relatos"
     label_singular: "Relato"
-    folder: "content/relatos"
+    folder: "Aquello_que_nos_Rodea_WEB_CMS_v2/content/relatos"
     create: true
     delete: true
     extension: "json"
@@ -42,7 +42,7 @@ collections:
     files:
       - label: "Textos generales"
         name: "site"
-        file: "content/config/site.json"
+        file: "Aquello_que_nos_Rodea_WEB_CMS_v2/content/config/site.json"
         format: "json"
         fields:
           - { label: "Nombre del universo", name: "site_title", widget: "string" }
