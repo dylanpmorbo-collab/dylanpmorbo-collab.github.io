@@ -155,3 +155,7 @@
   .archive-area .page-hero{padding-top:138px}
   .archive-area .archive-hero{padding-top:138px;padding-bottom:50px}
 }
+
+/* FIX — navegación superior normal: visible al entrar, desaparece al hacer scroll */
+.site-header{position:absolute}
+.archive-top-nav{position:absolute}
