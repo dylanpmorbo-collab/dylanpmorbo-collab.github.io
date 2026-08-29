@@ -45,3 +45,7 @@
 .archive-empty p:last-child{color:#81796d}
 @media(max-width:860px){.archive-hub-grid{grid-template-columns:1fr}.archive-hub-card{min-height:270px}.archive-section-nav{gap:8px}.archive-section-nav a{flex:1 1 calc(50% - 8px);text-align:center}.archive-back-row{align-items:flex-start;flex-direction:column}.archive-dossier-stack .dossier{padding:45px 0}}
 @media(max-width:520px){.archive-section-nav a{flex-basis:100%}.archive-hub-card{padding:22px}.archive-hub-copy{margin:28px 0 24px}.archive-hub-intro{font-size:19px}}
+
+/* EL ARCHIVO — frase aleatoria bajo el título */
+.archive-random-phrase{min-height:1.55em;max-width:760px;opacity:.38;filter:blur(.45px);transition:opacity .65s ease,filter .65s ease,color .65s ease}
+.archive-random-phrase.is-loaded{opacity:1;filter:none;color:#b6ae9f}
