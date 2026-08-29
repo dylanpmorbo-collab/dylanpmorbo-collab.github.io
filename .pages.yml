@@ -10,9 +10,7 @@ content:
     type: collection
     path: Aquello_que_nos_Rodea_WEB_CMS_v2/content/relatos
     format: json
-    filename:
-      template: "{slug}.json"
-      field: create
+    filename: "{primary}.json"
     view:
       fields: [archive_number, title, published, featured]
       primary: title
@@ -70,9 +68,7 @@ content:
     type: collection
     path: Aquello_que_nos_Rodea_WEB_CMS_v2/content/archivo
     format: json
-    filename:
-      template: "{title}.json"
-      field: create
+    filename: "{primary}.json"
     view:
       fields: [category, archive_number, title, status, published]
       primary: title
@@ -138,9 +134,7 @@ content:
     path: Aquello_que_nos_Rodea_WEB_CMS_v2/content/personajes
     format: json
     exclude: [".gitkeep"]
-    filename:
-      template: "{name}.json"
-      field: create
+    filename: "{primary}.json"
     view:
       fields: [archive_number, name, status, published]
       primary: name
@@ -207,9 +201,7 @@ content:
     type: collection
     path: Aquello_que_nos_Rodea_WEB_CMS_v2/content/conexiones
     format: json
-    filename:
-      template: "{title}.json"
-      field: create
+    filename: "{primary}.json"
     view:
       fields: [archive_number, title, status, published]
       primary: title
