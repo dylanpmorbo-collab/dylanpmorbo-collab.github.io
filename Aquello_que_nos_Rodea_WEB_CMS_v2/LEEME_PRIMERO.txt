@@ -1,0 +1,56 @@
+AQUELLO QUE NOS RODEA — WEB CMS v2
+====================================
+
+OBJETIVO
+--------
+Esta versión está preparada para que Dylan P. MOЯBO publique relatos desde un
+panel de administración, sin editar HTML.
+
+CUANDO ESTÉ ONLINE:
+    https://TU-DOMINIO/admin/
+
+En el panel:
+    Relatos > Nuevo relato
+
+Campos disponibles:
+    - Título
+    - Dirección web (slug)
+    - Número de archivo
+    - Publicado sí/no
+    - Destacar en portada sí/no
+    - +18 sí/no
+    - Tiempo de lectura
+    - Descripción
+    - Portada
+    - Advertencia de contenido
+    - Texto completo
+
+La web genera automáticamente:
+    - La ficha en RELATOS
+    - La página de lectura
+    - La portada del relato
+    - El aviso +18 si corresponde
+    - El contador de palabras
+    - Los enlaces
+    - El diseño negro/dorado
+
+IMPORTANTE
+----------
+El panel /admin todavía necesita una única configuración inicial:
+1. Crear un repositorio en GitHub.
+2. Subir esta carpeta al repositorio.
+3. Conectarlo con Netlify.
+4. Configurar el acceso de Decap CMS a GitHub.
+5. Cambiar TU_USUARIO_GITHUB en admin/config.yml por tu usuario real.
+
+ChatGPT te guiará paso a paso; no necesitas saber programar.
+
+PARA VER LA WEB AHORA
+---------------------
+La carpeta dist/ contiene una versión ya construida.
+Abre dist/index.html para verla localmente.
+
+NO EDITES
+---------
+No hace falta tocar scripts/build.js, HTML ni CSS para publicar relatos
+una vez que el panel esté configurado.

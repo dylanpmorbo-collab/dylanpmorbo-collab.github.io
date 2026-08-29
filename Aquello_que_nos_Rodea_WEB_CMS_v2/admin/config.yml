@@ -1,0 +1,54 @@
+# AQUELLO QUE NOS RODEA — Panel de administración
+# IMPORTANTE: cuando creemos el repositorio de GitHub cambiaremos SOLO
+# TU_USUARIO_GITHUB por tu usuario real. Yo te guiaré en ese paso.
+
+backend:
+  name: github
+  repo: TU_USUARIO_GITHUB/aquello-que-nos-rodea
+  branch: main
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+locale: "es"
+
+collections:
+  - name: "relatos"
+    label: "Relatos"
+    label_singular: "Relato"
+    folder: "content/relatos"
+    create: true
+    delete: true
+    extension: "json"
+    format: "json"
+    identifier_field: "title"
+    summary: "Archivo {{archive_number}} · {{title}}"
+    sortable_fields: ["archive_number", "title"]
+    fields:
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Dirección web", name: "slug", widget: "string", hint: "Ejemplo: el-legado-de-rasputin. Solo letras, números y guiones." }
+      - { label: "Número de archivo", name: "archive_number", widget: "string", default: "002" }
+      - { label: "Publicado", name: "published", widget: "boolean", default: true }
+      - { label: "Destacar en portada", name: "featured", widget: "boolean", default: false }
+      - { label: "Contenido +18", name: "age_restricted", widget: "boolean", default: false }
+      - { label: "Tiempo de lectura", name: "reading_time", widget: "string", default: "10 min aprox." }
+      - { label: "Frase / descripción breve", name: "excerpt", widget: "text" }
+      - { label: "Portada", name: "cover", widget: "image", choose_url: false }
+      - { label: "Advertencia de contenido", name: "content_warning", widget: "text", required: false }
+      - { label: "Texto del relato", name: "body", widget: "markdown" }
+
+  - name: "configuracion"
+    label: "Configuración del sitio"
+    files:
+      - label: "Textos generales"
+        name: "site"
+        file: "content/config/site.json"
+        format: "json"
+        fields:
+          - { label: "Nombre del universo", name: "site_title", widget: "string" }
+          - { label: "Autor", name: "author", widget: "string" }
+          - { label: "Frase principal", name: "tagline", widget: "string" }
+          - { label: "Título de presentación", name: "intro_title", widget: "string" }
+          - { label: "Presentación 1", name: "intro_text", widget: "text" }
+          - { label: "Presentación 2", name: "intro_text_2", widget: "text" }
+          - { label: "Nota del pie", name: "footer_note", widget: "text" }
