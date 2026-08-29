@@ -79,6 +79,13 @@ const archiveEntries=fs.existsSync(archiveDir)
     .sort((a,b)=>String(a.category).localeCompare(String(b.category)) || String(a.archive_number).localeCompare(String(b.archive_number),undefined,{numeric:true}))
  : [];
 
+const characterDir=path.join(ROOT,'content/personajes');
+const characters=fs.existsSync(characterDir)
+ ? fs.readdirSync(characterDir).filter(x=>x.endsWith('.json')).map(x=>readJSON(path.join(characterDir,x)))
+    .filter(x=>x.published!==false)
+    .sort((a,b)=>String(a.archive_number).localeCompare(String(b.archive_number),undefined,{numeric:true}) || String(a.name).localeCompare(String(b.name)))
+ : [];
+
 const connectionsDir=path.join(ROOT,'content/conexiones');
 const connections=fs.existsSync(connectionsDir)
  ? fs.readdirSync(connectionsDir).filter(x=>x.endsWith('.json')).map(x=>readJSON(path.join(connectionsDir,x)))
@@ -166,6 +173,28 @@ const archiveSections=archiveGroups.map(cat=>`<section class="section archive-in
  ${archiveEntries.filter(x=>(x.category||'ARCHIVO')===cat).map(archiveDossier).join('')}
  </section>`).join('');
 
+function characterDossier(x){
+ const autoFacts=[];
+ if(x.alias) autoFacts.push({label:'Alias',value:x.alias});
+ if(x.age) autoFacts.push({label:'Edad',value:x.age});
+ if(x.occupation) autoFacts.push({label:'Ocupación',value:x.occupation});
+ const allFacts=[...autoFacts,...(x.facts||[])];
+ const facts=allFacts.map(f=>`<dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd>`).join('');
+ const status=x.status?`<dt>Estado</dt><dd>${esc(x.status)}</dd>`:'';
+ const image=x.image?`<div class="dossier-image"><img src="${esc(x.image)}" alt="${esc(x.name)}"></div>`:'';
+ const body=x.body?`<div class="archive-extra">${markdownToHTML(x.body)}</div>`:'';
+ return `<div class="dossier reveal">${image}<div class="dossier-body">
+ <p class="archive-code">PERSONA // ${esc(x.archive_number||'—')}</p>
+ <h2>${esc(String(x.name||'').toUpperCase())}</h2>
+ ${(status||facts)?`<dl>${status}${facts}</dl>`:''}
+ <p>${esc(x.summary||'')}</p>${body}</div></div>`;
+}
+
+const characterSection=`<section class="section archive-index" id="personajes">
+ <div class="section-label">PERSONAJES</div>
+ ${characters.length ? characters.map(characterDossier).join('') : '<p>No hay expedientes de personajes disponibles.</p>'}
+ </section>`;
+
 const connectionRows=connections.map(c=>{
  const locked=String(c.status).toUpperCase()==='DISPONIBLE'?'':' class="locked-text"';
  return `<li><span>${esc(c.archive_number)}</span> ${esc(c.title)} <b${locked}>${esc(c.status)}</b></li>`;
@@ -175,6 +204,7 @@ const archivePage=`${head(`El Archivo | ${site.site_title}`,'Entidades, conexion
 <body>${header('archivo')}<main>
 <section class="page-hero archive-hero"><div><p class="eyebrow">SECCIÓN // ARCHIVO</p><h1>EL ARCHIVO</h1><p>No deberías saber todo esto todavía.</p></div></section>
 ${archiveSections || `<section class="section"><div class="section-label">ARCHIVO</div><p>No hay fichas disponibles.</p></section>`}
+${characterSection}
 <section class="section" id="conexiones"><div class="section-label">CONEXIONES</div><div class="connection-board reveal">
 <img src="/assets/img/conexiones.webp" alt="Conexiones del archivo">
 <div class="connection-copy"><h2>Las coincidencias empiezan a acumularse.</h2>
