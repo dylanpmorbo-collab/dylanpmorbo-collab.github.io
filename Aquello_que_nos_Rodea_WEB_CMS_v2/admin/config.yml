@@ -50,7 +50,7 @@ collections:
       - label: "Tipo de ficha"
         name: "category"
         widget: "select"
-        options: ["ENTIDAD", "PERSONA", "LUGAR", "ORGANIZACIÓN", "DOCUMENTO", "SUCESO", "OTRO"]
+        options: ["ENTIDAD", "LUGAR", "ORGANIZACIÓN", "DOCUMENTO", "SUCESO", "OTRO"]
         default: "ENTIDAD"
       - { label: "Publicado", name: "published", widget: "boolean", default: true }
       - { label: "Imagen", name: "image", widget: "image", choose_url: false, required: false }
@@ -64,6 +64,37 @@ collections:
         summary: "{{fields.label}}: {{fields.value}}"
         fields:
           - { label: "Campo", name: "label", widget: "string", hint: "Ej.: Procedencia, Tamaño, Ocupación, Localización…" }
+          - { label: "Valor", name: "value", widget: "string" }
+      - { label: "Información adicional", name: "body", widget: "markdown", required: false }
+
+  - name: "personajes"
+    label: "Personajes"
+    label_singular: "Personaje"
+    folder: "Aquello_que_nos_Rodea_WEB_CMS_v2/content/personajes"
+    create: true
+    delete: true
+    extension: "json"
+    format: "json"
+    identifier_field: "name"
+    summary: "{{archive_number}} · {{name}} · {{status}}"
+    sortable_fields: ["archive_number", "name", "status"]
+    fields:
+      - { label: "Nombre", name: "name", widget: "string" }
+      - { label: "Número de expediente", name: "archive_number", widget: "string", default: "P-001" }
+      - { label: "Publicado", name: "published", widget: "boolean", default: true }
+      - { label: "Imagen", name: "image", widget: "image", choose_url: false, required: false }
+      - { label: "Estado", name: "status", widget: "string", default: "Documentado" }
+      - { label: "Alias", name: "alias", widget: "string", required: false }
+      - { label: "Edad", name: "age", widget: "string", required: false }
+      - { label: "Ocupación", name: "occupation", widget: "string", required: false }
+      - { label: "Descripción breve", name: "summary", widget: "text" }
+      - label: "Datos de la ficha"
+        name: "facts"
+        widget: "list"
+        required: false
+        summary: "{{fields.label}}: {{fields.value}}"
+        fields:
+          - { label: "Campo", name: "label", widget: "string", hint: "Ej.: Afiliación, Residencia, Relación, Estado conocido…" }
           - { label: "Valor", name: "value", widget: "string" }
       - { label: "Información adicional", name: "body", widget: "markdown", required: false }
 
