@@ -153,25 +153,20 @@ for(const s of stories){
  fs.writeFileSync(path.join(DIST,`relato-${s.slug}.html`),page);
 }
 
-// EL ARCHIVO — generado desde contenido editable del CMS
+
+// EL ARCHIVO — portada por secciones + una página propia para cada sección
 function archiveDossier(x){
  const facts=(x.facts||[]).map(f=>`<dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd>`).join('');
  const status=x.status?`<dt>Estado</dt><dd>${esc(x.status)}</dd>`:'';
  const image=x.image?`<div class="dossier-image"><img src="${esc(x.image)}" alt="${esc(x.title)}"></div>`:'';
  const body=x.body?`<div class="archive-extra">${markdownToHTML(x.body)}</div>`:'';
  const note=x.note?`<p class="note">${esc(x.note)}</p>`:'';
- return `<div class="dossier reveal">${image}<div class="dossier-body">
+ return `<article class="dossier reveal">${image}<div class="dossier-body">
  <p class="archive-code">${esc(x.category||'ARCHIVO')} // ${esc(x.archive_number||'—')}</p>
  <h2>${esc(String(x.title||'').toUpperCase())}</h2>
  ${(status||facts)?`<dl>${status}${facts}</dl>`:''}
- <p>${esc(x.summary||'')}</p>${body}${note}</div></div>`;
+ <p>${esc(x.summary||'')}</p>${body}${note}</div></article>`;
 }
-
-const archiveGroups=[...new Set(archiveEntries.map(x=>x.category||'ARCHIVO'))];
-const archiveSections=archiveGroups.map(cat=>`<section class="section archive-index">
- <div class="section-label">${esc(cat)}</div>
- ${archiveEntries.filter(x=>(x.category||'ARCHIVO')===cat).map(archiveDossier).join('')}
- </section>`).join('');
 
 function characterDossier(x){
  const autoFacts=[];
@@ -183,33 +178,75 @@ function characterDossier(x){
  const status=x.status?`<dt>Estado</dt><dd>${esc(x.status)}</dd>`:'';
  const image=x.image?`<div class="dossier-image"><img src="${esc(x.image)}" alt="${esc(x.name)}"></div>`:'';
  const body=x.body?`<div class="archive-extra">${markdownToHTML(x.body)}</div>`:'';
- return `<div class="dossier reveal">${image}<div class="dossier-body">
+ return `<article class="dossier reveal">${image}<div class="dossier-body">
  <p class="archive-code">PERSONA // ${esc(x.archive_number||'—')}</p>
  <h2>${esc(String(x.name||'').toUpperCase())}</h2>
  ${(status||facts)?`<dl>${status}${facts}</dl>`:''}
- <p>${esc(x.summary||'')}</p>${body}</div></div>`;
+ <p>${esc(x.summary||'')}</p>${body}</div></article>`;
 }
 
-const characterSection=`<section class="section archive-index" id="personajes">
- <div class="section-label">PERSONAJES</div>
- ${characters.length ? characters.map(characterDossier).join('') : '<p>No hay expedientes de personajes disponibles.</p>'}
- </section>`;
+function connectionDossier(c){
+ const locked=String(c.status||'').toUpperCase()==='DISPONIBLE'?'':' locked-text';
+ return `<article class="connection-record reveal">
+ <p class="archive-code">CONEXIÓN // ${esc(c.archive_number||'—')}</p>
+ <h2>${esc(String(c.title||'').toUpperCase())}</h2>
+ <p class="connection-status${locked}">${esc(c.status||'DESCONOCIDO')}</p>
+ </article>`;
+}
 
-const connectionRows=connections.map(c=>{
- const locked=String(c.status).toUpperCase()==='DISPONIBLE'?'':' class="locked-text"';
- return `<li><span>${esc(c.archive_number)}</span> ${esc(c.title)} <b${locked}>${esc(c.status)}</b></li>`;
+const archiveByCategory=(cat)=>archiveEntries.filter(x=>(x.category||'ARCHIVO')===cat);
+
+const archiveSectionDefs=[
+ {key:'entidades',label:'ENTIDADES',eyebrow:'CATÁLOGO // ENTIDADES',desc:'Seres, presencias y formas de vida cuya existencia ha quedado registrada.',items:archiveByCategory('ENTIDAD'),render:archiveDossier,file:'archivo-entidades.html'},
+ {key:'personajes',label:'PERSONAJES',eyebrow:'CATÁLOGO // PERSONAS',desc:'Individuos relacionados con los expedientes, los sucesos y aquello que permanece oculto.',items:characters,render:characterDossier,file:'archivo-personajes.html'},
+ {key:'lugares',label:'LUGARES',eyebrow:'CATÁLOGO // LUGARES',desc:'Localizaciones vinculadas a anomalías, testimonios o acontecimientos registrados.',items:archiveByCategory('LUGAR'),render:archiveDossier,file:'archivo-lugares.html'},
+ {key:'organizaciones',label:'ORGANIZACIONES',eyebrow:'CATÁLOGO // ORGANIZACIONES',desc:'Grupos, cultos, instituciones y redes cuya actividad aparece en los archivos.',items:archiveByCategory('ORGANIZACIÓN'),render:archiveDossier,file:'archivo-organizaciones.html'},
+ {key:'documentos',label:'DOCUMENTOS',eyebrow:'CATÁLOGO // DOCUMENTOS',desc:'Textos, pruebas, registros y materiales recuperados o parcialmente descifrados.',items:archiveByCategory('DOCUMENTO'),render:archiveDossier,file:'archivo-documentos.html'},
+ {key:'sucesos',label:'SUCESOS',eyebrow:'CATÁLOGO // SUCESOS',desc:'Incidentes cuya explicación permanece incompleta, contradictoria o clasificada.',items:archiveByCategory('SUCESO'),render:archiveDossier,file:'archivo-sucesos.html'},
+ {key:'otros',label:'OTROS ARCHIVOS',eyebrow:'CATÁLOGO // OTROS',desc:'Anotaciones que todavía no encajan en una clasificación estable.',items:archiveByCategory('OTRO'),render:archiveDossier,file:'archivo-otros.html'},
+ {key:'conexiones',label:'CONEXIONES',eyebrow:'ÍNDICE // CONEXIONES',desc:'Coincidencias, vínculos y patrones que conectan expedientes aparentemente independientes.',items:connections,render:connectionDossier,file:'archivo-conexiones.html'}
+];
+
+function latestItem(section){
+ return section.items.length ? section.items[section.items.length-1] : null;
+}
+function itemTitle(section,item){
+ if(!item) return 'SIN ANOTACIONES';
+ return section.key==='personajes' ? item.name : item.title;
+}
+function itemSummary(section,item){
+ if(!item) return 'Todavía no hay información pública en esta sección.';
+ if(section.key==='conexiones') return `Estado: ${item.status||'DESCONOCIDO'}.`;
+ return item.summary || item.note || item.body || 'Expediente disponible para consulta.';
+}
+function archiveSectionNav(){
+ return `<nav class="archive-section-nav" aria-label="Secciones del archivo">
+ ${archiveSectionDefs.map(s=>`<a href="${s.file}">${s.label}</a>`).join('')}
+ </nav>`;
+}
+
+const hubCards=archiveSectionDefs.map(section=>{
+ const latest=latestItem(section);
+ return `<a class="archive-hub-card reveal" href="${section.file}">
+   <div class="archive-hub-top"><span>${section.label}</span><b>${String(section.items.length).padStart(2,'0')}</b></div>
+   <div class="archive-hub-copy">
+     <p class="archive-code">ÚLTIMA ANOTACIÓN</p>
+     <h2>${esc(String(itemTitle(section,latest)||'').toUpperCase())}</h2>
+     <p>${esc(itemSummary(section,latest))}</p>
+   </div>
+   <span class="archive-hub-enter">ENTRAR EN LA SECCIÓN →</span>
+ </a>`;
 }).join('');
 
-const archivePage=`${head(`El Archivo | ${site.site_title}`,'Entidades, conexiones, documentos y fragmentos del universo '+site.site_title)}
+const archivePage=`${head(`El Archivo | ${site.site_title}`,'Índice general del archivo de '+site.site_title)}
 <body>${header('archivo')}<main>
 <section class="page-hero archive-hero"><div><p class="eyebrow">SECCIÓN // ARCHIVO</p><h1>EL ARCHIVO</h1><p>No deberías saber todo esto todavía.</p></div></section>
-${archiveSections || `<section class="section"><div class="section-label">ARCHIVO</div><p>No hay fichas disponibles.</p></section>`}
-${characterSection}
-<section class="section" id="conexiones"><div class="section-label">CONEXIONES</div><div class="connection-board reveal">
-<img src="/assets/img/conexiones.webp" alt="Conexiones del archivo">
-<div class="connection-copy"><h2>Las coincidencias empiezan a acumularse.</h2>
-<p>Fechas, lugares, nombres, símbolos y testimonios contradictorios. Esta sección crecerá a medida que nuevos relatos abran partes del universo.</p>
-<ul class="archive-list">${connectionRows}</ul></div></div></section>
+<section class="section archive-hub">
+ <div class="section-label">ÍNDICE GENERAL // ACCESO PARCIAL</div>
+ <p class="archive-hub-intro">El archivo está dividido en secciones. Cada una conserva sus propios expedientes. Debajo aparece la anotación pública más reciente de cada categoría.</p>
+ ${archiveSectionNav()}
+ <div class="archive-hub-grid">${hubCards}</div>
+</section>
 <section class="section"><div class="section-label">ADVERTENCIA</div><div class="terminal reveal">
 <p>&gt; NO CONFÍES EN TODO LO QUE LEAS AQUÍ.</p>
 <p>&gt; ALGUNOS TESTIMONIOS MIENTEN.</p>
@@ -218,6 +255,27 @@ ${characterSection}
 </main>${footer(site)}</body></html>`;
 
 fs.writeFileSync(path.join(DIST,'archivo.html'),archivePage);
+
+// Páginas independientes de cada sección
+for(const section of archiveSectionDefs){
+ const list=section.items.length
+   ? `<div class="archive-dossier-stack">${section.items.map(section.render).join('')}</div>`
+   : `<div class="archive-empty reveal"><p class="archive-code">SIN DATOS DISPONIBLES</p><h2>NO HAY EXPEDIENTES PÚBLICOS.</h2><p>Esta sección permanece vacía o clasificada por el momento.</p></div>`;
+ const sectionPage=`${head(`${section.label} | El Archivo | ${site.site_title}`,section.desc)}
+ <body>${header('archivo')}<main>
+ <section class="page-hero compact archive-section-hero"><div>
+   <p class="eyebrow">${section.eyebrow}</p>
+   <h1>${section.label}</h1>
+   <p>${section.desc}</p>
+ </div></section>
+ <section class="section archive-section-shell">
+   <div class="archive-back-row"><a class="text-link" href="archivo.html">← VOLVER AL ÍNDICE GENERAL</a><span>${String(section.items.length).padStart(2,'0')} EXPEDIENTE${section.items.length===1?'':'S'}</span></div>
+   ${archiveSectionNav()}
+   ${list}
+ </section>
+ </main>${footer(site)}</body></html>`;
+ fs.writeFileSync(path.join(DIST,section.file),sectionPage);
+}
 
 // La página "Sobre" sigue siendo fija por ahora
 let about=fs.readFileSync(path.join(ROOT,'sobre.static.html'),'utf8');
