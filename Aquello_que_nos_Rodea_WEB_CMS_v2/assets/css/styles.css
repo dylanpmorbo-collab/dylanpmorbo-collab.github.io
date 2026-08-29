@@ -57,7 +57,7 @@
 .archive-book-shell{position:relative;z-index:2;width:min(760px,48vw);justify-self:end;filter:drop-shadow(0 24px 32px rgba(0,0,0,.65));transform:rotate(-.5deg);transform-origin:center}
 .archive-book-base{display:block;width:100%;height:auto;object-fit:contain}
 .archive-book-page-slot{position:absolute;left:var(--book-page-left);top:var(--book-page-top);width:var(--book-page-width);height:var(--book-page-height);overflow:hidden;display:grid;place-items:center;clip-path:polygon(2% 1%,98% 0,100% 98%,1% 100%);transform:rotate(var(--book-page-rotate));transform-origin:center;pointer-events:none}
-.archive-book-page-image{display:block;width:100%;height:100%;object-fit:contain;opacity:0;filter:sepia(.08) contrast(.98) saturate(.88);transform:scale(.96);transition:opacity .7s ease,transform 1.1s cubic-bezier(.2,.75,.2,1);mix-blend-mode:multiply}
+.archive-book-page-image{display:block;width:80%;height:86%;object-fit:contain;object-position:center center;opacity:0;filter:sepia(.08) contrast(.98) saturate(.88);transform:scale(.96);transition:opacity .7s ease,transform 1.1s cubic-bezier(.2,.75,.2,1);mix-blend-mode:multiply}
 .archive-book-page-image.is-loaded{opacity:.96;transform:scale(1)}
 .archive-book-page-slot.is-empty{display:none}
 .archive-book-caption{position:absolute;right:5%;bottom:1.5%;font:600 8px/1 var(--display);letter-spacing:.18em;color:rgba(208,170,88,.46);text-shadow:0 1px 8px #000}
