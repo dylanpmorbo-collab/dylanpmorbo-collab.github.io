@@ -240,7 +240,7 @@ const hubCards=archiveSectionDefs.map(section=>{
 
 const archivePage=`${head(`El Archivo | ${site.site_title}`,'Índice general del archivo de '+site.site_title)}
 <body>${header('archivo')}<main>
-<section class="page-hero archive-hero"><div><p class="eyebrow">SECCIÓN // ARCHIVO</p><h1>EL ARCHIVO</h1><p>No deberías saber todo esto todavía.</p></div></section>
+<section class="page-hero archive-hero"><div><p class="eyebrow">SECCIÓN // ARCHIVO</p><h1>EL ARCHIVO</h1><p class="archive-random-phrase" id="archiveRandomPhrase">No deberías saber todo esto todavía.</p></div></section>
 <section class="section archive-hub">
  <div class="section-label">ÍNDICE GENERAL // ACCESO PARCIAL</div>
  <p class="archive-hub-intro">El archivo está dividido en secciones. Cada una conserva sus propios expedientes. Debajo aparece la anotación pública más reciente de cada categoría.</p>
@@ -252,6 +252,28 @@ const archivePage=`${head(`El Archivo | ${site.site_title}`,'Índice general del
 <p>&gt; ALGUNOS TESTIMONIOS MIENTEN.</p>
 <p>&gt; OTROS NO SABEN QUE ESTÁN MINTIENDO.</p>
 <p class="blink">&gt; _</p></div></section>
+<script>
+(function(){
+  const el=document.getElementById('archiveRandomPhrase');
+  if(!el) return;
+  fetch('/assets/data/frases-archivo.txt',{cache:'no-store'})
+    .then(r=>{if(!r.ok) throw new Error('No se pudo cargar el archivo de frases'); return r.text();})
+    .then(text=>{
+      const phrases=text.split(/\r?\n/).map(x=>x.trim()).filter(x=>x && !x.startsWith('#'));
+      if(!phrases.length) return;
+      let pool=phrases;
+      try{
+        const previous=sessionStorage.getItem('aqnrArchivePhrase');
+        if(previous && phrases.length>1) pool=phrases.filter(x=>x!==previous);
+      }catch(e){}
+      const phrase=pool[Math.floor(Math.random()*pool.length)];
+      el.textContent=phrase;
+      try{sessionStorage.setItem('aqnrArchivePhrase',phrase);}catch(e){}
+    })
+    .catch(()=>{})
+    .finally(()=>el.classList.add('is-loaded'));
+})();
+</script>
 </main>${footer(site)}</body></html>`;
 
 fs.writeFileSync(path.join(DIST,'archivo.html'),archivePage);
