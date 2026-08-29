@@ -2,11 +2,6 @@
   "enabled": true,
   "book_image": "/assets/img/libro/libro-archivo.png",
   "random_mode": true,
-  "page_left": 51.0,
-  "page_top": 9.5,
-  "page_width": 44.0,
-  "page_height": 79.5,
-  "page_rotate": 0.0,
   "pages": [
     {
       "label": "Śukrahārī — estudio anatómico",
@@ -21,6 +16,18 @@
       "enabled": true,
       "first": false,
       "fixed": false
+    },
+    {
+      "label": "Neolin Archivo",
+      "image": "/assets/uploads/chatgpt-image-29-ago-2026-175404.png",
+      "enabled": true,
+      "first": false,
+      "fixed": false
     }
-  ]
+  ],
+  "page_left": 51,
+  "page_top": 9.5,
+  "page_width": 44,
+  "page_height": 79.5,
+  "page_rotate": 0
 }
