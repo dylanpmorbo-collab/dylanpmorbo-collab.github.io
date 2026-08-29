@@ -1,0 +1,26 @@
+{
+  "enabled": true,
+  "book_image": "/assets/img/libro/libro-archivo.png",
+  "random_mode": true,
+  "page_left": 51.0,
+  "page_top": 9.5,
+  "page_width": 44.0,
+  "page_height": 79.5,
+  "page_rotate": 0.0,
+  "pages": [
+    {
+      "label": "Śukrahārī — estudio anatómico",
+      "image": "/assets/img/libro/paginas/sukrahari.png",
+      "enabled": true,
+      "first": true,
+      "fixed": true
+    },
+    {
+      "label": "Mānavakṣetra — Registro de Carne",
+      "image": "/assets/img/libro/paginas/manavaksetra.png",
+      "enabled": true,
+      "first": false,
+      "fixed": false
+    }
+  ]
+}
