@@ -1,0 +1,25 @@
+{
+  "title": "Śukrahārī",
+  "archive_number": "001",
+  "category": "ENTIDAD",
+  "published": true,
+  "image": "/assets/img/entidad.webp",
+  "status": "Documentado",
+  "summary": "Ser de apariencia híbrida entre rata y primate. La información disponible procede de testimonios incompletos y de individuos vinculados a LA PLAGA.",
+  "note": "Información adicional bloqueada hasta que el archivo narrativo la revele.",
+  "facts": [
+    {
+      "label": "Procedencia",
+      "value": "[OTRO PLANO]"
+    },
+    {
+      "label": "Tamaño",
+      "value": "Comparable al de un chimpancé"
+    },
+    {
+      "label": "Patrón",
+      "value": "████████████████"
+    }
+  ],
+  "body": ""
+}
