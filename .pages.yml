@@ -88,7 +88,7 @@ content:
         type: select
         default: ENTIDAD
         options:
-          values: [ENTIDAD, LUGAR, ORGANIZACIÓN, DOCUMENTO, SUCESO, OTRO]
+          values: [ENTIDAD, LUGAR, PLANO, ORGANIZACIÓN, DOCUMENTO, SUCESO, OTRO]
       - name: published
         label: Publicado
         type: boolean
