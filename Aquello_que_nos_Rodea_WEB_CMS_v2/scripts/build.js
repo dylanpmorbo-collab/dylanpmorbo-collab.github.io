@@ -259,7 +259,7 @@ const archivePage=`${head(`El Archivo | ${site.site_title}`,'Índice general del
   fetch('/assets/data/frases-archivo.txt',{cache:'no-store'})
     .then(r=>{if(!r.ok) throw new Error('No se pudo cargar el archivo de frases'); return r.text();})
     .then(text=>{
-      const phrases=text.split(/\r?\n/).map(x=>x.trim()).filter(x=>x && !x.startsWith('#'));
+      const phrases=text.split(/\\r?\\n/).map(x=>x.trim()).filter(x=>x && !x.startsWith('#'));
       if(!phrases.length) return;
       let pool=phrases;
       try{
