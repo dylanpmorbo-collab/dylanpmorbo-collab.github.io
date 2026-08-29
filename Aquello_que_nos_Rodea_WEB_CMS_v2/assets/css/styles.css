@@ -47,7 +47,7 @@
 @media(max-width:520px){.archive-section-nav a{flex-basis:100%}.archive-hub-card{padding:22px}.archive-hub-copy{margin:28px 0 24px}.archive-hub-intro{font-size:19px}}
 
 /* EL ARCHIVO — frase aleatoria bajo el título */
-.archive-random-phrase{min-height:1.55em;max-width:760px;opacity:.38;filter:blur(.45px);transition:opacity .65s ease,filter .65s ease,color .65s ease}
+.archive-random-phrase{min-height:1.55em;max-width:clamp(320px,38vw,540px);padding-right:18px;opacity:.38;filter:blur(.45px);transition:opacity .65s ease,filter .65s ease,color .65s ease}
 .archive-random-phrase.is-loaded{opacity:1;filter:none;color:#b6ae9f}
 
 
@@ -72,3 +72,19 @@
 @media(max-width:1050px){.archive-hero>.archive-section-nav{padding-inline:2vw}.archive-hero>.archive-section-nav a{font-size:8px;padding:9px 10px}}
 @media(max-width:860px){.archive-hero{padding-bottom:48px}.archive-hero>.archive-section-nav{position:static;width:100%;padding:0;margin:2px 0 0;background:none;border-top:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.archive-hero>.archive-section-nav a{text-align:center;white-space:normal;padding:12px 8px}}
 @media(max-width:520px){.archive-hero>.archive-section-nav{grid-template-columns:1fr}}
+
+
+/* ARCHIVO — cabeceras visuales por sección + frase protegida del libro */
+.archive-section-hero{display:grid!important;grid-template-columns:minmax(320px,.78fr) minmax(520px,1.22fr);align-items:end;gap:2.5vw;padding-right:4vw;overflow:hidden}
+.archive-section-hero-copy{position:relative;z-index:2;max-width:610px}
+.archive-section-hero-art{position:relative;z-index:1;align-self:end;justify-self:end;width:min(100%,960px);margin-bottom:-18px;pointer-events:none}
+.archive-section-hero-art img{display:block;width:100%;height:auto;object-fit:contain;filter:drop-shadow(0 20px 28px rgba(0,0,0,.62));opacity:.96}
+@media(max-width:1050px){
+  .archive-random-phrase{max-width:42vw}
+  .archive-section-hero{grid-template-columns:minmax(280px,.8fr) minmax(430px,1.2fr);gap:1.5vw;padding-right:2vw}
+}
+@media(max-width:860px){
+  .archive-random-phrase{max-width:100%;padding-right:0}
+  .archive-section-hero{display:flex!important;flex-direction:column;align-items:flex-start;gap:22px;padding-right:22px}
+  .archive-section-hero-art{width:100%;max-width:760px;align-self:center;margin:0 auto -10px}
+}
