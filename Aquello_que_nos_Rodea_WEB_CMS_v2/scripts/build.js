@@ -67,6 +67,9 @@ copyDir(path.join(ROOT,'assets'),path.join(DIST,'assets'));
 copyDir(path.join(ROOT,'admin'),path.join(DIST,'admin'));
 
 const site=readJSON(path.join(ROOT,'content/config/site.json'));
+const archiveBookPath=path.join(ROOT,'content/config/libro-archivo.json');
+const archiveBook=fs.existsSync(archiveBookPath)?readJSON(archiveBookPath):{enabled:false,pages:[]};
+const archiveBookPages=Array.isArray(archiveBook.pages)?archiveBook.pages.filter(p=>p && p.image && p.enabled!==false):[];
 const storyDir=path.join(ROOT,'content/relatos');
 const stories=fs.readdirSync(storyDir).filter(x=>x.endsWith('.json')).map(x=>readJSON(path.join(storyDir,x)))
  .filter(s=>s.published!==false)
@@ -238,9 +241,19 @@ const hubCards=archiveSectionDefs.map(section=>{
  </a>`;
 }).join('');
 
+const archiveBookMarkup=archiveBook.enabled!==false && archiveBook.book_image ? `
+<div class="archive-book-shell reveal" aria-label="Libro del Archivo">
+  <img class="archive-book-base" src="${esc(archiveBook.book_image)}" alt="Libro abierto del Archivo">
+  <div class="archive-book-page-slot" style="--book-page-left:${Number(archiveBook.page_left??51)}%;--book-page-top:${Number(archiveBook.page_top??10)}%;--book-page-width:${Number(archiveBook.page_width??44)}%;--book-page-height:${Number(archiveBook.page_height??79)}%;--book-page-rotate:${Number(archiveBook.page_rotate??0)}deg;">
+    <img id="archiveBookPageImage" class="archive-book-page-image" alt="Anotación del Archivo">
+  </div>
+  <script type="application/json" id="archiveBookPagesData">${JSON.stringify(archiveBookPages).replace(/</g,'\u003c')}</script>
+  <span class="archive-book-caption">REGISTRO // PÁGINA VARIABLE</span>
+</div>` : '';
+
 const archivePage=`${head(`El Archivo | ${site.site_title}`,'Índice general del archivo de '+site.site_title)}
 <body>${header('archivo')}<main>
-<section class="page-hero archive-hero"><div><p class="eyebrow">SECCIÓN // ARCHIVO</p><h1>EL ARCHIVO</h1><p class="archive-random-phrase" id="archiveRandomPhrase">No deberías saber todo esto todavía.</p></div></section>
+<section class="page-hero archive-hero"><div class="archive-hero-copy"><p class="eyebrow">SECCIÓN // ARCHIVO</p><h1>EL ARCHIVO</h1><p class="archive-random-phrase" id="archiveRandomPhrase">No deberías saber todo esto todavía.</p></div>${archiveBookMarkup}</section>
 <section class="section archive-hub">
  <div class="section-label">ÍNDICE GENERAL // ACCESO PARCIAL</div>
  <p class="archive-hub-intro">El archivo está dividido en secciones. Cada una conserva sus propios expedientes. Debajo aparece la anotación pública más reciente de cada categoría.</p>
@@ -272,6 +285,51 @@ const archivePage=`${head(`El Archivo | ${site.site_title}`,'Índice general del
     })
     .catch(()=>{})
     .finally(()=>el.classList.add('is-loaded'));
+})();
+</script>
+<script>
+(function(){
+  const img=document.getElementById('archiveBookPageImage');
+  const dataEl=document.getElementById('archiveBookPagesData');
+  if(!img || !dataEl) return;
+  let pages=[];
+  try{pages=JSON.parse(dataEl.textContent||'[]');}catch(e){return;}
+  pages=pages.filter(p=>p && p.image && p.enabled!==false);
+  if(!pages.length){img.closest('.archive-book-page-slot')?.classList.add('is-empty');return;}
+
+  const randomMode=${archiveBook.random_mode!==false?'true':'false'};
+  const first=pages.find(p=>p.first===true);
+  const fixed=pages.find(p=>p.fixed===true) || first || pages[0];
+  let chosen=null;
+
+  if(!randomMode){
+    chosen=fixed;
+  }else{
+    let shouldShowFirst=false;
+    if(first){
+      try{shouldShowFirst=sessionStorage.getItem('aqnrArchiveBookFirst')!==first.image;}catch(e){shouldShowFirst=true;}
+    }
+    if(first && shouldShowFirst){
+      chosen=first;
+      try{sessionStorage.setItem('aqnrArchiveBookFirst',first.image);}catch(e){}
+    }else{
+      let pool=pages;
+      try{
+        const previous=sessionStorage.getItem('aqnrArchiveBookLast');
+        if(previous && pages.length>1){
+          const filtered=pages.filter(p=>p.image!==previous);
+          if(filtered.length) pool=filtered;
+        }
+      }catch(e){}
+      chosen=pool[Math.floor(Math.random()*pool.length)];
+    }
+  }
+
+  if(!chosen) return;
+  img.alt=chosen.label || 'Anotación del Archivo';
+  img.addEventListener('load',()=>img.classList.add('is-loaded'),{once:true});
+  img.src=chosen.image;
+  try{sessionStorage.setItem('aqnrArchiveBookLast',chosen.image);}catch(e){}
 })();
 </script>
 </main>${footer(site)}</body></html>`;
