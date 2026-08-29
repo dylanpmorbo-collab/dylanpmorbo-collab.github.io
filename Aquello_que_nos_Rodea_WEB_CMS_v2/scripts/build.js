@@ -222,10 +222,10 @@ function itemSummary(section,item){
  if(section.key==='conexiones') return `Estado: ${item.status||'DESCONOCIDO'}.`;
  return item.summary || item.note || item.body || 'Expediente disponible para consulta.';
 }
-function archiveSectionNav(){
- return `<nav class="archive-section-nav" aria-label="Secciones del archivo">
- ${archiveSectionDefs.map(s=>`<a href="${s.file}">${s.label}</a>`).join('')}
- </nav>`;
+function archiveTopNav(activeKey='index'){
+ const indexLink=`<a href="archivo.html" class="${activeKey==='index'?'active':''}" ${activeKey==='index'?'aria-current="page"':''}>EL ARCHIVO</a>`;
+ const sectionLinks=archiveSectionDefs.map(s=>`<a href="${s.file}" class="${activeKey===s.key?'active':''}" ${activeKey===s.key?'aria-current="page"':''}>${s.label}</a>`).join('');
+ return `<div class="archive-top-nav" aria-label="Navegación interna del Archivo"><nav class="archive-top-nav-inner">${indexLink}${sectionLinks}</nav></div>`;
 }
 
 const hubCards=archiveSectionDefs.map(section=>{
@@ -251,8 +251,8 @@ const archiveBookMarkup=archiveBook.enabled!==false && archiveBook.book_image ? 
 </div>` : '';
 
 const archivePage=`${head(`El Archivo | ${site.site_title}`,'Índice general del archivo de '+site.site_title)}
-<body>${header('archivo')}<main>
-<section class="page-hero archive-hero"><div class="archive-hero-copy"><p class="eyebrow">SECCIÓN // ARCHIVO</p><h1>EL ARCHIVO</h1><p class="archive-random-phrase" id="archiveRandomPhrase">No deberías saber todo esto todavía.</p></div>${archiveBookMarkup}${archiveSectionNav()}</section>
+<body class="archive-area">${header('archivo')}${archiveTopNav('index')}<main>
+<section class="page-hero archive-hero"><div class="archive-hero-copy"><p class="eyebrow">SECCIÓN // ARCHIVO</p><h1>EL ARCHIVO</h1><p class="archive-random-phrase" id="archiveRandomPhrase">No deberías saber todo esto todavía.</p></div>${archiveBookMarkup}</section>
 <section class="section archive-hub">
  <div class="section-label">ÍNDICE GENERAL // ACCESO PARCIAL</div>
  <p class="archive-hub-intro">El archivo está dividido en secciones. Cada una conserva sus propios expedientes. Debajo aparece la anotación pública más reciente de cada categoría.</p>
@@ -340,7 +340,7 @@ for(const section of archiveSectionDefs){
    ? `<div class="archive-dossier-stack">${section.items.map(section.render).join('')}</div>`
    : `<div class="archive-empty reveal"><p class="archive-code">SIN DATOS DISPONIBLES</p><h2>NO HAY EXPEDIENTES PÚBLICOS.</h2><p>Esta sección permanece vacía o clasificada por el momento.</p></div>`;
  const sectionPage=`${head(`${section.label} | El Archivo | ${site.site_title}`,section.desc)}
- <body>${header('archivo')}<main>
+ <body class="archive-area">${header('archivo')}${archiveTopNav(section.key)}<main>
  <section class="page-hero compact archive-section-hero">
    <div class="archive-section-hero-copy">
      <p class="eyebrow">${section.eyebrow}</p>
@@ -351,7 +351,6 @@ for(const section of archiveSectionDefs){
  </section>
  <section class="section archive-section-shell">
    <div class="archive-back-row"><a class="text-link" href="archivo.html">← VOLVER AL ÍNDICE GENERAL</a><span>${String(section.items.length).padStart(2,'0')} EXPEDIENTE${section.items.length===1?'':'S'}</span></div>
-   ${archiveSectionNav()}
    ${list}
  </section>
  </main>${footer(site)}</body></html>`;
