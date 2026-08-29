@@ -263,6 +263,78 @@ content:
         label: Nota del pie
         type: text
 
+
+  - name: libro_archivo
+    label: Libro del Archivo
+    type: file
+    path: Aquello_que_nos_Rodea_WEB_CMS_v2/content/config/libro-archivo.json
+    format: json
+    fields:
+      - name: enabled
+        label: Mostrar libro
+        type: boolean
+        default: true
+        description: "Oculta o muestra el libro completo en la portada de El Archivo."
+      - name: book_image
+        label: Imagen del libro
+        type: image
+        description: "PNG del libro abierto. Si lo cambias por otro con la misma composición, las páginas seguirán encajando automáticamente."
+      - name: random_mode
+        label: Modo aleatorio
+        type: boolean
+        default: true
+        description: "Activado: rota entre las páginas visibles. Desactivado: muestra siempre la página marcada como Imagen fija."
+      - name: pages
+        label: Imágenes de las páginas
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{label}"
+        fields:
+          - name: label
+            label: Nombre interno
+            type: string
+            required: true
+          - name: image
+            label: Imagen PNG
+            type: image
+            required: true
+          - name: enabled
+            label: Mostrar esta imagen
+            type: boolean
+            default: true
+          - name: first
+            label: Mostrar primero
+            type: boolean
+            default: false
+            description: "Marca una sola. Cada visitante la verá primero; después entra la rotación aleatoria."
+          - name: fixed
+            label: Imagen fija
+            type: boolean
+            default: false
+            description: "Marca una sola. Se usa cuando Modo aleatorio está desactivado."
+      - name: page_left
+        label: Posición horizontal de la página (%)
+        type: number
+        default: 51
+      - name: page_top
+        label: Posición vertical de la página (%)
+        type: number
+        default: 9.5
+      - name: page_width
+        label: Ancho de la zona de página (%)
+        type: number
+        default: 44
+      - name: page_height
+        label: Alto de la zona de página (%)
+        type: number
+        default: 79.5
+      - name: page_rotate
+        label: Giro de la imagen (grados)
+        type: number
+        default: 0
+
   - name: frases_archivo
     label: Frases inquietantes
     type: file
