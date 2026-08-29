@@ -85,7 +85,7 @@ content:
         required: false
         description: "Opcional. Si se deja vacío, la web la crea automáticamente a partir del título. Usa minúsculas, números y guiones."
         pattern:
-          regex: "^[a-z0-9-]+$"
+          regex: "^(?:[a-z0-9-]+)?$"
           message: "Usa solo minúsculas, números y guiones."
       - name: archive_number
         label: Número
@@ -200,7 +200,7 @@ content:
         required: false
         description: "Opcional. Si se deja vacío, la web la crea automáticamente a partir del nombre. Usa minúsculas, números y guiones."
         pattern:
-          regex: "^[a-z0-9-]+$"
+          regex: "^(?:[a-z0-9-]+)?$"
           message: "Usa solo minúsculas, números y guiones."
       - name: archive_number
         label: Número de expediente
@@ -322,7 +322,7 @@ content:
         required: false
         description: "Opcional. Si se deja vacío, la web la crea automáticamente a partir del nombre. Usa minúsculas, números y guiones."
         pattern:
-          regex: "^[a-z0-9-]+$"
+          regex: "^(?:[a-z0-9-]+)?$"
           message: "Usa solo minúsculas, números y guiones."
       - name: status
         label: Estado
