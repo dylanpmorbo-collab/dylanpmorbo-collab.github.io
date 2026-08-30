@@ -23,6 +23,13 @@
       "enabled": true,
       "first": false,
       "fixed": false
+    },
+    {
+      "label": "nigroantes",
+      "image": "/assets/uploads/chatgpt-image-30-ago-2026-085434.png",
+      "enabled": true,
+      "first": false,
+      "fixed": false
     }
   ],
   "page_left": 51,
