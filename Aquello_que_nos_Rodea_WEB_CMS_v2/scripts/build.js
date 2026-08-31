@@ -30,6 +30,14 @@ function markdownToHTML(src=''){
       return `<p>${inlineMarkdown(b).replace(/\n/g,'<br>')}</p>`;
     }).join('\n');
 }
+function plainTextToHTML(src=''){
+  const normalized=String(src||'').replace(/\r\n/g,'\n').trim();
+  if(!normalized) return '';
+  return normalized.split(/\n\s*\n/)
+    .map(block=>block.trim()).filter(Boolean)
+    .map(block=>`<p>${esc(block).replace(/\n/g,'<br>')}</p>`)
+    .join('\n');
+}
 function head(title, desc, image='/assets/img/hero.webp'){
  return `<!doctype html><html lang="es"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -38,7 +46,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:description" content="${esc(desc)}"><meta property="og:type" content="website">
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/styles.css"><script defer src="assets/js/main.js"></script></head>`;
 }
 function header(active=''){
@@ -266,10 +274,23 @@ function archiveGallery(item){
    <div class="section-label">EVIDENCIAS VISUALES // ${String(gallery.length).padStart(2,'0')}</div>
    <div class="archive-entry-gallery">${gallery.map((g,i)=>`<figure class="archive-gallery-item reveal">
      <a href="${esc(g.image)}" target="_blank" rel="noopener"><img src="${esc(g.image)}" alt="${esc(g.caption||`${item.title||item.name||'Expediente'} — imagen ${i+1}`)}"></a>
-     ${(g.caption||g.description)?`<figcaption>${g.caption?`<strong>${esc(g.caption)}</strong>`:''}${g.description?`<span>${esc(g.description)}</span>`:''}</figcaption>`:''}
+     ${(g.caption||g.description)?`<figcaption>${g.caption?`<strong>${esc(g.caption)}</strong>`:''}${g.description?`<span>${esc(g.description).replace(/\r?\n/g,'<br>')}</span>`:''}</figcaption>`:''}
    </figure>`).join('')}</div>
  </section>`;
 }
+function archivePoliceReport(item){
+ const enabled=item.show_police_report===true;
+ const report=String(item.police_report||'').trim();
+ if(!enabled || !report) return '';
+ return `<section class="archive-police-report-block reveal">
+   <div class="section-label">INFORME POLICIAL</div>
+   <article class="archive-police-report">
+     <div class="archive-police-report-heading">INFORME POLICIAL</div>
+     <div class="archive-police-report-text">${plainTextToHTML(report)}</div>
+   </article>
+ </section>`;
+}
+
 function archiveInformationBlocks(item){
  const blocks=(Array.isArray(item.sections)?item.sections:[]).filter(x=>x && (x.title || x.body));
  return blocks.map((block,i)=>`<section class="archive-info-block reveal">
@@ -329,7 +350,7 @@ function archiveEntryPage(section,item){
  const facts=itemFacts(section,item);
  const body=item.body ? markdownToHTML(item.body) : '';
  const blocks=archiveInformationBlocks(item);
- const note=item.note ? `<aside class="archive-entry-note reveal"><p class="archive-code">NOTA DE ARCHIVO</p><p>${esc(item.note)}</p></aside>` : '';
+ const note=item.note ? `<aside class="archive-entry-note reveal"><p class="archive-code">NOTA DE ARCHIVO</p><div class="archive-entry-note-text">${plainTextToHTML(item.note)}</div></aside>` : '';
  const fullInformation=(body||blocks||note) ? `${body?`<div class="archive-entry-main-text reveal">${body}</div>`:''}${blocks}${note}` : `<div class="archive-entry-empty-copy reveal"><p>La ficha está abierta, pero todavía no contiene información adicional desclasificada.</p></div>`;
  const factList=facts.length ? `<dl class="archive-entry-facts">${facts.map(f=>`<div><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div>`).join('')}</dl>` : `<p class="archive-entry-no-facts">Sin datos complementarios publicados.</p>`;
  const heroClass=image?'':' no-image';
@@ -358,6 +379,7 @@ function archiveEntryPage(section,item){
      </article>
    </div>
    ${archiveGallery(item)}
+   ${archivePoliceReport(item)}
  </section>
  </main>${footer(site)}</body></html>`;
 }
