@@ -96,6 +96,13 @@ const connections=fs.existsSync(connectionsDir)
     .sort((a,b)=>String(a.archive_number).localeCompare(String(b.archive_number),undefined,{numeric:true}))
  : [];
 
+const microDir=path.join(ROOT,'content/microrrelatos');
+const micros=fs.existsSync(microDir)
+ ? fs.readdirSync(microDir).filter(x=>x.endsWith('.json')).map(x=>readJSON(path.join(microDir,x)))
+    .filter(x=>x.published!==false)
+    .sort((a,b)=>String(a.archive_number).localeCompare(String(b.archive_number),undefined,{numeric:true}) || String(a.title).localeCompare(String(b.title)))
+ : [];
+
 const featured=stories.find(s=>s.featured)||stories[0];
 
 // HOME
@@ -187,6 +194,7 @@ const archiveSectionDefs=[
  {key:'documentos',label:'DOCUMENTOS',typeLabel:'DOCUMENTO',eyebrow:'CATÁLOGO // DOCUMENTOS',desc:'Textos, pruebas, registros y materiales recuperados o parcialmente descifrados.',items:archiveByCategory('DOCUMENTO'),file:'archivo-documentos.html',image:'/assets/img/archivo-secciones/documentos.png'},
  {key:'sucesos',label:'SUCESOS',typeLabel:'SUCESO',eyebrow:'CATÁLOGO // SUCESOS',desc:'Incidentes cuya explicación permanece incompleta, contradictoria o clasificada.',items:archiveByCategory('SUCESO'),file:'archivo-sucesos.html',image:'/assets/img/archivo-secciones/sucesos.png'},
  {key:'otros',label:'OTROS ARCHIVOS',typeLabel:'ARCHIVO',eyebrow:'CATÁLOGO // OTROS',desc:'Anotaciones que todavía no encajan en una clasificación estable.',items:archiveByCategory('OTRO'),file:'archivo-otros.html',image:'/assets/img/archivo-secciones/otros.png'},
+ {key:'microrrelatos',label:'MICRORRELATOS',typeLabel:'MICRORRELATO',eyebrow:'FICCIÓN BREVE // MICRORRELATOS',desc:'Historias mínimas recuperadas del Archivo. Se entienden solas; las conexiones pueden aparecer mucho después.',items:micros,file:'archivo-microrrelatos.html',image:''},
  {key:'conexiones',label:'CONEXIONES',typeLabel:'CONEXIÓN',eyebrow:'ÍNDICE // CONEXIONES',desc:'Coincidencias, vínculos y patrones que conectan expedientes aparentemente independientes.',items:connections,file:'archivo-conexiones.html',image:'/assets/img/archivo-secciones/conexiones.png'}
 ];
 
@@ -196,6 +204,7 @@ function itemTitle(section,item){
 }
 function itemSummary(section,item){
  if(!item) return 'Todavía no hay información pública en esta sección.';
+ if(section.key==='microrrelatos' && item.excerpt) return shortArchiveText(item.excerpt);
  if(item.summary) return shortArchiveText(item.summary);
  if(item.note) return shortArchiveText(item.note);
  if(item.body) return shortArchiveText(item.body);
@@ -211,7 +220,10 @@ function itemSlug(section,item){
  const fromNumber=archiveSlug(itemArchiveNumber(item));
  return custom || fromTitle || `expediente-${fromNumber||'sin-numero'}`;
 }
-function itemHref(section,item){ return `archivo-${section.key}-${itemSlug(section,item)}.html`; }
+function itemHref(section,item){
+ if(section.key==='microrrelatos') return `micro-${itemSlug(section,item)}.html`;
+ return `archivo-${section.key}-${itemSlug(section,item)}.html`;
+}
 function itemFacts(section,item){
  const facts=[];
  if(itemStatus(item)) facts.push({label:'Estado',value:itemStatus(item)});
@@ -266,7 +278,51 @@ function archiveInformationBlocks(item){
    ${block.body?`<div class="archive-extra">${markdownToHTML(block.body)}</div>`:''}
  </section>`).join('');
 }
+
+function microReadingTime(item){
+ if(item.reading_time) return item.reading_time;
+ const words=wordCount(item.body||'');
+ return words<260 ? '< 1 min' : `${Math.max(1,Math.ceil(words/230))} min aprox.`;
+}
+function microEntryPage(section,item){
+ const title=itemTitle(section,item);
+ const excerpt=item.excerpt||itemSummary(section,item);
+ const image=itemImage(item);
+ const body=markdownToHTML(item.body||'');
+ const connections=item.reveal_connections===true && item.connections
+   ? `<aside class="micro-connections reveal"><p class="archive-code">CONEXIONES DETECTADAS</p><div>${markdownToHTML(item.connections)}</div></aside>`
+   : '';
+ return `${head(`${title} | Microrrelato | ${site.site_title}`,excerpt,image||'/assets/img/hero.webp')}
+ <body class="archive-area micro-story-page">${header('archivo')}${archiveTopNav('microrrelatos')}<main>
+ <section class="micro-story-hero${image?'':' no-image'}">
+   <div class="micro-story-heading">
+     <p class="eyebrow">MICRORRELATO // ${esc(itemArchiveNumber(item))}</p>
+     <h1>${esc(String(title).toUpperCase())}</h1>
+     <p class="micro-story-excerpt">${esc(excerpt)}</p>
+     <div class="meta-row"><span>${wordCount(item.body||'').toLocaleString('es-ES')} palabras</span><span>${esc(microReadingTime(item))}</span></div>
+     <a class="btn primary" href="#lectura">LEER</a>
+   </div>
+   ${image?`<figure class="micro-story-cover reveal"><img src="${esc(image)}" alt="Ilustración de ${esc(title)}"></figure>`:''}
+ </section>
+ <section class="reader-shell micro-reader" id="lectura">
+   <aside class="reader-tools"><button data-reader="minus" aria-label="Reducir texto">A−</button><button data-reader="plus" aria-label="Aumentar texto">A+</button><button data-reader="focus" aria-label="Modo lectura">◐</button></aside>
+   <article class="story-text micro-story-text">
+     <div class="story-marker">MICRORRELATO // ${esc(itemArchiveNumber(item))}</div>
+     ${body}
+     <div class="story-end">FIN</div>
+   </article>
+   ${connections}
+ </section>
+ <section class="post-story reveal">
+   <p class="eyebrow">ARCHIVO BREVE CERRADO</p>
+   <h2>Hay historias que sólo necesitan unas líneas.</h2>
+   <div class="hero-actions"><a class="btn primary" href="archivo-microrrelatos.html">Volver a microrrelatos</a><a class="btn ghost" href="archivo.html">Índice general</a></div>
+ </section>
+ </main>${footer(site)}</body></html>`;
+}
+
 function archiveEntryPage(section,item){
+ if(section.key==='microrrelatos') return microEntryPage(section,item);
  const title=itemTitle(section,item);
  const summary=itemSummary(section,item);
  const image=itemImage(item);
@@ -311,7 +367,7 @@ const hubCards=archiveSectionDefs.map(section=>{
  return `<a class="archive-hub-card reveal" href="${section.file}">
    <div class="archive-hub-top"><span>${section.label}</span><b>${String(section.items.length).padStart(2,'0')}</b></div>
    <div class="archive-hub-copy">
-     <p class="archive-code">ÚLTIMA ANOTACIÓN</p>
+     <p class="archive-code">${section.key==='microrrelatos'?'ÚLTIMA HISTORIA':'ÚLTIMA ANOTACIÓN'}</p>
      <h2>${esc(String(itemTitle(section,latest)||'').toUpperCase())}</h2>
      <p>${esc(itemSummary(section,latest))}</p>
    </div>
@@ -417,15 +473,15 @@ for(const section of archiveSectionDefs){
  const list=section.items.length
    ? `<div class="archive-entry-grid">${section.items.map(item=>archiveEntryCard(section,item)).join('')}</div>`
    : `<div class="archive-empty reveal"><p class="archive-code">SIN DATOS DISPONIBLES</p><h2>NO HAY EXPEDIENTES PÚBLICOS.</h2><p>Esta sección permanece vacía o clasificada por el momento.</p></div>`;
- const sectionPage=`${head(`${section.label} | El Archivo | ${site.site_title}`,section.desc)}
+ const sectionPage=`${head(`${section.label} | El Archivo | ${site.site_title}`,section.desc,section.image||'/assets/img/hero.webp')}
  <body class="archive-area">${header('archivo')}${archiveTopNav(section.key)}<main>
- <section class="page-hero compact archive-section-hero">
+ <section class="page-hero compact archive-section-hero${section.image?'':' no-art'}">
    <div class="archive-section-hero-copy">
      <p class="eyebrow">${section.eyebrow}</p>
      <h1>${section.label}</h1>
      <p>${section.desc}</p>
    </div>
-   <div class="archive-section-hero-art reveal" aria-hidden="true"><img src="${section.image}" alt=""></div>
+   ${section.image?`<div class="archive-section-hero-art reveal" aria-hidden="true"><img src="${section.image}" alt=""></div>`:''}
  </section>
  <section class="section archive-section-shell">
    <div class="archive-back-row"><a class="text-link" href="archivo.html">← VOLVER AL ÍNDICE GENERAL</a><span>${String(section.items.length).padStart(2,'0')} EXPEDIENTE${section.items.length===1?'':'S'}</span></div>
@@ -446,4 +502,4 @@ fs.writeFileSync(path.join(DIST,'sobre.html'),about);
 
 // robots + sitemap placeholder
 fs.writeFileSync(path.join(DIST,'robots.txt'),'User-agent: *\\nAllow: /\\n');
-console.log(`Construida web con ${stories.length} relato(s).`);
+console.log(`Construida web con ${stories.length} relato(s) y ${micros.length} microrrelato(s).`);
