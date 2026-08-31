@@ -236,6 +236,16 @@ content:
             label: Nota / descripción
             type: text
             required: false
+      - name: show_police_report
+        label: Mostrar informe policial
+        type: boolean
+        default: false
+        description: "Actívalo para mostrar el informe bajo la galería. Si está desactivado, la sección no aparece ni deja espacio vacío."
+      - name: police_report
+        label: Informe policial
+        type: text
+        required: false
+        description: "Pega aquí el informe respetando párrafos y saltos de línea. Sólo se mostrará si activas la opción anterior."
 
   - name: personajes
     label: Personajes
@@ -355,6 +365,16 @@ content:
             label: Nota / descripción
             type: text
             required: false
+      - name: show_police_report
+        label: Mostrar informe policial
+        type: boolean
+        default: false
+        description: "Actívalo para mostrar el informe bajo la galería. Si está desactivado, la sección no aparece ni deja espacio vacío."
+      - name: police_report
+        label: Informe policial
+        type: text
+        required: false
+        description: "Pega aquí el informe respetando párrafos y saltos de línea. Sólo se mostrará si activas la opción anterior."
 
   - name: conexiones
     label: Conexiones
@@ -463,6 +483,16 @@ content:
             label: Nota / descripción
             type: text
             required: false
+      - name: show_police_report
+        label: Mostrar informe policial
+        type: boolean
+        default: false
+        description: "Actívalo para mostrar el informe bajo la galería. Si está desactivado, la sección no aparece ni deja espacio vacío."
+      - name: police_report
+        label: Informe policial
+        type: text
+        required: false
+        description: "Pega aquí el informe respetando párrafos y saltos de línea. Sólo se mostrará si activas la opción anterior."
 
   - name: configuracion
     label: Configuración del sitio
