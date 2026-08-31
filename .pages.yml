@@ -63,6 +63,66 @@ content:
         label: Texto del relato
         type: rich-text
 
+
+  - name: microrrelatos
+    label: Microrrelatos
+    type: collection
+    path: Aquello_que_nos_Rodea_WEB_CMS_v2/content/microrrelatos
+    format: json
+    filename: "{primary}.json"
+    view:
+      fields: [archive_number, title, published]
+      primary: title
+      sort: [archive_number, title]
+      search: [title, excerpt, archive_number]
+    fields:
+      - name: title
+        label: Título
+        type: string
+        required: true
+      - name: slug
+        label: Dirección web
+        type: string
+        required: true
+        description: "Ejemplo: la-cita. Solo minúsculas, números y guiones."
+        pattern:
+          regex: "^[a-z0-9-]+$"
+          message: "Usa solo minúsculas, números y guiones."
+      - name: archive_number
+        label: Número de micro
+        type: string
+        default: "M-001"
+      - name: published
+        label: Publicado
+        type: boolean
+        default: true
+      - name: reading_time
+        label: Tiempo de lectura
+        type: string
+        default: "< 1 min"
+      - name: excerpt
+        label: Frase / descripción breve
+        type: text
+        description: "Se muestra en la ficha del índice. No reveles el giro."
+      - name: image
+        label: Imagen principal
+        type: image
+        required: false
+      - name: body
+        label: Texto del microrrelato
+        type: rich-text
+        required: true
+      - name: reveal_connections
+        label: Mostrar conexiones al final
+        type: boolean
+        default: false
+        description: "Déjalo desactivado mientras quieras mantener oculto el vínculo con el lore."
+      - name: connections
+        label: Conexiones con el universo
+        type: rich-text
+        required: false
+        description: "Sólo se muestran públicamente si activas la opción anterior."
+
   - name: archivo
     label: El Archivo
     type: collection
