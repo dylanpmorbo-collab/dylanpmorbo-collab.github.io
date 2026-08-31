@@ -56,6 +56,7 @@ function header(active=''){
 <nav class="main-nav">
 <a href="index.html" class="nav-link ${active==='inicio'?'active':''}">Inicio</a>
 <a href="relatos.html" class="nav-link ${active==='relatos'?'active':''}">Relatos</a>
+<a href="archivo-microrrelatos.html" class="nav-link ${active==='microrrelatos'?'active':''}">Microrrelatos</a>
 <a href="archivo.html" class="nav-link ${active==='archivo'?'active':''}">El Archivo</a>
 <a href="sobre.html" class="nav-link ${active==='sobre'?'active':''}">Dylan P. MOЯBO</a>
 </nav></header>`;
@@ -314,7 +315,7 @@ function microEntryPage(section,item){
    ? `<aside class="micro-connections reveal"><p class="archive-code">CONEXIONES DETECTADAS</p><div>${markdownToHTML(item.connections)}</div></aside>`
    : '';
  return `${head(`${title} | Microrrelato | ${site.site_title}`,excerpt,image||'/assets/img/hero.webp')}
- <body class="archive-area micro-story-page">${header('archivo')}${archiveTopNav('microrrelatos')}<main>
+ <body class="archive-area micro-story-page">${header('microrrelatos')}${archiveTopNav('microrrelatos')}<main>
  <section class="micro-story-hero${image?'':' no-image'}">
    <div class="micro-story-heading">
      <p class="eyebrow">MICRORRELATO // ${esc(itemArchiveNumber(item))}</p>
@@ -496,7 +497,7 @@ for(const section of archiveSectionDefs){
    ? `<div class="archive-entry-grid">${section.items.map(item=>archiveEntryCard(section,item)).join('')}</div>`
    : `<div class="archive-empty reveal"><p class="archive-code">SIN DATOS DISPONIBLES</p><h2>NO HAY EXPEDIENTES PÚBLICOS.</h2><p>Esta sección permanece vacía o clasificada por el momento.</p></div>`;
  const sectionPage=`${head(`${section.label} | El Archivo | ${site.site_title}`,section.desc,section.image||'/assets/img/hero.webp')}
- <body class="archive-area">${header('archivo')}${archiveTopNav(section.key)}<main>
+ <body class="archive-area">${header(section.key==='microrrelatos'?'microrrelatos':'archivo')}${archiveTopNav(section.key)}<main>
  <section class="page-hero compact archive-section-hero${section.image?'':' no-art'}">
    <div class="archive-section-hero-copy">
      <p class="eyebrow">${section.eyebrow}</p>
