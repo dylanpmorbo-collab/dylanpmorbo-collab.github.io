@@ -338,3 +338,95 @@
   .archive-gallery-item img{height:auto;max-height:520px}
   .archive-entry-gallery-block{margin-top:68px}
 }
+
+/* =========================================================
+   MICRORRELATOS — ficción breve dentro de EL ARCHIVO
+   ========================================================= */
+.archive-section-hero.no-art{
+  grid-template-columns:minmax(0,920px);
+  justify-content:start;
+}
+.micro-story-page .archive-top-nav{position:absolute}
+.micro-story-hero{
+  min-height:78vh;
+  padding:175px 7vw 78px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(320px,.68fr);
+  gap:6vw;
+  align-items:center;
+  border-bottom:1px solid var(--line);
+  background:
+    radial-gradient(circle at 77% 45%,rgba(173,132,55,.085),transparent 31%),
+    linear-gradient(#080806,#050504);
+}
+.micro-story-hero.no-image{grid-template-columns:minmax(0,900px)}
+.micro-story-heading{max-width:780px}
+.micro-story-heading h1{
+  margin:16px 0 18px;
+  color:#d8c9aa;
+  font:600 clamp(54px,7vw,100px)/.94 var(--display);
+  letter-spacing:.025em;
+}
+.micro-story-excerpt{
+  max-width:700px;
+  margin:0 0 24px;
+  color:#aaa195;
+  font-size:clamp(20px,2vw,27px);
+  line-height:1.4;
+  font-style:italic;
+}
+.micro-story-heading .meta-row{margin:22px 0 28px}
+.micro-story-cover{
+  margin:0;
+  border:1px solid rgba(173,132,55,.25);
+  background:#080706;
+  box-shadow:0 28px 70px rgba(0,0,0,.52);
+}
+.micro-story-cover img{
+  display:block;
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  filter:brightness(.86) saturate(.9);
+}
+.micro-reader{margin-top:92px;margin-bottom:96px}
+.micro-story-text{
+  max-width:760px;
+  font-size:23px;
+  line-height:1.74;
+}
+.micro-story-text p:first-of-type:first-letter{
+  float:none;
+  font:inherit;
+  color:inherit;
+  padding:0;
+}
+.micro-connections{
+  width:min(760px,100%);
+  margin:70px auto 0;
+  padding:22px 26px;
+  border:1px solid rgba(173,132,55,.16);
+  background:rgba(173,132,55,.035);
+}
+.micro-connections .archive-code{margin-top:0}
+.micro-connections p:last-child{margin-bottom:0;color:#8d8578;font-size:16px}
+
+@media(max-width:860px){
+  .archive-section-hero.no-art{display:block!important}
+  .micro-story-hero{
+    display:flex;
+    min-height:auto;
+    flex-direction:column;
+    align-items:stretch;
+    gap:36px;
+    padding:145px 22px 58px;
+  }
+  .micro-story-heading{text-align:left}
+  .micro-story-cover{width:min(100%,520px);align-self:center}
+  .micro-story-text{font-size:20px}
+}
+@media(max-width:520px){
+  .micro-story-heading h1{font-size:48px}
+  .micro-story-excerpt{font-size:19px}
+  .micro-story-text{font-size:19px;line-height:1.68}
+}
