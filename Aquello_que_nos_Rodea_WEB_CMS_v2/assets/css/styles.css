@@ -571,3 +571,17 @@
   .stories-latest-caption strong{font-size:12px}
   .new-badge{font-size:7px;padding:5px 7px 4px}
 }
+
+
+/* REGRESO CONTEXTUAL — solo aparece al entrar desde ARCHIVOS RELACIONADOS */
+.connection-return-tab{position:fixed;left:20px;bottom:20px;z-index:1200;width:min(390px,calc(100vw - 40px));filter:drop-shadow(0 14px 30px rgba(0,0,0,.58));animation:connectionReturnIn .42s ease both}
+.connection-return-link{display:grid;grid-template-columns:44px minmax(0,1fr);align-items:stretch;border:1px solid rgba(208,170,88,.62);background:linear-gradient(145deg,rgba(20,18,13,.97),rgba(7,7,6,.98));backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:inset 0 0 0 1px rgba(208,170,88,.035),inset 0 0 28px rgba(173,132,55,.035);transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease}
+.connection-return-link:before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,rgba(208,170,88,.85),rgba(173,132,55,.2),transparent)}
+.connection-return-link:hover{transform:translateY(-3px);border-color:rgba(224,201,133,.86);box-shadow:0 18px 38px rgba(0,0,0,.42),0 0 25px rgba(173,132,55,.07),inset 0 0 28px rgba(173,132,55,.045)}
+.connection-return-mark{display:grid;place-items:center;border-right:1px solid rgba(173,132,55,.25);background:radial-gradient(circle at center,rgba(173,132,55,.12),rgba(7,7,6,.55));color:var(--gold2);font:400 20px/1 var(--display)}
+.connection-return-copy{min-width:0;display:flex;flex-direction:column;gap:5px;padding:12px 14px 11px}
+.connection-return-copy small{font:600 7px/1.1 var(--display);letter-spacing:.16em;color:#8f846f;text-transform:uppercase}
+.connection-return-copy strong{font:600 11px/1.25 var(--display);letter-spacing:.055em;color:#d0bd8d;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.connection-return-link:hover .connection-return-copy strong{color:#e0c985}
+@keyframes connectionReturnIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media(max-width:600px){.connection-return-tab{left:12px;bottom:12px;width:calc(100vw - 24px)}.connection-return-link{grid-template-columns:40px minmax(0,1fr)}.connection-return-copy{padding:10px 12px}.connection-return-copy strong{font-size:10px}}
