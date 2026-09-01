@@ -145,8 +145,22 @@ function relatedLinkWithReturn(url,sourceHref='',sourceLabel=''){
  const raw=String(url||'').trim();
  const from=String(sourceHref||'').trim();
  if(!raw || !from) return raw;
- // Los enlaces externos no reciben contexto de retorno: esta función es solo para páginas internas del Archivo.
- if(/^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(raw)) return raw;
+
+ // Ignora protocolos que no son páginas web.
+ if(/^(?:mailto:|tel:|javascript:|data:)/i.test(raw)) return raw;
+
+ // Si el enlace se pegó como URL completa, también debe conservar el contexto
+ // cuando apunta a la propia web de Aquello que nos Rodea. La V4 trataba
+ // cualquier https://... como externo y por eso podía desaparecer el botón de vuelta.
+ if(/^(?:https?:)?\/\//i.test(raw)){
+   try{
+     const absolute=raw.startsWith('//')?'https:'+raw:raw;
+     const parsed=new URL(absolute);
+     const host=parsed.hostname.toLowerCase().replace(/^www\./,'');
+     if(host!=='dylanpmorbo-collab.github.io') return raw;
+   }catch(e){ return raw; }
+ }
+
  const hashAt=raw.indexOf('#');
  const hash=hashAt>=0?raw.slice(hashAt):'';
  const base=hashAt>=0?raw.slice(0,hashAt):raw;
