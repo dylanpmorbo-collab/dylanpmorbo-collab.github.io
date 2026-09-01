@@ -98,6 +98,11 @@ content:
             label: Título visible
             type: string
             required: true
+          - name: thumbnail
+            label: Miniatura
+            type: image
+            required: false
+            description: "Opcional. Imagen pequeña que aparecerá dentro de la tarjeta para hacer la conexión más visual."
           - name: url
             label: Enlace
             type: string
@@ -193,6 +198,11 @@ content:
             label: Título visible
             type: string
             required: true
+          - name: thumbnail
+            label: Miniatura
+            type: image
+            required: false
+            description: "Opcional. Imagen pequeña que aparecerá dentro de la tarjeta para hacer la conexión más visual."
           - name: url
             label: Enlace
             type: string
@@ -352,6 +362,11 @@ content:
             label: Título visible
             type: string
             required: true
+          - name: thumbnail
+            label: Miniatura
+            type: image
+            required: false
+            description: "Opcional. Imagen pequeña que aparecerá dentro de la tarjeta para hacer la conexión más visual."
           - name: url
             label: Enlace
             type: string
@@ -516,6 +531,11 @@ content:
             label: Título visible
             type: string
             required: true
+          - name: thumbnail
+            label: Miniatura
+            type: image
+            required: false
+            description: "Opcional. Imagen pequeña que aparecerá dentro de la tarjeta para hacer la conexión más visual."
           - name: url
             label: Enlace
             type: string
