@@ -37,6 +37,16 @@ content:
         label: Publicado
         type: boolean
         default: true
+      - name: published_date
+        label: Fecha de publicación
+        type: date
+        required: false
+        description: "Pon la fecha real de publicación. La etiqueta NOVEDAD se muestra automáticamente durante 7 días y después desaparece sola."
+      - name: show_new_badge
+        label: Mostrar NOVEDAD manualmente
+        type: boolean
+        default: false
+        description: "Opcional. Actívalo para mostrar la etiqueta NOVEDAD aunque no uses fecha. Si indicas una fecha reciente, la etiqueta aparece automáticamente durante 7 días."
       - name: featured
         label: Destacar en portada
         type: boolean
@@ -62,6 +72,41 @@ content:
       - name: body
         label: Texto del relato
         type: rich-text
+      - name: show_related_archive
+        label: Mostrar archivos relacionados
+        type: boolean
+        default: false
+        description: "Actívalo cuando quieras revelar enlaces a expedientes relacionados. Si está desactivado, el bloque no aparece ni deja hueco."
+      - name: related_archive
+        label: Archivos relacionados
+        type: object
+        required: false
+        description: "Opcional. Añade aquí los expedientes que quieras enlazar al final."
+        list:
+          max: 12
+          collapsible:
+            collapsed: true
+            summary: "{type} · {title}"
+        fields:
+          - name: type
+            label: Tipo
+            type: select
+            default: ARCHIVO
+            options:
+              values: [ARCHIVO, RELATO, MICRORRELATO, ENTIDAD, PERSONAJE, LUGAR, PLANO, ORGANIZACIÓN, DOCUMENTO, SUCESO, OTRO]
+          - name: title
+            label: Título visible
+            type: string
+            required: true
+          - name: url
+            label: Enlace
+            type: string
+            required: true
+            description: "Ejemplo: archivo-entidades-sukrahari.html o archivo-documentos-expediente-xxx.html"
+          - name: description
+            label: Descripción breve
+            type: text
+            required: false
 
 
   - name: microrrelatos
@@ -96,6 +141,16 @@ content:
         label: Publicado
         type: boolean
         default: true
+      - name: published_date
+        label: Fecha de publicación
+        type: date
+        required: false
+        description: "Pon la fecha real de publicación. La etiqueta NOVEDAD se muestra automáticamente durante 7 días y después desaparece sola."
+      - name: show_new_badge
+        label: Mostrar NOVEDAD manualmente
+        type: boolean
+        default: false
+        description: "Opcional. Actívalo para mostrar la etiqueta NOVEDAD aunque no uses fecha. Si indicas una fecha reciente, la etiqueta aparece automáticamente durante 7 días."
       - name: reading_time
         label: Tiempo de lectura
         type: string
@@ -112,16 +167,41 @@ content:
         label: Texto del microrrelato
         type: rich-text
         required: true
-      - name: reveal_connections
-        label: Mostrar conexiones al final
+      - name: show_related_archive
+        label: Mostrar archivos relacionados
         type: boolean
         default: false
-        description: "Déjalo desactivado mientras quieras mantener oculto el vínculo con el lore."
-      - name: connections
-        label: Conexiones con el universo
-        type: rich-text
+        description: "Actívalo cuando quieras revelar enlaces a expedientes relacionados. Si está desactivado, el bloque no aparece ni deja hueco."
+      - name: related_archive
+        label: Archivos relacionados
+        type: object
         required: false
-        description: "Sólo se muestran públicamente si activas la opción anterior."
+        description: "Opcional. Añade aquí los expedientes que quieras enlazar al final."
+        list:
+          max: 12
+          collapsible:
+            collapsed: true
+            summary: "{type} · {title}"
+        fields:
+          - name: type
+            label: Tipo
+            type: select
+            default: ARCHIVO
+            options:
+              values: [ARCHIVO, RELATO, MICRORRELATO, ENTIDAD, PERSONAJE, LUGAR, PLANO, ORGANIZACIÓN, DOCUMENTO, SUCESO, OTRO]
+          - name: title
+            label: Título visible
+            type: string
+            required: true
+          - name: url
+            label: Enlace
+            type: string
+            required: true
+            description: "Ejemplo: archivo-entidades-sukrahari.html o archivo-documentos-expediente-xxx.html"
+          - name: description
+            label: Descripción breve
+            type: text
+            required: false
 
   - name: archivo
     label: El Archivo
@@ -246,6 +326,41 @@ content:
         type: text
         required: false
         description: "Pega aquí el informe respetando párrafos y saltos de línea. Sólo se mostrará si activas la opción anterior."
+      - name: show_related_archive
+        label: Mostrar archivos relacionados
+        type: boolean
+        default: false
+        description: "Actívalo cuando quieras revelar enlaces a otros expedientes. Si está desactivado, el bloque no aparece ni deja hueco."
+      - name: related_archive
+        label: Archivos relacionados
+        type: object
+        required: false
+        description: "Opcional. Estos enlaces se muestran al final del expediente cuando activas la opción anterior."
+        list:
+          max: 12
+          collapsible:
+            collapsed: true
+            summary: "{type} · {title}"
+        fields:
+          - name: type
+            label: Tipo
+            type: select
+            default: ARCHIVO
+            options:
+              values: [ARCHIVO, RELATO, MICRORRELATO, ENTIDAD, PERSONAJE, LUGAR, PLANO, ORGANIZACIÓN, DOCUMENTO, SUCESO, OTRO]
+          - name: title
+            label: Título visible
+            type: string
+            required: true
+          - name: url
+            label: Enlace
+            type: string
+            required: true
+            description: "Ejemplo: archivo-entidades-sukrahari.html o archivo-documentos-expediente-xxx.html"
+          - name: description
+            label: Descripción breve
+            type: text
+            required: false
 
   - name: personajes
     label: Personajes
@@ -375,124 +490,41 @@ content:
         type: text
         required: false
         description: "Pega aquí el informe respetando párrafos y saltos de línea. Sólo se mostrará si activas la opción anterior."
-
-  - name: conexiones
-    label: Conexiones
-    type: collection
-    path: Aquello_que_nos_Rodea_WEB_CMS_v2/content/conexiones
-    format: json
-    filename: "{primary}.json"
-    view:
-      fields: [archive_number, title, status, published]
-      primary: title
-      sort: [archive_number, title, status]
-      search: [title, summary, archive_number, status]
-    fields:
-      - name: archive_number
-        label: Número
-        type: string
-        required: true
-      - name: title
-        label: Nombre
-        type: string
-        required: true
-      - name: slug
-        label: Dirección web personalizada
-        type: string
-        required: false
-        description: "Opcional. Si se deja vacío, la web la crea automáticamente a partir del nombre. Usa minúsculas, números y guiones."
-        pattern:
-          regex: "^(?:[a-z0-9-]+)?$"
-          message: "Usa solo minúsculas, números y guiones."
-      - name: status
-        label: Estado
-        type: select
-        default: RESTRINGIDO
-        options:
-          values: [DISPONIBLE, RESTRINGIDO, CORRUPTO, DESCONOCIDO]
-      - name: published
-        label: Publicado
-        type: boolean
-        default: true
-      - name: image
-        label: Imagen principal / miniatura
-        type: image
-        required: false
-      - name: summary
-        label: Resumen para la ficha
-        type: text
-        required: false
-      - name: note
-        label: Nota de archivo
-        type: text
-        required: false
-      - name: facts
-        label: Datos de la ficha
-        type: object
-        required: false
-        list:
-          collapsible:
-            collapsed: true
-            summary: "{label}: {value}"
-        fields:
-          - name: label
-            label: Campo
-            type: string
-          - name: value
-            label: Valor
-            type: string
-      - name: body
-        label: Información principal del expediente
-        type: rich-text
-        required: false
-      - name: sections
-        label: Apartados / información descubierta
-        type: object
-        required: false
-        list:
-          max: 20
-          collapsible:
-            collapsed: true
-            summary: "{title}"
-        fields:
-          - name: title
-            label: Título del apartado
-            type: string
-          - name: body
-            label: Contenido
-            type: rich-text
-      - name: gallery
-        label: Galería del expediente
-        type: object
-        required: false
-        list:
-          max: 10
-          collapsible:
-            collapsed: true
-            summary: "{index} · {caption}"
-        fields:
-          - name: image
-            label: Imagen
-            type: image
-            required: true
-          - name: caption
-            label: Pie de imagen
-            type: string
-            required: false
-          - name: description
-            label: Nota / descripción
-            type: text
-            required: false
-      - name: show_police_report
-        label: Mostrar informe policial
+      - name: show_related_archive
+        label: Mostrar archivos relacionados
         type: boolean
         default: false
-        description: "Actívalo para mostrar el informe bajo la galería. Si está desactivado, la sección no aparece ni deja espacio vacío."
-      - name: police_report
-        label: Informe policial
-        type: text
+        description: "Actívalo cuando quieras revelar enlaces a otros expedientes. Si está desactivado, el bloque no aparece ni deja hueco."
+      - name: related_archive
+        label: Archivos relacionados
+        type: object
         required: false
-        description: "Pega aquí el informe respetando párrafos y saltos de línea. Sólo se mostrará si activas la opción anterior."
+        description: "Opcional. Estos enlaces se muestran al final del expediente cuando activas la opción anterior."
+        list:
+          max: 12
+          collapsible:
+            collapsed: true
+            summary: "{type} · {title}"
+        fields:
+          - name: type
+            label: Tipo
+            type: select
+            default: ARCHIVO
+            options:
+              values: [ARCHIVO, RELATO, MICRORRELATO, ENTIDAD, PERSONAJE, LUGAR, PLANO, ORGANIZACIÓN, DOCUMENTO, SUCESO, OTRO]
+          - name: title
+            label: Título visible
+            type: string
+            required: true
+          - name: url
+            label: Enlace
+            type: string
+            required: true
+            description: "Ejemplo: archivo-entidades-sukrahari.html o archivo-documentos-expediente-xxx.html"
+          - name: description
+            label: Descripción breve
+            type: text
+            required: false
 
   - name: configuracion
     label: Configuración del sitio
