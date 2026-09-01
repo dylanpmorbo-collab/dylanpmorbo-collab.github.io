@@ -101,6 +101,9 @@ function latestPublished(items){
  return items && items.length ? items[items.length-1] : null;
 }
 function newBadge(item){
+ if(item && item.show_new_badge===true){
+   return `<span class="new-badge">NOVEDAD</span>`;
+ }
  const raw=String(item && item.published_date || '').trim();
  if(!/^\d{4}-\d{2}-\d{2}$/.test(raw)) return '';
  return `<span class="new-badge" data-published-date="${esc(raw)}" hidden>NOVEDAD</span>`;
@@ -364,9 +367,6 @@ function microEntryPage(section,item){
  const excerpt=item.excerpt||itemSummary(section,item);
  const image=itemImage(item);
  const body=markdownToHTML(item.body||'');
- const connections=item.reveal_connections===true && item.connections
-   ? `<aside class="micro-connections reveal"><p class="archive-code">CONEXIONES DETECTADAS</p><div>${markdownToHTML(item.connections)}</div></aside>`
-   : '';
  return `${head(`${title} | Microrrelato | ${site.site_title}`,excerpt,image||'/assets/img/hero.webp')}
  <body class="archive-area micro-story-page">${header('microrrelatos')}${archiveTopNav('microrrelatos')}<main>
  <section class="micro-story-hero${image?'':' no-image'}">
@@ -386,7 +386,6 @@ function microEntryPage(section,item){
      ${body}
      <div class="story-end">FIN</div>
    </article>
-   ${connections}
    ${relatedArchiveMarkup(item)}
  </section>
  <section class="post-story reveal">
