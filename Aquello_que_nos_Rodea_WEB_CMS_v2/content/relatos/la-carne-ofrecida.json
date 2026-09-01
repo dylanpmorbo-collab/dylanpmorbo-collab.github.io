@@ -4,7 +4,7 @@
   "archive_number": "001",
   "published": false,
   "published_date": "2026-09-01",
-  "show_new_badge": false,
+  "show_new_badge": true,
   "featured": true,
   "age_restricted": true,
   "reading_time": "16 min aprox.",
