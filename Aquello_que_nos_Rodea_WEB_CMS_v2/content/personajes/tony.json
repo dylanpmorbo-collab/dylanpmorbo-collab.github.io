@@ -4,6 +4,9 @@
   "published": false,
   "image": "/assets/uploads/chatgpt-image-30-ago-2026-005146.png",
   "status": "Documentado",
+  "alias": "Tony",
+  "age": "43",
+  "occupation": "Empresario Multimillonario",
   "summary": "Joven de dieciocho años relacionado con diversos sucesos registrados en el Archivo. Su implicación real permanece parcialmente documentada.",
   "show_police_report": false
 }
