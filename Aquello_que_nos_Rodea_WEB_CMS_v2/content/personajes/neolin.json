@@ -2,7 +2,7 @@
   "name": "Neolin",
   "archive_number": "P-001",
   "published": true,
-  "image": "/assets/uploads/Foto_de_archivo_0002.png",
+  "image": "/assets/uploads/personajes/imagen-de-archivo-neolin-0001.png",
   "status": "Investigando",
   "alias": "Neolin",
   "age": "Desconocida",
@@ -10,21 +10,22 @@
   "summary": "¿Quién es este hombre?",
   "gallery": [
     {
-      "image": "/assets/uploads/Imagen_de_archivo.png",
+      "image": "/assets/uploads/personajes/8-de-mayo-de-1945-celebraciones-del-dia-de-la-victoria-en-europa-ve-day-londrespng.png",
       "caption": "8 de mayo de 1945 — Celebraciones del Día de la Victoria en Europa (VE Day), Londres."
     },
     {
-      "image": "/assets/uploads/22 de noviembre de 1963 — Visita de John F. Kennedy a Dallas, el día de su asesinato..png",
+      "image": "/assets/uploads/personajes/22-de-noviembre-de-1963-visita-de-john-f-kennedy-a-dallas-el-dia-de-su-asesinato.png",
       "caption": "22 de noviembre de 1963 — Visita de John F. Kennedy a Dallas, el día de su asesinato."
     },
     {
-      "image": "/assets/uploads/15 de octubre de 1940 — Estreno de El gran dictador de Charlie Chaplin, en Hollywood..png",
+      "image": "/assets/uploads/personajes/15-de-octubre-de-1940-estreno-de-el-gran-dictador-de-charlie-chaplin-en-hollywood.png",
       "caption": "15 de octubre de 1940 — Estreno de El gran dictador de Charlie Chaplin, en Hollywood."
     },
     {
-      "image": "/assets/uploads/1 de diciembre de 2002 — Manifestación de Nunca Máis en Galicia tras la catástrofe del Prestige..png",
+      "image": "/assets/uploads/personajes/1 de diciembre de 2002 — Manifestación de Nunca Máis en Galicia tras la catástrofe del Prestige..png",
       "caption": "1 de diciembre de 2002 — Manifestación de Nunca Máis en Galicia tras la catástrofe del Prestige."
     }
   ],
-  "show_police_report": false
+  "show_police_report": false,
+  "show_related_archive": false
 }
