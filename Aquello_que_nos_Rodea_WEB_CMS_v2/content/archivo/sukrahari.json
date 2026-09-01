@@ -3,7 +3,6 @@
   "archive_number": "001",
   "category": "ENTIDAD",
   "published": false,
-  "image": "/assets/uploads/designer-8-2.png",
   "status": "Documentado",
   "summary": "Ser de apariencia híbrida entre rata y primate. La información disponible procede de testimonios incompletos y de individuos vinculados a LA PLAGA.",
   "note": "Información adicional bloqueada hasta que el archivo narrativo la revele.",
@@ -19,11 +18,16 @@
     {
       "label": "Patrón",
       "value": "████████████████"
+    },
+    {
+      "label": "Alimentación",
+      "value": "Energía vital que extraen de sus víctimas masculinas produciéndoles un placer sobrenatural."
     }
   ],
   "gallery": [
     {
       "image": "/assets/uploads/designer-10.png"
     }
-  ]
+  ],
+  "show_police_report": false
 }
