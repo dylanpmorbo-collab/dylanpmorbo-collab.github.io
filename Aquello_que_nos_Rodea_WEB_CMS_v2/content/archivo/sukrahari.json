@@ -27,7 +27,15 @@
   ],
   "gallery": [
     {
-      "image": "/assets/uploads/\t Śukrahārī_0001.png"
+      "image": "/assets/uploads/archivo/designer-18.png",
+      "caption": "¿Qué planean?"
+    },
+    {
+      "image": "/assets/uploads/archivo/sukrahari0004.png",
+      "caption": "¿Nos ha visto?"
+    },
+    {
+      "image": "/assets/uploads/archivo/sukrahari_esquema.png"
     }
   ],
   "show_police_report": false,
