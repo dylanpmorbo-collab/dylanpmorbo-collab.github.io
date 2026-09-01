@@ -2,7 +2,7 @@
   "name": "Tony Delgado [FICHA DE 2000]",
   "archive_number": "P-001",
   "published": true,
-  "image": "/assets/uploads/Tony_Delgado Foto de archivo 0003.png",
+  "image": "/assets/uploads/personajes/foto-archivo-tony-delgado-0001.png",
   "status": "Documentado",
   "alias": "Tony",
   "age": "18",
@@ -14,11 +14,12 @@
   ],
   "gallery": [
     {
-      "image": "/assets/uploads/Tony_Delgado Foto de archivo 0002.png"
+      "image": "/assets/uploads/personajes/foto-de-archivo-tony-delgado-0002.png"
     },
     {
-      "image": "/assets/uploads/Tony_Delgado foto de archivo.png"
+      "image": "/assets/uploads/personajes/foto-de-archivo-tony-delgado-0003.png"
     }
   ],
-  "show_police_report": false
+  "show_police_report": false,
+  "show_related_archive": false
 }
