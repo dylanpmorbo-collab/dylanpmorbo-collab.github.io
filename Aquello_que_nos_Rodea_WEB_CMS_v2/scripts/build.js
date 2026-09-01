@@ -41,6 +41,14 @@ function plainTextToHTML(src=''){
 function head(title, desc, image='/assets/img/hero.webp'){
  return `<!doctype html><html lang="es"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KSM55EYY2L"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-KSM55EYY2L');
+</script>
 <title>${esc(title)}</title><meta name="description" content="${esc(desc)}">
 <meta name="theme-color" content="#070706"><meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}"><meta property="og:type" content="website">
