@@ -115,14 +115,28 @@ function relatedArchiveMarkup(item){
    .filter(x=>x && x.title && x.url);
  if(!related.length) return '';
  return `<section class="related-archive-block reveal" aria-label="Archivos relacionados">
-   <div class="section-label">ARCHIVOS RELACIONADOS // ${String(related.length).padStart(2,'0')}</div>
+   <div class="related-archive-heading">
+     <div>
+       <p class="related-archive-kicker">TRAZAS DETECTADAS</p>
+       <div class="section-label">ARCHIVOS RELACIONADOS // ${String(related.length).padStart(2,'0')}</div>
+     </div>
+     <span class="related-archive-sigil" aria-hidden="true">◉</span>
+   </div>
    <div class="related-archive-grid">
-     ${related.map(link=>`<a class="related-archive-card" href="${esc(link.url)}">
-       <p class="archive-code">${esc(link.type||'ARCHIVO')}</p>
-       <h3>${esc(link.title)}</h3>
-       ${link.description?`<p>${esc(link.description)}</p>`:''}
-       <span>ABRIR ARCHIVO →</span>
-     </a>`).join('')}
+     ${related.map(link=>{
+       const thumb=String(link.thumbnail||link.image||'').trim();
+       return `<a class="related-archive-card${thumb?' has-thumbnail':''}" href="${esc(link.url)}">
+         <div class="related-archive-media">
+           ${thumb?`<img src="${esc(thumb)}" alt="" loading="lazy">`:`<span class="related-archive-placeholder" aria-hidden="true">◉</span>`}
+           <span class="related-archive-type">${esc(link.type||'ARCHIVO')}</span>
+         </div>
+         <div class="related-archive-copy">
+           <h3>${esc(link.title)}</h3>
+           ${link.description?`<p>${esc(link.description)}</p>`:''}
+           <span class="related-archive-open">CONSULTAR EXPEDIENTE <b aria-hidden="true">→</b></span>
+         </div>
+       </a>`;
+     }).join('')}
    </div>
  </section>`;
 }
