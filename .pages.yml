@@ -35,6 +35,12 @@ media:
     output: /assets/uploads/interfaz
     rename: safe
     categories: [image]
+  - name: conexiones
+    label: Miniaturas de conexiones
+    input: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads/conexiones
+    output: /assets/uploads/conexiones
+    rename: safe
+    categories: [image]
 
 content:
   - name: relatos
@@ -139,7 +145,7 @@ content:
             type: image
             required: false
             options:
-              media: relatos
+              media: conexiones
             description: "Opcional. Imagen pequeña que aparecerá dentro de la tarjeta para hacer la conexión más visual."
           - name: url
             label: Enlace
@@ -245,7 +251,7 @@ content:
             type: image
             required: false
             options:
-              media: microrrelatos
+              media: conexiones
             description: "Opcional. Imagen pequeña que aparecerá dentro de la tarjeta para hacer la conexión más visual."
           - name: url
             label: Enlace
@@ -419,7 +425,7 @@ content:
             type: image
             required: false
             options:
-              media: archivo
+              media: conexiones
             description: "Opcional. Imagen pequeña que aparecerá dentro de la tarjeta para hacer la conexión más visual."
           - name: url
             label: Enlace
@@ -598,7 +604,7 @@ content:
             type: image
             required: false
             options:
-              media: personajes
+              media: conexiones
             description: "Opcional. Imagen pequeña que aparecerá dentro de la tarjeta para hacer la conexión más visual."
           - name: url
             label: Enlace
