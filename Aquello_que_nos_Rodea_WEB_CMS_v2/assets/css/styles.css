@@ -500,3 +500,59 @@
   .archive-police-report:after{right:18px;top:17px;font-size:8px}
   .archive-police-report-heading{padding-right:92px}
 }
+
+/* RELATOS Y MICRORRELATOS — enlaces a expedientes relacionados */
+.related-archive-block{margin:80px 0 10px;padding-top:8px}
+.related-archive-block .section-label{margin-bottom:26px}
+.related-archive-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.related-archive-card{min-height:190px;border:1px solid var(--line);background:linear-gradient(145deg,#0e0d0b,#090806);padding:24px;display:flex;flex-direction:column;align-items:flex-start;transition:transform .22s,border-color .22s,background .22s;position:relative;overflow:hidden}
+.related-archive-card:before{content:"";position:absolute;width:120px;height:120px;border:1px solid rgba(173,132,55,.08);border-radius:50%;right:-52px;top:-52px;box-shadow:0 0 0 24px rgba(173,132,55,.018)}
+.related-archive-card:hover{transform:translateY(-2px);border-color:rgba(208,170,88,.58);background:linear-gradient(145deg,#12100d,#090806)}
+.related-archive-card h3{font:600 19px/1.18 var(--display);letter-spacing:.02em;color:#c8b486;margin:12px 0 11px;position:relative;z-index:1}
+.related-archive-card>p:not(.archive-code){font-size:16px;line-height:1.45;color:#91897d;margin:0 0 20px;position:relative;z-index:1}
+.related-archive-card>span{margin-top:auto;font:600 9px/1 var(--display);letter-spacing:.14em;color:var(--gold2);position:relative;z-index:1}
+.related-archive-card .archive-code{position:relative;z-index:1;margin:0}
+@media(max-width:860px){.related-archive-block{margin-top:58px}.related-archive-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.related-archive-grid{grid-template-columns:1fr}.related-archive-card{min-height:160px}}
+
+
+/* ===== NOVEDAD — etiqueta automática durante 7 días ===== */
+.story-label-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.story-label-row .archive-code,.story-label-row .eyebrow{margin:0}
+.new-badge{display:inline-flex;align-items:center;justify-content:center;padding:6px 9px 5px;border:1px solid rgba(208,170,88,.55);background:linear-gradient(180deg,rgba(173,132,55,.15),rgba(173,132,55,.055));box-shadow:inset 0 0 18px rgba(208,170,88,.035);color:var(--gold2);font:600 8px/1 var(--display);letter-spacing:.17em;text-transform:uppercase;white-space:nowrap}
+.new-badge:before{content:"◆";font-size:6px;margin-right:7px;color:var(--gold)}
+.new-badge[hidden]{display:none!important}
+.archive-entry-card-top .new-badge{margin-left:auto}
+.archive-entry-card-top .new-badge+.archive-entry-status{margin-left:0}
+
+/* ===== RELATOS — portada del último relato publicado ===== */
+.stories-page-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,360px);align-items:center;gap:clamp(42px,7vw,100px);min-height:70vh;padding-right:max(5vw,42px)}
+.stories-page-hero-copy{align-self:center;max-width:760px!important}
+.stories-latest{justify-self:end;width:min(340px,29vw);position:relative;padding:14px 14px 18px;background:linear-gradient(145deg,#11100d,#080706);border:1px solid rgba(173,132,55,.42);box-shadow:0 28px 70px rgba(0,0,0,.58),inset 0 0 40px rgba(173,132,55,.025);transform:rotate(.45deg);transition:transform .28s,border-color .28s,box-shadow .28s}
+.stories-latest:hover{transform:rotate(0deg) translateY(-3px);border-color:rgba(208,170,88,.72);box-shadow:0 32px 80px rgba(0,0,0,.65),inset 0 0 42px rgba(173,132,55,.04)}
+.stories-latest:before,.stories-latest:after{content:"";position:absolute;width:34px;height:34px;pointer-events:none}
+.stories-latest:before{left:-1px;top:-1px;border-left:2px solid var(--gold);border-top:2px solid var(--gold)}
+.stories-latest:after{right:-1px;bottom:-1px;border-right:2px solid var(--gold);border-bottom:2px solid var(--gold)}
+.stories-latest-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 2px 11px;color:#81796d;font:600 8px/1.25 var(--display);letter-spacing:.14em;text-transform:uppercase}
+.stories-latest-cover{display:block;position:relative;padding:7px;border:1px solid rgba(173,132,55,.26);background:#050504;overflow:hidden}
+.stories-latest-cover:after{content:"";position:absolute;inset:7px;box-shadow:inset 0 0 45px rgba(0,0,0,.38);pointer-events:none}
+.stories-latest-cover img{display:block;width:100%;aspect-ratio:2/3;object-fit:cover;transition:transform .55s,filter .55s;filter:brightness(.9) contrast(1.03)}
+.stories-latest:hover .stories-latest-cover img{transform:scale(1.018);filter:brightness(.98) contrast(1.03)}
+.stories-latest-caption{display:flex;flex-direction:column;gap:7px;padding:15px 3px 0}
+.stories-latest-caption strong{font:600 14px/1.25 var(--display);letter-spacing:.055em;color:#c8b486}
+.stories-latest-caption span{font:600 8px/1 var(--display);letter-spacing:.14em;color:var(--gold2)}
+
+/* Los enlaces relacionados ya no pertenecen sólo a relatos: se usan en cualquier expediente. */
+.archive-entry-shell>.related-archive-block{margin-top:78px}
+
+@media(max-width:860px){
+  .stories-page-hero{display:flex;flex-direction:column;align-items:flex-start;gap:38px;min-height:auto;padding:125px 22px 60px}
+  .stories-latest{width:min(330px,82vw);align-self:center;justify-self:auto}
+  .stories-page-hero-copy{width:100%}
+  .story-label-row{gap:10px}
+}
+@media(max-width:520px){
+  .stories-latest{width:min(300px,88vw);padding:11px 11px 15px}
+  .stories-latest-caption strong{font-size:12px}
+  .new-badge{font-size:7px;padding:5px 7px 4px}
+}
