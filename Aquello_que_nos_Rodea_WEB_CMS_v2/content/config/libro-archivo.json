@@ -6,7 +6,7 @@
     {
       "label": "Śukrahārī — estudio anatómico",
       "image": "/assets/uploads/interfaz/chatgpt-image-1-sept-2026-220945.png",
-      "enabled": false,
+      "enabled": true,
       "first": false,
       "fixed": false
     },
@@ -14,7 +14,7 @@
       "label": "Mānavakṣetra — Registro de Carne",
       "image": "/assets/uploads/interfaz/chatgpt-image-1-sept-2026-221009.png",
       "enabled": false,
-      "first": false,
+      "first": true,
       "fixed": false
     },
     {
