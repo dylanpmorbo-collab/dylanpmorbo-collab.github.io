@@ -2,7 +2,7 @@
   "name": "Tony Delgado [FICHA DE 2000]",
   "archive_number": "P-001",
   "published": true,
-  "image": "/assets/uploads/designer.png",
+  "image": "/assets/uploads/Tony_Delgado Foto de archivo 0003.png",
   "status": "Documentado",
   "alias": "Tony",
   "age": "18",
@@ -14,11 +14,10 @@
   ],
   "gallery": [
     {
-      "image": "/assets/uploads/chatgpt-image-1-sept-2026-055511.png"
+      "image": "/assets/uploads/Tony_Delgado Foto de archivo 0002.png"
     },
-    {},
     {
-      "image": "/assets/uploads/chatgpt-image-30-ago-2026-005146-1.png"
+      "image": "/assets/uploads/Tony_Delgado foto de archivo.png"
     }
   ],
   "show_police_report": false
