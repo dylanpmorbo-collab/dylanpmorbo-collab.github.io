@@ -524,7 +524,7 @@
 .related-archive-copy{min-width:0;padding:24px 24px 21px;display:flex;flex-direction:column;align-items:flex-start;position:relative;z-index:1}
 .related-archive-copy h3{font:600 19px/1.18 var(--display);letter-spacing:.025em;color:#d0bd8d;margin:0 0 12px;transition:color .22s ease}
 .related-archive-card:hover .related-archive-copy h3{color:#e0c985}
-.related-archive-copy p{font-size:15px;line-height:1.48;color:#9a9184;margin:0 0 18px}
+.related-archive-copy p{font-size:15px;line-height:1.48;color:#9a9184;margin:0 0 18px;white-space:pre-line;overflow-wrap:anywhere}
 .related-archive-open{margin-top:auto;padding-top:13px;border-top:1px solid rgba(173,132,55,.16);width:100%;font:600 8px/1.2 var(--display);letter-spacing:.15em;color:var(--gold2);text-transform:uppercase}
 .related-archive-open b{font-size:12px;font-weight:400;margin-left:4px;transition:margin-left .22s ease}
 .related-archive-card:hover .related-archive-open b{margin-left:9px}
