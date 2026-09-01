@@ -1,8 +1,9 @@
 {
-  "name": "Tony",
+  "name": "Tony Delgado",
   "archive_number": "P-001",
   "published": false,
   "image": "/assets/uploads/chatgpt-image-30-ago-2026-005146.png",
   "status": "Documentado",
-  "summary": "Joven de dieciocho años relacionado con diversos sucesos registrados en el Archivo. Su implicación real permanece parcialmente documentada."
+  "summary": "Joven de dieciocho años relacionado con diversos sucesos registrados en el Archivo. Su implicación real permanece parcialmente documentada.",
+  "show_police_report": false
 }
