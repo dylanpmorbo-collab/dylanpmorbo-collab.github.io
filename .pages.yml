@@ -1,4 +1,10 @@
 media:
+  - name: default
+    label: Todos los medios
+    input: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads
+    output: /assets/uploads
+    rename: safe
+    categories: [image]
   - name: relatos
     label: Relatos
     input: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads/relatos
