@@ -1,8 +1,34 @@
 media:
-  input: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads
-  output: /assets/uploads
-  rename: safe
-  categories: [image]
+  - name: relatos
+    label: Relatos
+    input: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads/relatos
+    output: /assets/uploads/relatos
+    rename: safe
+    categories: [image]
+  - name: microrrelatos
+    label: Microrrelatos
+    input: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads/microrrelatos
+    output: /assets/uploads/microrrelatos
+    rename: safe
+    categories: [image]
+  - name: archivo
+    label: El Archivo
+    input: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads/archivo
+    output: /assets/uploads/archivo
+    rename: safe
+    categories: [image]
+  - name: personajes
+    label: Personajes
+    input: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads/personajes
+    output: /assets/uploads/personajes
+    rename: safe
+    categories: [image]
+  - name: interfaz
+    label: Interfaz y libro
+    input: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads/interfaz
+    output: /assets/uploads/interfaz
+    rename: safe
+    categories: [image]
 
 content:
   - name: relatos
@@ -65,6 +91,8 @@ content:
       - name: cover
         label: Portada
         type: image
+        options:
+          media: relatos
       - name: content_warning
         label: Advertencia de contenido
         type: text
@@ -72,6 +100,8 @@ content:
       - name: body
         label: Texto del relato
         type: rich-text
+        options:
+          media: relatos
       - name: show_related_archive
         label: Mostrar archivos relacionados
         type: boolean
@@ -102,6 +132,8 @@ content:
             label: Miniatura
             type: image
             required: false
+            options:
+              media: relatos
             description: "Opcional. Imagen pequeña que aparecerá dentro de la tarjeta para hacer la conexión más visual."
           - name: url
             label: Enlace
@@ -168,10 +200,14 @@ content:
         label: Imagen principal
         type: image
         required: false
+        options:
+          media: microrrelatos
       - name: body
         label: Texto del microrrelato
         type: rich-text
         required: true
+        options:
+          media: microrrelatos
       - name: show_related_archive
         label: Mostrar archivos relacionados
         type: boolean
@@ -202,6 +238,8 @@ content:
             label: Miniatura
             type: image
             required: false
+            options:
+              media: microrrelatos
             description: "Opcional. Imagen pequeña que aparecerá dentro de la tarjeta para hacer la conexión más visual."
           - name: url
             label: Enlace
@@ -255,6 +293,8 @@ content:
         label: Imagen principal / miniatura
         type: image
         required: false
+        options:
+          media: archivo
         description: "Aparece en la ficha resumida y en la cabecera del expediente completo."
       - name: status
         label: Estado
@@ -287,6 +327,8 @@ content:
         label: Información principal del expediente
         type: rich-text
         required: false
+        options:
+          media: archivo
         description: "Aquí va la información extensa que sólo aparece al abrir el expediente completo."
       - name: sections
         label: Apartados / información descubierta
@@ -304,6 +346,8 @@ content:
           - name: body
             label: Contenido
             type: rich-text
+            options:
+              media: archivo
       - name: gallery
         label: Galería del expediente
         type: object
@@ -318,6 +362,8 @@ content:
             label: Imagen
             type: image
             required: true
+            options:
+              media: archivo
           - name: caption
             label: Pie de imagen
             type: string
@@ -366,6 +412,8 @@ content:
             label: Miniatura
             type: image
             required: false
+            options:
+              media: archivo
             description: "Opcional. Imagen pequeña que aparecerá dentro de la tarjeta para hacer la conexión más visual."
           - name: url
             label: Enlace
@@ -414,6 +462,8 @@ content:
         label: Imagen principal / miniatura
         type: image
         required: false
+        options:
+          media: personajes
       - name: status
         label: Estado
         type: string
@@ -457,6 +507,8 @@ content:
         label: Información principal del expediente
         type: rich-text
         required: false
+        options:
+          media: personajes
       - name: sections
         label: Apartados / información descubierta
         type: object
@@ -473,6 +525,8 @@ content:
           - name: body
             label: Contenido
             type: rich-text
+            options:
+              media: personajes
       - name: gallery
         label: Galería del expediente
         type: object
@@ -487,6 +541,8 @@ content:
             label: Imagen
             type: image
             required: true
+            options:
+              media: personajes
           - name: caption
             label: Pie de imagen
             type: string
@@ -535,6 +591,8 @@ content:
             label: Miniatura
             type: image
             required: false
+            options:
+              media: personajes
             description: "Opcional. Imagen pequeña que aparecerá dentro de la tarjeta para hacer la conexión más visual."
           - name: url
             label: Enlace
@@ -589,6 +647,8 @@ content:
       - name: book_image
         label: Imagen del libro
         type: image
+        options:
+          media: interfaz
         description: "PNG del libro abierto. Si lo cambias por otro con la misma composición, las páginas seguirán encajando automáticamente."
       - name: random_mode
         label: Modo aleatorio
@@ -611,6 +671,8 @@ content:
             label: Imagen PNG
             type: image
             required: true
+            options:
+              media: interfaz
           - name: enabled
             label: Mostrar esta imagen
             type: boolean
