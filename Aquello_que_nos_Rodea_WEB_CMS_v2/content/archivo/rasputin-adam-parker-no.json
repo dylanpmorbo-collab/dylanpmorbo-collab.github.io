@@ -3,16 +3,16 @@
   "archive_number": "002",
   "category": "DOCUMENTO",
   "published": true,
-  "image": "/assets/uploads/chatgpt-image-31-ago-2026-175431.png",
+  "image": "/assets/uploads/fotopolicial0004.png",
   "status": "Documentado",
   "summary": "El hallazgo de unos recortes de prensa en el registro de un almacén del Puerto de Barcelona.",
   "gallery": [
     {
-      "image": "/assets/uploads/chatgpt-image-31-ago-2026-161743-3-1.png",
+      "image": "/assets/uploads/Recorte_de_prensa_0004.png",
       "caption": "Natasha 001"
     },
     {
-      "image": "/assets/uploads/chatgpt-image-31-ago-2026-161744-4-1.png",
+      "image": "/assets/uploads/Recorte_de_prensa_0005.png",
       "caption": "Natasha 002"
     },
     {
@@ -20,16 +20,20 @@
       "caption": "¿Amputación?"
     },
     {
-      "image": "/assets/uploads/chatgpt-image-31-ago-2026-161743-1.png",
+      "image": "/assets/uploads/Recorte_de_prensa_0002.png",
       "caption": "¿Suicidio?"
     },
     {
-      "image": "/assets/uploads/chatgpt-image-1-sept-2026-020205.png",
+      "image": "/assets/uploads/Recorte_de_prensa_0003.png",
       "caption": "¿Qué tiene que ver Tony Delgado con Rasputín?"
     },
     {
-      "image": "/assets/uploads/chatgpt-image-1-sept-2026-051907.png",
+      "image": "/assets/uploads/Tony_campeon.png",
       "caption": "No encuentro la relación."
+    },
+    {
+      "image": "/assets/uploads/Recorte_de_prensa_0001.png",
+      "caption": "Otra vez Tony Delgado"
     }
   ],
   "show_police_report": true,
