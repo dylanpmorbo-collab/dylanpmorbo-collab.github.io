@@ -293,7 +293,7 @@ for(const s of stories){
  <h1>${esc(s.title).toUpperCase()}</h1><p class="byline">por <strong>${esc(site.author)}</strong></p>
  <div class="meta-row"><span>${wc.toLocaleString('es-ES')} palabras</span><span>${esc(s.reading_time)}</span></div>
  <a class="btn primary" href="#relato">Comenzar lectura</a></div></section>${warning}
- <section class="reader-shell" id="relato"><aside class="reader-tools"><button data-reader="minus">A−</button><button data-reader="plus">A+</button><button data-reader="focus">◐</button></aside>
+ <section class="reader-shell" id="relato"><aside class="reader-tools"><button data-reader="minus">A−</button><button data-reader="plus">A+</button></aside>
  <article class="story-text"><div class="story-marker">ARCHIVO ${esc(s.archive_number)}</div>${markdownToHTML(s.body)}<div class="story-end">FIN</div></article>
  ${relatedArchiveMarkup(s,`relato-${s.slug}.html`,s.title)}
  </section>
@@ -453,7 +453,7 @@ function microEntryPage(section,item){
    ${image?`<figure class="micro-story-cover reveal"><img src="${esc(image)}" alt="Ilustración de ${esc(title)}"></figure>`:''}
  </section>
  <section class="reader-shell micro-reader" id="lectura">
-   <aside class="reader-tools"><button data-reader="minus" aria-label="Reducir texto">A−</button><button data-reader="plus" aria-label="Aumentar texto">A+</button><button data-reader="focus" aria-label="Modo lectura">◐</button></aside>
+   <aside class="reader-tools"><button data-reader="minus" aria-label="Reducir texto">A−</button><button data-reader="plus" aria-label="Aumentar texto">A+</button></aside>
    <article class="story-text micro-story-text">
      <div class="story-marker">MICRORRELATO // ${esc(itemArchiveNumber(item))}</div>
      ${body}
