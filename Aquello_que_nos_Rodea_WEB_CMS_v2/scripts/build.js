@@ -55,7 +55,18 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css"><script defer src="assets/js/main.js"></script></head>`;
+<link rel="stylesheet" href="assets/css/styles.css"><script defer src="assets/js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('[data-published-date]').forEach(function(el){
+    const raw=el.getAttribute('data-published-date');
+    const start=raw?new Date(raw+'T00:00:00'):null;
+    if(!start || Number.isNaN(start.getTime())){el.hidden=true;return;}
+    const age=Date.now()-start.getTime();
+    el.hidden=age<0 || age>=7*24*60*60*1000;
+  });
+});
+</script></head>`;
 }
 function header(active=''){
  return `<div class="grain" aria-hidden="true"></div><header class="site-header">
@@ -77,6 +88,41 @@ function footer(site){
 <p class="footer-small">© 2026 ${esc(site.author)}. Todos los derechos reservados.</p></footer>`;
 }
 function wordCount(s){return String(s).trim().split(/\s+/).filter(Boolean).length;}
+
+function publicationTimestamp(item){
+ const raw=String(item && item.published_date || '').trim();
+ if(!raw) return null;
+ const value=Date.parse(/^\d{4}-\d{2}-\d{2}$/.test(raw)?`${raw}T00:00:00`:raw);
+ return Number.isFinite(value)?value:null;
+}
+function latestPublished(items){
+ const dated=(Array.isArray(items)?items:[]).filter(x=>publicationTimestamp(x)!==null);
+ if(dated.length) return dated.slice().sort((a,b)=>publicationTimestamp(a)-publicationTimestamp(b))[dated.length-1];
+ return items && items.length ? items[items.length-1] : null;
+}
+function newBadge(item){
+ const raw=String(item && item.published_date || '').trim();
+ if(!/^\d{4}-\d{2}-\d{2}$/.test(raw)) return '';
+ return `<span class="new-badge" data-published-date="${esc(raw)}" hidden>NOVEDAD</span>`;
+}
+
+function relatedArchiveMarkup(item){
+ if(!item || item.show_related_archive!==true) return '';
+ const related=(Array.isArray(item.related_archive)?item.related_archive:[])
+   .filter(x=>x && x.title && x.url);
+ if(!related.length) return '';
+ return `<section class="related-archive-block reveal" aria-label="Archivos relacionados">
+   <div class="section-label">ARCHIVOS RELACIONADOS // ${String(related.length).padStart(2,'0')}</div>
+   <div class="related-archive-grid">
+     ${related.map(link=>`<a class="related-archive-card" href="${esc(link.url)}">
+       <p class="archive-code">${esc(link.type||'ARCHIVO')}</p>
+       <h3>${esc(link.title)}</h3>
+       ${link.description?`<p>${esc(link.description)}</p>`:''}
+       <span>ABRIR ARCHIVO →</span>
+     </a>`).join('')}
+   </div>
+ </section>`;
+}
 
 if(fs.existsSync(DIST)) fs.rmSync(DIST,{recursive:true,force:true});
 fs.mkdirSync(DIST,{recursive:true});
@@ -106,13 +152,6 @@ const characters=fs.existsSync(characterDir)
     .sort((a,b)=>String(a.archive_number).localeCompare(String(b.archive_number),undefined,{numeric:true}) || String(a.name).localeCompare(String(b.name)))
  : [];
 
-const connectionsDir=path.join(ROOT,'content/conexiones');
-const connections=fs.existsSync(connectionsDir)
- ? fs.readdirSync(connectionsDir).filter(x=>x.endsWith('.json')).map(x=>readJSON(path.join(connectionsDir,x)))
-    .filter(x=>x.published!==false)
-    .sort((a,b)=>String(a.archive_number).localeCompare(String(b.archive_number),undefined,{numeric:true}))
- : [];
-
 const microDir=path.join(ROOT,'content/microrrelatos');
 const micros=fs.existsSync(microDir)
  ? fs.readdirSync(microDir).filter(x=>x.endsWith('.json')).map(x=>readJSON(path.join(microDir,x)))
@@ -121,6 +160,7 @@ const micros=fs.existsSync(microDir)
  : [];
 
 const featured=stories.find(s=>s.featured)||stories[0];
+const latestStory=latestPublished(stories);
 
 // HOME
 const home = `${head(`${site.site_title} | ${site.author}`,site.tagline)}<body class="home">${header('inicio')}<main>
@@ -134,7 +174,7 @@ const home = `${head(`${site.site_title} | ${site.author}`,site.tagline)}<body c
 <div><p>${esc(site.intro_text)}</p><p>${esc(site.intro_text_2)}</p></div></div></section>
 ${featured?`<section class="section feature reveal"><div class="section-label">02 // RELATO DESTACADO</div><div class="feature-card">
 <a class="feature-image" href="relato-${esc(featured.slug)}.html"><img src="${esc(featured.cover)}" alt="Portada de ${esc(featured.title)}"></a>
-<div class="feature-copy"><p class="archive-code">ARCHIVO ${esc(featured.archive_number)}${featured.age_restricted?' · +18':''}</p>
+<div class="feature-copy"><div class="story-label-row"><p class="archive-code">ARCHIVO ${esc(featured.archive_number)}${featured.age_restricted?' · +18':''}</p>${newBadge(featured)}</div>
 <h2>${esc(featured.title).toUpperCase()}</h2><p>${esc(featured.excerpt)}</p>
 <div class="meta-row"><span>Relato completo</span><span>Lectura: ${esc(featured.reading_time)}</span></div>
 <a class="text-link" href="relato-${esc(featured.slug)}.html">ABRIR EL EXPEDIENTE →</a></div></div></section>`:''}
@@ -146,12 +186,17 @@ fs.writeFileSync(path.join(DIST,'index.html'),home);
 // STORIES LIST
 const rows=stories.map(s=>`<article class="story-row">
 <a class="story-thumb" href="relato-${esc(s.slug)}.html"><img src="${esc(s.cover)}" alt="Portada de ${esc(s.title)}"></a>
-<div class="story-info"><p class="archive-code">ARCHIVO ${esc(s.archive_number)}${s.age_restricted?' · +18':''}</p>
+<div class="story-info"><div class="story-label-row"><p class="archive-code">ARCHIVO ${esc(s.archive_number)}${s.age_restricted?' · +18':''}</p>${newBadge(s)}</div>
 <h2><a href="relato-${esc(s.slug)}.html">${esc(s.title).toUpperCase()}</a></h2>
 <p>${esc(s.excerpt)}</p><div class="meta-row"><span>${wordCount(s.body).toLocaleString('es-ES')} palabras</span><span>${esc(s.reading_time)}</span></div>
 <a class="text-link" href="relato-${esc(s.slug)}.html">ABRIR EXPEDIENTE →</a></div></article>`).join('');
+const latestStorySpotlight=latestStory && latestStory.cover ? `<a class="stories-latest reveal" href="relato-${esc(latestStory.slug)}.html" aria-label="Abrir el último relato publicado: ${esc(latestStory.title)}">
+  <div class="stories-latest-top"><span>ÚLTIMO RELATO PUBLICADO</span>${newBadge(latestStory)}</div>
+  <div class="stories-latest-cover"><img src="${esc(latestStory.cover)}" alt="Portada de ${esc(latestStory.title)}"></div>
+  <div class="stories-latest-caption"><strong>${esc(latestStory.title).toUpperCase()}</strong><span>ABRIR EXPEDIENTE →</span></div>
+</a>` : '';
 const list=`${head(`Relatos | ${site.site_title}`,'Relatos de '+site.author)}<body>${header('relatos')}<main>
-<section class="page-hero compact"><div><p class="eyebrow">ÍNDICE DE EXPEDIENTES</p><h1>RELATOS</h1><p>Historias independientes. Al menos al principio.</p></div></section>
+<section class="page-hero compact stories-page-hero"><div class="stories-page-hero-copy"><p class="eyebrow">ÍNDICE DE EXPEDIENTES</p><h1>RELATOS</h1><p>Historias independientes. Al menos al principio.</p></div>${latestStorySpotlight}</section>
 <section class="section"><div class="section-label">ARCHIVOS DISPONIBLES // ${String(stories.length).padStart(2,'0')}</div><div class="story-list">${rows}</div></section>
 </main>${footer(site)}</body></html>`;
 fs.writeFileSync(path.join(DIST,'relatos.html'),list);
@@ -168,12 +213,14 @@ for(const s of stories){
  const page=`${head(`${s.title} | ${site.author}`,s.excerpt,s.cover)}<body class="story-page">${header('relatos')}<main>
  <div class="reading-progress"><span></span></div><section class="story-hero">
  <div class="story-cover"><img src="${esc(s.cover)}" alt="Portada de ${esc(s.title)}"></div>
- <div class="story-heading"><p class="archive-code">ARCHIVO ${esc(s.archive_number)} · RELATO COMPLETO${s.age_restricted?' · +18':''}</p>
+ <div class="story-heading"><div class="story-label-row"><p class="archive-code">ARCHIVO ${esc(s.archive_number)} · RELATO COMPLETO${s.age_restricted?' · +18':''}</p>${newBadge(s)}</div>
  <h1>${esc(s.title).toUpperCase()}</h1><p class="byline">por <strong>${esc(site.author)}</strong></p>
  <div class="meta-row"><span>${wc.toLocaleString('es-ES')} palabras</span><span>${esc(s.reading_time)}</span></div>
  <a class="btn primary" href="#relato">Comenzar lectura</a></div></section>${warning}
  <section class="reader-shell" id="relato"><aside class="reader-tools"><button data-reader="minus">A−</button><button data-reader="plus">A+</button><button data-reader="focus">◐</button></aside>
- <article class="story-text"><div class="story-marker">ARCHIVO ${esc(s.archive_number)}</div>${markdownToHTML(s.body)}<div class="story-end">FIN</div></article></section>
+ <article class="story-text"><div class="story-marker">ARCHIVO ${esc(s.archive_number)}</div>${markdownToHTML(s.body)}<div class="story-end">FIN</div></article>
+ ${relatedArchiveMarkup(s)}
+ </section>
  <section class="post-story reveal"><p class="eyebrow">HAS TERMINADO EL ARCHIVO ${esc(s.archive_number)}</p><h2>El archivo permanece abierto.</h2>
  <div class="hero-actions"><a class="btn primary" href="archivo.html">Consultar el archivo</a><a class="btn ghost" href="relatos.html">Volver a relatos</a></div></section>
  ${gate}</main>${footer(site)}</body></html>`;
@@ -211,8 +258,7 @@ const archiveSectionDefs=[
  {key:'documentos',label:'DOCUMENTOS',typeLabel:'DOCUMENTO',eyebrow:'CATÁLOGO // DOCUMENTOS',desc:'Textos, pruebas, registros y materiales recuperados o parcialmente descifrados.',items:archiveByCategory('DOCUMENTO'),file:'archivo-documentos.html',image:'/assets/img/archivo-secciones/documentos.png'},
  {key:'sucesos',label:'SUCESOS',typeLabel:'SUCESO',eyebrow:'CATÁLOGO // SUCESOS',desc:'Incidentes cuya explicación permanece incompleta, contradictoria o clasificada.',items:archiveByCategory('SUCESO'),file:'archivo-sucesos.html',image:'/assets/img/archivo-secciones/sucesos.png'},
  {key:'otros',label:'OTROS ARCHIVOS',typeLabel:'ARCHIVO',eyebrow:'CATÁLOGO // OTROS',desc:'Anotaciones que todavía no encajan en una clasificación estable.',items:archiveByCategory('OTRO'),file:'archivo-otros.html',image:'/assets/img/archivo-secciones/otros.png'},
- {key:'microrrelatos',label:'MICRORRELATOS',typeLabel:'MICRORRELATO',eyebrow:'FICCIÓN BREVE // MICRORRELATOS',desc:'Historias mínimas recuperadas del Archivo. Se entienden solas; las conexiones pueden aparecer mucho después.',items:micros,file:'archivo-microrrelatos.html',image:''},
- {key:'conexiones',label:'CONEXIONES',typeLabel:'CONEXIÓN',eyebrow:'ÍNDICE // CONEXIONES',desc:'Coincidencias, vínculos y patrones que conectan expedientes aparentemente independientes.',items:connections,file:'archivo-conexiones.html',image:'/assets/img/archivo-secciones/conexiones.png'}
+ {key:'microrrelatos',label:'MICRORRELATOS',typeLabel:'MICRORRELATO',eyebrow:'FICCIÓN BREVE // MICRORRELATOS',desc:'Historias mínimas recuperadas del Archivo. Se entienden solas; las conexiones pueden aparecer mucho después.',items:micros,file:'archivo-microrrelatos.html',image:'/assets/img/archivo-secciones/conexiones.png'}
 ];
 
 function itemTitle(section,item){
@@ -225,7 +271,6 @@ function itemSummary(section,item){
  if(item.summary) return shortArchiveText(item.summary);
  if(item.note) return shortArchiveText(item.note);
  if(item.body) return shortArchiveText(item.body);
- if(section.key==='conexiones') return `Estado: ${item.status||'DESCONOCIDO'}.`;
  return 'Expediente disponible para consulta.';
 }
 function itemImage(item){ return item && item.image ? item.image : ''; }
@@ -268,7 +313,7 @@ function archiveEntryCard(section,item){
  return `<a class="archive-entry-card reveal" href="${itemHref(section,item)}">
    ${image?`<div class="archive-entry-card-image"><img src="${esc(image)}" alt="${esc(title)}"></div>`:`<div class="archive-entry-card-image archive-entry-card-placeholder" aria-hidden="true"><span>◉</span></div>`}
    <div class="archive-entry-card-body">
-     <div class="archive-entry-card-top"><p class="archive-code">${section.typeLabel} // ${esc(itemArchiveNumber(item))}</p>${itemStatus(item)?`<span class="archive-entry-status">${esc(itemStatus(item))}</span>`:''}</div>
+     <div class="archive-entry-card-top"><p class="archive-code">${section.typeLabel} // ${esc(itemArchiveNumber(item))}</p>${section.key==='microrrelatos'?newBadge(item):''}${itemStatus(item)?`<span class="archive-entry-status">${esc(itemStatus(item))}</span>`:''}</div>
      <h2>${esc(String(title).toUpperCase())}</h2>
      <p class="archive-entry-summary">${esc(itemSummary(section,item))}</p>
      ${compactFacts}
@@ -326,7 +371,7 @@ function microEntryPage(section,item){
  <body class="archive-area micro-story-page">${header('microrrelatos')}${archiveTopNav('microrrelatos')}<main>
  <section class="micro-story-hero${image?'':' no-image'}">
    <div class="micro-story-heading">
-     <p class="eyebrow">MICRORRELATO // ${esc(itemArchiveNumber(item))}</p>
+     <div class="story-label-row"><p class="eyebrow">MICRORRELATO // ${esc(itemArchiveNumber(item))}</p>${newBadge(item)}</div>
      <h1>${esc(String(title).toUpperCase())}</h1>
      <p class="micro-story-excerpt">${esc(excerpt)}</p>
      <div class="meta-row"><span>${wordCount(item.body||'').toLocaleString('es-ES')} palabras</span><span>${esc(microReadingTime(item))}</span></div>
@@ -342,6 +387,7 @@ function microEntryPage(section,item){
      <div class="story-end">FIN</div>
    </article>
    ${connections}
+   ${relatedArchiveMarkup(item)}
  </section>
  <section class="post-story reveal">
    <p class="eyebrow">ARCHIVO BREVE CERRADO</p>
@@ -389,6 +435,7 @@ function archiveEntryPage(section,item){
    </div>
    ${archiveGallery(item)}
    ${archivePoliceReport(item)}
+   ${relatedArchiveMarkup(item)}
  </section>
  </main>${footer(site)}</body></html>`;
 }
