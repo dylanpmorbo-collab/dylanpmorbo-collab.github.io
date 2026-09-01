@@ -65,6 +65,38 @@ document.addEventListener('DOMContentLoaded',function(){
     const age=Date.now()-start.getTime();
     el.hidden=age<0 || age>=7*24*60*60*1000;
   });
+
+  // Si esta página se abrió desde una tarjeta de ARCHIVOS RELACIONADOS,
+  // muestra un acceso persistente para regresar al expediente exacto de origen.
+  const params=new URLSearchParams(window.location.search);
+  const from=params.get('aqnr_from');
+  const fromLabel=params.get('aqnr_from_label');
+  if(from){
+    try{
+      const target=new URL(from,window.location.href);
+      if(target.origin===window.location.origin && target.href!==window.location.href){
+        const wrap=document.createElement('div');
+        wrap.className='connection-return-tab';
+        const link=document.createElement('a');
+        link.className='connection-return-link';
+        link.href=target.href;
+        link.setAttribute('aria-label','Volver al expediente de origen');
+        const mark=document.createElement('span');
+        mark.className='connection-return-mark';
+        mark.setAttribute('aria-hidden','true');
+        mark.textContent='↶';
+        const copy=document.createElement('span');
+        copy.className='connection-return-copy';
+        const small=document.createElement('small');
+        small.textContent='VOLVER AL EXPEDIENTE DE ORIGEN';
+        const strong=document.createElement('strong');
+        strong.textContent=fromLabel||'EXPEDIENTE ANTERIOR';
+        copy.appendChild(small); copy.appendChild(strong);
+        link.appendChild(mark); link.appendChild(copy); wrap.appendChild(link);
+        document.body.appendChild(wrap);
+      }
+    }catch(e){}
+  }
 });
 </script></head>`;
 }
@@ -109,7 +141,19 @@ function newBadge(item){
  return `<span class="new-badge" data-published-date="${esc(raw)}" hidden>NOVEDAD</span>`;
 }
 
-function relatedArchiveMarkup(item){
+function relatedLinkWithReturn(url,sourceHref='',sourceLabel=''){
+ const raw=String(url||'').trim();
+ const from=String(sourceHref||'').trim();
+ if(!raw || !from) return raw;
+ // Los enlaces externos no reciben contexto de retorno: esta función es solo para páginas internas del Archivo.
+ if(/^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(raw)) return raw;
+ const hashAt=raw.indexOf('#');
+ const hash=hashAt>=0?raw.slice(hashAt):'';
+ const base=hashAt>=0?raw.slice(0,hashAt):raw;
+ const sep=base.includes('?')?'&':'?';
+ return `${base}${sep}aqnr_from=${encodeURIComponent(from)}&aqnr_from_label=${encodeURIComponent(String(sourceLabel||'EXPEDIENTE DE ORIGEN'))}${hash}`;
+}
+function relatedArchiveMarkup(item,sourceHref='',sourceLabel=''){
  if(!item || item.show_related_archive!==true) return '';
  const related=(Array.isArray(item.related_archive)?item.related_archive:[])
    .filter(x=>x && x.title && x.url);
@@ -125,7 +169,8 @@ function relatedArchiveMarkup(item){
    <div class="related-archive-grid">
      ${related.map(link=>{
        const thumb=String(link.thumbnail||link.image||'').trim();
-       return `<a class="related-archive-card${thumb?' has-thumbnail':''}" href="${esc(link.url)}">
+       const contextualUrl=relatedLinkWithReturn(link.url,sourceHref,sourceLabel);
+       return `<a class="related-archive-card${thumb?' has-thumbnail':''}" href="${esc(contextualUrl)}">
          <div class="related-archive-media">
            ${thumb?`<img src="${esc(thumb)}" alt="" loading="lazy">`:`<span class="related-archive-placeholder" aria-hidden="true">◉</span>`}
            <span class="related-archive-type">${esc(link.type||'ARCHIVO')}</span>
@@ -236,7 +281,7 @@ for(const s of stories){
  <a class="btn primary" href="#relato">Comenzar lectura</a></div></section>${warning}
  <section class="reader-shell" id="relato"><aside class="reader-tools"><button data-reader="minus">A−</button><button data-reader="plus">A+</button><button data-reader="focus">◐</button></aside>
  <article class="story-text"><div class="story-marker">ARCHIVO ${esc(s.archive_number)}</div>${markdownToHTML(s.body)}<div class="story-end">FIN</div></article>
- ${relatedArchiveMarkup(s)}
+ ${relatedArchiveMarkup(s,`relato-${s.slug}.html`,s.title)}
  </section>
  <section class="post-story reveal"><p class="eyebrow">HAS TERMINADO EL ARCHIVO ${esc(s.archive_number)}</p><h2>El archivo permanece abierto.</h2>
  <div class="hero-actions"><a class="btn primary" href="archivo.html">Consultar el archivo</a><a class="btn ghost" href="relatos.html">Volver a relatos</a></div></section>
@@ -400,7 +445,7 @@ function microEntryPage(section,item){
      ${body}
      <div class="story-end">FIN</div>
    </article>
-   ${relatedArchiveMarkup(item)}
+   ${relatedArchiveMarkup(item,`micro-${itemSlug(section,item)}.html`,title)}
  </section>
  <section class="post-story reveal">
    <p class="eyebrow">ARCHIVO BREVE CERRADO</p>
@@ -448,7 +493,7 @@ function archiveEntryPage(section,item){
    </div>
    ${archiveGallery(item)}
    ${archivePoliceReport(item)}
-   ${relatedArchiveMarkup(item)}
+   ${relatedArchiveMarkup(item,itemHref(section,item),title)}
  </section>
  </main>${footer(site)}</body></html>`;
 }
