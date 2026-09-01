@@ -1,5 +1,5 @@
 {
-  "title": "Śukrahārī",
+  "title": "ŚUKRAHĀRĪ",
   "archive_number": "001",
   "category": "ENTIDAD",
   "published": false,
@@ -29,5 +29,6 @@
       "image": "/assets/uploads/\t Śukrahārī_0001.png"
     }
   ],
-  "show_police_report": false
+  "show_police_report": false,
+  "show_related_archive": false
 }
