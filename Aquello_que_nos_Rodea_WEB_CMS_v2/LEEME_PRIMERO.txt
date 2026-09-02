@@ -1,56 +1,36 @@
 AQUELLO QUE NOS RODEA — WEB CMS v2
 ====================================
 
-OBJETIVO
---------
-Esta versión está preparada para que Dylan P. MOЯBO publique relatos desde un
-panel de administración, sin editar HTML.
+ADMINISTRACIÓN DE CONTENIDOS
+----------------------------
+La web se administra con Pages CMS:
 
-CUANDO ESTÉ ONLINE:
-    https://TU-DOMINIO/admin/
+    https://app.pagescms.org/dylanpmorbo-collab/dylanpmorbo-collab.github.io/main
 
-En el panel:
-    Relatos > Nuevo relato
+Pages CMS utiliza el archivo .pages.yml situado en la raíz del repositorio.
+Desde ese panel se pueden gestionar relatos, microrrelatos, expedientes,
+personajes, documentos navegables, imágenes y la configuración del sitio.
 
-Campos disponibles:
-    - Título
-    - Dirección web (slug)
-    - Número de archivo
-    - Publicado sí/no
-    - Destacar en portada sí/no
-    - +18 sí/no
-    - Tiempo de lectura
-    - Descripción
-    - Portada
-    - Advertencia de contenido
-    - Texto completo
+PUBLICACIÓN
+-----------
+Los cambios guardados desde Pages CMS se escriben en la rama main de GitHub.
+La acción «Publicar Aquello que nos Rodea» construye automáticamente la web y
+la publica en GitHub Pages:
 
-La web genera automáticamente:
-    - La ficha en RELATOS
-    - La página de lectura
-    - La portada del relato
-    - El aviso +18 si corresponde
-    - El contador de palabras
-    - Los enlaces
-    - El diseño negro/dorado
+    https://dylanpmorbo-collab.github.io/
+
+La fuente editable se encuentra en:
+    Aquello_que_nos_Rodea_WEB_CMS_v2/content/
+    Aquello_que_nos_Rodea_WEB_CMS_v2/assets/
+
+El generador está en:
+    Aquello_que_nos_Rodea_WEB_CMS_v2/scripts/build.js
 
 IMPORTANTE
 ----------
-El panel /admin todavía necesita una única configuración inicial:
-1. Crear un repositorio en GitHub.
-2. Subir esta carpeta al repositorio.
-3. Conectarlo con Netlify.
-4. Configurar el acceso de Decap CMS a GitHub.
-5. Cambiar TU_USUARIO_GITHUB en admin/config.yml por tu usuario real.
+No es necesario editar manualmente el HTML generado para publicar contenido.
+La carpeta dist/ se reconstruye automáticamente durante cada publicación.
 
-ChatGPT te guiará paso a paso; no necesitas saber programar.
-
-PARA VER LA WEB AHORA
----------------------
-La carpeta dist/ contiene una versión ya construida.
-Abre dist/index.html para verla localmente.
-
-NO EDITES
----------
-No hace falta tocar scripts/build.js, HTML ni CSS para publicar relatos
-una vez que el panel esté configurado.
+No borres ni renombres campos de .pages.yml sin actualizar también build.js.
+No edites archivos dentro de assets/uploads desde fuera de Pages CMS salvo que
+sepas qué contenido los referencia.
