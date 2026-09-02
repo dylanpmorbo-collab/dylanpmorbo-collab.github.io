@@ -10,7 +10,7 @@
       "image": "/assets/uploads/archivo/informe policial 0001.png"
     }
   ],
-  "show_documents": false,
+  "show_documents": true,
   "documents": [
     {
       "title": "diario prueba",
