@@ -408,6 +408,151 @@ function archiveGallery(item){
    </figure>`).join('')}</div>
  </section>`;
 }
+function archiveDocuments(item){
+  if(!item || item.show_documents!==true) return '';
+  const documents=(Array.isArray(item.documents)?item.documents:[])
+    .map((doc,docIndex)=>{
+      const pages=(Array.isArray(doc && doc.pages)?doc.pages:[])
+        .filter(page=>page && page.image)
+        .map((page,pageIndex)=>({
+          image:String(page.image||''),
+          caption:String(page.caption||`Página ${pageIndex+1}`)
+        }));
+      if(!doc || !doc.title || !pages.length) return null;
+      return {title:String(doc.title),description:String(doc.description||''),pages,docIndex};
+    })
+    .filter(Boolean);
+  if(!documents.length) return '';
+
+  const cards=documents.map((doc,index)=>{
+    const payload=JSON.stringify(doc.pages).replace(/</g,'\\u003c');
+    return `<article class="archive-document reveal" data-archive-document>
+      <header class="archive-document-heading">
+        <div>
+          <p class="archive-code">DOCUMENTO // ${String(index+1).padStart(2,'0')}</p>
+          <h2>${esc(doc.title)}</h2>
+          ${doc.description?`<p>${esc(doc.description)}</p>`:''}
+        </div>
+        <span class="archive-document-mark" aria-hidden="true">▧</span>
+      </header>
+      <div class="archive-document-viewer">
+        <button class="archive-document-nav archive-document-prev" type="button" aria-label="Páginas anteriores">‹</button>
+        <div class="archive-document-stage" tabindex="0" aria-label="Visor del documento ${esc(doc.title)}">
+          <div class="archive-document-spread">
+            <figure class="archive-document-page archive-document-page-left">
+              <button class="archive-document-page-open" type="button" aria-label="Ampliar página"><img alt="" loading="lazy"></button>
+              <figcaption></figcaption>
+            </figure>
+            <div class="archive-document-gutter" aria-hidden="true"></div>
+            <figure class="archive-document-page archive-document-page-right">
+              <button class="archive-document-page-open" type="button" aria-label="Ampliar página"><img alt="" loading="lazy"></button>
+              <figcaption></figcaption>
+            </figure>
+          </div>
+        </div>
+        <button class="archive-document-nav archive-document-next" type="button" aria-label="Páginas siguientes">›</button>
+      </div>
+      <div class="archive-document-footer">
+        <span class="archive-document-counter" aria-live="polite"></span>
+        <button class="archive-document-examine" type="button">⛶ EXAMINAR DOCUMENTO</button>
+      </div>
+      <script type="application/json" class="archive-document-data">${payload}</script>
+      <div class="archive-document-modal" hidden aria-hidden="true">
+        <div class="archive-document-modal-backdrop" data-document-close></div>
+        <div class="archive-document-modal-panel" role="dialog" aria-modal="true" aria-label="${esc(doc.title)}">
+          <button class="archive-document-modal-close" type="button" data-document-close aria-label="Cerrar documento">×</button>
+          <button class="archive-document-modal-nav archive-document-modal-prev" type="button" aria-label="Página anterior">‹</button>
+          <figure class="archive-document-modal-page"><img alt=""><figcaption></figcaption></figure>
+          <button class="archive-document-modal-nav archive-document-modal-next" type="button" aria-label="Página siguiente">›</button>
+          <span class="archive-document-modal-counter" aria-live="polite"></span>
+        </div>
+      </div>
+    </article>`;
+  }).join('');
+
+  return `<section class="archive-documents-block">
+    <div class="section-label">DOCUMENTOS RECUPERADOS // ${String(documents.length).padStart(2,'0')}</div>
+    <div class="archive-documents-stack">${cards}</div>
+    <script>
+    (function(){
+      const mobileQuery=window.matchMedia('(max-width:700px)');
+      document.querySelectorAll('[data-archive-document]').forEach(function(viewer){
+        if(viewer.dataset.documentReady==='true') return;
+        viewer.dataset.documentReady='true';
+        const dataEl=viewer.querySelector('.archive-document-data');
+        let pages=[];
+        try{ pages=JSON.parse(dataEl ? dataEl.textContent : '[]'); }catch(e){ return; }
+        if(!pages.length) return;
+        const stage=viewer.querySelector('.archive-document-stage');
+        const left=viewer.querySelector('.archive-document-page-left');
+        const right=viewer.querySelector('.archive-document-page-right');
+        const prev=viewer.querySelector('.archive-document-prev');
+        const next=viewer.querySelector('.archive-document-next');
+        const counter=viewer.querySelector('.archive-document-counter');
+        const examine=viewer.querySelector('.archive-document-examine');
+        const modal=viewer.querySelector('.archive-document-modal');
+        const modalImg=modal.querySelector('.archive-document-modal-page img');
+        const modalCaption=modal.querySelector('.archive-document-modal-page figcaption');
+        const modalCounter=modal.querySelector('.archive-document-modal-counter');
+        const modalPrev=modal.querySelector('.archive-document-modal-prev');
+        const modalNext=modal.querySelector('.archive-document-modal-next');
+        let index=0, modalIndex=0, touchStartX=null, lastFocus=null;
+        const isMobile=()=>mobileQuery.matches;
+        const step=()=>isMobile()?1:2;
+        function clampIndex(value){
+          const max=isMobile()?pages.length-1:Math.max(0,pages.length-(pages.length%2===0?2:1));
+          return Math.max(0,Math.min(value,max));
+        }
+        function setPage(figure,page,pageIndex){
+          const img=figure.querySelector('img');
+          const cap=figure.querySelector('figcaption');
+          if(!page){ figure.hidden=true; img.removeAttribute('src'); img.alt=''; cap.textContent=''; return; }
+          figure.hidden=false; img.src=page.image; img.alt=page.caption || ('Página '+(pageIndex+1)); cap.textContent=page.caption || '';
+          figure.querySelector('.archive-document-page-open').dataset.pageIndex=String(pageIndex);
+        }
+        function render(){
+          index=clampIndex(index);
+          if(!isMobile() && index%2===1) index=Math.max(0,index-1);
+          setPage(left,pages[index],index);
+          if(isMobile()) right.hidden=true; else setPage(right,pages[index+1],index+1);
+          prev.disabled=index<=0;
+          next.disabled=index+step()>=pages.length;
+          if(isMobile()) counter.textContent=(index+1)+' / '+pages.length;
+          else { const end=Math.min(index+2,pages.length); counter.textContent=(index+1)+(end>index+1?'–'+end:'')+' / '+pages.length; }
+        }
+        function go(delta){ index=clampIndex(index+delta*step()); render(); }
+        function openModal(pageIndex){
+          modalIndex=Math.max(0,Math.min(Number(pageIndex)||0,pages.length-1));
+          lastFocus=document.activeElement; modal.hidden=false; modal.setAttribute('aria-hidden','false');
+          document.body.classList.add('archive-document-modal-open'); renderModal();
+          modal.querySelector('.archive-document-modal-close').focus();
+        }
+        function closeModal(){
+          modal.hidden=true; modal.setAttribute('aria-hidden','true'); document.body.classList.remove('archive-document-modal-open');
+          if(lastFocus && typeof lastFocus.focus==='function') lastFocus.focus();
+        }
+        function renderModal(){
+          const page=pages[modalIndex]; modalImg.src=page.image; modalImg.alt=page.caption || ('Página '+(modalIndex+1));
+          modalCaption.textContent=page.caption || ''; modalCounter.textContent=(modalIndex+1)+' / '+pages.length;
+          modalPrev.disabled=modalIndex<=0; modalNext.disabled=modalIndex>=pages.length-1;
+        }
+        function modalGo(delta){ modalIndex=Math.max(0,Math.min(modalIndex+delta,pages.length-1)); renderModal(); }
+        prev.addEventListener('click',()=>go(-1)); next.addEventListener('click',()=>go(1)); examine.addEventListener('click',()=>openModal(index));
+        viewer.querySelectorAll('.archive-document-page-open').forEach(btn=>btn.addEventListener('click',()=>openModal(Number(btn.dataset.pageIndex||0))));
+        viewer.querySelectorAll('[data-document-close]').forEach(btn=>btn.addEventListener('click',closeModal));
+        modalPrev.addEventListener('click',()=>modalGo(-1)); modalNext.addEventListener('click',()=>modalGo(1));
+        stage.addEventListener('keydown',function(e){ if(e.key==='ArrowLeft'){e.preventDefault();go(-1);} if(e.key==='ArrowRight'){e.preventDefault();go(1);} });
+        stage.addEventListener('touchstart',e=>{touchStartX=e.changedTouches[0].clientX;},{passive:true});
+        stage.addEventListener('touchend',function(e){ if(touchStartX===null) return; const distance=e.changedTouches[0].clientX-touchStartX; touchStartX=null; if(Math.abs(distance)>=45) go(distance>0?-1:1); },{passive:true});
+        document.addEventListener('keydown',function(e){ if(modal.hidden) return; if(e.key==='Escape'){e.preventDefault();closeModal();} else if(e.key==='ArrowLeft'){e.preventDefault();modalGo(-1);} else if(e.key==='ArrowRight'){e.preventDefault();modalGo(1);} });
+        if(typeof mobileQuery.addEventListener==='function') mobileQuery.addEventListener('change',render); else if(typeof mobileQuery.addListener==='function') mobileQuery.addListener(render);
+        render();
+      });
+    })();
+    </script>
+  </section>`;
+}
+
 function archivePoliceReport(item){
  const enabled=item.show_police_report===true;
  const report=String(item.police_report||'').trim();
@@ -506,6 +651,7 @@ function archiveEntryPage(section,item){
      </article>
    </div>
    ${archiveGallery(item)}
+   ${archiveDocuments(item)}
    ${archivePoliceReport(item)}
    ${relatedArchiveMarkup(item,itemHref(section,item),title)}
  </section>
