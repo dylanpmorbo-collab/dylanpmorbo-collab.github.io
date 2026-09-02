@@ -1,6 +1,6 @@
 {
   "title": "LA PLAGA",
-  "archive_number": "002",
+  "archive_number": "001",
   "category": "ORGANIZACIÓN",
   "published": true,
   "image": "/assets/uploads/archivo/foto archivo la plaga.png",
@@ -48,6 +48,7 @@
       "caption": "¿Le ha dado algo?"
     }
   ],
+  "show_documents": false,
   "show_police_report": false,
   "show_related_archive": true,
   "related_archive": [
