@@ -13,8 +13,8 @@
     {
       "label": "Mānavakṣetra — Registro de Carne",
       "image": "/assets/uploads/interfaz/cosa2.png",
-      "enabled": false,
-      "first": true,
+      "enabled": true,
+      "first": false,
       "fixed": false
     },
     {
