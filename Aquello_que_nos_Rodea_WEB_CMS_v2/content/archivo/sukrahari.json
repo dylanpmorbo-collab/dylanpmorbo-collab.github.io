@@ -43,5 +43,13 @@
     }
   ],
   "show_police_report": false,
-  "show_related_archive": false
+  "show_related_archive": true,
+  "related_archive": [
+    {
+      "type": "ORGANIZACIÓN",
+      "title": "LA PLAGA",
+      "thumbnail": "/assets/uploads/conexiones/foto archivo la plaga.png",
+      "url": "https://dylanpmorbo-collab.github.io/archivo-organizaciones-la-plaga.html"
+    }
+  ]
 }
