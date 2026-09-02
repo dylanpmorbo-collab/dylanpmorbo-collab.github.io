@@ -30,6 +30,13 @@
       "enabled": true,
       "first": false,
       "fixed": false
+    },
+    {
+      "label": "ADAM",
+      "image": "/assets/uploads/interfaz/mosaico adam.png",
+      "enabled": true,
+      "first": false,
+      "fixed": false
     }
   ],
   "page_left": 51,
