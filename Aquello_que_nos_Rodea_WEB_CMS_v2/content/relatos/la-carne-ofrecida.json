@@ -18,6 +18,12 @@
       "type": "ENTIDAD",
       "title": "ŚUKRAHĀRĪ",
       "url": "https://dylanpmorbo-collab.github.io/archivo-entidades-sukrahari.html"
+    },
+    {
+      "type": "ORGANIZACIÓN",
+      "title": "La Plaga",
+      "thumbnail": "/assets/uploads/conexiones/foto-de-archivo-la-plaga-0001.png",
+      "url": "https://dylanpmorbo-collab.github.io/archivo-organizaciones-la-plaga.html"
     }
   ]
 }
