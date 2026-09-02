@@ -41,6 +41,12 @@ media:
     output: /assets/uploads/conexiones
     rename: safe
     categories: [image]
+  - name: documentos
+    label: Documentos y cuadernos
+    input: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads/documentos
+    output: /assets/uploads/documentos
+    rename: safe
+    categories: [image]
 
 content:
   - name: relatos
@@ -156,7 +162,6 @@ content:
             label: Descripción breve
             type: text
             required: false
-
 
   - name: microrrelatos
     label: Microrrelatos
@@ -384,6 +389,48 @@ content:
             label: Nota / descripción
             type: text
             required: false
+      - name: show_documents
+        label: Mostrar documentos navegables
+        type: boolean
+        default: false
+        description: "Actívalo para mostrar diarios, expedientes, manuscritos o documentos de varias páginas en un visor independiente de la galería."
+      - name: documents
+        label: Documentos navegables
+        type: object
+        required: false
+        list:
+          max: 10
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: title
+            label: Título del documento
+            type: string
+            required: true
+          - name: description
+            label: Descripción
+            type: text
+            required: false
+          - name: pages
+            label: Páginas
+            type: object
+            list:
+              max: 60
+              collapsible:
+                collapsed: true
+                summary: "{caption}"
+            fields:
+              - name: image
+                label: Página
+                type: image
+                required: true
+                options:
+                  media: documentos
+              - name: caption
+                label: Nombre / pie de página
+                type: string
+                required: false
       - name: show_police_report
         label: Mostrar informe policial
         type: boolean
@@ -563,6 +610,48 @@ content:
             label: Nota / descripción
             type: text
             required: false
+      - name: show_documents
+        label: Mostrar documentos navegables
+        type: boolean
+        default: false
+        description: "Actívalo para mostrar diarios, expedientes, manuscritos o documentos de varias páginas en un visor independiente de la galería."
+      - name: documents
+        label: Documentos navegables
+        type: object
+        required: false
+        list:
+          max: 10
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: title
+            label: Título del documento
+            type: string
+            required: true
+          - name: description
+            label: Descripción
+            type: text
+            required: false
+          - name: pages
+            label: Páginas
+            type: object
+            list:
+              max: 60
+              collapsible:
+                collapsed: true
+                summary: "{caption}"
+            fields:
+              - name: image
+                label: Página
+                type: image
+                required: true
+                options:
+                  media: documentos
+              - name: caption
+                label: Nombre / pie de página
+                type: string
+                required: false
       - name: show_police_report
         label: Mostrar informe policial
         type: boolean
@@ -643,7 +732,6 @@ content:
       - name: footer_note
         label: Nota del pie
         type: text
-
 
   - name: libro_archivo
     label: Libro del Archivo
