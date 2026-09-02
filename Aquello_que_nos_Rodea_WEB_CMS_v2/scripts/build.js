@@ -416,7 +416,14 @@ function archiveDocuments(item){
         .filter(page=>page && page.image)
         .map((page,pageIndex)=>({
           image:String(page.image||''),
-          caption:String(page.caption||`Página ${pageIndex+1}`)
+          caption:String(page.caption||`Página ${pageIndex+1}`),
+          translations:(Array.isArray(page.translations)?page.translations:[])
+            .filter(t=>t && t.code && t.text)
+            .map(t=>({
+              language:String(t.language||t.code||'Traducción'),
+              code:String(t.code||'').trim().toLowerCase(),
+              text:String(t.text||'')
+            }))
         }));
       if(!doc || !doc.title || !pages.length) return null;
       return {title:String(doc.title),description:String(doc.description||''),pages,docIndex};
@@ -435,17 +442,25 @@ function archiveDocuments(item){
         </div>
         <span class="archive-document-mark" aria-hidden="true">▧</span>
       </header>
+      <div class="archive-document-language" hidden>
+        <span>IDIOMA</span>
+        <div class="archive-document-language-options" role="group" aria-label="Idioma del documento"></div>
+      </div>
       <div class="archive-document-viewer">
         <button class="archive-document-nav archive-document-prev" type="button" aria-label="Páginas anteriores">‹</button>
         <div class="archive-document-stage" tabindex="0" aria-label="Visor del documento ${esc(doc.title)}">
           <div class="archive-document-spread">
             <figure class="archive-document-page archive-document-page-left">
-              <button class="archive-document-page-open" type="button" aria-label="Ampliar página"><img alt="" loading="lazy"></button>
+              <button class="archive-document-page-open" type="button" aria-label="Ampliar página">
+                <span class="archive-document-page-canvas"><img alt="" loading="lazy"><span class="archive-document-translation" hidden><span class="archive-document-translation-label"></span><span class="archive-document-translation-text"></span></span></span>
+              </button>
               <figcaption></figcaption>
             </figure>
             <div class="archive-document-gutter" aria-hidden="true"></div>
             <figure class="archive-document-page archive-document-page-right">
-              <button class="archive-document-page-open" type="button" aria-label="Ampliar página"><img alt="" loading="lazy"></button>
+              <button class="archive-document-page-open" type="button" aria-label="Ampliar página">
+                <span class="archive-document-page-canvas"><img alt="" loading="lazy"><span class="archive-document-translation" hidden><span class="archive-document-translation-label"></span><span class="archive-document-translation-text"></span></span></span>
+              </button>
               <figcaption></figcaption>
             </figure>
           </div>
@@ -454,15 +469,31 @@ function archiveDocuments(item){
       </div>
       <div class="archive-document-footer">
         <span class="archive-document-counter" aria-live="polite"></span>
-        <button class="archive-document-examine" type="button">⛶ EXAMINAR DOCUMENTO</button>
+        <button class="archive-document-examine" type="button">⌕ EXAMINAR DOCUMENTO</button>
       </div>
       <script type="application/json" class="archive-document-data">${payload}</script>
       <div class="archive-document-modal" hidden aria-hidden="true">
         <div class="archive-document-modal-backdrop" data-document-close></div>
         <div class="archive-document-modal-panel" role="dialog" aria-modal="true" aria-label="${esc(doc.title)}">
           <button class="archive-document-modal-close" type="button" data-document-close aria-label="Cerrar documento">×</button>
+          <div class="archive-document-modal-toolbar">
+            <div class="archive-document-modal-language" hidden><span>IDIOMA</span><div class="archive-document-modal-language-options"></div></div>
+            <div class="archive-document-zoom-controls" aria-label="Controles de zoom">
+              <button type="button" data-document-zoom-out aria-label="Reducir zoom">−</button>
+              <span data-document-zoom-label>100%</span>
+              <button type="button" data-document-zoom-in aria-label="Aumentar zoom">+</button>
+              <button type="button" data-document-zoom-reset>RESTABLECER</button>
+            </div>
+          </div>
           <button class="archive-document-modal-nav archive-document-modal-prev" type="button" aria-label="Página anterior">‹</button>
-          <figure class="archive-document-modal-page"><img alt=""><figcaption></figcaption></figure>
+          <div class="archive-document-modal-viewport" tabindex="0" aria-label="Página ampliada. Usa la rueda del ratón o los botones para acercar y arrastra para desplazarte.">
+            <figure class="archive-document-modal-page">
+              <div class="archive-document-modal-transform">
+                <span class="archive-document-modal-page-canvas"><img alt="" draggable="false"><span class="archive-document-translation archive-document-modal-translation" hidden><span class="archive-document-translation-label"></span><span class="archive-document-translation-text"></span></span></span>
+              </div>
+              <figcaption></figcaption>
+            </figure>
+          </div>
           <button class="archive-document-modal-nav archive-document-modal-next" type="button" aria-label="Página siguiente">›</button>
           <span class="archive-document-modal-counter" aria-live="polite"></span>
         </div>
@@ -483,6 +514,7 @@ function archiveDocuments(item){
         let pages=[];
         try{ pages=JSON.parse(dataEl ? dataEl.textContent : '[]'); }catch(e){ return; }
         if(!pages.length) return;
+
         const stage=viewer.querySelector('.archive-document-stage');
         const left=viewer.querySelector('.archive-document-page-left');
         const right=viewer.querySelector('.archive-document-page-right');
@@ -490,18 +522,52 @@ function archiveDocuments(item){
         const next=viewer.querySelector('.archive-document-next');
         const counter=viewer.querySelector('.archive-document-counter');
         const examine=viewer.querySelector('.archive-document-examine');
+        const languageBar=viewer.querySelector('.archive-document-language');
+        const languageOptions=viewer.querySelector('.archive-document-language-options');
         const modal=viewer.querySelector('.archive-document-modal');
+        const modalViewport=modal.querySelector('.archive-document-modal-viewport');
+        const modalTransform=modal.querySelector('.archive-document-modal-transform');
         const modalImg=modal.querySelector('.archive-document-modal-page img');
         const modalCaption=modal.querySelector('.archive-document-modal-page figcaption');
+        const modalTranslation=modal.querySelector('.archive-document-modal-translation');
         const modalCounter=modal.querySelector('.archive-document-modal-counter');
         const modalPrev=modal.querySelector('.archive-document-modal-prev');
         const modalNext=modal.querySelector('.archive-document-modal-next');
-        let index=0, modalIndex=0, touchStartX=null, lastFocus=null;
+        const modalLanguage=modal.querySelector('.archive-document-modal-language');
+        const modalLanguageOptions=modal.querySelector('.archive-document-modal-language-options');
+        const zoomIn=modal.querySelector('[data-document-zoom-in]');
+        const zoomOut=modal.querySelector('[data-document-zoom-out]');
+        const zoomReset=modal.querySelector('[data-document-zoom-reset]');
+        const zoomLabel=modal.querySelector('[data-document-zoom-label]');
+
+        let index=0, modalIndex=0, touchStartX=null, lastFocus=null, selectedLanguage='original';
+        let zoom=1, panX=0, panY=0, dragging=false, dragStartX=0, dragStartY=0, dragOriginX=0, dragOriginY=0;
+        let pinchStartDistance=0, pinchStartZoom=1;
+        const MIN_ZOOM=.75, MAX_ZOOM=5, ZOOM_STEP=.25;
         const isMobile=()=>mobileQuery.matches;
         const step=()=>isMobile()?1:2;
+        const languages=[];
+        pages.forEach(page=>(Array.isArray(page.translations)?page.translations:[]).forEach(t=>{
+          const code=String(t.code||'').toLowerCase();
+          if(code && !languages.some(x=>x.code===code)) languages.push({code:code,language:t.language||code.toUpperCase()});
+        }));
+
         function clampIndex(value){
           const max=isMobile()?pages.length-1:Math.max(0,pages.length-(pages.length%2===0?2:1));
           return Math.max(0,Math.min(value,max));
+        }
+        function translationFor(page){
+          if(!page || selectedLanguage==='original') return null;
+          return (Array.isArray(page.translations)?page.translations:[]).find(t=>String(t.code||'').toLowerCase()===selectedLanguage) || null;
+        }
+        function applyTranslation(container,page){
+          const overlay=container.querySelector('.archive-document-translation');
+          if(!overlay) return;
+          const t=translationFor(page);
+          if(!t){ overlay.hidden=true; overlay.querySelector('.archive-document-translation-label').textContent=''; overlay.querySelector('.archive-document-translation-text').textContent=''; return; }
+          overlay.hidden=false;
+          overlay.querySelector('.archive-document-translation-label').textContent='TRADUCCIÓN // '+String(t.language||t.code||'').toUpperCase();
+          overlay.querySelector('.archive-document-translation-text').textContent=t.text||'';
         }
         function setPage(figure,page,pageIndex){
           const img=figure.querySelector('img');
@@ -509,6 +575,7 @@ function archiveDocuments(item){
           if(!page){ figure.hidden=true; img.removeAttribute('src'); img.alt=''; cap.textContent=''; return; }
           figure.hidden=false; img.src=page.image; img.alt=page.caption || ('Página '+(pageIndex+1)); cap.textContent=page.caption || '';
           figure.querySelector('.archive-document-page-open').dataset.pageIndex=String(pageIndex);
+          applyTranslation(figure,page);
         }
         function render(){
           index=clampIndex(index);
@@ -519,32 +586,79 @@ function archiveDocuments(item){
           next.disabled=index+step()>=pages.length;
           if(isMobile()) counter.textContent=(index+1)+' / '+pages.length;
           else { const end=Math.min(index+2,pages.length); counter.textContent=(index+1)+(end>index+1?'–'+end:'')+' / '+pages.length; }
+          syncLanguageButtons();
         }
         function go(delta){ index=clampIndex(index+delta*step()); render(); }
+        function makeLanguageButtons(target){
+          target.innerHTML='';
+          [{code:'original',language:'ORIGINAL'}].concat(languages).forEach(lang=>{
+            const btn=document.createElement('button'); btn.type='button'; btn.dataset.language=lang.code;
+            btn.textContent=lang.code==='original'?'ORIGINAL':String(lang.language||lang.code).toUpperCase();
+            btn.addEventListener('click',()=>{selectedLanguage=lang.code; render(); if(!modal.hidden) renderModal();});
+            target.appendChild(btn);
+          });
+        }
+        function syncLanguageButtons(){
+          viewer.querySelectorAll('[data-language]').forEach(btn=>{
+            const active=btn.dataset.language===selectedLanguage;
+            btn.classList.toggle('active',active); btn.setAttribute('aria-pressed',active?'true':'false');
+          });
+        }
+        if(languages.length){ languageBar.hidden=false; modalLanguage.hidden=false; makeLanguageButtons(languageOptions); makeLanguageButtons(modalLanguageOptions); }
+
+        function setZoom(value,anchorX,anchorY){
+          const old=zoom; zoom=Math.max(MIN_ZOOM,Math.min(MAX_ZOOM,value));
+          if(anchorX!==undefined && anchorY!==undefined && old!==zoom){
+            const rect=modalViewport.getBoundingClientRect();
+            const cx=anchorX-rect.left-rect.width/2-panX;
+            const cy=anchorY-rect.top-rect.height/2-panY;
+            const factor=zoom/old;
+            panX-=cx*(factor-1); panY-=cy*(factor-1);
+          }
+          if(zoom<=1){ panX=0; panY=0; }
+          modalTransform.style.transform='translate('+panX+'px,'+panY+'px) scale('+zoom+')';
+          zoomLabel.textContent=Math.round(zoom*100)+'%';
+          modalViewport.classList.toggle('is-zoomed',zoom>1.001);
+        }
+        function resetZoom(){ panX=0; panY=0; setZoom(1); }
         function openModal(pageIndex){
           modalIndex=Math.max(0,Math.min(Number(pageIndex)||0,pages.length-1));
           lastFocus=document.activeElement; modal.hidden=false; modal.setAttribute('aria-hidden','false');
-          document.body.classList.add('archive-document-modal-open'); renderModal();
+          document.body.classList.add('archive-document-modal-open'); resetZoom(); renderModal();
           modal.querySelector('.archive-document-modal-close').focus();
         }
         function closeModal(){
-          modal.hidden=true; modal.setAttribute('aria-hidden','true'); document.body.classList.remove('archive-document-modal-open');
+          modal.hidden=true; modal.setAttribute('aria-hidden','true'); document.body.classList.remove('archive-document-modal-open'); resetZoom();
           if(lastFocus && typeof lastFocus.focus==='function') lastFocus.focus();
         }
         function renderModal(){
           const page=pages[modalIndex]; modalImg.src=page.image; modalImg.alt=page.caption || ('Página '+(modalIndex+1));
           modalCaption.textContent=page.caption || ''; modalCounter.textContent=(modalIndex+1)+' / '+pages.length;
           modalPrev.disabled=modalIndex<=0; modalNext.disabled=modalIndex>=pages.length-1;
+          applyTranslation(modal.querySelector('.archive-document-modal-page'),page); syncLanguageButtons();
         }
-        function modalGo(delta){ modalIndex=Math.max(0,Math.min(modalIndex+delta,pages.length-1)); renderModal(); }
+        function modalGo(delta){ modalIndex=Math.max(0,Math.min(modalIndex+delta,pages.length-1)); resetZoom(); renderModal(); }
+
         prev.addEventListener('click',()=>go(-1)); next.addEventListener('click',()=>go(1)); examine.addEventListener('click',()=>openModal(index));
         viewer.querySelectorAll('.archive-document-page-open').forEach(btn=>btn.addEventListener('click',()=>openModal(Number(btn.dataset.pageIndex||0))));
         viewer.querySelectorAll('[data-document-close]').forEach(btn=>btn.addEventListener('click',closeModal));
         modalPrev.addEventListener('click',()=>modalGo(-1)); modalNext.addEventListener('click',()=>modalGo(1));
+        zoomIn.addEventListener('click',()=>setZoom(zoom+ZOOM_STEP)); zoomOut.addEventListener('click',()=>setZoom(zoom-ZOOM_STEP)); zoomReset.addEventListener('click',resetZoom);
         stage.addEventListener('keydown',function(e){ if(e.key==='ArrowLeft'){e.preventDefault();go(-1);} if(e.key==='ArrowRight'){e.preventDefault();go(1);} });
         stage.addEventListener('touchstart',e=>{touchStartX=e.changedTouches[0].clientX;},{passive:true});
         stage.addEventListener('touchend',function(e){ if(touchStartX===null) return; const distance=e.changedTouches[0].clientX-touchStartX; touchStartX=null; if(Math.abs(distance)>=45) go(distance>0?-1:1); },{passive:true});
-        document.addEventListener('keydown',function(e){ if(modal.hidden) return; if(e.key==='Escape'){e.preventDefault();closeModal();} else if(e.key==='ArrowLeft'){e.preventDefault();modalGo(-1);} else if(e.key==='ArrowRight'){e.preventDefault();modalGo(1);} });
+
+        modalViewport.addEventListener('wheel',function(e){ e.preventDefault(); setZoom(zoom+(e.deltaY<0?ZOOM_STEP:-ZOOM_STEP),e.clientX,e.clientY); },{passive:false});
+        modalViewport.addEventListener('dblclick',function(e){ e.preventDefault(); if(zoom>1.05) resetZoom(); else setZoom(2,e.clientX,e.clientY); });
+        modalViewport.addEventListener('pointerdown',function(e){ if(zoom<=1) return; dragging=true; modalViewport.setPointerCapture(e.pointerId); dragStartX=e.clientX; dragStartY=e.clientY; dragOriginX=panX; dragOriginY=panY; modalViewport.classList.add('is-dragging'); });
+        modalViewport.addEventListener('pointermove',function(e){ if(!dragging) return; panX=dragOriginX+(e.clientX-dragStartX); panY=dragOriginY+(e.clientY-dragStartY); setZoom(zoom); });
+        function endDrag(e){ if(!dragging) return; dragging=false; modalViewport.classList.remove('is-dragging'); try{modalViewport.releasePointerCapture(e.pointerId);}catch(err){} }
+        modalViewport.addEventListener('pointerup',endDrag); modalViewport.addEventListener('pointercancel',endDrag);
+        modalViewport.addEventListener('touchstart',function(e){ if(e.touches.length===2){ const dx=e.touches[0].clientX-e.touches[1].clientX,dy=e.touches[0].clientY-e.touches[1].clientY; pinchStartDistance=Math.hypot(dx,dy); pinchStartZoom=zoom; } },{passive:true});
+        modalViewport.addEventListener('touchmove',function(e){ if(e.touches.length===2 && pinchStartDistance>0){ e.preventDefault(); const dx=e.touches[0].clientX-e.touches[1].clientX,dy=e.touches[0].clientY-e.touches[1].clientY; const distance=Math.hypot(dx,dy); setZoom(pinchStartZoom*(distance/pinchStartDistance)); } },{passive:false});
+        modalViewport.addEventListener('touchend',function(e){ if(e.touches.length<2) pinchStartDistance=0; },{passive:true});
+
+        document.addEventListener('keydown',function(e){ if(modal.hidden) return; if(e.key==='Escape'){e.preventDefault();closeModal();} else if(e.key==='ArrowLeft'){e.preventDefault();modalGo(-1);} else if(e.key==='ArrowRight'){e.preventDefault();modalGo(1);} else if(e.key==='+' || e.key==='='){e.preventDefault();setZoom(zoom+ZOOM_STEP);} else if(e.key==='-'){e.preventDefault();setZoom(zoom-ZOOM_STEP);} else if(e.key==='0'){e.preventDefault();resetZoom();} });
         if(typeof mobileQuery.addEventListener==='function') mobileQuery.addEventListener('change',render); else if(typeof mobileQuery.addListener==='function') mobileQuery.addListener(render);
         render();
       });
