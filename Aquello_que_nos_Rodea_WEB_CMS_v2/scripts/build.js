@@ -516,6 +516,7 @@ function archiveDocuments(item){
         if(!pages.length) return;
 
         const stage=viewer.querySelector('.archive-document-stage');
+        const spread=viewer.querySelector('.archive-document-spread');
         const left=viewer.querySelector('.archive-document-page-left');
         const right=viewer.querySelector('.archive-document-page-right');
         const prev=viewer.querySelector('.archive-document-prev');
@@ -585,15 +586,29 @@ function archiveDocuments(item){
           // Fuerza al navegador a descartar la geometría de la imagen anterior.
           void img.offsetWidth;
         }
+        function syncSpreadGeometry(){
+          if(!spread) return;
+          if(isMobile()){ spread.style.removeProperty('grid-template-columns'); return; }
+          const leftImg=left.querySelector('img');
+          const rightImg=right.querySelector('img');
+          if(right.hidden || !leftImg.naturalWidth || !leftImg.naturalHeight || !rightImg.naturalWidth || !rightImg.naturalHeight){
+            spread.style.removeProperty('grid-template-columns');
+            return;
+          }
+          // Reparte el ancho según la proporción natural para que ambas páginas tengan la misma altura.
+          const leftRatio=leftImg.naturalWidth/leftImg.naturalHeight;
+          const rightRatio=rightImg.naturalWidth/rightImg.naturalHeight;
+          spread.style.gridTemplateColumns='minmax(0,'+leftRatio+'fr) 16px minmax(0,'+rightRatio+'fr)';
+        }
         function setPage(figure,page,pageIndex){
           const img=figure.querySelector('img');
           const cap=figure.querySelector('figcaption');
           resetPageGeometry(figure,img);
-          if(!page){ figure.hidden=true; img.removeAttribute('src'); img.alt=''; cap.textContent=''; return; }
+          if(!page){ figure.hidden=true; img.removeAttribute('src'); img.alt=''; cap.textContent=''; syncSpreadGeometry(); return; }
           figure.hidden=false;
           img.onload=function(){
             resetPageGeometry(figure,img);
-            requestAnimationFrame(function(){ void figure.offsetHeight; });
+            requestAnimationFrame(function(){ syncSpreadGeometry(); void figure.offsetHeight; });
           };
           // Limpiar primero src evita que una imagen anterior conserve su caja al sustituirse.
           img.removeAttribute('src');
