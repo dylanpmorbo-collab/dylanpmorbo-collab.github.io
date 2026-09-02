@@ -603,10 +603,10 @@ DOCUMENTOS NAVEGABLES V8 — TRADUCCIONES + LUPA/ZOOM
 .archive-document-language-options button,.archive-document-modal-language-options button{border:1px solid rgba(173,132,55,.26);background:#090806;color:#998b70;padding:8px 10px;font:600 8px/1 var(--display);letter-spacing:.11em;cursor:pointer;transition:.2s}
 .archive-document-language-options button:hover,.archive-document-modal-language-options button:hover,.archive-document-language-options button.active,.archive-document-modal-language-options button.active{border-color:var(--gold2);background:rgba(173,132,55,.11);color:#e0c985}
 .archive-document-page-canvas,.archive-document-modal-page-canvas{position:relative;display:block;width:100%;height:100%}
-.archive-document-translation{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;padding:clamp(16px,4vw,44px);background:rgba(5,5,4,.78);backdrop-filter:blur(.8px);-webkit-backdrop-filter:blur(.8px);color:#eee7d9;text-align:left;overflow:auto;cursor:zoom-in;overscroll-behavior:contain}
+.archive-document-translation{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:clamp(16px,4vw,44px);background:rgba(5,5,4,.78);backdrop-filter:blur(.8px);-webkit-backdrop-filter:blur(.8px);color:#eee7d9;text-align:left;overflow:auto;cursor:zoom-in}
 .archive-document-translation[hidden]{display:none!important}
 .archive-document-translation-label{flex:0 0 auto;align-self:flex-start;margin-bottom:16px;padding-bottom:7px;border-bottom:1px solid rgba(208,170,88,.42);color:var(--gold2);font:600 8px/1.2 var(--display);letter-spacing:.16em}
-.archive-document-translation-text{display:block;width:100%;white-space:pre-wrap;overflow-wrap:anywhere;font:500 clamp(15px,1.05vw,21px)/1.46 var(--serif);color:#e0d8ca;text-shadow:0 1px 2px #000}
+.archive-document-translation-text{display:block;width:100%;white-space:pre-wrap;overflow-wrap:anywhere;font:500 clamp(13px,1.4vw,19px)/1.46 var(--serif);color:#e0d8ca;text-shadow:0 1px 2px #000}
 .archive-document-page-open:has(.archive-document-translation:not([hidden])) img{filter:brightness(.27) sepia(.08) contrast(1.02) saturate(.65)}
 .archive-document-modal-toolbar{position:absolute;z-index:6;left:70px;right:70px;top:12px;display:flex;justify-content:space-between;align-items:center;gap:12px;pointer-events:none}
 .archive-document-modal-language,.archive-document-zoom-controls{pointer-events:auto;display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:7px;background:rgba(7,7,6,.88);border:1px solid rgba(173,132,55,.26);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
@@ -618,13 +618,13 @@ DOCUMENTOS NAVEGABLES V8 — TRADUCCIONES + LUPA/ZOOM
 .archive-document-modal-viewport:focus-visible{box-shadow:inset 0 0 0 1px var(--gold2)}
 .archive-document-modal-viewport.is-zoomed{cursor:grab}
 .archive-document-modal-viewport.is-dragging{cursor:grabbing}
-.archive-document-modal-page{grid-column:auto!important;grid-row:auto!important;width:100%;height:100%;max-width:none;overflow:visible;display:flex;align-items:center;justify-content:center}
+.archive-document-modal-page{width:100%;height:100%;max-width:none;overflow:visible}
 .archive-document-modal-transform{display:grid;place-items:center;transform-origin:center center;will-change:transform;transition:transform .08s linear}
 .archive-document-modal-viewport.is-dragging .archive-document-modal-transform{transition:none}
 .archive-document-modal-page-canvas{display:inline-block;width:auto;height:auto;max-width:none}
 .archive-document-modal-page img{display:block;width:auto;height:auto;max-width:min(1180px,calc(100vw - 190px));max-height:calc(96vh - 145px);object-fit:contain;user-select:none;-webkit-user-drag:none;box-shadow:0 18px 48px rgba(0,0,0,.62)}
 .archive-document-modal-translation{cursor:inherit;overflow:auto;padding:clamp(24px,4vw,70px);background:rgba(5,5,4,.82)}
-.archive-document-modal-translation .archive-document-translation-text{font-size:clamp(15px,1.05vw,21px);line-height:1.5}
+.archive-document-modal-translation .archive-document-translation-text{font-size:clamp(18px,1.7vw,27px);line-height:1.5}
 .archive-document-modal-page:has(.archive-document-modal-translation:not([hidden])) img{filter:brightness(.24) sepia(.08) contrast(1.02) saturate(.6)}
 .archive-document-modal-page figcaption{position:absolute;left:50%;bottom:5px;transform:translateX(-50%);margin:0;max-width:65%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .archive-document-modal-counter{align-self:center}
@@ -632,5 +632,47 @@ DOCUMENTOS NAVEGABLES V8 — TRADUCCIONES + LUPA/ZOOM
 .archive-document-modal-toolbar{left:54px;right:54px;align-items:flex-start}.archive-document-modal-language,.archive-document-zoom-controls{gap:5px;padding:5px}.archive-document-modal-language>span{display:none}.archive-document-language-options button,.archive-document-modal-language-options button{padding:7px 8px;font-size:7px}.archive-document-zoom-controls button{min-width:30px;height:30px;padding:0 8px;font-size:8px}.archive-document-modal-page img{max-width:calc(100vw - 145px);max-height:calc(100vh - 145px)}
 }
 @media(max-width:700px){
-.archive-document-language{align-items:flex-start;flex-direction:column;gap:9px}.archive-document-language-options{width:100%}.archive-document-language-options button{flex:1 1 auto}.archive-document-translation{padding:18px 14px}.archive-document-translation-text{font-size:15px;line-height:1.4}.archive-document-modal-panel{height:calc(100vh - 8px);width:calc(100vw - 8px);grid-template-columns:34px minmax(0,1fr) 34px;padding:92px 4px 11px}.archive-document-modal-toolbar{left:8px;right:50px;top:8px;display:flex;flex-direction:column;align-items:flex-start;gap:5px}.archive-document-modal-language,.archive-document-zoom-controls{max-width:100%}.archive-document-modal-language-options{flex-wrap:nowrap;overflow-x:auto;max-width:calc(100vw - 70px)}.archive-document-modal-page img{max-width:calc(100vw - 86px);max-height:calc(100vh - 130px)}.archive-document-modal-translation{padding:22px 16px}.archive-document-modal-translation .archive-document-translation-text{font-size:15px}.archive-document-modal-page figcaption{display:none}.archive-document-modal-close{z-index:8}
+.archive-document-language{align-items:flex-start;flex-direction:column;gap:9px}.archive-document-language-options{width:100%}.archive-document-language-options button{flex:1 1 auto}.archive-document-translation{padding:18px 14px}.archive-document-translation-text{font-size:15px;line-height:1.4}.archive-document-modal-panel{height:calc(100vh - 8px);width:calc(100vw - 8px);grid-template-columns:34px minmax(0,1fr) 34px;padding:92px 4px 11px}.archive-document-modal-toolbar{left:8px;right:50px;top:8px;display:flex;flex-direction:column;align-items:flex-start;gap:5px}.archive-document-modal-language,.archive-document-zoom-controls{max-width:100%}.archive-document-modal-language-options{flex-wrap:nowrap;overflow-x:auto;max-width:calc(100vw - 70px)}.archive-document-modal-page img{max-width:calc(100vw - 86px);max-height:calc(100vh - 130px)}.archive-document-modal-translation{padding:22px 16px}.archive-document-modal-translation .archive-document-translation-text{font-size:18px}.archive-document-modal-page figcaption{display:none}.archive-document-modal-close{z-index:8}
+}
+
+
+/* =========================================================
+DOCUMENTOS NAVEGABLES V8.1 — AJUSTES DE LECTURA Y CENTRADO
+========================================================= */
+/* El hueco sobrante de las imágenes debe integrarse con el visor oscuro, no verse blanco. */
+.archive-document-page img{background:transparent!important}
+.archive-document-page-open,.archive-document-page-canvas{background:transparent!important}
+
+/* La traducción empieza siempre arriba y usa un cuerpo más discreto. */
+.archive-document-translation{align-items:flex-start!important;justify-content:flex-start!important;padding:clamp(14px,2.4vw,30px)!important}
+.archive-document-translation-text{font-size:clamp(15px,1.05vw,21px)!important;line-height:1.42!important}
+.archive-document-modal-translation{align-items:flex-start!important;justify-content:flex-start!important;padding:clamp(18px,3vw,42px)!important}
+.archive-document-modal-translation .archive-document-translation-text{font-size:clamp(15px,1.05vw,21px)!important;line-height:1.44!important}
+
+/* El figure heredaba grid-column:2 del visor antiguo y desplazaba la página ampliada a la derecha. */
+.archive-document-modal-page{grid-column:auto!important;grid-row:auto!important;align-self:center!important;justify-self:center!important}
+.archive-document-modal-transform{margin:auto!important;transform-origin:center center!important}
+.archive-document-modal-page-canvas{margin:auto!important}
+
+/* =========================================================
+DOCUMENTOS NAVEGABLES V8.2 — ELIMINAR BANDAS LATERALES
+========================================================= */
+/* La banda clara procedía del lienzo 3:4 del <img> con object-fit:contain.
+   El elemento adopta ahora la proporción natural de cada página, por lo que
+   no existe un área vacía lateral que pueda mostrar un color de fondo. */
+.archive-document-page,
+.archive-document-page-open,
+.archive-document-page-canvas{
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+.archive-document-page img{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  aspect-ratio:auto!important;
+  object-fit:contain!important;
+  background:transparent!important;
+  margin:0!important;
 }
