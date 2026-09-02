@@ -431,6 +431,35 @@ content:
                 label: Nombre / pie de página
                 type: string
                 required: false
+              - name: translations
+                label: Traducciones de esta página
+                type: object
+                required: false
+                description: "Opcional. El documento original siempre se muestra por defecto. Añade aquí una o varias traducciones de esta página."
+                list:
+                  max: 12
+                  collapsible:
+                    collapsed: true
+                    summary: "{language} · {code}"
+                fields:
+                  - name: language
+                    label: Idioma
+                    type: string
+                    required: true
+                    description: "Ejemplo: Español, English, Français."
+                  - name: code
+                    label: Código corto
+                    type: string
+                    required: true
+                    description: "Ejemplo: es, en, fr. Usa el mismo código en todas las páginas del documento."
+                    pattern:
+                      regex: "^[A-Za-z0-9-]{2,12}$"
+                      message: "Usa un código corto como es, en, fr o pt-BR."
+                  - name: text
+                    label: Texto traducido
+                    type: text
+                    required: true
+                    description: "Respeta los saltos de línea que quieras conservar en la capa de traducción."
       - name: show_police_report
         label: Mostrar informe policial
         type: boolean
@@ -652,6 +681,35 @@ content:
                 label: Nombre / pie de página
                 type: string
                 required: false
+              - name: translations
+                label: Traducciones de esta página
+                type: object
+                required: false
+                description: "Opcional. El documento original siempre se muestra por defecto. Añade aquí una o varias traducciones de esta página."
+                list:
+                  max: 12
+                  collapsible:
+                    collapsed: true
+                    summary: "{language} · {code}"
+                fields:
+                  - name: language
+                    label: Idioma
+                    type: string
+                    required: true
+                    description: "Ejemplo: Español, English, Français."
+                  - name: code
+                    label: Código corto
+                    type: string
+                    required: true
+                    description: "Ejemplo: es, en, fr. Usa el mismo código en todas las páginas del documento."
+                    pattern:
+                      regex: "^[A-Za-z0-9-]{2,12}$"
+                      message: "Usa un código corto como es, en, fr o pt-BR."
+                  - name: text
+                    label: Texto traducido
+                    type: text
+                    required: true
+                    description: "Respeta los saltos de línea que quieras conservar en la capa de traducción."
       - name: show_police_report
         label: Mostrar informe policial
         type: boolean
