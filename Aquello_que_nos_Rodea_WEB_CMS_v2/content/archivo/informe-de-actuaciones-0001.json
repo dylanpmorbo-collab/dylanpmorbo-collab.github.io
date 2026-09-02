@@ -17,6 +17,10 @@
       "description": "que bonito es",
       "pages": [
         {
+          "image": "/assets/uploads/documentos/1alemano.png",
+          "caption": "1"
+        },
+        {
           "image": "/assets/uploads/documentos/2aleman.png",
           "caption": "2",
           "translations": [
