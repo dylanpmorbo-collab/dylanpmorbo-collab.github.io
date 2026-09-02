@@ -676,3 +676,29 @@ DOCUMENTOS NAVEGABLES V8.2 — ELIMINAR BANDAS LATERALES
   background:transparent!important;
   margin:0!important;
 }
+
+
+/* =========================================================
+DOCUMENTOS NAVEGABLES V8.3 — GEOMETRÍA SIEMPRE RECALCULADA
+========================================================= */
+/* Cada página vuelve a depender únicamente de la imagen actual.
+   No se conserva ningún lienzo 3:4 ni dimensión heredada de una carga anterior. */
+.archive-document-spread{align-items:center!important}
+.archive-document-page{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;min-width:0!important;background:transparent!important}
+.archive-document-page-open{display:flex!important;align-items:center!important;justify-content:center!important;width:100%!important;height:auto!important;background:transparent!important;overflow:visible!important}
+.archive-document-page-canvas{position:relative!important;display:block!important;width:100%!important;height:auto!important;aspect-ratio:auto!important;background:transparent!important}
+.archive-document-page img{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  max-width:100%!important;
+  max-height:none!important;
+  aspect-ratio:auto!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  background:transparent!important;
+  margin:0 auto!important;
+}
+@media(max-width:700px){
+  .archive-document-page img{width:auto!important;max-width:100%!important;max-height:72vh!important;height:auto!important}
+}
