@@ -564,10 +564,11 @@ function archiveDocuments(item){
           const overlay=container.querySelector('.archive-document-translation');
           if(!overlay) return;
           const t=translationFor(page);
-          if(!t){ overlay.hidden=true; overlay.querySelector('.archive-document-translation-label').textContent=''; overlay.querySelector('.archive-document-translation-text').textContent=''; return; }
+          if(!t){ overlay.hidden=true; overlay.scrollTop=0; overlay.querySelector('.archive-document-translation-label').textContent=''; overlay.querySelector('.archive-document-translation-text').textContent=''; return; }
           overlay.hidden=false;
           overlay.querySelector('.archive-document-translation-label').textContent='TRADUCCIÓN // '+String(t.language||t.code||'').toUpperCase();
           overlay.querySelector('.archive-document-translation-text').textContent=t.text||'';
+          overlay.scrollTop=0;
         }
         function setPage(figure,page,pageIndex){
           const img=figure.querySelector('img');
@@ -594,7 +595,7 @@ function archiveDocuments(item){
           [{code:'original',language:'ORIGINAL'}].concat(languages).forEach(lang=>{
             const btn=document.createElement('button'); btn.type='button'; btn.dataset.language=lang.code;
             btn.textContent=lang.code==='original'?'ORIGINAL':String(lang.language||lang.code).toUpperCase();
-            btn.addEventListener('click',()=>{selectedLanguage=lang.code; render(); if(!modal.hidden) renderModal();});
+            btn.addEventListener('click',()=>{selectedLanguage=lang.code; viewer.querySelectorAll('.archive-document-translation').forEach(el=>{el.scrollTop=0;}); render(); if(!modal.hidden) renderModal();});
             target.appendChild(btn);
           });
         }
