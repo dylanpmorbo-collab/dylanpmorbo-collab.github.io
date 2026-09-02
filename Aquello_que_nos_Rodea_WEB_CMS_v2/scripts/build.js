@@ -570,11 +570,35 @@ function archiveDocuments(item){
           overlay.querySelector('.archive-document-translation-label').textContent='TRADUCCIÓN // '+String(t.language||t.code||'').toUpperCase();
           overlay.querySelector('.archive-document-translation-text').textContent=t.text||'';
         }
+        function resetPageGeometry(figure,img){
+          if(!figure || !img) return;
+          const open=figure.querySelector('.archive-document-page-open');
+          const canvas=figure.querySelector('.archive-document-page-canvas');
+          [figure,open,canvas,img].forEach(function(el){
+            if(!el) return;
+            el.style.removeProperty('width');
+            el.style.removeProperty('height');
+            el.style.removeProperty('max-width');
+            el.style.removeProperty('max-height');
+            el.style.removeProperty('aspect-ratio');
+          });
+          // Fuerza al navegador a descartar la geometría de la imagen anterior.
+          void img.offsetWidth;
+        }
         function setPage(figure,page,pageIndex){
           const img=figure.querySelector('img');
           const cap=figure.querySelector('figcaption');
+          resetPageGeometry(figure,img);
           if(!page){ figure.hidden=true; img.removeAttribute('src'); img.alt=''; cap.textContent=''; return; }
-          figure.hidden=false; img.src=page.image; img.alt=page.caption || ('Página '+(pageIndex+1)); cap.textContent=page.caption || '';
+          figure.hidden=false;
+          img.onload=function(){
+            resetPageGeometry(figure,img);
+            requestAnimationFrame(function(){ void figure.offsetHeight; });
+          };
+          // Limpiar primero src evita que una imagen anterior conserve su caja al sustituirse.
+          img.removeAttribute('src');
+          img.src=page.image;
+          img.alt=page.caption || ('Página '+(pageIndex+1)); cap.textContent=page.caption || '';
           figure.querySelector('.archive-document-page-open').dataset.pageIndex=String(pageIndex);
           applyTranslation(figure,page);
         }
