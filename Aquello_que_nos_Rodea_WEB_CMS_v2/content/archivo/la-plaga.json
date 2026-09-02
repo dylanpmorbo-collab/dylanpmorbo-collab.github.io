@@ -49,5 +49,12 @@
     }
   ],
   "show_police_report": false,
-  "show_related_archive": false
+  "show_related_archive": true,
+  "related_archive": [
+    {
+      "type": "ENTIDAD",
+      "title": "ŚUKRAHĀRĪ",
+      "url": "https://dylanpmorbo-collab.github.io/archivo-entidades-sukrahari.html"
+    }
+  ]
 }
