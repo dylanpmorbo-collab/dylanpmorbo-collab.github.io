@@ -5,28 +5,28 @@
   "pages": [
     {
       "label": "Śukrahārī — estudio anatómico",
-      "image": "/assets/uploads/interfaz/chatgpt-image-1-sept-2026-220945.png",
+      "image": "/assets/uploads/interfaz/cosa.png",
       "enabled": true,
       "first": false,
       "fixed": false
     },
     {
       "label": "Mānavakṣetra — Registro de Carne",
-      "image": "/assets/uploads/interfaz/chatgpt-image-1-sept-2026-221009.png",
+      "image": "/assets/uploads/interfaz/cosa2.png",
       "enabled": false,
       "first": true,
       "fixed": false
     },
     {
       "label": "Neolin Archivo",
-      "image": "/assets/uploads/interfaz/chatgpt-image-29-ago-2026-175404.png",
+      "image": "/assets/uploads/interfaz/mosaico neolin.png",
       "enabled": true,
       "first": false,
       "fixed": false
     },
     {
       "label": "nigromantes",
-      "image": "/assets/uploads/interfaz/chatgpt-image-30-ago-2026-085434.png",
+      "image": "/assets/uploads/interfaz/nigromantes.png",
       "enabled": true,
       "first": false,
       "fixed": false
