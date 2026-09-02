@@ -564,11 +564,11 @@ function archiveDocuments(item){
           const overlay=container.querySelector('.archive-document-translation');
           if(!overlay) return;
           const t=translationFor(page);
-          if(!t){ overlay.hidden=true; overlay.scrollTop=0; overlay.querySelector('.archive-document-translation-label').textContent=''; overlay.querySelector('.archive-document-translation-text').textContent=''; return; }
+          if(!t){ overlay.hidden=true; overlay.querySelector('.archive-document-translation-label').textContent=''; overlay.querySelector('.archive-document-translation-text').textContent=''; return; }
           overlay.hidden=false;
+          overlay.scrollTop=0;
           overlay.querySelector('.archive-document-translation-label').textContent='TRADUCCIÓN // '+String(t.language||t.code||'').toUpperCase();
           overlay.querySelector('.archive-document-translation-text').textContent=t.text||'';
-          overlay.scrollTop=0;
         }
         function setPage(figure,page,pageIndex){
           const img=figure.querySelector('img');
@@ -589,13 +589,14 @@ function archiveDocuments(item){
           else { const end=Math.min(index+2,pages.length); counter.textContent=(index+1)+(end>index+1?'–'+end:'')+' / '+pages.length; }
           syncLanguageButtons();
         }
-        function go(delta){ index=clampIndex(index+delta*step()); render(); }
+        function resetTranslationScroll(){ viewer.querySelectorAll('.archive-document-translation').forEach(el=>{el.scrollTop=0;}); }
+        function go(delta){ index=clampIndex(index+delta*step()); render(); resetTranslationScroll(); }
         function makeLanguageButtons(target){
           target.innerHTML='';
           [{code:'original',language:'ORIGINAL'}].concat(languages).forEach(lang=>{
             const btn=document.createElement('button'); btn.type='button'; btn.dataset.language=lang.code;
             btn.textContent=lang.code==='original'?'ORIGINAL':String(lang.language||lang.code).toUpperCase();
-            btn.addEventListener('click',()=>{selectedLanguage=lang.code; viewer.querySelectorAll('.archive-document-translation').forEach(el=>{el.scrollTop=0;}); render(); if(!modal.hidden) renderModal();});
+            btn.addEventListener('click',()=>{selectedLanguage=lang.code; render(); if(!modal.hidden) renderModal(); resetTranslationScroll();});
             target.appendChild(btn);
           });
         }
@@ -638,7 +639,7 @@ function archiveDocuments(item){
           modalPrev.disabled=modalIndex<=0; modalNext.disabled=modalIndex>=pages.length-1;
           applyTranslation(modal.querySelector('.archive-document-modal-page'),page); syncLanguageButtons();
         }
-        function modalGo(delta){ modalIndex=Math.max(0,Math.min(modalIndex+delta,pages.length-1)); resetZoom(); renderModal(); }
+        function modalGo(delta){ modalIndex=Math.max(0,Math.min(modalIndex+delta,pages.length-1)); resetZoom(); renderModal(); resetTranslationScroll(); }
 
         prev.addEventListener('click',()=>go(-1)); next.addEventListener('click',()=>go(1)); examine.addEventListener('click',()=>openModal(index));
         viewer.querySelectorAll('.archive-document-page-open').forEach(btn=>btn.addEventListener('click',()=>openModal(Number(btn.dataset.pageIndex||0))));
