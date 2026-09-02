@@ -203,7 +203,6 @@ function relatedArchiveMarkup(item,sourceHref='',sourceLabel=''){
 if(fs.existsSync(DIST)) fs.rmSync(DIST,{recursive:true,force:true});
 fs.mkdirSync(DIST,{recursive:true});
 copyDir(path.join(ROOT,'assets'),path.join(DIST,'assets'));
-copyDir(path.join(ROOT,'admin'),path.join(DIST,'admin'));
 
 const site=readJSON(path.join(ROOT,'content/config/site.json'));
 const archiveBookPath=path.join(ROOT,'content/config/libro-archivo.json');
