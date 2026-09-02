@@ -11,6 +11,47 @@
     }
   ],
   "show_documents": true,
+  "documents": [
+    {
+      "title": "diario prueba",
+      "description": "que bonito",
+      "pages": [
+        {
+          "image": "/assets/uploads/documentos/1aleman.png",
+          "caption": "1",
+          "translations": [
+            {
+              "language": "ESPAÑOL",
+              "code": "ES",
+              "text": "06:40\nParece que piensan que somos una especie de deidades.\nNo encuentro otra explicación a su comportamiento.\nLlevamos poco más de veinte minutos al otro lado y, aunque nos observan desde todas partes, ninguno ha intentado acercarse. Algunos se retiran cuando avanzamos. Otros permanecen inmóviles, mirándonos desde las paredes y los salientes.\nResulta difícil determinar si sienten miedo o respeto.\nQuizá ambas cosas.\nLa abertura permanece estable. Desde este lado parece simplemente una grieta en la roca. Es extraño pensar que, unos metros más atrás, esa misma grieta conduce a nuestro mundo.\nHemos dejado dos hombres junto a la entrada.\n\n07:15\nEl terreno es mucho más húmedo de lo esperado.\nLa roca es negra, casi aceitosa en algunas zonas. Al tocarla deja una película fina en los dedos, aunque no parece barro. Schmidt ha recogido varias muestras.\nHay formaciones cristalinas incrustadas en las paredes. Algunas son casi transparentes; otras, de un negro violáceo.\nNo hemos conseguido arrancar ninguna.\nEl olor es insoportable.\nNo sabría describirlo correctamente. Humedad, carne pasada, sudor, hierro y algo dulzón.\nSe queda en la garganta.\n"
+            }
+          ]
+        },
+        {
+          "image": "/assets/uploads/documentos/2aleman.png",
+          "caption": "2",
+          "translations": [
+            {
+              "language": "ESPAÑOL",
+              "code": "ES",
+              "text": "08:05\nPrimer puente.\nConstrucción rudimentaria pero sorprendentemente resistente. Madera, hueso —o algo parecido— y fibras trenzadas.\nNo parece haber planificación arquitectónica en el sentido convencional. Las estructuras se adaptan a la cueva: plataformas sobre salientes, puentes entre paredes, escaleras clavadas directamente en la piedra.\nHay criaturas moviéndose por todas partes.\nCada vez vemos más.\nSiguen sin acercarse.\n\n09:30\nHemos alcanzado lo que, por falta de un término mejor, llamaré asentamiento principal.\nEs enorme.\nNo hemos podido calcular la profundidad. Las luces continúan mucho más abajo de lo que alcanza la vista.\nHay centenares de ellos.\nTal vez miles.\nLo más desconcertante es que no parecen animales.\nTransportan objetos. Se reúnen. Intercambian cosas. Algunos trabajan sobre estructuras. Otros simplemente nos observan.\nCuando uno de nuestros hombres levantó la cámara, varios se apartaron.\nCreen que nuestros aparatos hacen algo.\nEso juega a nuestro favor.\n"
+            }
+          ]
+        },
+        {
+          "image": "/assets/uploads/documentos/3aleman.png",
+          "caption": "3",
+          "translations": [
+            {
+              "language": "ESPAÑOL",
+              "code": "ES",
+              "text": "10:10\nPrimer contacto a menos de dos metros.\nUno de ellos se ha aproximado voluntariamente.\nAltura estimada: más de dos metros veinte.\nCuerpo extraordinariamente pesado. Brazos desproporcionadamente largos. La piel tiene pequeñas formaciones similares a los cristales de las paredes.\nSus ojos son humanos.\nEsto resulta mucho más desagradable que si no lo fueran.\nNos observó durante varios minutos.\nMüller le ofreció una lata de carne.\nNo pareció comprender qué era.\nDespués tocó la cámara de Bauer.\nBauer casi se desmaya.\nLa criatura se retiró.\nLos demás hicieron un ruido que podría haber sido una risa.\n\n11:35\nNos han permitido fotografiar a uno.\nNo sé cómo describir lo absurdo de la situación.\nEl comandante ha insistido en posar junto a él.\nLa criatura permaneció completamente quieta durante la fotografía.\nAntes de disparar el flash le colocamos una pieza de cuero alrededor de la cintura. No opuso resistencia.\nDespués del destello miró al comandante durante mucho tiempo.\nDemasiado tiempo.\nEl comandante está encantado.\nDice que el contacto ha sido un éxito.\n\n12:20\nComida.\nEllos nos observan comer.\nEsto parece interesarles especialmente.\nUno se acercó mucho mientras Schneider bebía de la cantimplora. No intentó quitársela. Solo observó cómo tragaba.\nDespués llamó a otros.\nCinco de ellos estuvieron varios minutos mirando a Schneider beber agua.\nNo entiendo por qué.\n"
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "show_police_report": true,
   "police_report": "POLICÍA NACIONAL\nCOMISARÍA PROVINCIAL DE BARCELONA\nBRIGADA PROVINCIAL DE POLICÍA JUDICIAL\n\nINFORME DE ACTUACIONES\n\nExpediente: BCN/███/2025\nClasificación: Desaparición / posible detención ilegal\nFecha: ██ / ██ / 2025\nLugar de los hechos: Barcelona.\n\nA las ██:██ horas se recibió aviso por un incidente ocurrido en los aseos de un establecimiento situado en █████████████.\n\nPersonados los agentes en el lugar, fue localizada una mujer adulta que presentaba signos de desorientación y una lesión contusa en la cabeza. Tras recibir asistencia sanitaria, fue trasladada a una unidad medicalizada, donde prestó declaración. Dicha declaración consta incorporada al expediente como documento independiente.\n\nLa inspección ocular del aseo permitió constatar daños de consideración en una de las puertas interiores, parcialmente arrancada de sus anclajes, así como desperfectos en una conducción metálica y diversos indicios compatibles con un forcejeo.\n\nSegún la información aportada por la testigo, en el momento inmediatamente anterior al incidente se encontraba acompañada por un varón adulto cuya identidad no ha podido ser establecida.\n\nEl citado individuo no fue localizado en el establecimiento ni en las inmediaciones.\n\nSe procedió a la inspección de accesos, dependencias anexas y vías de salida sin obtener resultados. Tampoco se determinó inicialmente ningún recorrido compatible con el traslado del desaparecido desde el lugar de los hechos.\n\nNo se localizaron efectos personales suficientes para establecer de forma concluyente su identidad.\n\nVALORACIÓN PRELIMINAR\n\nLos daños observados y el testimonio disponible permiten considerar la intervención de terceras personas como hipótesis prioritaria.\n\nLas circunstancias concretas de la desaparición no han podido ser determinadas.\n\nESTADO: INVESTIGACIÓN ABIERTA\nPERSONA DESAPARECIDA: VARÓN SIN IDENTIFICAR\nLOCALIZACIÓN: DESCONOCIDA\n\nDocumento incorporado al expediente BCN/███/2025",
   "show_related_archive": false
