@@ -18,14 +18,7 @@
       "pages": [
         {
           "image": "/assets/uploads/documentos/1aleman.png",
-          "caption": "1",
-          "translations": [
-            {
-              "language": "ESPAÑOL",
-              "code": "ES",
-              "text": "06:40\nParece que piensan que somos una especie de deidades.\nNo encuentro otra explicación a su comportamiento.\nLlevamos poco más de veinte minutos al otro lado y, aunque nos observan desde todas partes, ninguno ha intentado acercarse. Algunos se retiran cuando avanzamos. Otros permanecen inmóviles, mirándonos desde las paredes y los salientes.\nResulta difícil determinar si sienten miedo o respeto.\nQuizá ambas cosas.\nLa abertura permanece estable. Desde este lado parece simplemente una grieta en la roca. Es extraño pensar que, unos metros más atrás, esa misma grieta conduce a nuestro mundo.\nHemos dejado dos hombres junto a la entrada.\n\n07:15\nEl terreno es mucho más húmedo de lo esperado.\nLa roca es negra, casi aceitosa en algunas zonas. Al tocarla deja una película fina en los dedos, aunque no parece barro. Schmidt ha recogido varias muestras.\nHay formaciones cristalinas incrustadas en las paredes. Algunas son casi transparentes; otras, de un negro violáceo.\nNo hemos conseguido arrancar ninguna.\nEl olor es insoportable.\nNo sabría describirlo correctamente. Humedad, carne pasada, sudor, hierro y algo dulzón.\nSe queda en la garganta.\n"
-            }
-          ]
+          "caption": "1"
         },
         {
           "image": "/assets/uploads/documentos/2aleman.png",
