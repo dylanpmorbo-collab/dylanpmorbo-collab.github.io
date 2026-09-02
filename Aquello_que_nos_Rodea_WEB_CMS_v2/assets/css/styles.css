@@ -637,29 +637,11 @@ DOCUMENTOS NAVEGABLES V8 — TRADUCCIONES + LUPA/ZOOM
 
 
 /* =========================================================
-DOCUMENTOS NAVEGABLES V8.1 — AJUSTES DE LECTURA Y CENTRADO
+DOCUMENTOS NAVEGABLES — AJUSTES FINALES DE GEOMETRÍA Y LECTURA
 ========================================================= */
-/* El hueco sobrante de las imágenes debe integrarse con el visor oscuro, no verse blanco. */
-.archive-document-page img{background:transparent!important}
-.archive-document-page-open,.archive-document-page-canvas{background:transparent!important}
-
-/* La traducción empieza siempre arriba y usa un cuerpo más discreto. */
-.archive-document-translation{align-items:flex-start!important;justify-content:flex-start!important;padding:clamp(14px,2.4vw,30px)!important}
-.archive-document-translation-text{font-size:clamp(15px,1.05vw,21px)!important;line-height:1.42!important}
-.archive-document-modal-translation{align-items:flex-start!important;justify-content:flex-start!important;padding:clamp(18px,3vw,42px)!important}
-.archive-document-modal-translation .archive-document-translation-text{font-size:clamp(15px,1.05vw,21px)!important;line-height:1.44!important}
-
-/* El figure heredaba grid-column:2 del visor antiguo y desplazaba la página ampliada a la derecha. */
-.archive-document-modal-page{grid-column:auto!important;grid-row:auto!important;align-self:center!important;justify-self:center!important}
-.archive-document-modal-transform{margin:auto!important;transform-origin:center center!important}
-.archive-document-modal-page-canvas{margin:auto!important}
-
-/* =========================================================
-DOCUMENTOS NAVEGABLES V8.2 — ELIMINAR BANDAS LATERALES
-========================================================= */
-/* La banda clara procedía del lienzo 3:4 del <img> con object-fit:contain.
-   El elemento adopta ahora la proporción natural de cada página, por lo que
-   no existe un área vacía lateral que pueda mostrar un color de fondo. */
+/* El visor adopta la proporción natural de cada imagen y recalcula las
+   columnas desde build.js. Así no hereda lienzos ni dimensiones anteriores. */
+.archive-document-spread{align-items:center!important}
 .archive-document-page,
 .archive-document-page-open,
 .archive-document-page-canvas{
@@ -667,26 +649,28 @@ DOCUMENTOS NAVEGABLES V8.2 — ELIMINAR BANDAS LATERALES
   border:0!important;
   box-shadow:none!important;
 }
-.archive-document-page img{
+.archive-document-page{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-width:0!important;
+}
+.archive-document-page-open{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100%!important;
+  height:auto!important;
+  overflow:visible!important;
+}
+.archive-document-page-canvas{
+  position:relative!important;
   display:block!important;
   width:100%!important;
   height:auto!important;
   aspect-ratio:auto!important;
-  object-fit:contain!important;
-  background:transparent!important;
-  margin:0!important;
 }
-
-
-/* =========================================================
-DOCUMENTOS NAVEGABLES V8.3 — GEOMETRÍA SIEMPRE RECALCULADA
-========================================================= */
-/* Cada página vuelve a depender únicamente de la imagen actual.
-   No se conserva ningún lienzo 3:4 ni dimensión heredada de una carga anterior. */
-.archive-document-spread{align-items:center!important}
-.archive-document-page{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;min-width:0!important;background:transparent!important}
-.archive-document-page-open{display:flex!important;align-items:center!important;justify-content:center!important;width:100%!important;height:auto!important;background:transparent!important;overflow:visible!important}
-.archive-document-page-canvas{position:relative!important;display:block!important;width:100%!important;height:auto!important;aspect-ratio:auto!important;background:transparent!important}
 .archive-document-page img{
   display:block!important;
   width:100%!important;
@@ -699,6 +683,45 @@ DOCUMENTOS NAVEGABLES V8.3 — GEOMETRÍA SIEMPRE RECALCULADA
   background:transparent!important;
   margin:0 auto!important;
 }
+
+/* La traducción comienza arriba y conserva un cuerpo legible y discreto. */
+.archive-document-translation{
+  align-items:flex-start!important;
+  justify-content:flex-start!important;
+  padding:clamp(14px,2.4vw,30px)!important;
+}
+.archive-document-translation-text{
+  font-size:clamp(15px,1.05vw,21px)!important;
+  line-height:1.42!important;
+}
+.archive-document-modal-translation{
+  align-items:flex-start!important;
+  justify-content:flex-start!important;
+  padding:clamp(18px,3vw,42px)!important;
+}
+.archive-document-modal-translation .archive-document-translation-text{
+  font-size:clamp(15px,1.05vw,21px)!important;
+  line-height:1.44!important;
+}
+
+/* Neutraliza la columna heredada del visor antiguo y centra la ampliación. */
+.archive-document-modal-page{
+  grid-column:auto!important;
+  grid-row:auto!important;
+  align-self:center!important;
+  justify-self:center!important;
+}
+.archive-document-modal-transform{
+  margin:auto!important;
+  transform-origin:center center!important;
+}
+.archive-document-modal-page-canvas{margin:auto!important}
+
 @media(max-width:700px){
-  .archive-document-page img{width:auto!important;max-width:100%!important;max-height:72vh!important;height:auto!important}
+  .archive-document-page img{
+    width:auto!important;
+    max-width:100%!important;
+    max-height:72vh!important;
+    height:auto!important;
+  }
 }
