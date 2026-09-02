@@ -4,7 +4,7 @@
   "category": "ENTIDAD",
   "published": true,
   "image": "/assets/uploads/archivo/sukrahari0002.png",
-  "status": "Documentado",
+  "status": "ACCESO PARCIAL",
   "summary": "Ser de apariencia híbrida entre rata y primate. La información disponible procede de testimonios incompletos y de individuos vinculados a LA PLAGA.",
   "note": "Información adicional bloqueada hasta que el archivo narrativo la revele.",
   "facts": [
@@ -42,6 +42,7 @@
       "caption": "¿Con quién habla? ¿Por qué no lo ve?"
     }
   ],
+  "show_documents": false,
   "show_police_report": false,
   "show_related_archive": true,
   "related_archive": [
