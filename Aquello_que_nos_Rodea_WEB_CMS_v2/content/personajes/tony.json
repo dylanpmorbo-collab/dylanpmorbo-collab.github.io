@@ -1,7 +1,7 @@
 {
   "name": "Tony Delgado [FICHA DE 2000]",
   "archive_number": "P-001",
-  "published": true,
+  "published": false,
   "image": "/assets/uploads/personajes/foto-archivo-tony-delgado-0001.png",
   "status": "Documentado",
   "alias": "Tony",
@@ -20,6 +20,7 @@
       "image": "/assets/uploads/personajes/foto-de-archivo-tony-delgado-0003.png"
     }
   ],
+  "show_documents": false,
   "show_police_report": false,
   "show_related_archive": false
 }
