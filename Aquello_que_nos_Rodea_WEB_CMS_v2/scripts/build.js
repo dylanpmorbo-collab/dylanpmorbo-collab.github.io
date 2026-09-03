@@ -707,16 +707,59 @@ function archiveDocuments(item){
   </section>`;
 }
 
+function paginatePoliceReport(text,maxChars=1650){
+ const paragraphs=String(text||'').replace(/\r\n/g,'\n').split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean);
+ const chunks=[];
+ for(const paragraph of paragraphs){
+   if(paragraph.length<=maxChars){ chunks.push(paragraph); continue; }
+   const words=paragraph.split(/\s+/);
+   let part='';
+   for(const word of words){
+     const candidate=part ? part+' '+word : word;
+     if(part && candidate.length>maxChars){ chunks.push(part); part=word; }
+     else part=candidate;
+   }
+   if(part) chunks.push(part);
+ }
+ const pages=[]; let current=[],size=0;
+ for(const chunk of chunks){
+   const cost=chunk.length+(current.length?2:0);
+   if(current.length && size+cost>maxChars){ pages.push(current.join('\n\n')); current=[]; size=0; }
+   current.push(chunk); size+=chunk.length+(current.length>1?2:0);
+ }
+ if(current.length) pages.push(current.join('\n\n'));
+ return pages;
+}
 function archivePoliceReport(item){
- const enabled=item.show_police_report===true;
- const report=String(item.police_report||'').trim();
- if(!enabled || !report) return '';
+ if(item.show_police_report!==true) return '';
+ let reports=(Array.isArray(item.police_reports)?item.police_reports:[])
+   .filter(report=>report && String(report.body||'').trim())
+   .slice(0,5)
+   .map((report,index)=>({
+     title:String(report.title||('INFORME POLICIAL '+String(index+1).padStart(2,'0'))),
+     image:String(report.image||''),
+     pages:paginatePoliceReport(report.body)
+   }));
+ // Compatibilidad con las fichas creadas antes del sistema de varios informes.
+ if(!reports.length && String(item.police_report||'').trim()){
+   reports=[{title:'INFORME POLICIAL',image:'',pages:paginatePoliceReport(item.police_report)}];
+ }
+ if(!reports.length) return '';
+ const reportMarkup=reports.map((report,reportIndex)=>`
+   <section class="archive-police-report-set">
+     <div class="archive-police-report-set-label">INFORME // ${String(reportIndex+1).padStart(2,'0')}</div>
+     <div class="archive-police-report-pages">
+       ${report.pages.map((page,pageIndex)=>`<article class="archive-police-report">
+         <div class="archive-police-report-heading">${esc(report.title)}${pageIndex?'<span>CONTINUACIÓN</span>':''}</div>
+         ${pageIndex===0 && report.image?`<figure class="archive-police-report-attachment"><img src="${esc(report.image)}" alt="Imagen adjunta a ${esc(report.title)}" loading="lazy"></figure>`:''}
+         <div class="archive-police-report-text">${plainTextToHTML(page)}</div>
+         <div class="archive-police-report-folio">FOLIO ${String(pageIndex+1).padStart(2,'0')} / ${String(report.pages.length).padStart(2,'0')}</div>
+       </article>`).join('')}
+     </div>
+   </section>`).join('');
  return `<section class="archive-police-report-block reveal">
-   <div class="section-label">INFORME POLICIAL</div>
-   <article class="archive-police-report">
-     <div class="archive-police-report-heading">INFORME POLICIAL</div>
-     <div class="archive-police-report-text">${plainTextToHTML(report)}</div>
-   </article>
+   <div class="section-label">INFORMES POLICIALES // ${String(reports.length).padStart(2,'0')}</div>
+   <div class="archive-police-report-stack">${reportMarkup}</div>
  </section>`;
 }
 
