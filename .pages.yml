@@ -493,7 +493,7 @@ content:
             required: false
             options:
               media: informes_policiales
-            description: "Opcional. Aparecerá enganchada con un clip al principio del primer folio."
+            description: "Opcional. Aparecerá como imagen adjunta al principio del primer folio."
           - name: body
             label: Texto del informe
             type: text
@@ -766,7 +766,7 @@ content:
             required: false
             options:
               media: informes_policiales
-            description: "Opcional. Aparecerá enganchada con un clip al principio del primer folio."
+            description: "Opcional. Aparecerá como imagen adjunta al principio del primer folio."
           - name: body
             label: Texto del informe
             type: text
