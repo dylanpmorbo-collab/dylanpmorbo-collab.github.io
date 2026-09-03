@@ -2,7 +2,7 @@
   "title": "DESAPARICIONES SIN RESOLVER INFORMES POLICIALES",
   "archive_number": "003",
   "category": "DOCUMENTO",
-  "published": true,
+  "published": false,
   "image": "/assets/uploads/archivo/informe-policial-desaparicion-1985.png",
   "status": "Documentado",
   "summary": "Extrañas desapariciones.",
@@ -50,5 +50,13 @@
       "body": "Se recibe denuncia por la desaparición de un hombre que trabajaba habitualmente desde su domicilio.\n\nEl despacho presentaba un patrón de alteración concentrado bajo una marca circular situada en el techo. Carpetas, pequeños objetos y material de oficina habían sido desplazados hacia dicho punto. Parte de una tela decorativa apareció acumulada bajo el área afectada y diversos objetos permanecían volcados.\n\nLos dos primeros agentes en entrar declararon haber percibido un olor intenso y difícil de identificar. Uno de ellos lo describió como «un perfume demasiado dulce mezclado con desengrasante». El olor disminuyó considerablemente tras ventilar la estancia.\n\nSe recogieron muestras de un polvo extremadamente fino depositado sobre escritorios y suelo. No se observaron daños en paredes o techo, aparte de la citada marca circular.\n\nEl equipo informático permanecía en la vivienda y no consta retirada de efectos personales esenciales.\n\n\nEstado: paradero desconocido."
     }
   ],
-  "show_related_archive": false
+  "show_related_archive": false,
+  "related_archive": [
+    {
+      "type": "MICRORRELATO",
+      "title": "AQUEL OLOR",
+      "thumbnail": "/assets/uploads/conexiones/aquel-olor.png",
+      "url": "https://dylanpmorbo-collab.github.io/micro-aquel-olor.html"
+    }
+  ]
 }
