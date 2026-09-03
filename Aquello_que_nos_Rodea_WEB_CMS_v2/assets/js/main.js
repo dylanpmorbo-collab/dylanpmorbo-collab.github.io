@@ -16,6 +16,21 @@
     document.querySelector('[data-reader="plus"]')?.addEventListener('click',()=>{size=Math.min(28,size+1);story.style.fontSize=size+'px'});
     document.querySelector('[data-reader="focus"]')?.addEventListener('click',()=>document.body.classList.toggle('focus-mode'));
   }
+  const scrollTopButton=document.createElement('button');
+  scrollTopButton.className='scroll-to-top';
+  scrollTopButton.type='button';
+  scrollTopButton.setAttribute('aria-label','Volver arriba');
+  scrollTopButton.setAttribute('title','Volver arriba');
+  scrollTopButton.textContent='↑';
+  document.body.appendChild(scrollTopButton);
+  const updateScrollTopButton=()=>scrollTopButton.classList.toggle('is-visible',window.scrollY>500);
+  scrollTopButton.addEventListener('click',()=>{
+    const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'});
+  });
+  addEventListener('scroll',updateScrollTopButton,{passive:true});
+  updateScrollTopButton();
+
   const gate=document.querySelector('#ageGate');
   if(gate){
     if(localStorage.getItem('aqnr_age_ok')==='yes') gate.classList.add('hidden');
