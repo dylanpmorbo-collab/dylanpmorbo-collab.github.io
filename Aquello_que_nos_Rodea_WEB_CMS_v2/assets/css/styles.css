@@ -434,13 +434,23 @@
 }
 
 
-/* ===== INFORME POLICIAL OPCIONAL ===== */
+/* ===== INFORMES POLICIALES PAGINADOS ===== */
 .archive-police-report-block{margin-top:74px;padding-top:12px}
+.archive-police-report-stack{display:flex;flex-direction:column;gap:76px;margin-top:28px}
+.archive-police-report-set{max-width:980px;margin:0 auto;width:100%}
+.archive-police-report-set-label{
+  margin:0 0 15px;
+  color:#82755f;
+  font:600 9px/1 var(--display);
+  letter-spacing:.18em;
+}
+.archive-police-report-pages{display:flex;flex-direction:column;gap:34px}
 .archive-police-report{
   position:relative;
-  max-width:980px;
-  margin:28px auto 0;
-  padding:clamp(38px,5vw,70px) clamp(30px,6vw,82px);
+  width:100%;
+  min-height:920px;
+  margin:0;
+  padding:clamp(38px,5vw,70px) clamp(30px,6vw,82px) 76px;
   overflow:hidden;
   color:#29251e;
   background:
@@ -450,8 +460,9 @@
     #d8c6a3;
   border:1px solid rgba(91,66,32,.45);
   box-shadow:0 18px 55px rgba(0,0,0,.38),inset 0 0 70px rgba(79,55,25,.12);
-  transform:rotate(-.12deg);
+  transform:rotate(-.08deg);
 }
+.archive-police-report:nth-child(even){transform:rotate(.08deg)}
 .archive-police-report:before{
   content:"";
   position:absolute;
@@ -477,12 +488,56 @@
 }
 .archive-police-report-heading{
   position:relative;
-  z-index:1;
-  padding:0 0 16px;
+  z-index:2;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:20px;
+  padding:0 110px 16px 0;
   border-bottom:1px solid rgba(54,45,33,.35);
   color:#252018;
   font:400 clamp(19px,2.2vw,27px)/1.2 "Special Elite","Courier New",monospace;
   letter-spacing:.08em;
+}
+.archive-police-report-heading span{
+  color:rgba(45,38,29,.56);
+  font:700 8px/1 var(--display);
+  letter-spacing:.14em;
+}
+.archive-police-report-attachment{
+  position:relative;
+  z-index:2;
+  width:min(360px,78%);
+  margin:42px auto 38px;
+  padding:9px 9px 25px;
+  background:#c8b68f;
+  border:1px solid rgba(52,42,27,.4);
+  box-shadow:0 13px 26px rgba(54,39,20,.28);
+  transform:rotate(-1.4deg);
+}
+.archive-police-report-attachment img{display:block;width:100%;height:auto;filter:sepia(.18) saturate(.82) contrast(.96)}
+.archive-police-report-attachment:before{
+  content:"";
+  position:absolute;
+  z-index:3;
+  left:50%;
+  top:-32px;
+  width:24px;
+  height:70px;
+  border:3px solid #756f67;
+  border-bottom-color:#4e4a45;
+  border-radius:13px 13px 9px 9px;
+  box-shadow:inset 2px 0 0 rgba(255,255,255,.45),2px 4px 5px rgba(38,31,23,.3);
+  transform:translateX(-50%) rotate(5deg);
+}
+.archive-police-report-attachment:after{
+  content:"ADJUNTO";
+  position:absolute;
+  right:12px;
+  bottom:8px;
+  color:rgba(50,42,31,.58);
+  font:700 8px/1 var(--display);
+  letter-spacing:.15em;
 }
 .archive-police-report-text{
   position:relative;
@@ -492,13 +547,31 @@
   font:400 clamp(16px,1.55vw,19px)/1.65 "Special Elite","Courier New",monospace;
   text-shadow:0 0 .25px rgba(0,0,0,.45);
 }
+.archive-police-report-attachment+.archive-police-report-text{margin-top:0}
 .archive-police-report-text p{margin:0 0 1.45em}
 .archive-police-report-text p:last-child{margin-bottom:0}
+.archive-police-report-folio{
+  position:absolute;
+  z-index:2;
+  left:clamp(30px,6vw,82px);
+  right:clamp(30px,6vw,82px);
+  bottom:30px;
+  padding-top:12px;
+  border-top:1px solid rgba(54,45,33,.22);
+  color:rgba(45,38,29,.58);
+  text-align:right;
+  font:700 8px/1 var(--display);
+  letter-spacing:.16em;
+}
 @media(max-width:860px){
   .archive-police-report-block{margin-top:58px}
-  .archive-police-report{margin-top:22px;padding:42px 24px 38px;transform:none}
+  .archive-police-report-stack{gap:54px;margin-top:22px}
+  .archive-police-report-pages{gap:24px}
+  .archive-police-report{min-height:690px;padding:42px 24px 64px;transform:none!important}
   .archive-police-report:after{right:18px;top:17px;font-size:8px}
-  .archive-police-report-heading{padding-right:92px}
+  .archive-police-report-heading{padding-right:88px}
+  .archive-police-report-attachment{width:min(330px,84%);margin-top:38px}
+  .archive-police-report-folio{left:24px;right:24px;bottom:24px}
 }
 
 /* ARCHIVOS RELACIONADOS — conexiones visuales prioritarias */
