@@ -12,12 +12,12 @@
   ],
   "show_documents": false,
   "show_police_report": true,
-  "show_related_archive": false,
   "police_reports": [
     {
       "title": "POLICÍA NACIONAL",
-      "image": "",
+      "image": "/assets/uploads/informes-policiales/informe policial baño discoteca.png",
       "body": "POLICÍA NACIONAL\nCOMISARÍA PROVINCIAL DE BARCELONA\nBRIGADA PROVINCIAL DE POLICÍA JUDICIAL\n\nINFORME DE ACTUACIONES\n\nExpediente: BCN/███/2025\nClasificación: Desaparición / posible detención ilegal\nFecha: ██ / ██ / 2025\nLugar de los hechos: Barcelona.\n\nA las ██:██ horas se recibió aviso por un incidente ocurrido en los aseos de un establecimiento situado en █████████████.\n\nPersonados los agentes en el lugar, fue localizada una mujer adulta que presentaba signos de desorientación y una lesión contusa en la cabeza. Tras recibir asistencia sanitaria, fue trasladada a una unidad medicalizada, donde prestó declaración. Dicha declaración consta incorporada al expediente como documento independiente.\n\nLa inspección ocular del aseo permitió constatar daños de consideración en una de las puertas interiores, parcialmente arrancada de sus anclajes, así como desperfectos en una conducción metálica y diversos indicios compatibles con un forcejeo.\n\nSegún la información aportada por la testigo, en el momento inmediatamente anterior al incidente se encontraba acompañada por un varón adulto cuya identidad no ha podido ser establecida.\n\nEl citado individuo no fue localizado en el establecimiento ni en las inmediaciones.\n\nSe procedió a la inspección de accesos, dependencias anexas y vías de salida sin obtener resultados. Tampoco se determinó inicialmente ningún recorrido compatible con el traslado del desaparecido desde el lugar de los hechos.\n\nNo se localizaron efectos personales suficientes para establecer de forma concluyente su identidad.\n\nVALORACIÓN PRELIMINAR\n\nLos daños observados y el testimonio disponible permiten considerar la intervención de terceras personas como hipótesis prioritaria.\n\nLas circunstancias concretas de la desaparición no han podido ser determinadas.\n\nESTADO: INVESTIGACIÓN ABIERTA\nPERSONA DESAPARECIDA: VARÓN SIN IDENTIFICAR\nLOCALIZACIÓN: DESCONOCIDA\n\nDocumento incorporado al expediente BCN/███/2025"
     }
-  ]
+  ],
+  "show_related_archive": false
 }
