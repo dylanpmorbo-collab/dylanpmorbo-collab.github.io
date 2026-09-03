@@ -1,0 +1,18 @@
+{
+  "title": "INFORME DE PERSONA DESAPARECIDA — 22/02/1994",
+  "archive_number": "004",
+  "category": "DOCUMENTO",
+  "published": true,
+  "image": "/assets/uploads/archivo/informe-policial-desaparicion-1994-desaparecido.png",
+  "status": "Documentado",
+  "show_documents": false,
+  "show_police_report": false,
+  "police_reports": [
+    {
+      "title": "INFORME DE PERSONA DESAPARECIDA — 22/02/1994",
+      "image": "/assets/uploads/informes-policiales/informe-policial-desaparicion-1994-desaparecido.png",
+      "body": "Agentes se personan en un domicilio tras la denuncia presentada por familiares de una mujer que no acudió a su puesto de trabajo ni respondió a llamadas telefónicas.\nLa habitación principal se encontraba aparentemente intacta, aunque la cama estaba completamente desprovista de sábanas, mantas y almohadas. Diversos objetos pequeños habían caído o se encontraban desplazados hacia un mismo sector de la estancia. En el techo se apreciaba una decoloración circular claramente delimitada.\nUn agente presente en la primera inspección hizo constar un olor extraño y persistente, descrito como «floral, pero con algo químico debajo». El mismo agente indicó que el olor resultaba especialmente intenso cerca del centro de la habitación.\nSobre muebles y suelo se recogió una fina película de polvo cuya procedencia no pudo determinarse en la inspección inicial.\nNo existen signos de violencia ni indicios claros de que la desaparecida abandonara voluntariamente la vivienda.\nEstado: investigación abierta."
+    }
+  ],
+  "show_related_archive": false
+}
