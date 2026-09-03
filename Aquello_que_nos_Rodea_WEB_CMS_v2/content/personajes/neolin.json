@@ -1,7 +1,7 @@
 {
   "name": "Neolin",
   "archive_number": "P-001",
-  "published": true,
+  "published": false,
   "image": "/assets/uploads/personajes/imagen-de-archivo-neolin-0001.png",
   "status": "Investigando",
   "alias": "Neolin",
@@ -26,6 +26,7 @@
       "caption": "1 de diciembre de 2002 — Manifestación de Nunca Máis en Galicia tras la catástrofe del Prestige."
     }
   ],
+  "show_documents": false,
   "show_police_report": false,
   "show_related_archive": false
 }
