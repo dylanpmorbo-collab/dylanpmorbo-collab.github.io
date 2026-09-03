@@ -47,6 +47,12 @@ media:
     output: /assets/uploads/documentos
     rename: safe
     categories: [image]
+  - name: informes_policiales
+    label: Imágenes de informes policiales
+    input: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads/informes-policiales
+    output: /assets/uploads/informes-policiales
+    rename: safe
+    categories: [image]
 
 content:
   - name: relatos
@@ -461,15 +467,38 @@ content:
                     required: true
                     description: "Respeta los saltos de línea que quieras conservar en la capa de traducción."
       - name: show_police_report
-        label: Mostrar informe policial
+        label: Mostrar informes policiales
         type: boolean
         default: false
-        description: "Actívalo para mostrar el informe bajo la galería. Si está desactivado, la sección no aparece ni deja espacio vacío."
-      - name: police_report
-        label: Informe policial
-        type: text
+        description: "Actívalo para mostrar los informes bajo la galería. Si está desactivado, la sección no aparece ni deja espacio vacío."
+      - name: police_reports
+        label: Informes policiales
+        type: object
         required: false
-        description: "Pega aquí el informe respetando párrafos y saltos de línea. Sólo se mostrará si activas la opción anterior."
+        description: "Puedes adjuntar hasta cinco informes. El texto se reparte automáticamente en folios al publicar."
+        list:
+          max: 5
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: title
+            label: Título / referencia
+            type: string
+            required: true
+            default: "INFORME POLICIAL"
+          - name: image
+            label: Imagen adjunta
+            type: image
+            required: false
+            options:
+              media: informes_policiales
+            description: "Opcional. Aparecerá enganchada con un clip al principio del primer folio."
+          - name: body
+            label: Texto del informe
+            type: text
+            required: true
+            description: "Pega el informe completo respetando párrafos y saltos de línea. La web lo dividirá automáticamente en folios."
       - name: show_related_archive
         label: Mostrar archivos relacionados
         type: boolean
@@ -711,15 +740,38 @@ content:
                     required: true
                     description: "Respeta los saltos de línea que quieras conservar en la capa de traducción."
       - name: show_police_report
-        label: Mostrar informe policial
+        label: Mostrar informes policiales
         type: boolean
         default: false
-        description: "Actívalo para mostrar el informe bajo la galería. Si está desactivado, la sección no aparece ni deja espacio vacío."
-      - name: police_report
-        label: Informe policial
-        type: text
+        description: "Actívalo para mostrar los informes bajo la galería. Si está desactivado, la sección no aparece ni deja espacio vacío."
+      - name: police_reports
+        label: Informes policiales
+        type: object
         required: false
-        description: "Pega aquí el informe respetando párrafos y saltos de línea. Sólo se mostrará si activas la opción anterior."
+        description: "Puedes adjuntar hasta cinco informes. El texto se reparte automáticamente en folios al publicar."
+        list:
+          max: 5
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: title
+            label: Título / referencia
+            type: string
+            required: true
+            default: "INFORME POLICIAL"
+          - name: image
+            label: Imagen adjunta
+            type: image
+            required: false
+            options:
+              media: informes_policiales
+            description: "Opcional. Aparecerá enganchada con un clip al principio del primer folio."
+          - name: body
+            label: Texto del informe
+            type: text
+            required: true
+            description: "Pega el informe completo respetando párrafos y saltos de línea. La web lo dividirá automáticamente en folios."
       - name: show_related_archive
         label: Mostrar archivos relacionados
         type: boolean
