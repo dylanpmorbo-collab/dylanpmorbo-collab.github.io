@@ -707,7 +707,7 @@ function archiveDocuments(item){
   </section>`;
 }
 
-function paginatePoliceReport(text,maxChars=1650){
+function paginatePoliceReport(text,maxChars=1300,firstPageChars=maxChars){
  const paragraphs=String(text||'').replace(/\r\n/g,'\n').split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean);
  const chunks=[];
  for(const paragraph of paragraphs){
@@ -724,7 +724,8 @@ function paginatePoliceReport(text,maxChars=1650){
  const pages=[]; let current=[],size=0;
  for(const chunk of chunks){
    const cost=chunk.length+(current.length?2:0);
-   if(current.length && size+cost>maxChars){ pages.push(current.join('\n\n')); current=[]; size=0; }
+   const pageLimit=pages.length===0?firstPageChars:maxChars;
+   if(current.length && size+cost>pageLimit){ pages.push(current.join('\n\n')); current=[]; size=0; }
    current.push(chunk); size+=chunk.length+(current.length>1?2:0);
  }
  if(current.length) pages.push(current.join('\n\n'));
@@ -738,7 +739,7 @@ function archivePoliceReport(item){
    .map((report,index)=>({
      title:String(report.title||('INFORME POLICIAL '+String(index+1).padStart(2,'0'))),
      image:String(report.image||''),
-     pages:paginatePoliceReport(report.body)
+     pages:paginatePoliceReport(report.body,1300,report.image?700:1300)
    }));
  // Compatibilidad con las fichas creadas antes del sistema de varios informes.
  if(!reports.length && String(item.police_report||'').trim()){
