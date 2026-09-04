@@ -20,7 +20,7 @@
     {
       "label": "Neolin Archivo",
       "image": "/assets/uploads/interfaz/mosaico neolin.png",
-      "enabled": true,
+      "enabled": false,
       "first": false,
       "fixed": false
     },
@@ -34,7 +34,7 @@
     {
       "label": "ADAM",
       "image": "/assets/uploads/interfaz/mosaico adam.png",
-      "enabled": true,
+      "enabled": false,
       "first": false,
       "fixed": false
     }
