@@ -75,6 +75,16 @@ document.addEventListener('DOMContentLoaded',function(){
     try{
       const target=new URL(from,window.location.href);
       if(target.origin===window.location.origin && target.href!==window.location.href){
+        // Todas las conexiones posteriores conservan el primer expediente de la ruta.
+        document.querySelectorAll('.related-archive-card').forEach(function(card){
+          try{
+            const next=new URL(card.href,window.location.href);
+            if(next.origin!==window.location.origin) return;
+            next.searchParams.set('aqnr_from',target.href);
+            next.searchParams.set('aqnr_from_label',fromLabel||'EXPEDIENTE DE ORIGEN');
+            card.href=next.href;
+          }catch(e){}
+        });
         const wrap=document.createElement('div');
         wrap.className='connection-return-tab';
         const link=document.createElement('a');
@@ -88,9 +98,9 @@ document.addEventListener('DOMContentLoaded',function(){
         const copy=document.createElement('span');
         copy.className='connection-return-copy';
         const small=document.createElement('small');
-        small.textContent='VOLVER AL EXPEDIENTE DE ORIGEN';
+        small.textContent='VOLVER AL PUNTO DE ORIGEN';
         const strong=document.createElement('strong');
-        strong.textContent=fromLabel||'EXPEDIENTE ANTERIOR';
+        strong.textContent=fromLabel||'EXPEDIENTE DE ORIGEN';
         copy.appendChild(small); copy.appendChild(strong);
         link.appendChild(mark); link.appendChild(copy); wrap.appendChild(link);
         document.body.appendChild(wrap);
@@ -333,6 +343,7 @@ const archiveSectionDefs=[
  {key:'documentos',label:'DOCUMENTOS',typeLabel:'DOCUMENTO',eyebrow:'CATÁLOGO // DOCUMENTOS',desc:'Textos, pruebas, registros y materiales recuperados o parcialmente descifrados.',items:archiveByCategory('DOCUMENTO'),file:'archivo-documentos.html',image:'/assets/img/archivo-secciones/documentos.png'},
  {key:'sucesos',label:'SUCESOS',typeLabel:'SUCESO',eyebrow:'CATÁLOGO // SUCESOS',desc:'Incidentes cuya explicación permanece incompleta, contradictoria o clasificada.',items:archiveByCategory('SUCESO'),file:'archivo-sucesos.html',image:'/assets/img/archivo-secciones/sucesos.png'},
  {key:'otros',label:'OTROS ARCHIVOS',typeLabel:'ARCHIVO',eyebrow:'CATÁLOGO // OTROS',desc:'Anotaciones que todavía no encajan en una clasificación estable.',items:archiveByCategory('OTRO'),file:'archivo-otros.html',image:'/assets/img/archivo-secciones/otros.png'},
+ {key:'relatos',label:'RELATOS',typeLabel:'RELATO',eyebrow:'FICCIÓN // RELATOS',desc:'Relatos completos vinculados a los expedientes y conexiones del Archivo.',items:stories,file:'archivo-relatos.html',image:'/assets/img/archivo-secciones/conexiones.png'},
  {key:'microrrelatos',label:'MICRORRELATOS',typeLabel:'MICRORRELATO',eyebrow:'FICCIÓN BREVE // MICRORRELATOS',desc:'Historias mínimas recuperadas del Archivo. Se entienden solas; las conexiones pueden aparecer mucho después.',items:micros,file:'archivo-microrrelatos.html',image:'/assets/img/archivo-secciones/conexiones.png'}
 ];
 
@@ -342,13 +353,13 @@ function itemTitle(section,item){
 }
 function itemSummary(section,item){
  if(!item) return 'Todavía no hay información pública en esta sección.';
- if(section.key==='microrrelatos' && item.excerpt) return shortArchiveText(item.excerpt);
+ if((section.key==='microrrelatos' || section.key==='relatos') && item.excerpt) return shortArchiveText(item.excerpt);
  if(item.summary) return shortArchiveText(item.summary);
  if(item.note) return shortArchiveText(item.note);
  if(item.body) return shortArchiveText(item.body);
  return 'Expediente disponible para consulta.';
 }
-function itemImage(item){ return item && item.image ? item.image : ''; }
+function itemImage(item){ return item ? (item.image||item.cover||'') : ''; }
 function itemStatus(item){ return item && item.status ? item.status : ''; }
 function itemArchiveNumber(item){ return item && item.archive_number ? item.archive_number : '—'; }
 function itemSlug(section,item){
@@ -359,6 +370,7 @@ function itemSlug(section,item){
 }
 function itemHref(section,item){
  if(section.key==='microrrelatos') return `micro-${itemSlug(section,item)}.html`;
+ if(section.key==='relatos') return `relato-${itemSlug(section,item)}.html`;
  return `archivo-${section.key}-${itemSlug(section,item)}.html`;
 }
 function itemFacts(section,item){
@@ -388,7 +400,7 @@ function archiveEntryCard(section,item){
  return `<a class="archive-entry-card reveal" href="${itemHref(section,item)}">
    ${image?`<div class="archive-entry-card-image"><img src="${esc(image)}" alt="${esc(title)}"></div>`:`<div class="archive-entry-card-image archive-entry-card-placeholder" aria-hidden="true"><span>◉</span></div>`}
    <div class="archive-entry-card-body">
-     <div class="archive-entry-card-top"><p class="archive-code">${section.typeLabel} // ${esc(itemArchiveNumber(item))}</p>${section.key==='microrrelatos'?newBadge(item):''}${itemStatus(item)?`<span class="archive-entry-status">${esc(itemStatus(item))}</span>`:''}</div>
+     <div class="archive-entry-card-top"><p class="archive-code">${section.typeLabel} // ${esc(itemArchiveNumber(item))}</p>${section.key==='microrrelatos' || section.key==='relatos'?newBadge(item):''}${itemStatus(item)?`<span class="archive-entry-status">${esc(itemStatus(item))}</span>`:''}</div>
      <h2>${esc(String(title).toUpperCase())}</h2>
      <p class="archive-entry-summary">${esc(itemSummary(section,item))}</p>
      ${compactFacts}
@@ -821,8 +833,12 @@ function archiveEntryPage(section,item){
  const body=item.body ? markdownToHTML(item.body) : '';
  const blocks=archiveInformationBlocks(item);
  const note=item.note ? `<aside class="archive-entry-note reveal"><p class="archive-code">NOTA DE ARCHIVO</p><div class="archive-entry-note-text">${plainTextToHTML(item.note)}</div></aside>` : '';
- const fullInformation=(body||blocks||note) ? `${body?`<div class="archive-entry-main-text reveal">${body}</div>`:''}${blocks}${note}` : `<div class="archive-entry-empty-copy reveal"><p>La ficha está abierta, pero todavía no contiene información adicional desclasificada.</p></div>`;
- const factList=facts.length ? `<dl class="archive-entry-facts">${facts.map(f=>`<div><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div>`).join('')}</dl>` : `<p class="archive-entry-no-facts">Sin datos complementarios publicados.</p>`;
+ const fullInformation=(body||blocks||note) ? `${body?`<div class="archive-entry-main-text reveal">${body}</div>`:''}${blocks}${note}` : '';
+ const factList=facts.length ? `<dl class="archive-entry-facts">${facts.map(f=>`<div><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div>`).join('')}</dl>` : '';
+ const detailsMarkup=(factList||fullInformation) ? `<div class="archive-entry-layout${factList&&fullInformation?'':' archive-entry-layout-single'}">
+   ${factList?`<aside class="archive-entry-sidebar reveal"><p class="archive-code">DATOS DEL EXPEDIENTE</p><h2>${esc(section.typeLabel)}</h2>${factList}</aside>`:''}
+   ${fullInformation?`<article class="archive-entry-content"><div class="section-label">INFORMACIÓN ARCHIVADA</div>${fullInformation}</article>`:''}
+ </div>` : '';
  const heroClass=image?'':' no-image';
  return `${head(`${title} | ${section.label} | El Archivo | ${site.site_title}`,summary,image||section.image)}
  <body class="archive-area archive-entry-page">${header('archivo')}${archiveTopNav(section.key)}<main>
@@ -837,17 +853,7 @@ function archiveEntryPage(section,item){
  </section>
  <section class="section archive-entry-shell">
    <div class="archive-back-row"><a class="text-link" href="${section.file}">← VOLVER A ${section.label}</a><a class="text-link" href="archivo.html">ÍNDICE GENERAL</a></div>
-   <div class="archive-entry-layout">
-     <aside class="archive-entry-sidebar reveal">
-       <p class="archive-code">DATOS DEL EXPEDIENTE</p>
-       <h2>${esc(section.typeLabel)}</h2>
-       ${factList}
-     </aside>
-     <article class="archive-entry-content">
-       <div class="section-label">INFORMACIÓN ARCHIVADA</div>
-       ${fullInformation}
-     </article>
-   </div>
+   ${detailsMarkup}
    ${archiveGallery(item)}
    ${archiveDocuments(item)}
    ${archivePoliceReport(item)}
@@ -861,7 +867,7 @@ const hubCards=archiveSectionDefs.map(section=>{
  return `<a class="archive-hub-card reveal" href="${section.file}">
    <div class="archive-hub-top"><span>${section.label}</span><b>${String(section.items.length).padStart(2,'0')}</b></div>
    <div class="archive-hub-copy">
-     <p class="archive-code">${section.key==='microrrelatos'?'ÚLTIMA HISTORIA':'ÚLTIMA ANOTACIÓN'}</p>
+     <p class="archive-code">${section.key==='microrrelatos' || section.key==='relatos'?'ÚLTIMA HISTORIA':'ÚLTIMA ANOTACIÓN'}</p>
      <h2>${esc(String(itemTitle(section,latest)||'').toUpperCase())}</h2>
      <p>${esc(itemSummary(section,latest))}</p>
    </div>
@@ -984,7 +990,7 @@ for(const section of archiveSectionDefs){
  </main>${footer(site)}</body></html>`;
  fs.writeFileSync(path.join(DIST,section.file),sectionPage);
  for(const item of section.items){
-   fs.writeFileSync(path.join(DIST,itemHref(section,item)),archiveEntryPage(section,item));
+   if(section.key!=='relatos') fs.writeFileSync(path.join(DIST,itemHref(section,item)),archiveEntryPage(section,item));
  }
 }
 
