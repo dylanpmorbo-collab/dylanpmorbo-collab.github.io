@@ -7,6 +7,16 @@
   "status": "ACCESO PARCIAL",
   "summary": "Ser de apariencia híbrida entre rata y primate. La información disponible procede de testimonios incompletos y de individuos vinculados a LA PLAGA.",
   "note": "Información adicional bloqueada hasta que el archivo narrativo la revele.",
+  "facts": [
+    {
+      "label": "Altura",
+      "value": "1'30-1'70 m"
+    },
+    {
+      "label": "Peso",
+      "value": "32-80 Kg"
+    }
+  ],
   "body": "Las víctimas no aportan nada. \n\nLas que no saben lo que les pasó no pueden decir nada y las que sí lo saben no quieren.",
   "gallery": [
     {
