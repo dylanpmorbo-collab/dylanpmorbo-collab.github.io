@@ -3,29 +3,31 @@
   "archive_number": "001",
   "category": "ENTIDAD",
   "published": true,
+  "image": "/assets/uploads/archivo/amenaza.png",
   "status": "ACCESO PARCIAL",
   "summary": "Ser de apariencia híbrida entre rata y primate. La información disponible procede de testimonios incompletos y de individuos vinculados a LA PLAGA.",
   "note": "Información adicional bloqueada hasta que el archivo narrativo la revele.",
   "body": "Las víctimas no aportan nada. \n\nLas que no saben lo que les pasó no pueden decir nada y las que sí lo saben no quieren.",
   "gallery": [
     {
-      "image": "/assets/uploads/archivo/sukrahari0003.png",
+      "image": "/assets/uploads/archivo/reunioon.png",
       "caption": "¿Qué planean?"
     },
     {
-      "image": "/assets/uploads/archivo/sukrahari0004.png",
+      "image": "/assets/uploads/archivo/la-plaza.png",
       "caption": "¿Nos ha visto?"
     },
     {
-      "image": "/assets/uploads/archivo/sukrahari_esquema.png"
+      "image": "/assets/uploads/archivo/sukrahari_esquema.png",
+      "caption": "Página de manuscrito"
     },
     {
-      "image": "/assets/uploads/archivo/caza-de-sukrahari.png",
+      "image": "/assets/uploads/archivo/renacentismo.png",
       "caption": "El regreso de la cacería 1598",
       "description": "Título: El regreso de la cacería\nAutor atribuido: Matteo di Rinaldi\nFecha: 1598\nLugar de ejecución: Mantua, Ducado de Mantua\nTécnica: óleo sobre lienzo\nDimensiones: 218 × 164 cm\nEscuela: Renacimiento tardío del norte de Italia, con rasgos manieristas"
     },
     {
-      "image": "/assets/uploads/archivo/cazando00001.png",
+      "image": "/assets/uploads/archivo/cazando.png",
       "caption": "¿Con quién habla? ¿Por qué no lo ve?"
     }
   ],
