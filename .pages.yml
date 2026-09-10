@@ -163,7 +163,7 @@ content:
             label: Enlace
             type: string
             required: true
-            description: "Ejemplo: archivo-entidades-sukrahari.html o archivo-documentos-expediente-xxx.html"
+            description: "Ejemplos: archivo-entidades-sukrahari.html, relato-el-legado-de-rasputin.html o micro-la-cita.html"
           - name: description
             label: Descripción breve
             type: text
@@ -268,7 +268,7 @@ content:
             label: Enlace
             type: string
             required: true
-            description: "Ejemplo: archivo-entidades-sukrahari.html o archivo-documentos-expediente-xxx.html"
+            description: "Ejemplos: archivo-entidades-sukrahari.html, relato-el-legado-de-rasputin.html o micro-la-cita.html"
           - name: description
             label: Descripción breve
             type: text
@@ -536,7 +536,7 @@ content:
             label: Enlace
             type: string
             required: true
-            description: "Ejemplo: archivo-entidades-sukrahari.html o archivo-documentos-expediente-xxx.html"
+            description: "Ejemplos: archivo-entidades-sukrahari.html, relato-el-legado-de-rasputin.html o micro-la-cita.html"
           - name: description
             label: Descripción breve
             type: text
@@ -809,7 +809,7 @@ content:
             label: Enlace
             type: string
             required: true
-            description: "Ejemplo: archivo-entidades-sukrahari.html o archivo-documentos-expediente-xxx.html"
+            description: "Ejemplos: archivo-entidades-sukrahari.html, relato-el-legado-de-rasputin.html o micro-la-cita.html"
           - name: description
             label: Descripción breve
             type: text
