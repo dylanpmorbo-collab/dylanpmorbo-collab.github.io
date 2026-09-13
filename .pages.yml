@@ -121,6 +121,12 @@ content:
         label: Advertencia de contenido
         type: text
         required: false
+        description: "Describe únicamente los temas sensibles. El copyright tiene su propio campo."
+      - name: legal_notice
+        label: Aviso legal / copyright
+        type: text
+        required: false
+        description: "Se muestra en un recuadro independiente al final de la lectura."
       - name: body
         label: Texto del relato
         type: rich-text
@@ -211,6 +217,10 @@ content:
         type: boolean
         default: false
         description: "Opcional. Actívalo para mostrar la etiqueta NOVEDAD aunque no uses fecha. Si indicas una fecha reciente, la etiqueta aparece automáticamente durante 7 días."
+      - name: age_restricted
+        label: Contenido +18
+        type: boolean
+        default: false
       - name: reading_time
         label: Tiempo de lectura
         type: string
@@ -225,6 +235,16 @@ content:
         required: false
         options:
           media: microrrelatos
+      - name: content_warning
+        label: Advertencia de contenido
+        type: text
+        required: false
+        description: "Describe únicamente los temas sensibles. Activa Contenido +18 para mostrarla."
+      - name: legal_notice
+        label: Aviso legal / copyright
+        type: text
+        required: false
+        description: "Se muestra en un recuadro independiente al final de la lectura."
       - name: body
         label: Texto del microrrelato
         type: rich-text
