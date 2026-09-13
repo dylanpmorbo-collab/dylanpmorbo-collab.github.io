@@ -802,7 +802,7 @@ function microEntryPage(section,item){
  const image=itemImage(item);
  const body=markdownToHTML(item.body||'');
  const noticeText=String(item.content_warning||'').trim();
- const legalStart=noticeText.search(/\\bCopyright\\b/i);
+ const legalStart=noticeText.search(/\bCopyright\b/i);
  const warningText=(legalStart>=0?noticeText.slice(0,legalStart):noticeText).trim();
  const legalText=String(item.legal_notice||(legalStart>=0?noticeText.slice(legalStart):'')).trim();
  const warning=item.age_restricted===true && warningText?`<section class="content-warning reveal"><div class="warning-mark">!</div><div><h2>Advertencia de contenido</h2><div class="content-warning-text">${plainTextToHTML(warningText)}</div></div></section>`:'';
