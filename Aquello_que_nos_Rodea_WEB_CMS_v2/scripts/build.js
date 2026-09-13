@@ -290,10 +290,10 @@ fs.writeFileSync(path.join(DIST,'relatos.html'),list);
 for(const s of stories){
  const wc=wordCount(s.body);
  const warning=s.age_restricted?`<section class="content-warning reveal"><div class="warning-mark">!</div><div>
- <h2>Advertencia de contenido</h2><p>${esc(s.content_warning||'Contenido dirigido a público adulto.')}</p></div></section>`:'';
+ <h2>Advertencia de contenido</h2><div class="content-warning-text">${plainTextToHTML(s.content_warning||'Contenido dirigido a público adulto.')}</div></div></section>`:'';
  const gate=s.age_restricted?`<div class="age-gate" id="ageGate" role="dialog" aria-modal="true"><div class="age-panel">
  <div class="age-symbol">◉</div><p class="eyebrow">ARCHIVO ${esc(s.archive_number)} // ACCESO RESTRINGIDO</p><h2>Contenido para adultos</h2>
- <p>${esc(s.content_warning||'Este relato está dirigido a público adulto.')}</p>
+ <div class="age-warning-text">${plainTextToHTML(s.content_warning||'Este relato está dirigido a público adulto.')}</div>
  <button class="btn primary" id="ageEnter">Tengo 18 años o más</button><a class="btn ghost" href="relatos.html">Salir del expediente</a></div></div>`:'';
  const page=`${head(`${s.title} | ${site.author}`,s.excerpt,s.cover)}<body class="story-page">${header('relatos')}<main>
  <div class="reading-progress"><span></span></div><section class="story-hero">
