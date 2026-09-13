@@ -821,3 +821,10 @@ DOCUMENTOS NAVEGABLES — AJUSTES FINALES DE GEOMETRÍA Y LECTURA
   .scroll-to-top{transition:none}
 }
 
+
+
+/* Aviso legal independiente al final de los relatos */
+.legal-notice{clear:both;max-width:var(--reader);margin:55px auto 0;padding:22px 24px;border:1px solid rgba(173,132,55,.22);background:rgba(173,132,55,.035);color:#80796e}
+.legal-notice h2{margin:0 0 9px;font:600 11px var(--display);letter-spacing:.14em;text-transform:uppercase;color:#a89267}
+.legal-notice p{margin:0;font-size:14px;line-height:1.55}
+.legal-notice p+p{margin-top:.7em}
