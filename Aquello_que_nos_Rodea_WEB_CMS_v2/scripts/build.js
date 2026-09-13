@@ -292,7 +292,7 @@ for(const s of stories){
  const noticeText=String(s.content_warning||'Contenido dirigido a público adulto.').trim();
  const legalStart=noticeText.search(/\bCopyright\b/i);
  const warningText=(legalStart>=0?noticeText.slice(0,legalStart):noticeText).trim();
- const legalText=(legalStart>=0?noticeText.slice(legalStart):'').trim();
+ const legalText=String(s.legal_notice||(legalStart>=0?noticeText.slice(legalStart):'')).trim();
  const warning=s.age_restricted?`<section class="content-warning reveal"><div class="warning-mark">!</div><div>
  <h2>Advertencia de contenido</h2><div class="content-warning-text">${plainTextToHTML(warningText)}</div></div></section>`:'';
  const legalNotice=legalText?`<aside class="legal-notice reveal"><h2>Aviso legal</h2><div>${plainTextToHTML(legalText)}</div></aside>`:'';
@@ -801,6 +801,12 @@ function microEntryPage(section,item){
  const excerpt=item.excerpt||itemSummary(section,item);
  const image=itemImage(item);
  const body=markdownToHTML(item.body||'');
+ const noticeText=String(item.content_warning||'').trim();
+ const legalStart=noticeText.search(/\\bCopyright\\b/i);
+ const warningText=(legalStart>=0?noticeText.slice(0,legalStart):noticeText).trim();
+ const legalText=String(item.legal_notice||(legalStart>=0?noticeText.slice(legalStart):'')).trim();
+ const warning=item.age_restricted===true && warningText?`<section class="content-warning reveal"><div class="warning-mark">!</div><div><h2>Advertencia de contenido</h2><div class="content-warning-text">${plainTextToHTML(warningText)}</div></div></section>`:'';
+ const legalNotice=legalText?`<aside class="legal-notice reveal"><h2>Aviso legal</h2><div>${plainTextToHTML(legalText)}</div></aside>`:'';
  return `${head(`${title} | Microrrelato | ${site.site_title}`,excerpt,image||'/assets/img/hero.webp')}
  <body class="archive-area micro-story-page">${header('microrrelatos')}${archiveTopNav('microrrelatos')}<main>
  <section class="micro-story-hero${image?'':' no-image'}">
@@ -813,6 +819,7 @@ function microEntryPage(section,item){
    </div>
    ${image?`<figure class="micro-story-cover reveal"><img src="${esc(image)}" alt="Ilustración de ${esc(title)}"></figure>`:''}
  </section>
+ ${warning}
  <section class="reader-shell micro-reader" id="lectura">
    <aside class="reader-tools"><button data-reader="minus" aria-label="Reducir texto">A−</button><button data-reader="plus" aria-label="Aumentar texto">A+</button></aside>
    <article class="story-text micro-story-text">
@@ -820,6 +827,7 @@ function microEntryPage(section,item){
      ${body}
      <div class="story-end">FIN</div>
    </article>
+   ${legalNotice}
    ${relatedArchiveMarkup(item,`micro-${itemSlug(section,item)}.html`,title)}
  </section>
  <section class="post-story reveal">
