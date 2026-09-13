@@ -289,11 +289,16 @@ fs.writeFileSync(path.join(DIST,'relatos.html'),list);
 // INDIVIDUAL STORIES
 for(const s of stories){
  const wc=wordCount(s.body);
+ const noticeText=String(s.content_warning||'Contenido dirigido a público adulto.').trim();
+ const legalStart=noticeText.search(/\bCopyright\b/i);
+ const warningText=(legalStart>=0?noticeText.slice(0,legalStart):noticeText).trim();
+ const legalText=(legalStart>=0?noticeText.slice(legalStart):'').trim();
  const warning=s.age_restricted?`<section class="content-warning reveal"><div class="warning-mark">!</div><div>
- <h2>Advertencia de contenido</h2><div class="content-warning-text">${plainTextToHTML(s.content_warning||'Contenido dirigido a público adulto.')}</div></div></section>`:'';
+ <h2>Advertencia de contenido</h2><div class="content-warning-text">${plainTextToHTML(warningText)}</div></div></section>`:'';
+ const legalNotice=legalText?`<aside class="legal-notice reveal"><h2>Aviso legal</h2><div>${plainTextToHTML(legalText)}</div></aside>`:'';
  const gate=s.age_restricted?`<div class="age-gate" id="ageGate" role="dialog" aria-modal="true"><div class="age-panel">
  <div class="age-symbol">◉</div><p class="eyebrow">ARCHIVO ${esc(s.archive_number)} // ACCESO RESTRINGIDO</p><h2>Contenido para adultos</h2>
- <div class="age-warning-text">${plainTextToHTML(s.content_warning||'Este relato está dirigido a público adulto.')}</div>
+ <div class="age-warning-text">${plainTextToHTML(warningText)}</div>
  <button class="btn primary" id="ageEnter">Tengo 18 años o más</button><a class="btn ghost" href="relatos.html">Salir del expediente</a></div></div>`:'';
  const page=`${head(`${s.title} | ${site.author}`,s.excerpt,s.cover)}<body class="story-page">${header('relatos')}<main>
  <div class="reading-progress"><span></span></div><section class="story-hero">
@@ -304,6 +309,7 @@ for(const s of stories){
  <a class="btn primary" href="#relato">Comenzar lectura</a></div></section>${warning}
  <section class="reader-shell" id="relato"><aside class="reader-tools"><button data-reader="minus">A−</button><button data-reader="plus">A+</button></aside>
  <article class="story-text"><div class="story-marker">ARCHIVO ${esc(s.archive_number)}</div>${markdownToHTML(s.body)}<div class="story-end">FIN</div></article>
+ ${legalNotice}
  ${relatedArchiveMarkup(s,`relato-${s.slug}.html`,s.title)}
  </section>
  <section class="post-story reveal"><p class="eyebrow">HAS TERMINADO EL ARCHIVO ${esc(s.archive_number)}</p><h2>El archivo permanece abierto.</h2>
