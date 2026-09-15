@@ -27,7 +27,31 @@
       "description": "INFORME DE DESAPARICIÓN — 19/11/2008"
     }
   ],
-  "show_documents": false,
+  "show_documents": true,
+  "documents": [
+    {
+      "title": "MATERIAL GRÁFICO",
+      "description": "Recopilación del material gráfico de los 4 informes policiales en proceso de investigación.",
+      "pages": [
+        {
+          "image": "/assets/uploads/documentos/informe-policial-desaparicion-1985.png",
+          "caption": "INFORME DE DESAPARICIÓN — 14/06/1985"
+        },
+        {
+          "image": "/assets/uploads/documentos/informe-policial-desaparicion-1994-desaparecido.png",
+          "caption": "INFORME DE DESAPARICIÓN — 22/02/1994"
+        },
+        {
+          "image": "/assets/uploads/documentos/informe-policial-desaparicion-2002.png",
+          "caption": "INFORME DE DESAPARICIÓN — 03/09/2002"
+        },
+        {
+          "image": "/assets/uploads/documentos/informe-policial-desaparicion-2008.png",
+          "caption": "INFORME DE DESAPARICIÓN — 19/11/2008"
+        }
+      ]
+    }
+  ],
   "show_police_report": true,
   "police_reports": [
     {
