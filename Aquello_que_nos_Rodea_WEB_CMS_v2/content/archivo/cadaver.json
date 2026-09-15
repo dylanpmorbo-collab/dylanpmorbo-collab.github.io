@@ -4,7 +4,12 @@
   "category": "SUCESO",
   "published": true,
   "status": "Documentado",
-  "show_documents": false,
+  "show_documents": true,
+  "documents": [
+    {
+      "title": "RECORTES DE PRENSA"
+    }
+  ],
   "show_police_report": true,
   "police_reports": [
     {
