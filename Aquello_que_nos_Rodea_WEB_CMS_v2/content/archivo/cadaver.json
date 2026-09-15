@@ -4,15 +4,12 @@
   "category": "SUCESO",
   "published": true,
   "image": "/assets/uploads/archivo/richard-alcoy.png",
+  "status": "Documentado",
   "show_documents": true,
   "documents": [
     {
       "title": "RECORTES DE PRENSA",
       "pages": [
-        {
-          "image": "/assets/uploads/documentos/richardfacebboknew.png",
-          "caption": "PERFIL FACEBOOK"
-        },
         {
           "image": "/assets/uploads/documentos/noticia-desaparece-richardnw.png",
           "caption": "DESAPARECE"
