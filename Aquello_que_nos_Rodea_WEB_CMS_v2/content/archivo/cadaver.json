@@ -7,7 +7,13 @@
   "show_documents": true,
   "documents": [
     {
-      "title": "RECORTES DE PRENSA"
+      "title": "RECORTES DE PRENSA",
+      "pages": [
+        {
+          "image": "/assets/uploads/documentos/richardfacebboknew.png",
+          "caption": "PERFIL FACEBOOK"
+        }
+      ]
     }
   ],
   "show_police_report": true,
