@@ -1,8 +1,9 @@
 {
-  "title": "Homicidio Zaragoza",
+  "title": "HOMICIDIO RICHAR ALCOY",
   "archive_number": "001",
   "category": "SUCESO",
   "published": true,
+  "image": "/assets/uploads/archivo/richard-alcoy.png",
   "status": "Documentado",
   "show_documents": true,
   "documents": [
