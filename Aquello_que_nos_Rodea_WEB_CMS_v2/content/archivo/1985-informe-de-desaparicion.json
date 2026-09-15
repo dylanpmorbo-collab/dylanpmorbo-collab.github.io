@@ -38,11 +38,13 @@
     },
     {
       "image": "/assets/uploads/archivo/informe-policial-desaparicion-2002.png",
-      "caption": "2002"
+      "caption": "2002",
+      "description": "INFORME DE DESAPARICIÓN — 03/09/2002"
     },
     {
       "image": "/assets/uploads/archivo/informe-policial-desaparicion-2008.png",
-      "caption": "2008"
+      "caption": "2008",
+      "description": "INFORME DE DESAPARICIÓN — 19/11/2008"
     }
   ],
   "show_documents": false,
