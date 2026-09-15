@@ -4,26 +4,7 @@
   "category": "DOCUMENTO",
   "published": true,
   "image": "/assets/uploads/archivo/informe-policial-desaparicion-1985.png",
-  "status": "EN PROCESO DE INVESTIGACIÓN.",
   "summary": "Cuatro informes policiales, cuatro lugares distintos, cuatro épocas distintas... mismos patrones.",
-  "facts": [
-    {
-      "label": "Sin Resolver",
-      "value": "14/06/1985"
-    },
-    {
-      "label": "Sin Resolver",
-      "value": "14/06/1985"
-    },
-    {
-      "label": "Sin Resolver",
-      "value": "03/09/2002"
-    },
-    {
-      "label": "Sin Resolver",
-      "value": "19/11/2008"
-    }
-  ],
   "gallery": [
     {
       "image": "/assets/uploads/archivo/informe-policial-desaparicion-1985.png",
