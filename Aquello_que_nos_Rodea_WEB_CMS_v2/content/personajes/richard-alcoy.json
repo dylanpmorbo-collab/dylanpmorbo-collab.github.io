@@ -3,6 +3,38 @@
   "archive_number": "P-001",
   "published": true,
   "status": "Documentado",
+  "age": "26",
+  "occupation": "Coordinador administrativo/comercial en una pequeña empresa de logística y distribución de Zaragoza",
+  "facts": [
+    {
+      "label": "Fecha de nacimiento",
+      "value": "17 de mayo de 1998"
+    },
+    {
+      "label": "Ciudad",
+      "value": "Zaragoza"
+    },
+    {
+      "label": "Vivienda",
+      "value": "Delicias, zona Avenida de Madrid–Calle Rioja"
+    },
+    {
+      "label": "Altura",
+      "value": "1,69 m"
+    },
+    {
+      "label": "Peso",
+      "value": "71 kg"
+    },
+    {
+      "label": "Cabello",
+      "value": "Castaño, corto"
+    },
+    {
+      "label": "Estudios",
+      "value": "Grado Superior de Administración y Finanzas"
+    }
+  ],
   "show_documents": false,
   "show_police_report": false,
   "show_related_archive": false
