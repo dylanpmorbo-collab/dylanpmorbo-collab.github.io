@@ -35,6 +35,10 @@
     {
       "label": "Estudios",
       "value": "Grado Superior de Administración y Finanzas"
+    },
+    {
+      "label": "Ocupación",
+      "value": "Coordinador administrativo"
     }
   ],
   "show_documents": false,
