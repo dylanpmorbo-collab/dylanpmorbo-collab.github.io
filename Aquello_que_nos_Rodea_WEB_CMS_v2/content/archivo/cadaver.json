@@ -25,7 +25,7 @@
       ]
     }
   ],
-  "show_police_report": false,
+  "show_police_report": true,
   "police_reports": [
     {
       "title": "DILIGENCIAS PRELIMINARES",
