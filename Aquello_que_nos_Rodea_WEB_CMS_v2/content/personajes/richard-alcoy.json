@@ -168,12 +168,6 @@
       "type": "Pubicación",
       "title": "Fusión",
       "image_sensitive": false,
-      "images": [
-        {
-          "image": "/assets/uploads/huella-digital/fusion.png",
-          "sensitive": false
-        }
-      ],
       "video": "/assets/uploads/huella-digital/fusion-boomerangstory.mp4"
     }
   ],
