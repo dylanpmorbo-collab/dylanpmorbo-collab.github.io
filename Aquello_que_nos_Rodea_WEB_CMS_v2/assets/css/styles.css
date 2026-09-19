@@ -831,16 +831,23 @@ DOCUMENTOS NAVEGABLES — AJUSTES FINALES DE GEOMETRÍA Y LECTURA
 .legal-notice p+p{margin-top:.7em}
 
 /* Huella digital: piezas documentales, sin reproducir interfaces de terceros. */
-.digital-footprint{margin:72px 0 30px;border-top:1px solid var(--line);padding-top:46px}
-.digital-footprint-intro{max-width:760px;margin-bottom:27px}
-.digital-footprint-intro .archive-code{margin:0 0 12px}
-.digital-footprint-intro h2{font:600 clamp(26px,3vw,42px)/1.12 var(--display);letter-spacing:.08em;color:#c8b486;margin:0 0 12px}
-.digital-footprint-intro>p:last-child{color:#a9a194;margin:0;font-size:18px}
+.digital-footprint{margin:30px 0 0;border-top:1px solid var(--line)}
+.digital-footprint[open]{margin-top:72px}
+.digital-footprint-toggle{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 0;list-style:none;cursor:pointer}
+.digital-footprint-toggle::-webkit-details-marker{display:none}
+.digital-footprint-toggle:focus-visible{outline:2px solid var(--gold2);outline-offset:4px}
+.digital-footprint-toggle .archive-code{display:block;margin:0 0 6px}
+.digital-footprint-toggle strong{display:block;font:600 clamp(20px,2.5vw,33px)/1.12 var(--display);letter-spacing:.08em;color:#c8b486}
+.digital-footprint-toggle-action{flex:none;border:1px solid var(--line);padding:10px 12px;color:var(--gold2);font:600 9px/1 var(--display);letter-spacing:.1em}
+.digital-footprint-toggle:hover .digital-footprint-toggle-action{border-color:var(--gold2)}
+.digital-footprint:not([open]) .digital-open-label,.digital-footprint[open] .digital-closed-label{display:none}
+.digital-footprint-content{padding:10px 0 30px}
+.digital-footprint-description{max-width:760px;color:#a9a194;margin:0 0 27px;font-size:18px}
 .digital-filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px}
 .digital-filters button{background:#0b0a09;color:#968b78;border:1px solid var(--line);padding:10px 13px;font:600 10px/1.2 var(--display);letter-spacing:.08em;cursor:pointer}
 .digital-filters button:hover,.digital-filters button[aria-pressed="true"]{border-color:#987c48;color:#dfc48a;background:#19150f}
-.digital-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;align-items:start}
-.digital-piece{min-width:0;border:1px solid #3c352a;background:#100f0d;padding:24px}
+.digital-grid{columns:2;column-gap:22px}
+.digital-piece{display:inline-block;vertical-align:top;width:100%;min-width:0;margin:0 0 22px;break-inside:avoid;-webkit-column-break-inside:avoid;border:1px solid #3c352a;background:#100f0d;padding:24px}
 .digital-piece[hidden]{display:none!important}
 .digital-piece-head{display:flex;align-items:center;gap:12px;padding-bottom:15px;border-bottom:1px solid var(--line)}
 .digital-platform-icon{width:42px;height:42px;min-width:42px;display:grid;place-items:center;border:1px solid #65563c;color:#c6ad79;background:#17140f}
@@ -868,7 +875,7 @@ DOCUMENTOS NAVEGABLES — AJUSTES FINALES DE GEOMETRÍA Y LECTURA
 .digital-piece-details div{min-width:0}
 .digital-piece-details dt{font:600 9px var(--display);letter-spacing:.1em;color:#81735e}
 .digital-piece-details dd{margin:4px 0 0;color:#aaa194;font-size:13px;overflow-wrap:anywhere}
-@media(max-width:760px){.digital-grid{grid-template-columns:1fr}.digital-piece{padding:18px}.digital-footprint{margin-top:55px}.digital-filters button{font-size:9px}}
+@media(max-width:760px){.digital-grid{column-count:1}.digital-piece{padding:18px}.digital-footprint[open]{margin-top:55px}.digital-filters button{font-size:9px}}
 
 /* Informes policiales en carpetas y lector modal dentro de la página. */
 .archive-police-report-block{margin-top:74px;padding-top:12px}
