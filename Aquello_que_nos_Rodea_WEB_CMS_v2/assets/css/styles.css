@@ -993,3 +993,30 @@ DOCUMENTOS NAVEGABLES — AJUSTES FINALES DE GEOMETRÍA Y LECTURA
 .archive-entry-corkboard .archive-corkboard-nota strong{font-size:12px}
 .archive-entry-corkboard .archive-corkboard-nota p{max-height:125px;font-size:12px}
 .archive-entry-corkboard .archive-corkboard-foto figcaption{font-size:11px}
+
+/* Acceso +18, decisión de privacidad y fotografías sensibles. */
+html:not(.age-verified){overflow:hidden}
+.age-verified .age-gate{display:none}
+.cookie-settings-link{margin-top:14px;border:0;border-bottom:1px solid #78643f;background:transparent;color:#bda574;font:600 10px var(--display);letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+.cookie-settings-link:hover,.cookie-settings-link:focus-visible{color:#e1c88d}
+.cookie-banner{position:fixed;left:0;right:0;bottom:0;z-index:4900;padding:16px;background:#0c0b09;border-top:1px solid #80663a;box-shadow:0 -12px 50px #000}
+.cookie-banner[hidden]{display:none!important}
+.cookie-banner-inner{max-width:1120px;margin:auto;display:flex;align-items:center;gap:26px}
+.cookie-banner-inner>div:first-child{flex:1}
+.cookie-banner strong{font:600 18px var(--display);color:#d2bb89}
+.cookie-banner p{margin:6px 0;color:#c5bcaa;font-size:15px;line-height:1.4}
+.cookie-banner details{color:#a99b80;font-size:13px}
+.cookie-banner summary{cursor:pointer;text-decoration:underline}
+.cookie-actions{display:flex;gap:12px}
+.cookie-actions button{min-width:110px;padding:10px 17px;border:1px solid #8e7445;background:#211a10;color:#e0c690;font:600 11px var(--display);letter-spacing:.06em;cursor:pointer}
+.cookie-actions button:hover,.cookie-actions button:focus-visible{background:#3c2e19;outline:1px solid #d4b777;outline-offset:2px}
+@media(max-width:700px){.cookie-banner-inner{display:block}.cookie-actions{margin-top:14px}.cookie-actions button{flex:1}}
+.digital-photo{position:relative;overflow:hidden;background:#070706}
+.digital-photo img{display:block;width:100%;height:auto}
+.digital-carousel-slide .digital-photo{height:100%}
+.digital-carousel-slide .digital-photo img{height:100%;object-fit:contain}
+.digital-sensitive img{filter:blur(25px) contrast(.8);transform:scale(1.08)}
+.digital-sensitive-warning{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px;text-align:center;background:rgba(5,5,5,.52)}
+.digital-sensitive-warning p{max-width:310px;margin:0;color:#f0e5cf;font:600 15px/1.4 var(--display);text-shadow:0 2px 8px #000}
+.digital-sensitive-warning button{padding:10px 16px;border:1px solid #c6a568;background:#15110b;color:#e8ce99;font:600 11px var(--display);letter-spacing:.06em;cursor:pointer}
+.digital-sensitive-warning button:hover,.digital-sensitive-warning button:focus-visible{background:#443015;outline:1px solid #e3c17f;outline-offset:2px}
