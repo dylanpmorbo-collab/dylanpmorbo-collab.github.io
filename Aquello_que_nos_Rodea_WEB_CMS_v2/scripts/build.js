@@ -55,7 +55,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=weathered-corkboard-20260919"><script defer src="assets/js/main.js"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=corkboard-variants-20260919"><script defer src="assets/js/main.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -1052,6 +1052,7 @@ fs.writeFileSync(path.join(DIST,'archivo.html'),archivePage);
 function archiveCorkboard(section){
 const board=archiveCorkboards[section.key];
 if(!board || board.enabled!==true) return '';
+const design=['b','c'].includes(String(board.design||'').toLowerCase())?String(board.design).toLowerCase():'a';
 const positions=[[15,12],[38,12],[61,12],[84,12],[15,40],[38,40],[61,40],[84,40],[15,68],[38,68],[61,68],[84,68]];
 const clamp=(value,min,max,fallback)=>{const n=Number(value);return value===null||value===undefined||value===''||!Number.isFinite(n)?fallback:Math.min(max,Math.max(min,n));};
 const pieces=(Array.isArray(board.pieces)?board.pieces:[]).slice(0,12).map((piece,index)=>{
@@ -1081,7 +1082,7 @@ return '<section class="section archive-corkboard-section" aria-label="Tablón d
 '<div class="section-label">CORCHERA // '+esc(section.label)+'</div>'+
 '<h2>'+esc(String(board.title||'TABLÓN DE CONEXIONES'))+'</h2>'+
 '<p class="archive-corkboard-hint">Desliza para explorar el tablón →</p>'+
-'<div class="archive-corkboard-scroll"><div class="archive-corkboard-stage">'+
+'<div class="archive-corkboard-scroll"><div class="archive-corkboard-stage archive-corkboard-design-'+design+'">'+
 '<svg class="archive-corkboard-threads" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">'+threads+'</svg>'+
 cards+pins+'</div></div></section>';
 }
