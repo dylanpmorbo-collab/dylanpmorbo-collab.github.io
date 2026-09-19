@@ -41,21 +41,14 @@ function plainTextToHTML(src=''){
 function head(title, desc, image='/assets/img/hero.webp'){
  return `<!doctype html><html lang="es"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KSM55EYY2L"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-KSM55EYY2L');
-</script>
+<script>try{if(localStorage.getItem('aqnr_age_ok')==='yes')document.documentElement.classList.add('age-verified')}catch(e){}</script>
 <title>${esc(title)}</title><meta name="description" content="${esc(desc)}">
 <meta name="theme-color" content="#070706"><meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}"><meta property="og:type" content="website">
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=digital-carousel-20260919"><script defer src="assets/js/main.js"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=age-privacy-sensitive-20260919"><script defer src="assets/js/main.js?v=age-privacy-sensitive-20260919"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -111,7 +104,7 @@ document.addEventListener('DOMContentLoaded',function(){
 </script></head>`;
 }
 function header(active=''){
- return `<div class="grain" aria-hidden="true"></div><header class="site-header">
+ return `<div class="age-gate" id="ageGate" role="dialog" aria-modal="true" aria-labelledby="ageGateTitle"><div class="age-panel"><div class="age-symbol">◉</div><p class="eyebrow">ACCESO AL ARCHIVO // +18</p><h2 id="ageGateTitle">Contenido para adultos</h2><p>Esta web contiene ficción de terror y puede incluir violencia, imágenes perturbadoras y contenido sexual. El acceso está reservado a mayores de 18 años.</p><button class="btn primary" id="ageEnter" type="button">Sí, soy mayor de 18 años</button><a class="btn ghost" href="about:blank">Salir</a></div></div><div class="grain" aria-hidden="true"></div><header class="site-header">
 <a class="brand" href="index.html"><span class="brand-mark">◉</span><span>AQUELLO QUE NOS RODEA</span></a>
 <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
 <nav class="main-nav">
@@ -127,7 +120,8 @@ function footer(site){
 <p><strong>${esc(site.site_title).toUpperCase()}</strong></p>
 <p>Un universo de horror creado por <strong>${esc(site.author)}</strong>.</p>
 <p class="footer-small">${esc(site.footer_note)}</p>
-<p class="footer-small">© 2026 ${esc(site.author)}. Todos los derechos reservados.</p></footer>`;
+<p class="footer-small">© 2026 ${esc(site.author)}. Todos los derechos reservados.</p><button type="button" class="cookie-settings-link" id="cookieSettings">Configurar cookies</button></footer>
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-labelledby="cookieTitle" aria-describedby="cookieDescription" hidden><div class="cookie-banner-inner"><div><strong id="cookieTitle">Privacidad y cookies</strong><p id="cookieDescription">Usamos almacenamiento técnico para recordar tu confirmación de edad y esta elección. Google Analytics, que mide las visitas, solo se activará si aceptas.</p><details><summary>Más información</summary><p>Si aceptas, Google Analytics podrá instalar cookies de medición y recibir datos de navegación. Puedes rechazarlo y seguir usando toda la web. Cambia tu decisión cuando quieras desde «Configurar cookies», al pie de cualquier página.</p></details></div><div class="cookie-actions"><button type="button" id="cookieReject">Rechazar</button><button type="button" id="cookieAccept">Aceptar</button></div></div></div>`;
 }
 function wordCount(s){return String(s).trim().split(/\s+/).filter(Boolean).length;}
 
@@ -298,10 +292,6 @@ for(const s of stories){
  const warning=s.age_restricted?`<section class="content-warning reveal"><div class="warning-mark">!</div><div>
  <h2>Advertencia de contenido</h2><div class="content-warning-text">${plainTextToHTML(warningText)}</div></div></section>`:'';
  const legalNotice=legalText?`<aside class="legal-notice reveal"><h2>Aviso legal</h2><div>${plainTextToHTML(legalText)}</div></aside>`:'';
- const gate=s.age_restricted?`<div class="age-gate" id="ageGate" role="dialog" aria-modal="true"><div class="age-panel">
- <div class="age-symbol">◉</div><p class="eyebrow">ARCHIVO ${esc(s.archive_number)} // ACCESO RESTRINGIDO</p><h2>Contenido para adultos</h2>
- <div class="age-warning-text">${plainTextToHTML(warningText)}</div>
- <button class="btn primary" id="ageEnter">Tengo 18 años o más</button><a class="btn ghost" href="relatos.html">Salir del expediente</a></div></div>`:'';
  const page=`${head(`${s.title} | ${site.author}`,s.excerpt,s.cover)}<body class="story-page">${header('relatos')}<main>
  <div class="reading-progress"><span></span></div><section class="story-hero">
  <div class="story-cover"><img src="${esc(s.cover)}" alt="Portada de ${esc(s.title)}"></div>
@@ -316,7 +306,7 @@ for(const s of stories){
  </section>
  <section class="post-story reveal"><p class="eyebrow">HAS TERMINADO EL ARCHIVO ${esc(s.archive_number)}</p><h2>El archivo permanece abierto.</h2>
  <div class="hero-actions"><a class="btn primary" href="archivo.html">Consultar el archivo</a><a class="btn ghost" href="relatos.html">Volver a relatos</a></div></section>
- ${gate}</main>${footer(site)}</body></html>`;
+ </main>${footer(site)}</body></html>`;
  fs.writeFileSync(path.join(DIST,`relato-${s.slug}.html`),page);
 }
 
@@ -453,14 +443,15 @@ function digitalFootprintMarkup(item){
    const [source,filter,icon]=platform;
    const provenance=piece.source||(platformKey==='TINDER'?'Tinder':source);
    const type=String(piece.type||'Fragmento digital').trim();
-   const photos=[...(piece.image?[{image:piece.image,alt:piece.alt}]:[]),...(Array.isArray(piece.images)?piece.images:[])]
+   const photos=[...(piece.image?[{image:piece.image,alt:piece.alt,sensitive:piece.image_sensitive}]:[]),...(Array.isArray(piece.images)?piece.images:[])]
      .filter(photo=>photo&&photo.image);
+   const photoMarkup=(photo,i)=>'<div class="digital-photo'+(photo.sensitive===true?' digital-sensitive':'')+'"><img src="'+esc(photo.image)+'" alt="'+esc(photo.alt||piece.title||'Foto '+String(i+1)+' de la publicación')+'" loading="lazy">'+(photo.sensitive===true?'<div class="digital-sensitive-warning"><p>Esta imagen puede resultar ofensiva o contener contenido sexual explícito.</p><button type="button" data-digital-reveal>Mostrar imagen</button></div>':'')+'</div>';
    const carousel=photos.length>1
-     ? '<div class="digital-carousel" data-digital-carousel tabindex="0" aria-label="Galería de '+String(photos.length)+' fotos de esta publicación"><div class="digital-carousel-viewport">'+photos.map((photo,i)=>'<div class="digital-carousel-slide" data-digital-slide'+(i?' hidden':'')+'><img src="'+esc(photo.image)+'" alt="'+esc(photo.alt||piece.title||'Foto '+String(i+1)+' de la publicación')+'" loading="lazy"></div>').join('')+'</div><div class="digital-carousel-controls"><button type="button" data-digital-prev aria-label="Foto anterior">←</button><span data-digital-counter aria-live="polite">1 / '+String(photos.length)+'</span><button type="button" data-digital-next aria-label="Foto siguiente">→</button></div></div>'
+     ? '<div class="digital-carousel" data-digital-carousel tabindex="0" aria-label="Galería de '+String(photos.length)+' fotos de esta publicación"><div class="digital-carousel-viewport">'+photos.map((photo,i)=>'<div class="digital-carousel-slide" data-digital-slide'+(i?' hidden':'')+'>'+photoMarkup(photo,i)+'</div>').join('')+'</div><div class="digital-carousel-controls"><button type="button" data-digital-prev aria-label="Foto anterior">←</button><span data-digital-counter aria-live="polite">1 / '+String(photos.length)+'</span><button type="button" data-digital-next aria-label="Foto siguiente">→</button></div></div>'
      : '';
    const media=piece.video
      ? '<video controls playsinline preload="metadata"'+(piece.poster?' poster="'+esc(piece.poster)+'"':'')+' aria-label="'+esc(piece.title||type)+'"><source src="'+esc(piece.video)+'">Tu navegador no puede reproducir este vídeo.</video>'
-     : carousel||(photos.length?'<img src="'+esc(photos[0].image)+'" alt="'+esc(photos[0].alt||piece.title||'Material visual recuperado')+'" loading="lazy">':'');
+     : carousel||(photos.length?photoMarkup(photos[0],0):'');
    const comments=(Array.isArray(piece.comments)?piece.comments:[]).filter(x=>x && (x.author||x.text));
    const messages=(Array.isArray(piece.messages)?piece.messages:[]).filter(x=>x && (x.author||x.text));
    const details=[['FUENTE',provenance],['TIPO',type],['ARCHIVADO',piece.archived],['ESTADO',piece.status]]
@@ -482,7 +473,7 @@ function digitalFootprintMarkup(item){
    '<div class="digital-footprint-content"><p class="digital-footprint-description">Actividad recuperada de perfiles públicos, dispositivos y cuentas vinculadas al sujeto.</p>'+
    '<div class="digital-filters" role="group" aria-label="Filtrar huella digital">'+filters.map((x,i)=>'<button type="button" data-digital-button="'+x+'" aria-pressed="'+(i===0?'true':'false')+'">'+x+'</button>').join('')+'</div>'+
    '<div class="digital-grid">'+cards+'</div></div>'+
-   '<script>(function(){const section=document.currentScript.closest(".digital-footprint");if(!section)return;section.addEventListener("toggle",function(){if(!section.open)section.querySelectorAll("video").forEach(video=>video.pause());});section.querySelectorAll("[data-digital-button]").forEach(button=>button.addEventListener("click",function(){const selected=button.dataset.digitalButton;section.querySelectorAll("[data-digital-button]").forEach(b=>b.setAttribute("aria-pressed",String(b===button)));section.querySelectorAll("[data-digital-filter]").forEach(card=>{card.hidden=selected!=="TODAS"&&card.dataset.digitalFilter!==selected;});}));section.querySelectorAll("[data-digital-carousel]").forEach(carousel=>{const slides=Array.from(carousel.querySelectorAll("[data-digital-slide]"));const counter=carousel.querySelector("[data-digital-counter]");let current=0;function show(offset){slides[current].hidden=true;current=(current+offset+slides.length)%slides.length;slides[current].hidden=false;counter.textContent=(current+1)+" / "+slides.length;}carousel.querySelector("[data-digital-prev]").addEventListener("click",()=>show(-1));carousel.querySelector("[data-digital-next]").addEventListener("click",()=>show(1));carousel.addEventListener("keydown",event=>{if(event.target!==carousel)return;if(event.key==="ArrowLeft"||event.key==="ArrowRight"){event.preventDefault();show(event.key==="ArrowLeft"?-1:1);}});});})();<\/script>'+
+   '<script>(function(){const section=document.currentScript.closest(".digital-footprint");if(!section)return;section.addEventListener("toggle",function(){if(!section.open)section.querySelectorAll("video").forEach(video=>video.pause());});section.querySelectorAll("[data-digital-button]").forEach(button=>button.addEventListener("click",function(){const selected=button.dataset.digitalButton;section.querySelectorAll("[data-digital-button]").forEach(b=>b.setAttribute("aria-pressed",String(b===button)));section.querySelectorAll("[data-digital-filter]").forEach(card=>{card.hidden=selected!=="TODAS"&&card.dataset.digitalFilter!==selected;});}));section.querySelectorAll("[data-digital-reveal]").forEach(button=>button.addEventListener("click",function(){button.closest(".digital-sensitive").classList.remove("digital-sensitive");button.parentElement.remove();}));section.querySelectorAll("[data-digital-carousel]").forEach(carousel=>{const slides=Array.from(carousel.querySelectorAll("[data-digital-slide]"));const counter=carousel.querySelector("[data-digital-counter]");let current=0;function show(offset){slides[current].hidden=true;current=(current+offset+slides.length)%slides.length;slides[current].hidden=false;counter.textContent=(current+1)+" / "+slides.length;}carousel.querySelector("[data-digital-prev]").addEventListener("click",()=>show(-1));carousel.querySelector("[data-digital-next]").addEventListener("click",()=>show(1));carousel.addEventListener("keydown",event=>{if(event.target!==carousel)return;if(event.key==="ArrowLeft"||event.key==="ArrowRight"){event.preventDefault();show(event.key==="ArrowLeft"?-1:1);}});});})();<\/script>'+
    '</details>';
 }
 
