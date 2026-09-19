@@ -1,62 +1,52 @@
 {
   "entidades": {
-    "enabled": true,
-    "title": "TABLÓN DE CONEXIONES",
-    "pieces": [
-      {
-        "id": "probando cosa",
-        "type": "nota",
-        "title": "que esa pasando aqui?",
-        "text": "esto es muy extraño"
-      },
-      {
-        "id": "eso",
-        "type": "foto",
-        "title": "joer",
-        "image": "/assets/uploads/archivo/cazando.png"
-      }
-    ],
-    "threads": [
-      {
-        "from": "probando cosa",
-        "to": "eso"
-      }
-    ]
+    "enabled": false,
+    "design": "A",
+    "title": "TABLÓN DE CONEXIONES"
   },
   "personajes": {
     "enabled": false,
+    "design": "A",
     "title": "TABLÓN DE CONEXIONES"
   },
   "lugares": {
     "enabled": false,
+    "design": "A",
     "title": "TABLÓN DE CONEXIONES"
   },
   "planos": {
     "enabled": false,
+    "design": "A",
     "title": "TABLÓN DE CONEXIONES"
   },
   "organizaciones": {
     "enabled": false,
+    "design": "A",
     "title": "TABLÓN DE CONEXIONES"
   },
   "documentos": {
     "enabled": false,
+    "design": "A",
     "title": "TABLÓN DE CONEXIONES"
   },
   "sucesos": {
     "enabled": false,
+    "design": "A",
     "title": "TABLÓN DE CONEXIONES"
   },
   "otros": {
     "enabled": false,
+    "design": "A",
     "title": "TABLÓN DE CONEXIONES"
   },
   "relatos": {
     "enabled": false,
+    "design": "A",
     "title": "TABLÓN DE CONEXIONES"
   },
   "microrrelatos": {
     "enabled": false,
+    "design": "A",
     "title": "TABLÓN DE CONEXIONES"
   }
 }
