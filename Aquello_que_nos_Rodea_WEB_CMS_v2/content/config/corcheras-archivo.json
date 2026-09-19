@@ -1,0 +1,62 @@
+{
+  "entidades": {
+    "enabled": false,
+    "title": "TABLÓN DE CONEXIONES",
+    "pieces": [],
+    "threads": []
+  },
+  "personajes": {
+    "enabled": false,
+    "title": "TABLÓN DE CONEXIONES",
+    "pieces": [],
+    "threads": []
+  },
+  "lugares": {
+    "enabled": false,
+    "title": "TABLÓN DE CONEXIONES",
+    "pieces": [],
+    "threads": []
+  },
+  "planos": {
+    "enabled": false,
+    "title": "TABLÓN DE CONEXIONES",
+    "pieces": [],
+    "threads": []
+  },
+  "organizaciones": {
+    "enabled": false,
+    "title": "TABLÓN DE CONEXIONES",
+    "pieces": [],
+    "threads": []
+  },
+  "documentos": {
+    "enabled": false,
+    "title": "TABLÓN DE CONEXIONES",
+    "pieces": [],
+    "threads": []
+  },
+  "sucesos": {
+    "enabled": false,
+    "title": "TABLÓN DE CONEXIONES",
+    "pieces": [],
+    "threads": []
+  },
+  "otros": {
+    "enabled": false,
+    "title": "TABLÓN DE CONEXIONES",
+    "pieces": [],
+    "threads": []
+  },
+  "relatos": {
+    "enabled": false,
+    "title": "TABLÓN DE CONEXIONES",
+    "pieces": [],
+    "threads": []
+  },
+  "microrrelatos": {
+    "enabled": false,
+    "title": "TABLÓN DE CONEXIONES",
+    "pieces": [],
+    "threads": []
+  }
+}
