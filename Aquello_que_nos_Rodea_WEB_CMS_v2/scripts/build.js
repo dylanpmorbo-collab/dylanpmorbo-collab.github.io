@@ -55,7 +55,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=digital-press-20260919"><script defer src="assets/js/main.js"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=digital-carousel-20260919"><script defer src="assets/js/main.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -444,7 +444,7 @@ const digitalPlatforms={
 function digitalFootprintMarkup(item){
  if(!item || item.show_digital_footprint!==true) return '';
  const pieces=(Array.isArray(item.digital_footprint)?item.digital_footprint:[])
-   .filter(x=>x && (x.image||x.video||x.caption||x.messages?.length||x.original_capture));
+   .filter(x=>x && (x.image||x.video||x.caption||x.messages?.length||x.original_capture||(Array.isArray(x.images)&&x.images.some(photo=>photo&&photo.image))));
  if(!pieces.length) return '';
  const filters=['TODAS','INSTAGRAM','FACEBOOK','CITAS','MENSAJERÍA','OTROS'];
  const cards=pieces.map((piece,index)=>{
@@ -453,9 +453,14 @@ function digitalFootprintMarkup(item){
    const [source,filter,icon]=platform;
    const provenance=piece.source||(platformKey==='TINDER'?'Tinder':source);
    const type=String(piece.type||'Fragmento digital').trim();
+   const photos=[...(piece.image?[{image:piece.image,alt:piece.alt}]:[]),...(Array.isArray(piece.images)?piece.images:[])]
+     .filter(photo=>photo&&photo.image);
+   const carousel=photos.length>1
+     ? '<div class="digital-carousel" data-digital-carousel tabindex="0" aria-label="Galería de '+String(photos.length)+' fotos de esta publicación"><div class="digital-carousel-viewport">'+photos.map((photo,i)=>'<div class="digital-carousel-slide" data-digital-slide'+(i?' hidden':'')+'><img src="'+esc(photo.image)+'" alt="'+esc(photo.alt||piece.title||'Foto '+String(i+1)+' de la publicación')+'" loading="lazy"></div>').join('')+'</div><div class="digital-carousel-controls"><button type="button" data-digital-prev aria-label="Foto anterior">←</button><span data-digital-counter aria-live="polite">1 / '+String(photos.length)+'</span><button type="button" data-digital-next aria-label="Foto siguiente">→</button></div></div>'
+     : '';
    const media=piece.video
      ? '<video controls playsinline preload="metadata"'+(piece.poster?' poster="'+esc(piece.poster)+'"':'')+' aria-label="'+esc(piece.title||type)+'"><source src="'+esc(piece.video)+'">Tu navegador no puede reproducir este vídeo.</video>'
-     : piece.image?'<img src="'+esc(piece.image)+'" alt="'+esc(piece.alt||piece.title||'Material visual recuperado')+'" loading="lazy">':'';
+     : carousel||(photos.length?'<img src="'+esc(photos[0].image)+'" alt="'+esc(photos[0].alt||piece.title||'Material visual recuperado')+'" loading="lazy">':'');
    const comments=(Array.isArray(piece.comments)?piece.comments:[]).filter(x=>x && (x.author||x.text));
    const messages=(Array.isArray(piece.messages)?piece.messages:[]).filter(x=>x && (x.author||x.text));
    const details=[['FUENTE',provenance],['TIPO',type],['ARCHIVADO',piece.archived],['ESTADO',piece.status]]
@@ -477,7 +482,7 @@ function digitalFootprintMarkup(item){
    '<div class="digital-footprint-content"><p class="digital-footprint-description">Actividad recuperada de perfiles públicos, dispositivos y cuentas vinculadas al sujeto.</p>'+
    '<div class="digital-filters" role="group" aria-label="Filtrar huella digital">'+filters.map((x,i)=>'<button type="button" data-digital-button="'+x+'" aria-pressed="'+(i===0?'true':'false')+'">'+x+'</button>').join('')+'</div>'+
    '<div class="digital-grid">'+cards+'</div></div>'+
-   '<script>(function(){const section=document.currentScript.closest(".digital-footprint");if(!section)return;section.addEventListener("toggle",function(){if(!section.open)section.querySelectorAll("video").forEach(video=>video.pause());});section.querySelectorAll("[data-digital-button]").forEach(button=>button.addEventListener("click",function(){const selected=button.dataset.digitalButton;section.querySelectorAll("[data-digital-button]").forEach(b=>b.setAttribute("aria-pressed",String(b===button)));section.querySelectorAll("[data-digital-filter]").forEach(card=>{card.hidden=selected!=="TODAS"&&card.dataset.digitalFilter!==selected;});}));})();<\/script>'+
+   '<script>(function(){const section=document.currentScript.closest(".digital-footprint");if(!section)return;section.addEventListener("toggle",function(){if(!section.open)section.querySelectorAll("video").forEach(video=>video.pause());});section.querySelectorAll("[data-digital-button]").forEach(button=>button.addEventListener("click",function(){const selected=button.dataset.digitalButton;section.querySelectorAll("[data-digital-button]").forEach(b=>b.setAttribute("aria-pressed",String(b===button)));section.querySelectorAll("[data-digital-filter]").forEach(card=>{card.hidden=selected!=="TODAS"&&card.dataset.digitalFilter!==selected;});}));section.querySelectorAll("[data-digital-carousel]").forEach(carousel=>{const slides=Array.from(carousel.querySelectorAll("[data-digital-slide]"));const counter=carousel.querySelector("[data-digital-counter]");let current=0;function show(offset){slides[current].hidden=true;current=(current+offset+slides.length)%slides.length;slides[current].hidden=false;counter.textContent=(current+1)+" / "+slides.length;}carousel.querySelector("[data-digital-prev]").addEventListener("click",()=>show(-1));carousel.querySelector("[data-digital-next]").addEventListener("click",()=>show(1));carousel.addEventListener("keydown",event=>{if(event.target!==carousel)return;if(event.key==="ArrowLeft"||event.key==="ArrowRight"){event.preventDefault();show(event.key==="ArrowLeft"?-1:1);}});});})();<\/script>'+
    '</details>';
 }
 
