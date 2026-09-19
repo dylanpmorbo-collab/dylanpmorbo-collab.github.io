@@ -90,8 +90,29 @@
       "type": "STORY",
       "title": "Primer beso",
       "date": "29/08/2021 · 19:34",
+      "location": "Playa de Fora del Forat, Vinaròs, Castellón",
       "image_sensitive": false,
-      "video": "/assets/uploads/huella-digital/primer-besostory1.mp4"
+      "video": "/assets/uploads/huella-digital/primer-besostory1.mp4",
+      "handle": "Candy",
+      "caption": "❤️",
+      "comments": [
+        {
+          "author": "Sara:",
+          "text": "POR FINNNNN ❤️"
+        },
+        {
+          "author": "Marcos:",
+          "text": "ya era hora"
+        },
+        {
+          "author": "Dani:",
+          "text": "🤢"
+        },
+        {
+          "author": "Richard:",
+          "text": "❤️"
+        }
+      ]
     }
   ],
   "show_documents": true,
