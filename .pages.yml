@@ -1110,15 +1110,37 @@ content:
             type: string
             required: false
           - name: image
-            label: Fotografía o captura
+            label: Fotografía principal o captura
             type: image
             required: false
             options:
               media: huella_digital
+            description: "Si añades más fotos debajo, esta será la primera del carrusel."
           - name: alt
-            label: Descripción accesible de la imagen
+            label: Descripción accesible de la imagen principal
             type: string
             required: false
+          - name: images
+            label: Más fotos de esta publicación
+            type: object
+            required: false
+            description: "Añade aquí las demás fotos de la misma publicación, en el orden en que deben aparecer. Se mostrarán dentro de un carrusel."
+            list:
+              max: 20
+              collapsible:
+                collapsed: true
+                summary: "Foto {index}"
+            fields:
+              - name: image
+                label: Fotografía
+                type: image
+                required: true
+                options:
+                  media: huella_digital
+              - name: alt
+                label: Descripción accesible de esta foto
+                type: string
+                required: false
           - name: video
             label: Vídeo reproducible en la ficha
             type: file
