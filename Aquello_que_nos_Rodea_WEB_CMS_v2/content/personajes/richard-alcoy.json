@@ -48,7 +48,44 @@
       "value": "Coordinador administrativo"
     }
   ],
-  "show_digital_footprint": false,
+  "show_digital_footprint": true,
+  "digital_footprint": [
+    {
+      "platform": "FACEBOOK",
+      "type": "Privacidad: Amigos",
+      "title": "Zaragoza-Sevilla",
+      "date": "28 de octubre de 2012 - 11:26",
+      "location": "exteriores del Estadio de La Romareda, Zaragoza",
+      "image_sensitive": false,
+      "video": "/assets/uploads/huella-digital/videopadre.mp4",
+      "poster": "/assets/uploads/huella-digital/imagen-de-codex-16-sept-2026-173145.png",
+      "handle": "Javier Alcoy",
+      "caption": "Buena mañana con el chaval. Y encima 2-1. ¡Aúpa Zaragoza!",
+      "reactions": "👍23 Me gusta",
+      "comments": [
+        {
+          "author": "Elena Martínez · 16:02",
+          "text": "Qué dos 😂"
+        },
+        {
+          "author": "Carlos M. · 16:11",
+          "text": "Buen partido habéis elegido!"
+        },
+        {
+          "author": "Javier Alcoy · 16:16",
+          "text": "Ya era hora de salir contentos de allí jajaja"
+        },
+        {
+          "author": "Pilar Martínez · 17:03",
+          "text": "Qué mayor está Richard!"
+        },
+        {
+          "author": "Miguel A. · 18:24",
+          "text": "Aúpa Zaragoza!!"
+        }
+      ]
+    }
+  ],
   "show_documents": true,
   "documents": [
     {
