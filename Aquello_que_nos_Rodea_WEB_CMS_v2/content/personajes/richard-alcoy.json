@@ -84,6 +84,14 @@
           "text": "Aúpa Zaragoza!!"
         }
       ]
+    },
+    {
+      "platform": "INSTAGRAM",
+      "type": "STORY",
+      "title": "Primer beso",
+      "date": "29/08/2021 · 19:34",
+      "image_sensitive": false,
+      "video": "/assets/uploads/huella-digital/primer-besostory1.mp4"
     }
   ],
   "show_documents": true,
