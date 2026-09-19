@@ -50,6 +50,22 @@
       "location": "Lisboa",
       "image": "/assets/uploads/huella-digital/lisboa1.png",
       "alt": "Qué bonitas vistas"
+    },
+    {
+      "platform": "FACEBOOK",
+      "type": "Video Público",
+      "title": "Romareda con Papá",
+      "location": "Zaragoza",
+      "video": "/assets/uploads/huella-digital/videopadre.mp4",
+      "handle": "Richard Alcoy",
+      "caption": "Que gran tarde de futbol.",
+      "reactions": "❤️18 Me gusta.",
+      "comments": [
+        {
+          "author": "Sarandonga1734",
+          "text": "Que guapos los dos. muchos besos!!! 😘😘😘"
+        }
+      ]
     }
   ],
   "show_documents": true,
