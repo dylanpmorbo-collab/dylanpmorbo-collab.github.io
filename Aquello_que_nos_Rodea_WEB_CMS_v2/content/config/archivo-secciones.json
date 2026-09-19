@@ -1,0 +1,12 @@
+{
+  "entidades": "/assets/img/archivo-secciones/entidades.png",
+  "personajes": "/assets/img/archivo-secciones/personajes.png",
+  "lugares": "/assets/img/archivo-secciones/lugares.png",
+  "planos": "/assets/img/archivo-secciones/planos.png",
+  "organizaciones": "/assets/img/archivo-secciones/organizaciones.png",
+  "documentos": "/assets/img/archivo-secciones/documentos.png",
+  "sucesos": "/assets/img/archivo-secciones/sucesos.png",
+  "otros": "/assets/img/archivo-secciones/otros.png",
+  "relatos": "/assets/img/archivo-secciones/conexiones.png",
+  "microrrelatos": "/assets/img/archivo-secciones/conexiones.png"
+}
