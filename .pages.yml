@@ -53,6 +53,12 @@ media:
     output: /assets/uploads/informes-policiales
     rename: safe
     categories: [image]
+  - name: huella_digital
+    label: Huella digital (imágenes y vídeos)
+    input: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads/huella-digital
+    output: /assets/uploads/huella-digital
+    rename: safe
+    categories: [image, video]
 
 content:
   - name: relatos
@@ -664,6 +670,140 @@ content:
             type: rich-text
             options:
               media: personajes
+      - name: show_digital_footprint
+        label: Mostrar huella digital
+        type: boolean
+        default: false
+        description: "Actívalo cuando haya al menos una pieza. Si no hay material, el apartado no ocupa espacio."
+      - name: digital_footprint
+        label: Huella digital · piezas recuperadas
+        type: object
+        required: false
+        description: "Cada entrada es una pieza documental independiente. No hace falta reproducir la interfaz de la plataforma original."
+        list:
+          max: 50
+          collapsible:
+            collapsed: true
+            summary: "{platform} · {title}"
+        fields:
+          - name: platform
+            label: Plataforma / procedencia
+            type: select
+            required: true
+            default: INSTAGRAM
+            options:
+              values: [INSTAGRAM, FACEBOOK, TINDER, WHATSAPP, TELEGRAM, YOUTUBE, TIKTOK, X, DISPOSITIVO, OTROS]
+          - name: type
+            label: Tipo de material
+            type: string
+            required: false
+            description: "Ejemplos: publicación pública, fotografía etiquetada, conversación, perfil, archivo local, vídeo."
+          - name: title
+            label: Título documental (opcional)
+            type: string
+            required: false
+          - name: date
+            label: Fecha / hora de la actividad
+            type: string
+            required: false
+            description: "Se muestra tal como la escribas; por ejemplo, 18 JUN 2022 · 03:41."
+          - name: location
+            label: Lugar
+            type: string
+            required: false
+          - name: image
+            label: Fotografía o captura
+            type: image
+            required: false
+            options:
+              media: huella_digital
+          - name: alt
+            label: Descripción accesible de la imagen
+            type: string
+            required: false
+          - name: video
+            label: Vídeo reproducible en la ficha
+            type: file
+            required: false
+            options:
+              media: huella_digital
+              categories: [video]
+            description: "Archivo de vídeo subido al Archivo. Si añades vídeo e imagen, se mostrará el vídeo."
+          - name: poster
+            label: Portada del vídeo
+            type: image
+            required: false
+            options:
+              media: huella_digital
+          - name: handle
+            label: Usuario o remitente
+            type: string
+            required: false
+          - name: caption
+            label: Texto de publicación / descripción
+            type: text
+            required: false
+            description: "Respeta los saltos de línea."
+          - name: reactions
+            label: Reacciones
+            type: string
+            required: false
+            description: "Ejemplo: ❤️ 184 Me gusta."
+          - name: comments
+            label: Comentarios
+            type: object
+            required: false
+            list:
+              max: 30
+              collapsible:
+                collapsed: true
+                summary: "{author}"
+            fields:
+              - name: author
+                label: Usuario
+                type: string
+              - name: text
+                label: Comentario
+                type: text
+          - name: messages
+            label: Mensajes recuperados
+            type: object
+            required: false
+            list:
+              max: 50
+              collapsible:
+                collapsed: true
+                summary: "{author} · {time}"
+            fields:
+              - name: author
+                label: Remitente
+                type: string
+              - name: time
+                label: Hora
+                type: string
+                required: false
+              - name: text
+                label: Mensaje
+                type: text
+          - name: original_capture
+            label: Captura original (opcional)
+            type: image
+            required: false
+            options:
+              media: huella_digital
+          - name: source
+            label: Fuente documental
+            type: string
+            required: false
+            description: "Ejemplo: perfil público, teléfono recuperado o cuenta vinculada."
+          - name: archived
+            label: Fecha de archivo
+            type: string
+            required: false
+          - name: status
+            label: Estado del archivo
+            type: string
+            required: false
       - name: gallery
         label: Galería del expediente
         type: object
