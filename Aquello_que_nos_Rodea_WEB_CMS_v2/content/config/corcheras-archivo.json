@@ -1,62 +1,62 @@
 {
   "entidades": {
-    "enabled": false,
+    "enabled": true,
     "title": "TABLÓN DE CONEXIONES",
-    "pieces": [],
-    "threads": []
+    "pieces": [
+      {
+        "id": "probando cosa",
+        "type": "nota",
+        "title": "que esa pasando aqui?",
+        "text": "esto es muy extraño"
+      },
+      {
+        "id": "eso",
+        "type": "foto",
+        "title": "joer",
+        "image": "/assets/uploads/archivo/cazando.png"
+      }
+    ],
+    "threads": [
+      {
+        "from": "probando cosa",
+        "to": "eso"
+      }
+    ]
   },
   "personajes": {
     "enabled": false,
-    "title": "TABLÓN DE CONEXIONES",
-    "pieces": [],
-    "threads": []
+    "title": "TABLÓN DE CONEXIONES"
   },
   "lugares": {
     "enabled": false,
-    "title": "TABLÓN DE CONEXIONES",
-    "pieces": [],
-    "threads": []
+    "title": "TABLÓN DE CONEXIONES"
   },
   "planos": {
     "enabled": false,
-    "title": "TABLÓN DE CONEXIONES",
-    "pieces": [],
-    "threads": []
+    "title": "TABLÓN DE CONEXIONES"
   },
   "organizaciones": {
     "enabled": false,
-    "title": "TABLÓN DE CONEXIONES",
-    "pieces": [],
-    "threads": []
+    "title": "TABLÓN DE CONEXIONES"
   },
   "documentos": {
     "enabled": false,
-    "title": "TABLÓN DE CONEXIONES",
-    "pieces": [],
-    "threads": []
+    "title": "TABLÓN DE CONEXIONES"
   },
   "sucesos": {
     "enabled": false,
-    "title": "TABLÓN DE CONEXIONES",
-    "pieces": [],
-    "threads": []
+    "title": "TABLÓN DE CONEXIONES"
   },
   "otros": {
     "enabled": false,
-    "title": "TABLÓN DE CONEXIONES",
-    "pieces": [],
-    "threads": []
+    "title": "TABLÓN DE CONEXIONES"
   },
   "relatos": {
     "enabled": false,
-    "title": "TABLÓN DE CONEXIONES",
-    "pieces": [],
-    "threads": []
+    "title": "TABLÓN DE CONEXIONES"
   },
   "microrrelatos": {
     "enabled": false,
-    "title": "TABLÓN DE CONEXIONES",
-    "pieces": [],
-    "threads": []
+    "title": "TABLÓN DE CONEXIONES"
   }
 }
