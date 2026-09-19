@@ -970,12 +970,13 @@ content:
             summary: "{platform} · {title}"
         fields:
           - name: platform
-            label: Plataforma / procedencia
+            label: Canal / procedencia
             type: select
             required: true
             default: INSTAGRAM
             options:
-              values: [INSTAGRAM, FACEBOOK, TINDER, WHATSAPP, TELEGRAM, YOUTUBE, TIKTOK, X, DISPOSITIVO, OTROS]
+              values: [INSTAGRAM, FACEBOOK, CITAS, TINDER, WHATSAPP, TELEGRAM, YOUTUBE, TIKTOK, X, DISPOSITIVO, OTROS]
+            description: "Elige CITAS para cualquier app de citas. TINDER queda disponible solo para compatibilidad con piezas antiguas; ambas se ven bajo CITAS. Puedes precisar la app en Fuente documental."
           - name: type
             label: Tipo de material
             type: string
