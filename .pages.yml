@@ -1007,6 +1007,73 @@ content:
             type: text
             required: false
 
+  - name: imagenes_secciones_archivo
+    label: Imágenes de las secciones del Archivo
+    type: file
+    path: Aquello_que_nos_Rodea_WEB_CMS_v2/content/config/archivo-secciones.json
+    format: json
+    fields:
+      - name: entidades
+        label: Entidades
+        type: image
+        required: true
+        options:
+          media: archivo
+      - name: personajes
+        label: Personajes
+        type: image
+        required: true
+        options:
+          media: archivo
+      - name: lugares
+        label: Lugares
+        type: image
+        required: true
+        options:
+          media: archivo
+      - name: planos
+        label: Planos
+        type: image
+        required: true
+        options:
+          media: archivo
+      - name: organizaciones
+        label: Organizaciones
+        type: image
+        required: true
+        options:
+          media: archivo
+      - name: documentos
+        label: Documentos
+        type: image
+        required: true
+        options:
+          media: archivo
+      - name: sucesos
+        label: Sucesos
+        type: image
+        required: true
+        options:
+          media: archivo
+      - name: otros
+        label: Otros archivos
+        type: image
+        required: true
+        options:
+          media: archivo
+      - name: relatos
+        label: Relatos
+        type: image
+        required: true
+        options:
+          media: archivo
+      - name: microrrelatos
+        label: Microrrelatos
+        type: image
+        required: true
+        options:
+          media: archivo
+
   - name: configuracion
     label: Configuración del sitio
     type: file
