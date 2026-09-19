@@ -828,3 +828,43 @@ DOCUMENTOS NAVEGABLES — AJUSTES FINALES DE GEOMETRÍA Y LECTURA
 .legal-notice h2{margin:0 0 9px;font:600 11px var(--display);letter-spacing:.14em;text-transform:uppercase;color:#a89267}
 .legal-notice p{margin:0;font-size:14px;line-height:1.55}
 .legal-notice p+p{margin-top:.7em}
+
+/* Huella digital: piezas documentales, sin reproducir interfaces de terceros. */
+.digital-footprint{margin:72px 0 30px;border-top:1px solid var(--line);padding-top:46px}
+.digital-footprint-intro{max-width:760px;margin-bottom:27px}
+.digital-footprint-intro .archive-code{margin:0 0 12px}
+.digital-footprint-intro h2{font:600 clamp(26px,3vw,42px)/1.12 var(--display);letter-spacing:.08em;color:#c8b486;margin:0 0 12px}
+.digital-footprint-intro>p:last-child{color:#a9a194;margin:0;font-size:18px}
+.digital-filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px}
+.digital-filters button{background:#0b0a09;color:#968b78;border:1px solid var(--line);padding:10px 13px;font:600 10px/1.2 var(--display);letter-spacing:.08em;cursor:pointer}
+.digital-filters button:hover,.digital-filters button[aria-pressed="true"]{border-color:#987c48;color:#dfc48a;background:#19150f}
+.digital-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;align-items:start}
+.digital-piece{min-width:0;border:1px solid #3c352a;background:#100f0d;padding:24px}
+.digital-piece[hidden]{display:none!important}
+.digital-piece-head{display:flex;align-items:center;gap:12px;padding-bottom:15px;border-bottom:1px solid var(--line)}
+.digital-platform-icon{width:42px;height:42px;min-width:42px;display:grid;place-items:center;border:1px solid #65563c;color:#c6ad79;background:#17140f}
+.digital-platform-icon svg{display:block;width:20px;height:20px}
+.digital-platform-name{font:600 12px var(--display);letter-spacing:.11em;text-transform:uppercase;color:#c7ae7d}
+.digital-piece-head p{font-size:14px;color:#91897c;margin:3px 0 0}
+.digital-piece-index{margin-left:auto;align-self:flex-start;font:600 10px var(--display);color:#6e6454}
+.digital-piece h3{font:600 21px/1.3 var(--display);color:#d1bea0;margin:19px 0 3px}
+.digital-piece-location{color:#a89b83;font-size:15px;margin:10px 0}
+.digital-piece-media{margin:18px 0;background:#070706;border:1px solid #302a22}
+.digital-piece-media img,.digital-piece-media video{display:block;width:100%;height:auto;max-height:620px;object-fit:contain}
+.digital-piece-media video{aspect-ratio:16/9}
+.digital-piece-caption{color:#c5bdb0;font-size:17px;line-height:1.5;margin:18px 0}
+.digital-piece-caption strong{display:block;color:#d5c49f;font:600 13px var(--display);margin-bottom:6px}
+.digital-piece-caption p{margin:0 0 8px}
+.digital-piece-reactions{color:#a99a7e;font-size:14px;margin:17px 0}
+.digital-piece-comments{border-top:1px solid var(--line);padding-top:13px;color:#a9a195;font-size:14px}
+.digital-piece-comments p{margin:0 0 7px;overflow-wrap:anywhere}
+.digital-piece-comments strong{color:#c5b184}
+.digital-piece-messages{display:grid;gap:8px;margin:18px 0}
+.digital-piece-messages p{margin:0;padding:10px 13px;border-left:2px solid #7d6a45;background:#171510;color:#c0b8ac;font-size:15px;overflow-wrap:anywhere}
+.digital-piece-messages span{display:block;color:#a99570;font:600 10px var(--display);letter-spacing:.06em;margin-bottom:5px}
+.digital-original-link{display:inline-block;margin:12px 0;color:#bca26b;font:600 10px var(--display);letter-spacing:.1em}
+.digital-piece-details{border-top:1px solid var(--line);padding-top:13px;margin:18px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 18px}
+.digital-piece-details div{min-width:0}
+.digital-piece-details dt{font:600 9px var(--display);letter-spacing:.1em;color:#81735e}
+.digital-piece-details dd{margin:4px 0 0;color:#aaa194;font-size:13px;overflow-wrap:anywhere}
+@media(max-width:760px){.digital-grid{grid-template-columns:1fr}.digital-piece{padding:18px}.digital-footprint{margin-top:55px}.digital-filters button{font-size:9px}}
