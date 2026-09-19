@@ -860,6 +860,13 @@ DOCUMENTOS NAVEGABLES — AJUSTES FINALES DE GEOMETRÍA Y LECTURA
 .digital-piece-media{margin:18px 0;background:#070706;border:1px solid #302a22}
 .digital-piece-media img,.digital-piece-media video{display:block;width:100%;height:auto;max-height:620px;object-fit:contain}
 .digital-piece-media video{aspect-ratio:16/9}
+.digital-carousel-viewport{position:relative;aspect-ratio:4/3;background:#070706}
+.digital-carousel-slide{position:absolute;inset:0}
+.digital-carousel-slide[hidden]{display:none!important}
+.digital-piece-media .digital-carousel-slide img{width:100%;height:100%;max-height:none;object-fit:contain}
+.digital-carousel-controls{display:flex;align-items:center;justify-content:center;gap:18px;padding:8px 12px;border-top:1px solid #302a22;color:#baa77f;font:600 11px var(--display);letter-spacing:.12em}
+.digital-carousel-controls button{width:34px;height:30px;border:1px solid #5a4b30;background:#17140f;color:#d2b879;cursor:pointer;font-size:18px;line-height:1}
+.digital-carousel-controls button:hover,.digital-carousel-controls button:focus-visible{background:#302719;outline:1px solid #b99a5d;outline-offset:2px}
 .digital-piece-caption{color:#c5bdb0;font-size:17px;line-height:1.5;margin:18px 0}
 .digital-piece-caption strong{display:block;color:#d5c49f;font:600 13px var(--display);margin-bottom:6px}
 .digital-piece-caption p{margin:0 0 8px}
