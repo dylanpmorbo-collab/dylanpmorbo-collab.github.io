@@ -50,7 +50,7 @@
       "location": "Lisboa",
       "image": "/assets/uploads/huella-digital/lisboa1.png",
       "alt": "Qué bonitas vistas",
-      "image_sensitive": true,
+      "image_sensitive": false,
       "images": [
         {
           "image": "/assets/uploads/huella-digital/lisboa2.png",
