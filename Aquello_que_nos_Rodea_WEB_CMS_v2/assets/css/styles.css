@@ -254,10 +254,13 @@
   margin:18px 0 22px;
   color:#d8c9aa;
   text-shadow:0 3px 30px #000;
-  font:600 clamp(48px,7vw,96px)/.95 var(--display);
+  font:600 clamp(32px,5vw,70px)/.95 var(--display);
   letter-spacing:.025em;
-  overflow-wrap:anywhere;
+  overflow-wrap:normal;
+  word-break:normal;
+  hyphens:none;
 }
+.archive-entry-hero.no-image h1{font-size:clamp(48px,7vw,96px)}
 .archive-entry-hero-copy>p:not(.eyebrow){max-width:780px;margin:0;color:#b7afa0;font-size:clamp(20px,2.1vw,28px);font-style:italic;line-height:1.35}
 .archive-entry-hero-status{
   display:inline-flex;
@@ -332,6 +335,7 @@
   .archive-entry-card-body{padding:22px}
   .archive-entry-card-facts{grid-template-columns:1fr}
   .archive-entry-hero{display:flex;flex-direction:column;align-items:stretch;min-height:auto;padding:150px 20px 54px;gap:34px}
+  .archive-entry-hero h1,.archive-entry-hero.no-image h1{font-size:clamp(27px,8vw,52px)}
   .archive-entry-hero-image{width:min(100%,560px);align-self:center}
   .archive-entry-hero-image img{max-height:520px}
   .archive-entry-shell{padding-top:42px}
