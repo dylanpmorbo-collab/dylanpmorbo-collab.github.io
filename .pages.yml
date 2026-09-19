@@ -48,7 +48,7 @@ media:
     rename: safe
     categories: [image]
   - name: informes_policiales
-    label: Imágenes de informes policiales
+    label: Imágenes de informes
     input: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads/informes-policiales
     output: /assets/uploads/informes-policiales
     rename: safe
@@ -667,12 +667,12 @@ content:
                     required: true
                     description: "Respeta los saltos de línea que quieras conservar en la capa de traducción."
       - name: show_police_report
-        label: Mostrar informes policiales
+        label: Mostrar informes
         type: boolean
         default: false
         description: "Muestra carpetas compactas al final de la ficha. Cada informe se abre dentro de la página."
       - name: police_reports
-        label: Informes policiales
+        label: Informes
         type: object
         required: false
         description: "Hasta cinco carpetas. Cada informe se reparte en folios que se leen de uno en uno."
@@ -686,7 +686,13 @@ content:
             label: Título / referencia
             type: string
             required: true
-            default: "INFORME POLICIAL"
+            default: "INFORME"
+          - name: type
+            label: Tipo de informe
+            type: string
+            required: false
+            default: "POLICIAL"
+            description: "Escribe la clase de informe: policial, médico, forense, psicológico u otra. Los antiguos se consideran policiales hasta que los cambies."
           - name: image
             label: Imagen 1 / portada de la carpeta
             type: image
@@ -1177,12 +1183,12 @@ content:
                     required: true
                     description: "Respeta los saltos de línea que quieras conservar en la capa de traducción."
       - name: show_police_report
-        label: Mostrar informes policiales
+        label: Mostrar informes
         type: boolean
         default: false
         description: "Muestra carpetas compactas al final de la ficha. Cada informe se abre dentro de la página."
       - name: police_reports
-        label: Informes policiales
+        label: Informes
         type: object
         required: false
         description: "Hasta cinco carpetas. Cada informe se reparte en folios que se leen de uno en uno."
@@ -1196,7 +1202,13 @@ content:
             label: Título / referencia
             type: string
             required: true
-            default: "INFORME POLICIAL"
+            default: "INFORME"
+          - name: type
+            label: Tipo de informe
+            type: string
+            required: false
+            default: "POLICIAL"
+            description: "Escribe la clase de informe: policial, médico, forense, psicológico u otra. Los antiguos se consideran policiales hasta que los cambies."
           - name: image
             label: Imagen 1 / portada de la carpeta
             type: image
