@@ -1120,6 +1120,11 @@ content:
             label: Descripción accesible de la imagen principal
             type: string
             required: false
+          - name: image_sensitive
+            label: Ocultar imagen principal tras advertencia
+            type: boolean
+            default: false
+            description: "La foto aparecerá pixelada hasta que el visitante pulse Mostrar imagen."
           - name: images
             label: Más fotos de esta publicación
             type: object
@@ -1141,6 +1146,10 @@ content:
                 label: Descripción accesible de esta foto
                 type: string
                 required: false
+              - name: sensitive
+                label: Ocultar esta foto tras advertencia
+                type: boolean
+                default: false
           - name: video
             label: Vídeo reproducible en la ficha
             type: file
