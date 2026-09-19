@@ -920,14 +920,15 @@ DOCUMENTOS NAVEGABLES — AJUSTES FINALES DE GEOMETRÍA Y LECTURA
 .archive-corkboard-section h2{margin:0 0 18px;color:#c8b486;font:600 clamp(27px,3vw,42px)/1.1 var(--display)}
 .archive-corkboard-hint{display:none;margin:0 0 12px;color:#a69a83;font:600 9px/1.3 var(--display);letter-spacing:.1em}
 .archive-corkboard-scroll{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;border:1px solid #3b2b1e;background:#0a0806}
-.archive-corkboard-stage{position:relative;width:100%;min-width:940px;height:790px;overflow:hidden;border:15px ridge #433024;background-color:#695037;background-image:radial-gradient(rgba(25,15,8,.2) 1px,transparent 1px),repeating-linear-gradient(35deg,rgba(25,15,8,.055) 0 2px,transparent 2px 9px),linear-gradient(140deg,#806244,#59412d);background-size:7px 7px,auto,auto;box-shadow:inset 0 0 55px rgba(29,15,6,.5),0 24px 55px rgba(0,0,0,.35)}
-.archive-corkboard-threads{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;filter:drop-shadow(1px 2px 2px rgba(20,7,5,.72))}
+.archive-corkboard-stage{position:relative;width:100%;min-width:940px;height:790px;overflow:hidden;background-color:#59412d;background-image:linear-gradient(rgba(14,9,5,.12),rgba(14,9,5,.12)),url('../img/corkboard-weathered-v2.png');background-position:center;background-size:100% 100%;background-repeat:no-repeat;box-shadow:0 24px 55px rgba(0,0,0,.35)}
+.archive-corkboard-threads{position:absolute;z-index:2;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;filter:drop-shadow(1px 2px 2px rgba(20,7,5,.72))}
 .archive-corkboard-threads path{fill:none;stroke:#8f251d;stroke-width:3;vector-effect:non-scaling-stroke;stroke-linecap:round}
 .archive-corkboard-piece{position:absolute;z-index:1;left:var(--piece-x);top:var(--piece-y);width:190px;transform:translateX(-50%) rotate(var(--piece-rotation));box-shadow:2px 10px 18px rgba(20,11,7,.46);overflow-wrap:anywhere}
-.archive-corkboard-pin{position:absolute;z-index:2;top:-8px;left:calc(50% - 9px);width:18px;height:18px;border:2px solid #5f271a;border-radius:50%;background:radial-gradient(circle at 35% 30%,#e2a485 0 13%,#a93423 28%,#57150e 70%);box-shadow:2px 3px 5px #24170e}
-.archive-corkboard-nota{min-height:140px;max-height:240px;padding:24px 16px 17px;background:#d9c5a0;color:#372d20;clip-path:polygon(0 0,100% 0,100% 97%,94% 99%,88% 97%,81% 100%,73% 97%,64% 99%,54% 97%,46% 100%,38% 97%,29% 99%,20% 97%,11% 100%,4% 97%,0 99%);overflow:auto}
+.archive-corkboard-pin{position:absolute;z-index:3;left:var(--piece-x);top:var(--piece-y);transform:translate(-50%,-50%);width:18px;height:18px;border:2px solid #5f271a;border-radius:50%;background:radial-gradient(circle at 35% 30%,#e2a485 0 13%,#a93423 28%,#57150e 70%);box-shadow:2px 3px 5px #24170e}
+.archive-corkboard-nota{min-height:140px;max-height:240px;padding:24px 16px 17px;background:#d9c5a0;color:#372d20}
+.archive-corkboard-nota:after{content:"";position:absolute;left:0;right:0;bottom:-5px;height:8px;background:#d9c5a0;clip-path:polygon(0 0,100% 0,100% 40%,94% 75%,88% 35%,81% 100%,73% 40%,64% 80%,54% 35%,46% 100%,38% 40%,29% 80%,20% 35%,11% 100%,4% 40%,0 85%)}
 .archive-corkboard-nota strong{display:block;font:700 14px/1.3 "Special Elite","Courier New",monospace;margin-bottom:9px}
-.archive-corkboard-nota p{margin:0;white-space:normal;font:14px/1.4 "Special Elite","Courier New",monospace}
+.archive-corkboard-nota p{margin:0;max-height:172px;overflow:auto;white-space:normal;font:14px/1.4 "Special Elite","Courier New",monospace}
 .archive-corkboard-foto{padding:9px 9px 22px;background:#e2d7bf;color:#3d3429}
 .archive-corkboard-foto img{display:block;width:100%;height:135px;object-fit:cover;background:#2c261c}
 .archive-corkboard-foto figcaption{margin-top:10px;font:13px/1.2 "Special Elite","Courier New",monospace}
