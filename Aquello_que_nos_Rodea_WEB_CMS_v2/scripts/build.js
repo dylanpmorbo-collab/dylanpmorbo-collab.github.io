@@ -775,26 +775,34 @@ function archiveDocuments(item){
   </section>`;
 }
 
+
+function policeInlineMarkdown(value=''){
+ let text=esc(value);
+ text=text.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g,'<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+ text=text.replace(/`([^`]+)`/g,'<code>$1</code>');
+ text=text.replace(/\*\*(.+?)\*\*|__(.+?)__/g,(_,a,b)=>'<strong>'+(a||b)+'</strong>');
+ text=text.replace(/\*([^*\n]+)\*|_([^_\n]+)_/g,(_,a,b)=>'<em>'+(a||b)+'</em>');
+ return text;
+}
+function policeMarkdownToHTML(source=''){
+ return String(source||'').replace(/\r\n/g,'\n').split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean).map(block=>{
+   const lines=block.split('\n');
+   const heading=block.match(/^(#{1,4})\s+(.+)$/);
+   if(heading && lines.length===1) return '<h'+Math.min(heading[1].length+2,6)+'>'+policeInlineMarkdown(heading[2])+'</h'+Math.min(heading[1].length+2,6)+'>';
+   if(/^[-*_]{3,}$/.test(block)) return '<hr>';
+   if(lines.every(line=>/^\s*[-*+]\s+/.test(line))) return '<ul>'+lines.map(line=>'<li>'+policeInlineMarkdown(line.replace(/^\s*[-*+]\s+/,''))+'</li>').join('')+'</ul>';
+   if(lines.every(line=>/^\s*\d+[.)]\s+/.test(line))) return '<ol>'+lines.map(line=>'<li>'+policeInlineMarkdown(line.replace(/^\s*\d+[.)]\s+/,''))+'</li>').join('')+'</ol>';
+   if(lines.every(line=>/^\s*>\s?/.test(line))) return '<blockquote>'+lines.map(line=>policeInlineMarkdown(line.replace(/^\s*>\s?/,''))).join('<br>')+'</blockquote>';
+   return '<p>'+lines.map(policeInlineMarkdown).join('<br>')+'</p>';
+ }).join('\n');
+}
 function paginatePoliceReport(text,maxChars=1300,firstPageChars=maxChars){
- const paragraphs=String(text||'').replace(/\r\n/g,'\n').split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean);
- const chunks=[];
- for(const paragraph of paragraphs){
-   if(paragraph.length<=maxChars){ chunks.push(paragraph); continue; }
-   const words=paragraph.split(/\s+/);
-   let part='';
-   for(const word of words){
-     const candidate=part ? part+' '+word : word;
-     if(part && candidate.length>maxChars){ chunks.push(part); part=word; }
-     else part=candidate;
-   }
-   if(part) chunks.push(part);
- }
+ const blocks=String(text||'').replace(/\r\n/g,'\n').split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean);
  const pages=[]; let current=[],size=0;
- for(const chunk of chunks){
-   const cost=chunk.length+(current.length?2:0);
-   const pageLimit=pages.length===0?firstPageChars:maxChars;
-   if(current.length && size+cost>pageLimit){ pages.push(current.join('\n\n')); current=[]; size=0; }
-   current.push(chunk); size+=chunk.length+(current.length>1?2:0);
+ for(const block of blocks){
+   const limit=pages.length===0?firstPageChars:maxChars;
+   if(current.length && size+block.length+2>limit){pages.push(current.join('\n\n'));current=[];size=0;}
+   current.push(block);size+=block.length+2;
  }
  if(current.length) pages.push(current.join('\n\n'));
  return pages;
@@ -804,32 +812,38 @@ function archivePoliceReport(item){
  let reports=(Array.isArray(item.police_reports)?item.police_reports:[])
    .filter(report=>report && String(report.body||'').trim())
    .slice(0,5)
-   .map((report,index)=>({
-     title:String(report.title||('INFORME POLICIAL '+String(index+1).padStart(2,'0'))),
-     image:String(report.image||''),
-     pages:paginatePoliceReport(report.body,1300,report.image?700:1300)
-   }));
- // Compatibilidad con las fichas creadas antes del sistema de varios informes.
+   .map((report,index)=>{
+     const images=[report.image,report.image_2,report.image_3].filter(Boolean).map(String);
+     return {
+       title:String(report.title||('INFORME POLICIAL '+String(index+1).padStart(2,'0'))),
+       images,
+       pages:paginatePoliceReport(report.body,1300,images.length?Math.max(450,850-images.length*130):1300)
+     };
+   });
+ // Conserva los expedientes creados antes de la lista de informes.
  if(!reports.length && String(item.police_report||'').trim()){
-   reports=[{title:'INFORME POLICIAL',image:'',pages:paginatePoliceReport(item.police_report)}];
+   reports=[{title:'INFORME POLICIAL',images:[],pages:paginatePoliceReport(item.police_report)}];
  }
  if(!reports.length) return '';
- const reportMarkup=reports.map((report,reportIndex)=>`
-   <section class="archive-police-report-set">
-     <div class="archive-police-report-set-label">INFORME // ${String(reportIndex+1).padStart(2,'0')}</div>
-     <div class="archive-police-report-pages">
-       ${report.pages.map((page,pageIndex)=>`<article class="archive-police-report">
-         <div class="archive-police-report-heading">${esc(report.title)}${pageIndex?'<span>CONTINUACIÓN</span>':''}</div>
-         ${pageIndex===0 && report.image?`<figure class="archive-police-report-attachment"><img src="${esc(report.image)}" alt="Imagen adjunta a ${esc(report.title)}" loading="lazy"></figure>`:''}
-         <div class="archive-police-report-text">${plainTextToHTML(page)}</div>
-         <div class="archive-police-report-folio">FOLIO ${String(pageIndex+1).padStart(2,'0')} / ${String(report.pages.length).padStart(2,'0')}</div>
-       </article>`).join('')}
-     </div>
-   </section>`).join('');
- return `<section class="archive-police-report-block reveal">
-   <div class="section-label">INFORMES POLICIALES // ${String(reports.length).padStart(2,'0')}</div>
-   <div class="archive-police-report-stack">${reportMarkup}</div>
- </section>`;
+ const folders=reports.map((report,index)=>'<button type="button" class="archive-police-folder" data-police-open="'+index+'" aria-label="Abrir '+esc(report.title)+'">'+
+   '<span class="archive-police-folder-tab" aria-hidden="true"></span>'+
+   '<span class="archive-police-folder-cover">'+(report.images[0]?'<img src="'+esc(report.images[0])+'" alt="" loading="lazy">':'<span aria-hidden="true">▤</span>')+'</span>'+
+   '<span class="archive-police-folder-copy"><small>INFORME // '+String(index+1).padStart(2,'0')+'</small><strong>'+esc(report.title)+'</strong><span>'+String(report.pages.length).padStart(2,'0')+' FOLIO'+(report.pages.length===1?'':'S')+' · ABRIR EXPEDIENTE →</span></span></button>').join('');
+ const templates=reports.map((report,index)=>'<template data-police-template="'+index+'">'+report.pages.map((page,pageIndex)=>'<article class="archive-police-report" data-police-page="'+pageIndex+'"'+(pageIndex?' hidden':'')+'>'+
+   '<div class="archive-police-report-heading">'+esc(report.title)+(pageIndex?'<span>CONTINUACIÓN</span>':'')+'</div>'+
+   (pageIndex===0 && report.images.length?'<div class="archive-police-report-attachments">'+report.images.map((image,i)=>'<figure class="archive-police-report-attachment"><img src="'+esc(image)+'" alt="Imagen adjunta '+(i+1)+' de '+esc(report.title)+'" loading="lazy"></figure>').join('')+'</div>':'')+
+   '<div class="archive-police-report-text">'+policeMarkdownToHTML(page)+'</div>'+
+   '<div class="archive-police-report-folio">FOLIO '+String(pageIndex+1).padStart(2,'0')+' / '+String(report.pages.length).padStart(2,'0')+'</div></article>').join('')+'</template>').join('');
+ return '<section class="archive-police-report-block" aria-label="Informes policiales">'+
+   '<div class="section-label">INFORMES POLICIALES // '+String(reports.length).padStart(2,'0')+'</div>'+
+   '<div class="archive-police-folder-grid">'+folders+'</div>'+templates+
+   '<dialog class="archive-police-dialog" aria-labelledby="archive-police-dialog-title"><div class="archive-police-dialog-shell">'+
+   '<header class="archive-police-dialog-header"><div><small>ARCHIVO POLICIAL</small><h2 id="archive-police-dialog-title"></h2></div><button type="button" data-police-close aria-label="Cerrar informe">✕</button></header>'+
+   '<div class="archive-police-dialog-scroll"><div data-police-pages></div></div>'+
+   '<footer class="archive-police-dialog-footer"><button type="button" data-police-prev>← ANTERIOR</button><span data-police-counter></span><button type="button" data-police-next>SIGUIENTE →</button></footer>'+
+   '</div></dialog>'+
+   '<script>(function(){const block=document.currentScript.closest(".archive-police-report-block");if(!block)return;const dialog=block.querySelector(".archive-police-dialog");const viewer=block.querySelector("[data-police-pages]");const scroll=block.querySelector(".archive-police-dialog-scroll");const prev=block.querySelector("[data-police-prev]");const next=block.querySelector("[data-police-next]");const counter=block.querySelector("[data-police-counter]");let page=0,trigger=null;function showPage(){const pages=[...viewer.querySelectorAll("[data-police-page]")];pages.forEach((el,i)=>el.hidden=i!==page);counter.textContent="FOLIO "+(page+1)+" / "+pages.length;prev.disabled=page===0;next.disabled=page>=pages.length-1;scroll.scrollTop=0;}block.querySelectorAll("[data-police-open]").forEach(button=>button.addEventListener("click",()=>{const template=block.querySelector(\'[data-police-template="\'+button.dataset.policeOpen+\'"]\');if(!template)return;trigger=button;viewer.replaceChildren(template.content.cloneNode(true));dialog.querySelector("#archive-police-dialog-title").textContent=button.querySelector("strong").textContent;page=0;showPage();dialog.showModal();document.body.classList.add("archive-police-dialog-open");dialog.querySelector("[data-police-close]").focus();}));prev.addEventListener("click",()=>{if(page>0){page--;showPage();}});next.addEventListener("click",()=>{if(page<viewer.querySelectorAll("[data-police-page]").length-1){page++;showPage();}});dialog.querySelector("[data-police-close]").addEventListener("click",()=>dialog.close());dialog.addEventListener("click",e=>{if(e.target===dialog)dialog.close();});dialog.addEventListener("close",()=>{document.body.classList.remove("archive-police-dialog-open");viewer.replaceChildren();if(trigger)trigger.focus();});})();<\/script>'+
+   '</section>';
 }
 
 function archiveInformationBlocks(item){
