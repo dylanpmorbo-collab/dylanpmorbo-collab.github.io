@@ -1020,3 +1020,5 @@ html:not(.age-verified){overflow:hidden}
 .digital-sensitive-warning p{max-width:310px;margin:0;color:#f0e5cf;font:600 15px/1.4 var(--display);text-shadow:0 2px 8px #000}
 .digital-sensitive-warning button{padding:10px 16px;border:1px solid #c6a568;background:#15110b;color:#e8ce99;font:600 11px var(--display);letter-spacing:.06em;cursor:pointer}
 .digital-sensitive-warning button:hover,.digital-sensitive-warning button:focus-visible{background:#443015;outline:1px solid #e3c17f;outline-offset:2px}
+.digital-sensitive canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;image-rendering:pixelated}
+.digital-sensitive.is-pixelated img{opacity:0}
