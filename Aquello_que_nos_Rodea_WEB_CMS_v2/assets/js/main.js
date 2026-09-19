@@ -6,6 +6,23 @@
   document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
   document.querySelectorAll('.redacted').forEach(el=>el.addEventListener('click',()=>el.classList.toggle('revealed')));
 
+  document.querySelectorAll('.digital-sensitive img').forEach(img=>{
+    const pixelate=()=>{
+      if(!img.naturalWidth || !img.parentElement?.classList.contains('digital-sensitive'))return;
+      try{
+        const canvas=document.createElement('canvas');
+        canvas.width=32;
+        canvas.height=Math.max(1,Math.round(32*img.naturalHeight/img.naturalWidth));
+        canvas.setAttribute('aria-hidden','true');
+        canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
+        img.parentElement.insertBefore(canvas,img.nextSibling);
+        img.parentElement.classList.add('is-pixelated');
+      }catch(e){}
+    };
+    if(img.complete)pixelate();
+    else img.addEventListener('load',pixelate,{once:true});
+  });
+
   const story = document.querySelector('.story-text');
   if(story){
     const progress = document.querySelector('.reading-progress span');
