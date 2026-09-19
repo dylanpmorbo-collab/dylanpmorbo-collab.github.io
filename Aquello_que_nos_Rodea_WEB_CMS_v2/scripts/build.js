@@ -425,6 +425,56 @@ function archiveGallery(item){
    </figure>`).join('')}</div>
  </section>`;
 }
+
+const digitalPlatforms={
+ INSTAGRAM:['Instagram','INSTAGRAM','<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>'],
+ FACEBOOK:['Facebook','FACEBOOK','<path d="M15.5 4H13a3 3 0 0 0-3 3v13M8 11h7"/>'],
+ TINDER:['Tinder','TINDER','<path d="M12 21c4-2 6-5 6-9 0-2-1-4-3-6 0 3-2 4-3 5-1-3-1-5 0-8-4 3-6 6-6 10 0 4 2 6 6 8Z"/>'],
+ WHATSAPP:['WhatsApp','MENSAJERÍA','<path d="M5 18 3 21l4-1a9 9 0 1 0-3-3"/><path d="M9 8c1 4 3 6 7 7l1.5-1.5-2.5-1.5-1.2 1.1c-1.4-.6-2.4-1.6-3-3L12 9 10.5 6.5Z"/>'],
+ TELEGRAM:['Telegram','MENSAJERÍA','<path d="m3 11 18-8-4 18-5-6-3 3v-5L21 3 9 13Z"/>'],
+ YOUTUBE:['YouTube','OTROS','<rect x="2" y="5" width="20" height="14" rx="4"/><path d="m10 9 5 3-5 3Z"/>'],
+ TIKTOK:['TikTok','OTROS','<path d="M14 3v11a4 4 0 1 1-4-4M14 3c1 3 3 4 6 4"/>'],
+ X:['X','OTROS','<path d="M4 3h4l12 18h-4L4 3ZM20 3 4 21"/>'],
+ DISPOSITIVO:['Galería del dispositivo','OTROS','<rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="18" r="1" fill="currentColor" stroke="none"/>'],
+ OTROS:['Otra fuente','OTROS','<path d="M6 2h9l4 4v16H6Z"/><path d="M15 2v5h4M9 12h7M9 16h7"/>']
+};
+function digitalFootprintMarkup(item){
+ if(!item || item.show_digital_footprint!==true) return '';
+ const pieces=(Array.isArray(item.digital_footprint)?item.digital_footprint:[])
+   .filter(x=>x && (x.image||x.video||x.caption||x.messages?.length||x.original_capture));
+ if(!pieces.length) return '';
+ const filters=['TODAS','INSTAGRAM','FACEBOOK','TINDER','MENSAJERÍA','OTROS'];
+ const cards=pieces.map((piece,index)=>{
+   const platform=digitalPlatforms[String(piece.platform||'OTROS').toUpperCase()]||digitalPlatforms.OTROS;
+   const [source,filter,icon]=platform;
+   const type=String(piece.type||'Fragmento digital').trim();
+   const media=piece.video
+     ? '<video controls playsinline preload="metadata"'+(piece.poster?' poster="'+esc(piece.poster)+'"':'')+' aria-label="'+esc(piece.title||type)+'"><source src="'+esc(piece.video)+'">Tu navegador no puede reproducir este vídeo.</video>'
+     : piece.image?'<img src="'+esc(piece.image)+'" alt="'+esc(piece.alt||piece.title||'Material visual recuperado')+'" loading="lazy">':'';
+   const comments=(Array.isArray(piece.comments)?piece.comments:[]).filter(x=>x && (x.author||x.text));
+   const messages=(Array.isArray(piece.messages)?piece.messages:[]).filter(x=>x && (x.author||x.text));
+   const details=[['FUENTE',piece.source||source],['TIPO',type],['ARCHIVADO',piece.archived],['ESTADO',piece.status]]
+     .filter(x=>x[1]).map(([label,value])=>'<div><dt>'+label+'</dt><dd>'+esc(value)+'</dd></div>').join('');
+   return '<article class="digital-piece reveal" data-digital-filter="'+esc(filter)+'">'+
+     '<header class="digital-piece-head"><span class="digital-platform-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+icon+'</svg></span><div><span class="digital-platform-name">'+esc(source)+'</span><p>'+esc(type)+(piece.date?' · '+esc(piece.date):'')+'</p></div><span class="digital-piece-index">'+String(index+1).padStart(2,'0')+'</span></header>'+
+     (piece.title?'<h3>'+esc(piece.title)+'</h3>':'')+
+     (piece.location?'<p class="digital-piece-location">'+esc(piece.location)+'</p>':'')+
+     (media?'<div class="digital-piece-media">'+media+'</div>':'')+
+     ((piece.handle||piece.caption)?'<div class="digital-piece-caption">'+(piece.handle?'<strong>'+esc(piece.handle)+'</strong>':'')+plainTextToHTML(piece.caption)+'</div>':'')+
+     (piece.reactions?'<p class="digital-piece-reactions">'+esc(piece.reactions)+'</p>':'')+
+     (comments.length?'<div class="digital-piece-comments">'+comments.map(x=>'<p><strong>'+esc(x.author||'Usuario')+'</strong> '+esc(x.text||'')+'</p>').join('')+'</div>':'')+
+     (messages.length?'<div class="digital-piece-messages">'+messages.map(x=>'<p><span>'+esc(x.author||'Remitente')+(x.time?' · '+esc(x.time):'')+'</span>'+esc(x.text||'').replace(/\r?\n/g,'<br>')+'</p>').join('')+'</div>':'')+
+     (piece.original_capture?'<a class="digital-original-link" href="'+esc(piece.original_capture)+'" target="_blank" rel="noopener">VER CAPTURA ORIGINAL ↗</a>':'')+
+     (details?'<dl class="digital-piece-details">'+details+'</dl>':'')+'</article>';
+ }).join('');
+ return '<section class="digital-footprint" aria-labelledby="digital-footprint-title">'+
+   '<div class="digital-footprint-intro"><p class="archive-code">EVIDENCIA DIGITAL // '+String(pieces.length).padStart(2,'0')+'</p><h2 id="digital-footprint-title">HUELLA DIGITAL</h2><p>Actividad recuperada de perfiles públicos, dispositivos y cuentas vinculadas al sujeto.</p></div>'+
+   '<div class="digital-filters" role="group" aria-label="Filtrar huella digital">'+filters.map((x,i)=>'<button type="button" data-digital-button="'+x+'" aria-pressed="'+(i===0?'true':'false')+'">'+x+'</button>').join('')+'</div>'+
+   '<div class="digital-grid">'+cards+'</div>'+
+   '<script>(function(){const section=document.currentScript.closest(".digital-footprint");if(!section)return;section.querySelectorAll("[data-digital-button]").forEach(button=>button.addEventListener("click",function(){const selected=button.dataset.digitalButton;section.querySelectorAll("[data-digital-button]").forEach(b=>b.setAttribute("aria-pressed",String(b===button)));section.querySelectorAll("[data-digital-filter]").forEach(card=>{card.hidden=selected!=="TODAS"&&card.dataset.digitalFilter!==selected;});}));})();<\/script>'+
+   '</section>';
+}
+
 function archiveDocuments(item){
   if(!item || item.show_documents!==true) return '';
   const documents=(Array.isArray(item.documents)?item.documents:[])
@@ -869,6 +919,7 @@ function archiveEntryPage(section,item){
    <div class="archive-back-row"><a class="text-link" href="${section.file}">← VOLVER A ${section.label}</a><a class="text-link" href="archivo.html">ÍNDICE GENERAL</a></div>
    ${detailsMarkup}
    ${archiveGallery(item)}
+   ${section.key==='personajes'?digitalFootprintMarkup(item):''}
    ${archiveDocuments(item)}
    ${archivePoliceReport(item)}
    ${relatedArchiveMarkup(item,itemHref(section,item),title)}
