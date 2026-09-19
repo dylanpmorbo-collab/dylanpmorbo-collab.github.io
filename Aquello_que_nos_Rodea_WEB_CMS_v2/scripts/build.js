@@ -55,7 +55,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=digital-footprint-fold-20260919"><script defer src="assets/js/main.js"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=digital-press-20260919"><script defer src="assets/js/main.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -478,6 +478,40 @@ function digitalFootprintMarkup(item){
    '<div class="digital-filters" role="group" aria-label="Filtrar huella digital">'+filters.map((x,i)=>'<button type="button" data-digital-button="'+x+'" aria-pressed="'+(i===0?'true':'false')+'">'+x+'</button>').join('')+'</div>'+
    '<div class="digital-grid">'+cards+'</div></div>'+
    '<script>(function(){const section=document.currentScript.closest(".digital-footprint");if(!section)return;section.addEventListener("toggle",function(){if(!section.open)section.querySelectorAll("video").forEach(video=>video.pause());});section.querySelectorAll("[data-digital-button]").forEach(button=>button.addEventListener("click",function(){const selected=button.dataset.digitalButton;section.querySelectorAll("[data-digital-button]").forEach(b=>b.setAttribute("aria-pressed",String(b===button)));section.querySelectorAll("[data-digital-filter]").forEach(card=>{card.hidden=selected!=="TODAS"&&card.dataset.digitalFilter!==selected;});}));})();<\/script>'+
+   '</details>';
+}
+
+function digitalPressMarkup(item){
+ if(!item || item.show_digital_press!==true) return '';
+ const pieces=(Array.isArray(item.digital_press)?item.digital_press:[])
+   .filter(piece=>piece && (piece.image||piece.video||piece.headline||piece.summary));
+ if(!pieces.length) return '';
+ const cards=pieces.map((piece,index)=>{
+   const outlet=String(piece.outlet||'MEDIO NO IDENTIFICADO').trim();
+   const kind=String(piece.kind||'Noticia').trim();
+   const comments=(Array.isArray(piece.comments)?piece.comments:[]).filter(x=>x && (x.author||x.text));
+   const details=[['MEDIO',outlet],['TIPO',kind],['PUBLICADO',piece.date],['ARCHIVADO',piece.archived],['ESTADO',piece.status]]
+     .filter(x=>x[1]).map(([label,value])=>'<div><dt>'+label+'</dt><dd>'+esc(value)+'</dd></div>').join('');
+   const image=piece.image?'<figure class="archive-press-media"><img src="'+esc(piece.image)+'" alt="'+esc(piece.headline||'Captura de prensa')+'" loading="lazy"><figcaption>CAPTURA ARCHIVADA</figcaption></figure>':'';
+   const video=piece.video?'<div class="archive-press-media"><video controls playsinline preload="metadata"'+(piece.poster?' poster="'+esc(piece.poster)+'"':'')+' aria-label="'+esc(piece.headline||'Vídeo de prensa')+'"><source src="'+esc(piece.video)+'">Tu navegador no puede reproducir este vídeo.</video></div>':'';
+   const original=String(piece.url||'').trim();
+   const originalLink=/^https?:\/\//i.test(original)?'<a class="archive-press-original" href="'+esc(original)+'" target="_blank" rel="noopener noreferrer">CONSULTAR NOTICIA ORIGINAL ↗</a>':'';
+   return '<article class="archive-press-card reveal">'+
+     '<header class="archive-press-card-head"><span class="archive-press-icon" aria-hidden="true">▤</span><div><strong>'+esc(outlet)+'</strong><span>'+esc(kind)+(piece.date?' · '+esc(piece.date):'')+'</span></div><b>'+String(index+1).padStart(2,'0')+'</b></header>'+
+     (piece.headline?'<h3>'+esc(piece.headline)+'</h3>':'')+
+     (piece.byline?'<p class="archive-press-byline">'+esc(piece.byline)+'</p>':'')+
+     image+video+
+     (piece.summary?'<div class="archive-press-summary">'+plainTextToHTML(piece.summary)+'</div>':'')+
+     (piece.reactions?'<p class="archive-press-reactions">'+esc(piece.reactions)+'</p>':'')+
+     (comments.length?'<div class="archive-press-comments"><h4>COMENTARIOS RECUPERADOS</h4>'+comments.map(x=>'<p><strong>'+esc(x.author||'Usuario')+'</strong>'+(x.date?' <time>'+esc(x.date)+'</time>':'')+' · '+esc(x.text||'').replace(/\r?\n/g,'<br>')+'</p>').join('')+'</div>':'')+
+     (piece.archive_note?'<aside class="archive-press-note"><strong>NOTA DE ARCHIVO</strong>'+plainTextToHTML(piece.archive_note)+'</aside>':'')+
+     (details?'<dl class="archive-press-details">'+details+'</dl>':'')+originalLink+
+     '</article>';
+ }).join('');
+ return '<details class="archive-press digital-footprint" aria-labelledby="archive-press-title">'+
+   '<summary class="digital-footprint-toggle"><span><small class="archive-code">RECORTES RECUPERADOS // '+String(pieces.length).padStart(2,'0')+'</small><strong id="archive-press-title">PRENSA DIGITAL</strong></span><span class="digital-footprint-toggle-action"><span class="digital-closed-label">DESPLEGAR ↓</span><span class="digital-open-label">REDUCIR ↑</span></span></summary>'+
+   '<div class="digital-footprint-content"><p class="digital-footprint-description">Noticias y material audiovisual incorporados al expediente.</p><div class="archive-press-list">'+cards+'</div></div>'+
+   '<script>(function(){const section=document.currentScript.closest(".archive-press");if(!section)return;section.addEventListener("toggle",function(){if(!section.open)section.querySelectorAll("video").forEach(video=>video.pause());});})();<\/script>'+
    '</details>';
 }
 
@@ -941,7 +975,7 @@ function archiveEntryPage(section,item){
    <div class="archive-back-row"><a class="text-link" href="${section.file}">← VOLVER A ${section.label}</a><a class="text-link" href="archivo.html">ÍNDICE GENERAL</a></div>
    ${detailsMarkup}
    ${archiveGallery(item)}
-   ${section.key==='personajes'?digitalFootprintMarkup(item):''}
+   ${section.key==='personajes'?digitalFootprintMarkup(item):digitalPressMarkup(item)}
    ${archiveDocuments(item)}
    ${archivePoliceReport(item)}
    ${relatedArchiveMarkup(item,itemHref(section,item),title)}
