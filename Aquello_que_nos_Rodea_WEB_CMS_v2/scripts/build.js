@@ -55,7 +55,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=generic-reports-20260919"><script defer src="assets/js/main.js"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=digital-footprint-fold-20260919"><script defer src="assets/js/main.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -431,7 +431,8 @@ function archiveGallery(item){
 const digitalPlatforms={
  INSTAGRAM:['Instagram','INSTAGRAM','<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>'],
  FACEBOOK:['Facebook','FACEBOOK','<path d="M15.5 4H13a3 3 0 0 0-3 3v13M8 11h7"/>'],
- TINDER:['Tinder','TINDER','<path d="M12 21c4-2 6-5 6-9 0-2-1-4-3-6 0 3-2 4-3 5-1-3-1-5 0-8-4 3-6 6-6 10 0 4 2 6 6 8Z"/>'],
+ CITAS:['Citas','CITAS','<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/>'],
+ TINDER:['Citas','CITAS','<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/>'],
  WHATSAPP:['WhatsApp','MENSAJERÍA','<path d="M5 18 3 21l4-1a9 9 0 1 0-3-3"/><path d="M9 8c1 4 3 6 7 7l1.5-1.5-2.5-1.5-1.2 1.1c-1.4-.6-2.4-1.6-3-3L12 9 10.5 6.5Z"/>'],
  TELEGRAM:['Telegram','MENSAJERÍA','<path d="m3 11 18-8-4 18-5-6-3 3v-5L21 3 9 13Z"/>'],
  YOUTUBE:['YouTube','OTROS','<rect x="2" y="5" width="20" height="14" rx="4"/><path d="m10 9 5 3-5 3Z"/>'],
@@ -445,17 +446,19 @@ function digitalFootprintMarkup(item){
  const pieces=(Array.isArray(item.digital_footprint)?item.digital_footprint:[])
    .filter(x=>x && (x.image||x.video||x.caption||x.messages?.length||x.original_capture));
  if(!pieces.length) return '';
- const filters=['TODAS','INSTAGRAM','FACEBOOK','TINDER','MENSAJERÍA','OTROS'];
+ const filters=['TODAS','INSTAGRAM','FACEBOOK','CITAS','MENSAJERÍA','OTROS'];
  const cards=pieces.map((piece,index)=>{
-   const platform=digitalPlatforms[String(piece.platform||'OTROS').toUpperCase()]||digitalPlatforms.OTROS;
+   const platformKey=String(piece.platform||'OTROS').toUpperCase();
+   const platform=digitalPlatforms[platformKey]||digitalPlatforms.OTROS;
    const [source,filter,icon]=platform;
+   const provenance=piece.source||(platformKey==='TINDER'?'Tinder':source);
    const type=String(piece.type||'Fragmento digital').trim();
    const media=piece.video
      ? '<video controls playsinline preload="metadata"'+(piece.poster?' poster="'+esc(piece.poster)+'"':'')+' aria-label="'+esc(piece.title||type)+'"><source src="'+esc(piece.video)+'">Tu navegador no puede reproducir este vídeo.</video>'
      : piece.image?'<img src="'+esc(piece.image)+'" alt="'+esc(piece.alt||piece.title||'Material visual recuperado')+'" loading="lazy">':'';
    const comments=(Array.isArray(piece.comments)?piece.comments:[]).filter(x=>x && (x.author||x.text));
    const messages=(Array.isArray(piece.messages)?piece.messages:[]).filter(x=>x && (x.author||x.text));
-   const details=[['FUENTE',piece.source||source],['TIPO',type],['ARCHIVADO',piece.archived],['ESTADO',piece.status]]
+   const details=[['FUENTE',provenance],['TIPO',type],['ARCHIVADO',piece.archived],['ESTADO',piece.status]]
      .filter(x=>x[1]).map(([label,value])=>'<div><dt>'+label+'</dt><dd>'+esc(value)+'</dd></div>').join('');
    return '<article class="digital-piece reveal" data-digital-filter="'+esc(filter)+'">'+
      '<header class="digital-piece-head"><span class="digital-platform-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+icon+'</svg></span><div><span class="digital-platform-name">'+esc(source)+'</span><p>'+esc(type)+(piece.date?' · '+esc(piece.date):'')+'</p></div><span class="digital-piece-index">'+String(index+1).padStart(2,'0')+'</span></header>'+
@@ -469,12 +472,13 @@ function digitalFootprintMarkup(item){
      (piece.original_capture?'<a class="digital-original-link" href="'+esc(piece.original_capture)+'" target="_blank" rel="noopener">VER CAPTURA ORIGINAL ↗</a>':'')+
      (details?'<dl class="digital-piece-details">'+details+'</dl>':'')+'</article>';
  }).join('');
- return '<section class="digital-footprint" aria-labelledby="digital-footprint-title">'+
-   '<div class="digital-footprint-intro"><p class="archive-code">EVIDENCIA DIGITAL // '+String(pieces.length).padStart(2,'0')+'</p><h2 id="digital-footprint-title">HUELLA DIGITAL</h2><p>Actividad recuperada de perfiles públicos, dispositivos y cuentas vinculadas al sujeto.</p></div>'+
+ return '<details class="digital-footprint" aria-labelledby="digital-footprint-title">'+
+   '<summary class="digital-footprint-toggle"><span><small class="archive-code">EVIDENCIA DIGITAL // '+String(pieces.length).padStart(2,'0')+'</small><strong id="digital-footprint-title">HUELLA DIGITAL</strong></span><span class="digital-footprint-toggle-action"><span class="digital-closed-label">DESPLEGAR ↓</span><span class="digital-open-label">REDUCIR ↑</span></span></summary>'+
+   '<div class="digital-footprint-content"><p class="digital-footprint-description">Actividad recuperada de perfiles públicos, dispositivos y cuentas vinculadas al sujeto.</p>'+
    '<div class="digital-filters" role="group" aria-label="Filtrar huella digital">'+filters.map((x,i)=>'<button type="button" data-digital-button="'+x+'" aria-pressed="'+(i===0?'true':'false')+'">'+x+'</button>').join('')+'</div>'+
-   '<div class="digital-grid">'+cards+'</div>'+
-   '<script>(function(){const section=document.currentScript.closest(".digital-footprint");if(!section)return;section.querySelectorAll("[data-digital-button]").forEach(button=>button.addEventListener("click",function(){const selected=button.dataset.digitalButton;section.querySelectorAll("[data-digital-button]").forEach(b=>b.setAttribute("aria-pressed",String(b===button)));section.querySelectorAll("[data-digital-filter]").forEach(card=>{card.hidden=selected!=="TODAS"&&card.dataset.digitalFilter!==selected;});}));})();<\/script>'+
-   '</section>';
+   '<div class="digital-grid">'+cards+'</div></div>'+
+   '<script>(function(){const section=document.currentScript.closest(".digital-footprint");if(!section)return;section.addEventListener("toggle",function(){if(!section.open)section.querySelectorAll("video").forEach(video=>video.pause());});section.querySelectorAll("[data-digital-button]").forEach(button=>button.addEventListener("click",function(){const selected=button.dataset.digitalButton;section.querySelectorAll("[data-digital-button]").forEach(b=>b.setAttribute("aria-pressed",String(b===button)));section.querySelectorAll("[data-digital-filter]").forEach(card=>{card.hidden=selected!=="TODAS"&&card.dataset.digitalFilter!==selected;});}));})();<\/script>'+
+   '</details>';
 }
 
 function archiveDocuments(item){
