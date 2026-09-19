@@ -66,6 +66,16 @@
           "text": "Que guapos los dos. muchos besos!!! 😘😘😘"
         }
       ]
+    },
+    {
+      "platform": "INSTAGRAM",
+      "type": "Video",
+      "title": "Empezamos una aventura juntos.",
+      "video": "/assets/uploads/huella-digital/primerbeso.mp4",
+      "handle": "Richard Alcoy",
+      "caption": "La amo.",
+      "reactions": "❤️35 Me gusta",
+      "source": "Perfil Público"
     }
   ],
   "show_documents": true,
