@@ -116,6 +116,17 @@
       "source": "Galería del dispositivo de Candy",
       "archived": "07/08/2021 · 20:46",
       "status": "conservado"
+    },
+    {
+      "platform": "INSTAGRAM",
+      "type": "Publicación",
+      "title": "Pelea en la playa",
+      "date": "21/06/2016 · 18:52",
+      "location": "Platja de Can Pere Antoni, Palma de Mallorca.",
+      "image": "/assets/uploads/huella-digital/peleamayorca.png",
+      "image_sensitive": false,
+      "handle": "Marcos",
+      "caption": "Madurez ante todo."
     }
   ],
   "show_documents": true,
