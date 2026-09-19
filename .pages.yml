@@ -1022,6 +1022,13 @@ content:
             type: boolean
             default: false
             description: "Si está desactivada, no aparece ni ocupa espacio en la página."
+          - name: design
+            label: Diseño del tablón
+            type: select
+            default: A
+            options:
+              values: [A, B, C]
+            description: "A es el tablón actual. B y C son otras texturas de madera y corcho."
           - name: title
             label: Título del tablón
             type: string
@@ -1104,6 +1111,13 @@ content:
             type: boolean
             default: false
             description: "Si está desactivada, no aparece ni ocupa espacio en la página."
+          - name: design
+            label: Diseño del tablón
+            type: select
+            default: A
+            options:
+              values: [A, B, C]
+            description: "A es el tablón actual. B y C son otras texturas de madera y corcho."
           - name: title
             label: Título del tablón
             type: string
@@ -1186,6 +1200,13 @@ content:
             type: boolean
             default: false
             description: "Si está desactivada, no aparece ni ocupa espacio en la página."
+          - name: design
+            label: Diseño del tablón
+            type: select
+            default: A
+            options:
+              values: [A, B, C]
+            description: "A es el tablón actual. B y C son otras texturas de madera y corcho."
           - name: title
             label: Título del tablón
             type: string
@@ -1268,6 +1289,13 @@ content:
             type: boolean
             default: false
             description: "Si está desactivada, no aparece ni ocupa espacio en la página."
+          - name: design
+            label: Diseño del tablón
+            type: select
+            default: A
+            options:
+              values: [A, B, C]
+            description: "A es el tablón actual. B y C son otras texturas de madera y corcho."
           - name: title
             label: Título del tablón
             type: string
@@ -1350,6 +1378,13 @@ content:
             type: boolean
             default: false
             description: "Si está desactivada, no aparece ni ocupa espacio en la página."
+          - name: design
+            label: Diseño del tablón
+            type: select
+            default: A
+            options:
+              values: [A, B, C]
+            description: "A es el tablón actual. B y C son otras texturas de madera y corcho."
           - name: title
             label: Título del tablón
             type: string
@@ -1432,6 +1467,13 @@ content:
             type: boolean
             default: false
             description: "Si está desactivada, no aparece ni ocupa espacio en la página."
+          - name: design
+            label: Diseño del tablón
+            type: select
+            default: A
+            options:
+              values: [A, B, C]
+            description: "A es el tablón actual. B y C son otras texturas de madera y corcho."
           - name: title
             label: Título del tablón
             type: string
@@ -1514,6 +1556,13 @@ content:
             type: boolean
             default: false
             description: "Si está desactivada, no aparece ni ocupa espacio en la página."
+          - name: design
+            label: Diseño del tablón
+            type: select
+            default: A
+            options:
+              values: [A, B, C]
+            description: "A es el tablón actual. B y C son otras texturas de madera y corcho."
           - name: title
             label: Título del tablón
             type: string
@@ -1596,6 +1645,13 @@ content:
             type: boolean
             default: false
             description: "Si está desactivada, no aparece ni ocupa espacio en la página."
+          - name: design
+            label: Diseño del tablón
+            type: select
+            default: A
+            options:
+              values: [A, B, C]
+            description: "A es el tablón actual. B y C son otras texturas de madera y corcho."
           - name: title
             label: Título del tablón
             type: string
@@ -1678,6 +1734,13 @@ content:
             type: boolean
             default: false
             description: "Si está desactivada, no aparece ni ocupa espacio en la página."
+          - name: design
+            label: Diseño del tablón
+            type: select
+            default: A
+            options:
+              values: [A, B, C]
+            description: "A es el tablón actual. B y C son otras texturas de madera y corcho."
           - name: title
             label: Título del tablón
             type: string
@@ -1760,6 +1823,13 @@ content:
             type: boolean
             default: false
             description: "Si está desactivada, no aparece ni ocupa espacio en la página."
+          - name: design
+            label: Diseño del tablón
+            type: select
+            default: A
+            options:
+              values: [A, B, C]
+            description: "A es el tablón actual. B y C son otras texturas de madera y corcho."
           - name: title
             label: Título del tablón
             type: string
