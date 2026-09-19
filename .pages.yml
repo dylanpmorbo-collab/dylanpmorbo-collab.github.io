@@ -59,6 +59,12 @@ media:
     output: /assets/uploads/huella-digital
     rename: safe
     categories: [image, video]
+  - name: prensa_digital
+    label: Prensa digital (capturas y vídeos)
+    input: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads/prensa-digital
+    output: /assets/uploads/prensa-digital
+    rename: safe
+    categories: [image, video]
 
 content:
   - name: relatos
@@ -850,6 +856,114 @@ content:
                 label: Hasta la pieza
                 type: string
                 required: true
+
+      - name: show_digital_press
+        label: Mostrar prensa digital
+        type: boolean
+        default: false
+        description: "Actívalo cuando tengas recortes. El apartado aparece plegado y no ocupa espacio de noticias mientras esté cerrado."
+      - name: digital_press
+        label: Prensa digital · recortes recuperados
+        type: object
+        required: false
+        description: "Cada entrada es una noticia o pieza audiovisual a todo el ancho. Puedes combinar capturas y vídeos."
+        list:
+          max: 50
+          collapsible:
+            collapsed: true
+            summary: "{outlet} · {headline}"
+        fields:
+          - name: outlet
+            label: Nombre del medio
+            type: string
+            required: true
+          - name: kind
+            label: Tipo de pieza
+            type: select
+            default: NOTICIA
+            options:
+              values: [NOTICIA, REPORTAJE, ENTREVISTA, COMUNICADO, OTROS]
+          - name: headline
+            label: Titular
+            type: string
+            required: true
+          - name: byline
+            label: Autor o firma
+            type: string
+            required: false
+          - name: date
+            label: Fecha y hora de publicación
+            type: string
+            required: false
+          - name: image
+            label: Captura de la noticia
+            type: image
+            required: false
+            options:
+              media: prensa_digital
+          - name: video
+            label: Vídeo reproducible
+            type: file
+            required: false
+            options:
+              media: prensa_digital
+              categories: [video]
+          - name: poster
+            label: Portada del vídeo
+            type: image
+            required: false
+            options:
+              media: prensa_digital
+          - name: summary
+            label: Entradilla o descripción
+            type: text
+            required: false
+          - name: reactions
+            label: Reacciones a la noticia
+            type: string
+            required: false
+            description: "Ejemplo: 👍 1.204 · 😮 83."
+          - name: comments
+            label: Comentarios de lectores
+            type: object
+            required: false
+            list:
+              max: 20
+              collapsible:
+                collapsed: true
+                summary: "{author} · {text}"
+            fields:
+              - name: author
+                label: Usuario
+                type: string
+                required: true
+              - name: date
+                label: Fecha u hora
+                type: string
+                required: false
+              - name: text
+                label: Comentario
+                type: text
+                required: true
+          - name: url
+            label: Enlace a la noticia original
+            type: string
+            required: false
+            description: "Opcional. Pega una dirección https:// o http://."
+          - name: archived
+            label: Fecha de archivo
+            type: string
+            required: false
+          - name: status
+            label: Estado del recorte
+            type: string
+            required: false
+            description: "Ejemplos: disponible, eliminada de origen, copia recuperada."
+          - name: archive_note
+            label: Nota de archivo
+            type: text
+            required: false
+            description: "Contexto o discrepancias detectadas al archivar la noticia."
 
   - name: personajes
     label: Personajes
