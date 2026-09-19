@@ -875,7 +875,8 @@ DOCUMENTOS NAVEGABLES — AJUSTES FINALES DE GEOMETRÍA Y LECTURA
 
 /* Informes policiales en carpetas y lector modal dentro de la página. */
 .archive-police-report-block{margin-top:74px;padding-top:12px}
-.archive-police-folder-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px;margin-top:28px}
+.archive-police-folder-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:28px}
+@media(max-width:960px){.archive-police-folder-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .archive-police-folder{position:relative;display:flex;flex-direction:column;text-align:left;min-width:0;width:100%;padding:19px;border:1px solid #8b7650;background:linear-gradient(150deg,#a18a5b,#756441 72%);color:#241d13;box-shadow:0 18px 36px rgba(0,0,0,.3);cursor:pointer;transition:transform .2s ease,box-shadow .2s ease}
 .archive-police-folder:hover,.archive-police-folder:focus-visible{transform:translateY(-4px);box-shadow:0 24px 40px rgba(0,0,0,.4);outline:2px solid #d1b77e;outline-offset:3px}
 .archive-police-folder-tab{position:absolute;left:17px;top:-12px;width:42%;height:13px;border:1px solid #8b7650;border-bottom:0;background:#a18a5b;clip-path:polygon(0 0,88% 0,100% 100%,0 100%)}
@@ -912,4 +913,4 @@ DOCUMENTOS NAVEGABLES — AJUSTES FINALES DE GEOMETRÍA Y LECTURA
 .archive-police-report-text blockquote{border-left:3px solid #776144;padding-left:1em;margin:0 0 1.4em;font-style:italic}
 .archive-police-report-text code{background:rgba(61,47,30,.15);padding:.08em .25em}
 .archive-police-report-text a{color:#554123;text-decoration:underline}
-@media(max-width:700px){.archive-police-dialog{width:100vw;height:100dvh}.archive-police-dialog-scroll{padding:12px}.archive-police-dialog-scroll .archive-police-report{min-height:0;padding:48px 22px 68px}.archive-police-report-attachments{grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}.archive-police-report-attachment img{height:160px}.archive-police-dialog-header,.archive-police-dialog-footer{padding:12px 15px}.archive-police-dialog-footer button{font-size:9px}.archive-police-folder-grid{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}}
+@media(max-width:700px){.archive-police-dialog{width:100vw;height:100dvh}.archive-police-dialog-scroll{padding:12px}.archive-police-dialog-scroll .archive-police-report{min-height:0;padding:48px 22px 68px}.archive-police-report-attachments{grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}.archive-police-report-attachment img{height:160px}.archive-police-dialog-header,.archive-police-dialog-footer{padding:12px 15px}.archive-police-dialog-footer button{font-size:9px}.archive-police-folder-grid{grid-template-columns:minmax(0,360px)}}
