@@ -55,7 +55,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=corkboard-variants-20260919"><script defer src="assets/js/main.js"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=entry-corkboards-20260919"><script defer src="assets/js/main.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -308,7 +308,7 @@ for(const s of stories){
  <div class="story-heading"><div class="story-label-row"><p class="archive-code">ARCHIVO ${esc(s.archive_number)} · RELATO COMPLETO${s.age_restricted?' · +18':''}</p>${newBadge(s)}</div>
  <h1>${esc(s.title).toUpperCase()}</h1><p class="byline">por <strong>${esc(site.author)}</strong></p>
  <div class="meta-row"><span>${wc.toLocaleString('es-ES')} palabras</span><span>${esc(s.reading_time)}</span></div>
- <a class="btn primary" href="#relato">Comenzar lectura</a></div></section>${warning}
+ <a class="btn primary" href="#relato">Comenzar lectura</a></div></section>${warning}${renderCorkboard(s.corkboard,s.title,true)}
  <section class="reader-shell" id="relato"><aside class="reader-tools"><button data-reader="minus">A−</button><button data-reader="plus">A+</button></aside>
  <article class="story-text"><div class="story-marker">ARCHIVO ${esc(s.archive_number)}</div>${markdownToHTML(s.body)}<div class="story-end">FIN</div></article>
  ${legalNotice}
@@ -885,7 +885,7 @@ function microEntryPage(section,item){
    </div>
    ${image?`<figure class="micro-story-cover reveal"><img src="${esc(image)}" alt="Ilustración de ${esc(title)}"></figure>`:''}
  </section>
- ${warning}
+ ${warning}${renderCorkboard(item.corkboard,title,true)}
  <section class="reader-shell micro-reader" id="lectura">
    <aside class="reader-tools"><button data-reader="minus" aria-label="Reducir texto">A−</button><button data-reader="plus" aria-label="Aumentar texto">A+</button></aside>
    <article class="story-text micro-story-text">
@@ -913,11 +913,12 @@ function archiveEntryPage(section,item){
  const body=item.body ? markdownToHTML(item.body) : '';
  const blocks=archiveInformationBlocks(item);
  const note=item.note ? `<aside class="archive-entry-note reveal"><p class="archive-code">NOTA DE ARCHIVO</p><div class="archive-entry-note-text">${plainTextToHTML(item.note)}</div></aside>` : '';
+ const boardMarkup=renderCorkboard(item.corkboard,title,true);
  const fullInformation=(body||blocks||note) ? `${body?`<div class="archive-entry-main-text reveal">${body}</div>`:''}${blocks}${note}` : '';
  const factList=facts.length ? `<dl class="archive-entry-facts">${facts.map(f=>`<div><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div>`).join('')}</dl>` : '';
- const detailsMarkup=(factList||fullInformation) ? `<div class="archive-entry-layout${factList&&fullInformation?'':' archive-entry-layout-single'}">
+ const detailsMarkup=(factList||fullInformation||boardMarkup) ? `<div class="archive-entry-layout${factList&&(fullInformation||boardMarkup)?'':' archive-entry-layout-single'}">
    ${factList?`<aside class="archive-entry-sidebar reveal"><p class="archive-code">DATOS DEL EXPEDIENTE</p><h2>${esc(section.typeLabel)}</h2>${factList}</aside>`:''}
-   ${fullInformation?`<article class="archive-entry-content"><div class="section-label">INFORMACIÓN ARCHIVADA</div>${fullInformation}</article>`:''}
+   ${(fullInformation||boardMarkup)?`<article class="archive-entry-content">${fullInformation?`<div class="section-label">INFORMACIÓN ARCHIVADA</div>${fullInformation}`:''}${boardMarkup}</article>`:''}
  </div>` : '';
  const heroClass=image?'':' no-image';
  return `${head(`${title} | ${section.label} | El Archivo | ${site.site_title}`,summary,image||section.image)}
@@ -1049,8 +1050,7 @@ const archivePage=`${head(`El Archivo | ${site.site_title}`,'Índice general del
 
 fs.writeFileSync(path.join(DIST,'archivo.html'),archivePage);
 
-function archiveCorkboard(section){
-const board=archiveCorkboards[section.key];
+function renderCorkboard(board,label,entry=false){
 if(!board || board.enabled!==true) return '';
 const design=['b','c'].includes(String(board.design||'').toLowerCase())?String(board.design).toLowerCase():'a';
 const positions=[[15,12],[38,12],[61,12],[84,12],[15,40],[38,40],[61,40],[84,40],[15,68],[38,68],[61,68],[84,68]];
@@ -1078,14 +1078,15 @@ const cards=pieces.map(piece=>{
  content+'</article>';
 }).join('');
 const pins=pieces.map(piece=>'<span class="archive-corkboard-pin" style="--piece-x:'+piece.x+'%;--piece-y:'+piece.y+'%" aria-hidden="true"></span>').join('');
-return '<section class="section archive-corkboard-section" aria-label="Tablón de conexiones de '+esc(section.label)+'">'+
-'<div class="section-label">CORCHERA // '+esc(section.label)+'</div>'+
+return '<section class="section archive-corkboard-section'+(entry?' archive-entry-corkboard':'')+'" aria-label="Tablón de conexiones de '+esc(label)+'">'+
+'<div class="section-label">CORCHERA // '+esc(label)+'</div>'+
 '<h2>'+esc(String(board.title||'TABLÓN DE CONEXIONES'))+'</h2>'+
 '<p class="archive-corkboard-hint">Desliza para explorar el tablón →</p>'+
 '<div class="archive-corkboard-scroll"><div class="archive-corkboard-stage archive-corkboard-design-'+design+'">'+
 '<svg class="archive-corkboard-threads" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">'+threads+'</svg>'+
 cards+pins+'</div></div></section>';
 }
+function archiveCorkboard(section){return renderCorkboard(archiveCorkboards[section.key],section.label);}
 
 // Páginas de cada sección + página completa de cada expediente
 for(const section of archiveSectionDefs){
