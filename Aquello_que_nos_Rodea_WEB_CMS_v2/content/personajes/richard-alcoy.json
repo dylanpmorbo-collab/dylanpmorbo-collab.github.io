@@ -48,67 +48,7 @@
       "value": "Coordinador administrativo"
     }
   ],
-  "show_digital_footprint": true,
-  "digital_footprint": [
-    {
-      "platform": "INSTAGRAM",
-      "type": "Publicación Pública",
-      "title": "Lisboa que bonita",
-      "location": "Lisboa",
-      "image": "/assets/uploads/huella-digital/lisboa1.png",
-      "alt": "Qué bonitas vistas",
-      "image_sensitive": false,
-      "images": [
-        {
-          "image": "/assets/uploads/huella-digital/lisboa2.png",
-          "sensitive": false
-        },
-        {
-          "image": "/assets/uploads/huella-digital/lisboa3.png",
-          "sensitive": false
-        },
-        {
-          "image": "/assets/uploads/huella-digital/lisboa6.png",
-          "sensitive": false
-        }
-      ]
-    },
-    {
-      "platform": "FACEBOOK",
-      "type": "Video Público",
-      "title": "Romareda con Papá",
-      "location": "Zaragoza",
-      "image_sensitive": false,
-      "video": "/assets/uploads/huella-digital/videopadre.mp4",
-      "handle": "Richard Alcoy",
-      "caption": "Que gran tarde de futbol.",
-      "reactions": "❤️18 Me gusta.",
-      "comments": [
-        {
-          "author": "Sarandonga1734",
-          "text": "Que guapos los dos. muchos besos!!! 😘😘😘"
-        }
-      ]
-    },
-    {
-      "platform": "INSTAGRAM",
-      "type": "Video",
-      "title": "Empezamos una aventura juntos.",
-      "image_sensitive": false,
-      "video": "/assets/uploads/huella-digital/primerbeso.mp4",
-      "handle": "Richard Alcoy",
-      "caption": "La amo.",
-      "reactions": "❤️35 Me gusta",
-      "source": "Perfil Público"
-    },
-    {
-      "platform": "TINDER",
-      "type": "Perfil",
-      "title": "Perfin de Tinder",
-      "image": "/assets/uploads/huella-digital/tinder.png",
-      "image_sensitive": false
-    }
-  ],
+  "show_digital_footprint": false,
   "show_documents": true,
   "documents": [
     {
