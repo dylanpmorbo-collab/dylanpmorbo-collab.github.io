@@ -76,6 +76,12 @@
       "caption": "La amo.",
       "reactions": "❤️35 Me gusta",
       "source": "Perfil Público"
+    },
+    {
+      "platform": "TINDER",
+      "type": "Perfil",
+      "title": "Perfin de Tinder",
+      "image": "/assets/uploads/huella-digital/tinder.png"
     }
   ],
   "show_documents": true,
