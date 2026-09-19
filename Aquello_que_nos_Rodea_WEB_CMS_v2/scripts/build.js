@@ -55,7 +55,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=archive-corkboards-20260919"><script defer src="assets/js/main.js"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=weathered-corkboard-20260919"><script defer src="assets/js/main.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -1074,15 +1074,16 @@ const cards=pieces.map(piece=>{
  ? '<img src="'+esc(piece.image)+'" alt="'+esc(piece.title||'Fotografía del tablón')+'" loading="lazy">'+(piece.title?'<figcaption>'+esc(piece.title)+'</figcaption>':'')
  : (piece.title?'<strong>'+esc(piece.title)+'</strong>':'')+(piece.text?'<p>'+esc(piece.text).replace(/\r?\n/g,'<br>')+'</p>':'');
  return '<article class="archive-corkboard-piece archive-corkboard-'+piece.type+'" style="--piece-x:'+piece.x+'%;--piece-y:'+piece.y+'%;--piece-rotation:'+piece.rotation+'deg" aria-label="'+esc(piece.title||'Pieza del tablón')+'">'+
- '<span class="archive-corkboard-pin" aria-hidden="true"></span>'+content+'</article>';
+ content+'</article>';
 }).join('');
+const pins=pieces.map(piece=>'<span class="archive-corkboard-pin" style="--piece-x:'+piece.x+'%;--piece-y:'+piece.y+'%" aria-hidden="true"></span>').join('');
 return '<section class="section archive-corkboard-section" aria-label="Tablón de conexiones de '+esc(section.label)+'">'+
 '<div class="section-label">CORCHERA // '+esc(section.label)+'</div>'+
 '<h2>'+esc(String(board.title||'TABLÓN DE CONEXIONES'))+'</h2>'+
 '<p class="archive-corkboard-hint">Desliza para explorar el tablón →</p>'+
 '<div class="archive-corkboard-scroll"><div class="archive-corkboard-stage">'+
 '<svg class="archive-corkboard-threads" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">'+threads+'</svg>'+
-cards+'</div></div></section>';
+cards+pins+'</div></div></section>';
 }
 
 // Páginas de cada sección + página completa de cada expediente
