@@ -496,12 +496,12 @@ content:
         label: Mostrar informes policiales
         type: boolean
         default: false
-        description: "Actívalo para mostrar los informes bajo la galería. Si está desactivado, la sección no aparece ni deja espacio vacío."
+        description: "Muestra carpetas compactas al final de la ficha. Cada informe se abre dentro de la página."
       - name: police_reports
         label: Informes policiales
         type: object
         required: false
-        description: "Puedes adjuntar hasta cinco informes. El texto se reparte automáticamente en folios al publicar."
+        description: "Hasta cinco carpetas. Cada informe se reparte en folios que se leen de uno en uno."
         list:
           max: 5
           collapsible:
@@ -514,17 +514,33 @@ content:
             required: true
             default: "INFORME POLICIAL"
           - name: image
-            label: Imagen adjunta
+            label: Imagen 1 / portada de la carpeta
             type: image
             required: false
             options:
               media: informes_policiales
-            description: "Opcional. Aparecerá como imagen adjunta al principio del primer folio."
+            description: "Esta imagen se ve en la carpeta y, al abrir, al principio del informe."
+          - name: image_2
+            label: Imagen 2 del informe
+            type: image
+            required: false
+            options:
+              media: informes_policiales
+          - name: image_3
+            label: Imagen 3 del informe
+            type: image
+            required: false
+            options:
+              media: informes_policiales
           - name: body
-            label: Texto del informe
-            type: text
+            label: Texto del informe (Markdown)
+            type: rich-text
             required: true
-            description: "Pega el informe completo respetando párrafos y saltos de línea. La web lo dividirá automáticamente en folios."
+            options:
+              format: markdown
+              media: false
+              switcher: true
+            description: "Admite títulos, negritas, cursivas, listas, citas y enlaces. El texto se reparte en folios conservando los párrafos."
       - name: show_related_archive
         label: Mostrar archivos relacionados
         type: boolean
@@ -903,12 +919,12 @@ content:
         label: Mostrar informes policiales
         type: boolean
         default: false
-        description: "Actívalo para mostrar los informes bajo la galería. Si está desactivado, la sección no aparece ni deja espacio vacío."
+        description: "Muestra carpetas compactas al final de la ficha. Cada informe se abre dentro de la página."
       - name: police_reports
         label: Informes policiales
         type: object
         required: false
-        description: "Puedes adjuntar hasta cinco informes. El texto se reparte automáticamente en folios al publicar."
+        description: "Hasta cinco carpetas. Cada informe se reparte en folios que se leen de uno en uno."
         list:
           max: 5
           collapsible:
@@ -921,17 +937,33 @@ content:
             required: true
             default: "INFORME POLICIAL"
           - name: image
-            label: Imagen adjunta
+            label: Imagen 1 / portada de la carpeta
             type: image
             required: false
             options:
               media: informes_policiales
-            description: "Opcional. Aparecerá como imagen adjunta al principio del primer folio."
+            description: "Esta imagen se ve en la carpeta y, al abrir, al principio del informe."
+          - name: image_2
+            label: Imagen 2 del informe
+            type: image
+            required: false
+            options:
+              media: informes_policiales
+          - name: image_3
+            label: Imagen 3 del informe
+            type: image
+            required: false
+            options:
+              media: informes_policiales
           - name: body
-            label: Texto del informe
-            type: text
+            label: Texto del informe (Markdown)
+            type: rich-text
             required: true
-            description: "Pega el informe completo respetando párrafos y saltos de línea. La web lo dividirá automáticamente en folios."
+            options:
+              format: markdown
+              media: false
+              switcher: true
+            description: "Admite títulos, negritas, cursivas, listas, citas y enlaces. El texto se reparte en folios conservando los párrafos."
       - name: show_related_archive
         label: Mostrar archivos relacionados
         type: boolean
