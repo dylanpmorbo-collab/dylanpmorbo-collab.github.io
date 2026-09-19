@@ -505,11 +505,7 @@
   font:400 clamp(19px,2.2vw,27px)/1.2 "Special Elite","Courier New",monospace;
   letter-spacing:.08em;
 }
-.archive-police-report-heading span{
-  color:rgba(45,38,29,.56);
-  font:700 8px/1 var(--display);
-  letter-spacing:.14em;
-}
+
 .archive-police-report-attachment{
   position:relative;
   z-index:2;
@@ -540,6 +536,7 @@
   text-shadow:0 0 .25px rgba(0,0,0,.45);
 }
 .archive-police-report-attachment+.archive-police-report-text{margin-top:0}
+.archive-police-report-text:first-child{margin-top:0}
 .archive-police-report-text p{margin:0 0 1.45em}
 .archive-police-report-text p:last-child{margin-bottom:0}
 .archive-police-report-folio{
