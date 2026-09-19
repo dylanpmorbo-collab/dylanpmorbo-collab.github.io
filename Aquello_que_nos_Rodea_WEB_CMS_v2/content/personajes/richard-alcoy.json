@@ -167,7 +167,8 @@
       "platform": "INSTAGRAM",
       "type": "Pubicación",
       "title": "Fusión",
-      "image_sensitive": false
+      "image_sensitive": false,
+      "video": "/assets/uploads/huella-digital/fusion-boomerangstory.mp4"
     }
   ],
   "show_documents": true,
