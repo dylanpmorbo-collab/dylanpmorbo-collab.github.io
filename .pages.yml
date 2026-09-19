@@ -1007,6 +1007,833 @@ content:
             type: text
             required: false
 
+  - name: corcheras_archivo
+    label: Corcheras de las secciones del Archivo
+    type: file
+    path: Aquello_que_nos_Rodea_WEB_CMS_v2/content/config/corcheras-archivo.json
+    format: json
+    fields:
+      - name: entidades
+        label: Entidades
+        type: object
+        fields:
+          - name: enabled
+            label: Mostrar corchera
+            type: boolean
+            default: false
+            description: "Si está desactivada, no aparece ni ocupa espacio en la página."
+          - name: title
+            label: Título del tablón
+            type: string
+            default: "TABLÓN DE CONEXIONES"
+          - name: pieces
+            label: Fotos y notas
+            type: object
+            required: false
+            list:
+              max: 12
+              collapsible:
+                collapsed: true
+                summary: "{type} · {id}"
+            fields:
+              - name: id
+                label: Identificador corto
+                type: string
+                required: true
+                description: "Único en este tablón; por ejemplo foto-richard o nota-1. Úsalo para unir piezas con hilos."
+              - name: type
+                label: Tipo de pieza
+                type: select
+                default: nota
+                options:
+                  values: [nota, foto]
+              - name: title
+                label: Título o pie de foto
+                type: string
+                required: false
+              - name: text
+                label: Texto de la nota
+                type: text
+                required: false
+              - name: image
+                label: Imagen de la foto
+                type: image
+                required: false
+                options:
+                  media: archivo
+              - name: x
+                label: Posición horizontal (0–100)
+                type: number
+                required: false
+                description: "Opcional. Si la dejas vacía, se distribuye automáticamente."
+              - name: y
+                label: Posición vertical (0–100)
+                type: number
+                required: false
+                description: "Opcional. Si la dejas vacía, se distribuye automáticamente."
+              - name: rotation
+                label: Giro en grados (-12 a 12)
+                type: number
+                required: false
+                description: "Opcional. Un giro ligero da aspecto de papel colocado a mano."
+          - name: threads
+            label: Hilos rojos
+            type: object
+            required: false
+            description: "Cada hilo une los identificadores de dos fotos o notas de este tablón."
+            list:
+              max: 18
+              collapsible:
+                collapsed: true
+                summary: "{from} → {to}"
+            fields:
+              - name: from
+                label: Desde la pieza
+                type: string
+                required: true
+              - name: to
+                label: Hasta la pieza
+                type: string
+                required: true
+      - name: personajes
+        label: Personajes
+        type: object
+        fields:
+          - name: enabled
+            label: Mostrar corchera
+            type: boolean
+            default: false
+            description: "Si está desactivada, no aparece ni ocupa espacio en la página."
+          - name: title
+            label: Título del tablón
+            type: string
+            default: "TABLÓN DE CONEXIONES"
+          - name: pieces
+            label: Fotos y notas
+            type: object
+            required: false
+            list:
+              max: 12
+              collapsible:
+                collapsed: true
+                summary: "{type} · {id}"
+            fields:
+              - name: id
+                label: Identificador corto
+                type: string
+                required: true
+                description: "Único en este tablón; por ejemplo foto-richard o nota-1. Úsalo para unir piezas con hilos."
+              - name: type
+                label: Tipo de pieza
+                type: select
+                default: nota
+                options:
+                  values: [nota, foto]
+              - name: title
+                label: Título o pie de foto
+                type: string
+                required: false
+              - name: text
+                label: Texto de la nota
+                type: text
+                required: false
+              - name: image
+                label: Imagen de la foto
+                type: image
+                required: false
+                options:
+                  media: archivo
+              - name: x
+                label: Posición horizontal (0–100)
+                type: number
+                required: false
+                description: "Opcional. Si la dejas vacía, se distribuye automáticamente."
+              - name: y
+                label: Posición vertical (0–100)
+                type: number
+                required: false
+                description: "Opcional. Si la dejas vacía, se distribuye automáticamente."
+              - name: rotation
+                label: Giro en grados (-12 a 12)
+                type: number
+                required: false
+                description: "Opcional. Un giro ligero da aspecto de papel colocado a mano."
+          - name: threads
+            label: Hilos rojos
+            type: object
+            required: false
+            description: "Cada hilo une los identificadores de dos fotos o notas de este tablón."
+            list:
+              max: 18
+              collapsible:
+                collapsed: true
+                summary: "{from} → {to}"
+            fields:
+              - name: from
+                label: Desde la pieza
+                type: string
+                required: true
+              - name: to
+                label: Hasta la pieza
+                type: string
+                required: true
+      - name: lugares
+        label: Lugares
+        type: object
+        fields:
+          - name: enabled
+            label: Mostrar corchera
+            type: boolean
+            default: false
+            description: "Si está desactivada, no aparece ni ocupa espacio en la página."
+          - name: title
+            label: Título del tablón
+            type: string
+            default: "TABLÓN DE CONEXIONES"
+          - name: pieces
+            label: Fotos y notas
+            type: object
+            required: false
+            list:
+              max: 12
+              collapsible:
+                collapsed: true
+                summary: "{type} · {id}"
+            fields:
+              - name: id
+                label: Identificador corto
+                type: string
+                required: true
+                description: "Único en este tablón; por ejemplo foto-richard o nota-1. Úsalo para unir piezas con hilos."
+              - name: type
+                label: Tipo de pieza
+                type: select
+                default: nota
+                options:
+                  values: [nota, foto]
+              - name: title
+                label: Título o pie de foto
+                type: string
+                required: false
+              - name: text
+                label: Texto de la nota
+                type: text
+                required: false
+              - name: image
+                label: Imagen de la foto
+                type: image
+                required: false
+                options:
+                  media: archivo
+              - name: x
+                label: Posición horizontal (0–100)
+                type: number
+                required: false
+                description: "Opcional. Si la dejas vacía, se distribuye automáticamente."
+              - name: y
+                label: Posición vertical (0–100)
+                type: number
+                required: false
+                description: "Opcional. Si la dejas vacía, se distribuye automáticamente."
+              - name: rotation
+                label: Giro en grados (-12 a 12)
+                type: number
+                required: false
+                description: "Opcional. Un giro ligero da aspecto de papel colocado a mano."
+          - name: threads
+            label: Hilos rojos
+            type: object
+            required: false
+            description: "Cada hilo une los identificadores de dos fotos o notas de este tablón."
+            list:
+              max: 18
+              collapsible:
+                collapsed: true
+                summary: "{from} → {to}"
+            fields:
+              - name: from
+                label: Desde la pieza
+                type: string
+                required: true
+              - name: to
+                label: Hasta la pieza
+                type: string
+                required: true
+      - name: planos
+        label: Planos
+        type: object
+        fields:
+          - name: enabled
+            label: Mostrar corchera
+            type: boolean
+            default: false
+            description: "Si está desactivada, no aparece ni ocupa espacio en la página."
+          - name: title
+            label: Título del tablón
+            type: string
+            default: "TABLÓN DE CONEXIONES"
+          - name: pieces
+            label: Fotos y notas
+            type: object
+            required: false
+            list:
+              max: 12
+              collapsible:
+                collapsed: true
+                summary: "{type} · {id}"
+            fields:
+              - name: id
+                label: Identificador corto
+                type: string
+                required: true
+                description: "Único en este tablón; por ejemplo foto-richard o nota-1. Úsalo para unir piezas con hilos."
+              - name: type
+                label: Tipo de pieza
+                type: select
+                default: nota
+                options:
+                  values: [nota, foto]
+              - name: title
+                label: Título o pie de foto
+                type: string
+                required: false
+              - name: text
+                label: Texto de la nota
+                type: text
+                required: false
+              - name: image
+                label: Imagen de la foto
+                type: image
+                required: false
+                options:
+                  media: archivo
+              - name: x
+                label: Posición horizontal (0–100)
+                type: number
+                required: false
+                description: "Opcional. Si la dejas vacía, se distribuye automáticamente."
+              - name: y
+                label: Posición vertical (0–100)
+                type: number
+                required: false
+                description: "Opcional. Si la dejas vacía, se distribuye automáticamente."
+              - name: rotation
+                label: Giro en grados (-12 a 12)
+                type: number
+                required: false
+                description: "Opcional. Un giro ligero da aspecto de papel colocado a mano."
+          - name: threads
+            label: Hilos rojos
+            type: object
+            required: false
+            description: "Cada hilo une los identificadores de dos fotos o notas de este tablón."
+            list:
+              max: 18
+              collapsible:
+                collapsed: true
+                summary: "{from} → {to}"
+            fields:
+              - name: from
+                label: Desde la pieza
+                type: string
+                required: true
+              - name: to
+                label: Hasta la pieza
+                type: string
+                required: true
+      - name: organizaciones
+        label: Organizaciones
+        type: object
+        fields:
+          - name: enabled
+            label: Mostrar corchera
+            type: boolean
+            default: false
+            description: "Si está desactivada, no aparece ni ocupa espacio en la página."
+          - name: title
+            label: Título del tablón
+            type: string
+            default: "TABLÓN DE CONEXIONES"
+          - name: pieces
+            label: Fotos y notas
+            type: object
+            required: false
+            list:
+              max: 12
+              collapsible:
+                collapsed: true
+                summary: "{type} · {id}"
+            fields:
+              - name: id
+                label: Identificador corto
+                type: string
+                required: true
+                description: "Único en este tablón; por ejemplo foto-richard o nota-1. Úsalo para unir piezas con hilos."
+              - name: type
+                label: Tipo de pieza
+                type: select
+                default: nota
+                options:
+                  values: [nota, foto]
+              - name: title
+                label: Título o pie de foto
+                type: string
+                required: false
+              - name: text
+                label: Texto de la nota
+                type: text
+                required: false
+              - name: image
+                label: Imagen de la foto
+                type: image
+                required: false
+                options:
+                  media: archivo
+              - name: x
+                label: Posición horizontal (0–100)
+                type: number
+                required: false
+                description: "Opcional. Si la dejas vacía, se distribuye automáticamente."
+              - name: y
+                label: Posición vertical (0–100)
+                type: number
+                required: false
+                description: "Opcional. Si la dejas vacía, se distribuye automáticamente."
+              - name: rotation
+                label: Giro en grados (-12 a 12)
+                type: number
+                required: false
+                description: "Opcional. Un giro ligero da aspecto de papel colocado a mano."
+          - name: threads
+            label: Hilos rojos
+            type: object
+            required: false
+            description: "Cada hilo une los identificadores de dos fotos o notas de este tablón."
+            list:
+              max: 18
+              collapsible:
+                collapsed: true
+                summary: "{from} → {to}"
+            fields:
+              - name: from
+                label: Desde la pieza
+                type: string
+                required: true
+              - name: to
+                label: Hasta la pieza
+                type: string
+                required: true
+      - name: documentos
+        label: Documentos
+        type: object
+        fields:
+          - name: enabled
+            label: Mostrar corchera
+            type: boolean
+            default: false
+            description: "Si está desactivada, no aparece ni ocupa espacio en la página."
+          - name: title
+            label: Título del tablón
+            type: string
+            default: "TABLÓN DE CONEXIONES"
+          - name: pieces
+            label: Fotos y notas
+            type: object
+            required: false
+            list:
+              max: 12
+              collapsible:
+                collapsed: true
+                summary: "{type} · {id}"
+            fields:
+              - name: id
+                label: Identificador corto
+                type: string
+                required: true
+                description: "Único en este tablón; por ejemplo foto-richard o nota-1. Úsalo para unir piezas con hilos."
+              - name: type
+                label: Tipo de pieza
+                type: select
+                default: nota
+                options:
+                  values: [nota, foto]
+              - name: title
+                label: Título o pie de foto
+                type: string
+                required: false
+              - name: text
+                label: Texto de la nota
+                type: text
+                required: false
+              - name: image
+                label: Imagen de la foto
+                type: image
+                required: false
+                options:
+                  media: archivo
+              - name: x
+                label: Posición horizontal (0–100)
+                type: number
+                required: false
+                description: "Opcional. Si la dejas vacía, se distribuye automáticamente."
+              - name: y
+                label: Posición vertical (0–100)
+                type: number
+                required: false
+                description: "Opcional. Si la dejas vacía, se distribuye automáticamente."
+              - name: rotation
+                label: Giro en grados (-12 a 12)
+                type: number
+                required: false
+                description: "Opcional. Un giro ligero da aspecto de papel colocado a mano."
+          - name: threads
+            label: Hilos rojos
+            type: object
+            required: false
+            description: "Cada hilo une los identificadores de dos fotos o notas de este tablón."
+            list:
+              max: 18
+              collapsible:
+                collapsed: true
+                summary: "{from} → {to}"
+            fields:
+              - name: from
+                label: Desde la pieza
+                type: string
+                required: true
+              - name: to
+                label: Hasta la pieza
+                type: string
+                required: true
+      - name: sucesos
+        label: Sucesos
+        type: object
+        fields:
+          - name: enabled
+            label: Mostrar corchera
+            type: boolean
+            default: false
+            description: "Si está desactivada, no aparece ni ocupa espacio en la página."
+          - name: title
+            label: Título del tablón
+            type: string
+            default: "TABLÓN DE CONEXIONES"
+          - name: pieces
+            label: Fotos y notas
+            type: object
+            required: false
+            list:
+              max: 12
+              collapsible:
+                collapsed: true
+                summary: "{type} · {id}"
+            fields:
+              - name: id
+                label: Identificador corto
+                type: string
+                required: true
+                description: "Único en este tablón; por ejemplo foto-richard o nota-1. Úsalo para unir piezas con hilos."
+              - name: type
+                label: Tipo de pieza
+                type: select
+                default: nota
+                options:
+                  values: [nota, foto]
+              - name: title
+                label: Título o pie de foto
+                type: string
+                required: false
+              - name: text
+                label: Texto de la nota
+                type: text
+                required: false
+              - name: image
+                label: Imagen de la foto
+                type: image
+                required: false
+                options:
+                  media: archivo
+              - name: x
+                label: Posición horizontal (0–100)
+                type: number
+                required: false
+                description: "Opcional. Si la dejas vacía, se distribuye automáticamente."
+              - name: y
+                label: Posición vertical (0–100)
+                type: number
+                required: false
+                description: "Opcional. Si la dejas vacía, se distribuye automáticamente."
+              - name: rotation
+                label: Giro en grados (-12 a 12)
+                type: number
+                required: false
+                description: "Opcional. Un giro ligero da aspecto de papel colocado a mano."
+          - name: threads
+            label: Hilos rojos
+            type: object
+            required: false
+            description: "Cada hilo une los identificadores de dos fotos o notas de este tablón."
+            list:
+              max: 18
+              collapsible:
+                collapsed: true
+                summary: "{from} → {to}"
+            fields:
+              - name: from
+                label: Desde la pieza
+                type: string
+                required: true
+              - name: to
+                label: Hasta la pieza
+                type: string
+                required: true
+      - name: otros
+        label: Otros archivos
+        type: object
+        fields:
+          - name: enabled
+            label: Mostrar corchera
+            type: boolean
+            default: false
+            description: "Si está desactivada, no aparece ni ocupa espacio en la página."
+          - name: title
+            label: Título del tablón
+            type: string
+            default: "TABLÓN DE CONEXIONES"
+          - name: pieces
+            label: Fotos y notas
+            type: object
+            required: false
+            list:
+              max: 12
+              collapsible:
+                collapsed: true
+                summary: "{type} · {id}"
+            fields:
+              - name: id
+                label: Identificador corto
+                type: string
+                required: true
+                description: "Único en este tablón; por ejemplo foto-richard o nota-1. Úsalo para unir piezas con hilos."
+              - name: type
+                label: Tipo de pieza
+                type: select
+                default: nota
+                options:
+                  values: [nota, foto]
+              - name: title
+                label: Título o pie de foto
+                type: string
+                required: false
+              - name: text
+                label: Texto de la nota
+                type: text
+                required: false
+              - name: image
+                label: Imagen de la foto
+                type: image
+                required: false
+                options:
+                  media: archivo
+              - name: x
+                label: Posición horizontal (0–100)
+                type: number
+                required: false
+                description: "Opcional. Si la dejas vacía, se distribuye automáticamente."
+              - name: y
+                label: Posición vertical (0–100)
+                type: number
+                required: false
+                description: "Opcional. Si la dejas vacía, se distribuye automáticamente."
+              - name: rotation
+                label: Giro en grados (-12 a 12)
+                type: number
+                required: false
+                description: "Opcional. Un giro ligero da aspecto de papel colocado a mano."
+          - name: threads
+            label: Hilos rojos
+            type: object
+            required: false
+            description: "Cada hilo une los identificadores de dos fotos o notas de este tablón."
+            list:
+              max: 18
+              collapsible:
+                collapsed: true
+                summary: "{from} → {to}"
+            fields:
+              - name: from
+                label: Desde la pieza
+                type: string
+                required: true
+              - name: to
+                label: Hasta la pieza
+                type: string
+                required: true
+      - name: relatos
+        label: Relatos
+        type: object
+        fields:
+          - name: enabled
+            label: Mostrar corchera
+            type: boolean
+            default: false
+            description: "Si está desactivada, no aparece ni ocupa espacio en la página."
+          - name: title
+            label: Título del tablón
+            type: string
+            default: "TABLÓN DE CONEXIONES"
+          - name: pieces
+            label: Fotos y notas
+            type: object
+            required: false
+            list:
+              max: 12
+              collapsible:
+                collapsed: true
+                summary: "{type} · {id}"
+            fields:
+              - name: id
+                label: Identificador corto
+                type: string
+                required: true
+                description: "Único en este tablón; por ejemplo foto-richard o nota-1. Úsalo para unir piezas con hilos."
+              - name: type
+                label: Tipo de pieza
+                type: select
+                default: nota
+                options:
+                  values: [nota, foto]
+              - name: title
+                label: Título o pie de foto
+                type: string
+                required: false
+              - name: text
+                label: Texto de la nota
+                type: text
+                required: false
+              - name: image
+                label: Imagen de la foto
+                type: image
+                required: false
+                options:
+                  media: archivo
+              - name: x
+                label: Posición horizontal (0–100)
+                type: number
+                required: false
+                description: "Opcional. Si la dejas vacía, se distribuye automáticamente."
+              - name: y
+                label: Posición vertical (0–100)
+                type: number
+                required: false
+                description: "Opcional. Si la dejas vacía, se distribuye automáticamente."
+              - name: rotation
+                label: Giro en grados (-12 a 12)
+                type: number
+                required: false
+                description: "Opcional. Un giro ligero da aspecto de papel colocado a mano."
+          - name: threads
+            label: Hilos rojos
+            type: object
+            required: false
+            description: "Cada hilo une los identificadores de dos fotos o notas de este tablón."
+            list:
+              max: 18
+              collapsible:
+                collapsed: true
+                summary: "{from} → {to}"
+            fields:
+              - name: from
+                label: Desde la pieza
+                type: string
+                required: true
+              - name: to
+                label: Hasta la pieza
+                type: string
+                required: true
+      - name: microrrelatos
+        label: Microrrelatos
+        type: object
+        fields:
+          - name: enabled
+            label: Mostrar corchera
+            type: boolean
+            default: false
+            description: "Si está desactivada, no aparece ni ocupa espacio en la página."
+          - name: title
+            label: Título del tablón
+            type: string
+            default: "TABLÓN DE CONEXIONES"
+          - name: pieces
+            label: Fotos y notas
+            type: object
+            required: false
+            list:
+              max: 12
+              collapsible:
+                collapsed: true
+                summary: "{type} · {id}"
+            fields:
+              - name: id
+                label: Identificador corto
+                type: string
+                required: true
+                description: "Único en este tablón; por ejemplo foto-richard o nota-1. Úsalo para unir piezas con hilos."
+              - name: type
+                label: Tipo de pieza
+                type: select
+                default: nota
+                options:
+                  values: [nota, foto]
+              - name: title
+                label: Título o pie de foto
+                type: string
+                required: false
+              - name: text
+                label: Texto de la nota
+                type: text
+                required: false
+              - name: image
+                label: Imagen de la foto
+                type: image
+                required: false
+                options:
+                  media: archivo
+              - name: x
+                label: Posición horizontal (0–100)
+                type: number
+                required: false
+                description: "Opcional. Si la dejas vacía, se distribuye automáticamente."
+              - name: y
+                label: Posición vertical (0–100)
+                type: number
+                required: false
+                description: "Opcional. Si la dejas vacía, se distribuye automáticamente."
+              - name: rotation
+                label: Giro en grados (-12 a 12)
+                type: number
+                required: false
+                description: "Opcional. Un giro ligero da aspecto de papel colocado a mano."
+          - name: threads
+            label: Hilos rojos
+            type: object
+            required: false
+            description: "Cada hilo une los identificadores de dos fotos o notas de este tablón."
+            list:
+              max: 18
+              collapsible:
+                collapsed: true
+                summary: "{from} → {to}"
+            fields:
+              - name: from
+                label: Desde la pieza
+                type: string
+                required: true
+              - name: to
+                label: Hasta la pieza
+                type: string
+                required: true
+
   - name: imagenes_secciones_archivo
     label: Imágenes de las secciones del Archivo
     type: file
