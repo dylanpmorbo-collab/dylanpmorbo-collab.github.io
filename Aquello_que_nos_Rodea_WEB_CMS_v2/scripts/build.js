@@ -55,7 +55,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=compact-police-folders-20260919"><script defer src="assets/js/main.js"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=archive-corkboards-20260919"><script defer src="assets/js/main.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -216,6 +216,7 @@ copyDir(path.join(ROOT,'assets'),path.join(DIST,'assets'));
 
 const site=readJSON(path.join(ROOT,'content/config/site.json'));
 const archiveSectionImages=readJSON(path.join(ROOT,'content/config/archivo-secciones.json'));
+const archiveCorkboards=readJSON(path.join(ROOT,'content/config/corcheras-archivo.json'));
 const archiveBookPath=path.join(ROOT,'content/config/libro-archivo.json');
 const archiveBook=fs.existsSync(archiveBookPath)?readJSON(archiveBookPath):{enabled:false,pages:[]};
 const archiveBookPages=Array.isArray(archiveBook.pages)?archiveBook.pages.filter(p=>p && p.image && p.enabled!==false):[];
@@ -1048,6 +1049,42 @@ const archivePage=`${head(`El Archivo | ${site.site_title}`,'Índice general del
 
 fs.writeFileSync(path.join(DIST,'archivo.html'),archivePage);
 
+function archiveCorkboard(section){
+const board=archiveCorkboards[section.key];
+if(!board || board.enabled!==true) return '';
+const positions=[[15,12],[38,12],[61,12],[84,12],[15,40],[38,40],[61,40],[84,40],[15,68],[38,68],[61,68],[84,68]];
+const clamp=(value,min,max,fallback)=>{const n=Number(value);return value===null||value===undefined||value===''||!Number.isFinite(n)?fallback:Math.min(max,Math.max(min,n));};
+const pieces=(Array.isArray(board.pieces)?board.pieces:[]).slice(0,12).map((piece,index)=>{
+ if(!piece || typeof piece!=='object') return null;
+ const id=String(piece.id||('pieza-'+(index+1))).trim();
+ const type=piece.type==='foto'?'foto':'nota';
+ const image=String(piece.image||'').trim(), text=String(piece.text||'').trim(), title=String(piece.title||'').trim();
+ if(type==='foto'?!image:(!text&&!title)) return null;
+ return {id,type,image,text,title,x:clamp(piece.x,12,88,positions[index][0]),y:clamp(piece.y,8,72,positions[index][1]),rotation:clamp(piece.rotation,-12,12,[-3,2,-2,4][index%4])};
+}).filter(Boolean);
+if(!pieces.length) return '';
+const byId=new Map(pieces.map(piece=>[piece.id,piece]));
+const threads=(Array.isArray(board.threads)?board.threads:[]).slice(0,18).map(thread=>{
+ const from=byId.get(String(thread&&thread.from||'').trim()),to=byId.get(String(thread&&thread.to||'').trim());
+ if(!from||!to||from===to) return '';
+ return '<path d="M '+from.x+' '+from.y+' Q '+((from.x+to.x)/2)+' '+((from.y+to.y)/2+3)+' '+to.x+' '+to.y+'"/>';
+}).join('');
+const cards=pieces.map(piece=>{
+ const content=piece.type==='foto'
+ ? '<img src="'+esc(piece.image)+'" alt="'+esc(piece.title||'Fotografía del tablón')+'" loading="lazy">'+(piece.title?'<figcaption>'+esc(piece.title)+'</figcaption>':'')
+ : (piece.title?'<strong>'+esc(piece.title)+'</strong>':'')+(piece.text?'<p>'+esc(piece.text).replace(/\r?\n/g,'<br>')+'</p>':'');
+ return '<article class="archive-corkboard-piece archive-corkboard-'+piece.type+'" style="--piece-x:'+piece.x+'%;--piece-y:'+piece.y+'%;--piece-rotation:'+piece.rotation+'deg" aria-label="'+esc(piece.title||'Pieza del tablón')+'">'+
+ '<span class="archive-corkboard-pin" aria-hidden="true"></span>'+content+'</article>';
+}).join('');
+return '<section class="section archive-corkboard-section" aria-label="Tablón de conexiones de '+esc(section.label)+'">'+
+'<div class="section-label">CORCHERA // '+esc(section.label)+'</div>'+
+'<h2>'+esc(String(board.title||'TABLÓN DE CONEXIONES'))+'</h2>'+
+'<p class="archive-corkboard-hint">Desliza para explorar el tablón →</p>'+
+'<div class="archive-corkboard-scroll"><div class="archive-corkboard-stage">'+
+'<svg class="archive-corkboard-threads" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">'+threads+'</svg>'+
+cards+'</div></div></section>';
+}
+
 // Páginas de cada sección + página completa de cada expediente
 for(const section of archiveSectionDefs){
  const list=section.items.length
@@ -1067,6 +1104,7 @@ for(const section of archiveSectionDefs){
    <div class="archive-back-row"><a class="text-link" href="archivo.html">← VOLVER AL ÍNDICE GENERAL</a><span>${String(section.items.length).padStart(2,'0')} EXPEDIENTE${section.items.length===1?'':'S'}</span></div>
    ${list}
  </section>
+ ${archiveCorkboard(section)}
  </main>${footer(site)}</body></html>`;
  fs.writeFileSync(path.join(DIST,section.file),sectionPage);
  for(const item of section.items){
