@@ -1,12 +1,12 @@
 {
-  "entidades": "/assets/img/archivo-secciones/entidades.png",
-  "personajes": "/assets/img/archivo-secciones/personajes.png",
-  "lugares": "/assets/img/archivo-secciones/lugares.png",
-  "planos": "/assets/img/archivo-secciones/planos.png",
-  "organizaciones": "/assets/img/archivo-secciones/organizaciones.png",
-  "documentos": "/assets/img/archivo-secciones/documentos.png",
-  "sucesos": "/assets/img/archivo-secciones/sucesos.png",
-  "otros": "/assets/img/archivo-secciones/otros.png",
-  "relatos": "/assets/img/archivo-secciones/conexiones.png",
-  "microrrelatos": "/assets/img/archivo-secciones/conexiones.png"
+  "entidades": "/assets/uploads/archivo/entidades.png",
+  "personajes": "/assets/uploads/archivo/personajes.png",
+  "lugares": "/assets/uploads/archivo/lugares3.png",
+  "planos": "/assets/uploads/archivo/planos-final.png",
+  "organizaciones": "/assets/uploads/archivo/organizaciones-final.png",
+  "documentos": "/assets/uploads/archivo/documentos-final.png",
+  "sucesos": "/assets/uploads/archivo/sucesos-final.png",
+  "otros": "/assets/uploads/archivo/otros-archivos-final.png",
+  "relatos": "/assets/uploads/archivo/relatos.png",
+  "microrrelatos": "/assets/uploads/archivo/microrrelatos.png"
 }
