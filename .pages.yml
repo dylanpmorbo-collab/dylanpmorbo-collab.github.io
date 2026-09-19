@@ -181,6 +181,93 @@ content:
             type: text
             required: false
 
+      - name: corkboard
+        label: Corchera de esta ficha
+        type: object
+        required: false
+        description: "Opcional. Se muestra junto a los datos del expediente cuando se activa. En relatos y microrrelatos aparece antes de la lectura."
+        fields:
+          - name: enabled
+            label: Mostrar corchera
+            type: boolean
+            default: false
+          - name: design
+            label: Diseño del tablón
+            type: select
+            default: A
+            options:
+              values: [A, B, C]
+          - name: title
+            label: Título del tablón
+            type: string
+            default: "TABLÓN DE CONEXIONES"
+          - name: pieces
+            label: Fotos y notas
+            type: object
+            required: false
+            list:
+              max: 12
+              collapsible:
+                collapsed: true
+                summary: "{type} · {id}"
+            fields:
+              - name: id
+                label: Identificador corto
+                type: string
+                required: true
+                description: "Único en esta corchera; sirve para unir las piezas con hilos."
+              - name: type
+                label: Tipo de pieza
+                type: select
+                default: nota
+                options:
+                  values: [nota, foto]
+              - name: title
+                label: Título o pie de foto
+                type: string
+                required: false
+              - name: text
+                label: Texto de la nota
+                type: text
+                required: false
+              - name: image
+                label: Imagen de la foto
+                type: image
+                required: false
+                options:
+                  media: relatos
+              - name: x
+                label: Posición horizontal (0–100)
+                type: number
+                required: false
+              - name: y
+                label: Posición vertical (0–100)
+                type: number
+                required: false
+              - name: rotation
+                label: Giro en grados (-12 a 12)
+                type: number
+                required: false
+          - name: threads
+            label: Hilos rojos
+            type: object
+            required: false
+            description: "Une los identificadores de dos piezas de esta corchera."
+            list:
+              max: 18
+              collapsible:
+                collapsed: true
+                summary: "{from} → {to}"
+            fields:
+              - name: from
+                label: Desde la pieza
+                type: string
+                required: true
+              - name: to
+                label: Hasta la pieza
+                type: string
+                required: true
+
   - name: microrrelatos
     label: Microrrelatos
     type: collection
@@ -299,6 +386,93 @@ content:
             label: Descripción breve
             type: text
             required: false
+
+      - name: corkboard
+        label: Corchera de esta ficha
+        type: object
+        required: false
+        description: "Opcional. Se muestra junto a los datos del expediente cuando se activa. En relatos y microrrelatos aparece antes de la lectura."
+        fields:
+          - name: enabled
+            label: Mostrar corchera
+            type: boolean
+            default: false
+          - name: design
+            label: Diseño del tablón
+            type: select
+            default: A
+            options:
+              values: [A, B, C]
+          - name: title
+            label: Título del tablón
+            type: string
+            default: "TABLÓN DE CONEXIONES"
+          - name: pieces
+            label: Fotos y notas
+            type: object
+            required: false
+            list:
+              max: 12
+              collapsible:
+                collapsed: true
+                summary: "{type} · {id}"
+            fields:
+              - name: id
+                label: Identificador corto
+                type: string
+                required: true
+                description: "Único en esta corchera; sirve para unir las piezas con hilos."
+              - name: type
+                label: Tipo de pieza
+                type: select
+                default: nota
+                options:
+                  values: [nota, foto]
+              - name: title
+                label: Título o pie de foto
+                type: string
+                required: false
+              - name: text
+                label: Texto de la nota
+                type: text
+                required: false
+              - name: image
+                label: Imagen de la foto
+                type: image
+                required: false
+                options:
+                  media: microrrelatos
+              - name: x
+                label: Posición horizontal (0–100)
+                type: number
+                required: false
+              - name: y
+                label: Posición vertical (0–100)
+                type: number
+                required: false
+              - name: rotation
+                label: Giro en grados (-12 a 12)
+                type: number
+                required: false
+          - name: threads
+            label: Hilos rojos
+            type: object
+            required: false
+            description: "Une los identificadores de dos piezas de esta corchera."
+            list:
+              max: 18
+              collapsible:
+                collapsed: true
+                summary: "{from} → {to}"
+            fields:
+              - name: from
+                label: Desde la pieza
+                type: string
+                required: true
+              - name: to
+                label: Hasta la pieza
+                type: string
+                required: true
 
   - name: archivo
     label: El Archivo
@@ -583,6 +757,93 @@ content:
             label: Descripción breve
             type: text
             required: false
+
+      - name: corkboard
+        label: Corchera de esta ficha
+        type: object
+        required: false
+        description: "Opcional. Se muestra junto a los datos del expediente cuando se activa. En relatos y microrrelatos aparece antes de la lectura."
+        fields:
+          - name: enabled
+            label: Mostrar corchera
+            type: boolean
+            default: false
+          - name: design
+            label: Diseño del tablón
+            type: select
+            default: A
+            options:
+              values: [A, B, C]
+          - name: title
+            label: Título del tablón
+            type: string
+            default: "TABLÓN DE CONEXIONES"
+          - name: pieces
+            label: Fotos y notas
+            type: object
+            required: false
+            list:
+              max: 12
+              collapsible:
+                collapsed: true
+                summary: "{type} · {id}"
+            fields:
+              - name: id
+                label: Identificador corto
+                type: string
+                required: true
+                description: "Único en esta corchera; sirve para unir las piezas con hilos."
+              - name: type
+                label: Tipo de pieza
+                type: select
+                default: nota
+                options:
+                  values: [nota, foto]
+              - name: title
+                label: Título o pie de foto
+                type: string
+                required: false
+              - name: text
+                label: Texto de la nota
+                type: text
+                required: false
+              - name: image
+                label: Imagen de la foto
+                type: image
+                required: false
+                options:
+                  media: archivo
+              - name: x
+                label: Posición horizontal (0–100)
+                type: number
+                required: false
+              - name: y
+                label: Posición vertical (0–100)
+                type: number
+                required: false
+              - name: rotation
+                label: Giro en grados (-12 a 12)
+                type: number
+                required: false
+          - name: threads
+            label: Hilos rojos
+            type: object
+            required: false
+            description: "Une los identificadores de dos piezas de esta corchera."
+            list:
+              max: 18
+              collapsible:
+                collapsed: true
+                summary: "{from} → {to}"
+            fields:
+              - name: from
+                label: Desde la pieza
+                type: string
+                required: true
+              - name: to
+                label: Hasta la pieza
+                type: string
+                required: true
 
   - name: personajes
     label: Personajes
@@ -1006,6 +1267,93 @@ content:
             label: Descripción breve
             type: text
             required: false
+
+      - name: corkboard
+        label: Corchera de esta ficha
+        type: object
+        required: false
+        description: "Opcional. Se muestra junto a los datos del expediente cuando se activa. En relatos y microrrelatos aparece antes de la lectura."
+        fields:
+          - name: enabled
+            label: Mostrar corchera
+            type: boolean
+            default: false
+          - name: design
+            label: Diseño del tablón
+            type: select
+            default: A
+            options:
+              values: [A, B, C]
+          - name: title
+            label: Título del tablón
+            type: string
+            default: "TABLÓN DE CONEXIONES"
+          - name: pieces
+            label: Fotos y notas
+            type: object
+            required: false
+            list:
+              max: 12
+              collapsible:
+                collapsed: true
+                summary: "{type} · {id}"
+            fields:
+              - name: id
+                label: Identificador corto
+                type: string
+                required: true
+                description: "Único en esta corchera; sirve para unir las piezas con hilos."
+              - name: type
+                label: Tipo de pieza
+                type: select
+                default: nota
+                options:
+                  values: [nota, foto]
+              - name: title
+                label: Título o pie de foto
+                type: string
+                required: false
+              - name: text
+                label: Texto de la nota
+                type: text
+                required: false
+              - name: image
+                label: Imagen de la foto
+                type: image
+                required: false
+                options:
+                  media: personajes
+              - name: x
+                label: Posición horizontal (0–100)
+                type: number
+                required: false
+              - name: y
+                label: Posición vertical (0–100)
+                type: number
+                required: false
+              - name: rotation
+                label: Giro en grados (-12 a 12)
+                type: number
+                required: false
+          - name: threads
+            label: Hilos rojos
+            type: object
+            required: false
+            description: "Une los identificadores de dos piezas de esta corchera."
+            list:
+              max: 18
+              collapsible:
+                collapsed: true
+                summary: "{from} → {to}"
+            fields:
+              - name: from
+                label: Desde la pieza
+                type: string
+                required: true
+              - name: to
+                label: Hasta la pieza
+                type: string
+                required: true
 
   - name: corcheras_archivo
     label: Corcheras de las secciones del Archivo
