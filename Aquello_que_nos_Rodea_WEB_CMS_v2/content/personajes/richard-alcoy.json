@@ -75,17 +75,19 @@
       "location": "Playa de Fora del Forat, Vinaròs, Castellón",
       "cover_type": "VIDEO",
       "cover_video": "/assets/uploads/huella-digital/primerbesosonidocomp.mp4",
+      "cover_video_reactions": "❤️",
+      "cover_video_comments": [
+        {
+          "author": "Sara:",
+          "text": "POR FINNNNN ❤️"
+        }
+      ],
       "image_sensitive": false,
       "image_zoom": false,
       "video_position": "FIRST",
       "video_2_position": "LAST",
       "handle": "Candy",
-      "caption": "❤️",
       "comments": [
-        {
-          "author": "Sara:",
-          "text": "POR FINNNNN ❤️"
-        },
         {
           "author": "Marcos:",
           "text": "ya era hora"
