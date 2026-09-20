@@ -234,7 +234,7 @@
     },
     {
       "platform": "WHATSAPP",
-      "type": "Conversación WHATSAPP",
+      "type": "Recuperado durante el análisis forense del dispositivo",
       "title": "Secretos revelados",
       "cover_type": "FOTO",
       "image_sensitive": false,
