@@ -69,61 +69,12 @@
     },
     {
       "platform": "INSTAGRAM",
-      "type": "Publicación",
-      "title": "Pelea en la playa",
-      "date": "21/06/2016 · 18:52",
-      "location": "Platja de Can Pere Antoni, Palma de Mallorca.",
-      "image": "/assets/uploads/huella-digital/peleamayorca.png",
-      "cover_video": "/assets/uploads/huella-digital/primerbesosonidocomp.mp4",
-      "alt": "pelea en la playa",
-      "image_sensitive": false,
-      "image_zoom": false,
-      "video_position": "FIRST",
-      "video_2_position": "LAST",
-      "handle": "MarcosLafuente",
-      "caption": "Madurez ante todo.",
-      "reactions": "❤️87",
-      "comments": [
-        {
-          "author": "adrian_93",
-          "text": "viaje cultural dicen ✈️"
-        },
-        {
-          "author": "Richard98",
-          "text": "El Dani ha sobrevivido"
-        },
-        {
-          "author": "Daniserr98",
-          "text": "os odio 😠"
-        },
-        {
-          "author": "ines_mrtn",
-          "text": "JAJAJAJA pobreee"
-        },
-        {
-          "author": "MarcosLafuente",
-          "text": "😂😂😂"
-        },
-        {
-          "author": "Richard98",
-          "text": "tú empezaste"
-        },
-        {
-          "author": "Daniserr98",
-          "text": "ESTABA SENTADO"
-        }
-      ],
-      "source": "Publicación Instagram MarcosLafuente",
-      "archived": "21 de junio de 2016",
-      "status": "Conservado"
-    },
-    {
-      "platform": "INSTAGRAM",
       "type": "Pubicación",
       "title": "EXCURSIÓN FIN DE CURSO 2ºBACHILLER.",
       "date": "21 de junio de 2016",
       "location": "paseo marítimo / puerto de Palma",
       "image": "/assets/uploads/huella-digital/diapalma2b.png",
+      "cover_video": "/assets/uploads/huella-digital/primerbesosonidocomp.mp4",
       "alt": "Día sin Profes.",
       "image_sensitive": false,
       "image_zoom": false,
