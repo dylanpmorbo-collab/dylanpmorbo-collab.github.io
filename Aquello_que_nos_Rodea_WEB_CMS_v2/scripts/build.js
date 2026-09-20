@@ -48,7 +48,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=conexiones-libro-20260920"><script defer src="assets/js/main.js?v=testimonios-20260920"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=libro-codigo-20260920"><script defer src="assets/js/main.js?v=testimonios-20260920"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -1114,6 +1114,7 @@ const archivePage=`${head(`El Archivo | ${site.site_title}`,'Índice general del
   function showPage(page){
     chosen=page;
     img.classList.remove('is-loaded');
+    img.classList.toggle('archive-book-page-full',chosen.full_page===true);
     img.alt=chosen.label || 'Anotación del Archivo';
     img.addEventListener('load',()=>img.classList.add('is-loaded'),{once:true});
     img.src=chosen.image;
@@ -1123,9 +1124,11 @@ const archivePage=`${head(`El Archivo | ${site.site_title}`,'Índice general del
   showPage(chosen);
   const turn=img.closest('.archive-book-page-slot').querySelector('.archive-book-page-turn');
   if(pages.length<2){turn.hidden=true;return;}
+  let remaining=pages.filter(page=>page.image!==chosen.image);
   turn.addEventListener('click',()=>{
-    const pool=pages.filter(page=>page.image!==chosen.image);
-    if(pool.length) showPage(pool[Math.floor(Math.random()*pool.length)]);
+    if(!remaining.length) remaining=pages.filter(page=>page.image!==chosen.image);
+    const index=Math.floor(Math.random()*remaining.length);
+    showPage(remaining.splice(index,1)[0]);
   });
 })();
 </script>

@@ -32,6 +32,14 @@
       "fixed": false
     },
     {
+      "label": "Última anotación",
+      "image": "/assets/img/libro/codigo-conexiones-641729.png",
+      "enabled": true,
+      "full_page": true,
+      "first": false,
+      "fixed": false
+    },
+    {
       "label": "ADAM",
       "image": "/assets/uploads/interfaz/mosaico adam.png",
       "enabled": false,
