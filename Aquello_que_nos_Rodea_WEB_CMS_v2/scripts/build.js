@@ -183,7 +183,7 @@ function relatedArchiveMarkup(item,sourceHref='',sourceLabel=''){
      <button class="related-archive-action related-archive-show" type="button" aria-controls="related-connections-panel" aria-expanded="false">MOSTRAR CONEXIONES ↓</button>
    </div>
    <form class="related-archive-code-form" hidden>
-     <p class="related-archive-code-hint">El código está escondido en El Archivo. Explora sus páginas para encontrarlo.</p>
+     <p class="related-archive-code-hint">El código está escondido en El Archivo. Quizá esté más cerca de lo que parece: observa bien lo que tienes delante.</p>
      <label>INTRODUCE EL CÓDIGO DE APERTURA <input type="text" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="off" required aria-label="Código de seis cifras"></label>
      <button type="submit">DESBLOQUEAR</button>
    </form>
