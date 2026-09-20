@@ -57,6 +57,7 @@
       "date": "28 de octubre de 2012 - 11:26",
       "location": "exteriores del Estadio de La Romareda, Zaragoza",
       "image_sensitive": false,
+      "image_zoom": false,
       "video": "/assets/uploads/huella-digital/videopadre.mp4",
       "poster": "/assets/uploads/huella-digital/imagen-de-codex-16-sept-2026-173145.png",
       "video_position": "FIRST",
@@ -94,6 +95,7 @@
       "date": "29/08/2021 · 19:34",
       "location": "Playa de Fora del Forat, Vinaròs, Castellón",
       "image_sensitive": false,
+      "image_zoom": false,
       "video": "/assets/uploads/huella-digital/primer-besostory1.mp4",
       "video_position": "FIRST",
       "video_2_position": "LAST",
@@ -130,6 +132,7 @@
       "image": "/assets/uploads/huella-digital/peleamayorca.png",
       "alt": "pelea en la playa",
       "image_sensitive": false,
+      "image_zoom": false,
       "video_position": "FIRST",
       "video_2_position": "LAST",
       "handle": "MarcosLafuente",
@@ -178,12 +181,14 @@
       "image": "/assets/uploads/huella-digital/diapalma2b.png",
       "alt": "Día sin Profes.",
       "image_sensitive": false,
+      "image_zoom": false,
       "image_reactions": "❤️62",
       "images": [
         {
           "image": "/assets/uploads/huella-digital/fusion.png",
           "alt": "Fusión",
           "sensitive": false,
+          "zoom": false,
           "reactions": "❤️103",
           "comments": [
             {
@@ -220,6 +225,7 @@
           "image": "/assets/uploads/huella-digital/diaenpalma.png",
           "alt": "Paseando por Palma",
           "sensitive": false,
+          "zoom": false,
           "reactions": "❤️37"
         }
       ],
@@ -241,18 +247,22 @@
       "cover_type": "FOTO",
       "alt": "Secretos revelados",
       "image_sensitive": false,
+      "image_zoom": true,
       "images": [
         {
           "image": "/assets/uploads/huella-digital/chat-14.png",
-          "sensitive": false
+          "sensitive": false,
+          "zoom": true
         },
         {
           "image": "/assets/uploads/huella-digital/chat-15.png",
-          "sensitive": false
+          "sensitive": false,
+          "zoom": true
         },
         {
           "image": "/assets/uploads/huella-digital/chat-16.png",
-          "sensitive": false
+          "sensitive": false,
+          "zoom": true
         }
       ],
       "video": "/assets/uploads/huella-digital/recuperado-wsp.mp4",
