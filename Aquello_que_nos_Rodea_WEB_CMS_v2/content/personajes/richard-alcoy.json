@@ -184,12 +184,50 @@
       "status": "Conservado"
     },
     {
+      "platform": "INSTAGRAM",
+      "type": "STORY",
+      "title": "Primer beso",
+      "date": "29/08/2021 · 19:34",
+      "location": "Playa de Fora del Forat, Vinaròs, Castellón",
+      "cover_type": "VIDEO",
+      "cover_video": "/assets/uploads/huella-digital/storybesomusica916.mp4",
+      "cover_video_reactions": "❤️",
+      "cover_video_comments": [
+        {
+          "author": "Sara:",
+          "text": "POR FINNNNN ❤️"
+        },
+        {
+          "author": "Marcos:",
+          "text": "ya era hora"
+        },
+        {
+          "author": "Dani:",
+          "text": "🤢"
+        },
+        {
+          "author": "Richard:",
+          "text": "❤️❤️❤️❤️❤️"
+        }
+      ],
+      "image_sensitive": false,
+      "image_zoom": false,
+      "video": "/assets/uploads/huella-digital/recuperado-wsp.mp4",
+      "video_position": "FIRST",
+      "video_2_position": "LAST",
+      "handle": "Candy",
+      "source": "Galería del dispositivo de Candy",
+      "archived": "07/08/2021 · 20:46",
+      "status": "Conservado"
+    },
+    {
       "platform": "WHATSAPP",
       "type": "Recuperado durante el análisis forense del dispositivo",
       "date": "22 de junio de 2016 entre 01:03 y 01:27",
       "location": "zona de marcha del Paseo Marítimo de Palma de Mallorca",
       "image": "/assets/uploads/huella-digital/1.png",
       "cover_type": "FOTO",
+      "cover_video": "/assets/uploads/huella-digital/storybesomusica916.mp4",
       "alt": "Secretos revelados",
       "image_sensitive": false,
       "image_zoom": true,
@@ -223,42 +261,6 @@
       "source": "Recuperado durante el análisis forense del dispositivo de Richard Alcoy",
       "archived": "22 de junio de 2016 entre 01:03 y 01:27",
       "status": "Recuperado"
-    },
-    {
-      "platform": "INSTAGRAM",
-      "type": "STORY",
-      "title": "Primer beso",
-      "date": "29/08/2021 · 19:34",
-      "location": "Playa de Fora del Forat, Vinaròs, Castellón",
-      "cover_type": "VIDEO",
-      "cover_video": "/assets/uploads/huella-digital/storybesomusica916.mp4",
-      "cover_video_reactions": "❤️",
-      "cover_video_comments": [
-        {
-          "author": "Sara:",
-          "text": "POR FINNNNN ❤️"
-        },
-        {
-          "author": "Marcos:",
-          "text": "ya era hora"
-        },
-        {
-          "author": "Dani:",
-          "text": "🤢"
-        },
-        {
-          "author": "Richard:",
-          "text": "❤️❤️❤️❤️❤️"
-        }
-      ],
-      "image_sensitive": false,
-      "image_zoom": false,
-      "video_position": "FIRST",
-      "video_2_position": "LAST",
-      "handle": "Candy",
-      "source": "Galería del dispositivo de Candy",
-      "archived": "07/08/2021 · 20:46",
-      "status": "Conservado"
     }
   ],
   "show_documents": false,
