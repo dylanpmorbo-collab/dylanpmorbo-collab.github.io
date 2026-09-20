@@ -59,6 +59,7 @@
       "image_sensitive": false,
       "video": "/assets/uploads/huella-digital/videopadre.mp4",
       "poster": "/assets/uploads/huella-digital/imagen-de-codex-16-sept-2026-173145.png",
+      "video_position": "FIRST",
       "handle": "Javier Alcoy",
       "caption": "Buena mañana con el chaval. Y encima 2-1. ¡Aúpa Zaragoza!",
       "reactions": "👍23 Me gusta",
@@ -93,6 +94,7 @@
       "location": "Playa de Fora del Forat, Vinaròs, Castellón",
       "image_sensitive": false,
       "video": "/assets/uploads/huella-digital/primer-besostory1.mp4",
+      "video_position": "FIRST",
       "handle": "Candy",
       "caption": "❤️",
       "comments": [
@@ -126,6 +128,7 @@
       "image": "/assets/uploads/huella-digital/peleamayorca.png",
       "alt": "pelea en la playa",
       "image_sensitive": false,
+      "video_position": "FIRST",
       "handle": "MarcosLafuente",
       "caption": "Madurez ante todo.",
       "reactions": "❤️87",
@@ -167,8 +170,10 @@
       "platform": "INSTAGRAM",
       "type": "Pubicación",
       "title": "Fusión",
+      "image": "/assets/uploads/huella-digital/fusion.png",
       "image_sensitive": false,
-      "video": "/assets/uploads/huella-digital/fusion-boomerangstory.mp4"
+      "video": "/assets/uploads/huella-digital/fusion-boomerangstory.mp4",
+      "video_position": "FIRST"
     }
   ],
   "show_documents": true,
