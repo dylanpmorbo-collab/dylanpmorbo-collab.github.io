@@ -60,6 +60,7 @@
       "video": "/assets/uploads/huella-digital/videopadre.mp4",
       "poster": "/assets/uploads/huella-digital/imagen-de-codex-16-sept-2026-173145.png",
       "video_position": "FIRST",
+      "video_2_position": "LAST",
       "handle": "Javier Alcoy",
       "caption": "Buena mañana con el chaval. Y encima 2-1. ¡Aúpa Zaragoza!",
       "reactions": "👍23 Me gusta",
@@ -95,6 +96,7 @@
       "image_sensitive": false,
       "video": "/assets/uploads/huella-digital/primer-besostory1.mp4",
       "video_position": "FIRST",
+      "video_2_position": "LAST",
       "handle": "Candy",
       "caption": "❤️",
       "comments": [
@@ -129,6 +131,7 @@
       "alt": "pelea en la playa",
       "image_sensitive": false,
       "video_position": "FIRST",
+      "video_2_position": "LAST",
       "handle": "MarcosLafuente",
       "caption": "Madurez ante todo.",
       "reactions": "❤️87",
@@ -222,11 +225,21 @@
       ],
       "video": "/assets/uploads/huella-digital/fusion-boomerangstory.mp4",
       "video_position": "LAST",
+      "video_2_position": "LAST",
       "handle": "Daniserr98",
       "caption": "Día libre sin adultos, se puede liar.",
       "source": "Publicación Instagram Daniserr98",
       "archived": "21 de junio de 2016",
       "status": "Conservado"
+    },
+    {
+      "platform": "WHATSAPP",
+      "type": "Conversación WHATSAPP",
+      "title": "Secretos revelados",
+      "cover_type": "FOTO",
+      "image_sensitive": false,
+      "video_position": "FIRST",
+      "video_2_position": "LAST"
     }
   ],
   "show_documents": false,
