@@ -28,14 +28,14 @@
       "url": "https://dylanpmorbo-collab.github.io/archivo-organizaciones-la-plaga.html"
     },
     {
-      "type": "ARCHIVO",
+      "type": "PERSONAJE",
       "title": "Richard Alcoy",
       "thumbnail": "/assets/uploads/conexiones/richard-alcoy.png",
       "url": "https://dylanpmorbo-collab.github.io/archivo-personajes-richard-alcoy.html",
       "description": "Ficha Personal"
     },
     {
-      "type": "ARCHIVO",
+      "type": "SUCESO",
       "title": "Informes Caso Richard Alcoy",
       "thumbnail": "/assets/uploads/conexiones/autopsia.png",
       "url": "https://dylanpmorbo-collab.github.io/archivo-sucesos-homicidio-richard-alcoy.html"
