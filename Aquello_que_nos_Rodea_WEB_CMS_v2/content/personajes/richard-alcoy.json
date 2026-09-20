@@ -173,7 +173,7 @@
       "image": "/assets/uploads/huella-digital/fusion.png",
       "image_sensitive": false,
       "video": "/assets/uploads/huella-digital/fusion-boomerangstory.mp4",
-      "video_position": "FIRST"
+      "video_position": "LAST"
     }
   ],
   "show_documents": true,
