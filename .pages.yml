@@ -2733,7 +2733,7 @@ content:
         type: text
 
   - name: libro_archivo
-    label: Libro del Archivo
+    label: Libro del Archivo y código de conexiones
     type: file
     path: Aquello_que_nos_Rodea_WEB_CMS_v2/content/config/libro-archivo.json
     format: json
@@ -2754,8 +2754,23 @@ content:
         type: boolean
         default: true
         description: "Activado: rota entre las páginas visibles. Desactivado: muestra siempre la página marcada como Imagen fija."
+      - name: code_page_image
+        label: Página secreta del código
+        type: image
+        required: false
+        options:
+          media: interfaz
+        description: "Sube solo la tinta sobre fondo transparente. Esta página se añade automáticamente al libro y deja de aparecer en el navegador de quien ya desbloqueó las conexiones."
+      - name: connection_code
+        label: Código para abrir conexiones
+        type: string
+        required: true
+        pattern:
+          regex: "^[0-9]{6}$"
+          message: "Introduce exactamente seis cifras."
+        description: "Debe coincidir con el número escrito en la imagen secreta. Cambiarlo no vuelve a bloquear a quienes ya abrieron las conexiones en su navegador."
       - name: pages
-        label: Imágenes de las páginas
+        label: Otras imágenes de las páginas
         type: object
         list:
           collapsible:

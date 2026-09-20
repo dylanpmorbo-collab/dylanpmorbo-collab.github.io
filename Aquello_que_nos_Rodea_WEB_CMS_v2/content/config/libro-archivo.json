@@ -2,6 +2,8 @@
   "enabled": true,
   "book_image": "/assets/uploads/interfaz/libro demoniaco.png",
   "random_mode": true,
+  "connection_code": "641729",
+  "code_page_image": "/assets/uploads/interfaz/codigo-conexiones-641729.png",
   "pages": [
     {
       "label": "Śukrahārī — estudio anatómico",
@@ -28,14 +30,6 @@
       "label": "nigromantes",
       "image": "/assets/uploads/interfaz/nigromantes.png",
       "enabled": true,
-      "first": false,
-      "fixed": false
-    },
-    {
-      "label": "Última anotación",
-      "image": "/assets/img/libro/codigo-conexiones-641729.png",
-      "enabled": true,
-      "full_page": true,
       "first": false,
       "fixed": false
     },

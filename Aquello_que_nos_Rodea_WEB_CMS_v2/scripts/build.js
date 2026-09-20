@@ -48,7 +48,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=libro-codigo-20260920"><script defer src="assets/js/main.js?v=testimonios-20260920"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=conexiones-20260920"><script defer src="assets/js/main.js?v=testimonios-20260920"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -121,7 +121,7 @@ function footer(site){
 <p>Un universo de horror creado por <strong>${esc(site.author)}</strong>.</p>
 <p class="footer-small">${esc(site.footer_note)}</p>
 <p class="footer-small">© 2026 ${esc(site.author)}. Todos los derechos reservados.</p><button type="button" class="cookie-settings-link" id="cookieSettings">Configurar cookies</button></footer>
-<div class="cookie-banner" id="cookieBanner" role="dialog" aria-labelledby="cookieTitle" aria-describedby="cookieDescription" hidden><div class="cookie-banner-inner"><div><strong id="cookieTitle">Privacidad y cookies</strong><p id="cookieDescription">Usamos almacenamiento técnico para recordar tu confirmación de edad y esta elección. Google Analytics, que mide las visitas, solo se activará si aceptas.</p><details><summary>Más información</summary><p>Si aceptas, Google Analytics podrá instalar cookies de medición y recibir datos de navegación. Puedes rechazarlo y seguir usando toda la web. Cambia tu decisión cuando quieras desde «Configurar cookies», al pie de cualquier página.</p></details></div><div class="cookie-actions"><button type="button" id="cookieReject">Rechazar</button><button type="button" id="cookieAccept">Aceptar</button></div></div></div>`;
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-labelledby="cookieTitle" aria-describedby="cookieDescription" hidden><div class="cookie-banner-inner"><div><strong id="cookieTitle">Privacidad y cookies</strong><p id="cookieDescription">Usamos almacenamiento técnico para recordar tu confirmación de edad, esta elección y tu progreso en el libro y las conexiones del Archivo. Google Analytics, que mide las visitas, solo se activará si aceptas.</p><details><summary>Más información</summary><p>El progreso del libro y la apertura de conexiones se recuerdan solo en este navegador; no se guarda el código introducido. Si aceptas, Google Analytics podrá instalar cookies de medición y recibir datos de navegación. Puedes rechazarlo y seguir usando toda la web. Cambia tu decisión cuando quieras desde «Configurar cookies», al pie de cualquier página.</p></details></div><div class="cookie-actions"><button type="button" id="cookieReject">Rechazar</button><button type="button" id="cookieAccept">Aceptar</button></div></div></div>`;
 }
 function wordCount(s){return String(s).trim().split(/\s+/).filter(Boolean).length;}
 
@@ -177,7 +177,17 @@ function relatedArchiveMarkup(item,sourceHref='',sourceLabel=''){
  const related=(Array.isArray(item.related_archive)?item.related_archive:[])
    .filter(x=>x && x.title && x.url);
  if(!related.length) return '';
- return `<section class="related-archive-block reveal" id="archivos-relacionados" aria-label="Archivos relacionados">
+ return `<section class="related-archive-gateway reveal" id="archivos-relacionados" aria-label="Acceso a conexiones">
+   <div class="related-archive-actions">
+     <a class="related-archive-action related-archive-explore" href="archivo.html">EXPLORAR POR TU CUENTA ↗</a>
+     <button class="related-archive-action related-archive-show" type="button" aria-controls="related-connections-panel" aria-expanded="false">MOSTRAR CONEXIONES ↓</button>
+   </div>
+   <form class="related-archive-code-form" hidden>
+     <label>INTRODUCE EL CÓDIGO DE APERTURA <input type="text" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="off" required aria-label="Código de seis cifras"></label>
+     <button type="submit">DESBLOQUEAR</button>
+   </form>
+   <p class="related-archive-code-message" role="status" aria-live="polite"></p>
+   <div class="related-archive-block" id="related-connections-panel" hidden>
    <div class="related-archive-heading">
      <div>
        <p class="related-archive-kicker">TRAZAS DETECTADAS</p>
@@ -202,6 +212,8 @@ function relatedArchiveMarkup(item,sourceHref='',sourceLabel=''){
        </a>`;
      }).join('')}
    </div>
+   </div>
+   <script>(function(){const gate=document.currentScript.closest('.related-archive-gateway');if(!gate)return;const button=gate.querySelector('.related-archive-show'),panel=gate.querySelector('.related-archive-block'),form=gate.querySelector('.related-archive-code-form'),input=form.querySelector('input'),message=gate.querySelector('.related-archive-code-message');let unlocked=false;try{unlocked=localStorage.getItem('aqnr_connections_unlocked')==='yes'}catch(e){}button.addEventListener('click',function(){if(!unlocked){form.hidden=!form.hidden;if(!form.hidden)input.focus();return;}panel.hidden=!panel.hidden;button.setAttribute('aria-expanded',String(!panel.hidden));button.textContent=panel.hidden?'MOSTRAR CONEXIONES ↓':'OCULTAR CONEXIONES ↑';});form.addEventListener('submit',function(event){event.preventDefault();if(input.value.trim()!==${JSON.stringify(connectionCode)}){message.textContent='CÓDIGO INCORRECTO';input.select();return;}unlocked=true;try{localStorage.setItem('aqnr_connections_unlocked','yes')}catch(e){}input.value='';form.hidden=true;message.textContent='ACCESO CONCEDIDO. PULSA «MOSTRAR CONEXIONES» PARA ABRIRLAS.';button.focus();});window.addEventListener('storage',function(event){if(event.key==='aqnr_connections_unlocked'&&event.newValue==='yes')unlocked=true;});})();<\/script>
  </section>`;
 }
 
@@ -214,7 +226,11 @@ const archiveSectionImages=readJSON(path.join(ROOT,'content/config/archivo-secci
 const archiveCorkboards=readJSON(path.join(ROOT,'content/config/corcheras-archivo.json'));
 const archiveBookPath=path.join(ROOT,'content/config/libro-archivo.json');
 const archiveBook=fs.existsSync(archiveBookPath)?readJSON(archiveBookPath):{enabled:false,pages:[]};
-const archiveBookPages=Array.isArray(archiveBook.pages)?archiveBook.pages.filter(p=>p && p.image && p.enabled!==false):[];
+const connectionCode=String(archiveBook.connection_code||'641729').trim();
+if(!/^\d{6}$/.test(connectionCode)) throw new Error('El código de conexiones debe tener exactamente seis cifras.');
+const codePageImage=String(archiveBook.code_page_image||'').trim();
+const archiveBookPages=(Array.isArray(archiveBook.pages)?archiveBook.pages.filter(p=>p && p.image && p.enabled!==false && p.image!==codePageImage):[])
+ .concat(codePageImage?[{label:'Última anotación',image:codePageImage,full_page:true,code_page:true}]:[]);
 const storyDir=path.join(ROOT,'content/relatos');
 const stories=fs.readdirSync(storyDir).filter(x=>x.endsWith('.json')).map(x=>readJSON(path.join(storyDir,x)))
  .filter(s=>s.published!==false)
@@ -1085,6 +1101,7 @@ const archivePage=`${head(`El Archivo | ${site.site_title}`,'Índice general del
   let pages=[];
   try{pages=JSON.parse(dataEl.textContent||'[]');}catch(e){return;}
   pages=pages.filter(p=>p && p.image && p.enabled!==false);
+  try{if(localStorage.getItem('aqnr_connections_unlocked')==='yes')pages=pages.filter(p=>p.code_page!==true);}catch(e){}
   if(!pages.length){img.closest('.archive-book-page-slot')?.classList.add('is-empty');return;}
 
   const randomMode=${archiveBook.random_mode!==false?'true':'false'};
@@ -1115,15 +1132,26 @@ const archivePage=`${head(`El Archivo | ${site.site_title}`,'Índice general del
     }
   }
 
+  // La pista puede salir al azar antes, pero a la tercera visita sin verla aparece seguro.
+  const codePage=pages.find(page=>page.code_page===true);
+  if(randomMode && codePage){
+    try{
+      const visits=Number(localStorage.getItem('aqnr_code_page_visits')||0)+1;
+      localStorage.setItem('aqnr_code_page_visits',String(visits));
+      if(visits>=3 && localStorage.getItem('aqnr_code_page_seen')!=='yes') chosen=codePage;
+    }catch(e){}
+  }
+
   if(!chosen) return;
   function showPage(page){
     chosen=page;
     img.classList.remove('is-loaded');
     img.classList.toggle('archive-book-page-full',chosen.full_page===true);
     img.alt=chosen.label || 'Anotación del Archivo';
-    img.addEventListener('load',()=>img.classList.add('is-loaded'),{once:true});
+    const markLoaded=()=>{img.classList.add('is-loaded');if(chosen.code_page===true){try{localStorage.setItem('aqnr_code_page_seen','yes')}catch(e){}}};
+    img.onload=markLoaded;
     img.src=chosen.image;
-    if(img.complete && img.naturalWidth) img.classList.add('is-loaded');
+    if(img.complete && img.naturalWidth) markLoaded();
     try{sessionStorage.setItem('aqnrArchiveBookLast',chosen.image);}catch(e){}
   }
   showPage(chosen);
@@ -1135,6 +1163,15 @@ const archivePage=`${head(`El Archivo | ${site.site_title}`,'Índice general del
     const index=Math.floor(Math.random()*remaining.length);
     showPage(remaining.splice(index,1)[0]);
   });
+  function hideCodePageAfterUnlock(){
+    try{if(localStorage.getItem('aqnr_connections_unlocked')!=='yes')return;}catch(e){return;}
+    pages=pages.filter(page=>page.code_page!==true);
+    remaining=remaining.filter(page=>page.code_page!==true);
+    if(chosen.code_page===true && pages.length) showPage(pages[Math.floor(Math.random()*pages.length)]);
+    if(pages.length<2) turn.hidden=true;
+  }
+  window.addEventListener('pageshow',hideCodePageAfterUnlock);
+  window.addEventListener('storage',hideCodePageAfterUnlock);
 })();
 </script>
 </main>${footer(site)}</body></html>`;
