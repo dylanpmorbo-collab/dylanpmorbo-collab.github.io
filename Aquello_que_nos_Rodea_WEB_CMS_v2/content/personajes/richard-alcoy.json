@@ -236,9 +236,25 @@
       "platform": "WHATSAPP",
       "type": "Recuperado durante el análisis forense del dispositivo",
       "title": "Secretos revelados",
+      "image": "/assets/uploads/huella-digital/getsmore-fake-chat-13.png",
       "cover_type": "FOTO",
       "image_sensitive": false,
-      "video_position": "FIRST",
+      "images": [
+        {
+          "image": "/assets/uploads/huella-digital/chat-14.png",
+          "sensitive": false
+        },
+        {
+          "image": "/assets/uploads/huella-digital/chat-15.png",
+          "sensitive": false
+        },
+        {
+          "image": "/assets/uploads/huella-digital/chat-16.png",
+          "sensitive": false
+        }
+      ],
+      "video": "/assets/uploads/huella-digital/recuperado-wsp.mp4",
+      "video_position": "LAST",
       "video_2_position": "LAST"
     }
   ],
