@@ -1023,3 +1023,11 @@ html:not(.age-verified){overflow:hidden}
 .digital-sensitive-warning button:hover,.digital-sensitive-warning button:focus-visible{background:#443015;outline:1px solid #e3c17f;outline-offset:2px}
 .digital-sensitive canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;image-rendering:pixelated}
 .digital-sensitive.is-pixelated img{opacity:0}
+
+.digital-carousel-engagement{padding:12px 16px 16px;border-top:1px solid #302a22;background:#100e0b}
+.digital-carousel-engagement [hidden]{display:none!important}
+.digital-carousel-engagement [data-digital-engagement]:empty{display:none}
+.digital-slide-reactions{margin:0 0 10px;color:#c7ae7c;font-size:14px}
+.digital-slide-comments{border-top:1px solid #302a22;padding-top:9px;color:#b5aa98;font-size:14px}
+.digital-slide-comments p{margin:0 0 6px;overflow-wrap:anywhere}
+.digital-slide-comments strong{color:#d3bb8b}
