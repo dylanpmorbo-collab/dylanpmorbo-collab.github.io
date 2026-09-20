@@ -1125,6 +1125,26 @@ content:
             type: boolean
             default: false
             description: "La foto aparecerá pixelada hasta que el visitante pulse Mostrar imagen."
+          - name: image_reactions
+            label: Reacciones de la foto principal
+            type: string
+            required: false
+          - name: image_comments
+            label: Comentarios de la foto principal
+            type: object
+            required: false
+            list:
+              max: 30
+              collapsible:
+                collapsed: true
+                summary: "{author}"
+            fields:
+              - name: author
+                label: Usuario
+                type: string
+              - name: text
+                label: Comentario
+                type: text
           - name: images
             label: Más fotos de esta publicación
             type: object
@@ -1150,6 +1170,26 @@ content:
                 label: Ocultar esta foto tras advertencia
                 type: boolean
                 default: false
+              - name: reactions
+                label: Reacciones de esta foto
+                type: string
+                required: false
+              - name: comments
+                label: Comentarios de esta foto
+                type: object
+                required: false
+                list:
+                  max: 30
+                  collapsible:
+                    collapsed: true
+                    summary: "{author}"
+                fields:
+                  - name: author
+                    label: Usuario
+                    type: string
+                  - name: text
+                    label: Comentario
+                    type: text
           - name: video
             label: Vídeo reproducible en la ficha
             type: file
@@ -1172,6 +1212,26 @@ content:
             options:
               values: [FIRST, LAST]
             description: "FIRST: vídeo antes de las fotos. LAST: vídeo después de las fotos. Solo afecta a publicaciones que incluyen ambos."
+          - name: video_reactions
+            label: Reacciones del vídeo
+            type: string
+            required: false
+          - name: video_comments
+            label: Comentarios del vídeo
+            type: object
+            required: false
+            list:
+              max: 30
+              collapsible:
+                collapsed: true
+                summary: "{author}"
+            fields:
+              - name: author
+                label: Usuario
+                type: string
+              - name: text
+                label: Comentario
+                type: text
           - name: handle
             label: Usuario o remitente
             type: string
@@ -1182,12 +1242,12 @@ content:
             required: false
             description: "Respeta los saltos de línea."
           - name: reactions
-            label: Reacciones
+            label: Reacciones generales de la publicación
             type: string
             required: false
             description: "Ejemplo: ❤️ 184 Me gusta."
           - name: comments
-            label: Comentarios
+            label: Comentarios generales de la publicación
             type: object
             required: false
             list:
