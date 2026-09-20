@@ -51,6 +51,23 @@
   "show_digital_footprint": true,
   "digital_footprint": [
     {
+      "platform": "FACEBOOK",
+      "type": "Privacidad: Amigos",
+      "title": "Real Zaragoza–Sevilla, Liga 2012/13",
+      "date": "28 de octubre de 2012 - 11:26",
+      "location": "exteriores del Estadio de La Romareda, Zaragoza",
+      "cover_type": "VIDEO",
+      "cover_video": "/assets/uploads/huella-digital/estadiopapasonido.mp4",
+      "cover_video_poster": "/assets/uploads/huella-digital/imagen-de-codex-16-sept-2026-173145.png",
+      "cover_video_reactions": "👍23 Me gusta",
+      "alt": "Buena mañana con el chaval. Y encima 2-1. ¡Aúpa Zaragoza!",
+      "image_sensitive": false,
+      "image_zoom": false,
+      "video_position": "FIRST",
+      "video_2_position": "LAST",
+      "handle": "Javier Alcoy"
+    },
+    {
       "platform": "INSTAGRAM",
       "type": "Publicación",
       "title": "Pelea en la playa",
@@ -99,23 +116,6 @@
       "source": "Publicación Instagram MarcosLafuente",
       "archived": "21 de junio de 2016",
       "status": "Conservado"
-    },
-    {
-      "platform": "FACEBOOK",
-      "type": "Privacidad: Amigos",
-      "title": "Real Zaragoza–Sevilla, Liga 2012/13",
-      "date": "28 de octubre de 2012 - 11:26",
-      "location": "exteriores del Estadio de La Romareda, Zaragoza",
-      "cover_type": "VIDEO",
-      "cover_video": "/assets/uploads/huella-digital/estadiopapasonido.mp4",
-      "cover_video_poster": "/assets/uploads/huella-digital/imagen-de-codex-16-sept-2026-173145.png",
-      "cover_video_reactions": "👍23 Me gusta",
-      "alt": "Buena mañana con el chaval. Y encima 2-1. ¡Aúpa Zaragoza!",
-      "image_sensitive": false,
-      "image_zoom": false,
-      "video_position": "FIRST",
-      "video_2_position": "LAST",
-      "handle": "Javier Alcoy"
     },
     {
       "platform": "INSTAGRAM",
