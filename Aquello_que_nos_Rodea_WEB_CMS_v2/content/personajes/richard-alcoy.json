@@ -266,13 +266,14 @@
         },
         {
           "image": "/assets/uploads/huella-digital/nochepalmahotelsalidamarcha3.png",
-          "alt": "Fotografía enviada a la 01:07 am",
+          "alt": "Fotografía enviada a la 01:07 am 22 de junio de 2016",
           "sensitive": false,
           "zoom": false
         }
       ],
       "video": "/assets/uploads/huella-digital/recuperado-wsp.mp4",
       "video_position": "LAST",
+      "video_reactions": "Vídeo Recuperado tras volcado de archivos eliminados del dispositivo de Richard Alcoy",
       "video_2_position": "LAST",
       "source": "Recuperado durante el análisis forense del dispositivo de Richard Alcoy",
       "archived": "22 de junio de 2016 entre 01:03 y 01:27",
