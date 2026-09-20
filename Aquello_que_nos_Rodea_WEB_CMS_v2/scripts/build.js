@@ -48,7 +48,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=mixed-digital-carousel-20260920"><script defer src="assets/js/main.js?v=age-privacy-sensitive-v2-20260919"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=media-reactions-20260920"><script defer src="assets/js/main.js?v=age-privacy-sensitive-v2-20260919"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -443,19 +443,26 @@ function digitalFootprintMarkup(item){
    const [source,filter,icon]=platform;
    const provenance=piece.source||(platformKey==='TINDER'?'Tinder':source);
    const type=String(piece.type||'Fragmento digital').trim();
-   const photos=[...(piece.image?[{image:piece.image,alt:piece.alt,sensitive:piece.image_sensitive}]:[]),...(Array.isArray(piece.images)?piece.images:[])]
+   const photos=[...(piece.image?[{image:piece.image,alt:piece.alt,sensitive:piece.image_sensitive,reactions:piece.image_reactions,comments:piece.image_comments}]:[]),...(Array.isArray(piece.images)?piece.images:[])]
      .filter(photo=>photo&&photo.image);
    const photoMarkup=(photo,i)=>'<div class="digital-photo'+(photo.sensitive===true?' digital-sensitive':'')+'"><img src="'+esc(photo.image)+'" alt="'+esc(photo.alt||piece.title||'Foto '+String(i+1)+' de la publicación')+'" loading="lazy">'+(photo.sensitive===true?'<div class="digital-sensitive-warning"><p>Esta imagen puede resultar ofensiva o contener contenido sexual explícito.</p><button type="button" data-digital-reveal>Mostrar imagen</button></div>':'')+'</div>';
    const videoMarkup=piece.video
      ? '<video controls playsinline preload="metadata"'+(piece.poster?' poster="'+esc(piece.poster)+'"':'')+' aria-label="'+esc(piece.title||type)+'"><source src="'+esc(piece.video)+'">Tu navegador no puede reproducir este vídeo.</video>'
      : '';
-   const photoSlides=photos.map((photo,i)=>photoMarkup(photo,i));
+   const photoSlides=photos.map((photo,i)=>({markup:photoMarkup(photo,i),reactions:photo.reactions,comments:photo.comments}));
+   const videoSlide={markup:videoMarkup,reactions:piece.video_reactions,comments:piece.video_comments};
    const slides=videoMarkup
-     ? (piece.video_position==='LAST'?[...photoSlides,videoMarkup]:[videoMarkup,...photoSlides])
+     ? (piece.video_position==='LAST'?[...photoSlides,videoSlide]:[videoSlide,...photoSlides])
      : photoSlides;
+   const slideEngagement=slide=>{
+     const comments=(Array.isArray(slide.comments)?slide.comments:[]).filter(x=>x&&(x.author||x.text));
+     return (slide.reactions?'<p class="digital-slide-reactions">'+esc(slide.reactions)+'</p>':'')+
+       (comments.length?'<div class="digital-slide-comments">'+comments.map(x=>'<p><strong>'+esc(x.author||'Usuario')+'</strong> '+esc(x.text||'').replace(/\r?\n/g,'<br>')+'</p>').join('')+'</div>':'');
+   };
+   const engagement=slides.map(slideEngagement);
    const media=slides.length>1
-     ? '<div class="digital-carousel" data-digital-carousel tabindex="0" aria-label="Galería de '+String(slides.length)+' elementos de esta publicación"><div class="digital-carousel-viewport">'+slides.map((slide,i)=>'<div class="digital-carousel-slide" data-digital-slide'+(i?' hidden':'')+'>'+slide+'</div>').join('')+'</div><div class="digital-carousel-controls"><button type="button" data-digital-prev aria-label="Elemento anterior">←</button><span data-digital-counter aria-live="polite">1 / '+String(slides.length)+'</span><button type="button" data-digital-next aria-label="Elemento siguiente">→</button></div></div>'
-     : slides[0]||'';
+     ? '<div class="digital-carousel" data-digital-carousel tabindex="0" aria-label="Galería de '+String(slides.length)+' elementos de esta publicación"><div class="digital-carousel-viewport">'+slides.map((slide,i)=>'<div class="digital-carousel-slide" data-digital-slide'+(i?' hidden':'')+'>'+slide.markup+'</div>').join('')+'</div><div class="digital-carousel-controls"><button type="button" data-digital-prev aria-label="Elemento anterior">←</button><span data-digital-counter aria-live="polite">1 / '+String(slides.length)+'</span><button type="button" data-digital-next aria-label="Elemento siguiente">→</button></div>'+(engagement.some(Boolean)?'<div class="digital-carousel-engagement">'+engagement.map((html,i)=>'<div data-digital-engagement'+(i?' hidden':'')+'>'+html+'</div>').join('')+'</div>':'')+'</div>'
+     : slides.length?slides[0].markup+(engagement[0]?'<div class="digital-carousel-engagement"><div>'+engagement[0]+'</div></div>':''):'';
    const comments=(Array.isArray(piece.comments)?piece.comments:[]).filter(x=>x && (x.author||x.text));
    const messages=(Array.isArray(piece.messages)?piece.messages:[]).filter(x=>x && (x.author||x.text));
    const details=[['FUENTE',provenance],['TIPO',type],['ARCHIVADO',piece.archived],['ESTADO',piece.status]]
@@ -477,7 +484,7 @@ function digitalFootprintMarkup(item){
    '<div class="digital-footprint-content"><p class="digital-footprint-description">Actividad recuperada de perfiles públicos, dispositivos y cuentas vinculadas al sujeto.</p>'+
    '<div class="digital-filters" role="group" aria-label="Filtrar huella digital">'+filters.map((x,i)=>'<button type="button" data-digital-button="'+x+'" aria-pressed="'+(i===0?'true':'false')+'">'+x+'</button>').join('')+'</div>'+
    '<div class="digital-grid">'+cards+'</div></div>'+
-   '<script>(function(){const section=document.currentScript.closest(".digital-footprint");if(!section)return;section.addEventListener("toggle",function(){if(!section.open)section.querySelectorAll("video").forEach(video=>video.pause());});section.querySelectorAll("[data-digital-button]").forEach(button=>button.addEventListener("click",function(){const selected=button.dataset.digitalButton;section.querySelectorAll("[data-digital-button]").forEach(b=>b.setAttribute("aria-pressed",String(b===button)));section.querySelectorAll("[data-digital-filter]").forEach(card=>{card.hidden=selected!=="TODAS"&&card.dataset.digitalFilter!==selected;if(card.hidden)card.querySelectorAll("video").forEach(video=>video.pause());});}));section.querySelectorAll("[data-digital-reveal]").forEach(button=>button.addEventListener("click",function(){const photo=button.closest(".digital-sensitive");photo.classList.remove("digital-sensitive","is-pixelated");photo.querySelector("canvas")?.remove();button.parentElement.remove();}));section.querySelectorAll("[data-digital-carousel]").forEach(carousel=>{const slides=Array.from(carousel.querySelectorAll("[data-digital-slide]"));const counter=carousel.querySelector("[data-digital-counter]");let current=0;function show(offset){slides[current].querySelectorAll("video").forEach(video=>video.pause());slides[current].hidden=true;current=(current+offset+slides.length)%slides.length;slides[current].hidden=false;counter.textContent=(current+1)+" / "+slides.length;}carousel.querySelector("[data-digital-prev]").addEventListener("click",()=>show(-1));carousel.querySelector("[data-digital-next]").addEventListener("click",()=>show(1));carousel.addEventListener("keydown",event=>{if(event.target!==carousel)return;if(event.key==="ArrowLeft"||event.key==="ArrowRight"){event.preventDefault();show(event.key==="ArrowLeft"?-1:1);}});});})();<\/script>'+
+   '<script>(function(){const section=document.currentScript.closest(".digital-footprint");if(!section)return;section.addEventListener("toggle",function(){if(!section.open)section.querySelectorAll("video").forEach(video=>video.pause());});section.querySelectorAll("[data-digital-button]").forEach(button=>button.addEventListener("click",function(){const selected=button.dataset.digitalButton;section.querySelectorAll("[data-digital-button]").forEach(b=>b.setAttribute("aria-pressed",String(b===button)));section.querySelectorAll("[data-digital-filter]").forEach(card=>{card.hidden=selected!=="TODAS"&&card.dataset.digitalFilter!==selected;if(card.hidden)card.querySelectorAll("video").forEach(video=>video.pause());});}));section.querySelectorAll("[data-digital-reveal]").forEach(button=>button.addEventListener("click",function(){const photo=button.closest(".digital-sensitive");photo.classList.remove("digital-sensitive","is-pixelated");photo.querySelector("canvas")?.remove();button.parentElement.remove();}));section.querySelectorAll("[data-digital-carousel]").forEach(carousel=>{const slides=Array.from(carousel.querySelectorAll("[data-digital-slide]"));const counter=carousel.querySelector("[data-digital-counter]");let current=0;function show(offset){slides[current].querySelectorAll("video").forEach(video=>video.pause());slides[current].hidden=true;current=(current+offset+slides.length)%slides.length;slides[current].hidden=false;carousel.querySelectorAll("[data-digital-engagement]").forEach((panel,i)=>{panel.hidden=i!==current;});counter.textContent=(current+1)+" / "+slides.length;}carousel.querySelector("[data-digital-prev]").addEventListener("click",()=>show(-1));carousel.querySelector("[data-digital-next]").addEventListener("click",()=>show(1));carousel.addEventListener("keydown",event=>{if(event.target!==carousel)return;if(event.key==="ArrowLeft"||event.key==="ArrowRight"){event.preventDefault();show(event.key==="ArrowLeft"?-1:1);}});});})();<\/script>'+
    '</details>';
 }
 
