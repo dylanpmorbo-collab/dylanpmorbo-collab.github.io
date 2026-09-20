@@ -1242,6 +1242,11 @@ content:
             type: boolean
             default: false
             description: "La foto aparecerá pixelada hasta que el visitante pulse Mostrar imagen."
+          - name: image_zoom
+            label: Permitir ampliar la imagen principal
+            type: boolean
+            default: false
+            description: "Actívalo para capturas con texto u otras imágenes que necesiten leerse de cerca. En imágenes sensibles, la ampliación solo estará disponible tras mostrarlas."
           - name: image_reactions
             label: Reacciones de la foto principal
             type: string
@@ -1287,6 +1292,11 @@ content:
                 label: Ocultar esta foto tras advertencia
                 type: boolean
                 default: false
+              - name: zoom
+                label: Permitir ampliar esta foto
+                type: boolean
+                default: false
+                description: "Útil para capturas de conversaciones o documentos con texto pequeño."
               - name: reactions
                 label: Reacciones de esta foto
                 type: string
