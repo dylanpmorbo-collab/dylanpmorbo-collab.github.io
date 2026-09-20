@@ -48,7 +48,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=testimonios-transparente-20260920"><script defer src="assets/js/main.js?v=testimonios-20260920"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=conexiones-libro-20260920"><script defer src="assets/js/main.js?v=testimonios-20260920"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -169,14 +169,15 @@ function relatedLinkWithReturn(url,sourceHref='',sourceLabel=''){
  const hash=hashAt>=0?raw.slice(hashAt):'';
  const base=hashAt>=0?raw.slice(0,hashAt):raw;
  const sep=base.includes('?')?'&':'?';
- return `${base}${sep}aqnr_from=${encodeURIComponent(from)}&aqnr_from_label=${encodeURIComponent(String(sourceLabel||'EXPEDIENTE DE ORIGEN'))}${hash}`;
+ const returnPoint=from.includes('#')?from:`${from}#archivos-relacionados`;
+ return `${base}${sep}aqnr_from=${encodeURIComponent(returnPoint)}&aqnr_from_label=${encodeURIComponent(String(sourceLabel||'EXPEDIENTE DE ORIGEN'))}${hash}`;
 }
 function relatedArchiveMarkup(item,sourceHref='',sourceLabel=''){
  if(!item || item.show_related_archive!==true) return '';
  const related=(Array.isArray(item.related_archive)?item.related_archive:[])
    .filter(x=>x && x.title && x.url);
  if(!related.length) return '';
- return `<section class="related-archive-block reveal" aria-label="Archivos relacionados">
+ return `<section class="related-archive-block reveal" id="archivos-relacionados" aria-label="Archivos relacionados">
    <div class="related-archive-heading">
      <div>
        <p class="related-archive-kicker">TRAZAS DETECTADAS</p>
@@ -1031,6 +1032,7 @@ const archiveBookMarkup=archiveBook.enabled!==false && archiveBook.book_image ? 
   <img class="archive-book-base" src="${esc(archiveBook.book_image)}" alt="Libro abierto del Archivo">
   <div class="archive-book-page-slot" style="--book-page-left:${Number(archiveBook.page_left??51)}%;--book-page-top:${Number(archiveBook.page_top??10)}%;--book-page-width:${Number(archiveBook.page_width??44)}%;--book-page-height:${Number(archiveBook.page_height??79)}%;--book-page-rotate:${Number(archiveBook.page_rotate??0)}deg;">
     <img id="archiveBookPageImage" class="archive-book-page-image" alt="Anotación del Archivo">
+    <button class="archive-book-page-turn" type="button" aria-label="Pasar página del libro"></button>
   </div>
   <script type="application/json" id="archiveBookPagesData">${JSON.stringify(archiveBookPages).replace(/</g,'\u003c')}</script>
 </div>` : '';
@@ -1109,10 +1111,22 @@ const archivePage=`${head(`El Archivo | ${site.site_title}`,'Índice general del
   }
 
   if(!chosen) return;
-  img.alt=chosen.label || 'Anotación del Archivo';
-  img.addEventListener('load',()=>img.classList.add('is-loaded'),{once:true});
-  img.src=chosen.image;
-  try{sessionStorage.setItem('aqnrArchiveBookLast',chosen.image);}catch(e){}
+  function showPage(page){
+    chosen=page;
+    img.classList.remove('is-loaded');
+    img.alt=chosen.label || 'Anotación del Archivo';
+    img.addEventListener('load',()=>img.classList.add('is-loaded'),{once:true});
+    img.src=chosen.image;
+    if(img.complete && img.naturalWidth) img.classList.add('is-loaded');
+    try{sessionStorage.setItem('aqnrArchiveBookLast',chosen.image);}catch(e){}
+  }
+  showPage(chosen);
+  const turn=img.closest('.archive-book-page-slot').querySelector('.archive-book-page-turn');
+  if(pages.length<2){turn.hidden=true;return;}
+  turn.addEventListener('click',()=>{
+    const pool=pages.filter(page=>page.image!==chosen.image);
+    if(pool.length) showPage(pool[Math.floor(Math.random()*pool.length)]);
+  });
 })();
 </script>
 </main>${footer(site)}</body></html>`;
