@@ -1087,7 +1087,7 @@ html:not(.age-verified){overflow:hidden}
 .archive-testimonies+.section-label{margin-top:48px}
 .testimony-recorder{position:relative;width:100%;max-width:780px;margin:auto;background:transparent}
 .testimony-recorder-art{display:block;width:100%;height:auto}
-.testimony-controls{position:absolute;left:14%;right:14%;bottom:7%;display:flex;align-items:center;justify-content:center;gap:clamp(8px,2vw,22px)}
+.testimony-controls{position:absolute;left:14%;right:14%;bottom:15%;display:flex;align-items:center;justify-content:center;gap:clamp(8px,2vw,22px)}
 .testimony-controls button{width:clamp(38px,5vw,58px);height:clamp(34px,4vw,47px);border:1px solid #8b7856;border-radius:3px;background:linear-gradient(155deg,#4b4133,#171510 68%);box-shadow:inset 0 1px rgba(236,215,171,.28),0 3px 8px #000;color:#e4cd9c;font:600 20px var(--display);cursor:pointer}
 .testimony-controls button:hover,.testimony-controls button:focus-visible{background:linear-gradient(155deg,#846e47,#332716);outline:2px solid #cdb075;outline-offset:2px}
 .testimony-audio{display:block;width:100%;margin:12px 0}
@@ -1108,4 +1108,4 @@ html:not(.age-verified){overflow:hidden}
 .testimony-transcripts summary{cursor:pointer;color:#cdb17d;font:600 11px var(--display);letter-spacing:.08em}
 .testimony-transcripts details>div{padding-top:10px}
 .testimony-transcripts p{margin:0 0 10px;line-height:1.5}
-@media(max-width:600px){.testimony-track-list{grid-template-columns:1fr}.testimony-readout{font-size:9px}.testimony-controls{bottom:6%}}
+@media(max-width:600px){.testimony-track-list{grid-template-columns:1fr}.testimony-readout{font-size:9px}.testimony-controls{bottom:14%}}
