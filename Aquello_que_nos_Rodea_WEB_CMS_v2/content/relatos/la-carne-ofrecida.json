@@ -26,6 +26,24 @@
       "title": "La Plaga",
       "thumbnail": "/assets/uploads/conexiones/foto archivo la plaga.png",
       "url": "https://dylanpmorbo-collab.github.io/archivo-organizaciones-la-plaga.html"
+    },
+    {
+      "type": "ARCHIVO",
+      "title": "Richard Alcoy",
+      "thumbnail": "/assets/uploads/conexiones/richard-alcoy.png",
+      "url": "https://dylanpmorbo-collab.github.io/archivo-personajes-richard-alcoy.html",
+      "description": "Ficha Personal"
+    },
+    {
+      "type": "ARCHIVO",
+      "title": "Informes Caso Richard Alcoy",
+      "thumbnail": "/assets/uploads/conexiones/autopsia.png",
+      "url": "https://dylanpmorbo-collab.github.io/archivo-sucesos-homicidio-richard-alcoy.html"
     }
-  ]
+  ],
+  "corkboard": {
+    "enabled": false,
+    "design": "A",
+    "title": "TABLÓN DE CONEXIONES"
+  }
 }
