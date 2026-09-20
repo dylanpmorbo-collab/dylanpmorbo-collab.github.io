@@ -48,7 +48,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=rastro-20260920"><script defer src="assets/js/main.js?v=testimonios-20260920"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=20260920"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=rastro-pista-20260920"><script defer src="assets/js/main.js?v=testimonios-20260920"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=20260920"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -183,6 +183,7 @@ function relatedArchiveMarkup(item,sourceHref='',sourceLabel=''){
      <button class="related-archive-action related-archive-show" type="button" aria-controls="related-connections-panel" aria-expanded="false">MOSTRAR CONEXIONES ↓</button>
    </div>
    <form class="related-archive-code-form" hidden>
+     <p class="related-archive-code-hint">El código está escondido en El Archivo. Explora sus páginas para encontrarlo.</p>
      <label>INTRODUCE EL CÓDIGO DE APERTURA <input type="text" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="off" required aria-label="Código de seis cifras"></label>
      <button type="submit">DESBLOQUEAR</button>
    </form>

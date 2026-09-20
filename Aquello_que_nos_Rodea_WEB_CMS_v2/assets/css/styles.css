@@ -580,6 +580,7 @@
 .related-archive-show{background:linear-gradient(145deg,#4a3519,#191208)}
 .related-archive-code-form{width:min(520px,100%);margin:22px auto 0;padding:22px;border:1px solid var(--line);background:#100e0b;text-align:center}
 .related-archive-code-form[hidden],.related-archive-block[hidden]{display:none!important}
+.related-archive-code-hint{margin:0 0 20px;color:#bcb19f;font-size:15px;line-height:1.5}
 .related-archive-code-form label{display:grid;gap:12px;color:var(--gold2);font:600 10px/1.4 var(--display);letter-spacing:.12em}
 .related-archive-code-form input{width:100%;padding:14px;background:#080706;border:1px solid var(--line);color:#eadcbf;font:600 24px/1 var(--display);letter-spacing:.3em;text-align:center}
 .related-archive-code-form button{margin-top:14px;padding:12px 24px;border:1px solid var(--gold);background:#211a0e;color:var(--gold2);font:600 10px/1 var(--display);letter-spacing:.13em;cursor:pointer}
