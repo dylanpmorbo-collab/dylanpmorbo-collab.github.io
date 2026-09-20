@@ -237,6 +237,14 @@
   ],
   "show_police_report": false,
   "show_related_archive": false,
+  "related_archive": [
+    {
+      "type": "SUCESO",
+      "title": "INFORMES CASO ALCOY",
+      "thumbnail": "/assets/uploads/conexiones/autopsia.png",
+      "url": "https://dylanpmorbo-collab.github.io/archivo-sucesos-homicidio-richard-alcoy.html"
+    }
+  ],
   "corkboard": {
     "enabled": false,
     "design": "A",
