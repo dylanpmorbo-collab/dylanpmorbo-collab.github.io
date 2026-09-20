@@ -1186,12 +1186,53 @@ content:
             type: string
             required: false
           - name: image
-            label: Fotografía principal o captura
+            label: Foto de portada o captura principal
             type: image
             required: false
             options:
               media: huella_digital
-            description: "Si añades más fotos debajo, esta será la primera del carrusel."
+            description: "Si eliges Foto como portada, esta será la primera del carrusel. Las publicaciones anteriores siguen funcionando sin elegir tipo de portada."
+          - name: cover_type
+            label: Tipo de portada de la publicación
+            type: select
+            required: false
+            options:
+              values: [FOTO, VIDEO]
+            description: "Foto usa la imagen principal de arriba; Vídeo usa el vídeo de portada de abajo. Déjalo sin elegir para conservar el orden antiguo de la publicación."
+          - name: cover_video
+            label: Vídeo de portada
+            type: file
+            required: false
+            options:
+              media: huella_digital
+              categories: [video]
+            description: "Solo se usa como primer elemento si eliges VIDEO como tipo de portada. No sustituye al vídeo adicional existente."
+          - name: cover_video_poster
+            label: Imagen previa del vídeo de portada
+            type: image
+            required: false
+            options:
+              media: huella_digital
+          - name: cover_video_reactions
+            label: Reacciones del vídeo de portada
+            type: string
+            required: false
+          - name: cover_video_comments
+            label: Comentarios del vídeo de portada
+            type: object
+            required: false
+            list:
+              max: 30
+              collapsible:
+                collapsed: true
+                summary: "{author}"
+            fields:
+              - name: author
+                label: Usuario
+                type: string
+              - name: text
+                label: Comentario
+                type: text
           - name: alt
             label: Descripción accesible de la imagen principal
             type: string
@@ -1267,7 +1308,7 @@ content:
                     label: Comentario
                     type: text
           - name: video
-            label: Vídeo reproducible en la ficha
+            label: Vídeo adicional 1
             type: file
             required: false
             options:
@@ -1275,25 +1316,67 @@ content:
               categories: [video]
             description: "Puedes combinarlo con la fotografía principal y las fotos adicionales en un mismo carrusel."
           - name: poster
-            label: Portada del vídeo
+            label: Imagen previa del vídeo adicional 1
             type: image
             required: false
             options:
               media: huella_digital
           - name: video_position
-            label: Posición del vídeo entre las fotos
+            label: Posición del vídeo adicional 1 entre las fotos
             type: select
             required: false
             default: FIRST
             options:
               values: [FIRST, LAST]
-            description: "FIRST: vídeo antes de las fotos. LAST: vídeo después de las fotos. Solo afecta a publicaciones que incluyen ambos."
+            description: "FIRST: antes de las fotos del carrusel; LAST: después. Si eliges una portada, esa portada siempre aparece primero."
           - name: video_reactions
-            label: Reacciones del vídeo
+            label: Reacciones del vídeo adicional 1
             type: string
             required: false
           - name: video_comments
-            label: Comentarios del vídeo
+            label: Comentarios del vídeo adicional 1
+            type: object
+            required: false
+            list:
+              max: 30
+              collapsible:
+                collapsed: true
+                summary: "{author}"
+            fields:
+              - name: author
+                label: Usuario
+                type: string
+              - name: text
+                label: Comentario
+                type: text
+          - name: video_2
+            label: Vídeo adicional 2
+            type: file
+            required: false
+            options:
+              media: huella_digital
+              categories: [video]
+            description: "Segundo vídeo independiente. Puede ir antes o después de las fotos sin cambiar la portada ni el vídeo adicional 1."
+          - name: poster_2
+            label: Imagen previa del vídeo adicional 2
+            type: image
+            required: false
+            options:
+              media: huella_digital
+          - name: video_2_position
+            label: Posición del vídeo adicional 2 entre las fotos
+            type: select
+            required: false
+            default: LAST
+            options:
+              values: [FIRST, LAST]
+            description: "FIRST: antes de las fotos; LAST: después. La portada siempre aparece primero."
+          - name: video_2_reactions
+            label: Reacciones del vídeo adicional 2
+            type: string
+            required: false
+          - name: video_2_comments
+            label: Comentarios del vídeo adicional 2
             type: object
             required: false
             list:

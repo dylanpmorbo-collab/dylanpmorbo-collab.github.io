@@ -435,7 +435,7 @@ const digitalPlatforms={
 function digitalFootprintMarkup(item){
  if(!item || item.show_digital_footprint!==true) return '';
  const pieces=(Array.isArray(item.digital_footprint)?item.digital_footprint:[])
-   .filter(x=>x && (x.image||x.video||x.caption||x.messages?.length||x.original_capture||(Array.isArray(x.images)&&x.images.some(photo=>photo&&photo.image))));
+   .filter(x=>x && (x.image||x.video||x.video_2||x.cover_video||x.caption||x.messages?.length||x.original_capture||(Array.isArray(x.images)&&x.images.some(photo=>photo&&photo.image))));
  if(!pieces.length) return '';
  const filters=['TODAS','INSTAGRAM','FACEBOOK','CITAS','MENSAJERÍA','OTROS'];
  const cards=pieces.map((piece,index)=>{
@@ -447,14 +447,19 @@ function digitalFootprintMarkup(item){
    const photos=[...(piece.image?[{image:piece.image,alt:piece.alt,sensitive:piece.image_sensitive,reactions:piece.image_reactions,comments:piece.image_comments}]:[]),...(Array.isArray(piece.images)?piece.images:[])]
      .filter(photo=>photo&&photo.image);
    const photoMarkup=(photo,i)=>'<div class="digital-photo'+(photo.sensitive===true?' digital-sensitive':'')+'"><img src="'+esc(photo.image)+'" alt="'+esc(photo.alt||piece.title||'Foto '+String(i+1)+' de la publicación')+'" loading="lazy">'+(photo.sensitive===true?'<div class="digital-sensitive-warning"><p>Esta imagen puede resultar ofensiva o contener contenido sexual explícito.</p><button type="button" data-digital-reveal>Mostrar imagen</button></div>':'')+'</div>';
-   const videoMarkup=piece.video
-     ? '<video controls playsinline preload="metadata"'+(piece.poster?' poster="'+esc(piece.poster)+'"':'')+' aria-label="'+esc(piece.title||type)+'"><source src="'+esc(piece.video)+'">Tu navegador no puede reproducir este vídeo.</video>'
-     : '';
    const photoSlides=photos.map((photo,i)=>({markup:photoMarkup(photo,i),reactions:photo.reactions,comments:photo.comments}));
-   const videoSlide={markup:videoMarkup,reactions:piece.video_reactions,comments:piece.video_comments};
-   const slides=videoMarkup
-     ? (piece.video_position==='LAST'?[...photoSlides,videoSlide]:[videoSlide,...photoSlides])
-     : photoSlides;
+   const videoSlide=(url,poster,reactions,comments,label)=>url?{
+     markup:'<video controls playsinline preload="metadata"'+(poster?' poster="'+esc(poster)+'"':'')+' aria-label="'+esc(label)+'"><source src="'+esc(url)+'">Tu navegador no puede reproducir este vídeo.</video>',
+     reactions,comments
+   }:null;
+   const coverVideo=piece.cover_type==='VIDEO'?videoSlide(piece.cover_video,piece.cover_video_poster,piece.cover_video_reactions,piece.cover_video_comments,(piece.title||type)+' · vídeo de portada'):null;
+   const firstVideo=videoSlide(piece.video,piece.poster,piece.video_reactions,piece.video_comments,(piece.title||type)+' · vídeo 1');
+   const secondVideo=videoSlide(piece.video_2,piece.poster_2,piece.video_2_reactions,piece.video_2_comments,(piece.title||type)+' · vídeo 2');
+   const beforePhotos=[...(firstVideo&&piece.video_position!=='LAST'?[firstVideo]:[]),...(secondVideo&&piece.video_2_position==='FIRST'?[secondVideo]:[])];
+   const afterPhotos=[...(firstVideo&&piece.video_position==='LAST'?[firstVideo]:[]),...(secondVideo&&piece.video_2_position!=='FIRST'?[secondVideo]:[])];
+   // Las publicaciones antiguas conservan su orden; la portada elegida siempre va primero.
+   const photoCover=piece.cover_type==='FOTO'?photoSlides.shift():null;
+   const slides=[...(coverVideo?[coverVideo]:photoCover?[photoCover]:[]),...beforePhotos,...photoSlides,...afterPhotos];
    const slideEngagement=slide=>{
      const comments=(Array.isArray(slide.comments)?slide.comments:[]).filter(x=>x&&(x.author||x.text));
      return (slide.reactions?'<p class="digital-slide-reactions">'+esc(slide.reactions)+'</p>':'')+
