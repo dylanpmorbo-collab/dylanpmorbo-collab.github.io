@@ -263,6 +263,12 @@
           "image": "/assets/uploads/huella-digital/chat-16.png",
           "sensitive": false,
           "zoom": true
+        },
+        {
+          "image": "/assets/uploads/huella-digital/nochepalmahotelsalidamarcha3.png",
+          "alt": "Fotografía enviada a la 01:07 am",
+          "sensitive": false,
+          "zoom": false
         }
       ],
       "video": "/assets/uploads/huella-digital/recuperado-wsp.mp4",
