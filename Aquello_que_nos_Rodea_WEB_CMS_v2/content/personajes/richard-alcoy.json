@@ -229,7 +229,7 @@
       "status": "Conservado"
     }
   ],
-  "show_documents": true,
+  "show_documents": false,
   "documents": [
     {
       "title": "Album de Fotos"
