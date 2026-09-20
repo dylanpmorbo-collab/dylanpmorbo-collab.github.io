@@ -1,0 +1,22 @@
+{
+  "title": "cancion prueba",
+  "archive_number": "002",
+  "category": "TESTIMONIO",
+  "published": true,
+  "status": "Documentado",
+  "testimonies": [
+    {
+      "title": "cancion",
+      "audio": "/assets/uploads/testimonios/freesoundcommunity-old-phone01-79592.mp3"
+    }
+  ],
+  "show_documents": false,
+  "show_police_report": false,
+  "show_related_archive": false,
+  "corkboard": {
+    "enabled": false,
+    "design": "A",
+    "title": "TABLÓN DE CONEXIONES"
+  },
+  "show_digital_press": false
+}
