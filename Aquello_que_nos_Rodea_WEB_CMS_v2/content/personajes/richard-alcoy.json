@@ -235,9 +235,9 @@
     {
       "platform": "WHATSAPP",
       "type": "Recuperado durante el análisis forense del dispositivo",
-      "title": "Secretos revelados",
       "image": "/assets/uploads/huella-digital/getsmore-fake-chat-13.png",
       "cover_type": "FOTO",
+      "alt": "Secretos revelados",
       "image_sensitive": false,
       "images": [
         {
