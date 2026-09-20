@@ -69,48 +69,12 @@
     },
     {
       "platform": "INSTAGRAM",
-      "type": "STORY",
-      "title": "Primer beso",
-      "date": "29/08/2021 · 19:34",
-      "location": "Playa de Fora del Forat, Vinaròs, Castellón",
-      "cover_type": "VIDEO",
-      "cover_video": "/assets/uploads/huella-digital/primerbesosonidocomp.mp4",
-      "cover_video_poster": "/assets/uploads/huella-digital/candy1.png",
-      "cover_video_reactions": "❤️",
-      "cover_video_comments": [
-        {
-          "author": "Sara:",
-          "text": "POR FINNNNN ❤️"
-        },
-        {
-          "author": "Marcos:",
-          "text": "ya era hora"
-        },
-        {
-          "author": "Dani:",
-          "text": "🤢"
-        },
-        {
-          "author": "Richard:",
-          "text": "❤️❤️❤️❤️❤️"
-        }
-      ],
-      "image_sensitive": false,
-      "image_zoom": false,
-      "video_position": "FIRST",
-      "video_2_position": "LAST",
-      "handle": "Candy",
-      "source": "Galería del dispositivo de Candy",
-      "archived": "07/08/2021 · 20:46",
-      "status": "Conservado"
-    },
-    {
-      "platform": "INSTAGRAM",
       "type": "Publicación",
       "title": "Pelea en la playa",
       "date": "21/06/2016 · 18:52",
       "location": "Platja de Can Pere Antoni, Palma de Mallorca.",
       "image": "/assets/uploads/huella-digital/peleamayorca.png",
+      "cover_video": "/assets/uploads/huella-digital/primerbesosonidocomp.mp4",
       "alt": "pelea en la playa",
       "image_sensitive": false,
       "image_zoom": false,
@@ -259,6 +223,44 @@
       "source": "Recuperado durante el análisis forense del dispositivo de Richard Alcoy",
       "archived": "22 de junio de 2016 entre 01:03 y 01:27",
       "status": "Recuperado"
+    },
+    {
+      "platform": "INSTAGRAM",
+      "type": "STORY",
+      "title": "Primer beso",
+      "date": "29/08/2021 · 19:34",
+      "location": "Playa de Fora del Forat, Vinaròs, Castellón",
+      "cover_type": "VIDEO",
+      "cover_video": "/assets/uploads/huella-digital/primerbesosonidocomp.mp4",
+      "cover_video_poster": "/assets/uploads/huella-digital/candy1.png",
+      "cover_video_reactions": "❤️",
+      "cover_video_comments": [
+        {
+          "author": "Sara:",
+          "text": "POR FINNNNN ❤️"
+        },
+        {
+          "author": "Marcos:",
+          "text": "ya era hora"
+        },
+        {
+          "author": "Dani:",
+          "text": "🤢"
+        },
+        {
+          "author": "Richard:",
+          "text": "❤️❤️❤️❤️❤️"
+        }
+      ],
+      "image_sensitive": false,
+      "image_zoom": false,
+      "video": "/assets/uploads/huella-digital/recuperado-wsp.mp4",
+      "video_position": "FIRST",
+      "video_2_position": "LAST",
+      "handle": "Candy",
+      "source": "Galería del dispositivo de Candy",
+      "archived": "07/08/2021 · 20:46",
+      "status": "Conservado"
     }
   ],
   "show_documents": false,
