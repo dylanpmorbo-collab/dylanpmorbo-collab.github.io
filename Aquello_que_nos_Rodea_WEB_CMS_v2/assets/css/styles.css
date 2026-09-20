@@ -863,7 +863,8 @@ DOCUMENTOS NAVEGABLES — AJUSTES FINALES DE GEOMETRÍA Y LECTURA
 .digital-carousel-viewport{position:relative;aspect-ratio:4/3;background:#070706}
 .digital-carousel-slide{position:absolute;inset:0}
 .digital-carousel-slide[hidden]{display:none!important}
-.digital-piece-media .digital-carousel-slide img{width:100%;height:100%;max-height:none;object-fit:contain}
+.digital-piece-media .digital-carousel-slide img,.digital-piece-media .digital-carousel-slide video{width:100%;height:100%;max-height:none;object-fit:contain}
+.digital-piece-media .digital-carousel-slide video{aspect-ratio:auto}
 .digital-carousel-controls{display:flex;align-items:center;justify-content:center;gap:18px;padding:8px 12px;border-top:1px solid #302a22;color:#baa77f;font:600 11px var(--display);letter-spacing:.12em}
 .digital-carousel-controls button{width:34px;height:30px;border:1px solid #5a4b30;background:#17140f;color:#d2b879;cursor:pointer;font-size:18px;line-height:1}
 .digital-carousel-controls button:hover,.digital-carousel-controls button:focus-visible{background:#302719;outline:1px solid #b99a5d;outline-offset:2px}
