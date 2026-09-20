@@ -48,7 +48,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=testimonios-20260920"><script defer src="assets/js/main.js?v=testimonios-20260920"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=testimonios-transparente-20260920"><script defer src="assets/js/main.js?v=testimonios-20260920"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -340,7 +340,7 @@ const archiveSectionDefs=[
  {key:'organizaciones',label:'ORGANIZACIONES',typeLabel:'ORGANIZACIÓN',eyebrow:'CATÁLOGO // ORGANIZACIONES',desc:'Grupos, cultos, instituciones y redes cuya actividad aparece en los archivos.',items:archiveByCategory('ORGANIZACIÓN'),file:'archivo-organizaciones.html',image:String(archiveSectionImages.organizaciones||'/assets/img/archivo-secciones/organizaciones.png').trim()},
  {key:'documentos',label:'DOCUMENTOS',typeLabel:'DOCUMENTO',eyebrow:'CATÁLOGO // DOCUMENTOS',desc:'Textos, pruebas, registros y materiales recuperados o parcialmente descifrados.',items:archiveByCategory('DOCUMENTO'),file:'archivo-documentos.html',image:String(archiveSectionImages.documentos||'/assets/img/archivo-secciones/documentos.png').trim()},
  {key:'sucesos',label:'SUCESOS',typeLabel:'SUCESO',eyebrow:'CATÁLOGO // SUCESOS',desc:'Incidentes cuya explicación permanece incompleta, contradictoria o clasificada.',items:archiveByCategory('SUCESO'),file:'archivo-sucesos.html',image:String(archiveSectionImages.sucesos||'/assets/img/archivo-secciones/sucesos.png').trim()},
- {key:'testimonios',label:'TESTIMONIOS',typeLabel:'TESTIMONIO',eyebrow:'ARCHIVO SONORO // TESTIMONIOS',desc:'Declaraciones y grabaciones de voz incorporadas a los expedientes.',items:archiveByCategory('TESTIMONIO'),file:'archivo-testimonios.html',image:String(archiveSectionImages.testimonios||'/assets/img/magnetofono-testimonios.png').trim()},
+ {key:'testimonios',label:'TESTIMONIOS',typeLabel:'TESTIMONIO',eyebrow:'ARCHIVO SONORO // TESTIMONIOS',desc:'Declaraciones y grabaciones de voz incorporadas a los expedientes.',items:archiveByCategory('TESTIMONIO'),file:'archivo-testimonios.html',image:String(archiveSectionImages.testimonios||'/assets/img/magnetofono-testimonios-transparente.png').trim()},
  {key:'relatos',label:'RELATOS',typeLabel:'RELATO',eyebrow:'FICCIÓN // RELATOS',desc:'Relatos completos vinculados a los expedientes y conexiones del Archivo.',items:stories,file:'archivo-relatos.html',image:String(archiveSectionImages.relatos||'/assets/img/archivo-secciones/conexiones.png').trim()},
  {key:'microrrelatos',label:'MICRORRELATOS',typeLabel:'MICRORRELATO',eyebrow:'FICCIÓN BREVE // MICRORRELATOS',desc:'Historias mínimas recuperadas del Archivo. Se entienden solas; las conexiones pueden aparecer mucho después.',items:micros,file:'archivo-microrrelatos.html',image:String(archiveSectionImages.microrrelatos||'/assets/img/archivo-secciones/conexiones.png').trim()}
 ];
@@ -957,7 +957,7 @@ function archiveTestimonies(item){
  const meta=entry=>[entry.speaker,entry.date].filter(Boolean).join(' · ');
  return '<section class="archive-testimonies reveal" aria-label="Testimonios grabados">'+
    '<div class="section-label">TESTIMONIOS // '+String(entries.length).padStart(2,'0')+'</div>'+
-   '<div class="testimony-recorder"><img class="testimony-recorder-art" src="/assets/img/magnetofono-testimonios.png" alt="" loading="lazy">'+
+   '<div class="testimony-recorder"><img class="testimony-recorder-art" src="/assets/img/magnetofono-testimonios-transparente.png" alt="" loading="lazy">'+
      '<div class="testimony-controls" role="group" aria-label="Controles del magnetófono">'+
        '<button type="button" data-testimony-play aria-label="Reproducir" title="Reproducir">▶</button>'+
        '<button type="button" data-testimony-pause aria-label="Pausar" title="Pausar">Ⅱ</button>'+
