@@ -6,6 +6,50 @@
   document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
   document.querySelectorAll('.redacted').forEach(el=>el.addEventListener('click',()=>el.classList.toggle('revealed')));
 
+  document.querySelectorAll('.archive-testimonies').forEach(panel=>{
+    const audio=panel.querySelector('.testimony-audio');
+    const playButton=panel.querySelector('[data-testimony-play]');
+    const pauseButton=panel.querySelector('[data-testimony-pause]');
+    const stopButton=panel.querySelector('[data-testimony-stop]');
+    const state=panel.querySelector('[data-testimony-state]');
+    const time=panel.querySelector('[data-testimony-time]');
+    const title=panel.querySelector('[data-testimony-title]');
+    const meta=panel.querySelector('[data-testimony-meta]');
+    const tracks=Array.from(panel.querySelectorAll('[data-testimony-track]'));
+    const transcripts=Array.from(panel.querySelectorAll('[data-testimony-transcript]'));
+    if(!audio||!playButton||!pauseButton||!stopButton)return;
+    panel.classList.add('is-ready');
+    const format=seconds=>Number.isFinite(seconds)?String(Math.floor(seconds/60)).padStart(2,'0')+':'+String(Math.floor(seconds%60)).padStart(2,'0'):'--:--';
+    const updateTime=()=>{time.textContent=format(audio.currentTime)+' / '+format(audio.duration)};
+    const setState=value=>{state.textContent=value;panel.classList.toggle('is-playing',value==='REPRODUCIENDO')};
+    playButton.addEventListener('click',()=>{
+      audio.play().then(()=>setState('REPRODUCIENDO')).catch(()=>setState('NO SE PUEDE REPRODUCIR'));
+    });
+    pauseButton.addEventListener('click',()=>{audio.pause();setState('EN PAUSA')});
+    stopButton.addEventListener('click',()=>{
+      audio.pause();
+      try{audio.currentTime=0}catch(e){}
+      updateTime();
+      setState('DETENIDO');
+    });
+    tracks.forEach((button,index)=>button.addEventListener('click',()=>{
+      audio.pause();
+      audio.src=button.dataset.testimonySrc;
+      audio.load();
+      title.textContent=button.dataset.testimonyTitle;
+      meta.textContent=button.dataset.testimonyMeta;
+      tracks.forEach(track=>track.setAttribute('aria-pressed',String(track===button)));
+      transcripts.forEach((transcript,i)=>{transcript.hidden=i!==index});
+      setState('LISTO PARA REPRODUCIR');
+      updateTime();
+    }));
+    audio.addEventListener('timeupdate',updateTime);
+    audio.addEventListener('loadedmetadata',updateTime);
+    audio.addEventListener('ended',()=>{setState('FIN DE LA GRABACIÓN');updateTime()});
+    audio.addEventListener('error',()=>setState('NO SE PUEDE REPRODUCIR'));
+    updateTime();
+  });
+
   document.querySelectorAll('.digital-sensitive img').forEach(img=>{
     const pixelate=()=>{
       if(!img.naturalWidth || !img.parentElement?.classList.contains('digital-sensitive'))return;

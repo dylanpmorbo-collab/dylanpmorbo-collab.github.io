@@ -65,6 +65,12 @@ media:
     output: /assets/uploads/prensa-digital
     rename: safe
     categories: [image, video]
+  - name: testimonios_audio
+    label: Testimonios (audio)
+    input: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads/testimonios
+    output: /assets/uploads/testimonios
+    rename: safe
+    categories: [audio]
 
 content:
   - name: relatos
@@ -513,7 +519,7 @@ content:
         type: select
         default: ENTIDAD
         options:
-          values: [ENTIDAD, LUGAR, PLANO, ORGANIZACIÓN, DOCUMENTO, SUCESO, OTRO]
+          values: [ENTIDAD, LUGAR, PLANO, ORGANIZACIÓN, DOCUMENTO, SUCESO, TESTIMONIO]
       - name: published
         label: Publicado
         type: boolean
@@ -552,6 +558,41 @@ content:
           - name: value
             label: Valor
             type: string
+      - name: testimonies
+        label: Testimonios · grabaciones
+        type: object
+        required: false
+        description: "Añade grabaciones para mostrar el magnetófono junto a los datos del expediente. Si no hay audio, no aparece."
+        list:
+          max: 12
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: title
+            label: Título de la grabación
+            type: string
+            required: true
+          - name: speaker
+            label: Declarante / voz
+            type: string
+            required: false
+          - name: date
+            label: Fecha u hora
+            type: string
+            required: false
+          - name: audio
+            label: Archivo de audio
+            type: file
+            required: true
+            options:
+              media: testimonios_audio
+              categories: [audio]
+            description: "Se recomienda MP3 para compatibilidad con navegadores."
+          - name: transcript
+            label: Transcripción (opcional)
+            type: text
+            required: false
       - name: body
         label: Información principal del expediente
         type: rich-text
@@ -1043,6 +1084,41 @@ content:
           - name: value
             label: Valor
             type: string
+      - name: testimonies
+        label: Testimonios · grabaciones
+        type: object
+        required: false
+        description: "Añade grabaciones para mostrar el magnetófono junto a los datos del expediente. Si no hay audio, no aparece."
+        list:
+          max: 12
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: title
+            label: Título de la grabación
+            type: string
+            required: true
+          - name: speaker
+            label: Declarante / voz
+            type: string
+            required: false
+          - name: date
+            label: Fecha u hora
+            type: string
+            required: false
+          - name: audio
+            label: Archivo de audio
+            type: file
+            required: true
+            options:
+              media: testimonios_audio
+              categories: [audio]
+            description: "Se recomienda MP3 para compatibilidad con navegadores."
+          - name: transcript
+            label: Transcripción (opcional)
+            type: text
+            required: false
       - name: body
         label: Información principal del expediente
         type: rich-text
@@ -2210,8 +2286,8 @@ content:
                 label: Hasta la pieza
                 type: string
                 required: true
-      - name: otros
-        label: Otros archivos
+      - name: testimonios
+        label: Testimonios
         type: object
         fields:
           - name: enabled
@@ -2526,8 +2602,8 @@ content:
         required: true
         options:
           media: archivo
-      - name: otros
-        label: Otros archivos
+      - name: testimonios
+        label: Testimonios
         type: image
         required: true
         options:

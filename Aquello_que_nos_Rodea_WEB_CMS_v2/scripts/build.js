@@ -48,7 +48,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=media-reactions-20260920"><script defer src="assets/js/main.js?v=age-privacy-sensitive-v2-20260919"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=testimonios-20260920"><script defer src="assets/js/main.js?v=testimonios-20260920"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -340,7 +340,7 @@ const archiveSectionDefs=[
  {key:'organizaciones',label:'ORGANIZACIONES',typeLabel:'ORGANIZACIÓN',eyebrow:'CATÁLOGO // ORGANIZACIONES',desc:'Grupos, cultos, instituciones y redes cuya actividad aparece en los archivos.',items:archiveByCategory('ORGANIZACIÓN'),file:'archivo-organizaciones.html',image:String(archiveSectionImages.organizaciones||'/assets/img/archivo-secciones/organizaciones.png').trim()},
  {key:'documentos',label:'DOCUMENTOS',typeLabel:'DOCUMENTO',eyebrow:'CATÁLOGO // DOCUMENTOS',desc:'Textos, pruebas, registros y materiales recuperados o parcialmente descifrados.',items:archiveByCategory('DOCUMENTO'),file:'archivo-documentos.html',image:String(archiveSectionImages.documentos||'/assets/img/archivo-secciones/documentos.png').trim()},
  {key:'sucesos',label:'SUCESOS',typeLabel:'SUCESO',eyebrow:'CATÁLOGO // SUCESOS',desc:'Incidentes cuya explicación permanece incompleta, contradictoria o clasificada.',items:archiveByCategory('SUCESO'),file:'archivo-sucesos.html',image:String(archiveSectionImages.sucesos||'/assets/img/archivo-secciones/sucesos.png').trim()},
- {key:'otros',label:'OTROS ARCHIVOS',typeLabel:'ARCHIVO',eyebrow:'CATÁLOGO // OTROS',desc:'Anotaciones que todavía no encajan en una clasificación estable.',items:archiveByCategory('OTRO'),file:'archivo-otros.html',image:String(archiveSectionImages.otros||'/assets/img/archivo-secciones/otros.png').trim()},
+ {key:'testimonios',label:'TESTIMONIOS',typeLabel:'TESTIMONIO',eyebrow:'ARCHIVO SONORO // TESTIMONIOS',desc:'Declaraciones y grabaciones de voz incorporadas a los expedientes.',items:archiveByCategory('TESTIMONIO'),file:'archivo-testimonios.html',image:String(archiveSectionImages.testimonios||'/assets/img/magnetofono-testimonios.png').trim()},
  {key:'relatos',label:'RELATOS',typeLabel:'RELATO',eyebrow:'FICCIÓN // RELATOS',desc:'Relatos completos vinculados a los expedientes y conexiones del Archivo.',items:stories,file:'archivo-relatos.html',image:String(archiveSectionImages.relatos||'/assets/img/archivo-secciones/conexiones.png').trim()},
  {key:'microrrelatos',label:'MICRORRELATOS',typeLabel:'MICRORRELATO',eyebrow:'FICCIÓN BREVE // MICRORRELATOS',desc:'Historias mínimas recuperadas del Archivo. Se entienden solas; las conexiones pueden aparecer mucho después.',items:micros,file:'archivo-microrrelatos.html',image:String(archiveSectionImages.microrrelatos||'/assets/img/archivo-secciones/conexiones.png').trim()}
 ];
@@ -950,6 +950,27 @@ function microEntryPage(section,item){
  </main>${footer(site)}</body></html>`;
 }
 
+function archiveTestimonies(item){
+ const entries=(Array.isArray(item.testimonies)?item.testimonies:[]).filter(entry=>entry&&entry.audio);
+ if(!entries.length) return '';
+ const first=entries[0];
+ const meta=entry=>[entry.speaker,entry.date].filter(Boolean).join(' · ');
+ return '<section class="archive-testimonies reveal" aria-label="Testimonios grabados">'+
+   '<div class="section-label">TESTIMONIOS // '+String(entries.length).padStart(2,'0')+'</div>'+
+   '<div class="testimony-recorder"><img class="testimony-recorder-art" src="/assets/img/magnetofono-testimonios.png" alt="" loading="lazy">'+
+     '<div class="testimony-controls" role="group" aria-label="Controles del magnetófono">'+
+       '<button type="button" data-testimony-play aria-label="Reproducir" title="Reproducir">▶</button>'+
+       '<button type="button" data-testimony-pause aria-label="Pausar" title="Pausar">Ⅱ</button>'+
+       '<button type="button" data-testimony-stop aria-label="Detener" title="Detener">■</button>'+
+     '</div></div>'+
+   '<audio class="testimony-audio" controls preload="none" src="'+esc(first.audio)+'">Tu navegador no puede reproducir este archivo de audio.</audio>'+
+   '<div class="testimony-readout"><span data-testimony-state aria-live="polite">LISTO PARA REPRODUCIR</span><span data-testimony-time>00:00 / --:--</span></div>'+
+   '<div class="testimony-current"><strong data-testimony-title>'+esc(first.title||'Grabación 01')+'</strong><span data-testimony-meta>'+esc(meta(first))+'</span></div>'+
+   (entries.length>1?'<div class="testimony-track-list" role="group" aria-label="Elegir testimonio">'+entries.map((entry,i)=>'<button type="button" data-testimony-track data-testimony-src="'+esc(entry.audio)+'" data-testimony-title="'+esc(entry.title||'Grabación '+String(i+1).padStart(2,'0'))+'" data-testimony-meta="'+esc(meta(entry))+'" aria-pressed="'+(i===0?'true':'false')+'"><span>'+String(i+1).padStart(2,'0')+'</span>'+esc(entry.title||'Grabación '+String(i+1).padStart(2,'0'))+'</button>').join('')+'</div>':'')+
+   '<div class="testimony-transcripts">'+entries.map((entry,i)=>'<div data-testimony-transcript'+(i?' hidden':'')+'>'+(entry.transcript?'<details><summary>LEER TRANSCRIPCIÓN</summary><div>'+plainTextToHTML(entry.transcript)+'</div></details>':'')+'</div>').join('')+'</div>'+
+   '</section>';
+}
+
 function archiveEntryPage(section,item){
  if(section.key==='microrrelatos') return microEntryPage(section,item);
  const title=itemTitle(section,item);
@@ -960,11 +981,13 @@ function archiveEntryPage(section,item){
  const blocks=archiveInformationBlocks(item);
  const note=item.note ? `<aside class="archive-entry-note reveal"><p class="archive-code">NOTA DE ARCHIVO</p><div class="archive-entry-note-text">${plainTextToHTML(item.note)}</div></aside>` : '';
  const boardMarkup=renderCorkboard(item.corkboard,title,true);
+ const testimonyMarkup=archiveTestimonies(item);
  const fullInformation=(body||blocks||note) ? `${body?`<div class="archive-entry-main-text reveal">${body}</div>`:''}${blocks}${note}` : '';
  const factList=facts.length ? `<dl class="archive-entry-facts">${facts.map(f=>`<div><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div>`).join('')}</dl>` : '';
- const detailsMarkup=(factList||fullInformation||boardMarkup) ? `<div class="archive-entry-layout${factList&&(fullInformation||boardMarkup)?'':' archive-entry-layout-single'}">
+ const alongside=fullInformation||boardMarkup||testimonyMarkup;
+ const detailsMarkup=(factList||alongside) ? `<div class="archive-entry-layout${factList&&alongside?'':' archive-entry-layout-single'}${factList&&!alongside?' archive-entry-layout-facts-only':''}">
    ${factList?`<aside class="archive-entry-sidebar reveal"><p class="archive-code">DATOS DEL EXPEDIENTE</p><h2>${esc(section.typeLabel)}</h2>${factList}</aside>`:''}
-   ${(fullInformation||boardMarkup)?`<article class="archive-entry-content">${fullInformation?`<div class="section-label">INFORMACIÓN ARCHIVADA</div>${fullInformation}`:''}${boardMarkup}</article>`:''}
+   ${alongside?`<article class="archive-entry-content">${testimonyMarkup}${fullInformation?`<div class="section-label">INFORMACIÓN ARCHIVADA</div>${fullInformation}`:''}${boardMarkup}</article>`:''}
  </div>` : '';
  const heroClass=image?'':' no-image';
  return `${head(`${title} | ${section.label} | El Archivo | ${site.site_title}`,summary,image||section.image)}
@@ -1161,6 +1184,9 @@ for(const section of archiveSectionDefs){
  }
 }
 
+
+// Conserva los enlaces antiguos a la sección sustituida.
+fs.writeFileSync(path.join(DIST,'archivo-otros.html'),'<!doctype html><html lang="es"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=archivo-testimonios.html"><title>Testimonios | El Archivo</title></head><body><p>La sección se ha trasladado a <a href="archivo-testimonios.html">Testimonios</a>.</p></body></html>');
 
 // La página "Sobre" sigue siendo fija por ahora
 let about=fs.readFileSync(path.join(ROOT,'sobre.static.html'),'utf8');

@@ -39,6 +39,11 @@
     "design": "A",
     "title": "TABLÓN DE CONEXIONES"
   },
+  "testimonios": {
+    "enabled": false,
+    "design": "A",
+    "title": "TABLÓN DE CONEXIONES"
+  },
   "relatos": {
     "enabled": false,
     "design": "A",
