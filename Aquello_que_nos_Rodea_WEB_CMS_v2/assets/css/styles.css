@@ -1069,6 +1069,7 @@ html:not(.age-verified){overflow:hidden}
 .digital-carousel-engagement{padding:12px 16px 16px;border-top:1px solid #302a22;background:#100e0b}
 .digital-carousel-engagement [hidden]{display:none!important}
 .digital-carousel-engagement [data-digital-engagement]:empty{display:none}
+.digital-slide-title{margin:0 0 10px;color:#d6bd8e;font:600 15px/1.4 var(--display)}
 .digital-slide-reactions{margin:0 0 10px;color:#c7ae7c;font-size:16px}
 .digital-slide-comments{border-top:1px solid #302a22;padding-top:9px;color:#b5aa98;font-size:16px}
 .digital-slide-comments p{margin:0 0 6px;overflow-wrap:anywhere}

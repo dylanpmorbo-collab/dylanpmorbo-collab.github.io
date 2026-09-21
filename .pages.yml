@@ -1152,7 +1152,7 @@ content:
         label: Huella digital · piezas recuperadas
         type: object
         required: false
-        description: "Cada entrada es una pieza documental independiente. No hace falta reproducir la interfaz de la plataforma original."
+        description: "Cada pieza se pliega por separado. Dentro, añade fotos y vídeos en el orden en que deben aparecer; el primero será la portada."
         list:
           max: 50
           collapsible:
@@ -1165,242 +1165,117 @@ content:
             required: true
             default: INSTAGRAM
             options:
-              values: [INSTAGRAM, FACEBOOK, CITAS, TINDER, WHATSAPP, TELEGRAM, YOUTUBE, TIKTOK, X, DISPOSITIVO, OTROS]
-            description: "Elige CITAS para cualquier app de citas. TINDER queda disponible solo para compatibilidad con piezas antiguas; ambas se ven bajo CITAS. Puedes precisar la app en Fuente documental."
+              values: [INSTAGRAM, FACEBOOK, CITAS, WHATSAPP, TELEGRAM, YOUTUBE, TIKTOK, X, DISPOSITIVO, OTROS]
+            description: "Para cualquier aplicación de citas, usa CITAS. Puedes precisar el nombre de la app en Fuente documental."
           - name: type
             label: Tipo de material
             type: string
             required: false
-            description: "Ejemplos: publicación pública, fotografía etiquetada, conversación, perfil, archivo local, vídeo."
+            description: "Ejemplo: publicación pública, conversación, perfil o archivo local."
           - name: title
-            label: Título documental (opcional)
+            label: Título de la pieza documental
             type: string
             required: false
           - name: date
             label: Fecha / hora de la actividad
             type: string
             required: false
-            description: "Se muestra tal como la escribas; por ejemplo, 18 JUN 2022 · 03:41."
           - name: location
             label: Lugar
             type: string
             required: false
-          - name: image
-            label: Foto de portada o captura principal
-            type: image
+          - name: media
+            label: Fotos y vídeos de esta pieza
+            type: block
             required: false
-            options:
-              media: huella_digital
-            description: "Si eliges Foto como portada, esta será la primera del carrusel. Las publicaciones anteriores siguen funcionando sin elegir tipo de portada."
-          - name: cover_type
-            label: Tipo de portada de la publicación
-            type: select
-            required: false
-            options:
-              values: [FOTO, VIDEO]
-            description: "Foto usa la imagen principal de arriba; Vídeo usa el vídeo de portada de abajo. Déjalo sin elegir para conservar el orden antiguo de la publicación."
-          - name: cover_video
-            label: Vídeo de portada
-            type: file
-            required: false
-            options:
-              media: huella_digital
-              categories: [video]
-            description: "Solo se usa como primer elemento si eliges VIDEO como tipo de portada. No sustituye al vídeo adicional existente."
-          - name: cover_video_poster
-            label: Imagen previa del vídeo de portada
-            type: image
-            required: false
-            options:
-              media: huella_digital
-          - name: cover_video_reactions
-            label: Reacciones del vídeo de portada
-            type: string
-            required: false
-          - name: cover_video_comments
-            label: Comentarios del vídeo de portada
-            type: object
-            required: false
+            description: "Añádelos en el orden del carrusel. Cada foto o vídeo tiene su propio título, reacciones y comentarios. No hace falta una portada aparte."
+            blockKey: kind
             list:
               max: 30
               collapsible:
                 collapsed: true
-                summary: "{author}"
-            fields:
-              - name: author
-                label: Usuario
-                type: string
-              - name: text
-                label: Comentario
-                type: text
-          - name: alt
-            label: Descripción accesible de la imagen principal
-            type: string
-            required: false
-          - name: image_sensitive
-            label: Ocultar imagen principal tras advertencia
-            type: boolean
-            default: false
-            description: "La foto aparecerá pixelada hasta que el visitante pulse Mostrar imagen."
-          - name: image_zoom
-            label: Permitir ampliar la imagen principal
-            type: boolean
-            default: false
-            description: "Actívalo para capturas con texto u otras imágenes que necesiten leerse de cerca. En imágenes sensibles, la ampliación solo estará disponible tras mostrarlas."
-          - name: image_reactions
-            label: Reacciones de la foto principal
-            type: string
-            required: false
-          - name: image_comments
-            label: Comentarios de la foto principal
-            type: object
-            required: false
-            list:
-              max: 30
-              collapsible:
-                collapsed: true
-                summary: "{author}"
-            fields:
-              - name: author
-                label: Usuario
-                type: string
-              - name: text
-                label: Comentario
-                type: text
-          - name: images
-            label: Más fotos de esta publicación
-            type: object
-            required: false
-            description: "Añade aquí las demás fotos de la misma publicación, en el orden en que deben aparecer. Se mostrarán dentro de un carrusel."
-            list:
-              max: 20
-              collapsible:
-                collapsed: true
-                summary: "Foto {index}"
-            fields:
-              - name: image
-                label: Fotografía
-                type: image
-                required: true
-                options:
-                  media: huella_digital
-              - name: alt
-                label: Descripción accesible de esta foto
-                type: string
-                required: false
-              - name: sensitive
-                label: Ocultar esta foto tras advertencia
-                type: boolean
-                default: false
-              - name: zoom
-                label: Permitir ampliar esta foto
-                type: boolean
-                default: false
-                description: "Útil para capturas de conversaciones o documentos con texto pequeño."
-              - name: reactions
-                label: Reacciones de esta foto
-                type: string
-                required: false
-              - name: comments
-                label: Comentarios de esta foto
-                type: object
-                required: false
-                list:
-                  max: 30
-                  collapsible:
-                    collapsed: true
-                    summary: "{author}"
+                summary: "{title}"
+            blocks:
+              - name: photo
+                label: Foto o captura
                 fields:
-                  - name: author
-                    label: Usuario
+                  - name: title
+                    label: Título de esta foto
                     type: string
-                  - name: text
-                    label: Comentario
-                    type: text
-          - name: video
-            label: Vídeo adicional 1
-            type: file
-            required: false
-            options:
-              media: huella_digital
-              categories: [video]
-            description: "Puedes combinarlo con la fotografía principal y las fotos adicionales en un mismo carrusel."
-          - name: poster
-            label: Imagen previa del vídeo adicional 1
-            type: image
-            required: false
-            options:
-              media: huella_digital
-          - name: video_position
-            label: Posición del vídeo adicional 1 entre las fotos
-            type: select
-            required: false
-            default: FIRST
-            options:
-              values: [FIRST, LAST]
-            description: "FIRST: antes de las fotos del carrusel; LAST: después. Si eliges una portada, esa portada siempre aparece primero."
-          - name: video_reactions
-            label: Reacciones del vídeo adicional 1
-            type: string
-            required: false
-          - name: video_comments
-            label: Comentarios del vídeo adicional 1
-            type: object
-            required: false
-            list:
-              max: 30
-              collapsible:
-                collapsed: true
-                summary: "{author}"
-            fields:
-              - name: author
-                label: Usuario
-                type: string
-              - name: text
-                label: Comentario
-                type: text
-          - name: video_2
-            label: Vídeo adicional 2
-            type: file
-            required: false
-            options:
-              media: huella_digital
-              categories: [video]
-            description: "Segundo vídeo independiente. Puede ir antes o después de las fotos sin cambiar la portada ni el vídeo adicional 1."
-          - name: poster_2
-            label: Imagen previa del vídeo adicional 2
-            type: image
-            required: false
-            options:
-              media: huella_digital
-          - name: video_2_position
-            label: Posición del vídeo adicional 2 entre las fotos
-            type: select
-            required: false
-            default: LAST
-            options:
-              values: [FIRST, LAST]
-            description: "FIRST: antes de las fotos; LAST: después. La portada siempre aparece primero."
-          - name: video_2_reactions
-            label: Reacciones del vídeo adicional 2
-            type: string
-            required: false
-          - name: video_2_comments
-            label: Comentarios del vídeo adicional 2
-            type: object
-            required: false
-            list:
-              max: 30
-              collapsible:
-                collapsed: true
-                summary: "{author}"
-            fields:
-              - name: author
-                label: Usuario
-                type: string
-              - name: text
-                label: Comentario
-                type: text
+                    required: true
+                  - name: image
+                    label: Foto o captura
+                    type: image
+                    required: true
+                    options:
+                      media: huella_digital
+                  - name: alt
+                    label: Descripción accesible
+                    type: string
+                    required: false
+                  - name: sensitive
+                    label: Ocultar tras advertencia
+                    type: boolean
+                    default: false
+                  - name: zoom
+                    label: Permitir ampliar
+                    type: boolean
+                    default: false
+                    description: "Útil para capturas con texto pequeño."
+                  - name: reactions
+                    label: Me gusta / reacciones de esta foto
+                    type: string
+                    required: false
+                  - name: comments
+                    label: Comentarios de esta foto
+                    type: object
+                    required: false
+                    list:
+                      max: 30
+                      collapsible:
+                        collapsed: true
+                        summary: "{author}"
+                    fields:
+                      - name: author
+                        label: Usuario
+                        type: string
+                      - name: text
+                        label: Comentario
+                        type: text
+              - name: video
+                label: Vídeo
+                fields:
+                  - name: title
+                    label: Título de este vídeo
+                    type: string
+                    required: true
+                  - name: video
+                    label: Archivo de vídeo
+                    type: file
+                    required: true
+                    options:
+                      media: huella_digital
+                      categories: [video]
+                  - name: reactions
+                    label: Me gusta / reacciones de este vídeo
+                    type: string
+                    required: false
+                  - name: comments
+                    label: Comentarios de este vídeo
+                    type: object
+                    required: false
+                    list:
+                      max: 30
+                      collapsible:
+                        collapsed: true
+                        summary: "{author}"
+                    fields:
+                      - name: author
+                        label: Usuario
+                        type: string
+                      - name: text
+                        label: Comentario
+                        type: text
           - name: handle
             label: Usuario o remitente
             type: string
@@ -1410,27 +1285,6 @@ content:
             type: text
             required: false
             description: "Respeta los saltos de línea."
-          - name: reactions
-            label: Reacciones generales de la publicación
-            type: string
-            required: false
-            description: "Ejemplo: ❤️ 184 Me gusta."
-          - name: comments
-            label: Comentarios generales de la publicación
-            type: object
-            required: false
-            list:
-              max: 30
-              collapsible:
-                collapsed: true
-                summary: "{author}"
-            fields:
-              - name: author
-                label: Usuario
-                type: string
-              - name: text
-                label: Comentario
-                type: text
           - name: messages
             label: Mensajes recuperados
             type: object
@@ -1461,7 +1315,6 @@ content:
             label: Fuente documental
             type: string
             required: false
-            description: "Ejemplo: perfil público, teléfono recuperado o cuenta vinculada."
           - name: archived
             label: Fecha de archivo
             type: string

@@ -56,16 +56,16 @@
       "title": "Real Zaragoza–Sevilla, Liga 2012/13",
       "date": "28 de octubre de 2012 - 11:26",
       "location": "exteriores del Estadio de La Romareda, Zaragoza",
-      "cover_type": "VIDEO",
-      "cover_video": "/assets/uploads/huella-digital/estadiopapasonido.mp4",
-      "cover_video_poster": "/assets/uploads/huella-digital/imagen-de-codex-16-sept-2026-173145.png",
-      "cover_video_reactions": "👍23 Me gusta",
-      "alt": "Buena mañana con el chaval. Y encima 2-1. ¡Aúpa Zaragoza!",
-      "image_sensitive": false,
-      "image_zoom": false,
-      "video_position": "FIRST",
-      "video_2_position": "LAST",
-      "handle": "Javier Alcoy"
+      "handle": "Javier Alcoy",
+      "media": [
+        {
+          "kind": "video",
+          "title": "Real Zaragoza–Sevilla, Liga 2012/13 · vídeo 1",
+          "video": "/assets/uploads/huella-digital/estadiopapasonido.mp4",
+          "reactions": "👍23 Me gusta",
+          "comments": []
+        }
+      ]
     },
     {
       "platform": "INSTAGRAM",
@@ -73,18 +73,25 @@
       "title": "EXCURSIÓN FIN DE CURSO 2ºBACHILLER.",
       "date": "21 de junio de 2016",
       "location": "Palma de Mayorca",
-      "image": "/assets/uploads/huella-digital/diapalma2b.png",
-      "cover_type": "FOTO",
-      "alt": "Día libre sin Profes.",
-      "image_sensitive": false,
-      "image_zoom": false,
-      "image_reactions": "❤️62",
-      "images": [
+      "handle": "Daniserr98",
+      "caption": "Día libre sin adultos, se puede liar.",
+      "source": "Publicación Instagram Daniserr98",
+      "archived": "21 de junio de 2016",
+      "status": "Conservado",
+      "media": [
         {
+          "kind": "photo",
+          "title": "Día libre sin Profes.",
+          "image": "/assets/uploads/huella-digital/diapalma2b.png",
+          "alt": "Día libre sin Profes.",
+          "reactions": "❤️62",
+          "comments": []
+        },
+        {
+          "kind": "photo",
+          "title": "Fusión",
           "image": "/assets/uploads/huella-digital/fusion.png",
           "alt": "Fusión",
-          "sensitive": false,
-          "zoom": false,
           "reactions": "❤️103",
           "comments": [
             {
@@ -118,63 +125,80 @@
           ]
         },
         {
+          "kind": "photo",
+          "title": "Paseando por Palma",
           "image": "/assets/uploads/huella-digital/diaenpalma.png",
           "alt": "Paseando por Palma",
-          "sensitive": false,
-          "zoom": false,
-          "reactions": "❤️37"
+          "reactions": "❤️37",
+          "comments": []
+        },
+        {
+          "kind": "video",
+          "title": "EXCURSIÓN FIN DE CURSO 2ºBACHILLER. · vídeo 1",
+          "video": "/assets/uploads/huella-digital/fusion-boomerangstory.mp4",
+          "reactions": "",
+          "comments": []
         }
-      ],
-      "video": "/assets/uploads/huella-digital/fusion-boomerangstory.mp4",
-      "video_position": "LAST",
-      "video_2_position": "LAST",
-      "handle": "Daniserr98",
-      "caption": "Día libre sin adultos, se puede liar.",
-      "source": "Publicación Instagram Daniserr98",
-      "archived": "21 de junio de 2016",
-      "status": "Conservado"
+      ]
     },
     {
       "platform": "WHATSAPP",
       "type": "Recuperado durante el análisis forense del dispositivo",
       "date": "22 de junio de 2016 entre 01:03 y 01:27",
       "location": "zona de marcha del Paseo Marítimo de Palma de Mallorca",
-      "image": "/assets/uploads/huella-digital/1.png",
-      "cover_type": "FOTO",
-      "cover_video": "/assets/uploads/huella-digital/storybesomusica916.mp4",
-      "alt": "Secretos revelados",
-      "image_sensitive": false,
-      "image_zoom": true,
-      "images": [
-        {
-          "image": "/assets/uploads/huella-digital/2.png",
-          "sensitive": false,
-          "zoom": true
-        },
-        {
-          "image": "/assets/uploads/huella-digital/3.png",
-          "sensitive": false,
-          "zoom": true
-        },
-        {
-          "image": "/assets/uploads/huella-digital/4.png",
-          "sensitive": false,
-          "zoom": true
-        },
-        {
-          "image": "/assets/uploads/huella-digital/nochepalmahotelsalidamarcha2.png",
-          "alt": "Fotografía enviada a la 01:07 am 22 de junio de 2016",
-          "sensitive": false,
-          "zoom": false
-        }
-      ],
-      "video": "/assets/uploads/huella-digital/recuperado-wsp.mp4",
-      "video_position": "LAST",
-      "video_reactions": "Vídeo Recuperado tras volcado de archivos eliminados del dispositivo de Richard Alcoy.",
-      "video_2_position": "LAST",
       "source": "Recuperado durante el análisis forense del dispositivo de Richard Alcoy",
       "archived": "22 de junio de 2016 entre 01:03 y 01:27",
-      "status": "Recuperado"
+      "status": "Recuperado",
+      "media": [
+        {
+          "kind": "photo",
+          "title": "Secretos revelados",
+          "image": "/assets/uploads/huella-digital/1.png",
+          "alt": "Secretos revelados",
+          "zoom": true,
+          "reactions": "",
+          "comments": []
+        },
+        {
+          "kind": "photo",
+          "title": "Recuperado durante el análisis forense del dispositivo · foto 2",
+          "image": "/assets/uploads/huella-digital/2.png",
+          "zoom": true,
+          "reactions": "",
+          "comments": []
+        },
+        {
+          "kind": "photo",
+          "title": "Recuperado durante el análisis forense del dispositivo · foto 3",
+          "image": "/assets/uploads/huella-digital/3.png",
+          "zoom": true,
+          "reactions": "",
+          "comments": []
+        },
+        {
+          "kind": "photo",
+          "title": "Recuperado durante el análisis forense del dispositivo · foto 4",
+          "image": "/assets/uploads/huella-digital/4.png",
+          "zoom": true,
+          "reactions": "",
+          "comments": []
+        },
+        {
+          "kind": "photo",
+          "title": "Fotografía enviada a la 01:07 am 22 de junio de 2016",
+          "image": "/assets/uploads/huella-digital/nochepalmahotelsalidamarcha2.png",
+          "alt": "Fotografía enviada a la 01:07 am 22 de junio de 2016",
+          "reactions": "",
+          "comments": []
+        },
+        {
+          "kind": "video",
+          "title": "Recuperado durante el análisis forense del dispositivo · vídeo 1",
+          "video": "/assets/uploads/huella-digital/recuperado-wsp.mp4",
+          "reactions": "Vídeo Recuperado tras volcado de archivos eliminados del dispositivo de Richard Alcoy.",
+          "comments": []
+        }
+      ]
     },
     {
       "platform": "INSTAGRAM",
@@ -182,36 +206,43 @@
       "title": "Primer beso",
       "date": "29/08/2021 · 19:34",
       "location": "Playa de Fora del Forat, Vinaròs, Castellón",
-      "cover_type": "VIDEO",
-      "cover_video": "/assets/uploads/huella-digital/storybesomusica916.mp4",
-      "cover_video_reactions": "❤️",
-      "cover_video_comments": [
-        {
-          "author": "Sara:",
-          "text": "POR FINNNNN ❤️"
-        },
-        {
-          "author": "Marcos:",
-          "text": "ya era hora"
-        },
-        {
-          "author": "Dani:",
-          "text": "🤢"
-        },
-        {
-          "author": "Richard:",
-          "text": "❤️❤️❤️❤️❤️"
-        }
-      ],
-      "image_sensitive": false,
-      "image_zoom": false,
-      "video": "/assets/uploads/huella-digital/recuperado-wsp.mp4",
-      "video_position": "FIRST",
-      "video_2_position": "LAST",
       "handle": "Candy",
       "source": "Galería del dispositivo de Candy",
       "archived": "07/08/2021 · 20:46",
-      "status": "Conservado"
+      "status": "Conservado",
+      "media": [
+        {
+          "kind": "video",
+          "title": "Primer beso · vídeo 1",
+          "video": "/assets/uploads/huella-digital/storybesomusica916.mp4",
+          "reactions": "❤️",
+          "comments": [
+            {
+              "author": "Sara:",
+              "text": "POR FINNNNN ❤️"
+            },
+            {
+              "author": "Marcos:",
+              "text": "ya era hora"
+            },
+            {
+              "author": "Dani:",
+              "text": "🤢"
+            },
+            {
+              "author": "Richard:",
+              "text": "❤️❤️❤️❤️❤️"
+            }
+          ]
+        },
+        {
+          "kind": "video",
+          "title": "Primer beso · vídeo 2",
+          "video": "/assets/uploads/huella-digital/recuperado-wsp.mp4",
+          "reactions": "",
+          "comments": []
+        }
+      ]
     }
   ],
   "show_documents": false,
