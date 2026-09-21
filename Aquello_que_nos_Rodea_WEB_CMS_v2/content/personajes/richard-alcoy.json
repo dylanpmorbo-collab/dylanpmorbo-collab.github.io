@@ -143,43 +143,6 @@
       "status": "Conservado"
     },
     {
-      "platform": "INSTAGRAM",
-      "type": "STORY",
-      "title": "Primer beso",
-      "date": "29/08/2021 · 19:34",
-      "location": "Playa de Fora del Forat, Vinaròs, Castellón",
-      "media": [
-        {
-          "kind": "video",
-          "title": "Primer beso · vídeo 1",
-          "video": "/assets/uploads/huella-digital/storybesomusica916.mp4",
-          "reactions": "❤️",
-          "comments": [
-            {
-              "author": "Sara:",
-              "text": "POR FINNNNN ❤️"
-            },
-            {
-              "author": "Marcos:",
-              "text": "ya era hora"
-            },
-            {
-              "author": "Dani:",
-              "text": "🤢"
-            },
-            {
-              "author": "Richard:",
-              "text": "❤️❤️❤️❤️❤️"
-            }
-          ]
-        }
-      ],
-      "handle": "Candy",
-      "source": "Galería del dispositivo de Candy",
-      "archived": "07/08/2021 · 20:46",
-      "status": "Conservado"
-    },
-    {
       "platform": "WHATSAPP",
       "type": "Recuperado durante el análisis forense del dispositivo",
       "date": "22 de junio de 2016 entre 01:03 y 01:27",
@@ -232,6 +195,43 @@
       "source": "Recuperado durante el análisis forense del dispositivo de Richard Alcoy",
       "archived": "22 de junio de 2016 entre 01:03 y 01:27",
       "status": "Recuperado"
+    },
+    {
+      "platform": "INSTAGRAM",
+      "type": "STORY",
+      "title": "Primer beso",
+      "date": "29/08/2021 · 19:34",
+      "location": "Playa de Fora del Forat, Vinaròs, Castellón",
+      "media": [
+        {
+          "kind": "video",
+          "title": "Primer beso · vídeo 1",
+          "video": "/assets/uploads/huella-digital/storybesomusica916.mp4",
+          "reactions": "❤️",
+          "comments": [
+            {
+              "author": "Sara:",
+              "text": "POR FINNNNN ❤️"
+            },
+            {
+              "author": "Marcos:",
+              "text": "ya era hora"
+            },
+            {
+              "author": "Dani:",
+              "text": "🤢"
+            },
+            {
+              "author": "Richard:",
+              "text": "❤️❤️❤️❤️❤️"
+            }
+          ]
+        }
+      ],
+      "handle": "Candy",
+      "source": "Galería del dispositivo de Candy",
+      "archived": "07/08/2021 · 20:46",
+      "status": "Conservado"
     }
   ],
   "show_documents": false,
