@@ -205,33 +205,10 @@
       "media": [
         {
           "kind": "video",
-          "title": "Primer beso · vídeo 1",
-          "video": "/assets/uploads/huella-digital/storybesomusica916.mp4",
-          "reactions": "❤️",
-          "comments": [
-            {
-              "author": "Sara:",
-              "text": "POR FINNNNN ❤️"
-            },
-            {
-              "author": "Marcos:",
-              "text": "ya era hora"
-            },
-            {
-              "author": "Dani:",
-              "text": "🤢"
-            },
-            {
-              "author": "Richard:",
-              "text": "❤️❤️❤️❤️❤️"
-            }
-          ]
+          "title": "💖",
+          "video": "/assets/uploads/huella-digital/storybesomusica916.mp4"
         }
-      ],
-      "handle": "Candy",
-      "source": "Galería del dispositivo de Candy",
-      "archived": "07/08/2021 · 20:46",
-      "status": "Conservado"
+      ]
     }
   ],
   "show_documents": false,
