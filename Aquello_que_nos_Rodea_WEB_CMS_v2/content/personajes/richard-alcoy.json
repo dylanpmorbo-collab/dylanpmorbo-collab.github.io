@@ -75,12 +75,22 @@
       "media": [
         {
           "kind": "photo",
-          "title": "Día libre sin Profes.",
-          "image": "/assets/uploads/huella-digital/diapalma2b.png",
-          "alt": "Día libre sin Profes.",
+          "title": "Llegamos!!! ✈️",
+          "image": "/assets/uploads/huella-digital/llegada.png",
+          "alt": "Pisando las islas",
           "sensitive": false,
           "zoom": false,
-          "reactions": "❤️62"
+          "reactions": "🤍33 🗨️5",
+          "comments": [
+            {
+              "author": "marcoslafuente_",
+              "text": "y esto acaba de empezar 😂🔥"
+            },
+            {
+              "author": "daniserrano98",
+              "text": "la que nos espera jajajaj"
+            }
+          ]
         },
         {
           "kind": "photo",
@@ -123,17 +133,21 @@
         },
         {
           "kind": "photo",
+          "title": "Día libre sin Profes.",
+          "image": "/assets/uploads/huella-digital/diapalma2b.png",
+          "alt": "Día libre sin Profes.",
+          "sensitive": false,
+          "zoom": false,
+          "reactions": "❤️62"
+        },
+        {
+          "kind": "photo",
           "title": "Paseando por Palma",
           "image": "/assets/uploads/huella-digital/diaenpalma.png",
           "alt": "Paseando por Palma",
           "sensitive": false,
           "zoom": false,
           "reactions": "❤️37"
-        },
-        {
-          "kind": "video",
-          "title": "EXCURSIÓN FIN DE CURSO 2ºBACHILLER. · vídeo 1",
-          "video": "/assets/uploads/huella-digital/fusion-boomerangstory.mp4"
         }
       ],
       "handle": "Daniserr98",
@@ -212,11 +226,6 @@
     }
   ],
   "show_documents": false,
-  "documents": [
-    {
-      "title": "Album de Fotos"
-    }
-  ],
   "show_police_report": false,
   "show_related_archive": true,
   "related_archive": [
