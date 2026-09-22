@@ -123,14 +123,21 @@
           ]
         },
         {
-          "kind": "video",
+          "kind": "photo",
           "title": "Mi campeón ❤️",
-          "video": "/assets/uploads/huella-digital/campeones.mp4",
-          "reactions": "👍🏻 65",
+          "image": "/assets/uploads/huella-digital/imagen-de-codex-23-sept-2026-001720.png",
+          "alt": "Creo que estaba yo más contento que él. Orgulloso de ti, hijo.",
+          "sensitive": false,
+          "zoom": false,
+          "reactions": "👍🏻 72",
           "comments": [
             {
+              "author": "Elena Martínez:",
+              "text": "Mis chicos ❤️❤️ Qué pena no haber pillado también vuestra cara justo antes 😂"
+            },
+            {
               "author": "Pilar Martínez:",
-              "text": "Este video hay que guardarla para siempre ❤️"
+              "text": "Esta foto hay que guardarla para siempre ❤️"
             },
             {
               "author": "Carlos Moreno:",
@@ -146,11 +153,7 @@
             },
             {
               "author": "Ana Beltrán:",
-              "text": "Qué bonito video 😊"
-            },
-            {
-              "author": "Elena Martínez:",
-              "text": "Y luego dices que tú no eres sentimental 😂"
+              "text": "Qué bonita foto 😊"
             }
           ]
         },
