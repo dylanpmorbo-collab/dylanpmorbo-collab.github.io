@@ -454,6 +454,42 @@
           ]
         },
         {
+          "kind": "video",
+          "title": "Intentando prepararnos 😂",
+          "video": "/assets/uploads/huella-digital/aifreevideo-20260922183004.mp4",
+          "reactions": "🤍52 🗨️7",
+          "comments": [
+            {
+              "author": "marcoslafuente_",
+              "text": "documentando el desastre, alguien tenía que hacerlo 😂"
+            },
+            {
+              "author": "nestor_16",
+              "text": "vais fuertes y todavía ni habéis salido jajajaj"
+            },
+            {
+              "author": "omarhaddad_",
+              "text": "esa habitación parece un mercadillo"
+            },
+            {
+              "author": "luciaroyoo",
+              "text": "pero vestíos de una vez jajajaj"
+            },
+            {
+              "author": "paulagimeno_",
+              "text": "qué desastre sois"
+            },
+            {
+              "author": "rubencasado98",
+              "text": "Marcos grabando y cero intención de ayudar, clásico"
+            },
+            {
+              "author": "ivanferrer_97",
+              "text": "esta noche promete demasiado"
+            }
+          ]
+        },
+        {
           "kind": "photo",
           "title": "Sábado noche 😎",
           "image": "/assets/uploads/huella-digital/nochepalmahotelsalidamarcha.png",
@@ -599,42 +635,6 @@
             {
               "author": "javier.alcoy",
               "text": "Muy buena foto. Aprovechad que ya os queda poco 👍"
-            }
-          ]
-        },
-        {
-          "kind": "video",
-          "title": "Intentando prepararnos 😂",
-          "video": "/assets/uploads/huella-digital/aifreevideo-20260922183004.mp4",
-          "reactions": "🤍52 🗨️7",
-          "comments": [
-            {
-              "author": "marcoslafuente_",
-              "text": "documentando el desastre, alguien tenía que hacerlo 😂"
-            },
-            {
-              "author": "nestor_16",
-              "text": "vais fuertes y todavía ni habéis salido jajajaj"
-            },
-            {
-              "author": "omarhaddad_",
-              "text": "esa habitación parece un mercadillo"
-            },
-            {
-              "author": "luciaroyoo",
-              "text": "pero vestíos de una vez jajajaj"
-            },
-            {
-              "author": "paulagimeno_",
-              "text": "qué desastre sois"
-            },
-            {
-              "author": "rubencasado98",
-              "text": "Marcos grabando y cero intención de ayudar, clásico"
-            },
-            {
-              "author": "ivanferrer_97",
-              "text": "esta noche promete demasiado"
             }
           ]
         }
