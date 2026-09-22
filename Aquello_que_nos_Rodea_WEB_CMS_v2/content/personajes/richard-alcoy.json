@@ -114,6 +114,29 @@
         },
         {
           "kind": "photo",
+          "title": "Menudo Lujo ",
+          "image": "/assets/uploads/huella-digital/hotel-1.png",
+          "alt": "Poco más y nos meten en una cuadra 🤣",
+          "sensitive": false,
+          "zoom": false,
+          "reactions": "🤍63 🗨️3",
+          "comments": [
+            {
+              "author": "alexmorenoo",
+              "text": "esa habitación no llega viva al viernes 😂"
+            },
+            {
+              "author": "luciaroyoo",
+              "text": "tres en una habitación… pobre hotel"
+            },
+            {
+              "author": "jorgebielsa_",
+              "text": "- primera foto y ya tenéis cara de liarla jajajaj"
+            }
+          ]
+        },
+        {
+          "kind": "photo",
           "title": "Fusión",
           "image": "/assets/uploads/huella-digital/fusion.png",
           "alt": "Fusión",
@@ -154,15 +177,6 @@
               "text": "yo hice la foto y exijo créditos"
             }
           ]
-        },
-        {
-          "kind": "photo",
-          "title": "Menudo Lujo ",
-          "image": "/assets/uploads/huella-digital/hotel-1.png",
-          "alt": "Día libre sin Profes.",
-          "sensitive": false,
-          "zoom": false,
-          "reactions": "❤️62"
         },
         {
           "kind": "photo",
