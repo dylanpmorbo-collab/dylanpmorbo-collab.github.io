@@ -60,7 +60,7 @@
           "kind": "video",
           "title": "Tarde de fútbol con mi chico. Victoria del Zaragoza y a casa contentos. ⚽💙",
           "video": "/assets/uploads/huella-digital/estadiopapasonido.mp4",
-          "reactions": "👍🏻23 Me gusta",
+          "reactions": "👍🏻23",
           "comments": [
             {
               "author": "Elena Martínez:",
@@ -93,6 +93,37 @@
             {
               "author": "Ana Beltrán:",
               "text": "Igualitos los dos 😊"
+            }
+          ]
+        },
+        {
+          "kind": "photo",
+          "title": "No hay quien le quite el balón ⚽",
+          "image": "/assets/uploads/huella-digital/imagen-de-codex-22-sept-2026-233136.png",
+          "alt": "Último partido de la temporada. Hoy tocaba sufrir desde la banda 😂",
+          "sensitive": false,
+          "zoom": false,
+          "reactions": "👍🏻 18",
+          "comments": [
+            {
+              "author": "Elena Martínez:",
+              "text": "Qué concentración lleva 😂❤️"
+            },
+            {
+              "author": "Carlos Moreno:",
+              "text": "Tiene maneras el chaval 👍"
+            },
+            {
+              "author": "Pilar Martínez:",
+              "text": "Pero si ya corre más que tú Javier jajaja"
+            },
+            {
+              "author": "Javier Alcoy:",
+              "text": "Eso no era muy difícil 😂"
+            },
+            {
+              "author": "Miguel Alcoy:",
+              "text": "Dale unos años y lo fichamos para el Zaragoza"
             }
           ]
         }
