@@ -137,49 +137,6 @@
         },
         {
           "kind": "photo",
-          "title": "Fusión",
-          "image": "/assets/uploads/huella-digital/fusion.png",
-          "alt": "Fusión",
-          "sensitive": false,
-          "zoom": false,
-          "reactions": "🤍103 🗨️8",
-          "comments": [
-            {
-              "author": "daniserrano98",
-              "text": "dos pringaos y una catedral"
-            },
-            {
-              "author": "luciaroyoo",
-              "text": "la pose es horrible pero me encanta 😂"
-            },
-            {
-              "author": "alexmorenoo",
-              "text": "eso lo ensayasteis o salió solo?"
-            },
-            {
-              "author": "nestor_16",
-              "text": "marcos sí que sabe posar 😂"
-            },
-            {
-              "author": "paulagimeno",
-              "text": "foto de marco de fotos total 😭☀️"
-            },
-            {
-              "author": "marcoslafuente_",
-              "text": "arte contemporáneo"
-            },
-            {
-              "author": "jorgebielsa_",
-              "text": "turistas nivel experto jajajaj"
-            },
-            {
-              "author": "daniserrano98",
-              "text": "yo hice la foto y exijo créditos"
-            }
-          ]
-        },
-        {
-          "kind": "photo",
           "title": "Estrenamos la piscina",
           "image": "/assets/uploads/huella-digital/hotel-2.png",
           "alt": "Asi, sí...",
@@ -234,6 +191,49 @@
             {
               "author": "hectorgracia",
               "text": "guardad esta foto que luego estas son las buenas"
+            }
+          ]
+        },
+        {
+          "kind": "photo",
+          "title": "Fusión",
+          "image": "/assets/uploads/huella-digital/fusion.png",
+          "alt": "Fusión",
+          "sensitive": false,
+          "zoom": false,
+          "reactions": "🤍103 🗨️8",
+          "comments": [
+            {
+              "author": "daniserrano98",
+              "text": "dos pringaos y una catedral"
+            },
+            {
+              "author": "luciaroyoo",
+              "text": "la pose es horrible pero me encanta 😂"
+            },
+            {
+              "author": "alexmorenoo",
+              "text": "eso lo ensayasteis o salió solo?"
+            },
+            {
+              "author": "nestor_16",
+              "text": "marcos sí que sabe posar 😂"
+            },
+            {
+              "author": "paulagimeno",
+              "text": "foto de marco de fotos total 😭☀️"
+            },
+            {
+              "author": "marcoslafuente_",
+              "text": "arte contemporáneo"
+            },
+            {
+              "author": "jorgebielsa_",
+              "text": "turistas nivel experto jajajaj"
+            },
+            {
+              "author": "daniserrano98",
+              "text": "yo hice la foto y exijo créditos"
             }
           ]
         },
@@ -637,6 +637,13 @@
               "text": "Muy buena foto. Aprovechad que ya os queda poco 👍"
             }
           ]
+        },
+        {
+          "kind": "photo",
+          "title": "Se acabó 😭✈️",
+          "image": "/assets/uploads/huella-digital/imagen-de-codex-22-sept-2026-184615.png",
+          "sensitive": false,
+          "zoom": false
         }
       ],
       "source": "Publicaciónes Instagram {daniserrano98 - marcoslafuente -richardalcoy}",
