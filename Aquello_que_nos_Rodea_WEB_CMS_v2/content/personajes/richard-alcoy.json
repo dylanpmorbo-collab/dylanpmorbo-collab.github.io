@@ -68,7 +68,7 @@
     },
     {
       "platform": "INSTAGRAM",
-      "type": "Pubicación",
+      "type": "Pubicaciónes",
       "title": "EXCURSIÓN FIN DE CURSO 2ºBACHILLER.",
       "date": "20 a 28 de junio de 2016",
       "location": "Palma de Mayorca",
@@ -821,6 +821,11 @@
           "video": "/assets/uploads/huella-digital/storybesomusica916.mp4"
         }
       ]
+    },
+    {
+      "platform": "INSTAGRAM",
+      "type": "Publicaciones",
+      "title": "Viaje Lisboa 2023"
     }
   ],
   "show_documents": false,
