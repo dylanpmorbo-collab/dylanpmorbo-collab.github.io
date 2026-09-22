@@ -753,6 +753,9 @@
       "status": "Conservado"
     },
     {
+      "platform": "DISPOSITIVO"
+    },
+    {
       "platform": "DISPOSITIVO",
       "type": "[Capturas de chat] [Fotografías Eliminadas] [Videos Eliminados]",
       "title": "Volcado de Datos",
