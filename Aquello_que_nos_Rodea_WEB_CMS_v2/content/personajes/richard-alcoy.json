@@ -510,10 +510,12 @@
         },
         {
           "kind": "photo",
-          "title": "que ambiente",
+          "title": "Primera noche de fiesta 🍸",
           "image": "/assets/uploads/huella-digital/imagen-de-codex-21-sept-2026-035607-1.png",
+          "alt": "Después de casi una semana portándonos bien, hoy toca salir 😂🍸 #Mallorca #Palma #findecurso",
           "sensitive": false,
-          "zoom": false
+          "zoom": false,
+          "reactions": "🤍33 🗨️5"
         }
       ],
       "source": "Publicaciónes Instagram {daniserrano98 - marcoslafuente -richardalcoy}",
