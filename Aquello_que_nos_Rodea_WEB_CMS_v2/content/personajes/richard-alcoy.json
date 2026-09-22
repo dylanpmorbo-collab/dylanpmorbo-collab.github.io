@@ -165,7 +165,34 @@
         {
           "kind": "video",
           "title": "Mi campeón ❤️",
-          "video": "/assets/uploads/huella-digital/campeones.mp4"
+          "video": "/assets/uploads/huella-digital/campeones.mp4",
+          "reactions": "👍🏻 65",
+          "comments": [
+            {
+              "author": "Pilar Martínez:",
+              "text": "Este video hay que guardarla para siempre ❤️"
+            },
+            {
+              "author": "Carlos Moreno:",
+              "text": "La cara del padre lo dice todo. Enhorabuena Richard!"
+            },
+            {
+              "author": "Miguel Alcoy:",
+              "text": "Javi vas a acabar llorando tú antes que el niño 😂"
+            },
+            {
+              "author": "Javier Alcoy:",
+              "text": "Casi casi 😂"
+            },
+            {
+              "author": "Ana Beltrán:",
+              "text": "Qué bonito video 😊"
+            },
+            {
+              "author": "Elena Martínez:",
+              "text": "Y luego dices que tú no eres sentimental 😂"
+            }
+          ]
         }
       ],
       "handle": "Javier Alcoy"
