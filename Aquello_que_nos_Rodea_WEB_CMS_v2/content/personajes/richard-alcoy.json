@@ -756,13 +756,13 @@
     {
       "platform": "DISPOSITIVO",
       "type": "[Capturas de chat] [Fotografías Eliminadas] [Videos Eliminados]",
-      "title": "Volcado de Datos [20 a 28 de junio de 2016]",
+      "title": "Volcado de Datos",
       "date": "20 a 28 de junio de 2016",
       "location": "Palma de Mallorca [EXCURSIÓN]",
       "media": [
         {
           "kind": "photo",
-          "title": "Secretos revelados",
+          "title": "Recuperado durante el análisis forense del dispositivo · foto 1",
           "image": "/assets/uploads/huella-digital/1.png",
           "alt": "Secretos revelados",
           "sensitive": false,
