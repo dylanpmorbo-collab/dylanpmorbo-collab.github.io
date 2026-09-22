@@ -699,40 +699,52 @@
           "reactions": "🤍49 🗨️12",
           "comments": [
             {
-              "text": "daniserrano98 — no recuerdo ni que hicieran esta foto"
+              "author": "daniserrano98",
+              "text": "no recuerdo ni que hicieran esta foto"
             },
             {
-              "text": "marcoslafuente_ — mi cara representa perfectamente mi estado mental"
+              "author": "marcoslafuente_",
+              "text": "mi cara representa perfectamente mi estado mental"
             },
             {
-              "text": "richardalcoy98 — quiero mi cama y no volver a ver un aeropuerto en mi vida"
+              "author": "richardalcoy98",
+              "text": "quiero mi cama y no volver a ver un aeropuerto en mi vida"
             },
             {
-              "text": "omarhaddad_ — 8 días antes erais personas distintas"
+              "author": "omarhaddad_",
+              "text": "8 días antes erais personas distintas"
             },
             {
-              "text": "alexmorenoo — JAJAJA Dani está apagado directamente"
+              "author": "alexmorenoo",
+              "text": "JAJAJA Dani está apagado directamente"
             },
             {
-              "text": "jorgebielsa_ — Marcos intentando procesar todo lo ocurrido esta semana"
+              "author": "jorgebielsa_",
+              "text": "Marcos intentando procesar todo lo ocurrido esta semana"
             },
             {
-              "text": "rubencasado98 — Richard mirando por la ventana reconsiderando sus decisiones"
+              "author": "rubencasado98",
+              "text": "Richard mirando por la ventana reconsiderando sus decisiones"
             },
             {
-              "text": "luciaroyoo — qué pena dais los tres 😂"
+              "author": "luciaroyoo",
+              "text": "qué pena dais los tres 😂"
             },
             {
-              "text": "paulagimeno_ — descansad un mes por lo menos"
+              "author": "paulagimeno_",
+              "text": "descansad un mes por lo menos"
             },
             {
-              "text": "hectorgracia — la excursión os ha quitado años de vida"
+              "author": "hectorgracia",
+              "text": "la excursión os ha quitado años de vida"
             },
             {
-              "text": "ivanferrer_97 — y pensar que hace una semana bajabais del avión dando saltos 😂"
+              "author": "ivanferrer_97",
+              "text": "y pensar que hace una semana bajabais del avión dando saltos 😂"
             },
             {
-              "text": "javier.alcoy — Ahora toca recuperar sueño 😂"
+              "author": "javier.alcoy",
+              "text": "Ahora toca recuperar sueño 😂"
             }
           ]
         }
