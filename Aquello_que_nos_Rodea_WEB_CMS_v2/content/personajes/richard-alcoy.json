@@ -199,10 +199,58 @@
         },
         {
           "kind": "photo",
-          "title": "se nos va de fiesta",
-          "image": "/assets/uploads/huella-digital/imagen-de-codex-16-sept-2026-175100.png",
+          "title": "El chico se hace mayor",
+          "image": "/assets/uploads/huella-digital/2014-15.png",
+          "alt": "Primera Nochevieja que sale a celebrarlo con los amigos. Hace nada parecía que había que llevarlo de la mano a todas partes y ahora míralo, de traje y con más ganas de salir que nosotros 😂 Pásalo bien, Richard. Y no hagas ninguna tontería. Feliz 2015 a todos.",
           "sensitive": false,
-          "zoom": false
+          "zoom": false,
+          "reactions": "👍🏻32",
+          "comments": [
+            {
+              "author": "Elena Martínez:",
+              "text": "Yo sigo diciendo que es muy pequeño para volver a esas horas 😒😂❤️"
+            },
+            {
+              "author": "Javier Alcoy:",
+              "text": "Elena, tiene 16, no 6 😂"
+            },
+            {
+              "author": "Elena Martínez:",
+              "text": "Para mí va a tener 6 toda la vida."
+            },
+            {
+              "author": "Pilar Martínez:",
+              "text": "Pero qué guapo está!! Parece mentira lo rápido que crecen ❤️"
+            },
+            {
+              "author": "Carlos Moreno:",
+              "text": "Javier, prepárate. A partir de ahora empieza lo bueno 😂"
+            },
+            {
+              "author": "Javier Alcoy:",
+              "text": "Eso me están diciendo todos y no me tranquiliza precisamente 😂"
+            },
+            {
+              "author": "Miguel Alcoy:",
+              "text": "Primera Nochevieja solo… a este paso para septiembre os veo de abuelos 😂"
+            },
+            {
+              "author": "Javier Alcoy:",
+              "text": "Ahora entiendo por que mamá siempre dice que callado estás más guapo 😂"
+            },
+            {
+              "author": "Richard Alcoy:",
+              "text": "q exagerados, mañana estoy de vuelta"
+            },
+            {
+              "author": "Elena Martínez:",
+              "text": "Eso espero. Y con la corbata puesta todavía."
+            },
+            {
+              "author": "Richard Alcoy:",
+              "text": "Eso ya no lo prometo."
+            }
+          ]
         },
         {
           "kind": "photo",
