@@ -342,7 +342,7 @@
     {
       "title": "Volcado de datos · Richard Alcoy",
       "importance": "basico",
-      "summary": "Recuperado durante el análisis forense del dispositivo de Richard Alcoy · Archivado: 20 a 28 de junio de 2016",
+      "summary": "VOLCADO FORENSE // 20–28 JUN 2016",
       "folders": [
         {
           "title": "Dispositivo de Richard Alcoy",
@@ -350,7 +350,7 @@
           "description": "[Capturas de chat] [Fotografías Eliminadas] [Videos Eliminados]",
           "files": [
             {
-              "title": "Recuperado durante el análisis forense del dispositivo · foto 1",
+              "title": "Secretos revelados",
               "kind": "IMAGEN",
               "image": "/assets/uploads/huella-digital/1.png",
               "order": 1,
@@ -359,10 +359,10 @@
               "source_device": "Dispositivo de Richard Alcoy",
               "analysis_type": "[Capturas de chat] [Fotografías Eliminadas] [Videos Eliminados]",
               "status": "Recuperado",
-              "notes": "Secretos revelados"
+              "notes": "Referencia original: Recuperado durante el análisis forense del dispositivo · foto 1\nSecretos revelados"
             },
             {
-              "title": "Recuperado durante el análisis forense del dispositivo · foto 2",
+              "title": "Captura recuperada 02",
               "kind": "IMAGEN",
               "image": "/assets/uploads/huella-digital/2.png",
               "order": 2,
@@ -371,10 +371,10 @@
               "source_device": "Dispositivo de Richard Alcoy",
               "analysis_type": "[Capturas de chat] [Fotografías Eliminadas] [Videos Eliminados]",
               "status": "Recuperado",
-              "notes": ""
+              "notes": "Referencia original: Recuperado durante el análisis forense del dispositivo · foto 2"
             },
             {
-              "title": "Recuperado durante el análisis forense del dispositivo · foto 3",
+              "title": "Captura recuperada 03",
               "kind": "IMAGEN",
               "image": "/assets/uploads/huella-digital/3.png",
               "order": 3,
@@ -383,10 +383,10 @@
               "source_device": "Dispositivo de Richard Alcoy",
               "analysis_type": "[Capturas de chat] [Fotografías Eliminadas] [Videos Eliminados]",
               "status": "Recuperado",
-              "notes": ""
+              "notes": "Referencia original: Recuperado durante el análisis forense del dispositivo · foto 3"
             },
             {
-              "title": "Recuperado durante el análisis forense del dispositivo · foto 4",
+              "title": "Captura recuperada 04",
               "kind": "IMAGEN",
               "image": "/assets/uploads/huella-digital/4.png",
               "order": 4,
@@ -395,10 +395,10 @@
               "source_device": "Dispositivo de Richard Alcoy",
               "analysis_type": "[Capturas de chat] [Fotografías Eliminadas] [Videos Eliminados]",
               "status": "Recuperado",
-              "notes": ""
+              "notes": "Referencia original: Recuperado durante el análisis forense del dispositivo · foto 4"
             },
             {
-              "title": "Fotografía enviada a la 01:07 am 22 de junio de 2016",
+              "title": "Foto enviada · 22/06/2016 01:07",
               "kind": "IMAGEN",
               "image": "/assets/uploads/huella-digital/nochepalmahotelsalidamarcha2.png",
               "order": 5,
@@ -407,10 +407,10 @@
               "source_device": "Dispositivo de Richard Alcoy",
               "analysis_type": "[Capturas de chat] [Fotografías Eliminadas] [Videos Eliminados]",
               "status": "Recuperado",
-              "notes": ""
+              "notes": "Referencia original: Fotografía enviada a la 01:07 am 22 de junio de 2016"
             },
             {
-              "title": "Recuperado durante el análisis forense del dispositivo · vídeo 1",
+              "title": "Vídeo recuperado",
               "kind": "VIDEO",
               "video": "/assets/uploads/huella-digital/recuperado-wsp.mp4",
               "order": 6,
@@ -419,7 +419,7 @@
               "source_device": "Dispositivo de Richard Alcoy",
               "analysis_type": "[Capturas de chat] [Fotografías Eliminadas] [Videos Eliminados]",
               "status": "Recuperado",
-              "notes": "Vídeo Recuperado tras volcado de archivos eliminados del dispositivo de Richard Alcoy."
+              "notes": "Referencia original: Recuperado durante el análisis forense del dispositivo · vídeo 1\nVídeo Recuperado tras volcado de archivos eliminados del dispositivo de Richard Alcoy."
             }
           ]
         }
