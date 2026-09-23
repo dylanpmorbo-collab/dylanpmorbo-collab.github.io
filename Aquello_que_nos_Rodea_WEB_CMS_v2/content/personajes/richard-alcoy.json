@@ -254,10 +254,62 @@
         },
         {
           "kind": "photo",
-          "title": "su primer coche",
-          "image": "/assets/uploads/huella-digital/primer-coche.png",
+          "title": "Su primer coche 🚗",
+          "image": "/assets/uploads/huella-digital/2017.png",
+          "alt": "Pues ya está. Después de darle vueltas durante semanas, Richard se ha comprado su primer coche. De segunda mano, sencillo y sin ninguna locura, como tiene que ser para empezar.   Hace cuatro días lo llevaba yo al colegio y ahora resulta que tiene coche propio… El tiempo pasa demasiado rápido.   Disfrútalo mucho, hijo. Y cuídalo, que la gasolina no se paga sola 😂",
           "sensitive": false,
-          "zoom": false
+          "zoom": false,
+          "reactions": "👍🏻26",
+          "comments": [
+            {
+              "author": "Elena Martínez:",
+              "text": "Todavía no me acostumbro a verlo conducir solo 😅❤️"
+            },
+            {
+              "author": "Javier Alcoy:",
+              "text": "Pues más te vale, porque ahora va a querer cogerlo hasta para ir a comprar el pan 😂"
+            },
+            {
+              "author": "Richard Alcoy:",
+              "text": "Qué exagerados sois 😂😂"
+            },
+            {
+              "author": "Miguel Alcoy:",
+              "text": "Enhorabuena, chaval!! Ahora empieza la verdadera ruina: gasolina, seguro, ruedas… 😂"
+            },
+            {
+              "author": "Richard Alcoy:",
+              "text": "Gracias por los ánimos, tío 😂"
+            },
+            {
+              "author": "Pilar Martínez:",
+              "text": "Qué mayor ya!! 😭❤️ Que lo disfrutes muchísimo Richard."
+            },
+            {
+              "author": "Carlos Moreno:",
+              "text": "Javier, ¿y tú eres consciente de que acabas de perder oficialmente el trabajo de taxista? 😂"
+            },
+            {
+              "author": "Javier Alcoy:",
+              "text": "Llevo esperando este momento 19 años."
+            },
+            {
+              "author": "Elena Martínez:",
+              "text": "Sí, sí… hasta que sean las 3 de la mañana y estés mirando por la ventana a ver si llega."
+            },
+            {
+              "author": "Javier Alcoy:",
+              "text": "Eso también 😂"
+            },
+            {
+              "author": "Richard Alcoy:",
+              "text": "Prometo traerlo entero 😎"
+            },
+            {
+              "author": "Javier Alcoy:",
+              "text": "El coche también, a ser posible."
+            }
+          ]
         }
       ],
       "handle": "Javier Alcoy"
