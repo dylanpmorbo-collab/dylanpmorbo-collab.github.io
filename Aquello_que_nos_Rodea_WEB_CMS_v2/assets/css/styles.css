@@ -1070,10 +1070,15 @@ html:not(.age-verified){overflow:hidden}
 .digital-carousel-engagement [hidden]{display:none!important}
 .digital-carousel-engagement [data-digital-engagement]:empty{display:none}
 .digital-slide-title{margin:0 0 10px;color:#d6bd8e;font:600 15px/1.4 var(--display)}
+.digital-slide-date{margin:0 0 10px;color:#918875;font:600 10px/1.4 var(--display);letter-spacing:.08em}
+.digital-slide-date span{margin-right:7px;color:#716349}
+.digital-slide-description{margin:0 0 12px;color:#c5bdb0;font-size:17px;line-height:1.5}
+.digital-slide-description p{margin:0 0 8px}
 .digital-slide-reactions{margin:0 0 10px;color:#c7ae7c;font-size:16px}
 .digital-slide-comments{border-top:1px solid #302a22;padding-top:9px;color:#b5aa98;font-size:16px}
 .digital-slide-comments p{margin:0 0 6px;overflow-wrap:anywhere}
 .digital-slide-comments strong{color:#d3bb8b}
+.digital-mention{color:#76aee8}
 
 /* Testimonios sonoros y presentación de fichas sin columna acompañante. */
 .archive-entry-layout-facts-only{position:relative;justify-items:center}

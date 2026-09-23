@@ -64,28 +64,7 @@
           "sensitive": false,
           "zoom": false,
           "reactions": "👍🏻 18",
-          "comments": [
-            {
-              "author": "Elena Martínez:",
-              "text": "Qué concentración lleva 😂❤️"
-            },
-            {
-              "author": "Carlos Moreno:",
-              "text": "Tiene maneras el chaval 👍"
-            },
-            {
-              "author": "Pilar Martínez:",
-              "text": "Pero si ya corre más que tú Javier jajaja"
-            },
-            {
-              "author": "Javier Alcoy:",
-              "text": "Eso no era muy difícil 😂"
-            },
-            {
-              "author": "Miguel Alcoy:",
-              "text": "Dale unos años y lo fichamos para el Zaragoza"
-            }
-          ]
+          "comments_text": "@Elena Martínez:\nQué concentración lleva 😂❤️\n\n@Carlos Moreno:\nTiene maneras el chaval 👍\n\n@Pilar Martínez:\nPero si ya corre más que tú Javier jajaja\n\n@Javier Alcoy:\nEso no era muy difícil 😂\n\n@Miguel Alcoy:\nDale unos años y lo fichamos para el Zaragoza"
         },
         {
           "kind": "photo",
@@ -95,32 +74,7 @@
           "sensitive": false,
           "zoom": false,
           "reactions": "👍🏻 36",
-          "comments": [
-            {
-              "author": "Elena Martínez:",
-              "text": "Enhorabuena campeones!!! ❤️👏"
-            },
-            {
-              "author": "Carlos Moreno:",
-              "text": "Esa copa no se suelta en toda la tarde 😂"
-            },
-            {
-              "author": "Pilar Martínez:",
-              "text": "Richard está que no cabe en sí de felicidad"
-            },
-            {
-              "author": "Miguel Alcoy:",
-              "text": "Grande el equipo!!"
-            },
-            {
-              "author": "Javier Alcoy:",
-              "text": "Hoy se lo han ganado de sobra."
-            },
-            {
-              "author": "Raúl Gómez:",
-              "text": "Qué recuerdos dan estas fotos. Enhorabuena a todos los chavales."
-            }
-          ]
+          "comments_text": "@Elena Martínez:\nEnhorabuena campeones!!! ❤️👏\n\n@Carlos Moreno:\nEsa copa no se suelta en toda la tarde 😂\n\n@Pilar Martínez:\nRichard está que no cabe en sí de felicidad\n\n@Miguel Alcoy:\nGrande el equipo!!\n\n@Javier Alcoy:\nHoy se lo han ganado de sobra.\n\n@Raúl Gómez:\nQué recuerdos dan estas fotos. Enhorabuena a todos los chavales."
         },
         {
           "kind": "photo",
@@ -130,72 +84,14 @@
           "sensitive": false,
           "zoom": false,
           "reactions": "👍🏻 72",
-          "comments": [
-            {
-              "author": "Elena Martínez:",
-              "text": "Mis chicos ❤️❤️ Qué pena no haber pillado también vuestra cara justo antes 😂"
-            },
-            {
-              "author": "Pilar Martínez:",
-              "text": "Esta foto hay que guardarla para siempre ❤️"
-            },
-            {
-              "author": "Carlos Moreno:",
-              "text": "La cara del padre lo dice todo. Enhorabuena Richard!"
-            },
-            {
-              "author": "Miguel Alcoy:",
-              "text": "Javi vas a acabar llorando tú antes que el niño 😂"
-            },
-            {
-              "author": "Javier Alcoy:",
-              "text": "Casi casi 😂"
-            },
-            {
-              "author": "Ana Beltrán:",
-              "text": "Qué bonita foto 😊"
-            }
-          ]
+          "comments_text": "@Elena Martínez:\nMis chicos ❤️❤️ Qué pena no haber pillado también vuestra cara justo antes 😂\n\n@Pilar Martínez:\nEsta foto hay que guardarla para siempre ❤️\n\n@Carlos Moreno:\nLa cara del padre lo dice todo. Enhorabuena Richard!\n\n@Miguel Alcoy:\nJavi vas a acabar llorando tú antes que el niño 😂\n\n@Javier Alcoy:\nCasi casi 😂\n\n@Ana Beltrán:\nQué bonita foto 😊"
         },
         {
           "kind": "video",
           "title": "Tarde de fútbol con mi chico. Victoria del Zaragoza y a casa contentos. ⚽💙",
           "video": "/assets/uploads/huella-digital/estadiopapasonido.mp4",
           "reactions": "👍🏻23",
-          "comments": [
-            {
-              "author": "Elena Martínez:",
-              "text": "Qué guapos mis chicos ❤️"
-            },
-            {
-              "author": "Richard Alcoy:",
-              "text": "La próxima invitas tú a comer 😂"
-            },
-            {
-              "author": "Javier Alcoy:",
-              "text": "Como siempre, ¿no? 😂"
-            },
-            {
-              "author": "Miguel Alcoy:",
-              "text": "Cómo ha crecido el chaval!!"
-            },
-            {
-              "author": "Pilar Martínez:",
-              "text": "Qué mayor está Richard 😘"
-            },
-            {
-              "author": "Carlos Moreno:",
-              "text": "Buena tarde os habéis pegado. Y encima ganando 👍"
-            },
-            {
-              "author": "Javier Alcoy:",
-              "text": "Ya tocaba una alegría jajaja"
-            },
-            {
-              "author": "Ana Beltrán:",
-              "text": "Igualitos los dos 😊"
-            }
-          ]
+          "comments_text": "@Elena Martínez:\nQué guapos mis chicos ❤️\n\n@Richard Alcoy:\nLa próxima invitas tú a comer 😂\n\n@Javier Alcoy:\nComo siempre, ¿no? 😂\n\n@Miguel Alcoy:\nCómo ha crecido el chaval!!\n\n@Pilar Martínez:\nQué mayor está Richard 😘\n\n@Carlos Moreno:\nBuena tarde os habéis pegado. Y encima ganando 👍\n\n@Javier Alcoy:\nYa tocaba una alegría jajaja\n\n@Ana Beltrán:\nIgualitos los dos 😊"
         },
         {
           "kind": "photo",
@@ -205,52 +101,7 @@
           "sensitive": false,
           "zoom": false,
           "reactions": "👍🏻32",
-          "comments": [
-            {
-              "author": "Elena Martínez:",
-              "text": "Yo sigo diciendo que es muy pequeño para volver a esas horas 😒😂❤️"
-            },
-            {
-              "author": "Javier Alcoy:",
-              "text": "Elena, tiene 16, no 6 😂"
-            },
-            {
-              "author": "Elena Martínez:",
-              "text": "Para mí va a tener 6 toda la vida."
-            },
-            {
-              "author": "Pilar Martínez:",
-              "text": "Pero qué guapo está!! Parece mentira lo rápido que crecen ❤️"
-            },
-            {
-              "author": "Carlos Moreno:",
-              "text": "Javier, prepárate. A partir de ahora empieza lo bueno 😂"
-            },
-            {
-              "author": "Javier Alcoy:",
-              "text": "Eso me están diciendo todos y no me tranquiliza precisamente 😂"
-            },
-            {
-              "author": "Miguel Alcoy:",
-              "text": "Primera Nochevieja solo… a este paso para septiembre os veo de abuelos 😂"
-            },
-            {
-              "author": "Javier Alcoy:",
-              "text": "Ahora entiendo por que mamá siempre dice que callado estás más guapo 😂"
-            },
-            {
-              "author": "Richard Alcoy:",
-              "text": "q exagerados, mañana estoy de vuelta"
-            },
-            {
-              "author": "Elena Martínez:",
-              "text": "Eso espero. Y con la corbata puesta todavía."
-            },
-            {
-              "author": "Richard Alcoy:",
-              "text": "Eso ya no lo prometo."
-            }
-          ]
+          "comments_text": "@Elena Martínez:\nYo sigo diciendo que es muy pequeño para volver a esas horas 😒😂❤️\n\n@Javier Alcoy:\nElena, tiene 16, no 6 😂\n\n@Elena Martínez:\nPara mí va a tener 6 toda la vida.\n\n@Pilar Martínez:\nPero qué guapo está!! Parece mentira lo rápido que crecen ❤️\n\n@Carlos Moreno:\nJavier, prepárate. A partir de ahora empieza lo bueno 😂\n\n@Javier Alcoy:\nEso me están diciendo todos y no me tranquiliza precisamente 😂\n\n@Miguel Alcoy:\nPrimera Nochevieja solo… a este paso para septiembre os veo de abuelos 😂\n\n@Javier Alcoy:\nAhora entiendo por que mamá siempre dice que callado estás más guapo 😂\n\n@Richard Alcoy:\nq exagerados, mañana estoy de vuelta\n\n@Elena Martínez:\nEso espero. Y con la corbata puesta todavía.\n\n@Richard Alcoy:\nEso ya no lo prometo."
         },
         {
           "kind": "photo",
@@ -260,56 +111,7 @@
           "sensitive": false,
           "zoom": false,
           "reactions": "👍🏻26",
-          "comments": [
-            {
-              "author": "Elena Martínez:",
-              "text": "Todavía no me acostumbro a verlo conducir solo 😅❤️"
-            },
-            {
-              "author": "Javier Alcoy:",
-              "text": "Pues más te vale, porque ahora va a querer cogerlo hasta para ir a comprar el pan 😂"
-            },
-            {
-              "author": "Richard Alcoy:",
-              "text": "Qué exagerados sois 😂😂"
-            },
-            {
-              "author": "Miguel Alcoy:",
-              "text": "Enhorabuena, chaval!! Ahora empieza la verdadera ruina: gasolina, seguro, ruedas… 😂"
-            },
-            {
-              "author": "Richard Alcoy:",
-              "text": "Gracias por los ánimos, tío 😂"
-            },
-            {
-              "author": "Pilar Martínez:",
-              "text": "Qué mayor ya!! 😭❤️ Que lo disfrutes muchísimo Richard."
-            },
-            {
-              "author": "Carlos Moreno:",
-              "text": "Javier, ¿y tú eres consciente de que acabas de perder oficialmente el trabajo de taxista? 😂"
-            },
-            {
-              "author": "Javier Alcoy:",
-              "text": "Llevo esperando este momento 19 años."
-            },
-            {
-              "author": "Elena Martínez:",
-              "text": "Sí, sí… hasta que sean las 3 de la mañana y estés mirando por la ventana a ver si llega."
-            },
-            {
-              "author": "Javier Alcoy:",
-              "text": "Eso también 😂"
-            },
-            {
-              "author": "Richard Alcoy:",
-              "text": "Prometo traerlo entero 😎"
-            },
-            {
-              "author": "Javier Alcoy:",
-              "text": "El coche también, a ser posible."
-            }
-          ]
+          "comments_text": "@Elena Martínez:\nTodavía no me acostumbro a verlo conducir solo 😅❤️\n\n@Javier Alcoy:\nPues más te vale, porque ahora va a querer cogerlo hasta para ir a comprar el pan 😂\n\n@Richard Alcoy:\nQué exagerados sois 😂😂\n\n@Miguel Alcoy:\nEnhorabuena, chaval!! Ahora empieza la verdadera ruina: gasolina, seguro, ruedas… 😂\n\n@Richard Alcoy:\nGracias por los ánimos, tío 😂\n\n@Pilar Martínez:\nQué mayor ya!! 😭❤️ Que lo disfrutes muchísimo Richard.\n\n@Carlos Moreno:\nJavier, ¿y tú eres consciente de que acabas de perder oficialmente el trabajo de taxista? 😂\n\n@Javier Alcoy:\nLlevo esperando este momento 19 años.\n\n@Elena Martínez:\nSí, sí… hasta que sean las 3 de la mañana y estés mirando por la ventana a ver si llega.\n\n@Javier Alcoy:\nEso también 😂\n\n@Richard Alcoy:\nPrometo traerlo entero 😎\n\n@Javier Alcoy:\nEl coche también, a ser posible."
         }
       ],
       "handle": "Javier Alcoy"
@@ -337,28 +139,7 @@
           "sensitive": false,
           "zoom": false,
           "reactions": "🤍33 🗨️5",
-          "comments": [
-            {
-              "author": "marcoslafuente_",
-              "text": "y esto acaba de empezar 😂🔥"
-            },
-            {
-              "author": "daniserrano98",
-              "text": "la que nos espera jajajaj"
-            },
-            {
-              "author": "luciaroyoo",
-              "text": "disfrutad mallorca cabrones 😭☀️"
-            },
-            {
-              "author": "alexmorenoo",
-              "text": "richard ya está en modo vacaciones 😂"
-            },
-            {
-              "author": "paulagimeno_",
-              "text": "qué envidia me dais 😭 pasadlo genial!!"
-            }
-          ]
+          "comments_text": "@marcoslafuente_\ny esto acaba de empezar 😂🔥\n\n@daniserrano98\nla que nos espera jajajaj\n\n@luciaroyoo\ndisfrutad mallorca cabrones 😭☀️\n\n@alexmorenoo\nrichard ya está en modo vacaciones 😂\n\n@paulagimeno_\nqué envidia me dais 😭 pasadlo genial!!"
         },
         {
           "kind": "photo",
@@ -368,20 +149,7 @@
           "sensitive": false,
           "zoom": false,
           "reactions": "🤍63 🗨️3",
-          "comments": [
-            {
-              "author": "alexmorenoo",
-              "text": "esa habitación no llega viva al viernes 😂"
-            },
-            {
-              "author": "luciaroyoo",
-              "text": "tres en una habitación… pobre hotel"
-            },
-            {
-              "author": "jorgebielsa_",
-              "text": "- primera foto y ya tenéis cara de liarla jajajaj"
-            }
-          ]
+          "comments_text": "@alexmorenoo\nesa habitación no llega viva al viernes 😂\n\n@luciaroyoo\ntres en una habitación… pobre hotel\n\n@jorgebielsa_\n- primera foto y ya tenéis cara de liarla jajajaj"
         },
         {
           "kind": "photo",
@@ -391,56 +159,7 @@
           "sensitive": false,
           "zoom": false,
           "reactions": "🤍138 🗨️12",
-          "comments": [
-            {
-              "author": "marcoslafuente_",
-              "text": "Mallorca nos está sentando demasiado bien 😂☀️"
-            },
-            {
-              "author": "alexmorenoo",
-              "text": "@daniserrano98 ese bañador lleva menos tela que un clínex 😂"
-            },
-            {
-              "author": "daniserrano98",
-              "text": "@alexmorenoo menos tela, más estilo, aprende 😌"
-            },
-            {
-              "author": "ivanferrer_97",
-              "text": "@daniserrano98 eso no es bañador, eso es confianza extrema jajajaj"
-            },
-            {
-              "author": "daniserrano98",
-              "text": "@ivanferrer_97 cuando se puede, se puede 😎"
-            },
-            {
-              "author": "nestor_16",
-              "text": "exijo derechos de imagen por esa aparición estelar del fondo 😂"
-            },
-            {
-              "author": "marcoslafuente_",
-              "text": "@nestor_16 la próxima te vienes al centro conmigo 😉"
-            },
-            {
-              "author": "luciaroyoo",
-              "text": "qué bien os lo estáis pasando cabrones 😭"
-            },
-            {
-              "author": "jorgebielsa_",
-              "text": "Richard parece que lleva viviendo ahí tres meses 😂"
-            },
-            {
-              "author": "paulagimeno_",
-              "text": "fotónnn ☀️"
-            },
-            {
-              "author": "rubencasado98",
-              "text": "Marcos demasiado cómodo delante de la cámara jajajaj"
-            },
-            {
-              "author": "hectorgracia",
-              "text": "guardad esta foto que luego estas son las buenas"
-            }
-          ]
+          "comments_text": "@marcoslafuente_\nMallorca nos está sentando demasiado bien 😂☀️\n\n@alexmorenoo\n @daniserrano98 ese bañador lleva menos tela que un clínex 😂\n\n@daniserrano98\n @alexmorenoo menos tela, más estilo, aprende 😌\n\n@ivanferrer_97\n @daniserrano98 eso no es bañador, eso es confianza extrema jajajaj\n\n@daniserrano98\n @ivanferrer_97 cuando se puede, se puede 😎\n\n@nestor_16\nexijo derechos de imagen por esa aparición estelar del fondo 😂\n\n@marcoslafuente_\n @nestor_16 la próxima te vienes al centro conmigo 😉\n\n@luciaroyoo\nqué bien os lo estáis pasando cabrones 😭\n\n@jorgebielsa_\nRichard parece que lleva viviendo ahí tres meses 😂\n\n@paulagimeno_\nfotónnn ☀️\n\n@rubencasado98\nMarcos demasiado cómodo delante de la cámara jajajaj\n\n@hectorgracia\nguardad esta foto que luego estas son las buenas"
         },
         {
           "kind": "photo",
@@ -450,40 +169,7 @@
           "sensitive": false,
           "zoom": false,
           "reactions": "🤍103 🗨️8",
-          "comments": [
-            {
-              "author": "daniserrano98",
-              "text": "dos pringaos y una catedral"
-            },
-            {
-              "author": "luciaroyoo",
-              "text": "la pose es horrible pero me encanta 😂"
-            },
-            {
-              "author": "alexmorenoo",
-              "text": "eso lo ensayasteis o salió solo?"
-            },
-            {
-              "author": "nestor_16",
-              "text": "marcos sí que sabe posar 😂"
-            },
-            {
-              "author": "paulagimeno",
-              "text": "foto de marco de fotos total 😭☀️"
-            },
-            {
-              "author": "marcoslafuente_",
-              "text": "arte contemporáneo"
-            },
-            {
-              "author": "jorgebielsa_",
-              "text": "turistas nivel experto jajajaj"
-            },
-            {
-              "author": "daniserrano98",
-              "text": "yo hice la foto y exijo créditos"
-            }
-          ]
+          "comments_text": "@daniserrano98\ndos pringaos y una catedral\n\n@luciaroyoo\nla pose es horrible pero me encanta 😂\n\n@alexmorenoo\neso lo ensayasteis o salió solo?\n\n@nestor_16\nmarcos sí que sabe posar 😂\n\n@paulagimeno\nfoto de marco de fotos total 😭☀️\n\n@marcoslafuente_\narte contemporáneo\n\n@jorgebielsa_\nturistas nivel experto jajajaj\n\n@daniserrano98\nyo hice la foto y exijo créditos"
         },
         {
           "kind": "photo",
@@ -493,56 +179,7 @@
           "sensitive": false,
           "zoom": false,
           "reactions": "🤍27 🗨️12",
-          "comments": [
-            {
-              "author": "marcoslafuente_",
-              "text": "ahi fue cuando te escapaste"
-            },
-            {
-              "author": "daniserrano98",
-              "text": "por una vez has salido bien jajajaj"
-            },
-            {
-              "author": "nestor_16",
-              "text": "foto de catálogo 😂"
-            },
-            {
-              "author": "alexmorenoo",
-              "text": "menuda vida os estáis pegando"
-            },
-            {
-              "author": "luciaroyoo",
-              "text": "qué bonito es eso 😍"
-            },
-            {
-              "author": "paulagimeno_",
-              "text": "muy guapo!!"
-            },
-            {
-              "author": "jorgebielsa_",
-              "text": "ahora una foto estudiando a ver si hay suerte"
-            },
-            {
-              "author": "rubencasado98",
-              "text": "la camisa elegante para hacer turismo jajajaj"
-            },
-            {
-              "author": "hectorgracia",
-              "text": "disfruta cabrón"
-            },
-            {
-              "author": "ivanferrer_97",
-              "text": "y nosotros aquí muriéndonos de calor"
-            },
-            {
-              "author": "elenamartinez71",
-              "text": "Muy guapo cariño. Disfrutad mucho 😘"
-            },
-            {
-              "author": "javier.alcoy",
-              "text": "Aprovecha bien el viaje 👍"
-            }
-          ]
+          "comments_text": "@marcoslafuente_\nahi fue cuando te escapaste\n\n@daniserrano98\npor una vez has salido bien jajajaj\n\n@nestor_16\nfoto de catálogo 😂\n\n@alexmorenoo\nmenuda vida os estáis pegando\n\n@luciaroyoo\nqué bonito es eso 😍\n\n@paulagimeno_\nmuy guapo!!\n\n@jorgebielsa_\nahora una foto estudiando a ver si hay suerte\n\n@rubencasado98\nla camisa elegante para hacer turismo jajajaj\n\n@hectorgracia\ndisfruta cabrón\n\n@ivanferrer_97\ny nosotros aquí muriéndonos de calor\n\n@elenamartinez71\nMuy guapo cariño. Disfrutad mucho 😘\n\n@javier.alcoy\nAprovecha bien el viaje 👍"
         },
         {
           "kind": "photo",
@@ -552,44 +189,7 @@
           "sensitive": false,
           "zoom": false,
           "reactions": "🤍52 🗨️9",
-          "comments": [
-            {
-              "author": "marcoslafuente_ ",
-              "text": "5 minutos antes estabas diciendo que no te tirabas por el grande 😂"
-            },
-            {
-              "author": "daniserrano98",
-              "text": "confirmo que ha gritado"
-            },
-            {
-              "author": "nestor_16",
-              "text": "ese gesto de surfero te sobra muchísimo jajajaj"
-            },
-            {
-              "author": "alexmorenoo ",
-              "text": "qué cabrones, así cualquiera"
-            },
-            {
-              "author": "luciaroyoo ",
-              "text": "yo quiero estar ahí 😭"
-            },
-            {
-              "author": "paulagimeno_ ",
-              "text": "qué envidiaaaaa"
-            },
-            {
-              "author": "rubencasado98 ",
-              "text": "a este paso no volvéis a Zaragoza"
-            },
-            {
-              "author": "elenamartinez71 ",
-              "text": "Ponte crema por favor 😘"
-            },
-            {
-              "author": "javier.alcoy",
-              "text": "Haz caso a tu madre 😂"
-            }
-          ]
+          "comments_text": "@marcoslafuente_\n5 minutos antes estabas diciendo que no te tirabas por el grande 😂\n\n@daniserrano98\nconfirmo que ha gritado\n\n@nestor_16\nese gesto de surfero te sobra muchísimo jajajaj\n\n@alexmorenoo\nqué cabrones, así cualquiera\n\n@luciaroyoo\nyo quiero estar ahí 😭\n\n@paulagimeno_\nqué envidiaaaaa\n\n@rubencasado98\na este paso no volvéis a Zaragoza\n\n@elenamartinez71\nPonte crema por favor 😘\n\n@javier.alcoy\nHaz caso a tu madre 😂"
         },
         {
           "kind": "photo",
@@ -599,52 +199,7 @@
           "sensitive": false,
           "zoom": false,
           "reactions": "🤍112 🗨️11",
-          "comments": [
-            {
-              "author": "daniserrano98 ",
-              "text": "yo hago la foto y tú haciendo amigos como siempre 😂"
-            },
-            {
-              "author": "marcoslafuente_",
-              "text": "@daniserrano98 te dejamos solo 5 minutos"
-            },
-            {
-              "author": "nestor_16 ",
-              "text": "Richard no pierde el tiempo jajajaj"
-            },
-            {
-              "author": "soniavalero_ ",
-              "text": "@nestor_16 solo hablábamos, no montes películas 🙄"
-            },
-            {
-              "author": "alexmorenoo",
-              "text": "ese viaje se os está yendo de las manos"
-            },
-            {
-              "author": "jorgebielsa_",
-              "text": "el verdadero motivo del viaje de fin de curso"
-            },
-            {
-              "author": "hectorgracia ",
-              "text": "ni los toboganes te entretienen tanto"
-            },
-            {
-              "author": "soniavalero_",
-              "text": "😩 que pereza"
-            },
-            {
-              "author": "ivanferrer_97",
-              "text": "y Marcos y Néstor detrás a su bola 😂"
-            },
-            {
-              "author": "marcoslafuente_",
-              "text": "@ivanferrer_97 casi nos matamos con el puto letrero, contexto importante"
-            },
-            {
-              "author": "nestor_16",
-              "text": "@marcoslafuente_ y todavía te ríes cabrón 😂"
-            }
-          ]
+          "comments_text": "@daniserrano98\nyo hago la foto y tú haciendo amigos como siempre 😂\n\n@marcoslafuente_\n @daniserrano98 te dejamos solo 5 minutos\n\n@nestor_16\nRichard no pierde el tiempo jajajaj\n\n@soniavalero_\n @nestor_16 solo hablábamos, no montes películas 🙄\n\n@alexmorenoo\nese viaje se os está yendo de las manos\n\n@jorgebielsa_\nel verdadero motivo del viaje de fin de curso\n\n@hectorgracia\nni los toboganes te entretienen tanto\n\n@soniavalero_\n😩 que pereza\n\n@ivanferrer_97\ny Marcos y Néstor detrás a su bola 😂\n\n@marcoslafuente_\n @ivanferrer_97 casi nos matamos con el puto letrero, contexto importante\n\n@nestor_16\n @marcoslafuente_ y todavía te ríes cabrón 😂"
         },
         {
           "kind": "photo",
@@ -654,52 +209,7 @@
           "sensitive": false,
           "zoom": false,
           "reactions": "🤍52 🗨️11",
-          "comments": [
-            {
-              "author": "marcoslafuente_",
-              "text": "admite que has tardado más en hacerte la foto que en mirar la cueva"
-            },
-            {
-              "author": "daniserrano98",
-              "text": "la cara de niño pequeño es increíble jajajaj"
-            },
-            {
-              "author": "nestor_16",
-              "text": "fotón, ahí sí"
-            },
-            {
-              "author": "alexmorenoo",
-              "text": "buah que pasada"
-            },
-            {
-              "author": "luciaroyoo",
-              "text": "qué bonito 😍"
-            },
-            {
-              "author": "jorgebielsa_",
-              "text": "el profe detrás esperando mientras tú haces selfies seguro 😂"
-            },
-            {
-              "author": "rubencasado98",
-              "text": "Richard descubriendo una piedra 2016"
-            },
-            {
-              "author": "hectorgracia",
-              "text": "eso tiene que molar muchísimo en persona"
-            },
-            {
-              "author": "ivanferrer_97",
-              "text": "cada foto que subes me dais más envidia"
-            },
-            {
-              "author": "elenamartinez71",
-              "text": "Qué maravilla. Disfruta mucho cariño 😘"
-            },
-            {
-              "author": "javier.alcoy",
-              "text": "Muy chulo. Haz alguna foto sin salir tú también 😂"
-            }
-          ]
+          "comments_text": "@marcoslafuente_\nadmite que has tardado más en hacerte la foto que en mirar la cueva\n\n@daniserrano98\nla cara de niño pequeño es increíble jajajaj\n\n@nestor_16\nfotón, ahí sí\n\n@alexmorenoo\nbuah que pasada\n\n@luciaroyoo\nqué bonito 😍\n\n@jorgebielsa_\nel profe detrás esperando mientras tú haces selfies seguro 😂\n\n@rubencasado98\nRichard descubriendo una piedra 2016\n\n@hectorgracia\neso tiene que molar muchísimo en persona\n\n@ivanferrer_97\ncada foto que subes me dais más envidia\n\n@elenamartinez71\nQué maravilla. Disfruta mucho cariño 😘\n\n@javier.alcoy\nMuy chulo. Haz alguna foto sin salir tú también 😂"
         },
         {
           "kind": "photo",
@@ -709,52 +219,7 @@
           "sensitive": false,
           "zoom": false,
           "reactions": "🤍154 🗨️11",
-          "comments": [
-            {
-              "author": "daniserrano98",
-              "text": "esta foto envejece mal seguro jajajaj"
-            },
-            {
-              "author": "marcoslafuente_",
-              "text": "y todavía estábamos todos presentables 😂"
-            },
-            {
-              "author": "nestor_16",
-              "text": "esta noche pueden pasar cosas 😏"
-            },
-            {
-              "author": "marcoslafuente_",
-              "text": "@nestor_16 🤣😂🤣 qué cosas?"
-            },
-            {
-              "author": "nestor_16",
-              "text": "@marcoslafuente_ cosas 🤣🤣"
-            },
-            {
-              "author": "alexmorenoo",
-              "text": "mañana quiero pruebas de que habéis sobrevivido"
-            },
-            {
-              "author": "paulagimeno_",
-              "text": "pasadlo biennn!!"
-            },
-            {
-              "author": "jorgebielsa_",
-              "text": "el de la izquierda ya tiene cara de saber cómo acaba esto"
-            },
-            {
-              "author": "omarhaddad_",
-              "text": "@jorgebielsa_ no lo sabes tú bien 😜"
-            },
-            {
-              "author": "soniavalero_",
-              "text": "menuda panda 😂"
-            },
-            {
-              "author": "hectorgracia",
-              "text": "Mallorca no estaba preparada"
-            }
-          ]
+          "comments_text": "@daniserrano98\nesta foto envejece mal seguro jajajaj\n\n@marcoslafuente_\ny todavía estábamos todos presentables 😂\n\n@nestor_16\nesta noche pueden pasar cosas 😏\n\n@marcoslafuente_\n @nestor_16 🤣😂🤣 qué cosas?\n\n@nestor_16\n @marcoslafuente_ cosas 🤣🤣\n\n@alexmorenoo\nmañana quiero pruebas de que habéis sobrevivido\n\n@paulagimeno_\npasadlo biennn!!\n\n@jorgebielsa_\nel de la izquierda ya tiene cara de saber cómo acaba esto\n\n@omarhaddad_\n @jorgebielsa_ no lo sabes tú bien 😜\n\n@soniavalero_\nmenuda panda 😂\n\n@hectorgracia\nMallorca no estaba preparada"
         },
         {
           "kind": "photo",
@@ -764,36 +229,7 @@
           "sensitive": false,
           "zoom": false,
           "reactions": "🤍168 🗨️7",
-          "comments": [
-            {
-              "author": "daniserrano98",
-              "text": "@richaralcoy colándome no, mejorándote la foto 😂"
-            },
-            {
-              "author": "omarhaddad_",
-              "text": "esa vista sí merece la subida"
-            },
-            {
-              "author": "elenamartinez71",
-              "text": "Qué vistas más bonitas. Disfrutad mucho 😘"
-            },
-            {
-              "author": "luciaroyoo",
-              "text": "qué bonito 😍"
-            },
-            {
-              "author": "jorgebielsa_",
-              "text": "alguna foto del paisaje sin vosotros o es imposible? 😂"
-            },
-            {
-              "author": "ivanferrer_97",
-              "text": "gracias por recordarnos que seguimos en Zaragoza 😂"
-            },
-            {
-              "author": "javier.alcoy",
-              "text": "Muy buena foto. Aprovechad que ya os queda poco 👍"
-            }
-          ]
+          "comments_text": "@daniserrano98\n @richaralcoy colándome no, mejorándote la foto 😂\n\n@omarhaddad_\nesa vista sí merece la subida\n\n@elenamartinez71\nQué vistas más bonitas. Disfrutad mucho 😘\n\n@luciaroyoo\nqué bonito 😍\n\n@jorgebielsa_\nalguna foto del paisaje sin vosotros o es imposible? 😂\n\n@ivanferrer_97\ngracias por recordarnos que seguimos en Zaragoza 😂\n\n@javier.alcoy\nMuy buena foto. Aprovechad que ya os queda poco 👍"
         },
         {
           "kind": "photo",
@@ -803,56 +239,7 @@
           "sensitive": false,
           "zoom": false,
           "reactions": "🤍76 🗨️12",
-          "comments": [
-            {
-              "author": "daniserrano98",
-              "text": "esa foto resume perfectamente nuestras ganas de volver 😂"
-            },
-            {
-              "author": "marcoslafuente_ ",
-              "text": "yo todavía digo que perdamos el avión"
-            },
-            {
-              "author": "omarhaddad_",
-              "text": "DEP Mallorca 2016 😭"
-            },
-            {
-              "author": "alexmorenoo",
-              "text": "ya era hora cabrones 😂"
-            },
-            {
-              "author": "luciaroyoo",
-              "text": "parece que os mandan a prisión"
-            },
-            {
-              "author": "elenamartinez71",
-              "text": "Buen viaje cariño ❤️ Avísame cuando aterricéis"
-            },
-            {
-              "author": "paulagimeno_",
-              "text": "JAJAJA qué pena dais"
-            },
-            {
-              "author": "jorgebielsa_",
-              "text": "una semana de vacaciones y habéis envejecido 10 años"
-            },
-            {
-              "author": "rubencasado98",
-              "text": "Marcos está pensando seriamente en esconderse en el aeropuerto"
-            },
-            {
-              "author": "hectorgracia",
-              "text": "bienvenidos otra vez al calor de Zaragoza 😂"
-            },
-            {
-              "author": "ivanferrer_97",
-              "text": "la depresión post Mallorca empieza oficialmente"
-            },
-            {
-              "author": "javier.alcoy",
-              "text": "Se acabó lo bueno 😂 Nos vemos luego"
-            }
-          ]
+          "comments_text": "@daniserrano98\nesa foto resume perfectamente nuestras ganas de volver 😂\n\n@marcoslafuente_\nyo todavía digo que perdamos el avión\n\n@omarhaddad_\nDEP Mallorca 2016 😭\n\n@alexmorenoo\nya era hora cabrones 😂\n\n@luciaroyoo\nparece que os mandan a prisión\n\n@elenamartinez71\nBuen viaje cariño ❤️ Avísame cuando aterricéis\n\n@paulagimeno_\nJAJAJA qué pena dais\n\n@jorgebielsa_\nuna semana de vacaciones y habéis envejecido 10 años\n\n@rubencasado98\nMarcos está pensando seriamente en esconderse en el aeropuerto\n\n@hectorgracia\nbienvenidos otra vez al calor de Zaragoza 😂\n\n@ivanferrer_97\nla depresión post Mallorca empieza oficialmente\n\n@javier.alcoy\nSe acabó lo bueno 😂 Nos vemos luego"
         },
         {
           "kind": "photo",
@@ -862,56 +249,7 @@
           "sensitive": false,
           "zoom": false,
           "reactions": "🤍49 🗨️12",
-          "comments": [
-            {
-              "author": "daniserrano98",
-              "text": "no recuerdo ni que hicieran esta foto"
-            },
-            {
-              "author": "marcoslafuente_",
-              "text": "mi cara representa perfectamente mi estado mental"
-            },
-            {
-              "author": "richardalcoy98",
-              "text": "quiero mi cama y no volver a ver un aeropuerto en mi vida"
-            },
-            {
-              "author": "omarhaddad_",
-              "text": "8 días antes erais personas distintas"
-            },
-            {
-              "author": "alexmorenoo",
-              "text": "JAJAJA Dani está apagado directamente"
-            },
-            {
-              "author": "jorgebielsa_",
-              "text": "Marcos intentando procesar todo lo ocurrido esta semana"
-            },
-            {
-              "author": "rubencasado98",
-              "text": "Richard mirando por la ventana reconsiderando sus decisiones"
-            },
-            {
-              "author": "luciaroyoo",
-              "text": "qué pena dais los tres 😂"
-            },
-            {
-              "author": "paulagimeno_",
-              "text": "descansad un mes por lo menos"
-            },
-            {
-              "author": "hectorgracia",
-              "text": "la excursión os ha quitado años de vida"
-            },
-            {
-              "author": "ivanferrer_97",
-              "text": "y pensar que hace una semana bajabais del avión dando saltos 😂"
-            },
-            {
-              "author": "javier.alcoy",
-              "text": "Ahora toca recuperar sueño 😂"
-            }
-          ]
+          "comments_text": "@daniserrano98\nno recuerdo ni que hicieran esta foto\n\n@marcoslafuente_\nmi cara representa perfectamente mi estado mental\n\n@richardalcoy98\nquiero mi cama y no volver a ver un aeropuerto en mi vida\n\n@omarhaddad_\n8 días antes erais personas distintas\n\n@alexmorenoo\nJAJAJA Dani está apagado directamente\n\n@jorgebielsa_\nMarcos intentando procesar todo lo ocurrido esta semana\n\n@rubencasado98\nRichard mirando por la ventana reconsiderando sus decisiones\n\n@luciaroyoo\nqué pena dais los tres 😂\n\n@paulagimeno_\ndescansad un mes por lo menos\n\n@hectorgracia\nla excursión os ha quitado años de vida\n\n@ivanferrer_97\ny pensar que hace una semana bajabais del avión dando saltos 😂\n\n@javier.alcoy\nAhora toca recuperar sueño 😂"
         }
       ],
       "source": "Publicaciónes Instagram {daniserrano98 - marcoslafuente -richardalcoy}",
@@ -948,48 +286,7 @@
           "sensitive": false,
           "zoom": false,
           "reactions": "🤍84 🗨️10",
-          "comments": [
-            {
-              "author": "marcoslafuente_",
-              "text": "De nada por la foto 📸"
-            },
-            {
-              "author": "alexmorenoo",
-              "text": "Vais todos demasiado coordinados para estar de vacaciones 😂"
-            },
-            {
-              "author": "paulagimeno_",
-              "text": "Qué bonita esta foto 😍"
-            },
-            {
-              "author": "jorgebielsa_",
-              "text": "Richard ya ha encontrado camisa oficial para todo el viaje."
-            },
-            {
-              "author": "andreasoler98",
-              "text": "Necesito ir a Lisboa ya 😭"
-            },
-            {
-              "author": "rubencasado98",
-              "text": "El tranvía esperando a que terminéis la sesión de fotos 😂"
-            },
-            {
-              "author": "luciaroyoo",
-              "text": "Fotón ❤️"
-            },
-            {
-              "author": "hectorgracia",
-              "text": "Marcos trabajando mientras los demás disfrutan."
-            },
-            {
-              "author": "ivanferrer_97",
-              "text": "A este ritmo volvéis sin haber salido de la primera calle 😂"
-            },
-            {
-              "author": "richardalcoy",
-              "text": "@marcoslafuente_ fotógrafo oficial y sin cobrar 😂"
-            }
-          ]
+          "comments_text": "@marcoslafuente_\nDe nada por la foto 📸\n\n@alexmorenoo\nVais todos demasiado coordinados para estar de vacaciones 😂\n\n@paulagimeno_\nQué bonita esta foto 😍\n\n@jorgebielsa_\nRichard ya ha encontrado camisa oficial para todo el viaje.\n\n@andreasoler98\nNecesito ir a Lisboa ya 😭\n\n@rubencasado98\nEl tranvía esperando a que terminéis la sesión de fotos 😂\n\n@luciaroyoo\nFotón ❤️\n\n@hectorgracia\nMarcos trabajando mientras los demás disfrutan.\n\n@ivanferrer_97\nA este ritmo volvéis sin haber salido de la primera calle 😂\n\n@richardalcoy\n @marcoslafuente_ fotógrafo oficial y sin cobrar 😂"
         },
         {
           "kind": "photo",
@@ -999,44 +296,7 @@
           "sensitive": false,
           "zoom": false,
           "reactions": "🤍93 🗨️9",
-          "comments": [
-            {
-              "author": "candybernal",
-              "text": "Mi favorita de hoy ❤️"
-            },
-            {
-              "author": "daniserrano98",
-              "text": "Ya era hora de que salierais en una foto sin que la hiciera Marcos 😂"
-            },
-            {
-              "author": "alexmorenoo",
-              "text": "Lisboa os sienta demasiado bien 😂"
-            },
-            {
-              "author": "paulagimeno_",
-              "text": "Fotón 😍"
-            },
-            {
-              "author": "rubencasado98",
-              "text": "Richard en modo anuncio de colonia."
-            },
-            {
-              "author": "luciaroyoo",
-              "text": "La luz es preciosa ahí 😭"
-            },
-            {
-              "author": "richardalcoy",
-              "text": "@rubencasado98 cállate 😂"
-            },
-            {
-              "author": "hectorgracia",
-              "text": "A ver si subís alguna en la que no parezca todo perfecto."
-            },
-            {
-              "author": "nereagil",
-              "text": "No se puede competir con Lisboa de fondo 😂"
-            }
-          ]
+          "comments_text": "@candybernal\nMi favorita de hoy ❤️\n\n@daniserrano98\nYa era hora de que salierais en una foto sin que la hiciera Marcos 😂\n\n@alexmorenoo\nLisboa os sienta demasiado bien 😂\n\n@paulagimeno_\nFotón 😍\n\n@rubencasado98\nRichard en modo anuncio de colonia.\n\n@luciaroyoo\nLa luz es preciosa ahí 😭\n\n@richardalcoy\n @rubencasado98 cállate 😂\n\n@hectorgracia\nA ver si subís alguna en la que no parezca todo perfecto.\n\n@nereagil\nNo se puede competir con Lisboa de fondo 😂"
         },
         {
           "kind": "photo",
@@ -1046,56 +306,7 @@
           "sensitive": false,
           "zoom": false,
           "reactions": "🤍126 🗨️12",
-          "comments": [
-            {
-              "author": "marcoslafuente_",
-              "text": "Qué maja la señora que nos sacó la foto 😂"
-            },
-            {
-              "author": "sarabernal_",
-              "text": "Y encima la hizo bien a la primera, cosa rara 😂"
-            },
-            {
-              "author": "candybernal",
-              "text": "Esta sí que va directa a favoritas ❤️"
-            },
-            {
-              "author": "alexmorenoo",
-              "text": "Vale, esta está muy guapa."
-            },
-            {
-              "author": "paulagimeno_",
-              "text": "Qué luz 😍😍"
-            },
-            {
-              "author": "jorgebielsa_",
-              "text": "Os habéis montado el anuncio de Turismo de Portugal."
-            },
-            {
-              "author": "andreasoler98",
-              "text": "Necesito ese atardecer ahora mismo 😭"
-            },
-            {
-              "author": "ivanferrer_97",
-              "text": "Dani hasta parece una persona seria en esta foto."
-            },
-            {
-              "author": "luciaroyoo",
-              "text": "Qué bonitaaaa ❤️"
-            },
-            {
-              "author": "richardalcoy",
-              "text": "@ivanferrer_97 no exageremos 😂"
-            },
-            {
-              "author": "albertogarcia_",
-              "text": "Fotaza 👏"
-            },
-            {
-              "author": "claudia.pm",
-              "text": "Ese mirador es increíble al atardecer 😍"
-            }
-          ]
+          "comments_text": "@marcoslafuente_\nQué maja la señora que nos sacó la foto 😂\n\n@sarabernal_\nY encima la hizo bien a la primera, cosa rara 😂\n\n@candybernal\nEsta sí que va directa a favoritas ❤️\n\n@alexmorenoo\nVale, esta está muy guapa.\n\n@paulagimeno_\nQué luz 😍😍\n\n@jorgebielsa_\nOs habéis montado el anuncio de Turismo de Portugal.\n\n@andreasoler98\nNecesito ese atardecer ahora mismo 😭\n\n@ivanferrer_97\nDani hasta parece una persona seria en esta foto.\n\n@luciaroyoo\nQué bonitaaaa ❤️\n\n@richardalcoy\n @ivanferrer_97 no exageremos 😂\n\n@albertogarcia_\nFotaza 👏\n\n@claudia.pm\nEse mirador es increíble al atardecer 😍"
         },
         {
           "kind": "photo",
@@ -1105,44 +316,7 @@
           "sensitive": false,
           "zoom": false,
           "reactions": "🤍84 🗨️9",
-          "comments": [
-            {
-              "author": "daniserrano98",
-              "text": "Dos cervezas y Marcos ya ha hecho amigos internacionales 😂"
-            },
-            {
-              "author": "candybernal",
-              "text": "¿Dónde aprendió portugués?\nLleva diez minutos  “solo hablando” 😂"
-            },
-            {
-              "author": "alba.rodriguezz",
-              "text": "Dos cervejas y ya habla portugués seguro 😭"
-            },
-            {
-              "author": "sarabernal_",
-              "text": "Sí sí, hablando 😌 pero no le quita las manos de encima"
-            },
-            {
-              "author": "alexmorenoo",
-              "text": "@sarabernal_ Al portugués tampoco parece que le importe"
-            },
-            {
-              "author": "rubencasado98",
-              "text": "Ha tardado menos en ligar que vosotros en elegir dónde cenar."
-            },
-            {
-              "author": "sarabernal_",
-              "text": "@alexmorenoo No, el portugués lo está pasando bomba."
-            },
-            {
-              "author": "hectorgracia",
-              "text": "Necesito saber cómo acaba esto 😂"
-            },
-            {
-              "author": "sergio.martos",
-              "text": "Marcos representando a España en Portugal 😂"
-            }
-          ]
+          "comments_text": "@daniserrano98\nDos cervezas y Marcos ya ha hecho amigos internacionales 😂\n\n@candybernal\n¿Dónde aprendió portugués?\nLleva diez minutos  “solo hablando” 😂\n\n@alba.rodriguezz\nDos cervejas y ya habla portugués seguro 😭\n\n@sarabernal_\nSí sí, hablando 😌 pero no le quita las manos de encima\n\n@alexmorenoo\n @sarabernal_ Al portugués tampoco parece que le importe\n\n@rubencasado98\nHa tardado menos en ligar que vosotros en elegir dónde cenar.\n\n@sarabernal_\n @alexmorenoo No, el portugués lo está pasando bomba.\n\n@hectorgracia\nNecesito saber cómo acaba esto 😂\n\n@sergio.martos\nMarcos representando a España en Portugal 😂"
         }
       ]
     },

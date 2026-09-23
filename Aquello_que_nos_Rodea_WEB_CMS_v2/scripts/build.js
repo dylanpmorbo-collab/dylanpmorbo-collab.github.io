@@ -449,6 +449,33 @@ const digitalPlatforms={
  DISPOSITIVO:['Galería del dispositivo','OTROS','<rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="18" r="1" fill="currentColor" stroke="none"/>'],
  OTROS:['Otra fuente','OTROS','<path d="M6 2h9l4 4v16H6Z"/><path d="M15 2v5h4M9 12h7M9 16h7"/>']
 };
+function digitalCommentTextHTML(value=''){
+ return String(value).replace(/\r\n/g,'\n').split('\n').map(line=>{
+   const safe=esc(line);
+   if(/^@/.test(line)) return safe;
+   return safe.replace(/@([\p{L}\p{N}_.-]+)/gu,'<span class="digital-mention">@$1</span>');
+ }).join('<br>');
+}
+function parseDigitalCommentsText(value=''){
+ const lines=String(value||'').replace(/\r\n/g,'\n').split('\n');
+ const comments=[];
+ let current=null;
+ const flush=()=>{if(current && current.text.trim())comments.push(current);};
+ for(const line of lines){
+   const match=line.match(/^@([^:\n]+):\s*(.*)$/u)||line.match(/^@([^\s:]+)\s+(.*)$/u)||line.match(/^@([^\s:]+)$/u);
+   if(match){flush();current={author:match[1],text:match[2]||''};}
+   else if(current) current.text+=(current.text?'\n':'')+line;
+   else if(line.trim()) current={author:'Usuario',text:line};
+ }
+ flush();
+ return comments;
+}
+function digitalCommentsMarkup(structured,bulkText,className='digital-piece-comments'){
+ const comments=Array.isArray(structured)?structured.filter(x=>x&&(x.author||x.text)):[];
+ const items=comments.length?comments:parseDigitalCommentsText(bulkText);
+ if(!items.length)return '';
+ return '<div class="'+className+'">'+items.map(comment=>{const author=String(comment.author||'Usuario');return '<p><strong>'+esc(author.startsWith('@')?author:'@'+author)+'</strong> '+digitalCommentTextHTML(comment.text||'')+'</p>';}).join('')+'</div>';
+}
 function digitalFootprintMarkup(item){
  if(!item || item.show_digital_footprint!==true) return '';
  const pieces=(Array.isArray(item.digital_footprint)?item.digital_footprint:[])
@@ -464,14 +491,14 @@ function digitalFootprintMarkup(item){
    const photos=[...(piece.image?[{image:piece.image,alt:piece.alt,sensitive:piece.image_sensitive,zoom:piece.image_zoom,reactions:piece.image_reactions,comments:piece.image_comments}]:[]),...(Array.isArray(piece.images)?piece.images:[])]
      .filter(photo=>photo&&photo.image);
    const photoMarkup=(photo,i)=>'<div class="digital-photo'+(photo.sensitive===true?' digital-sensitive':'')+(photo.zoom===true?' digital-photo-zoomable':'')+'"><img src="'+esc(photo.image)+'" alt="'+esc(photo.alt||piece.title||'Foto '+String(i+1)+' de la publicación')+'" loading="lazy">'+(photo.zoom===true?'<button type="button" class="digital-photo-zoom" data-digital-zoom aria-label="Ampliar esta imagen"'+(photo.sensitive===true?' hidden':'')+'>AMPLIAR ⤢</button>':'')+(photo.sensitive===true?'<div class="digital-sensitive-warning"><p>Esta imagen puede resultar ofensiva o contener contenido sexual explícito.</p><button type="button" data-digital-reveal>Mostrar imagen</button></div>':'')+'</div>';
-   const photoSlides=photos.map((photo,i)=>({markup:photoMarkup(photo,i),title:photo.title||'',reactions:photo.reactions,comments:photo.comments}));
-   const videoSlide=(url,title,reactions,comments)=>url?{
+   const photoSlides=photos.map((photo,i)=>({markup:photoMarkup(photo,i),title:photo.title||'',description:photo.description||photo.caption||'',date:photo.date||piece.date||'',reactions:photo.reactions,comments:photo.comments,comments_text:photo.comments_text}));
+   const videoSlide=(url,title,reactions,comments,description='',date='',commentsText='')=>url?{
      markup:'<video controls playsinline preload="metadata" aria-label="'+esc(title||'Vídeo de la publicación')+'"><source src="'+esc(url)+'">Tu navegador no puede reproducir este vídeo.</video>',
-     title,reactions,comments
+     title,description,date:date||piece.date||'',reactions,comments,comments_text:commentsText
    }:null;
-   const coverVideo=piece.cover_type==='VIDEO'?videoSlide(piece.cover_video,piece.title||type,piece.cover_video_reactions,piece.cover_video_comments):null;
-   const firstVideo=videoSlide(piece.video,piece.title||type,piece.video_reactions,piece.video_comments);
-   const secondVideo=videoSlide(piece.video_2,piece.title||type,piece.video_2_reactions,piece.video_2_comments);
+   const coverVideo=piece.cover_type==='VIDEO'?videoSlide(piece.cover_video,piece.title||type,piece.cover_video_reactions,piece.cover_video_comments,piece.cover_video_description,piece.cover_video_date,piece.cover_video_comments_text):null;
+   const firstVideo=videoSlide(piece.video,piece.title||type,piece.video_reactions,piece.video_comments,piece.video_description,piece.video_date,piece.video_comments_text);
+   const secondVideo=videoSlide(piece.video_2,piece.title||type,piece.video_2_reactions,piece.video_2_comments,piece.video_2_description,piece.video_2_date,piece.video_2_comments_text);
    const beforePhotos=[...(firstVideo&&piece.video_position!=='LAST'?[firstVideo]:[]),...(secondVideo&&piece.video_2_position==='FIRST'?[secondVideo]:[])];
    const afterPhotos=[...(firstVideo&&piece.video_position==='LAST'?[firstVideo]:[]),...(secondVideo&&piece.video_2_position!=='FIRST'?[secondVideo]:[])];
    // Las publicaciones antiguas conservan su orden; la portada elegida siempre va primero.
@@ -479,19 +506,19 @@ function digitalFootprintMarkup(item){
    const legacySlides=[...(coverVideo?[coverVideo]:photoCover?[photoCover]:[]),...beforePhotos,...photoSlides,...afterPhotos];
    const mediaItems=Array.isArray(piece.media)?piece.media.filter(media=>media&&(media.kind==='video'?media.video:media.image)):[];
    const slides=mediaItems.length?mediaItems.map((media,i)=>media.kind==='video'
-     ?videoSlide(media.video,media.title,media.reactions,media.comments)
-     :{markup:photoMarkup(media,i),title:media.title,reactions:media.reactions,comments:media.comments}):legacySlides;
+     ?videoSlide(media.video,media.title,media.reactions,media.comments,media.description||media.caption,media.date,media.comments_text)
+     :{markup:photoMarkup(media,i),title:media.title,description:media.description||media.caption,date:media.date||piece.date||'',reactions:media.reactions,comments:media.comments,comments_text:media.comments_text}):legacySlides;
    const slideEngagement=slide=>{
-     const comments=(Array.isArray(slide.comments)?slide.comments:[]).filter(x=>x&&(x.author||x.text));
      return (slide.title?'<p class="digital-slide-title">'+esc(slide.title)+'</p>':'')+
+       '<p class="digital-slide-date"><span>FECHA</span> '+esc(slide.date||piece.date||'No identificada')+'</p>'+
+       (slide.description?'<div class="digital-slide-description">'+plainTextToHTML(slide.description)+'</div>':'')+
        (slide.reactions?'<p class="digital-slide-reactions">'+esc(slide.reactions)+'</p>':'')+
-       (comments.length?'<div class="digital-slide-comments">'+comments.map(x=>'<p><strong>'+esc(x.author||'Usuario')+'</strong> '+esc(x.text||'').replace(/\r?\n/g,'<br>')+'</p>').join('')+'</div>':'');
+       digitalCommentsMarkup(slide.comments,slide.comments_text,'digital-slide-comments');
    };
    const engagement=slides.map(slideEngagement);
    const media=slides.length>1
      ? '<div class="digital-carousel" data-digital-carousel tabindex="0" aria-label="Galería de '+String(slides.length)+' elementos de esta publicación"><div class="digital-carousel-viewport">'+slides.map((slide,i)=>'<div class="digital-carousel-slide" data-digital-slide'+(i?' hidden':'')+'>'+slide.markup+'</div>').join('')+'</div><div class="digital-carousel-controls"><button type="button" data-digital-prev aria-label="Elemento anterior">←</button><span data-digital-counter aria-live="polite">1 / '+String(slides.length)+'</span><button type="button" data-digital-next aria-label="Elemento siguiente">→</button></div>'+(engagement.some(Boolean)?'<div class="digital-carousel-engagement">'+engagement.map((html,i)=>'<div data-digital-engagement'+(i?' hidden':'')+'>'+html+'</div>').join('')+'</div>':'')+'</div>'
      : slides.length?slides[0].markup+(engagement[0]?'<div class="digital-carousel-engagement"><div>'+engagement[0]+'</div></div>':''):'';
-   const comments=(Array.isArray(piece.comments)?piece.comments:[]).filter(x=>x && (x.author||x.text));
    const messages=(Array.isArray(piece.messages)?piece.messages:[]).filter(x=>x && (x.author||x.text));
    const details=[['FUENTE',provenance],['TIPO',type],['ARCHIVADO',piece.archived],['ESTADO',piece.status]]
      .filter(x=>x[1]).map(([label,value])=>'<div><dt>'+label+'</dt><dd>'+esc(value)+'</dd></div>').join('');
@@ -502,7 +529,7 @@ function digitalFootprintMarkup(item){
      (media?'<div class="digital-piece-media">'+media+'</div>':'')+
      ((piece.handle||piece.caption)?'<div class="digital-piece-caption">'+(piece.handle?'<strong>'+esc(piece.handle)+'</strong>':'')+plainTextToHTML(piece.caption)+'</div>':'')+
      (piece.reactions?'<p class="digital-piece-reactions">'+esc(piece.reactions)+'</p>':'')+
-     (comments.length?'<div class="digital-piece-comments">'+comments.map(x=>'<p><strong>'+esc(x.author||'Usuario')+'</strong> '+esc(x.text||'')+'</p>').join('')+'</div>':'')+
+     digitalCommentsMarkup(piece.comments,piece.comments_text,'digital-piece-comments')+
      (messages.length?'<div class="digital-piece-messages">'+messages.map(x=>'<p><span>'+esc(x.author||'Remitente')+(x.time?' · '+esc(x.time):'')+'</span>'+esc(x.text||'').replace(/\r?\n/g,'<br>')+'</p>').join('')+'</div>':'')+
      (piece.original_capture?'<a class="digital-original-link" href="'+esc(piece.original_capture)+'" target="_blank" rel="noopener">VER CAPTURA ORIGINAL ↗</a>':'')+
      (details?'<dl class="digital-piece-details">'+details+'</dl>':'')+'</article>';
