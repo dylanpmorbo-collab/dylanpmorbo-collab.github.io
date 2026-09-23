@@ -203,6 +203,13 @@
           "image": "/assets/uploads/huella-digital/imagen-de-codex-16-sept-2026-175100.png",
           "sensitive": false,
           "zoom": false
+        },
+        {
+          "kind": "photo",
+          "title": "su primer coche",
+          "image": "/assets/uploads/huella-digital/primer-coche.png",
+          "sensitive": false,
+          "zoom": false
         }
       ],
       "handle": "Javier Alcoy"
