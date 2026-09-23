@@ -474,7 +474,7 @@ function digitalCommentsMarkup(structured,bulkText,className='digital-piece-comm
  const comments=Array.isArray(structured)?structured.filter(x=>x&&(x.author||x.text)):[];
  const items=comments.length?comments:parseDigitalCommentsText(bulkText);
  if(!items.length)return '';
- return '<div class="'+className+'">'+items.map(comment=>{const author=String(comment.author||'Usuario');return '<p><strong>'+esc(author.startsWith('@')?author:'@'+author)+'</strong> '+digitalCommentTextHTML(comment.text||'')+'</p>';}).join('')+'</div>';
+ return '<div class="'+className+'">'+items.map(comment=>{const author=String(comment.author||'Usuario').trim().replace(/:+\s*$/,'');return '<p><strong>'+esc(author.startsWith('@')?author:'@'+author)+':</strong> '+digitalCommentTextHTML(comment.text||'')+'</p>';}).join('')+'</div>';
 }
 function digitalFootprintMarkup(item){
  if(!item || item.show_digital_footprint!==true) return '';

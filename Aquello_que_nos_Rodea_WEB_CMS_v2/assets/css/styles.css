@@ -899,7 +899,7 @@ DOCUMENTOS NAVEGABLES — AJUSTES FINALES DE GEOMETRÍA Y LECTURA
 .digital-piece-reactions{color:#a99a7e;font-size:16px;margin:17px 0}
 .digital-piece-comments{border-top:1px solid var(--line);padding-top:13px;color:#a9a195;font-size:16px}
 .digital-piece-comments p{margin:0 0 7px;overflow-wrap:anywhere}
-.digital-piece-comments strong{color:#c5b184}
+.digital-piece-comments strong{color:#c5b184;font-weight:700}
 .digital-piece-messages{display:grid;gap:8px;margin:18px 0}
 .digital-piece-messages p{margin:0;padding:10px 13px;border-left:2px solid #7d6a45;background:#171510;color:#c0b8ac;font-size:17px;overflow-wrap:anywhere}
 .digital-piece-messages span{display:block;color:#a99570;font:600 12px var(--display);letter-spacing:.06em;margin-bottom:5px}
@@ -1077,7 +1077,7 @@ html:not(.age-verified){overflow:hidden}
 .digital-slide-reactions{margin:0 0 10px;color:#c7ae7c;font-size:16px}
 .digital-slide-comments{border-top:1px solid #302a22;padding-top:9px;color:#b5aa98;font-size:16px}
 .digital-slide-comments p{margin:0 0 6px;overflow-wrap:anywhere}
-.digital-slide-comments strong{color:#d3bb8b}
+.digital-slide-comments strong{color:#d3bb8b;font-weight:700}
 .digital-mention{color:#76aee8}
 
 /* Testimonios sonoros y presentación de fichas sin columna acompañante. */
