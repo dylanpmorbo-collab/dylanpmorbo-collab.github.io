@@ -54,5 +54,14 @@
     "design": "A",
     "title": "TABLÓN DE CONEXIONES"
   },
-  "show_digital_press": false
+  "show_digital_press": true,
+  "digital_press": [
+    {
+      "outlet": "dol",
+      "kind": "OTROS",
+      "headline": "a ver como se mira",
+      "byline": "campusino sanchez",
+      "image": "/assets/uploads/prensa-digital/confirmada-identidad.png"
+    }
+  ]
 }
