@@ -947,39 +947,94 @@
           "alt": "Primera mañana en Lisboa y ya hemos parado unas veinte veces para hacer fotos 😂🇵🇹   Creo que vamos a tardar tres días en recorrer una calle.",
           "sensitive": false,
           "zoom": false,
-          "reactions": "🤍84 🗨️8",
+          "reactions": "🤍84 🗨️10",
           "comments": [
             {
-              "author": "daniserrano98",
-              "text": "Habla por ellas, yo llevo intentando llegar abajo media hora 😂"
-            },
-            {
-              "author": "candybernal",
-              "text": "Mentira, tú has sido el primero en parar cuando has visto el tranvía 😂"
-            },
-            {
-              "author": "sarabernal_",
-              "text": "Y todavía no hemos empezado de verdad 😌"
-            },
-            {
               "author": "marcoslafuente_",
-              "text": "De nada por la foto, por cierto."
+              "text": "De nada por la foto 📸"
+            },
+            {
+              "author": "alexmorenoo",
+              "text": "Vais todos demasiado coordinados para estar de vacaciones 😂"
+            },
+            {
+              "author": "paulagimeno_",
+              "text": "Qué bonita esta foto 😍"
+            },
+            {
+              "author": "jorgebielsa_",
+              "text": "Richard ya ha encontrado camisa oficial para todo el viaje."
+            },
+            {
+              "author": "andreasoler98",
+              "text": "Necesito ir a Lisboa ya 😭"
+            },
+            {
+              "author": "rubencasado98",
+              "text": "El tranvía esperando a que terminéis la sesión de fotos 😂"
+            },
+            {
+              "author": "luciaroyoo",
+              "text": "Fotón ❤️"
+            },
+            {
+              "author": "hectorgracia",
+              "text": "Marcos trabajando mientras los demás disfrutan."
+            },
+            {
+              "author": "ivanferrer_97",
+              "text": "A este ritmo volvéis sin haber salido de la primera calle 😂"
             },
             {
               "author": "richardalcoy",
-              "text": "@marcoslafuente_ El fotógrafo oficial del viaje 😂📸"
-            },
-            {
-              "author": "marcoslafuente_",
-              "text": "@richardalcoy Y mal pagado."
-            },
+              "text": "@marcoslafuente_ fotógrafo oficial y sin cobrar 😂"
+            }
+          ]
+        },
+        {
+          "kind": "photo",
+          "title": "Miradouro de Santa Luzia, Lisboa",
+          "image": "/assets/uploads/huella-digital/lisboa1.png",
+          "alt": "Vale, aquí sí había que parar 😌🇵🇹   Lisboa se está portando bastante bien.",
+          "sensitive": false,
+          "zoom": false,
+          "reactions": "🤍93 🗨️9",
+          "comments": [
             {
               "author": "candybernal",
-              "text": "@marcoslafuente_ Te pagamos en cervejas."
+              "text": "Mi favorita de hoy ❤️"
             },
             {
-              "author": "marcoslafuente_",
-              "text": "@candybernal Contrato aceptado."
+              "author": "daniserrano98",
+              "text": "Ya era hora de que salierais en una foto sin que la hiciera Marcos 😂"
+            },
+            {
+              "author": "alexmorenoo",
+              "text": "Lisboa os sienta demasiado bien 😂"
+            },
+            {
+              "author": "paulagimeno_",
+              "text": "Fotón 😍"
+            },
+            {
+              "author": "rubencasado98",
+              "text": "Richard en modo anuncio de colonia."
+            },
+            {
+              "author": "luciaroyoo",
+              "text": "La luz es preciosa ahí 😭"
+            },
+            {
+              "author": "richardalcoy",
+              "text": "@rubencasado98 cállate 😂"
+            },
+            {
+              "author": "hectorgracia",
+              "text": "A ver si subís alguna en la que no parezca todo perfecto."
+            },
+            {
+              "author": "nereagil",
+              "text": "No se puede competir con Lisboa de fondo 😂"
             }
           ]
         }
