@@ -53,6 +53,12 @@ media:
     output: /assets/uploads/informes-policiales
     rename: safe
     categories: [image]
+  - name: informes_digitales
+    label: Informes digitales (imágenes y vídeos)
+    input: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads/informes-digitales
+    output: /assets/uploads/informes-digitales
+    rename: safe
+    categories: [image, video]
   - name: huella_digital
     label: Huella digital (imágenes y vídeos)
     input: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads/huella-digital
@@ -719,12 +725,12 @@ content:
         default: false
         description: "Muestra carpetas compactas al final de la ficha. Cada informe se abre dentro de la página."
       - name: police_reports
-        label: Informes
+        label: Informes físicos
         type: object
         required: false
-        description: "Hasta cinco carpetas. Cada informe se reparte en folios que se leen de uno en uno."
+        description: "Carpetas de informes en papel. Cada informe se reparte en folios que se leen de uno en uno."
         list:
-          max: 5
+          max: 30
           collapsible:
             collapsed: true
             summary: "{title}"
@@ -740,6 +746,23 @@ content:
             required: false
             default: "POLICIAL"
             description: "Escribe la clase de informe: policial, médico, forense, psicológico u otra. Los antiguos se consideran policiales hasta que los cambies."
+          - name: importance
+            label: Importancia / color de la carpeta
+            type: select
+            required: false
+            default: basico
+            options:
+              values:
+                - value: basico
+                  label: Básico · amarillo
+                - value: normal
+                  label: Normal · verde
+                - value: interesante
+                  label: Interesante · azul
+                - value: importante
+                  label: Importante · morado
+                - value: vital
+                  label: Vital · rojo
           - name: image
             label: Imagen 1 / portada de la carpeta
             type: image
@@ -768,6 +791,159 @@ content:
               media: false
               switcher: true
             description: "Admite títulos, negritas, cursivas, listas, citas y enlaces. El texto se reparte en folios conservando los párrafos."
+      - name: show_digital_reports
+        label: Mostrar informes digitales
+        type: boolean
+        default: false
+        description: "Muestra tarjetas MMC debajo de los informes físicos. Cada una abre un escritorio de archivo."
+      - name: digital_reports
+        label: Informes digitales · tarjetas MMC
+        type: object
+        required: false
+        description: "Cada tarjeta es un informe independiente. Puede contener varias carpetas, incluso de distintos dispositivos."
+        list:
+          max: 30
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: title
+            label: Título del informe digital
+            type: string
+            required: true
+          - name: importance
+            label: Importancia / color de la MMC
+            type: select
+            required: false
+            default: basico
+            options:
+              values:
+                - value: basico
+                  label: Básico · negro
+                - value: normal
+                  label: Normal · verde
+                - value: interesante
+                  label: Interesante · azul
+                - value: importante
+                  label: Importante · morado
+                - value: vital
+                  label: Vital · rojo
+          - name: label_image
+            label: Imagen de la etiqueta de la MMC
+            type: image
+            required: false
+            options:
+              media: informes_digitales
+            description: "Se muestra en la pegatina. El título se escribe aparte para que siempre sea legible."
+          - name: summary
+            label: Referencia o nota breve
+            type: string
+            required: false
+          - name: folders
+            label: Carpetas del escritorio
+            type: object
+            required: false
+            list:
+              max: 40
+              collapsible:
+                collapsed: true
+                summary: "{title}"
+            fields:
+              - name: title
+                label: Nombre de la carpeta
+                type: string
+                required: true
+              - name: icon
+                label: Icono personalizado
+                type: image
+                required: false
+                options:
+                  media: informes_digitales
+              - name: order
+                label: Orden en el escritorio
+                type: number
+                required: false
+                description: "Opcional. 1 aparece antes que 2. Si lo dejas vacío, se conserva el orden de la lista."
+              - name: description
+                label: Nota de la carpeta
+                type: string
+                required: false
+              - name: files
+                label: Archivos de esta carpeta
+                type: object
+                required: false
+                list:
+                  max: 100
+                  collapsible:
+                    collapsed: true
+                    summary: "{title}"
+                fields:
+                  - name: title
+                    label: Nombre del archivo
+                    type: string
+                    required: true
+                  - name: kind
+                    label: Tipo de archivo
+                    type: select
+                    required: false
+                    default: IMAGEN
+                    options:
+                      values: [IMAGEN, VIDEO]
+                  - name: image
+                    label: Imagen o captura original
+                    type: image
+                    required: false
+                    options:
+                      media: informes_digitales
+                  - name: video
+                    label: Vídeo recuperado
+                    type: file
+                    required: false
+                    options:
+                      media: informes_digitales
+                      categories: [video]
+                  - name: poster
+                    label: Miniatura opcional del vídeo
+                    type: image
+                    required: false
+                    options:
+                      media: informes_digitales
+                  - name: annotated_image
+                    label: Versión con marcas o anotaciones visuales
+                    type: image
+                    required: false
+                    options:
+                      media: informes_digitales
+                    description: "Si la añades, el visitante podrá alternar entre la imagen original y esta versión."
+                  - name: order
+                    label: Orden dentro de la carpeta
+                    type: number
+                    required: false
+                    description: "Opcional. Si lo dejas vacío, se conserva el orden de la lista."
+                  - name: date_time
+                    label: Fecha y hora
+                    type: string
+                    required: false
+                  - name: location
+                    label: Lugar
+                    type: string
+                    required: false
+                  - name: source_device
+                    label: Dispositivo o procedencia
+                    type: string
+                    required: false
+                  - name: analysis_type
+                    label: Tipo de análisis
+                    type: string
+                    required: false
+                  - name: status
+                    label: Estado del archivo
+                    type: string
+                    required: false
+                  - name: notes
+                    label: Anotaciones de los archivistas
+                    type: text
+                    required: false
       - name: show_related_archive
         label: Mostrar archivos relacionados
         type: boolean
@@ -1424,12 +1600,12 @@ content:
         default: false
         description: "Muestra carpetas compactas al final de la ficha. Cada informe se abre dentro de la página."
       - name: police_reports
-        label: Informes
+        label: Informes físicos
         type: object
         required: false
-        description: "Hasta cinco carpetas. Cada informe se reparte en folios que se leen de uno en uno."
+        description: "Carpetas de informes en papel. Cada informe se reparte en folios que se leen de uno en uno."
         list:
-          max: 5
+          max: 30
           collapsible:
             collapsed: true
             summary: "{title}"
@@ -1445,6 +1621,23 @@ content:
             required: false
             default: "POLICIAL"
             description: "Escribe la clase de informe: policial, médico, forense, psicológico u otra. Los antiguos se consideran policiales hasta que los cambies."
+          - name: importance
+            label: Importancia / color de la carpeta
+            type: select
+            required: false
+            default: basico
+            options:
+              values:
+                - value: basico
+                  label: Básico · amarillo
+                - value: normal
+                  label: Normal · verde
+                - value: interesante
+                  label: Interesante · azul
+                - value: importante
+                  label: Importante · morado
+                - value: vital
+                  label: Vital · rojo
           - name: image
             label: Imagen 1 / portada de la carpeta
             type: image
@@ -1473,6 +1666,159 @@ content:
               media: false
               switcher: true
             description: "Admite títulos, negritas, cursivas, listas, citas y enlaces. El texto se reparte en folios conservando los párrafos."
+      - name: show_digital_reports
+        label: Mostrar informes digitales
+        type: boolean
+        default: false
+        description: "Muestra tarjetas MMC debajo de los informes físicos. Cada una abre un escritorio de archivo."
+      - name: digital_reports
+        label: Informes digitales · tarjetas MMC
+        type: object
+        required: false
+        description: "Cada tarjeta es un informe independiente. Puede contener varias carpetas, incluso de distintos dispositivos."
+        list:
+          max: 30
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: title
+            label: Título del informe digital
+            type: string
+            required: true
+          - name: importance
+            label: Importancia / color de la MMC
+            type: select
+            required: false
+            default: basico
+            options:
+              values:
+                - value: basico
+                  label: Básico · negro
+                - value: normal
+                  label: Normal · verde
+                - value: interesante
+                  label: Interesante · azul
+                - value: importante
+                  label: Importante · morado
+                - value: vital
+                  label: Vital · rojo
+          - name: label_image
+            label: Imagen de la etiqueta de la MMC
+            type: image
+            required: false
+            options:
+              media: informes_digitales
+            description: "Se muestra en la pegatina. El título se escribe aparte para que siempre sea legible."
+          - name: summary
+            label: Referencia o nota breve
+            type: string
+            required: false
+          - name: folders
+            label: Carpetas del escritorio
+            type: object
+            required: false
+            list:
+              max: 40
+              collapsible:
+                collapsed: true
+                summary: "{title}"
+            fields:
+              - name: title
+                label: Nombre de la carpeta
+                type: string
+                required: true
+              - name: icon
+                label: Icono personalizado
+                type: image
+                required: false
+                options:
+                  media: informes_digitales
+              - name: order
+                label: Orden en el escritorio
+                type: number
+                required: false
+                description: "Opcional. 1 aparece antes que 2. Si lo dejas vacío, se conserva el orden de la lista."
+              - name: description
+                label: Nota de la carpeta
+                type: string
+                required: false
+              - name: files
+                label: Archivos de esta carpeta
+                type: object
+                required: false
+                list:
+                  max: 100
+                  collapsible:
+                    collapsed: true
+                    summary: "{title}"
+                fields:
+                  - name: title
+                    label: Nombre del archivo
+                    type: string
+                    required: true
+                  - name: kind
+                    label: Tipo de archivo
+                    type: select
+                    required: false
+                    default: IMAGEN
+                    options:
+                      values: [IMAGEN, VIDEO]
+                  - name: image
+                    label: Imagen o captura original
+                    type: image
+                    required: false
+                    options:
+                      media: informes_digitales
+                  - name: video
+                    label: Vídeo recuperado
+                    type: file
+                    required: false
+                    options:
+                      media: informes_digitales
+                      categories: [video]
+                  - name: poster
+                    label: Miniatura opcional del vídeo
+                    type: image
+                    required: false
+                    options:
+                      media: informes_digitales
+                  - name: annotated_image
+                    label: Versión con marcas o anotaciones visuales
+                    type: image
+                    required: false
+                    options:
+                      media: informes_digitales
+                    description: "Si la añades, el visitante podrá alternar entre la imagen original y esta versión."
+                  - name: order
+                    label: Orden dentro de la carpeta
+                    type: number
+                    required: false
+                    description: "Opcional. Si lo dejas vacío, se conserva el orden de la lista."
+                  - name: date_time
+                    label: Fecha y hora
+                    type: string
+                    required: false
+                  - name: location
+                    label: Lugar
+                    type: string
+                    required: false
+                  - name: source_device
+                    label: Dispositivo o procedencia
+                    type: string
+                    required: false
+                  - name: analysis_type
+                    label: Tipo de análisis
+                    type: string
+                    required: false
+                  - name: status
+                    label: Estado del archivo
+                    type: string
+                    required: false
+                  - name: notes
+                    label: Anotaciones de los archivistas
+                    type: text
+                    required: false
       - name: show_related_archive
         label: Mostrar archivos relacionados
         type: boolean

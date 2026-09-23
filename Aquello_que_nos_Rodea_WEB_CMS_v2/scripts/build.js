@@ -909,36 +909,120 @@ function paginatePoliceReport(text,maxChars=1300,firstPageChars=maxChars){
  if(current.length) pages.push(current.join('\n\n'));
  return pages;
 }
+const reportImportanceLabels={basico:'BÁSICO',normal:'NORMAL',interesante:'INTERESANTE',importante:'IMPORTANTE',vital:'VITAL'};
+function reportImportance(value){
+ const key=String(value||'basico').toLowerCase();
+ return reportImportanceLabels[key]?key:'basico';
+}
+function orderedDigitalItems(items){
+ return (Array.isArray(items)?items:[]).map((item,index)=>({item,index}))
+   .filter(entry=>entry.item)
+   .sort((a,b)=>{
+     const position=entry=>entry.item.order!==undefined && entry.item.order!==null && entry.item.order!=='' && Number.isFinite(Number(entry.item.order))
+       ? Number(entry.item.order) : entry.index+1;
+     return position(a)-position(b)||a.index-b.index;
+   }).map(entry=>entry.item);
+}
+function archiveDigitalReports(item){
+ if(item.show_digital_reports!==true) return {count:0,html:''};
+ const reports=(Array.isArray(item.digital_reports)?item.digital_reports:[])
+   .filter(report=>report && (report.title || report.folders?.length)).slice(0,30);
+ if(!reports.length) return {count:0,html:''};
+ const cards=reports.map((report,index)=>{
+   const title=String(report.title||('INFORME DIGITAL '+String(index+1).padStart(2,'0')));
+   const importance=reportImportance(report.importance);
+   const folderCount=orderedDigitalItems(report.folders).length;
+   return '<button type="button" class="archive-mmc-card" data-digital-open="'+index+'" data-importance="'+importance+'" aria-label="Abrir informe digital: '+esc(title)+'">'+
+     '<span class="archive-mmc-notch" aria-hidden="true"></span><span class="archive-mmc-label">'+
+     (report.label_image?'<img src="'+esc(report.label_image)+'" alt="" loading="lazy">':'<span class="archive-mmc-mark" aria-hidden="true">DUB.SAR // ARCHIVO</span>')+
+     '<strong>'+esc(title)+'</strong></span><span class="archive-mmc-foot"><small>MMC // '+String(index+1).padStart(2,'0')+'</small><span>'+esc(reportImportanceLabels[importance])+'</span></span>'+
+     '<span class="archive-mmc-contacts" aria-hidden="true"></span><span class="archive-mmc-hint">'+folderCount+' CARPETA'+(folderCount===1?'':'S')+' · ABRIR ESCRITORIO →</span></button>';
+ }).join('');
+ const templates=reports.map((report,index)=>{
+   const folders=orderedDigitalItems(report.folders).filter(folder=>folder.title || folder.files?.length).slice(0,40);
+   const folderButtons=folders.map((folder,folderIndex)=>{
+     const name=String(folder.title||('CARPETA '+String(folderIndex+1).padStart(2,'0')));
+     return '<button type="button" class="retro-folder-icon" data-retro-folder="'+folderIndex+'" aria-label="Abrir carpeta '+esc(name)+'">'+
+       '<span class="retro-folder-image">'+(folder.icon?'<img src="'+esc(folder.icon)+'" alt="" loading="lazy">':'<span class="retro-folder-drawn" aria-hidden="true"></span>')+'</span>'+
+       '<span>'+esc(name)+'</span></button>';
+   }).join('');
+   const folderTemplates=folders.map((folder,folderIndex)=>{
+     const files=orderedDigitalItems(folder.files).filter(file=>file.image||file.video||file.annotated_image).slice(0,100);
+     const entries=files.map((file,fileIndex)=>{
+       const title=String(file.title||('ARCHIVO '+String(fileIndex+1).padStart(2,'0')));
+       const isVideo=Boolean(file.video && (String(file.kind||'').toUpperCase()==='VIDEO'||!file.image));
+       const thumb=isVideo?(file.poster||file.image):(file.image||file.annotated_image);
+       return '<button type="button" class="retro-file-entry" data-retro-file="'+fileIndex+'" aria-label="Abrir '+esc(title)+'">'+
+         '<span class="retro-file-thumb">'+(thumb?'<img src="'+esc(thumb)+'" alt="" loading="lazy">':'<span aria-hidden="true">▶</span>')+'</span>'+
+         '<span class="retro-file-name">'+esc(title)+'</span><small>'+(isVideo?'VÍDEO':'IMAGEN')+'</small></button>';
+     }).join('');
+     return '<template data-retro-folder-template="'+folderIndex+'"><div class="retro-file-grid">'+(entries||'<p class="retro-empty">No hay archivos en esta carpeta.</p>')+'</div></template>';
+   }).join('');
+   const fileTemplates=folders.flatMap((folder,folderIndex)=>
+     orderedDigitalItems(folder.files).filter(file=>file.image||file.video||file.annotated_image).slice(0,100).map((file,fileIndex)=>{
+       const title=String(file.title||('ARCHIVO '+String(fileIndex+1).padStart(2,'0')));
+       const isVideo=Boolean(file.video && (String(file.kind||'').toUpperCase()==='VIDEO'||!file.image));
+       const image=file.image||file.annotated_image;
+       const details=[
+         ['TIPO',isVideo?'Vídeo':'Imagen'],['FECHA Y HORA',file.date_time],['LUGAR',file.location],
+         ['DISPOSITIVO',file.source_device],['ANÁLISIS',file.analysis_type],['ESTADO',file.status]
+       ].filter(([,value])=>value).map(([label,value])=>'<div><dt>'+label+'</dt><dd>'+esc(value)+'</dd></div>').join('');
+       const media=isVideo
+         ? '<video controls playsinline preload="metadata"'+(file.poster?' poster="'+esc(file.poster)+'"':'')+' aria-label="'+esc(title)+'"><source src="'+esc(file.video)+'">Tu navegador no puede reproducir este vídeo.</video>'
+         : '<div class="retro-image-scroll"><img src="'+esc(image)+'" alt="'+esc(title)+'" data-retro-image data-original="'+esc(image)+'"'+(file.image&&file.annotated_image&&file.image!==file.annotated_image?' data-annotated="'+esc(file.annotated_image)+'"':'')+'></div>';
+       return '<template data-retro-file-template="'+folderIndex+':'+fileIndex+'"><div class="retro-file-detail">'+
+         '<div class="retro-file-media">'+media+'</div><aside class="retro-file-info">'+
+         '<h3>'+esc(title)+'</h3><dl>'+details+'</dl>'+
+         (file.notes?'<div class="retro-file-notes"><strong>NOTAS DEL ARCHIVO</strong>'+plainTextToHTML(file.notes)+'</div>':'')+
+         (!isVideo?'<div class="retro-file-tools"><button type="button" data-retro-zoom>AMPLIAR</button>'+(file.image&&file.annotated_image&&file.image!==file.annotated_image?'<button type="button" data-retro-annotated>VER MARCAS</button>':'')+'</div>':'')+
+         '</aside></div></template>';
+     })
+   ).join('');
+   return '<template data-digital-report-template="'+index+'"><div class="retro-desktop" data-retro-desktop>'+
+     '<img class="retro-desktop-mark" src="assets/img/sello-archivistas.png" alt="" aria-hidden="true" loading="lazy">'+
+     '<div class="retro-desktop-header"><span>ARCHIVO DIGITAL // '+String(index+1).padStart(2,'0')+'</span><span>'+esc(report.summary||'DUB.SAR')+'</span></div>'+
+     '<div class="retro-desktop-icons">'+folderButtons+'</div>'+
+     '<div class="retro-desktop-status">'+folders.length+' CARPETA'+(folders.length===1?'':'S')+' // SELECCIONE UNA UNIDAD</div>'+
+     folderTemplates+fileTemplates+
+     '<section class="retro-window retro-folder-window" data-retro-folder-window hidden aria-label="Contenido de carpeta"><header class="retro-window-titlebar"><strong data-retro-folder-title>CARPETA</strong><button type="button" data-retro-folder-close aria-label="Cerrar carpeta">✕</button></header><div class="retro-window-content" data-retro-folder-content></div></section>'+
+     '<section class="retro-window retro-file-window" data-retro-file-window hidden aria-label="Archivo recuperado"><header class="retro-window-titlebar"><strong data-retro-file-title>ARCHIVO</strong><button type="button" data-retro-file-close aria-label="Volver a la carpeta">✕</button></header><div class="retro-window-content" data-retro-file-content></div></section>'+
+     '</div></template>';
+ }).join('');
+ return {count:reports.length,html:'<div class="archive-digital-report-group"><div class="archive-report-subheading">INFORMES DIGITALES // '+String(reports.length).padStart(2,'0')+'</div>'+
+   '<div class="archive-police-folder-grid archive-mmc-grid">'+cards+'</div>'+templates+
+   '<dialog class="archive-digital-dialog" aria-label="Escritorio de informe digital"><div class="archive-digital-dialog-shell"><header class="archive-digital-dialog-header"><span data-digital-dialog-title>INFORME DIGITAL</span><button type="button" data-digital-close aria-label="Cerrar escritorio">✕</button></header><div data-digital-workspace></div></div></dialog></div>'+
+   '<script defer src="assets/js/digital-reports.js"></script>'};
+}
 function archivePoliceReport(item){
- if(item.show_police_report!==true) return '';
- let reports=(Array.isArray(item.police_reports)?item.police_reports:[])
+ let reports=(item.show_police_report===true && Array.isArray(item.police_reports)?item.police_reports:[])
    .filter(report=>report && String(report.body||'').trim())
-   .slice(0,5)
+   .slice(0,30)
    .map((report,index)=>{
      const images=[report.image,report.image_2,report.image_3].filter(Boolean).map(String);
      return {
        title:String(report.title||('INFORME '+String(index+1).padStart(2,'0'))),
        type:String(report.type||'POLICIAL').trim()||'POLICIAL',
+       importance:reportImportance(report.importance),
        images,
        pages:paginatePoliceReport(report.body,1300,images.length?Math.max(450,850-images.length*130):1300)
      };
    });
  // Conserva los expedientes creados antes de la lista de informes.
- if(!reports.length && String(item.police_report||'').trim()){
-   reports=[{title:'INFORME',type:'POLICIAL',images:[],pages:paginatePoliceReport(item.police_report)}];
+ if(item.show_police_report===true && !reports.length && String(item.police_report||'').trim()){
+   reports=[{title:'INFORME',type:'POLICIAL',importance:'basico',images:[],pages:paginatePoliceReport(item.police_report)}];
  }
- if(!reports.length) return '';
- const folders=reports.map((report,index)=>'<button type="button" class="archive-police-folder" data-police-open="'+index+'" data-report-type="'+esc(report.type.toUpperCase())+'" aria-label="Abrir '+esc(report.title)+'">'+
+ const digital=archiveDigitalReports(item);
+ if(!reports.length && !digital.count) return '';
+ const folders=reports.map((report,index)=>'<button type="button" class="archive-police-folder" data-police-open="'+index+'" data-importance="'+report.importance+'" data-report-type="'+esc(report.type.toUpperCase())+'" aria-label="Abrir '+esc(report.title)+'">'+
    '<span class="archive-police-folder-tab" aria-hidden="true"></span>'+
    '<span class="archive-police-folder-cover">'+(report.images[0]?'<img src="'+esc(report.images[0])+'" alt="" loading="lazy">':'<span aria-hidden="true">▤</span>')+'</span>'+
-   '<span class="archive-police-folder-copy"><small>'+esc(report.type.toUpperCase())+' // '+String(index+1).padStart(2,'0')+'</small><strong>'+esc(report.title)+'</strong><span>'+String(report.pages.length).padStart(2,'0')+' FOLIO'+(report.pages.length===1?'':'S')+' · ABRIR EXPEDIENTE →</span></span></button>').join('');
+   '<span class="archive-police-folder-copy"><small>'+esc(report.type.toUpperCase())+' // '+String(index+1).padStart(2,'0')+'</small><strong>'+esc(report.title)+'</strong><span class="archive-report-priority">'+reportImportanceLabels[report.importance]+'</span><span>'+String(report.pages.length).padStart(2,'0')+' FOLIO'+(report.pages.length===1?'':'S')+' · ABRIR EXPEDIENTE →</span></span></button>').join('');
  const templates=reports.map((report,index)=>'<template data-police-template="'+index+'">'+report.pages.map((page,pageIndex)=>'<article class="archive-police-report" data-police-page="'+pageIndex+'"'+(pageIndex?' hidden':'')+'>'+
    (pageIndex===0?'<div class="archive-police-report-heading">'+esc(report.title)+'</div>':'')+
    (pageIndex===0 && report.images.length?'<div class="archive-police-report-attachments">'+report.images.map((image,i)=>'<figure class="archive-police-report-attachment"><img src="'+esc(image)+'" alt="Imagen adjunta '+(i+1)+' de '+esc(report.title)+'" loading="lazy"></figure>').join('')+'</div>':'')+
    '<div class="archive-police-report-text">'+policeMarkdownToHTML(page)+'</div>'+
    '<div class="archive-police-report-folio">FOLIO '+String(pageIndex+1).padStart(2,'0')+' / '+String(report.pages.length).padStart(2,'0')+'</div></article>').join('')+'</template>').join('');
- return '<section class="archive-police-report-block" aria-label="Informes">'+
-   '<div class="section-label">INFORMES // '+String(reports.length).padStart(2,'0')+'</div>'+
+ const physical=reports.length?'<div class="archive-report-subheading">INFORMES FÍSICOS // '+String(reports.length).padStart(2,'0')+'</div>'+
    '<div class="archive-police-folder-grid">'+folders+'</div>'+templates+
    '<dialog class="archive-police-dialog" aria-labelledby="archive-police-dialog-title"><div class="archive-police-dialog-shell">'+
    '<header class="archive-police-dialog-header"><div><small id="archive-police-dialog-type">INFORME</small><h2 id="archive-police-dialog-title"></h2></div><button type="button" data-police-close aria-label="Cerrar informe">✕</button></header>'+
@@ -946,7 +1030,10 @@ function archivePoliceReport(item){
    '<footer class="archive-police-dialog-footer"><button type="button" data-police-prev>← ANTERIOR</button><span data-police-counter></span><button type="button" data-police-next>SIGUIENTE →</button></footer>'+
    '</div></dialog>'+
    '<script>(function(){const block=document.currentScript.closest(".archive-police-report-block");if(!block)return;const dialog=block.querySelector(".archive-police-dialog");const viewer=block.querySelector("[data-police-pages]");const scroll=block.querySelector(".archive-police-dialog-scroll");const prev=block.querySelector("[data-police-prev]");const next=block.querySelector("[data-police-next]");const counter=block.querySelector("[data-police-counter]");let page=0,trigger=null;function showPage(){const pages=[...viewer.querySelectorAll("[data-police-page]")];pages.forEach((el,i)=>el.hidden=i!==page);counter.textContent="FOLIO "+(page+1)+" / "+pages.length;prev.disabled=page===0;next.disabled=page>=pages.length-1;scroll.scrollTop=0;}block.querySelectorAll("[data-police-open]").forEach(button=>button.addEventListener("click",()=>{const template=block.querySelector(\'[data-police-template="\'+button.dataset.policeOpen+\'"]\');if(!template)return;trigger=button;viewer.replaceChildren(template.content.cloneNode(true));dialog.querySelector("#archive-police-dialog-title").textContent=button.querySelector("strong").textContent;dialog.querySelector("#archive-police-dialog-type").textContent="INFORME // "+button.dataset.reportType;page=0;showPage();dialog.showModal();document.body.classList.add("archive-police-dialog-open");dialog.querySelector("[data-police-close]").focus();}));prev.addEventListener("click",()=>{if(page>0){page--;showPage();}});next.addEventListener("click",()=>{if(page<viewer.querySelectorAll("[data-police-page]").length-1){page++;showPage();}});dialog.querySelector("[data-police-close]").addEventListener("click",()=>dialog.close());dialog.addEventListener("click",e=>{if(e.target===dialog)dialog.close();});dialog.addEventListener("close",()=>{document.body.classList.remove("archive-police-dialog-open");viewer.replaceChildren();if(trigger)trigger.focus();});})();<\/script>'+
-   '</section>';
+   '': '';
+ return '<section class="archive-police-report-block" aria-label="Informes">'+
+   '<div class="section-label">INFORMES // '+String(reports.length+digital.count).padStart(2,'0')+'</div>'+
+   physical+digital.html+'</section>';
 }
 
 function archiveInformationBlocks(item){

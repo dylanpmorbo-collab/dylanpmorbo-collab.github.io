@@ -319,61 +319,6 @@
           "comments_text": "@daniserrano98\nDos cervezas y Marcos ya ha hecho amigos internacionales 😂\n\n@candybernal\n¿Dónde aprendió portugués?\nLleva diez minutos  “solo hablando” 😂\n\n@alba.rodriguezz\nDos cervejas y ya habla portugués seguro 😭\n\n@sarabernal_\nSí sí, hablando 😌 pero no le quita las manos de encima\n\n@alexmorenoo\n @sarabernal_ Al portugués tampoco parece que le importe\n\n@rubencasado98\nHa tardado menos en ligar que vosotros en elegir dónde cenar.\n\n@sarabernal_\n @alexmorenoo No, el portugués lo está pasando bomba.\n\n@hectorgracia\nNecesito saber cómo acaba esto 😂\n\n@sergio.martos\nMarcos representando a España en Portugal 😂"
         }
       ]
-    },
-    {
-      "platform": "DISPOSITIVO",
-      "type": "[Capturas de chat] [Fotografías Eliminadas] [Videos Eliminados]",
-      "title": "Volcado de Datos",
-      "date": "20 a 28 de junio de 2016",
-      "location": "Palma de Mallorca [EXCURSIÓN]",
-      "media": [
-        {
-          "kind": "photo",
-          "title": "Recuperado durante el análisis forense del dispositivo · foto 1",
-          "image": "/assets/uploads/huella-digital/1.png",
-          "alt": "Secretos revelados",
-          "sensitive": false,
-          "zoom": true
-        },
-        {
-          "kind": "photo",
-          "title": "Recuperado durante el análisis forense del dispositivo · foto 2",
-          "image": "/assets/uploads/huella-digital/2.png",
-          "sensitive": false,
-          "zoom": true
-        },
-        {
-          "kind": "photo",
-          "title": "Recuperado durante el análisis forense del dispositivo · foto 3",
-          "image": "/assets/uploads/huella-digital/3.png",
-          "sensitive": false,
-          "zoom": true
-        },
-        {
-          "kind": "photo",
-          "title": "Recuperado durante el análisis forense del dispositivo · foto 4",
-          "image": "/assets/uploads/huella-digital/4.png",
-          "sensitive": false,
-          "zoom": true
-        },
-        {
-          "kind": "photo",
-          "title": "Fotografía enviada a la 01:07 am 22 de junio de 2016",
-          "image": "/assets/uploads/huella-digital/nochepalmahotelsalidamarcha2.png",
-          "alt": "Fotografía enviada a la 01:07 am 22 de junio de 2016",
-          "sensitive": false,
-          "zoom": false
-        },
-        {
-          "kind": "video",
-          "title": "Recuperado durante el análisis forense del dispositivo · vídeo 1",
-          "video": "/assets/uploads/huella-digital/recuperado-wsp.mp4",
-          "reactions": "Vídeo Recuperado tras volcado de archivos eliminados del dispositivo de Richard Alcoy."
-        }
-      ],
-      "source": "Recuperado durante el análisis forense del dispositivo de Richard Alcoy",
-      "archived": "20 a 28 de junio de 2016",
-      "status": "Recuperado"
     }
   ],
   "show_documents": false,
@@ -391,5 +336,94 @@
     "enabled": false,
     "design": "A",
     "title": "TABLÓN DE CONEXIONES"
-  }
+  },
+  "show_digital_reports": true,
+  "digital_reports": [
+    {
+      "title": "Volcado de datos · Richard Alcoy",
+      "importance": "basico",
+      "summary": "Recuperado durante el análisis forense del dispositivo de Richard Alcoy · Archivado: 20 a 28 de junio de 2016",
+      "folders": [
+        {
+          "title": "Dispositivo de Richard Alcoy",
+          "order": 1,
+          "description": "[Capturas de chat] [Fotografías Eliminadas] [Videos Eliminados]",
+          "files": [
+            {
+              "title": "Recuperado durante el análisis forense del dispositivo · foto 1",
+              "kind": "IMAGEN",
+              "image": "/assets/uploads/huella-digital/1.png",
+              "order": 1,
+              "date_time": "20 a 28 de junio de 2016",
+              "location": "Palma de Mallorca [EXCURSIÓN]",
+              "source_device": "Dispositivo de Richard Alcoy",
+              "analysis_type": "[Capturas de chat] [Fotografías Eliminadas] [Videos Eliminados]",
+              "status": "Recuperado",
+              "notes": "Secretos revelados"
+            },
+            {
+              "title": "Recuperado durante el análisis forense del dispositivo · foto 2",
+              "kind": "IMAGEN",
+              "image": "/assets/uploads/huella-digital/2.png",
+              "order": 2,
+              "date_time": "20 a 28 de junio de 2016",
+              "location": "Palma de Mallorca [EXCURSIÓN]",
+              "source_device": "Dispositivo de Richard Alcoy",
+              "analysis_type": "[Capturas de chat] [Fotografías Eliminadas] [Videos Eliminados]",
+              "status": "Recuperado",
+              "notes": ""
+            },
+            {
+              "title": "Recuperado durante el análisis forense del dispositivo · foto 3",
+              "kind": "IMAGEN",
+              "image": "/assets/uploads/huella-digital/3.png",
+              "order": 3,
+              "date_time": "20 a 28 de junio de 2016",
+              "location": "Palma de Mallorca [EXCURSIÓN]",
+              "source_device": "Dispositivo de Richard Alcoy",
+              "analysis_type": "[Capturas de chat] [Fotografías Eliminadas] [Videos Eliminados]",
+              "status": "Recuperado",
+              "notes": ""
+            },
+            {
+              "title": "Recuperado durante el análisis forense del dispositivo · foto 4",
+              "kind": "IMAGEN",
+              "image": "/assets/uploads/huella-digital/4.png",
+              "order": 4,
+              "date_time": "20 a 28 de junio de 2016",
+              "location": "Palma de Mallorca [EXCURSIÓN]",
+              "source_device": "Dispositivo de Richard Alcoy",
+              "analysis_type": "[Capturas de chat] [Fotografías Eliminadas] [Videos Eliminados]",
+              "status": "Recuperado",
+              "notes": ""
+            },
+            {
+              "title": "Fotografía enviada a la 01:07 am 22 de junio de 2016",
+              "kind": "IMAGEN",
+              "image": "/assets/uploads/huella-digital/nochepalmahotelsalidamarcha2.png",
+              "order": 5,
+              "date_time": "20 a 28 de junio de 2016",
+              "location": "Palma de Mallorca [EXCURSIÓN]",
+              "source_device": "Dispositivo de Richard Alcoy",
+              "analysis_type": "[Capturas de chat] [Fotografías Eliminadas] [Videos Eliminados]",
+              "status": "Recuperado",
+              "notes": ""
+            },
+            {
+              "title": "Recuperado durante el análisis forense del dispositivo · vídeo 1",
+              "kind": "VIDEO",
+              "video": "/assets/uploads/huella-digital/recuperado-wsp.mp4",
+              "order": 6,
+              "date_time": "20 a 28 de junio de 2016",
+              "location": "Palma de Mallorca [EXCURSIÓN]",
+              "source_device": "Dispositivo de Richard Alcoy",
+              "analysis_type": "[Capturas de chat] [Fotografías Eliminadas] [Videos Eliminados]",
+              "status": "Recuperado",
+              "notes": "Vídeo Recuperado tras volcado de archivos eliminados del dispositivo de Richard Alcoy."
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
