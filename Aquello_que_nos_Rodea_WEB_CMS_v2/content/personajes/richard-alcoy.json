@@ -425,7 +425,7 @@
               "title": "prueba2",
               "kind": "IMAGEN",
               "image": "/assets/uploads/informes-digitales/giphy.gif",
-              "image_visibility": "normal"
+              "image_visibility": "pixelado"
             }
           ]
         }
