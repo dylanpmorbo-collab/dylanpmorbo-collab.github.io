@@ -57,7 +57,8 @@
               "kind": "IMAGEN",
               "image": "/assets/uploads/informes-digitales/captura-conversacion-1.png",
               "image_visibility": "normal",
-              "video": "/assets/uploads/informes-digitales/1790132966284042523-01790132966.mp4"
+              "video": "/assets/uploads/informes-digitales/1790132966284042523-01790132966.mp4",
+              "annotated_image": "/assets/uploads/informes-digitales/captura-conversacion-1.png"
             }
           ]
         }
