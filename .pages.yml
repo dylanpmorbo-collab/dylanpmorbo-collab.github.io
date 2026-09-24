@@ -747,22 +747,22 @@ content:
             default: "POLICIAL"
             description: "Escribe la clase de informe: policial, médico, forense, psicológico u otra. Los antiguos se consideran policiales hasta que los cambies."
           - name: importance
-            label: Importancia / color de la carpeta
+            label: Color de la carpeta
             type: select
             required: false
             default: basico
             options:
               values:
                 - value: basico
-                  label: Básico · amarillo
+                  label: Amarillo
                 - value: normal
-                  label: Normal · verde
+                  label: Verde
                 - value: interesante
-                  label: Interesante · azul
+                  label: Azul
                 - value: importante
-                  label: Importante · morado
+                  label: Morado
                 - value: vital
-                  label: Vital · rojo
+                  label: Rojo
           - name: image
             label: Imagen 1 / portada de la carpeta
             type: image
@@ -812,22 +812,22 @@ content:
             type: string
             required: true
           - name: importance
-            label: Importancia / color de la MMC
+            label: Color de la MMC
             type: select
             required: false
             default: basico
             options:
               values:
                 - value: basico
-                  label: Básico · negro
+                  label: Negro
                 - value: normal
-                  label: Normal · verde
+                  label: Verde
                 - value: interesante
-                  label: Interesante · azul
+                  label: Azul
                 - value: importante
-                  label: Importante · morado
+                  label: Morado
                 - value: vital
-                  label: Vital · rojo
+                  label: Rojo
           - name: label_image
             label: Imagen de la etiqueta de la MMC
             type: image
@@ -1622,22 +1622,22 @@ content:
             default: "POLICIAL"
             description: "Escribe la clase de informe: policial, médico, forense, psicológico u otra. Los antiguos se consideran policiales hasta que los cambies."
           - name: importance
-            label: Importancia / color de la carpeta
+            label: Color de la carpeta
             type: select
             required: false
             default: basico
             options:
               values:
                 - value: basico
-                  label: Básico · amarillo
+                  label: Amarillo
                 - value: normal
-                  label: Normal · verde
+                  label: Verde
                 - value: interesante
-                  label: Interesante · azul
+                  label: Azul
                 - value: importante
-                  label: Importante · morado
+                  label: Morado
                 - value: vital
-                  label: Vital · rojo
+                  label: Rojo
           - name: image
             label: Imagen 1 / portada de la carpeta
             type: image
@@ -1687,22 +1687,22 @@ content:
             type: string
             required: true
           - name: importance
-            label: Importancia / color de la MMC
+            label: Color de la MMC
             type: select
             required: false
             default: basico
             options:
               values:
                 - value: basico
-                  label: Básico · negro
+                  label: Negro
                 - value: normal
-                  label: Normal · verde
+                  label: Verde
                 - value: interesante
-                  label: Interesante · azul
+                  label: Azul
                 - value: importante
-                  label: Importante · morado
+                  label: Morado
                 - value: vital
-                  label: Vital · rojo
+                  label: Rojo
           - name: label_image
             label: Imagen de la etiqueta de la MMC
             type: image

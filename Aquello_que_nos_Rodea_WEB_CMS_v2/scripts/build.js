@@ -933,9 +933,9 @@ function archiveDigitalReports(item){
    const importance=reportImportance(report.importance);
    const folderCount=orderedDigitalItems(report.folders).length;
    return '<button type="button" class="archive-mmc-card" data-digital-open="'+index+'" data-importance="'+importance+'" aria-label="Abrir informe digital: '+esc(title)+'">'+
-     '<span class="archive-mmc-notch" aria-hidden="true"></span><span class="archive-mmc-label">'+
+     '<span class="archive-mmc-label">'+
      (report.label_image?'<img src="'+esc(report.label_image)+'" alt="" loading="lazy">':'<span class="archive-mmc-mark" aria-hidden="true">DUB.SAR // ARCHIVO</span>')+
-     '<strong>'+esc(title)+'</strong></span><span class="archive-mmc-foot"><small>MMC // '+String(index+1).padStart(2,'0')+'</small><span>'+esc(reportImportanceLabels[importance])+'</span></span>'+
+     '<strong>'+esc(title)+'</strong></span><span class="archive-mmc-foot"><small>MMC // '+String(index+1).padStart(2,'0')+'</small></span>'+
      '<span class="archive-mmc-contacts" aria-hidden="true"></span><span class="archive-mmc-hint">'+folderCount+' CARPETA'+(folderCount===1?'':'S')+' · ABRIR ESCRITORIO →</span></button>';
  }).join('');
  const templates=reports.map((report,index)=>{
@@ -972,7 +972,9 @@ function archiveDigitalReports(item){
          : '<div class="retro-image-scroll"><img src="'+esc(image)+'" alt="'+esc(title)+'" data-retro-image data-original="'+esc(image)+'"'+(file.image&&file.annotated_image&&file.image!==file.annotated_image?' data-annotated="'+esc(file.annotated_image)+'"':'')+'></div>';
        return '<template data-retro-file-template="'+folderIndex+':'+fileIndex+'"><div class="retro-file-detail">'+
          '<div class="retro-file-media">'+media+'</div><aside class="retro-file-info">'+
-         '<h3>'+esc(title)+'</h3><dl>'+details+'</dl>'+
+         '<div class="retro-file-masthead" role="img" aria-label="Sello y nombre sumerio de DUB.SAR"></div><h3>'+esc(title)+'</h3>'+
+         (isVideo?'<div class="retro-file-tools retro-file-video-tools"><button type="button" data-retro-video-expand>⛶ VER VÍDEO ENTERO</button></div>':'')+
+         '<dl>'+details+'</dl>'+
          (file.notes?'<div class="retro-file-notes"><strong>NOTAS DEL ARCHIVO</strong>'+plainTextToHTML(file.notes)+'</div>':'')+
          (!isVideo?'<div class="retro-file-tools"><button type="button" data-retro-zoom>AMPLIAR</button>'+(file.image&&file.annotated_image&&file.image!==file.annotated_image?'<button type="button" data-retro-annotated>VER MARCAS</button>':'')+'</div>':'')+
          '</aside></div></template>';
@@ -1016,7 +1018,7 @@ function archivePoliceReport(item){
  const folders=reports.map((report,index)=>'<button type="button" class="archive-police-folder" data-police-open="'+index+'" data-importance="'+report.importance+'" data-report-type="'+esc(report.type.toUpperCase())+'" aria-label="Abrir '+esc(report.title)+'">'+
    '<span class="archive-police-folder-tab" aria-hidden="true"></span>'+
    '<span class="archive-police-folder-cover">'+(report.images[0]?'<img src="'+esc(report.images[0])+'" alt="" loading="lazy">':'<span aria-hidden="true">▤</span>')+'</span>'+
-   '<span class="archive-police-folder-copy"><small>'+esc(report.type.toUpperCase())+' // '+String(index+1).padStart(2,'0')+'</small><strong>'+esc(report.title)+'</strong><span class="archive-report-priority">'+reportImportanceLabels[report.importance]+'</span><span>'+String(report.pages.length).padStart(2,'0')+' FOLIO'+(report.pages.length===1?'':'S')+' · ABRIR EXPEDIENTE →</span></span></button>').join('');
+   '<span class="archive-police-folder-copy"><small>'+esc(report.type.toUpperCase())+' // '+String(index+1).padStart(2,'0')+'</small><strong>'+esc(report.title)+'</strong><span>'+String(report.pages.length).padStart(2,'0')+' FOLIO'+(report.pages.length===1?'':'S')+' · ABRIR EXPEDIENTE →</span></span></button>').join('');
  const templates=reports.map((report,index)=>'<template data-police-template="'+index+'">'+report.pages.map((page,pageIndex)=>'<article class="archive-police-report" data-police-page="'+pageIndex+'"'+(pageIndex?' hidden':'')+'>'+
    (pageIndex===0?'<div class="archive-police-report-heading">'+esc(report.title)+'</div>':'')+
    (pageIndex===0 && report.images.length?'<div class="archive-police-report-attachments">'+report.images.map((image,i)=>'<figure class="archive-police-report-attachment"><img src="'+esc(image)+'" alt="Imagen adjunta '+(i+1)+' de '+esc(report.title)+'" loading="lazy"></figure>').join('')+'</div>':'')+
