@@ -420,6 +420,12 @@
               "image_visibility": "falso",
               "fake_pixel_image": "/assets/uploads/informes-digitales/2014-15.png",
               "order": 2
+            },
+            {
+              "title": "prueba2",
+              "kind": "IMAGEN",
+              "image": "/assets/uploads/informes-digitales/giphy.gif",
+              "image_visibility": "normal"
             }
           ]
         }
