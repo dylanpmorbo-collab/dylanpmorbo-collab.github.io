@@ -323,20 +323,6 @@
   ],
   "show_documents": false,
   "show_police_report": false,
-  "show_related_archive": true,
-  "related_archive": [
-    {
-      "type": "SUCESO",
-      "title": "INFORMES CASO ALCOY",
-      "thumbnail": "/assets/uploads/conexiones/autopsia.png",
-      "url": "https://dylanpmorbo-collab.github.io/archivo-sucesos-homicidio-richard-alcoy.html"
-    }
-  ],
-  "corkboard": {
-    "enabled": false,
-    "design": "A",
-    "title": "TABLÓN DE CONEXIONES"
-  },
   "show_digital_reports": true,
   "digital_reports": [
     {
@@ -353,6 +339,7 @@
               "title": "Secretos revelados",
               "kind": "IMAGEN",
               "image": "/assets/uploads/huella-digital/1.png",
+              "image_visibility": "normal",
               "order": 1,
               "date_time": "20 a 28 de junio de 2016",
               "location": "Palma de Mallorca [EXCURSIÓN]",
@@ -365,6 +352,7 @@
               "title": "Captura recuperada 02",
               "kind": "IMAGEN",
               "image": "/assets/uploads/huella-digital/2.png",
+              "image_visibility": "normal",
               "order": 2,
               "date_time": "20 a 28 de junio de 2016",
               "location": "Palma de Mallorca [EXCURSIÓN]",
@@ -377,6 +365,7 @@
               "title": "Captura recuperada 03",
               "kind": "IMAGEN",
               "image": "/assets/uploads/huella-digital/3.png",
+              "image_visibility": "normal",
               "order": 3,
               "date_time": "20 a 28 de junio de 2016",
               "location": "Palma de Mallorca [EXCURSIÓN]",
@@ -389,6 +378,7 @@
               "title": "Captura recuperada 04",
               "kind": "IMAGEN",
               "image": "/assets/uploads/huella-digital/4.png",
+              "image_visibility": "normal",
               "order": 4,
               "date_time": "20 a 28 de junio de 2016",
               "location": "Palma de Mallorca [EXCURSIÓN]",
@@ -401,6 +391,7 @@
               "title": "Foto enviada · 22/06/2016 01:07",
               "kind": "IMAGEN",
               "image": "/assets/uploads/huella-digital/nochepalmahotelsalidamarcha2.png",
+              "image_visibility": "normal",
               "order": 5,
               "date_time": "20 a 28 de junio de 2016",
               "location": "Palma de Mallorca [EXCURSIÓN]",
@@ -412,6 +403,7 @@
             {
               "title": "Vídeo recuperado",
               "kind": "VIDEO",
+              "image_visibility": "normal",
               "video": "/assets/uploads/huella-digital/recuperado-wsp.mp4",
               "order": 6,
               "date_time": "20 a 28 de junio de 2016",
@@ -420,10 +412,32 @@
               "analysis_type": "[Capturas de chat] [Fotografías Eliminadas] [Videos Eliminados]",
               "status": "Recuperado",
               "notes": "Referencia original: Recuperado durante el análisis forense del dispositivo · vídeo 1\nVídeo Recuperado tras volcado de archivos eliminados del dispositivo de Richard Alcoy."
+            },
+            {
+              "title": "prueba",
+              "kind": "IMAGEN",
+              "image": "/assets/uploads/informes-digitales/giphy.gif",
+              "image_visibility": "falso",
+              "fake_pixel_image": "/assets/uploads/informes-digitales/2014-15.png",
+              "order": 2
             }
           ]
         }
       ]
     }
-  ]
+  ],
+  "show_related_archive": true,
+  "related_archive": [
+    {
+      "type": "SUCESO",
+      "title": "INFORMES CASO ALCOY",
+      "thumbnail": "/assets/uploads/conexiones/autopsia.png",
+      "url": "https://dylanpmorbo-collab.github.io/archivo-sucesos-homicidio-richard-alcoy.html"
+    }
+  ],
+  "corkboard": {
+    "enabled": false,
+    "design": "A",
+    "title": "TABLÓN DE CONEXIONES"
+  }
 }
