@@ -13,6 +13,33 @@
     function folderWindow(){return desktop()?.querySelector('[data-retro-folder-window]');}
     function fileWindow(){return desktop()?.querySelector('[data-retro-file-window]');}
     function pauseVideos(container){container?.querySelectorAll('video').forEach(video=>video.pause());}
+    function fileEntries(){return Array.from(folderWindow()?.querySelectorAll('[data-retro-file]')||[]);}
+    function updateFileNavigation(){
+      const window=fileWindow();
+      const entries=fileEntries();
+      const index=entries.indexOf(fileTrigger);
+      window.querySelector('[data-retro-file-prev]').disabled=index<=0;
+      window.querySelector('[data-retro-file-next]').disabled=index<0||index>=entries.length-1;
+    }
+    function pixelateImage(window){
+      const wrap=window.querySelector('[data-conceal-mode="pixelado"]');
+      const image=wrap?.querySelector('img');
+      if(!image)return;
+      const draw=()=>{
+        if(!image.naturalWidth || !wrap.classList.contains('is-concealed'))return;
+        try{
+          const canvas=document.createElement('canvas');
+          canvas.width=32;
+          canvas.height=Math.max(1,Math.round(32*image.naturalHeight/image.naturalWidth));
+          canvas.setAttribute('aria-hidden','true');
+          canvas.getContext('2d').drawImage(image,0,0,canvas.width,canvas.height);
+          image.after(canvas);
+          wrap.classList.add('is-pixelated');
+        }catch(e){}
+      };
+      if(image.complete)draw();
+      else image.addEventListener('load',draw,{once:true});
+    }
     function closeFile(restoreFocus=true){
       const window=fileWindow();
       if(!window || window.hidden)return;
@@ -56,6 +83,8 @@
       const window=fileWindow();
       window.querySelector('[data-retro-file-title]').textContent=button.querySelector('.retro-file-name')?.textContent||'ARCHIVO';
       window.querySelector('[data-retro-file-content]').replaceChildren(template.content.cloneNode(true));
+      updateFileNavigation();
+      pixelateImage(window);
       const video=window.querySelector('video');
       video?.addEventListener('fullscreenchange',()=>{
         if(!document.fullscreenElement){
@@ -69,6 +98,11 @@
       });
       window.hidden=false;
       window.querySelector('[data-retro-file-close]').focus();
+    }
+    function stepFile(offset){
+      const entries=fileEntries();
+      const next=entries[entries.indexOf(fileTrigger)+offset];
+      if(next)openFile(next);
     }
     function openReport(button){
       const template=group.querySelector('template[data-digital-report-template="'+button.dataset.digitalOpen+'"]');
@@ -109,8 +143,20 @@
       if(button.hasAttribute('data-retro-folder'))openFolder(button);
       else if(button.hasAttribute('data-retro-file'))openFile(button);
       else if(button.hasAttribute('data-retro-file-close'))closeFile();
+      else if(button.hasAttribute('data-retro-file-prev'))stepFile(-1);
+      else if(button.hasAttribute('data-retro-file-next'))stepFile(1);
       else if(button.hasAttribute('data-retro-folder-close'))closeFolder();
       else if(button.hasAttribute('data-retro-video-expand'))expandVideo(button);
+      else if(button.hasAttribute('data-retro-reveal')){
+        const wrap=button.closest('[data-retro-image-wrap]');
+        const image=wrap?.querySelector('[data-retro-image]');
+        if(!image)return;
+        if(wrap.dataset.concealMode==='falso')image.src=image.dataset.original;
+        wrap.classList.remove('is-concealed','is-pixelated');
+        wrap.querySelector('canvas')?.remove();
+        wrap.querySelector('.retro-image-warning')?.remove();
+        fileWindow().querySelectorAll('[data-retro-zoom],[data-retro-annotated]').forEach(control=>control.hidden=false);
+      }
       else if(button.hasAttribute('data-retro-zoom')){
         const media=button.closest('.retro-file-detail')?.querySelector('.retro-file-media');
         if(!media)return;
@@ -122,6 +168,14 @@
         const marked=image.getAttribute('src')===image.dataset.annotated;
         image.src=marked?image.dataset.original:image.dataset.annotated;
         button.textContent=marked?'VER MARCAS':'VER ORIGINAL';
+      }
+    });
+    workspace.addEventListener('keydown',event=>{
+      if(fileWindow()?.hidden || !fileWindow()?.contains(event.target))return;
+      if(event.target.closest('video,button'))return;
+      if(event.key==='ArrowLeft'||event.key==='ArrowRight'){
+        event.preventDefault();
+        stepFile(event.key==='ArrowLeft'?-1:1);
       }
     });
     closeReport.addEventListener('click',()=>dialog.close());

@@ -951,7 +951,7 @@ function archiveDigitalReports(item){
      const entries=files.map((file,fileIndex)=>{
        const title=String(file.title||('ARCHIVO '+String(fileIndex+1).padStart(2,'0')));
        const isVideo=Boolean(file.video && (String(file.kind||'').toUpperCase()==='VIDEO'||!file.image));
-       const thumb=isVideo?(file.poster||file.image):(file.image||file.annotated_image);
+       const thumb=isVideo?(file.poster||file.image):(file.image_visibility==='falso'&&file.fake_pixel_image?file.fake_pixel_image:(file.image||file.annotated_image));
        return '<button type="button" class="retro-file-entry" data-retro-file="'+fileIndex+'" aria-label="Abrir '+esc(title)+'">'+
          '<span class="retro-file-thumb">'+(thumb?'<img src="'+esc(thumb)+'" alt="" loading="lazy">':'<span aria-hidden="true">▶</span>')+'</span>'+
          '<span class="retro-file-name">'+esc(title)+'</span><small>'+(isVideo?'VÍDEO':'IMAGEN')+'</small></button>';
@@ -963,20 +963,22 @@ function archiveDigitalReports(item){
        const title=String(file.title||('ARCHIVO '+String(fileIndex+1).padStart(2,'0')));
        const isVideo=Boolean(file.video && (String(file.kind||'').toUpperCase()==='VIDEO'||!file.image));
        const image=file.image||file.annotated_image;
+       const concealMode=!isVideo&&image?(file.image_visibility==='falso'&&file.fake_pixel_image?'falso':file.image_visibility==='pixelado'?'pixelado':'normal'):'normal';
+       const initialImage=concealMode==='falso'?file.fake_pixel_image:image;
        const details=[
          ['TIPO',isVideo?'Vídeo':'Imagen'],['FECHA Y HORA',file.date_time],['LUGAR',file.location],
          ['DISPOSITIVO',file.source_device],['ANÁLISIS',file.analysis_type],['ESTADO',file.status]
        ].filter(([,value])=>value).map(([label,value])=>'<div><dt>'+label+'</dt><dd>'+esc(value)+'</dd></div>').join('');
        const media=isVideo
          ? '<video controls playsinline preload="metadata"'+(file.poster?' poster="'+esc(file.poster)+'"':'')+' aria-label="'+esc(title)+'"><source src="'+esc(file.video)+'">Tu navegador no puede reproducir este vídeo.</video>'
-         : '<div class="retro-image-scroll"><img src="'+esc(image)+'" alt="'+esc(title)+'" data-retro-image data-original="'+esc(image)+'"'+(file.image&&file.annotated_image&&file.image!==file.annotated_image?' data-annotated="'+esc(file.annotated_image)+'"':'')+'></div>';
+         : '<div class="retro-image-scroll'+(concealMode==='normal'?'':' is-concealed')+'" data-retro-image-wrap data-conceal-mode="'+concealMode+'"><img src="'+esc(initialImage)+'" alt="'+esc(title)+'" data-retro-image data-original="'+esc(image)+'"'+(file.image&&file.annotated_image&&file.image!==file.annotated_image?' data-annotated="'+esc(file.annotated_image)+'"':'')+'>'+(concealMode!=='normal'?'<div class="retro-image-warning"><p>Esta imagen puede resultar ofensiva o contener contenido sexual explícito.</p><button type="button" data-retro-reveal>DESBLOQUEAR IMAGEN</button></div>':'')+'</div>';
        return '<template data-retro-file-template="'+folderIndex+':'+fileIndex+'"><div class="retro-file-detail">'+
          '<div class="retro-file-media">'+media+'</div><aside class="retro-file-info">'+
-         '<div class="retro-file-masthead" role="img" aria-label="Sello y nombre sumerio de DUB.SAR"></div><h3>'+esc(title)+'</h3>'+
+         (file.masthead_image?'<img class="retro-file-masthead" src="'+esc(file.masthead_image)+'" alt="Membrete del archivo" loading="lazy">':'')+'<h3>'+esc(title)+'</h3>'+
          (isVideo?'<div class="retro-file-tools retro-file-video-tools"><button type="button" data-retro-video-expand>⛶ VER VÍDEO ENTERO</button></div>':'')+
          '<dl>'+details+'</dl>'+
          (file.notes?'<div class="retro-file-notes"><strong>NOTAS DEL ARCHIVO</strong>'+plainTextToHTML(file.notes)+'</div>':'')+
-         (!isVideo?'<div class="retro-file-tools"><button type="button" data-retro-zoom>AMPLIAR</button>'+(file.image&&file.annotated_image&&file.image!==file.annotated_image?'<button type="button" data-retro-annotated>VER MARCAS</button>':'')+'</div>':'')+
+         (!isVideo?'<div class="retro-file-tools"><button type="button" data-retro-zoom'+(concealMode!=='normal'?' hidden':'')+'>AMPLIAR</button>'+(file.image&&file.annotated_image&&file.image!==file.annotated_image?'<button type="button" data-retro-annotated'+(concealMode!=='normal'?' hidden':'')+'>VER MARCAS</button>':'')+'</div>':'')+
          '</aside></div></template>';
      })
    ).join('');
@@ -987,7 +989,7 @@ function archiveDigitalReports(item){
      '<div class="retro-desktop-status">'+folders.length+' CARPETA'+(folders.length===1?'':'S')+' // SELECCIONE UNA UNIDAD</div>'+
      folderTemplates+fileTemplates+
      '<section class="retro-window retro-folder-window" data-retro-folder-window hidden aria-label="Contenido de carpeta"><header class="retro-window-titlebar"><strong data-retro-folder-title>CARPETA</strong><button type="button" data-retro-folder-close aria-label="Cerrar carpeta">✕</button></header><div class="retro-window-content" data-retro-folder-content></div></section>'+
-     '<section class="retro-window retro-file-window" data-retro-file-window hidden aria-label="Archivo recuperado"><header class="retro-window-titlebar"><strong data-retro-file-title>ARCHIVO</strong><button type="button" data-retro-file-close aria-label="Volver a la carpeta">✕</button></header><div class="retro-window-content" data-retro-file-content></div></section>'+
+     '<section class="retro-window retro-file-window" data-retro-file-window hidden aria-label="Archivo recuperado"><header class="retro-window-titlebar"><strong data-retro-file-title>ARCHIVO</strong><span class="retro-file-nav"><button type="button" data-retro-file-prev aria-label="Archivo anterior" title="Archivo anterior">←</button><button type="button" data-retro-file-next aria-label="Archivo siguiente" title="Archivo siguiente">→</button><button type="button" data-retro-file-close aria-label="Volver a la carpeta">✕</button></span></header><div class="retro-window-content" data-retro-file-content></div></section>'+
      '</div></template>';
  }).join('');
  return {count:reports.length,html:'<div class="archive-digital-report-group"><div class="archive-report-subheading">INFORMES DIGITALES // '+String(reports.length).padStart(2,'0')+'</div>'+

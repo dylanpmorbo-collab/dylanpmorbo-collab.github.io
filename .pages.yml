@@ -890,11 +890,39 @@ content:
                     options:
                       values: [IMAGEN, VIDEO]
                   - name: image
-                    label: Imagen o captura original
+                    label: Imagen que se verá al desbloquear
                     type: image
                     required: false
                     options:
                       media: informes_digitales
+                    description: "Si no ocultas la imagen, se muestra directamente. Para el falso pixelado, aquí puedes subir incluso una imagen de error."
+                  - name: image_visibility
+                    label: Cómo mostrar la imagen
+                    type: select
+                    required: false
+                    default: normal
+                    options:
+                      values:
+                        - value: normal
+                          label: Mostrar directamente
+                        - value: pixelado
+                          label: Pixelado real · desbloquear
+                        - value: falso
+                          label: Falso pixelado · cambiar de imagen
+                  - name: fake_pixel_image
+                    label: Imagen pixelada de la vista inicial
+                    type: image
+                    required: false
+                    options:
+                      media: informes_digitales
+                    description: "Solo para «Falso pixelado». Sube una imagen YA pixelada; al desbloquear se sustituirá por la imagen del campo anterior."
+                  - name: masthead_image
+                    label: Membrete o banner de esta ficha (600 × 120 píxeles)
+                    type: image
+                    required: false
+                    options:
+                      media: informes_digitales
+                    description: "Prepara una imagen de exactamente 600 × 120 píxeles (proporción 5:1). Se reducirá sin recortes; si queda vacío, no aparecerá ningún membrete."
                   - name: video
                     label: Vídeo recuperado
                     type: file
@@ -1765,11 +1793,39 @@ content:
                     options:
                       values: [IMAGEN, VIDEO]
                   - name: image
-                    label: Imagen o captura original
+                    label: Imagen que se verá al desbloquear
                     type: image
                     required: false
                     options:
                       media: informes_digitales
+                    description: "Si no ocultas la imagen, se muestra directamente. Para el falso pixelado, aquí puedes subir incluso una imagen de error."
+                  - name: image_visibility
+                    label: Cómo mostrar la imagen
+                    type: select
+                    required: false
+                    default: normal
+                    options:
+                      values:
+                        - value: normal
+                          label: Mostrar directamente
+                        - value: pixelado
+                          label: Pixelado real · desbloquear
+                        - value: falso
+                          label: Falso pixelado · cambiar de imagen
+                  - name: fake_pixel_image
+                    label: Imagen pixelada de la vista inicial
+                    type: image
+                    required: false
+                    options:
+                      media: informes_digitales
+                    description: "Solo para «Falso pixelado». Sube una imagen YA pixelada; al desbloquear se sustituirá por la imagen del campo anterior."
+                  - name: masthead_image
+                    label: Membrete o banner de esta ficha (600 × 120 píxeles)
+                    type: image
+                    required: false
+                    options:
+                      media: informes_digitales
+                    description: "Prepara una imagen de exactamente 600 × 120 píxeles (proporción 5:1). Se reducirá sin recortes; si queda vacío, no aparecerá ningún membrete."
                   - name: video
                     label: Vídeo recuperado
                     type: file
