@@ -77,6 +77,12 @@ media:
     output: /assets/uploads/testimonios
     rename: safe
     categories: [audio]
+  - name: terminal
+    label: Terminal y carteles
+    input: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads/terminal
+    output: /assets/uploads/terminal
+    rename: safe
+    categories: [image]
 
 content:
   - name: relatos
@@ -137,10 +143,11 @@ content:
         label: Frase / descripción breve
         type: text
       - name: cover
-        label: Portada
+        label: Portada (1200 × 1800 px)
         type: image
         options:
           media: relatos
+        description: "Tamaño recomendado: 1200 × 1800 píxeles (2:3). Se reduce en la página; las miniaturas pueden recortar un poco los bordes."
       - name: content_warning
         label: Advertencia de contenido
         type: text
@@ -183,12 +190,12 @@ content:
             type: string
             required: true
           - name: thumbnail
-            label: Miniatura
+            label: Miniatura (400 × 700 px)
             type: image
             required: false
             options:
               media: conexiones
-            description: "Opcional. Imagen pequeña que aparecerá dentro de la tarjeta para hacer la conexión más visual."
+            description: "Opcional. Prepara 400 × 700 píxeles (4:7); la tarjeta puede recortar ligeramente al adaptarse a la pantalla."
           - name: url
             label: Enlace
             type: string
@@ -341,11 +348,12 @@ content:
         type: text
         description: "Se muestra en la ficha del índice. No reveles el giro."
       - name: image
-        label: Imagen principal
+        label: Imagen principal (1200 × 1200 px)
         type: image
         required: false
         options:
           media: microrrelatos
+        description: "Tamaño recomendado: 1200 × 1200 píxeles (cuadrada). La portada se recorta a ese formato."
       - name: content_warning
         label: Advertencia de contenido
         type: text
@@ -389,12 +397,12 @@ content:
             type: string
             required: true
           - name: thumbnail
-            label: Miniatura
+            label: Miniatura (400 × 700 px)
             type: image
             required: false
             options:
               media: conexiones
-            description: "Opcional. Imagen pequeña que aparecerá dentro de la tarjeta para hacer la conexión más visual."
+            description: "Opcional. Prepara 400 × 700 píxeles (4:7); la tarjeta puede recortar ligeramente al adaptarse a la pantalla."
           - name: url
             label: Enlace
             type: string
@@ -531,12 +539,12 @@ content:
         type: boolean
         default: true
       - name: image
-        label: Imagen principal / miniatura
+        label: Imagen principal / miniatura (1200 × 900 px)
         type: image
         required: false
         options:
           media: archivo
-        description: "Aparece en la ficha resumida y en la cabecera del expediente completo."
+        description: "Tamaño recomendado: 1200 × 900 píxeles (4:3). Aparece en la ficha y cabecera; el encuadre puede recortarse según la pantalla."
       - name: status
         label: Estado
         type: string
@@ -764,12 +772,12 @@ content:
                 - value: vital
                   label: Rojo
           - name: image
-            label: Imagen 1 / portada de la carpeta
+            label: Imagen 1 / portada de la carpeta (800 × 500 px)
             type: image
             required: false
             options:
               media: informes_policiales
-            description: "Esta imagen se ve en la carpeta y, al abrir, al principio del informe."
+            description: "Tamaño recomendado: 800 × 500 píxeles (8:5). La carpeta recorta para llenar su ventana; al abrir, también se ve al principio del informe."
           - name: image_2
             label: Imagen 2 del informe
             type: image
@@ -829,12 +837,12 @@ content:
                 - value: vital
                   label: Rojo
           - name: label_image
-            label: Imagen de la etiqueta de la MMC
+            label: Imagen de la etiqueta de la MMC (600 × 300 px)
             type: image
             required: false
             options:
               media: informes_digitales
-            description: "Se muestra en la pegatina. El título se escribe aparte para que siempre sea legible."
+            description: "Prepara 600 × 300 píxeles (2:1). Se ajusta entera, sin recorte, dentro de la pegatina; el título se escribe aparte."
           - name: summary
             label: Referencia o nota breve
             type: string
@@ -854,11 +862,12 @@ content:
                 type: string
                 required: true
               - name: icon
-                label: Icono personalizado
+                label: Icono personalizado de carpeta (152 × 128 px)
                 type: image
                 required: false
                 options:
                   media: informes_digitales
+                description: "Prepara 152 × 128 píxeles, preferiblemente PNG transparente. Se reduce a un máximo de 76 × 64 sin recorte."
               - name: order
                 label: Orden en el escritorio
                 type: number
@@ -924,18 +933,20 @@ content:
                       media: informes_digitales
                     description: "Prepara una imagen de exactamente 600 × 120 píxeles (proporción 5:1). Se reducirá sin recortes; si queda vacío, no aparecerá ningún membrete."
                   - name: video
-                    label: Vídeo recuperado
+                    label: Vídeo principal de la ficha
                     type: file
                     required: false
                     options:
                       media: informes_digitales
                       categories: [video]
+                    description: "Se reproduce como archivo principal si el tipo es VÍDEO. Si el tipo es IMAGEN, aparecerá como adjunto para no perder los vídeos ya cargados."
                   - name: poster
-                    label: Miniatura opcional del vídeo
+                    label: Miniatura opcional del vídeo (1280 × 720 px)
                     type: image
                     required: false
                     options:
                       media: informes_digitales
+                    description: "Para vídeo horizontal, prepara 1280 × 720 píxeles (16:9). Si es vertical, usa 720 × 1280 para respetar su proporción."
                   - name: annotated_image
                     label: Versión con marcas o anotaciones visuales
                     type: image
@@ -972,6 +983,40 @@ content:
                     label: Anotaciones de los archivistas
                     type: text
                     required: false
+                  - name: attachments
+                    label: Archivos adjuntos al documento
+                    type: object
+                    required: false
+                    description: "Imágenes y vídeos relacionados con esta ficha. Puedes añadir hasta 8 y se abrirán dentro de la misma ventana."
+                    list:
+                      max: 8
+                      collapsible:
+                        collapsed: true
+                        summary: "{title}"
+                    fields:
+                      - name: title
+                        label: Nombre del adjunto
+                        type: string
+                        required: true
+                      - name: image
+                        label: Imagen adjunta
+                        type: image
+                        required: false
+                        options:
+                          media: informes_digitales
+                        description: "Si acompaña a un vídeo como portada: 1280 × 720 px horizontal o 720 × 1280 px vertical. Si es una imagen adjunta, conserva su proporción original."
+                      - name: video
+                        label: Vídeo adjunto
+                        type: file
+                        required: false
+                        options:
+                          media: informes_digitales
+                          categories: [video]
+                        description: "Rellena imagen o vídeo. Si rellenas ambos, se mostrará el vídeo y la imagen servirá de miniatura."
+                      - name: note
+                        label: Nota sobre el adjunto
+                        type: string
+                        required: false
       - name: show_related_archive
         label: Mostrar archivos relacionados
         type: boolean
@@ -999,12 +1044,12 @@ content:
             type: string
             required: true
           - name: thumbnail
-            label: Miniatura
+            label: Miniatura (400 × 700 px)
             type: image
             required: false
             options:
               media: conexiones
-            description: "Opcional. Imagen pequeña que aparecerá dentro de la tarjeta para hacer la conexión más visual."
+            description: "Opcional. Prepara 400 × 700 píxeles (4:7); la tarjeta puede recortar ligeramente al adaptarse a la pantalla."
           - name: url
             label: Enlace
             type: string
@@ -1154,11 +1199,12 @@ content:
               media: prensa_digital
               categories: [video]
           - name: poster
-            label: Portada del vídeo
+            label: Portada del vídeo (1280 × 720 px)
             type: image
             required: false
             options:
               media: prensa_digital
+            description: "Para vídeo horizontal, prepara 1280 × 720 píxeles (16:9). Si es vertical, usa 720 × 1280."
           - name: summary
             label: Entradilla o descripción
             type: text
@@ -1244,11 +1290,12 @@ content:
         type: boolean
         default: true
       - name: image
-        label: Imagen principal / miniatura
+        label: Imagen principal / miniatura (1200 × 900 px)
         type: image
         required: false
         options:
           media: personajes
+        description: "Tamaño recomendado: 1200 × 900 píxeles (4:3). El encuadre puede recortarse en las tarjetas y cabeceras."
       - name: status
         label: Estado
         type: string
@@ -1667,12 +1714,12 @@ content:
                 - value: vital
                   label: Rojo
           - name: image
-            label: Imagen 1 / portada de la carpeta
+            label: Imagen 1 / portada de la carpeta (800 × 500 px)
             type: image
             required: false
             options:
               media: informes_policiales
-            description: "Esta imagen se ve en la carpeta y, al abrir, al principio del informe."
+            description: "Tamaño recomendado: 800 × 500 píxeles (8:5). La carpeta recorta para llenar su ventana; al abrir, también se ve al principio del informe."
           - name: image_2
             label: Imagen 2 del informe
             type: image
@@ -1732,12 +1779,12 @@ content:
                 - value: vital
                   label: Rojo
           - name: label_image
-            label: Imagen de la etiqueta de la MMC
+            label: Imagen de la etiqueta de la MMC (600 × 300 px)
             type: image
             required: false
             options:
               media: informes_digitales
-            description: "Se muestra en la pegatina. El título se escribe aparte para que siempre sea legible."
+            description: "Prepara 600 × 300 píxeles (2:1). Se ajusta entera, sin recorte, dentro de la pegatina; el título se escribe aparte."
           - name: summary
             label: Referencia o nota breve
             type: string
@@ -1757,11 +1804,12 @@ content:
                 type: string
                 required: true
               - name: icon
-                label: Icono personalizado
+                label: Icono personalizado de carpeta (152 × 128 px)
                 type: image
                 required: false
                 options:
                   media: informes_digitales
+                description: "Prepara 152 × 128 píxeles, preferiblemente PNG transparente. Se reduce a un máximo de 76 × 64 sin recorte."
               - name: order
                 label: Orden en el escritorio
                 type: number
@@ -1827,18 +1875,20 @@ content:
                       media: informes_digitales
                     description: "Prepara una imagen de exactamente 600 × 120 píxeles (proporción 5:1). Se reducirá sin recortes; si queda vacío, no aparecerá ningún membrete."
                   - name: video
-                    label: Vídeo recuperado
+                    label: Vídeo principal de la ficha
                     type: file
                     required: false
                     options:
                       media: informes_digitales
                       categories: [video]
+                    description: "Se reproduce como archivo principal si el tipo es VÍDEO. Si el tipo es IMAGEN, aparecerá como adjunto para no perder los vídeos ya cargados."
                   - name: poster
-                    label: Miniatura opcional del vídeo
+                    label: Miniatura opcional del vídeo (1280 × 720 px)
                     type: image
                     required: false
                     options:
                       media: informes_digitales
+                    description: "Para vídeo horizontal, prepara 1280 × 720 píxeles (16:9). Si es vertical, usa 720 × 1280 para respetar su proporción."
                   - name: annotated_image
                     label: Versión con marcas o anotaciones visuales
                     type: image
@@ -1875,6 +1925,40 @@ content:
                     label: Anotaciones de los archivistas
                     type: text
                     required: false
+                  - name: attachments
+                    label: Archivos adjuntos al documento
+                    type: object
+                    required: false
+                    description: "Imágenes y vídeos relacionados con esta ficha. Puedes añadir hasta 8 y se abrirán dentro de la misma ventana."
+                    list:
+                      max: 8
+                      collapsible:
+                        collapsed: true
+                        summary: "{title}"
+                    fields:
+                      - name: title
+                        label: Nombre del adjunto
+                        type: string
+                        required: true
+                      - name: image
+                        label: Imagen adjunta
+                        type: image
+                        required: false
+                        options:
+                          media: informes_digitales
+                        description: "Si acompaña a un vídeo como portada: 1280 × 720 px horizontal o 720 × 1280 px vertical. Si es una imagen adjunta, conserva su proporción original."
+                      - name: video
+                        label: Vídeo adjunto
+                        type: file
+                        required: false
+                        options:
+                          media: informes_digitales
+                          categories: [video]
+                        description: "Rellena imagen o vídeo. Si rellenas ambos, se mostrará el vídeo y la imagen servirá de miniatura."
+                      - name: note
+                        label: Nota sobre el adjunto
+                        type: string
+                        required: false
       - name: show_related_archive
         label: Mostrar archivos relacionados
         type: boolean
@@ -1902,12 +1986,12 @@ content:
             type: string
             required: true
           - name: thumbnail
-            label: Miniatura
+            label: Miniatura (400 × 700 px)
             type: image
             required: false
             options:
               media: conexiones
-            description: "Opcional. Imagen pequeña que aparecerá dentro de la tarjeta para hacer la conexión más visual."
+            description: "Opcional. Prepara 400 × 700 píxeles (4:7); la tarjeta puede recortar ligeramente al adaptarse a la pantalla."
           - name: url
             label: Enlace
             type: string
@@ -2909,65 +2993,75 @@ content:
     format: json
     fields:
       - name: entidades
-        label: Entidades
+        label: Entidades (2172 × 724 px)
         type: image
         required: true
         options:
           media: archivo
+        description: "Ilustración de cabecera, proporción 3:1. PNG transparente recomendado; se muestra completa sin recorte."
       - name: personajes
-        label: Personajes
+        label: Personajes (2172 × 724 px)
         type: image
         required: true
         options:
           media: archivo
+        description: "Ilustración de cabecera, proporción 3:1. PNG transparente recomendado; se muestra completa sin recorte."
       - name: lugares
-        label: Lugares
+        label: Lugares (2172 × 724 px)
         type: image
         required: true
         options:
           media: archivo
+        description: "Ilustración de cabecera, proporción 3:1. PNG transparente recomendado; se muestra completa sin recorte."
       - name: planos
-        label: Planos
+        label: Planos (2172 × 724 px)
         type: image
         required: true
         options:
           media: archivo
+        description: "Ilustración de cabecera, proporción 3:1. PNG transparente recomendado; se muestra completa sin recorte."
       - name: organizaciones
-        label: Organizaciones
+        label: Organizaciones (2172 × 724 px)
         type: image
         required: true
         options:
           media: archivo
+        description: "Ilustración de cabecera, proporción 3:1. PNG transparente recomendado; se muestra completa sin recorte."
       - name: documentos
-        label: Documentos
+        label: Documentos (2172 × 724 px)
         type: image
         required: true
         options:
           media: archivo
+        description: "Ilustración de cabecera, proporción 3:1. PNG transparente recomendado; se muestra completa sin recorte."
       - name: sucesos
-        label: Sucesos
+        label: Sucesos (2172 × 724 px)
         type: image
         required: true
         options:
           media: archivo
+        description: "Ilustración de cabecera, proporción 3:1. PNG transparente recomendado; se muestra completa sin recorte."
       - name: testimonios
-        label: Testimonios
+        label: Testimonios (2172 × 724 px)
         type: image
         required: true
         options:
           media: archivo
+        description: "Ilustración de cabecera, proporción 3:1. PNG transparente recomendado; se muestra completa sin recorte."
       - name: relatos
-        label: Relatos
+        label: Relatos (2172 × 724 px)
         type: image
         required: true
         options:
           media: archivo
+        description: "Ilustración de cabecera, proporción 3:1. PNG transparente recomendado; se muestra completa sin recorte."
       - name: microrrelatos
-        label: Microrrelatos
+        label: Microrrelatos (2172 × 724 px)
         type: image
         required: true
         options:
           media: archivo
+        description: "Ilustración de cabecera, proporción 3:1. PNG transparente recomendado; se muestra completa sin recorte."
 
   - name: configuracion
     label: Configuración del sitio
@@ -3009,23 +3103,23 @@ content:
         default: true
         description: "Oculta o muestra el libro completo en la portada de El Archivo."
       - name: book_image
-        label: Imagen del libro
+        label: Imagen del libro (1448 × 1086 px)
         type: image
         options:
           media: interfaz
-        description: "PNG del libro abierto. Si lo cambias por otro con la misma composición, las páginas seguirán encajando automáticamente."
+        description: "Prepara 1448 × 1086 píxeles (4:3), con el mismo encuadre y posición de página que el libro actual. Se ajusta completo, sin recorte."
       - name: random_mode
         label: Modo aleatorio
         type: boolean
         default: true
         description: "Activado: rota entre las páginas visibles. Desactivado: muestra siempre la página marcada como Imagen fija."
       - name: code_page_image
-        label: Página secreta del código
+        label: Página secreta del código (1024 × 1536 px)
         type: image
         required: false
         options:
           media: interfaz
-        description: "Sube solo la tinta sobre fondo transparente. Esta página se añade automáticamente al libro y deja de aparecer en el navegador de quien ya desbloqueó las conexiones."
+        description: "Prepara 1024 × 1536 píxeles (2:3), solo tinta sobre fondo transparente. Se adapta al hueco del libro sin recorte."
       - name: connection_code
         label: Código para abrir conexiones
         type: string
@@ -3047,11 +3141,12 @@ content:
             type: string
             required: true
           - name: image
-            label: Imagen PNG
+            label: Imagen PNG de la página (1024 × 1536 px)
             type: image
             required: true
             options:
               media: interfaz
+            description: "Prepara 1024 × 1536 píxeles (2:3), preferiblemente con transparencia. Se ajusta al hueco del libro sin recorte."
           - name: enabled
             label: Mostrar esta imagen
             type: boolean
@@ -3086,6 +3181,81 @@ content:
         label: Giro de la imagen (grados)
         type: number
         default: 0
+
+  - name: terminal_comunicaciones
+    label: Terminal de comunicaciones
+    type: file
+    path: Aquello_que_nos_Rodea_WEB_CMS_v2/content/config/terminal.json
+    format: json
+    fields:
+      - name: enabled
+        label: Mostrar la página
+        type: boolean
+        default: true
+      - name: page_title
+        label: Título de la página
+        type: string
+      - name: intro
+        label: Texto de entrada
+        type: text
+      - name: scene_image
+        label: Escena del callejón y terminal (1536 × 1024 px)
+        type: image
+        required: true
+        options:
+          media: terminal
+        description: "Prepara 1536 × 1024 píxeles (3:2). Es el fondo de la máquina; debe mantener la pantalla y el cartel en sus posiciones para que las zonas interactivas encajen."
+      - name: screen_heading
+        label: Cabecera de la pantalla
+        type: string
+      - name: screen_prompt
+        label: Indicación para escribir
+        type: string
+      - name: success_message
+        label: Respuesta simulada del terminal
+        type: text
+        description: "Por ahora el formulario no envía nada. Este texto aparece al pulsar el botón físico de la máquina."
+      - name: poster_mode
+        label: Modo del cartel
+        type: select
+        default: aleatoria
+        options:
+          values:
+            - value: aleatoria
+              label: Imagen aleatoria al entrar
+            - value: fija
+              label: Una imagen fija
+      - name: fixed_poster
+        label: Cartel fijo (900 × 1000 px)
+        type: image
+        required: false
+        options:
+          media: terminal
+        description: "Prepara 900 × 1000 píxeles (aprox. 9:10). El cartel se recorta para llenar el hueco y sus bordes están corroídos."
+      - name: posters
+        label: Carteles para la rotación
+        type: object
+        required: false
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{label}"
+        fields:
+          - name: label
+            label: Nombre interno
+            type: string
+            required: true
+          - name: image
+            label: Imagen del cartel (900 × 1000 px)
+            type: image
+            required: true
+            options:
+              media: terminal
+            description: "Prepara 900 × 1000 píxeles (aprox. 9:10). Se recorta para llenar el hueco; deja lo importante lejos de los bordes corroídos."
+          - name: enabled
+            label: Incluir en la rotación
+            type: boolean
+            default: true
 
   - name: frases_archivo
     label: Frases inquietantes
