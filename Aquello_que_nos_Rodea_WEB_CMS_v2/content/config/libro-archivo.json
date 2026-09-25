@@ -1,41 +1,41 @@
 {
   "enabled": true,
-  "book_image": "/assets/uploads/interfaz/libro demoniaco.png",
+  "book_image": "/assets/uploads/interfaz/libro-demoniaco-web.webp",
   "random_mode": true,
+  "code_page_image": "/assets/uploads/interfaz/codigo-conexiones-641729-web.webp",
   "connection_code": "641729",
-  "code_page_image": "/assets/uploads/interfaz/codigo-conexiones-641729.png",
   "pages": [
     {
       "label": "Śukrahārī — estudio anatómico",
-      "image": "/assets/uploads/interfaz/cosa.png",
+      "image": "/assets/uploads/interfaz/cosa-web.webp",
       "enabled": true,
       "first": false,
       "fixed": false
     },
     {
       "label": "Mānavakṣetra — Registro de Carne",
-      "image": "/assets/uploads/interfaz/cosa2.png",
+      "image": "/assets/uploads/interfaz/cosa2-web.webp",
       "enabled": true,
       "first": false,
       "fixed": false
     },
     {
       "label": "Neolin Archivo",
-      "image": "/assets/uploads/interfaz/mosaico neolin.png",
+      "image": "/assets/uploads/interfaz/mosaico-neolin-web.webp",
       "enabled": false,
       "first": false,
       "fixed": false
     },
     {
       "label": "nigromantes",
-      "image": "/assets/uploads/interfaz/nigromantes.png",
+      "image": "/assets/uploads/interfaz/nigromantes-web.webp",
       "enabled": true,
       "first": false,
       "fixed": false
     },
     {
       "label": "ADAM",
-      "image": "/assets/uploads/interfaz/mosaico adam.png",
+      "image": "/assets/uploads/interfaz/mosaico-adam-web.webp",
       "enabled": false,
       "first": false,
       "fixed": false
