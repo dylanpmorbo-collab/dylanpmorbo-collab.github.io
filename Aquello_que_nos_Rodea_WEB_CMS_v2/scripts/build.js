@@ -112,6 +112,7 @@ function header(active=''){
 <a href="relatos.html" class="nav-link ${active==='relatos'?'active':''}">Relatos</a>
 <a href="archivo-microrrelatos.html" class="nav-link ${active==='microrrelatos'?'active':''}">Microrrelatos</a>
 <a href="archivo.html" class="nav-link ${active==='archivo'?'active':''}">El Archivo</a>
+<a href="terminal.html" class="nav-link ${active==='terminal'?'active':''}">Terminal</a>
 <a href="sobre.html" class="nav-link ${active==='sobre'?'active':''}">Dylan P. MOЯBO</a>
 </nav></header>`;
 }
@@ -227,6 +228,8 @@ const archiveSectionImages=readJSON(path.join(ROOT,'content/config/archivo-secci
 const archiveCorkboards=readJSON(path.join(ROOT,'content/config/corcheras-archivo.json'));
 const archiveBookPath=path.join(ROOT,'content/config/libro-archivo.json');
 const archiveBook=fs.existsSync(archiveBookPath)?readJSON(archiveBookPath):{enabled:false,pages:[]};
+const terminalConfigPath=path.join(ROOT,'content/config/terminal.json');
+const terminalConfig=fs.existsSync(terminalConfigPath)?readJSON(terminalConfigPath):{enabled:false,posters:[]};
 const connectionCode=String(archiveBook.connection_code||'641729').trim();
 if(!/^\d{6}$/.test(connectionCode)) throw new Error('El código de conexiones debe tener exactamente seis cifras.');
 const codePageImage=String(archiveBook.code_page_image||'').trim();
@@ -965,6 +968,26 @@ function archiveDigitalReports(item){
        const image=file.image||file.annotated_image;
        const concealMode=!isVideo&&image?(file.image_visibility==='falso'&&file.fake_pixel_image?'falso':file.image_visibility==='pixelado'?'pixelado':'normal'):'normal';
        const initialImage=concealMode==='falso'?file.fake_pixel_image:image;
+       const attachments=(Array.isArray(file.attachments)?file.attachments:[])
+         .filter(attachment=>attachment && (attachment.video || attachment.image)).slice(0,8);
+       if(!isVideo && file.video && !attachments.some(attachment=>attachment.video===file.video)){
+         attachments.unshift({title:'Vídeo recuperado',video:file.video,image:file.poster});
+       }
+       const attachmentButtons=attachments.map((attachment,attachmentIndex)=>{
+         const label=String(attachment.title||('ADJUNTO '+String(attachmentIndex+1).padStart(2,'0')));
+         const type=attachment.video?'VÍDEO':'IMAGEN';
+         const thumbnail=attachment.image||'';
+         return '<button type="button" class="retro-attachment" data-retro-attachment="'+attachmentIndex+'" aria-pressed="false">'+
+           '<span class="retro-attachment-thumb">'+(thumbnail?'<img src="'+esc(thumbnail)+'" alt="" loading="lazy">':'<span aria-hidden="true">'+(attachment.video?'▶':'▧')+'</span>')+'</span>'+
+           '<span><strong>'+esc(label)+'</strong><small>'+type+(attachment.note?' · '+esc(attachment.note):'')+'</small></span></button>';
+       }).join('');
+       const attachmentTemplates=attachments.map((attachment,attachmentIndex)=>{
+         const label=String(attachment.title||('ADJUNTO '+String(attachmentIndex+1).padStart(2,'0')));
+         const content=attachment.video
+           ? '<video controls playsinline preload="metadata"'+(attachment.image?' poster="'+esc(attachment.image)+'"':'')+' aria-label="'+esc(label)+'"><source src="'+esc(attachment.video)+'">Tu navegador no puede reproducir este vídeo.</video>'
+           : '<div class="retro-image-scroll"><img src="'+esc(attachment.image)+'" alt="'+esc(label)+'"></div>';
+         return '<template data-retro-attachment-template="'+attachmentIndex+'" data-retro-attachment-kind="'+(attachment.video?'video':'image')+'">'+content+'</template>';
+       }).join('');
        const details=[
          ['TIPO',isVideo?'Vídeo':'Imagen'],['FECHA Y HORA',file.date_time],['LUGAR',file.location],
          ['DISPOSITIVO',file.source_device],['ANÁLISIS',file.analysis_type],['ESTADO',file.status]
@@ -975,11 +998,12 @@ function archiveDigitalReports(item){
        return '<template data-retro-file-template="'+folderIndex+':'+fileIndex+'"><div class="retro-file-detail">'+
          '<div class="retro-file-media">'+media+'</div><aside class="retro-file-info">'+
          (file.masthead_image?'<img class="retro-file-masthead" src="'+esc(file.masthead_image)+'" alt="Membrete del archivo" loading="lazy">':'')+'<h3>'+esc(title)+'</h3>'+
-         (isVideo?'<div class="retro-file-tools retro-file-video-tools"><button type="button" data-retro-video-expand>⛶ VER VÍDEO ENTERO</button></div>':'')+
+         (isVideo?'<div class="retro-file-tools retro-file-video-tools" data-retro-primary-tools><button type="button" data-retro-video-expand>⛶ VER VÍDEO ENTERO</button></div>':'')+
          '<dl>'+details+'</dl>'+
          (file.notes?'<div class="retro-file-notes"><strong>NOTAS DEL ARCHIVO</strong>'+plainTextToHTML(file.notes)+'</div>':'')+
-         (!isVideo?'<div class="retro-file-tools"><button type="button" data-retro-zoom'+(concealMode!=='normal'?' hidden':'')+'>AMPLIAR</button>'+(file.image&&file.annotated_image&&file.image!==file.annotated_image?'<button type="button" data-retro-annotated'+(concealMode!=='normal'?' hidden':'')+'>VER MARCAS</button>':'')+'</div>':'')+
-         '</aside></div></template>';
+         (!isVideo?'<div class="retro-file-tools" data-retro-primary-tools><button type="button" data-retro-zoom'+(concealMode!=='normal'?' hidden':'')+'>AMPLIAR</button>'+(file.image&&file.annotated_image&&file.image!==file.annotated_image?'<button type="button" data-retro-annotated'+(concealMode!=='normal'?' hidden':'')+'>VER MARCAS</button>':'')+'</div>':'')+
+         (attachments.length?'<section class="retro-attachments"><h4>ARCHIVOS ADJUNTOS AL DOCUMENTO</h4><div class="retro-attachment-list">'+attachmentButtons+'</div><div class="retro-file-tools"><button type="button" data-retro-attachment-return hidden>VOLVER AL DOCUMENTO</button><button type="button" data-retro-attachment-zoom data-retro-zoom hidden>AMPLIAR IMAGEN</button><button type="button" data-retro-attachment-expand data-retro-video-expand hidden>⛶ VER VÍDEO ENTERO</button></div></section>':'')+
+         '</aside>'+attachmentTemplates+'</div></template>';
      })
    ).join('');
    return '<template data-digital-report-template="'+index+'"><div class="retro-desktop" data-retro-desktop>'+
@@ -1370,6 +1394,44 @@ for(const section of archiveSectionDefs){
 
 // Conserva los enlaces antiguos a la sección sustituida.
 fs.writeFileSync(path.join(DIST,'archivo-otros.html'),'<!doctype html><html lang="es"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=archivo-testimonios.html"><title>Testimonios | El Archivo</title></head><body><p>La sección se ha trasladado a <a href="archivo-testimonios.html">Testimonios</a>.</p></body></html>');
+
+// Terminal visual de comunicaciones. El formulario es deliberadamente local:
+// no tiene action, no recopila direcciones y todavía no transmite datos.
+if(terminalConfig.enabled!==false){
+ const terminalPosters=(Array.isArray(terminalConfig.posters)?terminalConfig.posters:[])
+   .filter(p=>p && p.image && p.enabled!==false)
+   .map(p=>({label:String(p.label||'Cartel recuperado'),image:String(p.image)}));
+ const posterData=JSON.stringify(terminalPosters).replace(/</g,'\\u003c');
+ const terminalPage=`${head(`${terminalConfig.page_title||'Terminal de comunicaciones'} | ${site.site_title}`,terminalConfig.intro||'Canal anónimo de comunicaciones.',terminalConfig.scene_image||'/assets/img/hero.webp')}
+ <body class="terminal-page">${header('terminal')}<main class="terminal-main">
+ <section class="terminal-intro reveal">
+   <p class="eyebrow">CANAL EXTERNO // SEÑAL INESTABLE</p>
+   <h1>${esc(terminalConfig.page_title||'Terminal de comunicaciones')}</h1>
+   <p>${esc(terminalConfig.intro||'Canal anónimo de transmisión.')}</p>
+ </section>
+ <section class="terminal-scene-viewport" aria-label="Terminal empotrado en un callejón">
+   <div class="terminal-scene" data-terminal-scene data-success="${esc(terminalConfig.success_message||'TRANSMISIÓN SIMULADA // EL CANAL EXTERNO TODAVÍA NO ESTÁ CONECTADO')}">
+     <img class="terminal-scene-art" src="${esc(terminalConfig.scene_image||'/assets/uploads/terminal/terminal-scrappunk-wall-v4-final.png')}" alt="Terminal scrappunk repartido en varios paneles empotrados en una pared de ladrillo" loading="eager">
+     <div class="terminal-eyes" data-terminal-eyes aria-hidden="true"><i><b></b></i><i><b></b></i></div>
+     <figure class="terminal-poster" data-terminal-poster data-mode="${esc(terminalConfig.poster_mode||'aleatoria')}" data-fixed="${esc(terminalConfig.fixed_poster||'')}">
+       <img alt="Cartel deteriorado recuperado" hidden>
+       <figcaption><strong>SE BUSCA INFORMACIÓN</strong><span>EL ARCHIVO ESCUCHA</span></figcaption>
+     </figure>
+     <div class="terminal-screen" aria-label="Pantalla de fósforo verde">
+       <div class="terminal-screen-header"><span>●</span> ${esc(terminalConfig.screen_heading||'CANAL DE ENVÍO ABIERTO')}</div>
+       <label for="terminalMessage">${esc(terminalConfig.screen_prompt||'INTRODUZCA SU MENSAJE')}</label>
+       <textarea id="terminalMessage" maxlength="1200" spellcheck="true" placeholder="ESCRIBA AQUÍ..."></textarea>
+       <div class="terminal-screen-footer"><span data-terminal-status>ESPERANDO ENTRADA_</span><span><b data-terminal-count>0</b>/1200</span></div>
+     </div>
+     <button class="terminal-physical-send" type="button" data-terminal-send aria-label="Transmitir mensaje"><span>TRANSMITIR</span></button>
+   </div>
+ </section>
+ <p class="terminal-mobile-hint">Desliza lateralmente para inspeccionar la máquina completa.</p>
+ <aside class="terminal-privacy-note"><strong>PROTOTIPO VISUAL</strong><span>La transmisión aún no está conectada. Lo que escribas permanece en esta página y no se envía ni se guarda.</span></aside>
+ <script type="application/json" id="terminalPosterData">${posterData}</script>
+ </main>${footer(site)}<script defer src="assets/js/terminal.js?v=20260921"></script></body></html>`;
+ fs.writeFileSync(path.join(DIST,'terminal.html'),terminalPage);
+}
 
 // La página "Sobre" sigue siendo fija por ahora
 let about=fs.readFileSync(path.join(ROOT,'sobre.static.html'),'utf8');
