@@ -1,0 +1,12 @@
+{
+  "enabled": true,
+  "page_title": "Terminal de comunicaciones",
+  "intro": "Canal anónimo de transmisión. El Archivo escucha, aunque no siempre responde.",
+  "scene_image": "/assets/uploads/terminal/terminal-scrappunk-wall-v4-final.png",
+  "screen_heading": "CANAL DE ENVÍO ABIERTO",
+  "screen_prompt": "INTRODUZCA SU MENSAJE",
+  "success_message": "TRANSMISIÓN SIMULADA // EL CANAL EXTERNO TODAVÍA NO ESTÁ CONECTADO",
+  "poster_mode": "aleatoria",
+  "fixed_poster": "",
+  "posters": []
+}

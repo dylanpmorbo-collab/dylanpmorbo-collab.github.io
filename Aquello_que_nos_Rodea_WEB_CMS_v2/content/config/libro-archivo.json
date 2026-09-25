@@ -2,8 +2,8 @@
   "enabled": true,
   "book_image": "/assets/uploads/interfaz/libro demoniaco.png",
   "random_mode": true,
-  "code_page_image": "/assets/uploads/interfaz/paginacodigo.png",
   "connection_code": "641729",
+  "code_page_image": "/assets/uploads/interfaz/codigo-conexiones-641729.png",
   "pages": [
     {
       "label": "Śukrahārī — estudio anatómico",
