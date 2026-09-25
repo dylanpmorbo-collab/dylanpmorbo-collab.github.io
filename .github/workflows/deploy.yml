@@ -30,6 +30,37 @@ jobs:
         working-directory: Aquello_que_nos_Rodea_WEB_CMS_v2
         run: npm run build
 
+      - name: Mostrar peso de la web publicada
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+          const path = require('node:path');
+
+          const root = 'Aquello_que_nos_Rodea_WEB_CMS_v2/dist';
+          const totals = { imagenes: 0, videos: 0, otros: 0, archivos: 0 };
+          const images = new Set(['.avif', '.gif', '.jpeg', '.jpg', '.png', '.svg', '.webp']);
+          const videos = new Set(['.m4v', '.mp4', '.mov', '.webm']);
+
+          function visit(directory) {
+            for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+              const file = path.join(directory, entry.name);
+              if (entry.isDirectory()) { visit(file); continue; }
+              if (!entry.isFile()) continue;
+              const bytes = fs.statSync(file).size;
+              const ext = path.extname(entry.name).toLowerCase();
+              totals[images.has(ext) ? 'imagenes' : videos.has(ext) ? 'videos' : 'otros'] += bytes;
+              totals.archivos++;
+            }
+          }
+
+          visit(root);
+          const mb = bytes => (bytes / 1048576).toFixed(2);
+          const total = totals.imagenes + totals.videos + totals.otros;
+          const summary = `## Peso de la web publicada\n\n**${mb(total)} MB** en ${totals.archivos} archivos.\n\n| Tipo | Peso |\n|---|---:|\n| Imágenes | ${mb(totals.imagenes)} MB |\n| Vídeos | ${mb(totals.videos)} MB |\n| Otros | ${mb(totals.otros)} MB |\n\nMide los archivos de la web que se publican ahora, no las versiones antiguas del historial de Git.\n`;
+          console.log(summary);
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary);
+          NODE
+
       - name: Preparar GitHub Pages
         uses: actions/configure-pages@v5
 
