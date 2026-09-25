@@ -8,6 +8,7 @@
     let fileTrigger=null;
     let fullscreenExitAt=0;
     let fullscreenReturnPending=false;
+    let primaryMediaNodes=null;
 
     function desktop(){return workspace.querySelector('[data-retro-desktop]');}
     function folderWindow(){return desktop()?.querySelector('[data-retro-folder-window]');}
@@ -47,6 +48,7 @@
       window.hidden=true;
       window.classList.remove('is-maximized');
       window.querySelector('[data-retro-file-content]').replaceChildren();
+      primaryMediaNodes=null;
       if(restoreFocus && fileTrigger?.isConnected)fileTrigger.focus();
       fileTrigger=null;
     }
@@ -86,6 +88,11 @@
       updateFileNavigation();
       pixelateImage(window);
       const video=window.querySelector('video');
+      watchVideo(video);
+      window.hidden=false;
+      window.querySelector('[data-retro-file-close]').focus();
+    }
+    function watchVideo(video){
       video?.addEventListener('fullscreenchange',()=>{
         if(!document.fullscreenElement){
           fullscreenExitAt=Date.now();
@@ -96,8 +103,40 @@
         fullscreenExitAt=Date.now();
         setTimeout(()=>{fullscreenReturnPending=false;},500);
       });
-      window.hidden=false;
-      window.querySelector('[data-retro-file-close]').focus();
+    }
+    function showAttachment(button){
+      const detail=button.closest('.retro-file-detail');
+      const media=detail?.querySelector('.retro-file-media');
+      const template=detail?.querySelector('template[data-retro-attachment-template="'+button.dataset.retroAttachment+'"]');
+      if(!media || !template)return;
+      pauseVideos(media);
+      if(!primaryMediaNodes)primaryMediaNodes=Array.from(media.childNodes);
+      media.classList.remove('is-zoomed');
+      media.replaceChildren(template.content.cloneNode(true));
+      watchVideo(media.querySelector('video'));
+      detail.querySelectorAll('[data-retro-primary-tools]').forEach(tools=>tools.hidden=true);
+      detail.querySelectorAll('[data-retro-attachment]').forEach(entry=>entry.setAttribute('aria-pressed',String(entry===button)));
+      detail.querySelector('[data-retro-attachment-return]').hidden=false;
+      detail.querySelector('[data-retro-attachment-expand]').hidden=template.dataset.retroAttachmentKind!=='video';
+      const zoom=detail.querySelector('[data-retro-attachment-zoom]');
+      zoom.hidden=template.dataset.retroAttachmentKind!=='image';
+      zoom.textContent='AMPLIAR IMAGEN';
+      fileWindow()?.classList.remove('is-maximized');
+    }
+    function returnToDocument(button){
+      const detail=button.closest('.retro-file-detail');
+      const media=detail?.querySelector('.retro-file-media');
+      if(!media || !primaryMediaNodes)return;
+      pauseVideos(media);
+      media.classList.remove('is-zoomed');
+      media.replaceChildren(...primaryMediaNodes);
+      primaryMediaNodes=null;
+      detail.querySelectorAll('[data-retro-primary-tools]').forEach(tools=>tools.hidden=false);
+      detail.querySelectorAll('[data-retro-attachment]').forEach(entry=>entry.setAttribute('aria-pressed','false'));
+      button.hidden=true;
+      detail.querySelector('[data-retro-attachment-expand]').hidden=true;
+      detail.querySelector('[data-retro-attachment-zoom]').hidden=true;
+      fileWindow()?.classList.remove('is-maximized');
     }
     function stepFile(offset){
       const entries=fileEntries();
@@ -147,6 +186,8 @@
       else if(button.hasAttribute('data-retro-file-next'))stepFile(1);
       else if(button.hasAttribute('data-retro-folder-close'))closeFolder();
       else if(button.hasAttribute('data-retro-video-expand'))expandVideo(button);
+      else if(button.hasAttribute('data-retro-attachment'))showAttachment(button);
+      else if(button.hasAttribute('data-retro-attachment-return'))returnToDocument(button);
       else if(button.hasAttribute('data-retro-reveal')){
         const wrap=button.closest('[data-retro-image-wrap]');
         const image=wrap?.querySelector('[data-retro-image]');
@@ -197,6 +238,7 @@
       reportTrigger=null;
       folderTrigger=null;
       fileTrigger=null;
+      primaryMediaNodes=null;
       fullscreenReturnPending=false;
       fullscreenExitAt=0;
     });
