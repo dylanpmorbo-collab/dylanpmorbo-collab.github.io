@@ -865,6 +865,29 @@ content:
             label: Referencia o nota breve
             type: string
             required: false
+          - name: boot_seconds
+            label: Segundos de carga del escritorio (1–5)
+            type: number
+            default: 1
+            required: false
+            description: "Si no cambias nada, dura 1 segundo. El visitante puede pulsar SALTAR."
+          - name: boot_messages
+            label: Mensajes ocultos durante la carga
+            type: text
+            required: false
+            description: "Opcional. Escribe un mensaje por línea. Se mezclarán con el texto normal de arranque; si lo dejas vacío, solo aparecerá el estándar. Máximo 12 líneas."
+          - name: boot_flash_enabled
+            label: Activar imagen fugaz durante la carga
+            type: boolean
+            default: false
+            required: false
+          - name: boot_flash_image
+            label: Imagen fugaz (recomendado 800 × 600 px)
+            type: image
+            required: false
+            options:
+              media: default
+            description: "Opcional. Se verá durante medio segundo, sin recortes. Solo aparece si activas la opción anterior."
           - name: folders
             label: Carpetas del escritorio
             type: object
@@ -1825,6 +1848,29 @@ content:
             label: Referencia o nota breve
             type: string
             required: false
+          - name: boot_seconds
+            label: Segundos de carga del escritorio (1–5)
+            type: number
+            default: 1
+            required: false
+            description: "Si no cambias nada, dura 1 segundo. El visitante puede pulsar SALTAR."
+          - name: boot_messages
+            label: Mensajes ocultos durante la carga
+            type: text
+            required: false
+            description: "Opcional. Escribe un mensaje por línea. Se mezclarán con el texto normal de arranque; si lo dejas vacío, solo aparecerá el estándar. Máximo 12 líneas."
+          - name: boot_flash_enabled
+            label: Activar imagen fugaz durante la carga
+            type: boolean
+            default: false
+            required: false
+          - name: boot_flash_image
+            label: Imagen fugaz (recomendado 800 × 600 px)
+            type: image
+            required: false
+            options:
+              media: default
+            description: "Opcional. Se verá durante medio segundo, sin recortes. Solo aparece si activas la opción anterior."
           - name: folders
             label: Carpetas del escritorio
             type: object
