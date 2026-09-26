@@ -48,7 +48,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=videos-rastro-20260921"><script defer src="assets/js/main.js?v=testimonios-20260920"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=testimonios-bobinas-20260926"><script defer src="assets/js/main.js?v=testimonios-bobinas-20260926"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -1136,9 +1136,9 @@ function archiveTestimonies(item){
        '<button type="button" data-testimony-stop aria-label="Detener" title="Detener">■</button>'+
      '</div></div>'+
    '<audio class="testimony-audio" controls preload="none" src="'+esc(first.audio)+'">Tu navegador no puede reproducir este archivo de audio.</audio>'+
-   '<div class="testimony-readout"><span data-testimony-state aria-live="polite">LISTO PARA REPRODUCIR</span><span data-testimony-time>00:00 / --:--</span></div>'+
+   '<div class="testimony-readout"><span data-testimony-state aria-live="polite">LISTO PARA REPRODUCIR</span><span data-testimony-time>00:00 / --:--</span><button class="testimony-sound-toggle" type="button" data-testimony-sound aria-pressed="true" aria-label="Silenciar efectos del magnetófono" title="Silenciar efectos del magnetófono">EFECTOS: SÍ</button></div>'+
    '<div class="testimony-current"><strong data-testimony-title>'+esc(first.title||'Grabación 01')+'</strong><span data-testimony-meta>'+esc(meta(first))+'</span></div>'+
-   (entries.length>1?'<div class="testimony-track-list" role="group" aria-label="Elegir testimonio">'+entries.map((entry,i)=>'<button type="button" data-testimony-track data-testimony-src="'+esc(entry.audio)+'" data-testimony-title="'+esc(entry.title||'Grabación '+String(i+1).padStart(2,'0'))+'" data-testimony-meta="'+esc(meta(entry))+'" aria-pressed="'+(i===0?'true':'false')+'"><span>'+String(i+1).padStart(2,'0')+'</span>'+esc(entry.title||'Grabación '+String(i+1).padStart(2,'0'))+'</button>').join('')+'</div>':'')+
+   '<div class="testimony-track-list" role="group" aria-label="Elegir testimonio">'+entries.map((entry,i)=>'<button type="button" data-testimony-track data-testimony-src="'+esc(entry.audio)+'" data-testimony-title="'+esc(entry.title||'Grabación '+String(i+1).padStart(2,'0'))+'" data-testimony-meta="'+esc(meta(entry))+'" aria-pressed="'+(i===0?'true':'false')+'"><span class="testimony-tape" aria-hidden="true"><span class="testimony-tape-reel"></span><span class="testimony-tape-reel"></span></span><span class="testimony-track-copy"><small>CINTA '+String(i+1).padStart(2,'0')+'</small><strong>'+esc(entry.title||'Grabación '+String(i+1).padStart(2,'0'))+'</strong></span></button>').join('')+'</div>'+
    '<div class="testimony-transcripts">'+entries.map((entry,i)=>'<div data-testimony-transcript'+(i?' hidden':'')+'>'+(entry.transcript?'<details><summary>LEER TRANSCRIPCIÓN</summary><div>'+plainTextToHTML(entry.transcript)+'</div></details>':'')+'</div>').join('')+'</div>'+
    '</section>';
 }
