@@ -790,6 +790,24 @@ content:
             required: false
             options:
               media: default
+          - name: image_4
+            label: Imagen 4 del informe
+            type: image
+            required: false
+            options:
+              media: default
+          - name: image_5
+            label: Imagen 5 del informe
+            type: image
+            required: false
+            options:
+              media: default
+          - name: image_6
+            label: Imagen 6 del informe
+            type: image
+            required: false
+            options:
+              media: default
           - name: body
             label: Texto del informe (Markdown)
             type: rich-text
@@ -1728,6 +1746,24 @@ content:
               media: default
           - name: image_3
             label: Imagen 3 del informe
+            type: image
+            required: false
+            options:
+              media: default
+          - name: image_4
+            label: Imagen 4 del informe
+            type: image
+            required: false
+            options:
+              media: default
+          - name: image_5
+            label: Imagen 5 del informe
+            type: image
+            required: false
+            options:
+              media: default
+          - name: image_6
+            label: Imagen 6 del informe
             type: image
             required: false
             options:
