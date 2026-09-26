@@ -48,7 +48,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=testimonios-bobinas-20260926"><script defer src="assets/js/main.js?v=testimonios-bobinas-20260926"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=arranque-digital-20260926"><script defer src="assets/js/main.js?v=testimonios-bobinas-20260926"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -942,6 +942,9 @@ function archiveDigitalReports(item){
      '<span class="archive-mmc-contacts" aria-hidden="true"></span><span class="archive-mmc-hint">'+folderCount+' CARPETA'+(folderCount===1?'':'S')+' · ABRIR ESCRITORIO →</span></button>';
  }).join('');
  const templates=reports.map((report,index)=>{
+   const bootDuration=Math.min(5,Math.max(1,Math.round(Number(report.boot_seconds)||1)));
+   const bootMessages=String(report.boot_messages||'').split(/\r?\n/).map(line=>line.trim()).filter(Boolean).slice(0,12);
+   const bootFlash=report.boot_flash_enabled===true && Boolean(report.boot_flash_image);
    const folders=orderedDigitalItems(report.folders).filter(folder=>folder.title || folder.files?.length).slice(0,40);
    const folderButtons=folders.map((folder,folderIndex)=>{
      const name=String(folder.title||('CARPETA '+String(folderIndex+1).padStart(2,'0')));
@@ -1006,7 +1009,12 @@ function archiveDigitalReports(item){
          '</aside>'+attachmentTemplates+'</div></template>';
      })
    ).join('');
-   return '<template data-digital-report-template="'+index+'"><div class="retro-desktop" data-retro-desktop>'+
+   return '<template data-digital-report-template="'+index+'"><div class="retro-boot" data-retro-boot data-boot-duration="'+bootDuration+'" role="status" aria-label="Iniciando archivo digital">'+
+     '<div class="retro-boot-emblem" data-retro-boot-emblem><img src="assets/img/sello-archivistas.png" alt="Emblema de los Archivistas"></div>'+
+     '<div class="retro-boot-log" data-retro-boot-log aria-live="off"></div><div class="retro-boot-progress"><span data-retro-boot-bar></span></div><div class="retro-boot-percent" data-retro-boot-percent>0%</div>'+
+     '<button type="button" class="retro-boot-skip" data-retro-boot-skip>SALTAR →</button>'+
+     '<div class="retro-boot-flash" data-retro-boot-flash hidden>'+(bootFlash?'<img src="'+esc(report.boot_flash_image)+'" alt="">':'')+'</div>'+
+     '<div hidden>'+bootMessages.map(line=>'<span data-retro-boot-line>'+esc(line)+'</span>').join('')+'</div></div><div class="retro-desktop" data-retro-desktop hidden>'+
      '<img class="retro-desktop-mark" src="assets/img/sello-archivistas.png" alt="" aria-hidden="true" loading="lazy">'+
      '<div class="retro-desktop-header"><span>ARCHIVO DIGITAL // '+String(index+1).padStart(2,'0')+'</span><span>'+esc(report.summary||'DUB.SAR')+'</span></div>'+
      '<div class="retro-desktop-icons">'+folderButtons+'</div>'+
@@ -1019,7 +1027,7 @@ function archiveDigitalReports(item){
  return {count:reports.length,html:'<div class="archive-digital-report-group"><div class="archive-report-subheading">INFORMES DIGITALES // '+String(reports.length).padStart(2,'0')+'</div>'+
    '<div class="archive-police-folder-grid archive-mmc-grid">'+cards+'</div>'+templates+
    '<dialog class="archive-digital-dialog" aria-label="Escritorio de informe digital"><div class="archive-digital-dialog-shell"><header class="archive-digital-dialog-header"><span data-digital-dialog-title>INFORME DIGITAL</span><button type="button" data-digital-close aria-label="Cerrar escritorio">✕</button></header><div data-digital-workspace></div></div></dialog></div>'+
-   '<script defer src="assets/js/digital-reports.js"></script>'};
+   '<script defer src="assets/js/digital-reports.js?v=arranque-digital-20260926"></script>'};
 }
 function archivePoliceReport(item){
  let reports=(item.show_police_report===true && Array.isArray(item.police_reports)?item.police_reports:[])
