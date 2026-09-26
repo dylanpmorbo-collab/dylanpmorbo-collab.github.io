@@ -15,24 +15,67 @@
     const time=panel.querySelector('[data-testimony-time]');
     const title=panel.querySelector('[data-testimony-title]');
     const meta=panel.querySelector('[data-testimony-meta]');
+    const soundButton=panel.querySelector('[data-testimony-sound]');
     const tracks=Array.from(panel.querySelectorAll('[data-testimony-track]'));
     const transcripts=Array.from(panel.querySelectorAll('[data-testimony-transcript]'));
     if(!audio||!playButton||!pauseButton||!stopButton)return;
     panel.classList.add('is-ready');
+    let effectsOn=true;
+    let soundContext;
+    try{effectsOn=localStorage.getItem('testimony-effects')!=='off'}catch(e){}
+    const updateSoundButton=()=>{
+      if(!soundButton)return;
+      soundButton.textContent=effectsOn?'EFECTOS: SÍ':'EFECTOS: NO';
+      soundButton.setAttribute('aria-pressed',String(effectsOn));
+      soundButton.setAttribute('aria-label',effectsOn?'Silenciar efectos del magnetófono':'Activar efectos del magnetófono');
+      soundButton.title=effectsOn?'Silenciar efectos del magnetófono':'Activar efectos del magnetófono';
+    };
+    updateSoundButton();
+    soundButton?.addEventListener('click',()=>{
+      effectsOn=!effectsOn;
+      try{localStorage.setItem('testimony-effects',effectsOn?'on':'off')}catch(e){}
+      updateSoundButton();
+    });
+    const mechanicalClick=(delay=0,pitch=1,volume=.08)=>{
+      if(!effectsOn)return;
+      try{
+        const AudioContext=window.AudioContext||window.webkitAudioContext;
+        if(!AudioContext)return;
+        soundContext=soundContext||new AudioContext();
+        if(soundContext.state==='suspended')soundContext.resume();
+        const at=soundContext.currentTime+delay;
+        const oscillator=soundContext.createOscillator();
+        const gain=soundContext.createGain();
+        oscillator.type='triangle';
+        oscillator.frequency.setValueAtTime(180*pitch,at);
+        oscillator.frequency.exponentialRampToValueAtTime(65*pitch,at+.065);
+        gain.gain.setValueAtTime(volume,at);
+        gain.gain.exponentialRampToValueAtTime(.001,at+.075);
+        oscillator.connect(gain).connect(soundContext.destination);
+        oscillator.start(at);
+        oscillator.stop(at+.08);
+      }catch(e){}
+    };
     const format=seconds=>Number.isFinite(seconds)?String(Math.floor(seconds/60)).padStart(2,'0')+':'+String(Math.floor(seconds%60)).padStart(2,'0'):'--:--';
     const updateTime=()=>{time.textContent=format(audio.currentTime)+' / '+format(audio.duration)};
     const setState=value=>{state.textContent=value;panel.classList.toggle('is-playing',value==='REPRODUCIENDO')};
     playButton.addEventListener('click',()=>{
+      mechanicalClick(0,1.15);
       audio.play().then(()=>setState('REPRODUCIENDO')).catch(()=>setState('NO SE PUEDE REPRODUCIR'));
     });
-    pauseButton.addEventListener('click',()=>{audio.pause();setState('EN PAUSA')});
+    pauseButton.addEventListener('click',()=>{mechanicalClick(0,.9);audio.pause();setState('EN PAUSA')});
     stopButton.addEventListener('click',()=>{
+      mechanicalClick(0,.7);
       audio.pause();
       try{audio.currentTime=0}catch(e){}
       updateTime();
       setState('DETENIDO');
     });
     tracks.forEach((button,index)=>button.addEventListener('click',()=>{
+      if(button.getAttribute('aria-pressed')==='true')return;
+      mechanicalClick(0,.7,.1);
+      mechanicalClick(.13,1.25,.07);
+      mechanicalClick(.29,.95,.085);
       audio.pause();
       audio.src=button.dataset.testimonySrc;
       audio.load();
