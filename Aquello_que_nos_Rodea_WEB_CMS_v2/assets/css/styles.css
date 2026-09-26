@@ -1223,6 +1223,19 @@ html:not(.age-verified){overflow:hidden}
 .archive-digital-dialog-header button,.retro-window-titlebar button{flex:0 0 auto;min-width:26px;min-height:24px;border:2px outset #efefef;border-radius:0;background:#c0c0c0;color:#111;font:700 14px/1 Arial,Helvetica,sans-serif;cursor:pointer}
 .archive-digital-dialog-header button:active,.retro-window-titlebar button:active{border-style:inset}
 .archive-digital-dialog [data-digital-workspace]{flex:1;min-height:0}
+.retro-boot{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;width:100%;height:100%;padding:26px;background:#07150e;color:#8fe6a3;font:700 13px/1.35 "Courier New",monospace;overflow:hidden}
+.retro-boot[hidden],.retro-desktop[hidden],.retro-boot-emblem[hidden],.retro-boot-flash[hidden]{display:none!important}
+.retro-boot-emblem{display:grid;place-items:center;width:112px;height:112px;border:2px solid #5eaf73;background:#031008;box-shadow:inset 0 0 0 4px #0a2815,0 0 18px #31b55155}
+.retro-boot-emblem img{display:block;width:96px;height:96px;object-fit:contain;image-rendering:pixelated;filter:grayscale(1) sepia(1) hue-rotate(80deg) saturate(4) brightness(.8);opacity:.9}
+.retro-boot-log{width:min(100%,650px);height:190px;overflow:hidden;padding:12px;border:2px inset #3d6349;background:#020a05;box-shadow:inset 0 0 25px #0f4b27;color:#a9e6ae;white-space:pre-wrap;overflow-wrap:anywhere}
+.retro-boot-log div{margin:0 0 4px}
+.retro-boot-progress{width:min(100%,650px);height:17px;border:2px inset #55815f;background:#06130a}
+.retro-boot-progress span{display:block;width:0;height:100%;background:repeating-linear-gradient(90deg,#6abe7b 0 8px,#2d6942 8px 10px)}
+.retro-boot-percent{width:min(100%,650px);text-align:right}
+.retro-boot-skip{padding:5px 12px;border:2px outset #ddd;border-radius:0;background:#c0c0c0;color:#111;font:700 11px "Courier New",monospace;cursor:pointer}
+.retro-boot-skip:focus-visible{outline:2px solid #a9e6ae;outline-offset:3px}
+.retro-boot-flash{position:absolute;inset:0;z-index:5;display:grid;place-items:center;background:#010401}
+.retro-boot-flash img{display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
 .retro-desktop{position:relative;width:100%;height:100%;overflow:hidden;background:#16865a;color:#fff;font:13px/1.3 Arial,Helvetica,sans-serif}
 .retro-desktop-mark{position:absolute;left:50%;top:50%;width:min(58%,550px);height:auto;max-height:84%;object-fit:contain;transform:translate(-50%,-50%);mix-blend-mode:multiply;opacity:.76;pointer-events:none}
 .retro-desktop-header,.retro-desktop-status{position:absolute;left:0;right:0;z-index:1;display:flex;justify-content:space-between;gap:12px;min-height:28px;padding:6px 12px;background:rgba(0,46,28,.79);color:#e0f4d3;font:700 11px/1.2 "Courier New",monospace;letter-spacing:.04em}
