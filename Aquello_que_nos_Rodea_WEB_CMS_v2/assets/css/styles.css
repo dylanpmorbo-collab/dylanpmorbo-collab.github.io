@@ -980,10 +980,17 @@ DOCUMENTOS NAVEGABLES — AJUSTES FINALES DE GEOMETRÍA Y LECTURA
 .archive-police-report-attachment:after{content:"ADJUNTO · AMPLIAR ↗";pointer-events:none}
 .archive-police-image-dialog{width:min(96vw,1500px);height:min(96dvh,1100px);max-width:none;max-height:none;padding:18px;border:1px solid #8c7548;background:#0b0a08;color:#d5cdbd;box-shadow:0 35px 110px rgba(0,0,0,.8)}
 .archive-police-image-dialog::backdrop{background:rgba(0,0,0,.9)}
-.archive-police-image-dialog[open]{display:flex;align-items:center;justify-content:center}
-.archive-police-image-dialog img{display:block;max-width:100%;max-height:calc(96dvh - 40px);object-fit:contain}
+.archive-police-image-dialog[open]{display:grid;grid-template-columns:52px minmax(0,1fr) 52px;grid-template-rows:minmax(0,1fr) auto;align-items:center;justify-items:center;gap:12px}
+.archive-police-image-dialog img{display:block;grid-column:2;grid-row:1;max-width:100%;max-height:calc(96dvh - 100px);object-fit:contain}
+.archive-police-image-nav{width:52px;height:72px;padding:0;border:1px solid #8c7548;background:rgba(23,20,14,.92);color:#d5cdbd;font:44px/1 Georgia,serif;cursor:pointer}
+.archive-police-image-nav:hover:not(:disabled),.archive-police-image-nav:focus-visible{border-color:#d5b677;background:#302719;outline:2px solid #d5b677;outline-offset:2px}
+.archive-police-image-nav:disabled{opacity:.25;cursor:default}
+.archive-police-image-nav[data-police-image-prev]{grid-column:1;grid-row:1}
+.archive-police-image-nav[data-police-image-next]{grid-column:3;grid-row:1}
+.archive-police-image-counter{grid-column:1/-1;grid-row:2;color:#bca879;font:600 11px/1.2 var(--display);letter-spacing:.12em;text-align:center}
 .archive-police-image-dialog [data-police-image-close]{position:absolute;top:14px;right:14px;z-index:1;width:42px;height:42px;border:1px solid #8c7548;background:#17140e;color:#d5cdbd;font-size:20px;cursor:pointer}
 .archive-police-image-dialog [data-police-image-close]:focus-visible{outline:3px solid #d5cdbd;outline-offset:2px}
+@media(max-width:600px){.archive-police-image-dialog{padding:8px}.archive-police-image-dialog[open]{grid-template-columns:32px minmax(0,1fr) 32px;gap:4px}.archive-police-image-nav{width:32px;height:56px;font-size:31px}.archive-police-image-dialog img{max-height:calc(96dvh - 68px)}}
 .archive-police-report-attachments+.archive-police-report-text{margin-top:0}
 .archive-police-report-text h3,.archive-police-report-text h4,.archive-police-report-text h5,.archive-police-report-text h6{font:700 1.12em/1.3 "Special Elite","Courier New",monospace;margin:1.3em 0 .7em}
 .archive-police-report-text ul,.archive-police-report-text ol{padding-left:1.5em;margin:0 0 1.4em}
