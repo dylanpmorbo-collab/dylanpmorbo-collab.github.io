@@ -975,6 +975,15 @@ DOCUMENTOS NAVEGABLES — AJUSTES FINALES DE GEOMETRÍA Y LECTURA
 .archive-police-report-attachments{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));justify-items:center;gap:15px;margin:36px 0 30px}
 .archive-police-report-attachment,.archive-police-dialog-scroll .archive-police-report-attachment{width:100%;max-width:300px;margin:0;padding:8px 8px 24px;transform:none}
 .archive-police-report-attachment img{width:100%;height:210px;object-fit:contain}
+.archive-police-report-attachment button{display:block;width:100%;padding:0;border:0;background:transparent;cursor:zoom-in}
+.archive-police-report-attachment button:focus-visible{outline:3px solid #65502a;outline-offset:3px}
+.archive-police-report-attachment:after{content:"ADJUNTO · AMPLIAR ↗";pointer-events:none}
+.archive-police-image-dialog{width:min(96vw,1500px);height:min(96dvh,1100px);max-width:none;max-height:none;padding:18px;border:1px solid #8c7548;background:#0b0a08;color:#d5cdbd;box-shadow:0 35px 110px rgba(0,0,0,.8)}
+.archive-police-image-dialog::backdrop{background:rgba(0,0,0,.9)}
+.archive-police-image-dialog[open]{display:flex;align-items:center;justify-content:center}
+.archive-police-image-dialog img{display:block;max-width:100%;max-height:calc(96dvh - 40px);object-fit:contain}
+.archive-police-image-dialog [data-police-image-close]{position:absolute;top:14px;right:14px;z-index:1;width:42px;height:42px;border:1px solid #8c7548;background:#17140e;color:#d5cdbd;font-size:20px;cursor:pointer}
+.archive-police-image-dialog [data-police-image-close]:focus-visible{outline:3px solid #d5cdbd;outline-offset:2px}
 .archive-police-report-attachments+.archive-police-report-text{margin-top:0}
 .archive-police-report-text h3,.archive-police-report-text h4,.archive-police-report-text h5,.archive-police-report-text h6{font:700 1.12em/1.3 "Special Elite","Courier New",monospace;margin:1.3em 0 .7em}
 .archive-police-report-text ul,.archive-police-report-text ol{padding-left:1.5em;margin:0 0 1.4em}
