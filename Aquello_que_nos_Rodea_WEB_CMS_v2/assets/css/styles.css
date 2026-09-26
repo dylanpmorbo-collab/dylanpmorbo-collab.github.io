@@ -1114,14 +1114,24 @@ html:not(.age-verified){overflow:hidden}
 .testimony-controls button:hover,.testimony-controls button:focus-visible{background:linear-gradient(155deg,#846e47,#332716);outline:2px solid #cdb075;outline-offset:2px}
 .testimony-audio{display:block;width:100%;margin:12px 0}
 .archive-testimonies.is-ready .testimony-audio{display:none}
-.testimony-readout{display:flex;justify-content:space-between;gap:15px;padding:10px 14px;border:1px solid #4a3a27;border-top:0;background:#15110c;color:#bca67a;font:600 10px var(--display);letter-spacing:.1em}
+.testimony-readout{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px 15px;padding:10px 14px;border:1px solid #4a3a27;border-top:0;background:#15110c;color:#bca67a;font:600 10px var(--display);letter-spacing:.1em}
+.testimony-sound-toggle{padding:6px 9px;border:1px solid #6e5938;border-radius:2px;background:#241d12;color:#dbc18c;font:600 10px var(--display);letter-spacing:.05em;cursor:pointer}
+.testimony-sound-toggle[aria-pressed="false"]{color:#968b78;border-color:#4a4031;background:#17140e}
+.testimony-sound-toggle:hover,.testimony-sound-toggle:focus-visible{outline:1px solid #c09e5c;outline-offset:2px}
 .archive-testimonies.is-playing .testimony-readout [data-testimony-state]::before{content:"●";color:#ae4739;margin-right:8px}
 .testimony-current{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;padding:17px 3px 12px;border-bottom:1px solid var(--line)}
 .testimony-current strong{color:#cfb98e;font:600 18px var(--display)}
 .testimony-current span{color:#978a75;font-size:14px}
 .testimony-track-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:14px}
-.testimony-track-list button{min-width:0;padding:10px 12px;border:1px solid #4a3b2b;background:#100e0b;color:#bfb3a0;text-align:left;font:600 12px var(--display);cursor:pointer;overflow-wrap:anywhere}
-.testimony-track-list button span{margin-right:9px;color:#a4854a}
+.testimony-track-list button{min-width:0;min-height:94px;padding:10px 12px;border:1px solid #4a3b2b;background:#100e0b;color:#bfb3a0;text-align:left;font:600 12px var(--display);cursor:pointer;overflow-wrap:anywhere;display:flex;align-items:center;gap:12px}
+.testimony-track-copy{display:grid;gap:6px;min-width:0}
+.testimony-track-copy small{color:#a4854a;font:600 9px var(--display);letter-spacing:.15em}
+.testimony-track-copy strong{color:inherit;font:600 12px var(--display);line-height:1.35}
+.testimony-tape{display:flex;align-items:center;justify-content:space-evenly;flex:none;width:106px;height:65px;padding:5px 8px;border:2px solid #9a8158;border-radius:8px 8px 5px 5px;background:linear-gradient(168deg,#4a3c2a 0%,#1c1a16 38%,#423625 80%,#14120e);box-shadow:inset 0 2px #87724e,inset 0 -5px #0e0c09,0 3px 5px #0009;position:relative;overflow:hidden}
+.testimony-tape::after{content:"";position:absolute;left:16%;right:16%;bottom:5px;height:7px;border-top:1px solid #9e8761;background:#d2b78518;clip-path:polygon(0 0,100% 0,88% 100%,12% 100%)}
+.testimony-tape-reel{width:34px;height:34px;border:5px solid #271a10;border-radius:50%;background:radial-gradient(circle,#17140e 0 12%,transparent 14%),repeating-conic-gradient(from 15deg,#d4c7a3 0deg 13deg,#514837 13deg 22deg,#d4c7a3 22deg 32deg,#514837 32deg 45deg);box-shadow:0 0 0 2px #b3a382,0 0 0 6px #211910;transform:rotate(0)}
+.archive-testimonies.is-playing .testimony-track-list button[aria-pressed="true"] .testimony-tape-reel{animation:testimony-reel-spin 2s linear infinite}
+@keyframes testimony-reel-spin{to{transform:rotate(360deg)}}
 .testimony-track-list button[aria-pressed="true"]{border-color:#ae8c52;background:#211a11;color:#e2ca9c}
 .testimony-track-list button:hover,.testimony-track-list button:focus-visible{border-color:#c09e5c;outline:1px solid #c09e5c}
 .testimony-transcripts{margin-top:15px}
@@ -1131,6 +1141,7 @@ html:not(.age-verified){overflow:hidden}
 .testimony-transcripts details>div{padding-top:10px}
 .testimony-transcripts p{margin:0 0 10px;line-height:1.5}
 @media(max-width:600px){.testimony-track-list{grid-template-columns:1fr}.testimony-readout{font-size:9px}.testimony-controls{bottom:14%}}
+@media(prefers-reduced-motion:reduce){.archive-testimonies.is-playing .testimony-track-list button[aria-pressed="true"] .testimony-tape-reel{animation:none}}
 
 /* Terminal scrappunk de comunicaciones. La ilustración y las capas interactivas
    comparten la misma proporción para conservar el encaje en cualquier pantalla. */
