@@ -1494,7 +1494,8 @@ content:
                   - name: title
                     label: Título de esta foto
                     type: string
-                    required: true
+                    required: false
+                    description: "Opcional si rellenas la ficha completa de abajo."
                   - name: date
                     label: Fecha de esta foto
                     type: string
@@ -1511,6 +1512,20 @@ content:
                     required: true
                     options:
                       media: default
+                  - name: quick_entry
+                    label: Ficha completa de esta foto (pegar de una vez)
+                    type: text
+                    required: false
+                    default: |
+                      TÍTULO:
+                      FECHA:
+                      DESCRIPCIÓN:
+                      ALT:
+                      AMPLIAR:
+                      OCULTAR:
+                      REACCIONES:
+                      COMENTARIOS:
+                    description: "Rellena esta plantilla o pega una ficha con los mismos encabezados. Admite varias líneas en descripción y comentarios. En AMPLIAR y OCULTAR escribe sí o no. Los valores escritos aquí prevalecen sobre las casillas sueltas; deja un valor vacío para usar la casilla correspondiente. Los comentarios empiezan con @usuario en una línea."
                   - name: alt
                     label: Descripción accesible
                     type: string
@@ -1540,7 +1555,8 @@ content:
                   - name: title
                     label: Título de este vídeo
                     type: string
-                    required: true
+                    required: false
+                    description: "Opcional si rellenas la ficha completa de abajo."
                   - name: date
                     label: Fecha de este vídeo
                     type: string
@@ -1558,6 +1574,17 @@ content:
                     options:
                       media: default
                       categories: [video]
+                  - name: quick_entry
+                    label: Ficha completa de este vídeo (pegar de una vez)
+                    type: text
+                    required: false
+                    default: |
+                      TÍTULO:
+                      FECHA:
+                      DESCRIPCIÓN:
+                      REACCIONES:
+                      COMENTARIOS:
+                    description: "Rellena esta plantilla o pega una ficha con los mismos encabezados. Admite varias líneas en descripción y comentarios. Los valores escritos aquí prevalecen sobre las casillas sueltas; deja un valor vacío para usar la casilla correspondiente. Los comentarios empiezan con @usuario en una línea."
                   - name: reactions
                     label: Me gusta / reacciones de este vídeo
                     type: string
