@@ -1336,6 +1336,74 @@ content:
             required: false
             description: "Contexto o discrepancias detectadas al archivar la noticia."
 
+      - name: show_physical_press
+        label: Mostrar prensa física
+        type: boolean
+        default: false
+        description: "Abre un apartado propio de recortes de papel en dos columnas. Cada imagen conserva su proporción original."
+      - name: physical_press
+        label: Prensa física · recortes y fragmentos
+        type: object
+        required: false
+        description: "Una caja por recorte. La cabecera y sus datos son opcionales para poder archivar también trozos de periódico."
+        list:
+          max: 40
+          collapsible:
+            collapsed: true
+            summary: "{headline}"
+        fields:
+          - name: headline
+            label: Título del recorte o titular
+            type: string
+            required: true
+          - name: image
+            label: Imagen del recorte (proporción libre; sin recorte automático)
+            type: image
+            required: true
+            options:
+              media: default
+            description: "Sube la imagen con el tamaño y la proporción que tenga tu recorte. La web la reducirá sin recortarla; al pulsarla se amplía."
+          - name: publication
+            label: Cabecera / nombre ficticio del periódico
+            type: string
+            required: false
+            description: "Opcional. Déjalo vacío si el trozo de periódico no conserva la cabecera."
+          - name: masthead_image
+            label: Cabecera gráfica opcional (1600 × 320 px)
+            type: image
+            required: false
+            options:
+              media: default
+            description: "Si preparas una cabecera gráfica, usa 1600 × 320 píxeles (5:1). Aparecerá entera, sin recorte."
+          - name: date
+            label: Fecha impresa
+            type: string
+            required: false
+          - name: edition
+            label: Edición / número
+            type: string
+            required: false
+          - name: place
+            label: Lugar de edición
+            type: string
+            required: false
+          - name: price
+            label: Precio impreso
+            type: string
+            required: false
+          - name: section
+            label: Sección del periódico
+            type: string
+            required: false
+          - name: byline
+            label: Firma
+            type: string
+            required: false
+          - name: caption
+            label: Pie o nota del recorte
+            type: text
+            required: false
+
   - name: personajes
     label: Personajes
     type: collection

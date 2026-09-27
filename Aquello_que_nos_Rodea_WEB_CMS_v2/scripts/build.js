@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded',function(){
 </script></head>`;
 }
 function header(active=''){
- return `<div class="age-gate" id="ageGate" role="dialog" aria-modal="true" aria-labelledby="ageGateTitle"><div class="age-panel"><div class="age-symbol">◉</div><p class="eyebrow">ACCESO AL ARCHIVO // +18</p><h2 id="ageGateTitle">Contenido para adultos</h2><p>Esta web contiene ficción de terror y puede incluir violencia, imágenes perturbadoras y contenido sexual. El acceso está reservado a mayores de 18 años.</p><button class="btn primary" id="ageEnter" type="button">Sí, soy mayor de 18 años</button><a class="btn ghost" href="about:blank">Salir</a></div></div><div class="grain" aria-hidden="true"></div><header class="site-header">
+ return `<div class="age-gate" id="ageGate" role="dialog" aria-modal="true" aria-labelledby="ageGateTitle"><div class="age-panel"><div class="age-symbol">◉</div><p class="eyebrow">ACCESO AL ARCHIVO // +18</p><h2 id="ageGateTitle">Contenido para adultos</h2><p>Esta web contiene ficción de terror y puede incluir violencia, imágenes perturbadoras y contenido sexual. El acceso está reservado a mayores de 18 años.</p><p class="age-fiction-statement">TODOS LOS DOCUMENTOS, INFORMES Y RECORTES DE PRENSA DE ESTE ARCHIVO FORMAN PARTE DE UNA OBRA DE FICCIÓN. NO SON DOCUMENTOS OFICIALES NI NOTICIAS REALES.</p><button class="btn primary" id="ageEnter" type="button">Sí, soy mayor de 18 años</button><a class="btn ghost" href="about:blank">Salir</a></div></div><div class="grain" aria-hidden="true"></div><header class="site-header">
 <a class="brand" href="index.html"><span class="brand-mark">◉</span><span>AQUELLO QUE NOS RODEA</span></a>
 <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
 <nav class="main-nav">
@@ -597,6 +597,7 @@ function digitalPressMarkup(item){
      (comments.length?'<div class="archive-press-comments"><h4>COMENTARIOS RECUPERADOS</h4>'+comments.map(x=>'<p><strong>'+esc(x.author||'Usuario')+'</strong>'+(x.date?' <time>'+esc(x.date)+'</time>':'')+' · '+esc(x.text||'').replace(/\r?\n/g,'<br>')+'</p>').join('')+'</div>':'')+
      (piece.archive_note?'<aside class="archive-press-note"><strong>NOTA DE ARCHIVO</strong>'+plainTextToHTML(piece.archive_note)+'</aside>':'')+
      (details?'<dl class="archive-press-details">'+details+'</dl>':'')+originalLink+
+     '<p class="archive-fiction-note">Noticia ficticia creada para una obra narrativa; no informa sobre hechos reales.</p>'+
      '</article>';
  }).join('');
  return '<details class="archive-press digital-footprint" aria-labelledby="archive-press-title">'+
@@ -604,6 +605,30 @@ function digitalPressMarkup(item){
    '<div class="digital-footprint-content"><p class="digital-footprint-description">Noticias y material audiovisual incorporados al expediente.</p><div class="archive-press-list">'+cards+'</div></div>'+
    '<script>(function(){const section=document.currentScript.closest(".archive-press");if(!section)return;section.addEventListener("toggle",function(){if(!section.open)section.querySelectorAll("video").forEach(video=>video.pause());});})();<\/script>'+
    '</details>';
+}
+
+function physicalPressMarkup(item){
+ if(!item || item.show_physical_press!==true) return '';
+ const clips=(Array.isArray(item.physical_press)?item.physical_press:[]).filter(clip=>clip&&clip.image).slice(0,40);
+ if(!clips.length) return '';
+ const cards=clips.map((clip,index)=>{
+   const title=String(clip.headline||('RECORTE '+String(index+1).padStart(2,'0')));
+   const top=[clip.date,clip.edition,clip.place,clip.price].filter(Boolean).map(esc).join(' · ');
+   return '<article class="archive-physical-press-card digital-piece reveal">'+
+     (clip.masthead_image?'<img class="archive-physical-press-masthead" src="'+esc(clip.masthead_image)+'" alt="Cabecera de '+esc(clip.publication||title)+'" loading="lazy">':'')+
+     (clip.publication?'<div class="archive-physical-press-name">'+esc(clip.publication)+'</div>':'')+
+     (top?'<p class="archive-physical-press-meta">'+top+'</p>':'')+
+     (clip.section?'<p class="archive-physical-press-section">'+esc(clip.section)+'</p>':'')+
+     '<h3>'+esc(title)+'</h3>'+
+     (clip.byline?'<p class="archive-physical-press-byline">'+esc(clip.byline)+'</p>':'')+
+     '<figure class="archive-physical-press-image"><button type="button" data-physical-press-open aria-label="Ampliar recorte '+esc(title)+'"><img src="'+esc(clip.image)+'" alt="'+esc(title)+'" loading="lazy"></button>'+
+     (clip.caption?'<figcaption>'+esc(clip.caption)+'</figcaption>':'')+'</figure>'+
+     '<p class="archive-fiction-note">Recorte ficticio · obra narrativa</p></article>';
+ }).join('');
+ return '<details class="archive-physical-press digital-footprint"><summary class="digital-footprint-toggle"><span><small class="archive-code">RECORTES EN PAPEL // '+String(clips.length).padStart(2,'0')+'</small><strong>PRENSA FÍSICA</strong></span><span class="digital-footprint-toggle-action"><span class="digital-closed-label">DESPLEGAR ↓</span><span class="digital-open-label">REDUCIR ↑</span></span></summary>'+
+   '<div class="digital-footprint-content"><div class="digital-grid archive-physical-press-grid">'+cards+'</div></div>'+
+   '<dialog class="archive-physical-press-dialog" aria-label="Recorte de prensa ampliado"><button type="button" data-physical-press-close aria-label="Cerrar recorte">✕</button><button type="button" data-physical-press-prev aria-label="Recorte anterior">‹</button><img data-physical-press-large alt=""><button type="button" data-physical-press-next aria-label="Recorte siguiente">›</button><p data-physical-press-counter aria-live="polite"></p><small>Recorte ficticio · obra narrativa</small></dialog>'+
+   '<script defer src="assets/js/physical-press.js?v=20260927"></script></details>';
 }
 
 function archiveDocuments(item){
@@ -1044,7 +1069,7 @@ function archiveDigitalReports(item){
      '<img class="retro-desktop-mark" src="assets/img/sello-archivistas.png" alt="" aria-hidden="true" loading="lazy">'+
      '<div class="retro-desktop-header"><span>ARCHIVO DIGITAL // '+String(index+1).padStart(2,'0')+'</span><span>'+esc(report.summary||'DUB.SAR')+'</span></div>'+
      '<div class="retro-desktop-icons">'+folderButtons+'</div>'+
-     '<div class="retro-desktop-status">'+folders.length+' CARPETA'+(folders.length===1?'':'S')+' // SELECCIONE UNA UNIDAD</div>'+
+     '<div class="retro-desktop-status">'+folders.length+' CARPETA'+(folders.length===1?'':'S')+' // SELECCIONE UNA UNIDAD</div><small class="retro-fiction-note">Archivo ficticio · obra narrativa</small>'+
      folderTemplates+fileTemplates+
      '<section class="retro-window retro-folder-window" data-retro-folder-window hidden aria-label="Contenido de carpeta"><header class="retro-window-titlebar"><strong data-retro-folder-title>CARPETA</strong><button type="button" data-retro-folder-close aria-label="Cerrar carpeta">✕</button></header><div class="retro-window-content" data-retro-folder-content></div></section>'+
      '<section class="retro-window retro-file-window" data-retro-file-window hidden aria-label="Archivo recuperado"><header class="retro-window-titlebar"><strong data-retro-file-title>ARCHIVO</strong><span class="retro-file-nav"><button type="button" data-retro-file-prev aria-label="Archivo anterior" title="Archivo anterior">←</button><button type="button" data-retro-file-next aria-label="Archivo siguiente" title="Archivo siguiente">→</button><button type="button" data-retro-file-close aria-label="Volver a la carpeta">✕</button></span></header><div class="retro-window-content" data-retro-file-content></div></section>'+
@@ -1121,17 +1146,18 @@ function archivePoliceReportV2(item){
          (pageIndex===0&&doc.letterhead?'<img class="archive-police-letterhead" src="'+esc(doc.letterhead)+'" alt="Membrete de '+esc(docTitle)+'">':'')+
          '<div class="archive-police-report-heading">'+esc(docTitle)+(pageIndex?'<small> · CONTINUACIÓN</small>':'')+'</div>'+
          '<div class="archive-police-report-text">'+(page?policeMarkdownToHTML(page):'<p class="archive-police-no-text">Documento sin texto.</p>')+'</div>'+
+         (pageIndex===textPages.length-1&&!annexes.length?'<p class="archive-police-fiction-note">Documento ficticio creado para una obra narrativa. No es un documento oficial.</p>':'')+
          '<div class="archive-police-report-folio">DOCUMENTO '+String(docIndex+1).padStart(2,'0')+' · FOLIO '+String(pageIndex+1).padStart(2,'0')+' / '+String(total).padStart(2,'0')+'</div></article>');
      });
      annexes.forEach((pair,annexIndex)=>{
        const attachments=pair.map((image,i)=>'<figure class="archive-police-report-attachment"><button type="button" data-police-image-open aria-label="Ampliar fotografía '+(annexIndex*2+i+1)+' de '+esc(docTitle)+'"><img src="'+esc(image)+'" alt="Fotografía '+(annexIndex*2+i+1)+' de '+esc(docTitle)+'" loading="lazy"></button><figcaption>FOTOGRAFÍA '+String(annexIndex*2+i+1).padStart(2,'0')+'</figcaption></figure>').join('');
-       pages.push('<article class="archive-police-report" data-police-page data-police-document="'+docIndex+'" data-paper="'+paper+'"><div class="archive-police-report-heading">'+esc(docTitle)+' · ANEXO FOTOGRÁFICO</div><div class="archive-police-report-attachments">'+attachments+'</div><div class="archive-police-report-folio">DOCUMENTO '+String(docIndex+1).padStart(2,'0')+' · FOLIO '+String(textPages.length+annexIndex+1).padStart(2,'0')+' / '+String(total).padStart(2,'0')+'</div></article>');
+       pages.push('<article class="archive-police-report" data-police-page data-police-document="'+docIndex+'" data-paper="'+paper+'"><div class="archive-police-report-heading">'+esc(docTitle)+' · ANEXO FOTOGRÁFICO</div><div class="archive-police-report-attachments">'+attachments+'</div>'+(annexIndex===annexes.length-1?'<p class="archive-police-fiction-note">Documento ficticio creado para una obra narrativa. No es un documento oficial.</p>':'')+'<div class="archive-police-report-folio">DOCUMENTO '+String(docIndex+1).padStart(2,'0')+' · FOLIO '+String(textPages.length+annexIndex+1).padStart(2,'0')+' / '+String(total).padStart(2,'0')+'</div></article>');
      });
    });
    templates.push('<template data-police-template="'+reportIndex+'">'+pages.join('')+'</template>');
  });
  const physical=reports.length?'<div class="archive-report-subheading">INFORMES FÍSICOS // '+String(reports.length).padStart(2,'0')+'</div><div class="archive-police-folder-grid">'+folderCards.join('')+'</div>'+templates.join('')+
-   '<dialog class="archive-police-dialog" aria-labelledby="archive-police-dialog-title"><div class="archive-police-dialog-shell"><header class="archive-police-dialog-header"><div><small id="archive-police-dialog-type">EXPEDIENTE</small><h2 id="archive-police-dialog-title"></h2></div><button type="button" data-police-close aria-label="Cerrar expediente">✕</button></header><div class="archive-police-dialog-scroll"><div data-police-pages></div></div><footer class="archive-police-dialog-footer"><button type="button" data-police-prev>← ANTERIOR</button><button type="button" data-police-index-button hidden>ÍNDICE</button><span data-police-counter></span><button type="button" data-police-next>SIGUIENTE →</button></footer></div></dialog>'+
+   '<dialog class="archive-police-dialog" aria-labelledby="archive-police-dialog-title"><div class="archive-police-dialog-shell"><header class="archive-police-dialog-header"><div><small id="archive-police-dialog-type">EXPEDIENTE</small><h2 id="archive-police-dialog-title"></h2></div><button type="button" data-police-close aria-label="Cerrar expediente">✕</button></header><div class="archive-police-dialog-scroll"><div data-police-pages></div></div><footer class="archive-police-dialog-footer"><small class="archive-police-viewer-note">Obra de ficción · no es un documento oficial</small><button type="button" data-police-prev>← ANTERIOR</button><button type="button" data-police-index-button hidden>ÍNDICE</button><span data-police-counter></span><button type="button" data-police-next>SIGUIENTE →</button></footer></div></dialog>'+
    '<dialog class="archive-police-image-dialog" aria-label="Imagen adjunta ampliada"><button type="button" data-police-image-close aria-label="Cerrar imagen ampliada">✕</button><button type="button" class="archive-police-image-nav" data-police-image-prev aria-label="Imagen anterior">‹</button><img data-police-image-large alt=""><button type="button" class="archive-police-image-nav" data-police-image-next aria-label="Imagen siguiente">›</button><span class="archive-police-image-counter" data-police-image-counter aria-live="polite"></span></dialog>'+
    '<script defer src="assets/js/physical-reports.js?v=a4-20260927"></script>':'';
  return '<section class="archive-police-report-block" aria-label="Informes"><div class="section-label">INFORMES // '+String(reports.length+digital.count).padStart(2,'0')+'</div>'+physical+digital.html+'</section>';
@@ -1248,7 +1274,7 @@ function archiveEntryPage(section,item){
    <div class="archive-back-row"><a class="text-link" href="${section.file}">← VOLVER A ${section.label}</a><a class="text-link" href="archivo.html">ÍNDICE GENERAL</a></div>
    ${detailsMarkup}
    ${archiveGallery(item)}
-   ${section.key==='personajes'?digitalFootprintMarkup(item):digitalPressMarkup(item)}
+   ${section.key==='personajes'?digitalFootprintMarkup(item):digitalPressMarkup(item)+physicalPressMarkup(item)}
    ${archiveDocuments(item)}
    ${archivePoliceReport(item)}
    ${relatedArchiveMarkup(item,itemHref(section,item),title)}
