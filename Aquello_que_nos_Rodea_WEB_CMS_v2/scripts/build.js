@@ -940,9 +940,36 @@ function policeInlineMarkdown(value=''){
  text=text.replace(/\*([^*\n]+)\*|_([^_\n]+)_/g,(_,a,b)=>'<em>'+(a||b)+'</em>');
  return text;
 }
+function policeTableCells(line){
+ const cells=[];let cell='';
+ let value=String(line).trim().replace(/^\|/,'').replace(/\|$/,'');
+ for(let i=0;i<value.length;i++){
+   if(value[i]==='\\'&&value[i+1]==='|'){cell+='|';i++;continue;}
+   if(value[i]==='|'){cells.push(cell.trim());cell='';continue;}
+   cell+=value[i];
+ }
+ cells.push(cell.trim());
+ return cells;
+}
+function policeTableParts(block){
+ const lines=String(block).trim().split('\n').map(line=>line.trim());
+ if(lines.length<2||!lines[0].includes('|')) return null;
+ const headers=policeTableCells(lines[0]);
+ const separators=policeTableCells(lines[1]);
+ if(headers.length<2||separators.length!==headers.length||!separators.every(cell=>/^:?-{3,}:?$/.test(cell))) return null;
+ const alignments=separators.map(cell=>cell.startsWith(':')?(cell.endsWith(':')?'center':'left'):(cell.endsWith(':')?'right':''));
+ const rows=lines.slice(2).filter(Boolean).map(policeTableCells);
+ return {headers,alignments,rows};
+}
+function policeTableHTML(table){
+ const renderRow=(cells,tag)=>'<tr>'+table.headers.map((_,index)=>'<'+tag+(table.alignments[index]?' style="text-align:'+table.alignments[index]+'"':'')+'>'+policeInlineMarkdown(cells[index]||'')+'</'+tag+'>').join('')+'</tr>';
+ return '<table><thead>'+renderRow(table.headers,'th')+'</thead><tbody>'+table.rows.map(row=>renderRow(row,'td')).join('')+'</tbody></table>';
+}
 function policeMarkdownToHTML(source=''){
  return String(source||'').replace(/\r\n/g,'\n').split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean).map(block=>{
    const lines=block.split('\n');
+   const table=policeTableParts(block);
+   if(table) return policeTableHTML(table);
    const heading=block.match(/^(#{1,4})\s+(.+)$/);
    if(heading && lines.length===1) return '<h'+Math.min(heading[1].length+2,6)+'>'+policeInlineMarkdown(heading[2])+'</h'+Math.min(heading[1].length+2,6)+'>';
    if(/^[-*_]{3,}$/.test(block)) return '<hr>';
@@ -1086,6 +1113,17 @@ function physicalDocumentPages(body,hasLetterhead){
  const blocks=String(body||'').replace(/\r\n/g,'\n').split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean);
  const chunks=[];
  for(const block of blocks){
+   const table=policeTableParts(block);
+   if(table){
+     const lines=block.split('\n');
+     let rows=[],size=lines[0].length+lines[1].length+2;
+     for(const row of lines.slice(2)){
+       if(rows.length&&size+row.length+1>900){chunks.push([lines[0],lines[1],...rows].join('\n'));rows=[];size=lines[0].length+lines[1].length+2;}
+       rows.push(row);size+=row.length+1;
+     }
+     chunks.push([lines[0],lines[1],...rows].join('\n'));
+     continue;
+   }
    if(block.length<=1100){chunks.push(block);continue;}
    let current='';
    for(const word of block.split(/\s+/)){

@@ -8,10 +8,10 @@ assert(start>=0&&end>start);
 const context={
   archiveDigitalReports:()=>({count:0,html:''}),
   reportImportance:value=>value||'basico',
-  esc:value=>String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;'),
-  policeMarkdownToHTML:value=>'<p>'+value+'</p>'
+  esc:value=>String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;')
 };
 vm.createContext(context);
+vm.runInContext(source.slice(source.indexOf('function policeInlineMarkdown('),source.indexOf('const reportImportanceLabels=')),context);
 vm.runInContext(source.slice(start,end),context);
 const fixture={show_police_report:true,police_reports:[{
   title:'Expediente de prueba',type:'POLICIAL',documents:[

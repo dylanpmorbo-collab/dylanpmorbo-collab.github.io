@@ -1030,6 +1030,10 @@ DOCUMENTOS NAVEGABLES — AJUSTES FINALES DE GEOMETRÍA Y LECTURA
 .archive-police-report-text blockquote{border-left:3px solid #776144;padding-left:1em;margin:0 0 1.4em;font-style:italic}
 .archive-police-report-text code{background:rgba(61,47,30,.15);padding:.08em .25em}
 .archive-police-report-text a{color:#554123;text-decoration:underline}
+.archive-police-report-text table{width:100%;table-layout:fixed;border-collapse:collapse;margin:1em 0 1.3em;font:12px/1.35 "Courier New",monospace}
+.archive-police-report-text th,.archive-police-report-text td{padding:6px 7px;border:1px solid rgba(62,49,33,.4);vertical-align:top;overflow-wrap:anywhere;word-break:normal}
+.archive-police-report-text th{background:rgba(72,57,36,.12);font-weight:700}
+.archive-police-report-text tbody tr:nth-child(even){background:rgba(255,255,255,.16)}
 @media(max-width:700px){.archive-police-dialog{width:100vw;height:100dvh}.archive-police-dialog-scroll{padding:12px}.archive-police-dialog-scroll .archive-police-report{min-height:0;padding:48px 22px 68px}.archive-police-report-attachments{grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}.archive-police-report-attachment img{height:160px}.archive-police-dialog-header,.archive-police-dialog-footer{padding:12px 15px}.archive-police-dialog-footer button{font-size:9px}.archive-police-folder-grid{grid-template-columns:minmax(0,360px)}}
 
 /* Cada hoja del expediente conserva la proporción DIN A4 (210 × 297 mm). */
