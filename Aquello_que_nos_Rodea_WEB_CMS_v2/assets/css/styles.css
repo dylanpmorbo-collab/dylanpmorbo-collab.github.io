@@ -1000,6 +1000,48 @@ DOCUMENTOS NAVEGABLES — AJUSTES FINALES DE GEOMETRÍA Y LECTURA
 .archive-police-report-text a{color:#554123;text-decoration:underline}
 @media(max-width:700px){.archive-police-dialog{width:100vw;height:100dvh}.archive-police-dialog-scroll{padding:12px}.archive-police-dialog-scroll .archive-police-report{min-height:0;padding:48px 22px 68px}.archive-police-report-attachments{grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}.archive-police-report-attachment img{height:160px}.archive-police-dialog-header,.archive-police-dialog-footer{padding:12px 15px}.archive-police-dialog-footer button{font-size:9px}.archive-police-folder-grid{grid-template-columns:minmax(0,360px)}}
 
+/* Cada hoja del expediente conserva la proporción DIN A4 (210 × 297 mm). */
+.archive-police-dialog-scroll .archive-police-report{
+  width:min(100%,794px);max-width:794px;min-height:0;aspect-ratio:210/297;
+  padding:50px 58px 76px;overflow:visible;
+  background-color:var(--report-paper,#f2efe8);
+  background-image:repeating-linear-gradient(0deg,rgba(58,48,31,.022) 0,rgba(58,48,31,.022) 1px,transparent 1px,transparent 4px);
+}
+.archive-police-report[data-paper="blanco"]{--report-paper:#f5f4ef}
+.archive-police-report[data-paper="crema"]{--report-paper:#e9dfc8}
+.archive-police-report[data-paper="amarillo"]{--report-paper:#eee5b9}
+.archive-police-report[data-paper="gris"]{--report-paper:#e1e2df}
+.archive-police-report[data-paper="verde"]{--report-paper:#dce7d6}
+.archive-police-letterhead{display:block;width:100%;height:auto;aspect-ratio:5/1;object-fit:contain;margin:0 0 28px}
+.archive-police-report.has-letterhead:after{display:none}
+.archive-police-dialog-scroll .archive-police-report-heading{font-size:21px;padding-right:110px}
+.archive-police-report-heading small{font-size:10px;white-space:nowrap}
+.archive-police-dialog-scroll .archive-police-report-text{font-size:16px;line-height:1.55}
+.archive-police-no-text{opacity:.5;font-style:italic}
+.archive-police-index-caption{font:700 10px/1.5 var(--display);letter-spacing:.12em;margin:30px 0;color:#584d3a}
+.archive-police-index nav{display:grid;gap:10px}
+.archive-police-index-entry{display:grid;grid-template-columns:32px 62px 1fr 18px;align-items:center;gap:14px;width:100%;min-height:79px;padding:8px 12px;border:1px solid rgba(61,47,30,.3);background:rgba(255,255,255,.18);color:#2d2922;text-align:left;font:700 15px/1.25 "Special Elite","Courier New",monospace;cursor:pointer}
+.archive-police-index-entry:hover,.archive-police-index-entry:focus-visible{background:rgba(77,61,38,.12);outline:2px solid #6d5737;outline-offset:2px}
+.archive-police-index-entry img,.archive-police-index-placeholder{display:grid;place-items:center;width:62px;height:62px;object-fit:cover;background:#d3c6a7;filter:grayscale(1) contrast(1.48) brightness(1.12);border:1px solid #847b6d;box-shadow:2px 3px 0 rgba(30,25,18,.23)}
+.archive-police-index-entry>span:nth-last-child(2){overflow-wrap:anywhere}
+.archive-police-index-number{color:#74644a;font-size:12px}
+.archive-police-dialog-scroll .archive-police-report-attachments{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;margin-top:40px}
+.archive-police-dialog-scroll .archive-police-report-attachment{max-width:300px}
+.archive-police-dialog-scroll .archive-police-report-attachment img{height:260px}
+.archive-police-report-attachment figcaption{padding:8px 0 0;color:#594c37;font:700 9px/1.2 var(--display);letter-spacing:.1em}
+.archive-police-dialog-footer [data-police-index-button]{margin-right:auto}
+@media(max-width:700px){
+  .archive-police-dialog-scroll .archive-police-report{aspect-ratio:210/297;padding:38px 25px 65px}
+  .archive-police-dialog-scroll .archive-police-report-heading{font-size:16px;padding-right:55px}
+  .archive-police-dialog-scroll .archive-police-report-text{font-size:13px}
+  .archive-police-index-entry{grid-template-columns:24px 45px 1fr 14px;gap:7px;font-size:11px;min-height:62px;padding:5px}
+  .archive-police-index-entry img,.archive-police-index-placeholder{width:45px;height:45px}
+  .archive-police-dialog-scroll .archive-police-report-attachment img{height:130px}
+  .archive-police-dialog-footer{gap:6px}
+  .archive-police-dialog-footer button{padding:8px 6px}
+  .archive-police-dialog-footer span{font-size:8px;letter-spacing:0}
+}
+
 /* Corcheras documentales opcionales de cada sección del Archivo. */
 .archive-corkboard-section{padding-top:45px}
 .archive-corkboard-section h2{margin:0 0 18px;color:#c8b486;font:600 clamp(27px,3vw,42px)/1.1 var(--display)}
