@@ -29,4 +29,11 @@ assert(html.includes('data-police-image-open'));
 assert(!context.archivePoliceReportV2({show_police_report:false}).includes('archive-police-dialog'));
 const single=context.archivePoliceReportV2({show_police_report:true,police_reports:[{title:'Solo',documents:[{title:'Hoja',body:'Texto'}]}]});
 assert(!single.includes('ÍNDICE DEL EXPEDIENTE'));
+const long=context.archivePoliceReportV2({show_police_report:true,police_reports:[{title:'Expediente largo',documents:[{
+  title:'Diligencias preliminares',body:'Texto '.repeat(400),image:'foto-1.png',image_2:'foto-2.png'
+}]}]});
+assert.strictEqual((long.match(/class="archive-police-report-heading">Diligencias preliminares<\/div>/g)||[]).length,1);
+assert(!long.includes('Diligencias preliminares<small> · CONTINUACIÓN'));
+assert(long.includes('class="archive-police-report-heading">ANEXO FOTOGRÁFICO</div>'));
+assert(!long.includes('Diligencias preliminares · ANEXO FOTOGRÁFICO'));
 console.log('Expedientes físicos: pruebas correctas');

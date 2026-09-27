@@ -1194,14 +1194,14 @@ function archivePoliceReportV2(item){
      textPages.forEach((page,pageIndex)=>{
        pages.push('<article class="archive-police-report'+(pageIndex===0&&doc.letterhead?' has-letterhead':'')+'" data-police-page data-police-document="'+docIndex+'" data-paper="'+paper+'">'+
          (pageIndex===0&&doc.letterhead?'<img class="archive-police-letterhead" src="'+esc(doc.letterhead)+'" alt="Membrete de '+esc(docTitle)+'">':'')+
-         '<div class="archive-police-report-heading">'+esc(docTitle)+(pageIndex?'<small> · CONTINUACIÓN</small>':'')+'</div>'+
+         (pageIndex===0?'<div class="archive-police-report-heading">'+esc(docTitle)+'</div>':'')+
          '<div class="archive-police-report-text">'+(page?policeMarkdownToHTML(page):'<p class="archive-police-no-text">Documento sin texto.</p>')+'</div>'+
          (pageIndex===textPages.length-1&&!annexes.length?'<p class="archive-police-fiction-note">Documento ficticio creado para una obra narrativa. No es un documento oficial.</p>':'')+
          '<div class="archive-police-report-folio">DOCUMENTO '+String(docIndex+1).padStart(2,'0')+' · FOLIO '+String(pageIndex+1).padStart(2,'0')+' / '+String(total).padStart(2,'0')+'</div></article>');
      });
      annexes.forEach((pair,annexIndex)=>{
        const attachments=pair.map((image,i)=>'<figure class="archive-police-report-attachment"><button type="button" data-police-image-open aria-label="Ampliar fotografía '+(annexIndex*2+i+1)+' de '+esc(docTitle)+'"><img src="'+esc(image)+'" alt="Fotografía '+(annexIndex*2+i+1)+' de '+esc(docTitle)+'" loading="lazy"></button><figcaption>FOTOGRAFÍA '+String(annexIndex*2+i+1).padStart(2,'0')+'</figcaption></figure>').join('');
-       pages.push('<article class="archive-police-report" data-police-page data-police-document="'+docIndex+'" data-paper="'+paper+'"><div class="archive-police-report-heading">'+esc(docTitle)+' · ANEXO FOTOGRÁFICO</div><div class="archive-police-report-attachments">'+attachments+'</div>'+(annexIndex===annexes.length-1?'<p class="archive-police-fiction-note">Documento ficticio creado para una obra narrativa. No es un documento oficial.</p>':'')+'<div class="archive-police-report-folio">DOCUMENTO '+String(docIndex+1).padStart(2,'0')+' · FOLIO '+String(textPages.length+annexIndex+1).padStart(2,'0')+' / '+String(total).padStart(2,'0')+'</div></article>');
+       pages.push('<article class="archive-police-report" data-police-page data-police-document="'+docIndex+'" data-paper="'+paper+'"><div class="archive-police-report-heading">ANEXO FOTOGRÁFICO</div><div class="archive-police-report-attachments">'+attachments+'</div>'+(annexIndex===annexes.length-1?'<p class="archive-police-fiction-note">Documento ficticio creado para una obra narrativa. No es un documento oficial.</p>':'')+'<div class="archive-police-report-folio">DOCUMENTO '+String(docIndex+1).padStart(2,'0')+' · FOLIO '+String(textPages.length+annexIndex+1).padStart(2,'0')+' / '+String(total).padStart(2,'0')+'</div></article>');
      });
    });
    templates.push('<template data-police-template="'+reportIndex+'">'+pages.join('')+'</template>');
