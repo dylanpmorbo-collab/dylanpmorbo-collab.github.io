@@ -736,7 +736,7 @@ content:
         label: Informes físicos
         type: object
         required: false
-        description: "Carpetas de informes en papel. Cada informe se reparte en folios que se leen de uno en uno."
+        description: "Cada carpeta es un expediente; dentro puedes añadir hasta cinco documentos A4."
         list:
           max: 30
           collapsible:
@@ -771,52 +771,91 @@ content:
                   label: Morado
                 - value: vital
                   label: Rojo
-          - name: image
-            label: Imagen 1 / portada de la carpeta (800 × 500 px)
-            type: image
+          - name: documents
+            label: Documentos de esta carpeta (máximo 5)
+            type: object
             required: false
-            options:
-              media: default
-            description: "Tamaño recomendado: 800 × 500 píxeles (8:5). La carpeta recorta para llenar su ventana; al abrir, también se ve al principio del informe."
-          - name: image_2
-            label: Imagen 2 del informe
-            type: image
-            required: false
-            options:
-              media: default
-          - name: image_3
-            label: Imagen 3 del informe
-            type: image
-            required: false
-            options:
-              media: default
-          - name: image_4
-            label: Imagen 4 del informe
-            type: image
-            required: false
-            options:
-              media: default
-          - name: image_5
-            label: Imagen 5 del informe
-            type: image
-            required: false
-            options:
-              media: default
-          - name: image_6
-            label: Imagen 6 del informe
-            type: image
-            required: false
-            options:
-              media: default
-          - name: body
-            label: Texto del informe (Markdown)
-            type: rich-text
-            required: true
-            options:
-              format: markdown
-              media: default
-              switcher: true
-            description: "Admite títulos, negritas, cursivas, listas, citas y enlaces. El texto se reparte en folios conservando los párrafos."
+            description: "Cada documento tiene sus propios folios A4 y entre cero y seis fotografías. Si hay varios, se crea un índice automáticamente."
+            list:
+              max: 5
+              collapsible:
+                collapsed: true
+                summary: "{title}"
+            fields:
+              - name: title
+                label: Título del documento
+                type: string
+                required: true
+              - name: paper
+                label: Color del papel
+                type: select
+                required: false
+                default: blanco
+                options:
+                  values:
+                    - value: blanco
+                      label: Blanco
+                    - value: crema
+                      label: Crema
+                    - value: amarillo
+                      label: Amarillo pálido
+                    - value: gris
+                      label: Gris claro
+                    - value: verde
+                      label: Verde pálido
+              - name: letterhead
+                label: Membrete PNG de la primera hoja (1600 × 320 píxeles)
+                type: image
+                required: false
+                options:
+                  media: default
+                description: "Prepara un PNG exactamente de 1600 × 320 píxeles (5:1). Se muestra entero, sin recorte. Si no subes nada, no queda hueco."
+              - name: body
+                label: Texto del documento (Markdown)
+                type: rich-text
+                required: false
+                options:
+                  format: markdown
+                  media: default
+                  switcher: true
+                description: "Admite varias páginas; puedes dejarlo vacío si el documento solo contiene fotos."
+              - name: image
+                label: Fotografía 1 / miniatura del índice (800 × 500 px)
+                type: image
+                required: false
+                options:
+                  media: default
+                description: "Tamaño recomendado: 800 × 500 píxeles. El índice la muestra como fotocopia; al abrir se puede ampliar."
+              - name: image_2
+                label: Fotografía 2 (800 × 500 px)
+                type: image
+                required: false
+                options:
+                  media: default
+              - name: image_3
+                label: Fotografía 3 (800 × 500 px)
+                type: image
+                required: false
+                options:
+                  media: default
+              - name: image_4
+                label: Fotografía 4 (800 × 500 px)
+                type: image
+                required: false
+                options:
+                  media: default
+              - name: image_5
+                label: Fotografía 5 (800 × 500 px)
+                type: image
+                required: false
+                options:
+                  media: default
+              - name: image_6
+                label: Fotografía 6 (800 × 500 px)
+                type: image
+                required: false
+                options:
+                  media: default
       - name: show_digital_reports
         label: Mostrar informes digitales
         type: boolean
@@ -1746,7 +1785,7 @@ content:
         label: Informes físicos
         type: object
         required: false
-        description: "Carpetas de informes en papel. Cada informe se reparte en folios que se leen de uno en uno."
+        description: "Cada carpeta es un expediente; dentro puedes añadir hasta cinco documentos A4."
         list:
           max: 30
           collapsible:
@@ -1781,52 +1820,91 @@ content:
                   label: Morado
                 - value: vital
                   label: Rojo
-          - name: image
-            label: Imagen 1 / portada de la carpeta (800 × 500 px)
-            type: image
+          - name: documents
+            label: Documentos de esta carpeta (máximo 5)
+            type: object
             required: false
-            options:
-              media: default
-            description: "Tamaño recomendado: 800 × 500 píxeles (8:5). La carpeta recorta para llenar su ventana; al abrir, también se ve al principio del informe."
-          - name: image_2
-            label: Imagen 2 del informe
-            type: image
-            required: false
-            options:
-              media: default
-          - name: image_3
-            label: Imagen 3 del informe
-            type: image
-            required: false
-            options:
-              media: default
-          - name: image_4
-            label: Imagen 4 del informe
-            type: image
-            required: false
-            options:
-              media: default
-          - name: image_5
-            label: Imagen 5 del informe
-            type: image
-            required: false
-            options:
-              media: default
-          - name: image_6
-            label: Imagen 6 del informe
-            type: image
-            required: false
-            options:
-              media: default
-          - name: body
-            label: Texto del informe (Markdown)
-            type: rich-text
-            required: true
-            options:
-              format: markdown
-              media: default
-              switcher: true
-            description: "Admite títulos, negritas, cursivas, listas, citas y enlaces. El texto se reparte en folios conservando los párrafos."
+            description: "Cada documento tiene sus propios folios A4 y entre cero y seis fotografías. Si hay varios, se crea un índice automáticamente."
+            list:
+              max: 5
+              collapsible:
+                collapsed: true
+                summary: "{title}"
+            fields:
+              - name: title
+                label: Título del documento
+                type: string
+                required: true
+              - name: paper
+                label: Color del papel
+                type: select
+                required: false
+                default: blanco
+                options:
+                  values:
+                    - value: blanco
+                      label: Blanco
+                    - value: crema
+                      label: Crema
+                    - value: amarillo
+                      label: Amarillo pálido
+                    - value: gris
+                      label: Gris claro
+                    - value: verde
+                      label: Verde pálido
+              - name: letterhead
+                label: Membrete PNG de la primera hoja (1600 × 320 píxeles)
+                type: image
+                required: false
+                options:
+                  media: default
+                description: "Prepara un PNG exactamente de 1600 × 320 píxeles (5:1). Se muestra entero, sin recorte. Si no subes nada, no queda hueco."
+              - name: body
+                label: Texto del documento (Markdown)
+                type: rich-text
+                required: false
+                options:
+                  format: markdown
+                  media: default
+                  switcher: true
+                description: "Admite varias páginas; puedes dejarlo vacío si el documento solo contiene fotos."
+              - name: image
+                label: Fotografía 1 / miniatura del índice (800 × 500 px)
+                type: image
+                required: false
+                options:
+                  media: default
+                description: "Tamaño recomendado: 800 × 500 píxeles. El índice la muestra como fotocopia; al abrir se puede ampliar."
+              - name: image_2
+                label: Fotografía 2 (800 × 500 px)
+                type: image
+                required: false
+                options:
+                  media: default
+              - name: image_3
+                label: Fotografía 3 (800 × 500 px)
+                type: image
+                required: false
+                options:
+                  media: default
+              - name: image_4
+                label: Fotografía 4 (800 × 500 px)
+                type: image
+                required: false
+                options:
+                  media: default
+              - name: image_5
+                label: Fotografía 5 (800 × 500 px)
+                type: image
+                required: false
+                options:
+                  media: default
+              - name: image_6
+                label: Fotografía 6 (800 × 500 px)
+                type: image
+                required: false
+                options:
+                  media: default
       - name: show_digital_reports
         label: Mostrar informes digitales
         type: boolean
