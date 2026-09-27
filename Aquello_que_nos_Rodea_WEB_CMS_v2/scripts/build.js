@@ -479,6 +479,32 @@ function digitalCommentsMarkup(structured,bulkText,className='digital-piece-comm
  if(!items.length)return '';
  return '<div class="'+className+'">'+items.map(comment=>{const author=String(comment.author||'Usuario').trim().replace(/:+\s*$/,'');return '<p><strong>'+esc(author.startsWith('@')?author:'@'+author)+':</strong> '+digitalCommentTextHTML(comment.text||'')+'</p>';}).join('')+'</div>';
 }
+function mediaWithQuickEntry(media){
+ if(!media?.quick_entry) return media;
+ const headings={
+   'TÍTULO':'title','TITULO':'title','FECHA':'date','DESCRIPCIÓN':'description','DESCRIPCION':'description',
+   'ALT':'alt','AMPLIAR':'zoom','OCULTAR':'sensitive','REACCIONES':'reactions','COMENTARIOS':'comments_text'
+ };
+ const sections={};
+ let current=null;
+ for(const line of String(media.quick_entry).replace(/\r\n?/g,'\n').split('\n')){
+   const match=line.match(/^\s*([A-ZÁÉÍÓÚÜÑ ]+):\s*(.*)$/u);
+   const key=match&&headings[match[1].trim()];
+   if(key){current=key;sections[key]=[match[2]];}
+   else if(current) sections[current].push(line);
+ }
+ const values={};
+ for(const [key,lines] of Object.entries(sections)){
+   const value=lines.join('\n').trim();
+   if(!value) continue;
+   if(key==='zoom'||key==='sensitive'){
+     if(/^(sí|si|true|yes|1)$/iu.test(value)) values[key]=true;
+     else if(/^(no|false|0)$/iu.test(value)) values[key]=false;
+   }else values[key]=value;
+ }
+ if(values.comments_text) values.comments=[];
+ return {...media,...values};
+}
 function digitalFootprintMarkup(item){
  if(!item || item.show_digital_footprint!==true) return '';
  const pieces=(Array.isArray(item.digital_footprint)?item.digital_footprint:[])
@@ -507,7 +533,7 @@ function digitalFootprintMarkup(item){
    // Las publicaciones antiguas conservan su orden; la portada elegida siempre va primero.
    const photoCover=piece.cover_type==='FOTO'?photoSlides.shift():null;
    const legacySlides=[...(coverVideo?[coverVideo]:photoCover?[photoCover]:[]),...beforePhotos,...photoSlides,...afterPhotos];
-   const mediaItems=Array.isArray(piece.media)?piece.media.filter(media=>media&&(media.kind==='video'?media.video:media.image)):[];
+   const mediaItems=Array.isArray(piece.media)?piece.media.map(mediaWithQuickEntry).filter(media=>media&&(media.kind==='video'?media.video:media.image)):[];
    const slides=mediaItems.length?mediaItems.map((media,i)=>media.kind==='video'
      ?videoSlide(media.video,media.title,media.reactions,media.comments,media.description||media.caption,media.date,media.comments_text)
      :{markup:photoMarkup(media,i),title:media.title,description:media.description||media.caption,date:media.date||piece.date||'',reactions:media.reactions,comments:media.comments,comments_text:media.comments_text}):legacySlides;
