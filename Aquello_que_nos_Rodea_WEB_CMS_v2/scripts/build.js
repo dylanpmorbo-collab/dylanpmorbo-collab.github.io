@@ -1055,49 +1055,86 @@ function archiveDigitalReports(item){
    '<dialog class="archive-digital-dialog" aria-label="Escritorio de informe digital"><div class="archive-digital-dialog-shell"><header class="archive-digital-dialog-header"><span data-digital-dialog-title>INFORME DIGITAL</span><button type="button" data-digital-close aria-label="Cerrar escritorio">✕</button></header><div data-digital-workspace></div></div></dialog></div>'+
    '<script defer src="assets/js/digital-reports.js?v=arranque-digital-20260926"></script>'};
 }
-function archivePoliceReport(item){
- let reports=(item.show_police_report===true && Array.isArray(item.police_reports)?item.police_reports:[])
-   .filter(report=>report && String(report.body||'').trim())
-   .slice(0,30)
-   .map((report,index)=>{
-     const images=[report.image,report.image_2,report.image_3,report.image_4,report.image_5,report.image_6].filter(Boolean).map(String);
-     return {
-       title:String(report.title||('INFORME '+String(index+1).padStart(2,'0'))),
-       type:String(report.type||'POLICIAL').trim()||'POLICIAL',
-       importance:reportImportance(report.importance),
-       images,
-       pages:paginatePoliceReport(report.body,1300,images.length?Math.max(450,850-images.length*130):1300)
-     };
-   });
- // Conserva los expedientes creados antes de la lista de informes.
- if(item.show_police_report===true && !reports.length && String(item.police_report||'').trim()){
-   reports=[{title:'INFORME',type:'POLICIAL',importance:'basico',images:[],pages:paginatePoliceReport(item.police_report)}];
+function archivePoliceReport(item){return archivePoliceReportV2(item);}
+
+function physicalDocumentPages(body,hasLetterhead){
+ const blocks=String(body||'').replace(/\r\n/g,'\n').split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean);
+ const chunks=[];
+ for(const block of blocks){
+   if(block.length<=1100){chunks.push(block);continue;}
+   let current='';
+   for(const word of block.split(/\s+/)){
+     if(current && current.length+word.length+1>1100){chunks.push(current);current='';}
+     current+=(current?' ':'')+word;
+   }
+   if(current) chunks.push(current);
  }
+ const pages=[];let current='',limit=hasLetterhead?850:1450;
+ for(const chunk of chunks){
+   if(current && current.length+chunk.length+2>limit){pages.push(current);current='';limit=1550;}
+   current+=(current?'\n\n':'')+chunk;
+ }
+ if(current||!pages.length) pages.push(current);
+ return pages;
+}
+function archivePoliceReportV2(item){
  const digital=archiveDigitalReports(item);
- if(!reports.length && !digital.count) return '';
- const folders=reports.map((report,index)=>'<button type="button" class="archive-police-folder" data-police-open="'+index+'" data-importance="'+report.importance+'" data-report-type="'+esc(report.type.toUpperCase())+'" aria-label="Abrir '+esc(report.title)+'">'+
-   '<span class="archive-police-folder-tab" aria-hidden="true"></span>'+
-   '<span class="archive-police-folder-cover">'+(report.images[0]?'<img src="'+esc(report.images[0])+'" alt="" loading="lazy">':'<span aria-hidden="true">▤</span>')+'</span>'+
-   '<span class="archive-police-folder-copy"><small>'+esc(report.type.toUpperCase())+' // '+String(index+1).padStart(2,'0')+'</small><strong>'+esc(report.title)+'</strong><span>'+String(report.pages.length).padStart(2,'0')+' FOLIO'+(report.pages.length===1?'':'S')+' · ABRIR EXPEDIENTE →</span></span></button>').join('');
- const templates=reports.map((report,index)=>'<template data-police-template="'+index+'">'+report.pages.map((page,pageIndex)=>'<article class="archive-police-report" data-police-page="'+pageIndex+'"'+(pageIndex?' hidden':'')+'>'+
-   (pageIndex===0?'<div class="archive-police-report-heading">'+esc(report.title)+'</div>':'')+
-   (pageIndex===0 && report.images.length?'<div class="archive-police-report-attachments">'+report.images.map((image,i)=>'<figure class="archive-police-report-attachment"><button type="button" data-police-image-open aria-label="Ampliar imagen adjunta '+(i+1)+' de '+esc(report.title)+'"><img src="'+esc(image)+'" alt="Imagen adjunta '+(i+1)+' de '+esc(report.title)+'" loading="lazy"></button></figure>').join('')+'</div>':'')+
-   '<div class="archive-police-report-text">'+policeMarkdownToHTML(page)+'</div>'+
-   '<div class="archive-police-report-folio">FOLIO '+String(pageIndex+1).padStart(2,'0')+' / '+String(report.pages.length).padStart(2,'0')+'</div></article>').join('')+'</template>').join('');
- const physical=reports.length?'<div class="archive-report-subheading">INFORMES FÍSICOS // '+String(reports.length).padStart(2,'0')+'</div>'+
-   '<div class="archive-police-folder-grid">'+folders+'</div>'+templates+
-   '<dialog class="archive-police-dialog" aria-labelledby="archive-police-dialog-title"><div class="archive-police-dialog-shell">'+
-   '<header class="archive-police-dialog-header"><div><small id="archive-police-dialog-type">INFORME</small><h2 id="archive-police-dialog-title"></h2></div><button type="button" data-police-close aria-label="Cerrar informe">✕</button></header>'+
-   '<div class="archive-police-dialog-scroll"><div data-police-pages></div></div>'+
-   '<footer class="archive-police-dialog-footer"><button type="button" data-police-prev>← ANTERIOR</button><span data-police-counter></span><button type="button" data-police-next>SIGUIENTE →</button></footer>'+ 
-   '</div></dialog>'+ 
-   '<dialog class="archive-police-image-dialog" aria-label="Imagen adjunta ampliada"><button type="button" data-police-image-close aria-label="Cerrar imagen ampliada">✕</button><button type="button" class="archive-police-image-nav" data-police-image-prev aria-label="Imagen anterior">‹</button><img data-police-image-large alt=""><button type="button" class="archive-police-image-nav" data-police-image-next aria-label="Imagen siguiente">›</button><span class="archive-police-image-counter" data-police-image-counter aria-live="polite"></span></dialog>'+ 
-   '<script>(function(){const block=document.currentScript.closest(".archive-police-report-block");if(!block)return;const viewer=block.querySelector("[data-police-pages]");const lightbox=block.querySelector(".archive-police-image-dialog");const large=lightbox.querySelector("[data-police-image-large]");const close=lightbox.querySelector("[data-police-image-close]");const prev=lightbox.querySelector("[data-police-image-prev]");const next=lightbox.querySelector("[data-police-image-next]");const counter=lightbox.querySelector("[data-police-image-counter]");let trigger=null,images=[],index=0;function showImage(){const thumb=images[index]?.querySelector("img");if(!thumb)return;large.src=thumb.currentSrc||thumb.src;large.alt=thumb.alt;counter.textContent="IMAGEN "+(index+1)+" / "+images.length;prev.disabled=index===0;next.disabled=index===images.length-1;}viewer.addEventListener("click",event=>{const button=event.target.closest("[data-police-image-open]");if(!button)return;trigger=button;images=[...viewer.querySelectorAll("[data-police-image-open]")];index=images.indexOf(button);if(index<0)return;showImage();lightbox.showModal();close.focus();});prev.addEventListener("click",()=>{if(index>0){index--;showImage();}});next.addEventListener("click",()=>{if(index<images.length-1){index++;showImage();}});lightbox.addEventListener("keydown",event=>{if(event.key==="ArrowLeft"&&index>0){event.preventDefault();index--;showImage();}else if(event.key==="ArrowRight"&&index<images.length-1){event.preventDefault();index++;showImage();}});close.addEventListener("click",()=>lightbox.close());lightbox.addEventListener("click",event=>{if(event.target===lightbox)lightbox.close();});lightbox.addEventListener("close",()=>{large.removeAttribute("src");images=[];if(trigger?.isConnected)trigger.focus();});})();<\/script>'+ 
-   '<script>(function(){const block=document.currentScript.closest(".archive-police-report-block");if(!block)return;const dialog=block.querySelector(".archive-police-dialog");const viewer=block.querySelector("[data-police-pages]");const scroll=block.querySelector(".archive-police-dialog-scroll");const prev=block.querySelector("[data-police-prev]");const next=block.querySelector("[data-police-next]");const counter=block.querySelector("[data-police-counter]");let page=0,trigger=null;function showPage(){const pages=[...viewer.querySelectorAll("[data-police-page]")];pages.forEach((el,i)=>el.hidden=i!==page);counter.textContent="FOLIO "+(page+1)+" / "+pages.length;prev.disabled=page===0;next.disabled=page>=pages.length-1;scroll.scrollTop=0;}block.querySelectorAll("[data-police-open]").forEach(button=>button.addEventListener("click",()=>{const template=block.querySelector(\'[data-police-template="\'+button.dataset.policeOpen+\'"]\');if(!template)return;trigger=button;viewer.replaceChildren(template.content.cloneNode(true));dialog.querySelector("#archive-police-dialog-title").textContent=button.querySelector("strong").textContent;dialog.querySelector("#archive-police-dialog-type").textContent="INFORME // "+button.dataset.reportType;page=0;showPage();dialog.showModal();document.body.classList.add("archive-police-dialog-open");dialog.querySelector("[data-police-close]").focus();}));prev.addEventListener("click",()=>{if(page>0){page--;showPage();}});next.addEventListener("click",()=>{if(page<viewer.querySelectorAll("[data-police-page]").length-1){page++;showPage();}});dialog.querySelector("[data-police-close]").addEventListener("click",()=>dialog.close());dialog.addEventListener("click",e=>{if(e.target===dialog)dialog.close();});dialog.addEventListener("close",()=>{document.body.classList.remove("archive-police-dialog-open");viewer.replaceChildren();if(trigger)trigger.focus();});})();<\/script>'+
-   '': '';
- return '<section class="archive-police-report-block" aria-label="Informes">'+
-   '<div class="section-label">INFORMES // '+String(reports.length+digital.count).padStart(2,'0')+'</div>'+
-   physical+digital.html+'</section>';
+ const raw=item.show_police_report===true&&Array.isArray(item.police_reports)?item.police_reports:[];
+ let reports=raw.filter(report=>report&&(report.title||report.body||report.documents?.length)).slice(0,30);
+ if(item.show_police_report===true&&!reports.length&&String(item.police_report||'').trim()){
+   reports=[{title:'INFORME',type:'POLICIAL',body:item.police_report}];
+ }
+ if(!reports.length&&!digital.count) return '';
+ const paperValues=new Set(['blanco','crema','amarillo','gris','verde']);
+ const folderCards=[];const templates=[];
+ reports.forEach((report,reportIndex)=>{
+   const title=String(report.title||('EXPEDIENTE '+String(reportIndex+1).padStart(2,'0')));
+   const type=String(report.type||'POLICIAL').trim()||'POLICIAL';
+   const importance=reportImportance(report.importance);
+   let documents=Array.isArray(report.documents)?report.documents.filter(Boolean).slice(0,5):[];
+   if(!documents.length&&(report.body||report.image||report.image_2)) documents=[{
+     title,body:report.body||'',paper:'crema',image:report.image,image_2:report.image_2,
+     image_3:report.image_3,image_4:report.image_4,image_5:report.image_5,image_6:report.image_6
+   }];
+   const cover=documents.find(doc=>doc.image)?.image||report.image;
+   folderCards.push('<button type="button" class="archive-police-folder" data-police-open="'+reportIndex+'" data-importance="'+importance+'" data-report-type="'+esc(type.toUpperCase())+'" aria-label="Abrir '+esc(title)+'">'+
+     '<span class="archive-police-folder-tab" aria-hidden="true"></span><span class="archive-police-folder-cover">'+(cover?'<img src="'+esc(cover)+'" alt="" loading="lazy">':'<span aria-hidden="true">▤</span>')+'</span>'+
+     '<span class="archive-police-folder-copy"><small>'+esc(type.toUpperCase())+' // '+String(reportIndex+1).padStart(2,'0')+'</small><strong>'+esc(title)+'</strong><span>'+documents.length+' DOCUMENTO'+(documents.length===1?'':'S')+' · ABRIR EXPEDIENTE →</span></span></button>');
+   const pages=[];
+   if(documents.length>1){
+     const rows=documents.map((doc,docIndex)=>'<button type="button" class="archive-police-index-entry" data-police-jump="'+docIndex+'">'+
+       '<span class="archive-police-index-number">'+String(docIndex+1).padStart(2,'0')+'</span>'+
+       (doc.image?'<img src="'+esc(doc.image)+'" alt="" loading="lazy">':'<span class="archive-police-index-placeholder" aria-hidden="true">▤</span>')+
+       '<span>'+esc(doc.title||('DOCUMENTO '+(docIndex+1)))+'</span><span aria-hidden="true">↗</span></button>').join('');
+     pages.push('<article class="archive-police-report archive-police-index" data-police-page data-police-index data-paper="crema"><div class="archive-police-report-heading">ÍNDICE DEL EXPEDIENTE</div><p class="archive-police-index-caption">'+esc(title)+' · '+documents.length+' DOCUMENTOS</p><nav aria-label="Documentos del expediente">'+rows+'</nav><div class="archive-police-report-folio">ÍNDICE / '+String(documents.length).padStart(2,'0')+' DOCUMENTOS</div></article>');
+   }
+   documents.forEach((doc,docIndex)=>{
+     const docTitle=String(doc.title||('DOCUMENTO '+String(docIndex+1).padStart(2,'0')));
+     const paper=paperValues.has(doc.paper)?doc.paper:'crema';
+     const images=[doc.image,doc.image_2,doc.image_3,doc.image_4,doc.image_5,doc.image_6].filter(Boolean).map(String);
+     const textPages=physicalDocumentPages(doc.body,Boolean(doc.letterhead));
+     const annexes=[];
+     for(let offset=0;offset<images.length;offset+=2) annexes.push(images.slice(offset,offset+2));
+     const total=textPages.length+annexes.length;
+     textPages.forEach((page,pageIndex)=>{
+       pages.push('<article class="archive-police-report'+(pageIndex===0&&doc.letterhead?' has-letterhead':'')+'" data-police-page data-police-document="'+docIndex+'" data-paper="'+paper+'">'+
+         (pageIndex===0&&doc.letterhead?'<img class="archive-police-letterhead" src="'+esc(doc.letterhead)+'" alt="Membrete de '+esc(docTitle)+'">':'')+
+         '<div class="archive-police-report-heading">'+esc(docTitle)+(pageIndex?'<small> · CONTINUACIÓN</small>':'')+'</div>'+
+         '<div class="archive-police-report-text">'+(page?policeMarkdownToHTML(page):'<p class="archive-police-no-text">Documento sin texto.</p>')+'</div>'+
+         '<div class="archive-police-report-folio">DOCUMENTO '+String(docIndex+1).padStart(2,'0')+' · FOLIO '+String(pageIndex+1).padStart(2,'0')+' / '+String(total).padStart(2,'0')+'</div></article>');
+     });
+     annexes.forEach((pair,annexIndex)=>{
+       const attachments=pair.map((image,i)=>'<figure class="archive-police-report-attachment"><button type="button" data-police-image-open aria-label="Ampliar fotografía '+(annexIndex*2+i+1)+' de '+esc(docTitle)+'"><img src="'+esc(image)+'" alt="Fotografía '+(annexIndex*2+i+1)+' de '+esc(docTitle)+'" loading="lazy"></button><figcaption>FOTOGRAFÍA '+String(annexIndex*2+i+1).padStart(2,'0')+'</figcaption></figure>').join('');
+       pages.push('<article class="archive-police-report" data-police-page data-police-document="'+docIndex+'" data-paper="'+paper+'"><div class="archive-police-report-heading">'+esc(docTitle)+' · ANEXO FOTOGRÁFICO</div><div class="archive-police-report-attachments">'+attachments+'</div><div class="archive-police-report-folio">DOCUMENTO '+String(docIndex+1).padStart(2,'0')+' · FOLIO '+String(textPages.length+annexIndex+1).padStart(2,'0')+' / '+String(total).padStart(2,'0')+'</div></article>');
+     });
+   });
+   templates.push('<template data-police-template="'+reportIndex+'">'+pages.join('')+'</template>');
+ });
+ const physical=reports.length?'<div class="archive-report-subheading">INFORMES FÍSICOS // '+String(reports.length).padStart(2,'0')+'</div><div class="archive-police-folder-grid">'+folderCards.join('')+'</div>'+templates.join('')+
+   '<dialog class="archive-police-dialog" aria-labelledby="archive-police-dialog-title"><div class="archive-police-dialog-shell"><header class="archive-police-dialog-header"><div><small id="archive-police-dialog-type">EXPEDIENTE</small><h2 id="archive-police-dialog-title"></h2></div><button type="button" data-police-close aria-label="Cerrar expediente">✕</button></header><div class="archive-police-dialog-scroll"><div data-police-pages></div></div><footer class="archive-police-dialog-footer"><button type="button" data-police-prev>← ANTERIOR</button><button type="button" data-police-index-button hidden>ÍNDICE</button><span data-police-counter></span><button type="button" data-police-next>SIGUIENTE →</button></footer></div></dialog>'+
+   '<dialog class="archive-police-image-dialog" aria-label="Imagen adjunta ampliada"><button type="button" data-police-image-close aria-label="Cerrar imagen ampliada">✕</button><button type="button" class="archive-police-image-nav" data-police-image-prev aria-label="Imagen anterior">‹</button><img data-police-image-large alt=""><button type="button" class="archive-police-image-nav" data-police-image-next aria-label="Imagen siguiente">›</button><span class="archive-police-image-counter" data-police-image-counter aria-live="polite"></span></dialog>'+
+   '<script defer src="assets/js/physical-reports.js?v=a4-20260927"></script>':'';
+ return '<section class="archive-police-report-block" aria-label="Informes"><div class="section-label">INFORMES // '+String(reports.length+digital.count).padStart(2,'0')+'</div>'+physical+digital.html+'</section>';
 }
 
 function archiveInformationBlocks(item){
