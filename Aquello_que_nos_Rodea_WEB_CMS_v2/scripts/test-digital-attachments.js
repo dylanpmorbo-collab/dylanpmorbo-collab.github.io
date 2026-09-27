@@ -16,9 +16,9 @@ vm.runInContext(source.slice(start,end),context);
 const report={
   show_digital_reports:true,
   digital_reports:[{title:'Prueba',folders:[{title:'Dispositivo',files:[{
-    title:'Conversación',kind:'IMAGEN',image:'chat.png',video:'video-antiguo.mp4',
+    title:'Conversación',kind:'IMAGEN',image:'chat.png',scan_image:'lectura-verde.png',video:'video-antiguo.mp4',
     attachments:[{title:'Fotografía',image:'foto.png'},{title:'Clip',video:'clip.mp4',image:'portada.png'}]
-  }]}]}]
+  },{title:'Grabación',kind:'VIDEO',video:'grabacion.mp4'}]}]}]
 };
 const html=context.archiveDigitalReports(report).html;
 assert.match(html,/ARCHIVOS ADJUNTOS AL DOCUMENTO/);
@@ -28,4 +28,7 @@ assert.match(html,/data-retro-attachment-template="1"/);
 assert.match(html,/data-retro-attachment-template="2"/);
 assert.match(html,/foto\.png/);
 assert.match(html,/clip\.mp4/);
+assert.match(html,/data-retro-scan data-scan-source="chat\.png" data-scan-reading="lectura-verde\.png"/);
+assert.match(html,/data-retro-scanner hidden/);
+assert.strictEqual((html.match(/<button type="button" data-retro-scan /g)||[]).length,1);
 console.log('Adjuntos digitales: generación y vídeo heredado correctos.');

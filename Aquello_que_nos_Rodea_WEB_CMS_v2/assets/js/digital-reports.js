@@ -10,6 +10,8 @@
     let fullscreenReturnPending=false;
     let primaryMediaNodes=null;
     let bootTimers=[];
+    let scannerTrigger=null;
+    let scanResizeObserver=null;
 
     function clearBootTimers(){bootTimers.forEach(id=>{clearTimeout(id);clearInterval(id)});bootTimers=[];}
     function finishBoot(){
@@ -55,6 +57,73 @@
     function desktop(){return workspace.querySelector('[data-retro-desktop]');}
     function folderWindow(){return desktop()?.querySelector('[data-retro-folder-window]');}
     function fileWindow(){return desktop()?.querySelector('[data-retro-file-window]');}
+    function scanner(){return desktop()?.querySelector('[data-retro-scanner]');}
+    function closeScanner(restoreFocus=true){
+      const tablet=scanner();
+      if(!tablet || tablet.hidden)return;
+      tablet.hidden=true;
+      scanResizeObserver?.disconnect();scanResizeObserver=null;
+      tablet.querySelector('[data-retro-scan-base]').removeAttribute('src');
+      tablet.querySelector('[data-retro-scan-layer]').removeAttribute('src');
+      if(restoreFocus && scannerTrigger?.isConnected)scannerTrigger.focus();
+      scannerTrigger=null;
+    }
+    function positionLens(frame,x,y){
+      frame.style.setProperty('--scan-x',Math.max(0,Math.min(100,x))+'%');
+      frame.style.setProperty('--scan-y',Math.max(0,Math.min(100,y))+'%');
+    }
+    function openScanner(button){
+      const tablet=scanner();
+      const source=button.dataset.scanSource;
+      if(!tablet||!source)return;
+      closeScanner(false);
+      scannerTrigger=button;
+      tablet.hidden=false;
+      const viewport=tablet.querySelector('[data-retro-scan-viewport]');
+      const frame=tablet.querySelector('[data-retro-scan-photo]');
+      const base=tablet.querySelector('[data-retro-scan-base]');
+      const layer=tablet.querySelector('[data-retro-scan-layer]');
+      const reveal=tablet.querySelector('[data-retro-scan-reveal]');
+      const status=tablet.querySelector('[data-retro-scan-status]');
+      const reading=button.dataset.scanReading;
+      let simulated=!reading;
+      const size=tablet.querySelector('[data-retro-scan-size]');
+      size.value='190';
+      frame.style.setProperty('--scan-radius','95px');
+      frame.style.setProperty('--scan-diameter','190px');
+      positionLens(frame,50,50);
+      status.textContent='CARGANDO CAPTURA…';
+      reveal.classList.toggle('is-simulated',simulated);
+      const fit=()=>{
+        if(!base.naturalWidth||!base.naturalHeight)return;
+        const scale=Math.min(viewport.clientWidth/base.naturalWidth,viewport.clientHeight/base.naturalHeight);
+        frame.style.width=Math.max(1,Math.floor(base.naturalWidth*scale))+'px';
+        frame.style.height=Math.max(1,Math.floor(base.naturalHeight*scale))+'px';
+      };
+      const updateStatus=()=>{
+        if(!base.naturalWidth||!layer.naturalWidth)return;
+        status.textContent=simulated?'LECTURA SIMULADA · SIN CAPA CARGADA'
+          : base.naturalWidth!==layer.naturalWidth||base.naturalHeight!==layer.naturalHeight
+            ? 'AVISO: DIMENSIONES DISTINTAS':'LECTURA ESTABLE · BUSCA UNA SEÑAL';
+      };
+      base.onload=()=>{fit();updateStatus();};
+      base.onerror=()=>{status.textContent='NO SE PUEDE ABRIR LA FOTOGRAFÍA';};
+      layer.onload=updateStatus;
+      layer.onerror=()=>{
+        status.textContent='LECTURA NO DISPONIBLE · MODO SIMULADO';
+        simulated=true;
+        reveal.classList.add('is-simulated');
+        layer.onerror=null;layer.src=source;
+      };
+      base.src=source;
+      layer.src=reading||source;
+      if(typeof ResizeObserver==='function'){
+        scanResizeObserver=new ResizeObserver(fit);
+        scanResizeObserver.observe(viewport);
+      }
+      requestAnimationFrame(fit);
+      frame.focus();
+    }
     function pauseVideos(container){container?.querySelectorAll('video').forEach(video=>video.pause());}
     function fileEntries(){return Array.from(folderWindow()?.querySelectorAll('[data-retro-file]')||[]);}
     function updateFileNavigation(){
@@ -86,6 +155,7 @@
     function closeFile(restoreFocus=true){
       const window=fileWindow();
       if(!window || window.hidden)return;
+      closeScanner(false);
       pauseVideos(window);
       window.hidden=true;
       window.classList.remove('is-maximized');
@@ -239,8 +309,10 @@
         wrap.classList.remove('is-concealed','is-pixelated');
         wrap.querySelector('canvas')?.remove();
         wrap.querySelector('.retro-image-warning')?.remove();
-        fileWindow().querySelectorAll('[data-retro-zoom],[data-retro-annotated]').forEach(control=>control.hidden=false);
+        fileWindow().querySelectorAll('[data-retro-zoom],[data-retro-annotated],[data-retro-scan]').forEach(control=>control.hidden=false);
       }
+      else if(button.hasAttribute('data-retro-scan'))openScanner(button);
+      else if(button.hasAttribute('data-retro-scan-close'))closeScanner();
       else if(button.hasAttribute('data-retro-zoom')){
         const media=button.closest('.retro-file-detail')?.querySelector('.retro-file-media');
         if(!media)return;
@@ -254,7 +326,41 @@
         button.textContent=marked?'VER MARCAS':'VER ORIGINAL';
       }
     });
+    workspace.addEventListener('input',event=>{
+      if(!event.target.matches('[data-retro-scan-size]'))return;
+      const frame=scanner()?.querySelector('[data-retro-scan-photo]');
+      if(!frame)return;
+      const diameter=Number(event.target.value);
+      frame.style.setProperty('--scan-radius',diameter/2+'px');
+      frame.style.setProperty('--scan-diameter',diameter+'px');
+    });
+    workspace.addEventListener('pointermove',event=>{
+      const frame=event.target.closest('[data-retro-scan-photo]');
+      if(!frame||scanner()?.hidden)return;
+      const rect=frame.getBoundingClientRect();
+      positionLens(frame,(event.clientX-rect.left)/rect.width*100,(event.clientY-rect.top)/rect.height*100);
+    });
+    workspace.addEventListener('pointerdown',event=>{
+      const frame=event.target.closest('[data-retro-scan-photo]');
+      if(!frame||scanner()?.hidden)return;
+      frame.setPointerCapture?.(event.pointerId);
+      const rect=frame.getBoundingClientRect();
+      positionLens(frame,(event.clientX-rect.left)/rect.width*100,(event.clientY-rect.top)/rect.height*100);
+    });
     workspace.addEventListener('keydown',event=>{
+      const tablet=scanner();
+      if(tablet&&!tablet.hidden){
+        if(event.key==='Escape'){event.preventDefault();closeScanner();return;}
+        const frame=tablet.querySelector('[data-retro-scan-photo]');
+        if(event.target===frame && ['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(event.key)){
+          event.preventDefault();
+          const x=parseFloat(frame.style.getPropertyValue('--scan-x'))||50;
+          const y=parseFloat(frame.style.getPropertyValue('--scan-y'))||50;
+          const step=event.shiftKey?10:3;
+          positionLens(frame,x+(event.key==='ArrowRight'?step:event.key==='ArrowLeft'?-step:0),y+(event.key==='ArrowDown'?step:event.key==='ArrowUp'?-step:0));
+          return;
+        }
+      }
       if(fileWindow()?.hidden || !fileWindow()?.contains(event.target))return;
       if(event.target.closest('video,button'))return;
       if(event.key==='ArrowLeft'||event.key==='ArrowRight'){
@@ -270,11 +376,13 @@
         if(document.fullscreenElement)document.exitFullscreen?.().catch(()=>{});
         else fullscreenReturnPending=false;
       }
+      else if(scanner() && !scanner().hidden){event.preventDefault();closeScanner();}
       else if(fileWindow() && !fileWindow().hidden){event.preventDefault();closeFile();}
       else if(folderWindow() && !folderWindow().hidden){event.preventDefault();closeFolder();}
     });
     dialog.addEventListener('close',()=>{
       clearBootTimers();
+      closeScanner(false);
       pauseVideos(workspace);
       workspace.replaceChildren();
       document.body.classList.remove('archive-digital-dialog-open');

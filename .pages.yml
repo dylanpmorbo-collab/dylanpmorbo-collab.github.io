@@ -1005,6 +1005,13 @@ content:
                     options:
                       media: default
                     description: "Solo para «Falso pixelado». Sube una imagen YA pixelada; al desbloquear se sustituirá por la imagen del campo anterior."
+                  - name: scan_image
+                    label: Lectura verde del escáner interplanar
+                    type: image
+                    required: false
+                    options:
+                      media: default
+                    description: "Opcional. Sube una copia de la imagen principal con exactamente los mismos píxeles y encuadre. Aplica el tono verde y dibuja ahí las siluetas o rastros; solo se verán dentro de la lente. Si lo dejas vacío, el escáner mostrará una lectura verde provisional de la foto."
                   - name: masthead_image
                     label: Membrete o banner de esta ficha (600 × 120 píxeles)
                     type: image
@@ -2122,6 +2129,13 @@ content:
                     options:
                       media: default
                     description: "Solo para «Falso pixelado». Sube una imagen YA pixelada; al desbloquear se sustituirá por la imagen del campo anterior."
+                  - name: scan_image
+                    label: Lectura verde del escáner interplanar
+                    type: image
+                    required: false
+                    options:
+                      media: default
+                    description: "Opcional. Sube una copia de la imagen principal con exactamente los mismos píxeles y encuadre. Aplica el tono verde y dibuja ahí las siluetas o rastros; solo se verán dentro de la lente. Si lo dejas vacío, el escáner mostrará una lectura verde provisional de la foto."
                   - name: masthead_image
                     label: Membrete o banner de esta ficha (600 × 120 píxeles)
                     type: image
