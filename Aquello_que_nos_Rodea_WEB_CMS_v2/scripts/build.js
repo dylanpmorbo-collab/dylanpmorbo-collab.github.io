@@ -966,7 +966,7 @@ function policeTableHTML(table){
  return '<table><thead>'+renderRow(table.headers,'th')+'</thead><tbody>'+table.rows.map(row=>renderRow(row,'td')).join('')+'</tbody></table>';
 }
 function policeMarkdownToHTML(source=''){
- return String(source||'').replace(/\r\n/g,'\n').split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean).map(block=>{
+ return String(source||'').replace(/\r\n/g,'\n').split(/\n\s*\n/).map(x=>x.trim()).filter(block=>block&&!/^(?:(?:&nbsp;|&#160;|\u00a0)\s*)+$/i.test(block)).map(block=>{
    const lines=block.split('\n');
    const table=policeTableParts(block);
    if(table) return policeTableHTML(table);
@@ -1110,7 +1110,7 @@ function archiveDigitalReports(item){
 function archivePoliceReport(item){return archivePoliceReportV2(item);}
 
 function physicalDocumentPages(body,hasLetterhead){
- const blocks=String(body||'').replace(/\r\n/g,'\n').split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean);
+ const blocks=String(body||'').replace(/\r\n/g,'\n').split(/\n\s*\n/).map(x=>x.trim()).filter(block=>block&&!/^(?:(?:&nbsp;|&#160;|\u00a0)\s*)+$/i.test(block));
  const chunks=[];
  for(const block of blocks){
    const table=policeTableParts(block);
@@ -1118,7 +1118,7 @@ function physicalDocumentPages(body,hasLetterhead){
      const lines=block.split('\n');
      let rows=[],size=lines[0].length+lines[1].length+2;
      for(const row of lines.slice(2)){
-       if(rows.length&&size+row.length+1>900){chunks.push([lines[0],lines[1],...rows].join('\n'));rows=[];size=lines[0].length+lines[1].length+2;}
+       if(rows.length&&(rows.length>=6||size+row.length+1>700)){chunks.push([lines[0],lines[1],...rows].join('\n'));rows=[];size=lines[0].length+lines[1].length+2;}
        rows.push(row);size+=row.length+1;
      }
      chunks.push([lines[0],lines[1],...rows].join('\n'));
@@ -1132,9 +1132,21 @@ function physicalDocumentPages(body,hasLetterhead){
    }
    if(current) chunks.push(current);
  }
- const pages=[];let current='',limit=hasLetterhead?850:1450;
+ const pages=[];let current='',limit=hasLetterhead?850:1150;
  for(const chunk of chunks){
-   if(current && current.length+chunk.length+2>limit){pages.push(current);current='';limit=1550;}
+   if(policeTableParts(chunk)){
+     let heading='';
+     if(current){
+       const parts=current.split('\n\n');
+       const last=parts[parts.length-1];
+       if(last.length<100&&(/^(?:\*\*|#{1,4}\s)/.test(last))){heading=parts.pop();}
+       if(parts.length) pages.push(parts.join('\n\n'));
+     }
+     pages.push((heading?heading+'\n\n':'')+chunk);
+     current='';limit=1150;
+     continue;
+   }
+   if(current && current.length+chunk.length+2>limit){pages.push(current);current='';limit=1150;}
    current+=(current?'\n\n':'')+chunk;
  }
  if(current||!pages.length) pages.push(current);
