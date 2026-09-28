@@ -1462,3 +1462,13 @@ body.archive-digital-dialog-open{overflow:hidden}
 .interplanar-tablet-foot input{accent-color:#ad8d56}
 .interplanar-tablet-id{color:#b58d5a}
 @media(max-width:700px){.interplanar-tablet-shell{padding:7px 6px 7px 42px}.interplanar-tablet-hardware{left:5px;top:8px;bottom:7px;width:32px;padding:11px 2px 8px;gap:5px}.interplanar-tablet-cable{left:-11px;width:17px;border-width:5px}.interplanar-tablet-gauge{width:24px;height:24px;margin-top:17px;border-width:3px}.interplanar-tablet-gauge:before{height:9px;bottom:4px}.interplanar-tablet-vent{width:23px;height:20px}.interplanar-tablet-rune{width:25px;height:25px;border-width:2px;font-size:15px}.interplanar-tablet-head{margin:3px 2px 6px;padding:4px 6px}.interplanar-tablet-head:after{display:none}.interplanar-tablet-screen{margin:2px 2px 7px;border-width:5px}.interplanar-tablet-readout{margin:0 2px}.interplanar-tablet-foot{margin:0 2px;padding:3px}}
+.interplanar-tablet-photo{left:calc(50% + var(--scan-pan-x,0px));top:calc(50% + var(--scan-pan-y,0px))}
+.interplanar-tablet-screen.is-panning,.interplanar-tablet-screen.is-panning .interplanar-tablet-photo{cursor:grab}
+.interplanar-tablet-zoom{display:flex;align-items:center;gap:3px;flex:none}
+.interplanar-tablet-zoom button{min-height:27px;padding:3px 7px;border:2px ridge #927452;border-radius:2px;background:#253326;color:#d9e6bc;font:700 10px "Courier New",monospace;cursor:pointer}
+.interplanar-tablet-zoom button[data-retro-scan-zoom-in],.interplanar-tablet-zoom button[data-retro-scan-zoom-out]{min-width:27px;font-size:17px;line-height:1}
+.interplanar-tablet-zoom button:hover:not(:disabled),.interplanar-tablet-zoom button:focus-visible{background:#486347;outline:1px solid #b8e8a9}
+.interplanar-tablet-zoom button:disabled{opacity:.4;cursor:not-allowed}
+.interplanar-tablet-zoom button[aria-pressed="true"]{background:#416542;color:#e4ffc9;box-shadow:inset 0 0 7px #9ef4a466}
+.interplanar-tablet-zoom output{min-width:40px;text-align:center;color:#b5d5a8}
+@media(max-width:700px){.interplanar-tablet-foot>span:first-child{display:none}.interplanar-tablet-foot{gap:5px}.interplanar-tablet-foot label{margin-left:auto}.interplanar-tablet-foot input{width:70px}.interplanar-tablet-zoom button{min-height:25px;padding:2px 4px;font-size:8px}.interplanar-tablet-zoom button[data-retro-scan-zoom-in],.interplanar-tablet-zoom button[data-retro-scan-zoom-out]{min-width:25px}.interplanar-tablet-zoom output{min-width:35px}}

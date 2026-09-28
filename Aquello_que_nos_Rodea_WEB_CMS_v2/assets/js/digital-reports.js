@@ -12,6 +12,9 @@
     let bootTimers=[];
     let scannerTrigger=null;
     let scanResizeObserver=null;
+    let scanZoom=1;
+    let scanPanX=0,scanPanY=0;
+    let scanPanMode=false,scanPanStart=null;
 
     function clearBootTimers(){bootTimers.forEach(id=>{clearTimeout(id);clearInterval(id)});bootTimers=[];}
     function finishBoot(){
@@ -63,6 +66,7 @@
       if(!tablet || tablet.hidden)return;
       tablet.hidden=true;
       scanResizeObserver?.disconnect();scanResizeObserver=null;
+      scanPanStart=null;
       tablet.querySelector('[data-retro-scan-base]').removeAttribute('src');
       tablet.querySelector('[data-retro-scan-layer]').removeAttribute('src');
       if(restoreFocus && scannerTrigger?.isConnected)scannerTrigger.focus();
@@ -71,6 +75,40 @@
     function positionLens(frame,x,y){
       frame.style.setProperty('--scan-x',Math.max(0,Math.min(100,x))+'%');
       frame.style.setProperty('--scan-y',Math.max(0,Math.min(100,y))+'%');
+    }
+    function updateScanPan(tablet){
+      const viewport=tablet.querySelector('[data-retro-scan-viewport]');
+      const frame=tablet.querySelector('[data-retro-scan-photo]');
+      const limitX=Math.max(0,(frame.offsetWidth-viewport.clientWidth)/2);
+      const limitY=Math.max(0,(frame.offsetHeight-viewport.clientHeight)/2);
+      scanPanX=Math.max(-limitX,Math.min(limitX,scanPanX));
+      scanPanY=Math.max(-limitY,Math.min(limitY,scanPanY));
+      frame.style.setProperty('--scan-pan-x',scanPanX+'px');
+      frame.style.setProperty('--scan-pan-y',scanPanY+'px');
+    }
+    function updateScanZoomControls(tablet){
+      tablet.querySelector('[data-retro-scan-zoom-level]').textContent=Math.round(scanZoom*100)+'%';
+      tablet.querySelector('[data-retro-scan-zoom-out]').disabled=scanZoom<=1;
+      tablet.querySelector('[data-retro-scan-zoom-in]').disabled=scanZoom>=4;
+      tablet.querySelector('[data-retro-scan-zoom-reset]').disabled=scanZoom===1&&scanPanX===0&&scanPanY===0;
+      const move=tablet.querySelector('[data-retro-scan-pan]');
+      move.disabled=scanZoom<=1;
+      move.setAttribute('aria-pressed',String(scanPanMode));
+      tablet.querySelector('[data-retro-scan-viewport]').classList.toggle('is-panning',scanPanMode);
+    }
+    function setScanZoom(tablet,value){
+      scanZoom=Math.max(1,Math.min(4,value));
+      if(scanZoom===1){scanPanX=scanPanY=0;scanPanMode=false;}
+      const base=tablet.querySelector('[data-retro-scan-base]');
+      const viewport=tablet.querySelector('[data-retro-scan-viewport]');
+      const frame=tablet.querySelector('[data-retro-scan-photo]');
+      if(base.naturalWidth&&base.naturalHeight){
+        const fit=Math.min(viewport.clientWidth/base.naturalWidth,viewport.clientHeight/base.naturalHeight);
+        frame.style.width=Math.max(1,Math.floor(base.naturalWidth*fit*scanZoom))+'px';
+        frame.style.height=Math.max(1,Math.floor(base.naturalHeight*fit*scanZoom))+'px';
+        updateScanPan(tablet);
+      }
+      updateScanZoomControls(tablet);
     }
     function openScanner(button){
       const tablet=scanner();
@@ -89,17 +127,14 @@
       let simulated=!reading;
       const size=tablet.querySelector('[data-retro-scan-size]');
       size.value='190';
+      scanZoom=1;scanPanX=scanPanY=0;scanPanMode=false;scanPanStart=null;
       frame.style.setProperty('--scan-radius','95px');
       frame.style.setProperty('--scan-diameter','190px');
       positionLens(frame,50,50);
+      updateScanZoomControls(tablet);
       status.textContent='CARGANDO CAPTURA…';
       reveal.classList.toggle('is-simulated',simulated);
-      const fit=()=>{
-        if(!base.naturalWidth||!base.naturalHeight)return;
-        const scale=Math.min(viewport.clientWidth/base.naturalWidth,viewport.clientHeight/base.naturalHeight);
-        frame.style.width=Math.max(1,Math.floor(base.naturalWidth*scale))+'px';
-        frame.style.height=Math.max(1,Math.floor(base.naturalHeight*scale))+'px';
-      };
+      const fit=()=>setScanZoom(tablet,scanZoom);
       const updateStatus=()=>{
         if(!base.naturalWidth||!layer.naturalWidth)return;
         status.textContent=simulated?'LECTURA SIMULADA · SIN CAPA CARGADA'
@@ -313,6 +348,13 @@
       }
       else if(button.hasAttribute('data-retro-scan'))openScanner(button);
       else if(button.hasAttribute('data-retro-scan-close'))closeScanner();
+      else if(button.hasAttribute('data-retro-scan-zoom-in'))setScanZoom(scanner(),scanZoom<1.5?1.5:scanZoom<2?2:scanZoom<3?3:4);
+      else if(button.hasAttribute('data-retro-scan-zoom-out'))setScanZoom(scanner(),scanZoom>3?3:scanZoom>2?2:scanZoom>1.5?1.5:1);
+      else if(button.hasAttribute('data-retro-scan-zoom-reset'))setScanZoom(scanner(),1);
+      else if(button.hasAttribute('data-retro-scan-pan')){
+        scanPanMode=!scanPanMode;
+        updateScanZoomControls(scanner());
+      }
       else if(button.hasAttribute('data-retro-zoom')){
         const media=button.closest('.retro-file-detail')?.querySelector('.retro-file-media');
         if(!media)return;
@@ -335,18 +377,35 @@
       frame.style.setProperty('--scan-diameter',diameter+'px');
     });
     workspace.addEventListener('pointermove',event=>{
+      if(scanPanStart){
+        const tablet=scanner();
+        scanPanX=scanPanStart.x+event.clientX-scanPanStart.clientX;
+        scanPanY=scanPanStart.y+event.clientY-scanPanStart.clientY;
+        updateScanPan(tablet);
+        updateScanZoomControls(tablet);
+        return;
+      }
       const frame=event.target.closest('[data-retro-scan-photo]');
-      if(!frame||scanner()?.hidden)return;
+      if(!frame||scanner()?.hidden||scanPanMode)return;
       const rect=frame.getBoundingClientRect();
       positionLens(frame,(event.clientX-rect.left)/rect.width*100,(event.clientY-rect.top)/rect.height*100);
     });
     workspace.addEventListener('pointerdown',event=>{
+      const viewport=event.target.closest('[data-retro-scan-viewport]');
+      if(viewport&&scanPanMode&&!scanner()?.hidden){
+        scanPanStart={clientX:event.clientX,clientY:event.clientY,x:scanPanX,y:scanPanY};
+        viewport.setPointerCapture?.(event.pointerId);
+        event.preventDefault();
+        return;
+      }
       const frame=event.target.closest('[data-retro-scan-photo]');
       if(!frame||scanner()?.hidden)return;
       frame.setPointerCapture?.(event.pointerId);
       const rect=frame.getBoundingClientRect();
       positionLens(frame,(event.clientX-rect.left)/rect.width*100,(event.clientY-rect.top)/rect.height*100);
     });
+    workspace.addEventListener('pointerup',()=>{scanPanStart=null;});
+    workspace.addEventListener('pointercancel',()=>{scanPanStart=null;});
     workspace.addEventListener('keydown',event=>{
       const tablet=scanner();
       if(tablet&&!tablet.hidden){
