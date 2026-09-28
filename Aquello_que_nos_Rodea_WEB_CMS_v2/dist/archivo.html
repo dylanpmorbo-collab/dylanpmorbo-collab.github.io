@@ -1,41 +1,283 @@
 <!doctype html><html lang="es"><head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>El Archivo | Aquello que nos Rodea</title>
-    <meta name="description" content="Entidades, conexiones, documentos y fragmentos del universo Aquello que nos Rodea.">
-    <meta name="theme-color" content="#070706">
-    <meta property="og:title" content="El Archivo | Aquello que nos Rodea">
-    <meta property="og:description" content="Entidades, conexiones, documentos y fragmentos del universo Aquello que nos Rodea.">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="assets/img/hero.webp">
-    <link rel="icon" href="/assets/img/favicon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/css/styles.css">
-    <script defer src="/assets/js/main.js"></script>
-  </head><body class="">
-    <div class="grain" aria-hidden="true"></div>
-    <header class="site-header">
-      <a class="brand" href="index.html" aria-label="Aquello que nos Rodea, inicio">
-        <span class="brand-mark">◉</span><span>AQUELLO QUE NOS RODEA</span>
-      </a>
-      <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
-      <nav class="main-nav"><a href="index.html" class="nav-link ">Inicio</a><a href="relatos.html" class="nav-link ">Relatos</a><a href="archivo.html" class="nav-link active">El Archivo</a><a href="sobre.html" class="nav-link ">Dylan P. MOЯBO</a></nav>
-    </header>
-    <main>
-<section class="page-hero archive-hero"><div><p class="eyebrow">SECCIÓN // ARCHIVO</p><h1>EL ARCHIVO</h1><p>No deberías saber todo esto todavía.</p></div></section>
-<section class="section archive-index" id="entidades">
-  <div class="section-label">ENTIDADES</div>
-  <div class="dossier reveal"><div class="dossier-image"><img src="/assets/img/entidad.webp" alt="Expediente visual de entidad"></div><div class="dossier-body"><p class="archive-code">ENTIDAD // 001</p><h2>ŚUKRAHĀRĪ</h2><dl><dt>Estado</dt><dd>Documentado</dd><dt>Procedencia</dt><dd>[OTRO PLANO]</dd><dt>Tamaño</dt><dd>Comparable al de un chimpancé</dd><dt>Patrón</dt><dd>████████████████</dd></dl><p>Ser de apariencia híbrida entre rata y primate. La información disponible procede de testimonios incompletos y de individuos vinculados a <span class="redacted" tabindex="0">LA PLAGA</span>.</p><p class="note">Información adicional bloqueada hasta que el archivo narrativo la revele.</p></div></div>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<script>try{if(localStorage.getItem('aqnr_age_ok')==='yes')document.documentElement.classList.add('age-verified')}catch(e){}</script>
+<title>El Archivo | Aquello que nos Rodea</title><meta name="description" content="Índice general del archivo de Aquello que nos Rodea">
+<meta name="theme-color" content="#070706"><meta property="og:title" content="El Archivo | Aquello que nos Rodea">
+<meta property="og:description" content="Índice general del archivo de Aquello que nos Rodea"><meta property="og:type" content="website">
+<meta property="og:image" content="/assets/img/hero.webp"><link rel="icon" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css?v=arranque-digital-20260926"><script defer src="assets/js/main.js?v=testimonios-bobinas-20260926"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('[data-published-date]').forEach(function(el){
+    const raw=el.getAttribute('data-published-date');
+    const start=raw?new Date(raw+'T00:00:00'):null;
+    if(!start || Number.isNaN(start.getTime())){el.hidden=true;return;}
+    const age=Date.now()-start.getTime();
+    el.hidden=age<0 || age>=7*24*60*60*1000;
+  });
+
+  // Si esta página se abrió desde una tarjeta de ARCHIVOS RELACIONADOS,
+  // muestra un acceso persistente para regresar al expediente exacto de origen.
+  const params=new URLSearchParams(window.location.search);
+  const from=params.get('aqnr_from');
+  const fromLabel=params.get('aqnr_from_label');
+  if(from){
+    try{
+      const target=new URL(from,window.location.href);
+      if(target.origin===window.location.origin && target.href!==window.location.href){
+        // Todas las conexiones posteriores conservan el primer expediente de la ruta.
+        document.querySelectorAll('.related-archive-card').forEach(function(card){
+          try{
+            const next=new URL(card.href,window.location.href);
+            if(next.origin!==window.location.origin) return;
+            next.searchParams.set('aqnr_from',target.href);
+            next.searchParams.set('aqnr_from_label',fromLabel||'EXPEDIENTE DE ORIGEN');
+            card.href=next.href;
+          }catch(e){}
+        });
+        const wrap=document.createElement('div');
+        wrap.className='connection-return-tab';
+        const link=document.createElement('a');
+        link.className='connection-return-link';
+        link.href=target.href;
+        link.setAttribute('aria-label','Volver al expediente de origen');
+        const mark=document.createElement('span');
+        mark.className='connection-return-mark';
+        mark.setAttribute('aria-hidden','true');
+        mark.textContent='↶';
+        const copy=document.createElement('span');
+        copy.className='connection-return-copy';
+        const small=document.createElement('small');
+        small.textContent='VOLVER AL PUNTO DE ORIGEN';
+        const strong=document.createElement('strong');
+        strong.textContent=fromLabel||'EXPEDIENTE DE ORIGEN';
+        copy.appendChild(small); copy.appendChild(strong);
+        link.appendChild(mark); link.appendChild(copy); wrap.appendChild(link);
+        document.body.appendChild(wrap);
+      }
+    }catch(e){}
+  }
+});
+</script></head>
+<body class="archive-area"><div class="age-gate" id="ageGate" role="dialog" aria-modal="true" aria-labelledby="ageGateTitle"><div class="age-panel"><div class="age-symbol">◉</div><p class="eyebrow">ACCESO AL ARCHIVO // +18</p><h2 id="ageGateTitle">Contenido para adultos</h2><p>Esta web contiene ficción de terror y puede incluir violencia, imágenes perturbadoras y contenido sexual. El acceso está reservado a mayores de 18 años.</p><p class="age-fiction-statement">TODOS LOS DOCUMENTOS, INFORMES Y RECORTES DE PRENSA DE ESTE ARCHIVO FORMAN PARTE DE UNA OBRA DE FICCIÓN. NO SON DOCUMENTOS OFICIALES NI NOTICIAS REALES.</p><button class="btn primary" id="ageEnter" type="button">Sí, soy mayor de 18 años</button><a class="btn ghost" href="about:blank">Salir</a></div></div><div class="grain" aria-hidden="true"></div><header class="site-header">
+<a class="brand" href="index.html"><span class="brand-mark">◉</span><span>AQUELLO QUE NOS RODEA</span></a>
+<button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
+<nav class="main-nav">
+<a href="index.html" class="nav-link ">Inicio</a>
+<a href="relatos.html" class="nav-link ">Relatos</a>
+<a href="archivo-microrrelatos.html" class="nav-link ">Microrrelatos</a>
+<a href="archivo.html" class="nav-link active">El Archivo</a>
+<a href="escaner.html" class="nav-link ">Escáner</a>
+<a href="terminal.html" class="nav-link ">Terminal</a>
+<a href="sobre.html" class="nav-link ">Dylan P. MOЯBO</a>
+</nav></header><div class="archive-top-nav" aria-label="Navegación interna del Archivo"><nav class="archive-top-nav-inner"><a href="archivo.html" class="active" aria-current="page">EL ARCHIVO</a><a href="archivo-entidades.html" class="" >ENTIDADES</a><a href="archivo-personajes.html" class="" >PERSONAJES</a><a href="archivo-lugares.html" class="" >LUGARES</a><a href="archivo-planos.html" class="" >PLANOS</a><a href="archivo-organizaciones.html" class="" >ORGANIZACIONES</a><a href="archivo-documentos.html" class="" >DOCUMENTOS</a><a href="archivo-sucesos.html" class="" >SUCESOS</a><a href="archivo-testimonios.html" class="" >TESTIMONIOS</a><a href="archivo-relatos.html" class="" >RELATOS</a><a href="archivo-microrrelatos.html" class="" >MICRORRELATOS</a></nav></div><main>
+<section class="page-hero archive-hero"><div class="archive-hero-copy"><p class="eyebrow">SECCIÓN // ARCHIVO</p><h1>EL ARCHIVO</h1><p class="archive-random-phrase" id="archiveRandomPhrase">No deberías saber todo esto todavía.</p></div>
+<div class="archive-book-shell reveal" aria-label="Libro del Archivo">
+  <img class="archive-book-base" src="/assets/uploads/interfaz/libro-demoniaco-web.webp" alt="Libro abierto del Archivo">
+  <div class="archive-book-page-slot" style="--book-page-left:51%;--book-page-top:9.5%;--book-page-width:44%;--book-page-height:79.5%;--book-page-rotate:0deg;">
+    <img id="archiveBookPageImage" class="archive-book-page-image" alt="Anotación del Archivo">
+    <button class="archive-book-page-turn" type="button" aria-label="Pasar página del libro"></button>
+  </div>
+  <script type="application/json" id="archiveBookPagesData">[{"label":"Śukrahārī — estudio anatómico","image":"/assets/uploads/interfaz/cosa-web.webp","enabled":true,"first":false,"fixed":false},{"label":"Mānavakṣetra — Registro de Carne","image":"/assets/uploads/interfaz/cosa2-web.webp","enabled":true,"first":false,"fixed":false},{"label":"nigromantes","image":"/assets/uploads/interfaz/nigromantes-web.webp","enabled":true,"first":false,"fixed":false},{"label":"Última anotación","image":"/assets/uploads/interfaz/codigo-conexiones-641729-web.webp","full_page":true,"code_page":true}]</script>
+</div></section>
+<section class="section archive-hub">
+ <div class="section-label">ÍNDICE GENERAL // ACCESO PARCIAL</div>
+ <p class="archive-hub-intro">El archivo está dividido en secciones. Cada una conserva sus propios expedientes. Entra en una sección para consultar las fichas resumidas y abrir cada expediente completo.</p>
+ <div class="archive-hub-grid"><a class="archive-hub-card reveal" href="archivo-entidades.html">
+   <div class="archive-hub-top"><span>ENTIDADES</span><b>01</b></div>
+   <div class="archive-hub-copy">
+     <p class="archive-code">ÚLTIMA ANOTACIÓN</p>
+     <h2>ŚUKRAHĀRĪ</h2>
+     <p>Ser de apariencia híbrida entre rata y primate. La información disponible procede de testimonios incompletos y de individuos vinculados a LA PLAGA.</p>
+   </div>
+   <span class="archive-hub-enter">ENTRAR EN LA SECCIÓN →</span>
+ </a><a class="archive-hub-card reveal" href="archivo-personajes.html">
+   <div class="archive-hub-top"><span>PERSONAJES</span><b>01</b></div>
+   <div class="archive-hub-copy">
+     <p class="archive-code">ÚLTIMA ANOTACIÓN</p>
+     <h2>RICHARD ALCOY</h2>
+     <p>FICHA PERSONAL.</p>
+   </div>
+   <span class="archive-hub-enter">ENTRAR EN LA SECCIÓN →</span>
+ </a><a class="archive-hub-card reveal" href="archivo-lugares.html">
+   <div class="archive-hub-top"><span>LUGARES</span><b>00</b></div>
+   <div class="archive-hub-copy">
+     <p class="archive-code">ÚLTIMA ANOTACIÓN</p>
+     <h2>SIN ANOTACIONES</h2>
+     <p>Todavía no hay información pública en esta sección.</p>
+   </div>
+   <span class="archive-hub-enter">ENTRAR EN LA SECCIÓN →</span>
+ </a><a class="archive-hub-card reveal" href="archivo-planos.html">
+   <div class="archive-hub-top"><span>PLANOS</span><b>00</b></div>
+   <div class="archive-hub-copy">
+     <p class="archive-code">ÚLTIMA ANOTACIÓN</p>
+     <h2>SIN ANOTACIONES</h2>
+     <p>Todavía no hay información pública en esta sección.</p>
+   </div>
+   <span class="archive-hub-enter">ENTRAR EN LA SECCIÓN →</span>
+ </a><a class="archive-hub-card reveal" href="archivo-organizaciones.html">
+   <div class="archive-hub-top"><span>ORGANIZACIONES</span><b>01</b></div>
+   <div class="archive-hub-copy">
+     <p class="archive-code">ÚLTIMA ANOTACIÓN</p>
+     <h2>LA PLAGA</h2>
+     <p>Organización clandestina cuyos miembros parecen mantener una relación de veneración con los Śukrahārī.</p>
+   </div>
+   <span class="archive-hub-enter">ENTRAR EN LA SECCIÓN →</span>
+ </a><a class="archive-hub-card reveal" href="archivo-documentos.html">
+   <div class="archive-hub-top"><span>DOCUMENTOS</span><b>02</b></div>
+   <div class="archive-hub-copy">
+     <p class="archive-code">ÚLTIMA ANOTACIÓN</p>
+     <h2>DESAPARICIONES SIN RESOLVER</h2>
+     <p>Cuatro informes policiales, cuatro lugares distintos, cuatro épocas distintas... mismos patrones.</p>
+   </div>
+   <span class="archive-hub-enter">ENTRAR EN LA SECCIÓN →</span>
+ </a><a class="archive-hub-card reveal" href="archivo-sucesos.html">
+   <div class="archive-hub-top"><span>SUCESOS</span><b>01</b></div>
+   <div class="archive-hub-copy">
+     <p class="archive-code">ÚLTIMA ANOTACIÓN</p>
+     <h2>HOMICIDIO RICHARD ALCOY</h2>
+     <p>Expediente disponible para consulta.</p>
+   </div>
+   <span class="archive-hub-enter">ENTRAR EN LA SECCIÓN →</span>
+ </a><a class="archive-hub-card reveal" href="archivo-testimonios.html">
+   <div class="archive-hub-top"><span>TESTIMONIOS</span><b>01</b></div>
+   <div class="archive-hub-copy">
+     <p class="archive-code">ÚLTIMA ANOTACIÓN</p>
+     <h2>CANCION PRUEBA</h2>
+     <p>Expediente disponible para consulta.</p>
+   </div>
+   <span class="archive-hub-enter">ENTRAR EN LA SECCIÓN →</span>
+ </a><a class="archive-hub-card reveal" href="archivo-relatos.html">
+   <div class="archive-hub-top"><span>RELATOS</span><b>01</b></div>
+   <div class="archive-hub-copy">
+     <p class="archive-code">ÚLTIMA HISTORIA</p>
+     <h2>LA CARNE OFRECIDA</h2>
+     <p>Una noche. Un callejón. Algo que tiene hambre.</p>
+   </div>
+   <span class="archive-hub-enter">ENTRAR EN LA SECCIÓN →</span>
+ </a><a class="archive-hub-card reveal" href="archivo-microrrelatos.html">
+   <div class="archive-hub-top"><span>MICRORRELATOS</span><b>03</b></div>
+   <div class="archive-hub-copy">
+     <p class="archive-code">ÚLTIMA HISTORIA</p>
+     <h2>AQUEL OLOR</h2>
+     <p>Manu detecta un desagradable olor al llegar a casa de trabajar.</p>
+   </div>
+   <span class="archive-hub-enter">ENTRAR EN LA SECCIÓN →</span>
+ </a></div>
 </section>
-<section class="section" id="conexiones"><div class="section-label">CONEXIONES</div><div class="connection-board reveal"><img src="/assets/img/conexiones.webp" alt="Conexiones del archivo"><div class="connection-copy"><h2>Las coincidencias empiezan a acumularse.</h2><p>Fechas, lugares, nombres, símbolos y testimonios contradictorios. Esta sección crecerá a medida que nuevos relatos abran partes del universo.</p><ul class="archive-list"><li><span>001</span> La carne ofrecida <b>DISPONIBLE</b></li><li><span>002</span> La Plaga <b class="locked-text">RESTRINGIDO</b></li><li><span>003</span> Torre del reloj <b class="locked-text">RESTRINGIDO</b></li><li><span>004</span> █████████████ <b class="locked-text">CORRUPTO</b></li></ul></div></div></section>
-<section class="section"><div class="section-label">ADVERTENCIA</div><div class="terminal reveal"><p>&gt; NO CONFÍES EN TODO LO QUE LEAS AQUÍ.</p><p>&gt; ALGUNOS TESTIMONIOS MIENTEN.</p><p>&gt; OTROS NO SABEN QUE ESTÁN MINTIENDO.</p><p class="blink">&gt; _</p></div></section></main>
-    <footer class="site-footer">
-      <div class="footer-sigil">◉</div>
-      <p><strong>AQUELLO QUE NOS RODEA</strong></p>
-      <p>Un universo de horror creado por <strong>Dylan P. MOЯBO</strong>.</p>
-      <p class="footer-small">Ficción. Los documentos, entidades y acontecimientos de este archivo forman parte de una obra narrativa.</p>
-      <p class="footer-small">© 2026 Dylan P. MOЯBO. Todos los derechos reservados.</p>
-    </footer>
-    </body></html>
+<section class="section"><div class="section-label">ADVERTENCIA</div><div class="terminal reveal">
+<p>&gt; NO CONFÍES EN TODO LO QUE LEAS AQUÍ.</p>
+<p>&gt; ALGUNOS TESTIMONIOS MIENTEN.</p>
+<p>&gt; OTROS NO SABEN QUE ESTÁN MINTIENDO.</p>
+<p class="blink">&gt; _</p></div></section>
+<script>
+(function(){
+  const el=document.getElementById('archiveRandomPhrase');
+  if(!el) return;
+  fetch('/assets/data/frases-archivo.txt',{cache:'no-store'})
+    .then(r=>{if(!r.ok) throw new Error('No se pudo cargar el archivo de frases'); return r.text();})
+    .then(text=>{
+      const phrases=text.split(/\r?\n/).map(x=>x.trim()).filter(x=>x && !x.startsWith('#'));
+      if(!phrases.length) return;
+      let pool=phrases;
+      try{
+        const previous=sessionStorage.getItem('aqnrArchivePhrase');
+        if(previous && phrases.length>1) pool=phrases.filter(x=>x!==previous);
+      }catch(e){}
+      const phrase=pool[Math.floor(Math.random()*pool.length)];
+      el.textContent=phrase;
+      try{sessionStorage.setItem('aqnrArchivePhrase',phrase);}catch(e){}
+    })
+    .catch(()=>{})
+    .finally(()=>el.classList.add('is-loaded'));
+})();
+</script>
+<script>
+(function(){
+  const img=document.getElementById('archiveBookPageImage');
+  const dataEl=document.getElementById('archiveBookPagesData');
+  if(!img || !dataEl) return;
+  let pages=[];
+  try{pages=JSON.parse(dataEl.textContent||'[]');}catch(e){return;}
+  pages=pages.filter(p=>p && p.image && p.enabled!==false);
+  try{if(localStorage.getItem('aqnr_connections_unlocked')==='yes')pages=pages.filter(p=>p.code_page!==true);}catch(e){}
+  if(!pages.length){img.closest('.archive-book-page-slot')?.classList.add('is-empty');return;}
+
+  const randomMode=true;
+  const first=pages.find(p=>p.first===true);
+  const fixed=pages.find(p=>p.fixed===true) || first || pages[0];
+  let chosen=null;
+
+  if(!randomMode){
+    chosen=fixed;
+  }else{
+    let shouldShowFirst=false;
+    if(first){
+      try{shouldShowFirst=sessionStorage.getItem('aqnrArchiveBookFirst')!==first.image;}catch(e){shouldShowFirst=true;}
+    }
+    if(first && shouldShowFirst){
+      chosen=first;
+      try{sessionStorage.setItem('aqnrArchiveBookFirst',first.image);}catch(e){}
+    }else{
+      let pool=pages;
+      try{
+        const previous=sessionStorage.getItem('aqnrArchiveBookLast');
+        if(previous && pages.length>1){
+          const filtered=pages.filter(p=>p.image!==previous);
+          if(filtered.length) pool=filtered;
+        }
+      }catch(e){}
+      chosen=pool[Math.floor(Math.random()*pool.length)];
+    }
+  }
+
+  // La pista puede salir al azar antes, pero a la tercera visita sin verla aparece seguro.
+  const codePage=pages.find(page=>page.code_page===true);
+  if(randomMode && codePage){
+    try{
+      const visits=Number(localStorage.getItem('aqnr_code_page_visits')||0)+1;
+      localStorage.setItem('aqnr_code_page_visits',String(visits));
+      if(visits>=3 && localStorage.getItem('aqnr_code_page_seen')!=='yes') chosen=codePage;
+    }catch(e){}
+  }
+
+  if(!chosen) return;
+  function showPage(page){
+    chosen=page;
+    img.classList.remove('is-loaded');
+    img.classList.toggle('archive-book-page-full',chosen.full_page===true);
+    img.alt=chosen.label || 'Anotación del Archivo';
+    const markLoaded=()=>{img.classList.add('is-loaded');if(chosen.code_page===true){try{localStorage.setItem('aqnr_code_page_seen','yes')}catch(e){}}};
+    img.onload=markLoaded;
+    img.src=chosen.image;
+    if(img.complete && img.naturalWidth) markLoaded();
+    try{sessionStorage.setItem('aqnrArchiveBookLast',chosen.image);}catch(e){}
+  }
+  showPage(chosen);
+  const turn=img.closest('.archive-book-page-slot').querySelector('.archive-book-page-turn');
+  if(pages.length<2){turn.hidden=true;return;}
+  let remaining=pages.filter(page=>page.image!==chosen.image);
+  turn.addEventListener('click',()=>{
+    if(!remaining.length) remaining=pages.filter(page=>page.image!==chosen.image);
+    const index=Math.floor(Math.random()*remaining.length);
+    showPage(remaining.splice(index,1)[0]);
+  });
+  function hideCodePageAfterUnlock(){
+    try{if(localStorage.getItem('aqnr_connections_unlocked')!=='yes')return;}catch(e){return;}
+    pages=pages.filter(page=>page.code_page!==true);
+    remaining=remaining.filter(page=>page.code_page!==true);
+    if(chosen.code_page===true && pages.length) showPage(pages[Math.floor(Math.random()*pages.length)]);
+    if(pages.length<2) turn.hidden=true;
+  }
+  window.addEventListener('pageshow',hideCodePageAfterUnlock);
+  window.addEventListener('storage',hideCodePageAfterUnlock);
+})();
+</script>
+</main><footer class="site-footer"><div class="footer-sigil">◉</div>
+<p><strong>AQUELLO QUE NOS RODEA</strong></p>
+<p>Un universo de horror creado por <strong>Dylan P. MOЯBO</strong>.</p>
+<p class="footer-small">Ficción. Los documentos, entidades y acontecimientos de este archivo forman parte de una obra narrativa.</p>
+<p class="footer-small">© 2026 Dylan P. MOЯBO. Todos los derechos reservados.</p><button type="button" class="cookie-settings-link" id="cookieSettings">Configurar cookies</button></footer>
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-labelledby="cookieTitle" aria-describedby="cookieDescription" hidden><div class="cookie-banner-inner"><div><strong id="cookieTitle">Privacidad y cookies</strong><p id="cookieDescription">Usamos almacenamiento técnico para recordar tu confirmación de edad, esta elección y tu progreso en el libro y las conexiones del Archivo. Google Analytics, que mide las visitas, solo se activará si aceptas.</p><details><summary>Más información</summary><p>El progreso del libro y la apertura de conexiones se recuerdan solo en este navegador; no se guarda el código introducido. Si aceptas, Google Analytics podrá instalar cookies de medición y recibir datos de navegación. Puedes rechazarlo y seguir usando toda la web. Cambia tu decisión cuando quieras desde «Configurar cookies», al pie de cualquier página.</p></details></div><div class="cookie-actions"><button type="button" id="cookieReject">Rechazar</button><button type="button" id="cookieAccept">Aceptar</button></div></div></div></body></html>

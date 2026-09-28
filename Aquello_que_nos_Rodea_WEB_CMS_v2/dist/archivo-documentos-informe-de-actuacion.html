@@ -1,0 +1,115 @@
+<!doctype html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<script>try{if(localStorage.getItem('aqnr_age_ok')==='yes')document.documentElement.classList.add('age-verified')}catch(e){}</script>
+<title>INFORME DE ACTUACIÓN | DOCUMENTOS | El Archivo | Aquello que nos Rodea</title><meta name="description" content="Expediente disponible para consulta.">
+<meta name="theme-color" content="#070706"><meta property="og:title" content="INFORME DE ACTUACIÓN | DOCUMENTOS | El Archivo | Aquello que nos Rodea">
+<meta property="og:description" content="Expediente disponible para consulta."><meta property="og:type" content="website">
+<meta property="og:image" content="/assets/uploads/SUCESOS/secuestro discoteca/imagen-de-codex-26-sept-2026-012951-1-web.webp"><link rel="icon" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css?v=arranque-digital-20260926"><script defer src="assets/js/main.js?v=testimonios-bobinas-20260926"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('[data-published-date]').forEach(function(el){
+    const raw=el.getAttribute('data-published-date');
+    const start=raw?new Date(raw+'T00:00:00'):null;
+    if(!start || Number.isNaN(start.getTime())){el.hidden=true;return;}
+    const age=Date.now()-start.getTime();
+    el.hidden=age<0 || age>=7*24*60*60*1000;
+  });
+
+  // Si esta página se abrió desde una tarjeta de ARCHIVOS RELACIONADOS,
+  // muestra un acceso persistente para regresar al expediente exacto de origen.
+  const params=new URLSearchParams(window.location.search);
+  const from=params.get('aqnr_from');
+  const fromLabel=params.get('aqnr_from_label');
+  if(from){
+    try{
+      const target=new URL(from,window.location.href);
+      if(target.origin===window.location.origin && target.href!==window.location.href){
+        // Todas las conexiones posteriores conservan el primer expediente de la ruta.
+        document.querySelectorAll('.related-archive-card').forEach(function(card){
+          try{
+            const next=new URL(card.href,window.location.href);
+            if(next.origin!==window.location.origin) return;
+            next.searchParams.set('aqnr_from',target.href);
+            next.searchParams.set('aqnr_from_label',fromLabel||'EXPEDIENTE DE ORIGEN');
+            card.href=next.href;
+          }catch(e){}
+        });
+        const wrap=document.createElement('div');
+        wrap.className='connection-return-tab';
+        const link=document.createElement('a');
+        link.className='connection-return-link';
+        link.href=target.href;
+        link.setAttribute('aria-label','Volver al expediente de origen');
+        const mark=document.createElement('span');
+        mark.className='connection-return-mark';
+        mark.setAttribute('aria-hidden','true');
+        mark.textContent='↶';
+        const copy=document.createElement('span');
+        copy.className='connection-return-copy';
+        const small=document.createElement('small');
+        small.textContent='VOLVER AL PUNTO DE ORIGEN';
+        const strong=document.createElement('strong');
+        strong.textContent=fromLabel||'EXPEDIENTE DE ORIGEN';
+        copy.appendChild(small); copy.appendChild(strong);
+        link.appendChild(mark); link.appendChild(copy); wrap.appendChild(link);
+        document.body.appendChild(wrap);
+      }
+    }catch(e){}
+  }
+});
+</script></head>
+ <body class="archive-area archive-entry-page"><div class="age-gate" id="ageGate" role="dialog" aria-modal="true" aria-labelledby="ageGateTitle"><div class="age-panel"><div class="age-symbol">◉</div><p class="eyebrow">ACCESO AL ARCHIVO // +18</p><h2 id="ageGateTitle">Contenido para adultos</h2><p>Esta web contiene ficción de terror y puede incluir violencia, imágenes perturbadoras y contenido sexual. El acceso está reservado a mayores de 18 años.</p><p class="age-fiction-statement">TODOS LOS DOCUMENTOS, INFORMES Y RECORTES DE PRENSA DE ESTE ARCHIVO FORMAN PARTE DE UNA OBRA DE FICCIÓN. NO SON DOCUMENTOS OFICIALES NI NOTICIAS REALES.</p><button class="btn primary" id="ageEnter" type="button">Sí, soy mayor de 18 años</button><a class="btn ghost" href="about:blank">Salir</a></div></div><div class="grain" aria-hidden="true"></div><header class="site-header">
+<a class="brand" href="index.html"><span class="brand-mark">◉</span><span>AQUELLO QUE NOS RODEA</span></a>
+<button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
+<nav class="main-nav">
+<a href="index.html" class="nav-link ">Inicio</a>
+<a href="relatos.html" class="nav-link ">Relatos</a>
+<a href="archivo-microrrelatos.html" class="nav-link ">Microrrelatos</a>
+<a href="archivo.html" class="nav-link active">El Archivo</a>
+<a href="escaner.html" class="nav-link ">Escáner</a>
+<a href="terminal.html" class="nav-link ">Terminal</a>
+<a href="sobre.html" class="nav-link ">Dylan P. MOЯBO</a>
+</nav></header><div class="archive-top-nav" aria-label="Navegación interna del Archivo"><nav class="archive-top-nav-inner"><a href="archivo.html" class="" >EL ARCHIVO</a><a href="archivo-entidades.html" class="" >ENTIDADES</a><a href="archivo-personajes.html" class="" >PERSONAJES</a><a href="archivo-lugares.html" class="" >LUGARES</a><a href="archivo-planos.html" class="" >PLANOS</a><a href="archivo-organizaciones.html" class="" >ORGANIZACIONES</a><a href="archivo-documentos.html" class="active" aria-current="page">DOCUMENTOS</a><a href="archivo-sucesos.html" class="" >SUCESOS</a><a href="archivo-testimonios.html" class="" >TESTIMONIOS</a><a href="archivo-relatos.html" class="" >RELATOS</a><a href="archivo-microrrelatos.html" class="" >MICRORRELATOS</a></nav></div><main>
+ <section class="archive-entry-hero">
+   <div class="archive-entry-hero-copy">
+     <p class="eyebrow">DOCUMENTO // EXPEDIENTE 002</p>
+     <h1>INFORME DE ACTUACIÓN</h1>
+     <p>Expediente disponible para consulta.</p>
+     <span class="archive-entry-hero-status">Documentado</span>
+   </div>
+   <figure class="archive-entry-hero-image reveal"><img src="/assets/uploads/SUCESOS/secuestro discoteca/imagen-de-codex-26-sept-2026-012951-1-web.webp" alt="INFORME DE ACTUACIÓN"></figure>
+ </section>
+ <section class="section archive-entry-shell">
+   <div class="archive-back-row"><a class="text-link" href="archivo-documentos.html">← VOLVER A DOCUMENTOS</a><a class="text-link" href="archivo.html">ÍNDICE GENERAL</a></div>
+   <div class="archive-entry-layout archive-entry-layout-single archive-entry-layout-facts-only">
+   <aside class="archive-entry-sidebar reveal"><p class="archive-code">DATOS DEL EXPEDIENTE</p><h2>DOCUMENTO</h2><dl class="archive-entry-facts"><div><dt>Estado</dt><dd>Documentado</dd></div></dl></aside>
+   
+ </div>
+   
+   
+   
+   <section class="archive-police-report-block" aria-label="Informes"><div class="section-label">INFORMES // 01</div><div class="archive-report-subheading">INFORMES FÍSICOS // 01</div><div class="archive-police-folder-grid"><button type="button" class="archive-police-folder" data-police-open="0" data-importance="basico" data-report-type="POLICIAL" aria-label="Abrir POLICÍA NACIONAL"><span class="archive-police-folder-tab" aria-hidden="true"></span><span class="archive-police-folder-cover"><img src="/assets/uploads/SUCESOS/secuestro discoteca/imagen-de-codex-26-sept-2026-013016-4-web.webp" alt="" loading="lazy"></span><span class="archive-police-folder-copy"><small>POLICIAL // 01</small><strong>POLICÍA NACIONAL</strong><span>1 DOCUMENTO · ABRIR EXPEDIENTE →</span></span></button></div><template data-police-template="0"><article class="archive-police-report" data-police-page data-police-document="0" data-paper="crema"><div class="archive-police-report-heading">POLICÍA NACIONAL</div><div class="archive-police-report-text"><p>POLICÍA NACIONAL<br>COMISARÍA PROVINCIAL DE BARCELONA<br>BRIGADA PROVINCIAL DE POLICÍA JUDICIAL</p>
+<p>INFORME DE ACTUACIONES</p>
+<p>Expediente: BCN/███/2025<br>Clasificación: Desaparición / posible detención ilegal<br>Fecha: ██ / ██ / 2025<br>Lugar de los hechos: Barcelona.</p>
+<p>A las ██:██ horas se recibió aviso por un incidente ocurrido en los aseos de un establecimiento situado en █████████████.</p>
+<p>Personados los agentes en el lugar, fue localizada una mujer adulta que presentaba signos de desorientación y una lesión contusa en la cabeza. Tras recibir asistencia sanitaria, fue trasladada a una unidad medicalizada, donde prestó declaración. Dicha declaración consta incorporada al expediente como documento independiente.</p>
+<p>La inspección ocular del aseo permitió constatar daños de consideración en una de las puertas interiores, parcialmente arrancada de sus anclajes, así como desperfectos en una conducción metálica y diversos indicios compatibles con un forcejeo.</p>
+<p>Según la información aportada por la testigo, en el momento inmediatamente anterior al incidente se encontraba acompañada por un varón adulto cuya identidad no ha podido ser establecida.</p></div><div class="archive-police-report-folio">DOCUMENTO 01 · FOLIO 01 / 05</div></article><article class="archive-police-report" data-police-page data-police-document="0" data-paper="crema"><div class="archive-police-report-text"><p>El citado individuo no fue localizado en el establecimiento ni en las inmediaciones.</p>
+<p>Se procedió a la inspección de accesos, dependencias anexas y vías de salida sin obtener resultados. Tampoco se determinó inicialmente ningún recorrido compatible con el traslado del desaparecido desde el lugar de los hechos.</p>
+<p>No se localizaron efectos personales suficientes para establecer de forma concluyente su identidad.</p>
+<p>VALORACIÓN PRELIMINAR</p>
+<p>Los daños observados y el testimonio disponible permiten considerar la intervención de terceras personas como hipótesis prioritaria.</p>
+<p>Las circunstancias concretas de la desaparición no han podido ser determinadas.</p>
+<p>ESTADO: INVESTIGACIÓN ABIERTA<br>PERSONA DESAPARECIDA: VARÓN SIN IDENTIFICAR<br>LOCALIZACIÓN: DESCONOCIDA</p>
+<p>Documento incorporado al expediente BCN/███/2025</p></div><div class="archive-police-report-folio">DOCUMENTO 01 · FOLIO 02 / 05</div></article><article class="archive-police-report" data-police-page data-police-document="0" data-paper="crema"><div class="archive-police-report-heading">ANEXO FOTOGRÁFICO</div><div class="archive-police-report-attachments"><figure class="archive-police-report-attachment"><button type="button" data-police-image-open aria-label="Ampliar fotografía 1 de POLICÍA NACIONAL"><img src="/assets/uploads/SUCESOS/secuestro discoteca/imagen-de-codex-26-sept-2026-013016-4-web.webp" alt="Fotografía 1 de POLICÍA NACIONAL" loading="lazy"></button><figcaption>FOTOGRAFÍA 01</figcaption></figure><figure class="archive-police-report-attachment"><button type="button" data-police-image-open aria-label="Ampliar fotografía 2 de POLICÍA NACIONAL"><img src="/assets/uploads/SUCESOS/secuestro discoteca/imagen-de-codex-26-sept-2026-013032-6-web.webp" alt="Fotografía 2 de POLICÍA NACIONAL" loading="lazy"></button><figcaption>FOTOGRAFÍA 02</figcaption></figure></div><div class="archive-police-report-folio">DOCUMENTO 01 · FOLIO 03 / 05</div></article><article class="archive-police-report" data-police-page data-police-document="0" data-paper="crema"><div class="archive-police-report-heading">ANEXO FOTOGRÁFICO</div><div class="archive-police-report-attachments"><figure class="archive-police-report-attachment"><button type="button" data-police-image-open aria-label="Ampliar fotografía 3 de POLICÍA NACIONAL"><img src="/assets/uploads/SUCESOS/secuestro discoteca/imagen-de-codex-26-sept-2026-013023-5-web.webp" alt="Fotografía 3 de POLICÍA NACIONAL" loading="lazy"></button><figcaption>FOTOGRAFÍA 03</figcaption></figure><figure class="archive-police-report-attachment"><button type="button" data-police-image-open aria-label="Ampliar fotografía 4 de POLICÍA NACIONAL"><img src="/assets/uploads/SUCESOS/secuestro discoteca/imagen-de-codex-26-sept-2026-013010-3-web.webp" alt="Fotografía 4 de POLICÍA NACIONAL" loading="lazy"></button><figcaption>FOTOGRAFÍA 04</figcaption></figure></div><div class="archive-police-report-folio">DOCUMENTO 01 · FOLIO 04 / 05</div></article><article class="archive-police-report" data-police-page data-police-document="0" data-paper="crema"><div class="archive-police-report-heading">ANEXO FOTOGRÁFICO</div><div class="archive-police-report-attachments"><figure class="archive-police-report-attachment"><button type="button" data-police-image-open aria-label="Ampliar fotografía 5 de POLICÍA NACIONAL"><img src="/assets/uploads/SUCESOS/secuestro discoteca/imagen-de-codex-26-sept-2026-013001-2-web.webp" alt="Fotografía 5 de POLICÍA NACIONAL" loading="lazy"></button><figcaption>FOTOGRAFÍA 05</figcaption></figure></div><p class="archive-police-fiction-note">Documento ficticio creado para una obra narrativa. No es un documento oficial.</p><div class="archive-police-report-folio">DOCUMENTO 01 · FOLIO 05 / 05</div></article></template><dialog class="archive-police-dialog" aria-labelledby="archive-police-dialog-title"><div class="archive-police-dialog-shell"><header class="archive-police-dialog-header"><div><small id="archive-police-dialog-type">EXPEDIENTE</small><h2 id="archive-police-dialog-title"></h2></div><button type="button" data-police-close aria-label="Cerrar expediente">✕</button></header><div class="archive-police-dialog-scroll"><div data-police-pages></div></div><footer class="archive-police-dialog-footer"><small class="archive-police-viewer-note">Obra de ficción · no es un documento oficial</small><button type="button" data-police-prev>← ANTERIOR</button><button type="button" data-police-index-button hidden>ÍNDICE</button><span data-police-counter></span><button type="button" data-police-next>SIGUIENTE →</button></footer></div></dialog><dialog class="archive-police-image-dialog" aria-label="Imagen adjunta ampliada"><button type="button" data-police-image-close aria-label="Cerrar imagen ampliada">✕</button><button type="button" class="archive-police-image-nav" data-police-image-prev aria-label="Imagen anterior">‹</button><img data-police-image-large alt=""><button type="button" class="archive-police-image-nav" data-police-image-next aria-label="Imagen siguiente">›</button><span class="archive-police-image-counter" data-police-image-counter aria-live="polite"></span></dialog><script defer src="assets/js/physical-reports.js?v=a4-20260927"></script></section>
+   
+ </section>
+ </main><footer class="site-footer"><div class="footer-sigil">◉</div>
+<p><strong>AQUELLO QUE NOS RODEA</strong></p>
+<p>Un universo de horror creado por <strong>Dylan P. MOЯBO</strong>.</p>
+<p class="footer-small">Ficción. Los documentos, entidades y acontecimientos de este archivo forman parte de una obra narrativa.</p>
+<p class="footer-small">© 2026 Dylan P. MOЯBO. Todos los derechos reservados.</p><button type="button" class="cookie-settings-link" id="cookieSettings">Configurar cookies</button></footer>
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-labelledby="cookieTitle" aria-describedby="cookieDescription" hidden><div class="cookie-banner-inner"><div><strong id="cookieTitle">Privacidad y cookies</strong><p id="cookieDescription">Usamos almacenamiento técnico para recordar tu confirmación de edad, esta elección y tu progreso en el libro y las conexiones del Archivo. Google Analytics, que mide las visitas, solo se activará si aceptas.</p><details><summary>Más información</summary><p>El progreso del libro y la apertura de conexiones se recuerdan solo en este navegador; no se guarda el código introducido. Si aceptas, Google Analytics podrá instalar cookies de medición y recibir datos de navegación. Puedes rechazarlo y seguir usando toda la web. Cambia tu decisión cuando quieras desde «Configurar cookies», al pie de cualquier página.</p></details></div><div class="cookie-actions"><button type="button" id="cookieReject">Rechazar</button><button type="button" id="cookieAccept">Aceptar</button></div></div></div></body></html>

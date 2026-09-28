@@ -1,0 +1,157 @@
+<!doctype html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<script>try{if(localStorage.getItem('aqnr_age_ok')==='yes')document.documentElement.classList.add('age-verified')}catch(e){}</script>
+<title>LA PLAGA | ORGANIZACIONES | El Archivo | Aquello que nos Rodea</title><meta name="description" content="Organización clandestina cuyos miembros parecen mantener una relación de veneración con los Śukrahārī.">
+<meta name="theme-color" content="#070706"><meta property="og:title" content="LA PLAGA | ORGANIZACIONES | El Archivo | Aquello que nos Rodea">
+<meta property="og:description" content="Organización clandestina cuyos miembros parecen mantener una relación de veneración con los Śukrahārī."><meta property="og:type" content="website">
+<meta property="og:image" content="/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/foto-archivo-la-plaga-web.webp"><link rel="icon" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css?v=arranque-digital-20260926"><script defer src="assets/js/main.js?v=testimonios-bobinas-20260926"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('[data-published-date]').forEach(function(el){
+    const raw=el.getAttribute('data-published-date');
+    const start=raw?new Date(raw+'T00:00:00'):null;
+    if(!start || Number.isNaN(start.getTime())){el.hidden=true;return;}
+    const age=Date.now()-start.getTime();
+    el.hidden=age<0 || age>=7*24*60*60*1000;
+  });
+
+  // Si esta página se abrió desde una tarjeta de ARCHIVOS RELACIONADOS,
+  // muestra un acceso persistente para regresar al expediente exacto de origen.
+  const params=new URLSearchParams(window.location.search);
+  const from=params.get('aqnr_from');
+  const fromLabel=params.get('aqnr_from_label');
+  if(from){
+    try{
+      const target=new URL(from,window.location.href);
+      if(target.origin===window.location.origin && target.href!==window.location.href){
+        // Todas las conexiones posteriores conservan el primer expediente de la ruta.
+        document.querySelectorAll('.related-archive-card').forEach(function(card){
+          try{
+            const next=new URL(card.href,window.location.href);
+            if(next.origin!==window.location.origin) return;
+            next.searchParams.set('aqnr_from',target.href);
+            next.searchParams.set('aqnr_from_label',fromLabel||'EXPEDIENTE DE ORIGEN');
+            card.href=next.href;
+          }catch(e){}
+        });
+        const wrap=document.createElement('div');
+        wrap.className='connection-return-tab';
+        const link=document.createElement('a');
+        link.className='connection-return-link';
+        link.href=target.href;
+        link.setAttribute('aria-label','Volver al expediente de origen');
+        const mark=document.createElement('span');
+        mark.className='connection-return-mark';
+        mark.setAttribute('aria-hidden','true');
+        mark.textContent='↶';
+        const copy=document.createElement('span');
+        copy.className='connection-return-copy';
+        const small=document.createElement('small');
+        small.textContent='VOLVER AL PUNTO DE ORIGEN';
+        const strong=document.createElement('strong');
+        strong.textContent=fromLabel||'EXPEDIENTE DE ORIGEN';
+        copy.appendChild(small); copy.appendChild(strong);
+        link.appendChild(mark); link.appendChild(copy); wrap.appendChild(link);
+        document.body.appendChild(wrap);
+      }
+    }catch(e){}
+  }
+});
+</script></head>
+ <body class="archive-area archive-entry-page"><div class="age-gate" id="ageGate" role="dialog" aria-modal="true" aria-labelledby="ageGateTitle"><div class="age-panel"><div class="age-symbol">◉</div><p class="eyebrow">ACCESO AL ARCHIVO // +18</p><h2 id="ageGateTitle">Contenido para adultos</h2><p>Esta web contiene ficción de terror y puede incluir violencia, imágenes perturbadoras y contenido sexual. El acceso está reservado a mayores de 18 años.</p><p class="age-fiction-statement">TODOS LOS DOCUMENTOS, INFORMES Y RECORTES DE PRENSA DE ESTE ARCHIVO FORMAN PARTE DE UNA OBRA DE FICCIÓN. NO SON DOCUMENTOS OFICIALES NI NOTICIAS REALES.</p><button class="btn primary" id="ageEnter" type="button">Sí, soy mayor de 18 años</button><a class="btn ghost" href="about:blank">Salir</a></div></div><div class="grain" aria-hidden="true"></div><header class="site-header">
+<a class="brand" href="index.html"><span class="brand-mark">◉</span><span>AQUELLO QUE NOS RODEA</span></a>
+<button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
+<nav class="main-nav">
+<a href="index.html" class="nav-link ">Inicio</a>
+<a href="relatos.html" class="nav-link ">Relatos</a>
+<a href="archivo-microrrelatos.html" class="nav-link ">Microrrelatos</a>
+<a href="archivo.html" class="nav-link active">El Archivo</a>
+<a href="escaner.html" class="nav-link ">Escáner</a>
+<a href="terminal.html" class="nav-link ">Terminal</a>
+<a href="sobre.html" class="nav-link ">Dylan P. MOЯBO</a>
+</nav></header><div class="archive-top-nav" aria-label="Navegación interna del Archivo"><nav class="archive-top-nav-inner"><a href="archivo.html" class="" >EL ARCHIVO</a><a href="archivo-entidades.html" class="" >ENTIDADES</a><a href="archivo-personajes.html" class="" >PERSONAJES</a><a href="archivo-lugares.html" class="" >LUGARES</a><a href="archivo-planos.html" class="" >PLANOS</a><a href="archivo-organizaciones.html" class="active" aria-current="page">ORGANIZACIONES</a><a href="archivo-documentos.html" class="" >DOCUMENTOS</a><a href="archivo-sucesos.html" class="" >SUCESOS</a><a href="archivo-testimonios.html" class="" >TESTIMONIOS</a><a href="archivo-relatos.html" class="" >RELATOS</a><a href="archivo-microrrelatos.html" class="" >MICRORRELATOS</a></nav></div><main>
+ <section class="archive-entry-hero">
+   <div class="archive-entry-hero-copy">
+     <p class="eyebrow">ORGANIZACIÓN // EXPEDIENTE 001</p>
+     <h1>LA PLAGA</h1>
+     <p>Organización clandestina cuyos miembros parecen mantener una relación de veneración con los Śukrahārī.</p>
+     <span class="archive-entry-hero-status">ACCESO PARCIAL</span>
+   </div>
+   <figure class="archive-entry-hero-image reveal"><img src="/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/foto-archivo-la-plaga-web.webp" alt="LA PLAGA"></figure>
+ </section>
+ <section class="section archive-entry-shell">
+   <div class="archive-back-row"><a class="text-link" href="archivo-organizaciones.html">← VOLVER A ORGANIZACIONES</a><a class="text-link" href="archivo.html">ÍNDICE GENERAL</a></div>
+   <div class="archive-entry-layout">
+   <aside class="archive-entry-sidebar reveal"><p class="archive-code">DATOS DEL EXPEDIENTE</p><h2>ORGANIZACIÓN</h2><dl class="archive-entry-facts"><div><dt>Estado</dt><dd>ACCESO PARCIAL</dd></div><div><dt>Número de miembros</dt><dd> █████████</dd></div><div><dt>Jerarquía</dt><dd>DESCONOCIDA</dd></div><div><dt>Fundador</dt><dd>DESCONOCIDO</dd></div><div><dt>Área de operación</dt><dd>DESCONOCIDA</dd></div><div><dt>Método de reclutamiento</dt><dd>PARCIALMENTE DOCUMENTADO</dd></div><div><dt>Naturaleza del beneficio recibido</dt><dd>████████████</dd></div><div><dt>Relación exacta con los Śukrahārī</dt><dd>EN INVESTIGACIÓN</dd></div></dl></aside>
+   <article class="archive-entry-content"><div class="section-label">INFORMACIÓN ARCHIVADA</div><div class="archive-entry-main-text reveal"><p>CREENCIAS</p>
+<p>Los miembros conocidos no consideran al Śukrahārī una simple criatura. Lo veneran como una entidad divina.</p>
+<p>RECLUTAMIENTO</p>
+<p>Existe algún tipo de contacto o intermediario capaz de conducir hasta La Plaga a individuos en situaciones desesperadas. Uno de sus miembros afirma que llegó al grupo después de que «alguien» le hablase de un lugar donde podían ayudarle.</p>
+<p>BENEFICIO PARA LOS INICIADOS</p>
+<p>Desconocido. Existen indicios de que la pertenencia al grupo puede prolongar la vida o revertir enfermedades que la medicina considera terminales.</p>
+<p>RELACIÓN CON LAS VÍCTIMAS</p>
+<p>Los humanos atacados por los Śukrahārī pueden ser considerados “regalos” destinados a los miembros de La Plaga.</p>
+<p>COMPORTAMIENTO OBSERVADO</p>
+<p>Un integrante aprovechó el estado de absoluta indefensión de una víctima después del ataque de un Śukrahārī. Esto indica que la intervención de la secta puede continuar después de que la criatura haya terminado de alimentarse.</p></div><aside class="archive-entry-note reveal"><p class="archive-code">NOTA DE ARCHIVO</p><div class="archive-entry-note-text"><p>NOTA DEL ARCHIVO</p>
+<p>La relación parece ser simbiótica, pero todavía no existen datos suficientes para determinar qué reciben exactamente los Śukrahārī de La Plaga ni qué obtiene la organización de ellos.</p>
+<p>No confundir veneración con control.</p>
+<p>Los datos disponibles sugieren precisamente lo contrario.</p></div></aside></article>
+ </div>
+   <section class="archive-entry-gallery-block">
+   <div class="section-label">EVIDENCIAS VISUALES // 02</div>
+   <div class="archive-entry-gallery"><figure class="archive-gallery-item reveal">
+     <a href="/assets/uploads/entidades/ŚUKRAHĀRĪ/de-que-hablan-web.webp" target="_blank" rel="noopener"><img src="/assets/uploads/entidades/ŚUKRAHĀRĪ/de-que-hablan-web.webp" alt="¿Cómo se comunican?"></a>
+     <figcaption><strong>¿Cómo se comunican?</strong></figcaption>
+   </figure><figure class="archive-gallery-item reveal">
+     <a href="/assets/uploads/entidades/ŚUKRAHĀRĪ/intercambio-de-que-web.webp" target="_blank" rel="noopener"><img src="/assets/uploads/entidades/ŚUKRAHĀRĪ/intercambio-de-que-web.webp" alt="¿Le ha dado algo?"></a>
+     <figcaption><strong>¿Le ha dado algo?</strong></figcaption>
+   </figure></div>
+ </section>
+   
+   
+   
+   <section class="related-archive-gateway reveal" id="archivos-relacionados" aria-label="Acceso a conexiones">
+   <div class="related-archive-actions">
+     <a class="related-archive-action related-archive-explore" href="archivo.html">EXPLORAR POR TU CUENTA ↗</a>
+     <button class="related-archive-action related-archive-show" type="button" aria-controls="related-connections-panel" aria-expanded="false">MOSTRAR CONEXIONES ↓</button>
+   </div>
+   <form class="related-archive-code-form" hidden>
+     <p class="related-archive-code-hint">El código está escondido en El Archivo. Explora sus páginas para encontrarlo.</p>
+     <label>INTRODUCE EL CÓDIGO DE APERTURA <input type="text" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="off" required aria-label="Código de seis cifras"></label>
+     <button type="submit">DESBLOQUEAR</button>
+   </form>
+   <p class="related-archive-code-message" role="status" aria-live="polite"></p>
+   <div class="related-archive-block" id="related-connections-panel" hidden>
+   <div class="related-archive-heading">
+     <div>
+       <p class="related-archive-kicker">TRAZAS DETECTADAS</p>
+       <div class="section-label">ARCHIVOS RELACIONADOS // 01</div>
+     </div>
+     <span class="related-archive-sigil" aria-hidden="true">◉</span>
+   </div>
+   <div class="related-archive-grid">
+     <a class="related-archive-card has-thumbnail" href="https://dylanpmorbo-collab.github.io/archivo-entidades-sukrahari.html?aqnr_from=archivo-organizaciones-la-plaga.html%23archivos-relacionados&amp;aqnr_from_label=LA%20PLAGA">
+         <div class="related-archive-media">
+           <img src="/assets/uploads/conexiones/amenaza.png" alt="" loading="lazy">
+           <span class="related-archive-type">ENTIDAD</span>
+         </div>
+         <div class="related-archive-copy">
+           <h3>ŚUKRAHĀRĪ</h3>
+           
+           <span class="related-archive-open">CONSULTAR EXPEDIENTE <b aria-hidden="true">→</b></span>
+         </div>
+       </a>
+   </div>
+   </div>
+   <script>(function(){const gate=document.currentScript.closest('.related-archive-gateway');if(!gate)return;const button=gate.querySelector('.related-archive-show'),panel=gate.querySelector('.related-archive-block'),form=gate.querySelector('.related-archive-code-form'),input=form.querySelector('input'),message=gate.querySelector('.related-archive-code-message');let unlocked=false;try{unlocked=localStorage.getItem('aqnr_connections_unlocked')==='yes'}catch(e){}button.addEventListener('click',function(){if(!unlocked){form.hidden=!form.hidden;if(!form.hidden)input.focus();return;}panel.hidden=!panel.hidden;button.setAttribute('aria-expanded',String(!panel.hidden));button.textContent=panel.hidden?'MOSTRAR CONEXIONES ↓':'OCULTAR CONEXIONES ↑';});form.addEventListener('submit',function(event){event.preventDefault();if(input.value.trim()!=="641729"){message.textContent='CÓDIGO INCORRECTO';input.select();return;}unlocked=true;try{localStorage.setItem('aqnr_connections_unlocked','yes')}catch(e){}input.value='';form.hidden=true;message.textContent='ACCESO CONCEDIDO. PULSA «MOSTRAR CONEXIONES» PARA ABRIRLAS.';button.focus();});window.addEventListener('storage',function(event){if(event.key==='aqnr_connections_unlocked'&&event.newValue==='yes')unlocked=true;});})();</script>
+ </section>
+ </section>
+ </main><footer class="site-footer"><div class="footer-sigil">◉</div>
+<p><strong>AQUELLO QUE NOS RODEA</strong></p>
+<p>Un universo de horror creado por <strong>Dylan P. MOЯBO</strong>.</p>
+<p class="footer-small">Ficción. Los documentos, entidades y acontecimientos de este archivo forman parte de una obra narrativa.</p>
+<p class="footer-small">© 2026 Dylan P. MOЯBO. Todos los derechos reservados.</p><button type="button" class="cookie-settings-link" id="cookieSettings">Configurar cookies</button></footer>
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-labelledby="cookieTitle" aria-describedby="cookieDescription" hidden><div class="cookie-banner-inner"><div><strong id="cookieTitle">Privacidad y cookies</strong><p id="cookieDescription">Usamos almacenamiento técnico para recordar tu confirmación de edad, esta elección y tu progreso en el libro y las conexiones del Archivo. Google Analytics, que mide las visitas, solo se activará si aceptas.</p><details><summary>Más información</summary><p>El progreso del libro y la apertura de conexiones se recuerdan solo en este navegador; no se guarda el código introducido. Si aceptas, Google Analytics podrá instalar cookies de medición y recibir datos de navegación. Puedes rechazarlo y seguir usando toda la web. Cambia tu decisión cuando quieras desde «Configurar cookies», al pie de cualquier página.</p></details></div><div class="cookie-actions"><button type="button" id="cookieReject">Rechazar</button><button type="button" id="cookieAccept">Aceptar</button></div></div></div></body></html>

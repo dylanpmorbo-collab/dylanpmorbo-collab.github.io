@@ -1,0 +1,192 @@
+<!doctype html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<script>try{if(localStorage.getItem('aqnr_age_ok')==='yes')document.documentElement.classList.add('age-verified')}catch(e){}</script>
+<title>Vine por la Carne. | Microrrelato | Aquello que nos Rodea</title><meta name="description" content="Un impulso carnal se torna pesadilla.">
+<meta name="theme-color" content="#070706"><meta property="og:title" content="Vine por la Carne. | Microrrelato | Aquello que nos Rodea">
+<meta property="og:description" content="Un impulso carnal se torna pesadilla."><meta property="og:type" content="website">
+<meta property="og:image" content="/assets/uploads/microrrelatos/designer-7-copia-web.webp"><link rel="icon" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css?v=arranque-digital-20260926"><script defer src="assets/js/main.js?v=testimonios-bobinas-20260926"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('[data-published-date]').forEach(function(el){
+    const raw=el.getAttribute('data-published-date');
+    const start=raw?new Date(raw+'T00:00:00'):null;
+    if(!start || Number.isNaN(start.getTime())){el.hidden=true;return;}
+    const age=Date.now()-start.getTime();
+    el.hidden=age<0 || age>=7*24*60*60*1000;
+  });
+
+  // Si esta página se abrió desde una tarjeta de ARCHIVOS RELACIONADOS,
+  // muestra un acceso persistente para regresar al expediente exacto de origen.
+  const params=new URLSearchParams(window.location.search);
+  const from=params.get('aqnr_from');
+  const fromLabel=params.get('aqnr_from_label');
+  if(from){
+    try{
+      const target=new URL(from,window.location.href);
+      if(target.origin===window.location.origin && target.href!==window.location.href){
+        // Todas las conexiones posteriores conservan el primer expediente de la ruta.
+        document.querySelectorAll('.related-archive-card').forEach(function(card){
+          try{
+            const next=new URL(card.href,window.location.href);
+            if(next.origin!==window.location.origin) return;
+            next.searchParams.set('aqnr_from',target.href);
+            next.searchParams.set('aqnr_from_label',fromLabel||'EXPEDIENTE DE ORIGEN');
+            card.href=next.href;
+          }catch(e){}
+        });
+        const wrap=document.createElement('div');
+        wrap.className='connection-return-tab';
+        const link=document.createElement('a');
+        link.className='connection-return-link';
+        link.href=target.href;
+        link.setAttribute('aria-label','Volver al expediente de origen');
+        const mark=document.createElement('span');
+        mark.className='connection-return-mark';
+        mark.setAttribute('aria-hidden','true');
+        mark.textContent='↶';
+        const copy=document.createElement('span');
+        copy.className='connection-return-copy';
+        const small=document.createElement('small');
+        small.textContent='VOLVER AL PUNTO DE ORIGEN';
+        const strong=document.createElement('strong');
+        strong.textContent=fromLabel||'EXPEDIENTE DE ORIGEN';
+        copy.appendChild(small); copy.appendChild(strong);
+        link.appendChild(mark); link.appendChild(copy); wrap.appendChild(link);
+        document.body.appendChild(wrap);
+      }
+    }catch(e){}
+  }
+});
+</script></head>
+ <body class="archive-area micro-story-page"><div class="age-gate" id="ageGate" role="dialog" aria-modal="true" aria-labelledby="ageGateTitle"><div class="age-panel"><div class="age-symbol">◉</div><p class="eyebrow">ACCESO AL ARCHIVO // +18</p><h2 id="ageGateTitle">Contenido para adultos</h2><p>Esta web contiene ficción de terror y puede incluir violencia, imágenes perturbadoras y contenido sexual. El acceso está reservado a mayores de 18 años.</p><p class="age-fiction-statement">TODOS LOS DOCUMENTOS, INFORMES Y RECORTES DE PRENSA DE ESTE ARCHIVO FORMAN PARTE DE UNA OBRA DE FICCIÓN. NO SON DOCUMENTOS OFICIALES NI NOTICIAS REALES.</p><button class="btn primary" id="ageEnter" type="button">Sí, soy mayor de 18 años</button><a class="btn ghost" href="about:blank">Salir</a></div></div><div class="grain" aria-hidden="true"></div><header class="site-header">
+<a class="brand" href="index.html"><span class="brand-mark">◉</span><span>AQUELLO QUE NOS RODEA</span></a>
+<button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
+<nav class="main-nav">
+<a href="index.html" class="nav-link ">Inicio</a>
+<a href="relatos.html" class="nav-link ">Relatos</a>
+<a href="archivo-microrrelatos.html" class="nav-link active">Microrrelatos</a>
+<a href="archivo.html" class="nav-link ">El Archivo</a>
+<a href="escaner.html" class="nav-link ">Escáner</a>
+<a href="terminal.html" class="nav-link ">Terminal</a>
+<a href="sobre.html" class="nav-link ">Dylan P. MOЯBO</a>
+</nav></header><div class="archive-top-nav" aria-label="Navegación interna del Archivo"><nav class="archive-top-nav-inner"><a href="archivo.html" class="" >EL ARCHIVO</a><a href="archivo-entidades.html" class="" >ENTIDADES</a><a href="archivo-personajes.html" class="" >PERSONAJES</a><a href="archivo-lugares.html" class="" >LUGARES</a><a href="archivo-planos.html" class="" >PLANOS</a><a href="archivo-organizaciones.html" class="" >ORGANIZACIONES</a><a href="archivo-documentos.html" class="" >DOCUMENTOS</a><a href="archivo-sucesos.html" class="" >SUCESOS</a><a href="archivo-testimonios.html" class="" >TESTIMONIOS</a><a href="archivo-relatos.html" class="" >RELATOS</a><a href="archivo-microrrelatos.html" class="active" aria-current="page">MICRORRELATOS</a></nav></div><main>
+ <section class="micro-story-hero">
+   <div class="micro-story-heading">
+     <div class="story-label-row"><p class="eyebrow">MICRORRELATO // M-002</p><span class="new-badge">NOVEDAD</span></div>
+     <h1>VINE POR LA CARNE.</h1>
+     <p class="micro-story-excerpt">Un impulso carnal se torna pesadilla.</p>
+     <div class="meta-row"><span>549 palabras</span><span>&lt; 1 min</span></div>
+     <a class="btn primary" href="#lectura">LEER</a>
+   </div>
+   <figure class="micro-story-cover reveal"><img src="/assets/uploads/microrrelatos/designer-7-copia-web.webp" alt="Ilustración de Vine por la Carne."></figure>
+ </section>
+ <section class="content-warning reveal"><div class="warning-mark">!</div><div><h2>Advertencia de contenido</h2><div class="content-warning-text"><p>Este relato está dirigido a público adulto y puede contener sexualidad explícita, violencia sexual, consumo de alcohol y drogas, lenguaje fuerte y horror corporal.</p></div></div></section>
+ <section class="reader-shell micro-reader" id="lectura">
+   <aside class="reader-tools"><button data-reader="minus" aria-label="Reducir texto">A−</button><button data-reader="plus" aria-label="Aumentar texto">A+</button></aside>
+   <article class="story-text micro-story-text">
+     <div class="story-marker">MICRORRELATO // M-002</div>
+     <p>«Es mi puto día de suerte», pensé mientras me tenía contra la pared del baño, agarrándome por las muñecas.</p>
+<p>Me empezó a besar el cuello. En cuanto aquellos labios rozaron mi piel, me hicieron estremecer.</p>
+<p>¡Joder!</p>
+<p>—¿Te gusta esto? —me preguntó el cabrón mientras me introducía la mano por debajo de la falda.</p>
+<p>No respondí. Solo lo miré a los ojos y me humedecí los labios superexcitada.</p>
+<p>Sentía sus dedos cálidos entrar en mí.</p>
+<p>Me subió la camiseta y me bajó el sujetador y me suelta:</p>
+<p>—¿Cómo te llamas?</p>
+<p>Lo miré en plan: «¿Qué cojones  me estás contando?».</p>
+<p>—¡Venga, no me jodas, cállate!</p>
+<p>Menudo momento para preguntarme el nombre.</p>
+<p>Me liberé las muñecas y fui directa a lo importante. Lo que abultaba aquello no era ni medio normal. Parecía que estaba deseando romperle el vaquero y salir a saludar.</p>
+<p>—¡SANTO DIOS! —me salió del alma cuando vi semejante polla.</p>
+<p>Entonces me susurró al oído:</p>
+<p>—Te voy a echar el polvo de tu vida.</p>
+<p>La forma en que lo dijo hizo que se me aflojasen las piernas y yo, que a esas alturas estaba que me subía por las paredes, le solté:</p>
+<p>—El polvo de mi vida no lo sé, pero que vas a llegar donde no ha llegado nadie, eso seguro.</p>
+<p>Y me bajé las bragas.</p>
+<p>Entonces la luz se apagó de golpe.</p>
+<p>No se veía una mierda.</p>
+<p>Y, de repente… ¡CATAPÚN!</p>
+<p>La puerta del retrete salió disparada como si alguien la hubiese arrancado desde fuera.</p>
+<p>No veas el puto susto que me llevé. Quise dar un paso atrás, pero tropecé y caí al suelo, con él encima de mí.</p>
+<p>Ahí no sé muy bien qué pasó porque me di un golpe contra la taza del váter y durante unos segundos apenas pude ver nada.</p>
+<p>Noté como si alguien estuviese sacándome al chico de encima. Pensé que sería alguien que había oído el ruido y se había acercado a ayudar.</p>
+<p>Pero entonces lo escuché gritar.</p>
+<p>—¡NO! ¡DEJADME EN PAZ! ¿DE QUÉ COÑO VAIS DISFRAZADOS?</p>
+<p>Yo todavía estaba un poco atontada. No entendía nada de lo que estaba pasando.</p>
+<p>Cuando recuperé un poco la visión, pude distinguir al hombre forcejeando con lo que parecían… ¿Unos niños disfrazados de ratas?</p>
+<p>No sé. Estaba tan ida que hasta pensé que estaríamos en Halloween.</p>
+<p>Entonces uno de los niños se giró hacia mí y se acercó.</p>
+<p>Y ahí ya… no sé lo que es real y lo que no.</p>
+<p>Aquello no era un disfraz.</p>
+<p>No sé ni cómo describir aquella cosa. Parecía salida de una puta película de terror.</p>
+<p>Se acercó y aquel olor putrefacto me dio náuseas. Entonces vi cómo su hocico viscoso, que parecía un puto tubo de carne lleno de pelos, se acercaba a mi cara.</p>
+<p>¡Qué puto asco!</p>
+<p>Luego emitió un sonido que me hizo taparme los oídos y cerrar los ojos de lo desagradable que era.</p>
+<p>Como el chillido de una rata multiplicado por mil.</p>
+<p>Se me clavaba en los tímpanos y no me dejaba pensar.</p>
+<p>Cuando volví a abrir los ojos, aquella cosa tenía en las manos un trozo de tubería que debía de haberse desprendido de alguna parte.</p>
+<p>Y me soltó una hostia.</p>
+<p>Cuando recuperé la conciencia, estaba aquí, en la ambulancia.</p>
+<p>No sé qué más puedo contarle, agente.</p>
+<p>¿El chico está bien?</p>
+<p>—No lo encontramos.</p>
+     <div class="story-end">FIN</div>
+   </article>
+   <aside class="legal-notice reveal"><h2>Aviso legal</h2><div><p>Copyright © 2026 Dylan P. MORBO. Todos los derechos reservados. Esta obra está protegida por las leyes internacionales de propiedad intelectual y derechos de autor. Queda totalmente prohibida la reproducción, copia, distribución, traducción o adaptación de este texto por cualquier medio digital o físico sin la autorización expresa del autor. Obra bajo custodia legal y registro de fecha certificada.</p></div></aside>
+   <section class="related-archive-gateway reveal" id="archivos-relacionados" aria-label="Acceso a conexiones">
+   <div class="related-archive-actions">
+     <a class="related-archive-action related-archive-explore" href="archivo.html">EXPLORAR POR TU CUENTA ↗</a>
+     <button class="related-archive-action related-archive-show" type="button" aria-controls="related-connections-panel" aria-expanded="false">MOSTRAR CONEXIONES ↓</button>
+   </div>
+   <form class="related-archive-code-form" hidden>
+     <p class="related-archive-code-hint">El código está escondido en El Archivo. Explora sus páginas para encontrarlo.</p>
+     <label>INTRODUCE EL CÓDIGO DE APERTURA <input type="text" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="off" required aria-label="Código de seis cifras"></label>
+     <button type="submit">DESBLOQUEAR</button>
+   </form>
+   <p class="related-archive-code-message" role="status" aria-live="polite"></p>
+   <div class="related-archive-block" id="related-connections-panel" hidden>
+   <div class="related-archive-heading">
+     <div>
+       <p class="related-archive-kicker">TRAZAS DETECTADAS</p>
+       <div class="section-label">ARCHIVOS RELACIONADOS // 01</div>
+     </div>
+     <span class="related-archive-sigil" aria-hidden="true">◉</span>
+   </div>
+   <div class="related-archive-grid">
+     <a class="related-archive-card has-thumbnail" href="https://dylanpmorbo-collab.github.io/archivo-documentos-informe-de-actuacion-bcn-2025.html?aqnr_from=micro-vine-por-la-carne.html%23archivos-relacionados&amp;aqnr_from_label=Vine%20por%20la%20Carne.">
+         <div class="related-archive-media">
+           <img src="/assets/uploads/SUCESOS/secuestro discoteca/chatgpt-image-1-sept-2026-050439-web.webp" alt="" loading="lazy">
+           <span class="related-archive-type">DOCUMENTO</span>
+         </div>
+         <div class="related-archive-copy">
+           <h3>INFORME POLICIAL</h3>
+           <p>INFORME DE ACTUACIONES
+
+Expediente: BCN/███/2025
+Clasificación: Desaparición / posible detención ilegal
+Fecha: ██ / ██ / 2025
+Lugar de los hechos: Barcelona.
+
+A las ██:██ horas se recibió aviso por un incidente ocurrido en los aseos de un establecimiento situado en █████████████.</p>
+           <span class="related-archive-open">CONSULTAR EXPEDIENTE <b aria-hidden="true">→</b></span>
+         </div>
+       </a>
+   </div>
+   </div>
+   <script>(function(){const gate=document.currentScript.closest('.related-archive-gateway');if(!gate)return;const button=gate.querySelector('.related-archive-show'),panel=gate.querySelector('.related-archive-block'),form=gate.querySelector('.related-archive-code-form'),input=form.querySelector('input'),message=gate.querySelector('.related-archive-code-message');let unlocked=false;try{unlocked=localStorage.getItem('aqnr_connections_unlocked')==='yes'}catch(e){}button.addEventListener('click',function(){if(!unlocked){form.hidden=!form.hidden;if(!form.hidden)input.focus();return;}panel.hidden=!panel.hidden;button.setAttribute('aria-expanded',String(!panel.hidden));button.textContent=panel.hidden?'MOSTRAR CONEXIONES ↓':'OCULTAR CONEXIONES ↑';});form.addEventListener('submit',function(event){event.preventDefault();if(input.value.trim()!=="641729"){message.textContent='CÓDIGO INCORRECTO';input.select();return;}unlocked=true;try{localStorage.setItem('aqnr_connections_unlocked','yes')}catch(e){}input.value='';form.hidden=true;message.textContent='ACCESO CONCEDIDO. PULSA «MOSTRAR CONEXIONES» PARA ABRIRLAS.';button.focus();});window.addEventListener('storage',function(event){if(event.key==='aqnr_connections_unlocked'&&event.newValue==='yes')unlocked=true;});})();</script>
+ </section>
+ </section>
+ <section class="post-story reveal">
+   <p class="eyebrow">ARCHIVO BREVE CERRADO</p>
+   <h2>Hay historias que sólo necesitan unas líneas.</h2>
+   <div class="hero-actions"><a class="btn primary" href="archivo-microrrelatos.html">Volver a microrrelatos</a><a class="btn ghost" href="archivo.html">Índice general</a></div>
+ </section>
+ </main><footer class="site-footer"><div class="footer-sigil">◉</div>
+<p><strong>AQUELLO QUE NOS RODEA</strong></p>
+<p>Un universo de horror creado por <strong>Dylan P. MOЯBO</strong>.</p>
+<p class="footer-small">Ficción. Los documentos, entidades y acontecimientos de este archivo forman parte de una obra narrativa.</p>
+<p class="footer-small">© 2026 Dylan P. MOЯBO. Todos los derechos reservados.</p><button type="button" class="cookie-settings-link" id="cookieSettings">Configurar cookies</button></footer>
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-labelledby="cookieTitle" aria-describedby="cookieDescription" hidden><div class="cookie-banner-inner"><div><strong id="cookieTitle">Privacidad y cookies</strong><p id="cookieDescription">Usamos almacenamiento técnico para recordar tu confirmación de edad, esta elección y tu progreso en el libro y las conexiones del Archivo. Google Analytics, que mide las visitas, solo se activará si aceptas.</p><details><summary>Más información</summary><p>El progreso del libro y la apertura de conexiones se recuerdan solo en este navegador; no se guarda el código introducido. Si aceptas, Google Analytics podrá instalar cookies de medición y recibir datos de navegación. Puedes rechazarlo y seguir usando toda la web. Cambia tu decisión cuando quieras desde «Configurar cookies», al pie de cualquier página.</p></details></div><div class="cookie-actions"><button type="button" id="cookieReject">Rechazar</button><button type="button" id="cookieAccept">Aceptar</button></div></div></div></body></html>

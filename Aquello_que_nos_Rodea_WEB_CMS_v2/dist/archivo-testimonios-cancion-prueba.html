@@ -1,0 +1,102 @@
+<!doctype html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<script>try{if(localStorage.getItem('aqnr_age_ok')==='yes')document.documentElement.classList.add('age-verified')}catch(e){}</script>
+<title>cancion prueba | TESTIMONIOS | El Archivo | Aquello que nos Rodea</title><meta name="description" content="Expediente disponible para consulta.">
+<meta name="theme-color" content="#070706"><meta property="og:title" content="cancion prueba | TESTIMONIOS | El Archivo | Aquello que nos Rodea">
+<meta property="og:description" content="Expediente disponible para consulta."><meta property="og:type" content="website">
+<meta property="og:image" content="/assets/uploads/archivo/testimonios-web.webp"><link rel="icon" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css?v=arranque-digital-20260926"><script defer src="assets/js/main.js?v=testimonios-bobinas-20260926"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('[data-published-date]').forEach(function(el){
+    const raw=el.getAttribute('data-published-date');
+    const start=raw?new Date(raw+'T00:00:00'):null;
+    if(!start || Number.isNaN(start.getTime())){el.hidden=true;return;}
+    const age=Date.now()-start.getTime();
+    el.hidden=age<0 || age>=7*24*60*60*1000;
+  });
+
+  // Si esta página se abrió desde una tarjeta de ARCHIVOS RELACIONADOS,
+  // muestra un acceso persistente para regresar al expediente exacto de origen.
+  const params=new URLSearchParams(window.location.search);
+  const from=params.get('aqnr_from');
+  const fromLabel=params.get('aqnr_from_label');
+  if(from){
+    try{
+      const target=new URL(from,window.location.href);
+      if(target.origin===window.location.origin && target.href!==window.location.href){
+        // Todas las conexiones posteriores conservan el primer expediente de la ruta.
+        document.querySelectorAll('.related-archive-card').forEach(function(card){
+          try{
+            const next=new URL(card.href,window.location.href);
+            if(next.origin!==window.location.origin) return;
+            next.searchParams.set('aqnr_from',target.href);
+            next.searchParams.set('aqnr_from_label',fromLabel||'EXPEDIENTE DE ORIGEN');
+            card.href=next.href;
+          }catch(e){}
+        });
+        const wrap=document.createElement('div');
+        wrap.className='connection-return-tab';
+        const link=document.createElement('a');
+        link.className='connection-return-link';
+        link.href=target.href;
+        link.setAttribute('aria-label','Volver al expediente de origen');
+        const mark=document.createElement('span');
+        mark.className='connection-return-mark';
+        mark.setAttribute('aria-hidden','true');
+        mark.textContent='↶';
+        const copy=document.createElement('span');
+        copy.className='connection-return-copy';
+        const small=document.createElement('small');
+        small.textContent='VOLVER AL PUNTO DE ORIGEN';
+        const strong=document.createElement('strong');
+        strong.textContent=fromLabel||'EXPEDIENTE DE ORIGEN';
+        copy.appendChild(small); copy.appendChild(strong);
+        link.appendChild(mark); link.appendChild(copy); wrap.appendChild(link);
+        document.body.appendChild(wrap);
+      }
+    }catch(e){}
+  }
+});
+</script></head>
+ <body class="archive-area archive-entry-page"><div class="age-gate" id="ageGate" role="dialog" aria-modal="true" aria-labelledby="ageGateTitle"><div class="age-panel"><div class="age-symbol">◉</div><p class="eyebrow">ACCESO AL ARCHIVO // +18</p><h2 id="ageGateTitle">Contenido para adultos</h2><p>Esta web contiene ficción de terror y puede incluir violencia, imágenes perturbadoras y contenido sexual. El acceso está reservado a mayores de 18 años.</p><p class="age-fiction-statement">TODOS LOS DOCUMENTOS, INFORMES Y RECORTES DE PRENSA DE ESTE ARCHIVO FORMAN PARTE DE UNA OBRA DE FICCIÓN. NO SON DOCUMENTOS OFICIALES NI NOTICIAS REALES.</p><button class="btn primary" id="ageEnter" type="button">Sí, soy mayor de 18 años</button><a class="btn ghost" href="about:blank">Salir</a></div></div><div class="grain" aria-hidden="true"></div><header class="site-header">
+<a class="brand" href="index.html"><span class="brand-mark">◉</span><span>AQUELLO QUE NOS RODEA</span></a>
+<button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
+<nav class="main-nav">
+<a href="index.html" class="nav-link ">Inicio</a>
+<a href="relatos.html" class="nav-link ">Relatos</a>
+<a href="archivo-microrrelatos.html" class="nav-link ">Microrrelatos</a>
+<a href="archivo.html" class="nav-link active">El Archivo</a>
+<a href="escaner.html" class="nav-link ">Escáner</a>
+<a href="terminal.html" class="nav-link ">Terminal</a>
+<a href="sobre.html" class="nav-link ">Dylan P. MOЯBO</a>
+</nav></header><div class="archive-top-nav" aria-label="Navegación interna del Archivo"><nav class="archive-top-nav-inner"><a href="archivo.html" class="" >EL ARCHIVO</a><a href="archivo-entidades.html" class="" >ENTIDADES</a><a href="archivo-personajes.html" class="" >PERSONAJES</a><a href="archivo-lugares.html" class="" >LUGARES</a><a href="archivo-planos.html" class="" >PLANOS</a><a href="archivo-organizaciones.html" class="" >ORGANIZACIONES</a><a href="archivo-documentos.html" class="" >DOCUMENTOS</a><a href="archivo-sucesos.html" class="" >SUCESOS</a><a href="archivo-testimonios.html" class="active" aria-current="page">TESTIMONIOS</a><a href="archivo-relatos.html" class="" >RELATOS</a><a href="archivo-microrrelatos.html" class="" >MICRORRELATOS</a></nav></div><main>
+ <section class="archive-entry-hero no-image">
+   <div class="archive-entry-hero-copy">
+     <p class="eyebrow">TESTIMONIO // EXPEDIENTE 002</p>
+     <h1>CANCION PRUEBA</h1>
+     <p>Expediente disponible para consulta.</p>
+     <span class="archive-entry-hero-status">Documentado</span>
+   </div>
+   
+ </section>
+ <section class="section archive-entry-shell">
+   <div class="archive-back-row"><a class="text-link" href="archivo-testimonios.html">← VOLVER A TESTIMONIOS</a><a class="text-link" href="archivo.html">ÍNDICE GENERAL</a></div>
+   <div class="archive-entry-layout">
+   <aside class="archive-entry-sidebar reveal"><p class="archive-code">DATOS DEL EXPEDIENTE</p><h2>TESTIMONIO</h2><dl class="archive-entry-facts"><div><dt>Estado</dt><dd>Documentado</dd></div></dl></aside>
+   <article class="archive-entry-content"><section class="archive-testimonies reveal" aria-label="Testimonios grabados"><div class="section-label">TESTIMONIOS // 02</div><div class="testimony-recorder"><img class="testimony-recorder-art" src="/assets/img/magnetofono-testimonios-transparente.png" alt="" loading="lazy"><div class="testimony-controls" role="group" aria-label="Controles del magnetófono"><button type="button" data-testimony-play aria-label="Reproducir" title="Reproducir">▶</button><button type="button" data-testimony-pause aria-label="Pausar" title="Pausar">Ⅱ</button><button type="button" data-testimony-stop aria-label="Detener" title="Detener">■</button></div></div><audio class="testimony-audio" controls preload="none" src="/assets/uploads/testimonios/freesoundcommunity-old-phone01-79592.mp3">Tu navegador no puede reproducir este archivo de audio.</audio><div class="testimony-readout"><span data-testimony-state aria-live="polite">LISTO PARA REPRODUCIR</span><span data-testimony-time>00:00 / --:--</span><button class="testimony-sound-toggle" type="button" data-testimony-sound aria-pressed="true" aria-label="Silenciar efectos del magnetófono" title="Silenciar efectos del magnetófono">EFECTOS: SÍ</button></div><div class="testimony-current"><strong data-testimony-title>cancion</strong><span data-testimony-meta></span></div><div class="testimony-track-list" role="group" aria-label="Elegir testimonio"><button type="button" data-testimony-track data-testimony-src="/assets/uploads/testimonios/freesoundcommunity-old-phone01-79592.mp3" data-testimony-title="cancion" data-testimony-meta="" aria-pressed="true"><span class="testimony-tape" aria-hidden="true"><span class="testimony-tape-reel"></span><span class="testimony-tape-reel"></span></span><span class="testimony-track-copy"><small>CINTA 01</small><strong>cancion</strong></span></button><button type="button" data-testimony-track data-testimony-src="/assets/uploads/testimonios/freesoundcommunity-old-phone01-79592.mp3" data-testimony-title="dfef" data-testimony-meta="" aria-pressed="false"><span class="testimony-tape" aria-hidden="true"><span class="testimony-tape-reel"></span><span class="testimony-tape-reel"></span></span><span class="testimony-track-copy"><small>CINTA 02</small><strong>dfef</strong></span></button></div><div class="testimony-transcripts"><div data-testimony-transcript></div><div data-testimony-transcript hidden></div></div></section></article>
+ </div>
+   
+   
+   
+   
+   
+ </section>
+ </main><footer class="site-footer"><div class="footer-sigil">◉</div>
+<p><strong>AQUELLO QUE NOS RODEA</strong></p>
+<p>Un universo de horror creado por <strong>Dylan P. MOЯBO</strong>.</p>
+<p class="footer-small">Ficción. Los documentos, entidades y acontecimientos de este archivo forman parte de una obra narrativa.</p>
+<p class="footer-small">© 2026 Dylan P. MOЯBO. Todos los derechos reservados.</p><button type="button" class="cookie-settings-link" id="cookieSettings">Configurar cookies</button></footer>
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-labelledby="cookieTitle" aria-describedby="cookieDescription" hidden><div class="cookie-banner-inner"><div><strong id="cookieTitle">Privacidad y cookies</strong><p id="cookieDescription">Usamos almacenamiento técnico para recordar tu confirmación de edad, esta elección y tu progreso en el libro y las conexiones del Archivo. Google Analytics, que mide las visitas, solo se activará si aceptas.</p><details><summary>Más información</summary><p>El progreso del libro y la apertura de conexiones se recuerdan solo en este navegador; no se guarda el código introducido. Si aceptas, Google Analytics podrá instalar cookies de medición y recibir datos de navegación. Puedes rechazarlo y seguir usando toda la web. Cambia tu decisión cuando quieras desde «Configurar cookies», al pie de cualquier página.</p></details></div><div class="cookie-actions"><button type="button" id="cookieReject">Rechazar</button><button type="button" id="cookieAccept">Aceptar</button></div></div></div></body></html>

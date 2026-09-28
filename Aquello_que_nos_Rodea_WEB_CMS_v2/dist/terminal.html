@@ -1,0 +1,106 @@
+<!doctype html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<script>try{if(localStorage.getItem('aqnr_age_ok')==='yes')document.documentElement.classList.add('age-verified')}catch(e){}</script>
+<title>Terminal de comunicaciones | Aquello que nos Rodea</title><meta name="description" content="Canal anónimo de transmisión. El Archivo escucha, aunque no siempre responde.">
+<meta name="theme-color" content="#070706"><meta property="og:title" content="Terminal de comunicaciones | Aquello que nos Rodea">
+<meta property="og:description" content="Canal anónimo de transmisión. El Archivo escucha, aunque no siempre responde."><meta property="og:type" content="website">
+<meta property="og:image" content="/assets/uploads/terminal/terminal-scrappunk-wall-v4-final.png"><link rel="icon" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css?v=arranque-digital-20260926"><script defer src="assets/js/main.js?v=testimonios-bobinas-20260926"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('[data-published-date]').forEach(function(el){
+    const raw=el.getAttribute('data-published-date');
+    const start=raw?new Date(raw+'T00:00:00'):null;
+    if(!start || Number.isNaN(start.getTime())){el.hidden=true;return;}
+    const age=Date.now()-start.getTime();
+    el.hidden=age<0 || age>=7*24*60*60*1000;
+  });
+
+  // Si esta página se abrió desde una tarjeta de ARCHIVOS RELACIONADOS,
+  // muestra un acceso persistente para regresar al expediente exacto de origen.
+  const params=new URLSearchParams(window.location.search);
+  const from=params.get('aqnr_from');
+  const fromLabel=params.get('aqnr_from_label');
+  if(from){
+    try{
+      const target=new URL(from,window.location.href);
+      if(target.origin===window.location.origin && target.href!==window.location.href){
+        // Todas las conexiones posteriores conservan el primer expediente de la ruta.
+        document.querySelectorAll('.related-archive-card').forEach(function(card){
+          try{
+            const next=new URL(card.href,window.location.href);
+            if(next.origin!==window.location.origin) return;
+            next.searchParams.set('aqnr_from',target.href);
+            next.searchParams.set('aqnr_from_label',fromLabel||'EXPEDIENTE DE ORIGEN');
+            card.href=next.href;
+          }catch(e){}
+        });
+        const wrap=document.createElement('div');
+        wrap.className='connection-return-tab';
+        const link=document.createElement('a');
+        link.className='connection-return-link';
+        link.href=target.href;
+        link.setAttribute('aria-label','Volver al expediente de origen');
+        const mark=document.createElement('span');
+        mark.className='connection-return-mark';
+        mark.setAttribute('aria-hidden','true');
+        mark.textContent='↶';
+        const copy=document.createElement('span');
+        copy.className='connection-return-copy';
+        const small=document.createElement('small');
+        small.textContent='VOLVER AL PUNTO DE ORIGEN';
+        const strong=document.createElement('strong');
+        strong.textContent=fromLabel||'EXPEDIENTE DE ORIGEN';
+        copy.appendChild(small); copy.appendChild(strong);
+        link.appendChild(mark); link.appendChild(copy); wrap.appendChild(link);
+        document.body.appendChild(wrap);
+      }
+    }catch(e){}
+  }
+});
+</script></head>
+ <body class="terminal-page"><div class="age-gate" id="ageGate" role="dialog" aria-modal="true" aria-labelledby="ageGateTitle"><div class="age-panel"><div class="age-symbol">◉</div><p class="eyebrow">ACCESO AL ARCHIVO // +18</p><h2 id="ageGateTitle">Contenido para adultos</h2><p>Esta web contiene ficción de terror y puede incluir violencia, imágenes perturbadoras y contenido sexual. El acceso está reservado a mayores de 18 años.</p><p class="age-fiction-statement">TODOS LOS DOCUMENTOS, INFORMES Y RECORTES DE PRENSA DE ESTE ARCHIVO FORMAN PARTE DE UNA OBRA DE FICCIÓN. NO SON DOCUMENTOS OFICIALES NI NOTICIAS REALES.</p><button class="btn primary" id="ageEnter" type="button">Sí, soy mayor de 18 años</button><a class="btn ghost" href="about:blank">Salir</a></div></div><div class="grain" aria-hidden="true"></div><header class="site-header">
+<a class="brand" href="index.html"><span class="brand-mark">◉</span><span>AQUELLO QUE NOS RODEA</span></a>
+<button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
+<nav class="main-nav">
+<a href="index.html" class="nav-link ">Inicio</a>
+<a href="relatos.html" class="nav-link ">Relatos</a>
+<a href="archivo-microrrelatos.html" class="nav-link ">Microrrelatos</a>
+<a href="archivo.html" class="nav-link ">El Archivo</a>
+<a href="escaner.html" class="nav-link ">Escáner</a>
+<a href="terminal.html" class="nav-link active">Terminal</a>
+<a href="sobre.html" class="nav-link ">Dylan P. MOЯBO</a>
+</nav></header><main class="terminal-main">
+ <section class="terminal-intro reveal">
+   <p class="eyebrow">CANAL EXTERNO // SEÑAL INESTABLE</p>
+   <h1>Terminal de comunicaciones</h1>
+   <p>Canal anónimo de transmisión. El Archivo escucha, aunque no siempre responde.</p>
+ </section>
+ <section class="terminal-scene-viewport" aria-label="Terminal empotrado en un callejón">
+   <div class="terminal-scene" data-terminal-scene data-success="TRANSMISIÓN SIMULADA // EL CANAL EXTERNO TODAVÍA NO ESTÁ CONECTADO">
+     <img class="terminal-scene-art" src="/assets/uploads/terminal/terminal-scrappunk-wall-v4-final.png" alt="Terminal scrappunk repartido en varios paneles empotrados en una pared de ladrillo" loading="eager">
+     <div class="terminal-eyes" data-terminal-eyes aria-hidden="true"><i><b></b></i><i><b></b></i></div>
+     <figure class="terminal-poster" data-terminal-poster data-mode="aleatoria" data-fixed="">
+       <img alt="Cartel deteriorado recuperado" hidden>
+       <figcaption><strong>SE BUSCA INFORMACIÓN</strong><span>EL ARCHIVO ESCUCHA</span></figcaption>
+     </figure>
+     <div class="terminal-screen" aria-label="Pantalla de fósforo verde">
+       <div class="terminal-screen-header"><span>●</span> CANAL DE ENVÍO ABIERTO</div>
+       <label for="terminalMessage">INTRODUZCA SU MENSAJE</label>
+       <textarea id="terminalMessage" maxlength="1200" spellcheck="true" placeholder="ESCRIBA AQUÍ..."></textarea>
+       <div class="terminal-screen-footer"><span data-terminal-status>ESPERANDO ENTRADA_</span><span><b data-terminal-count>0</b>/1200</span></div>
+     </div>
+     <button class="terminal-physical-send" type="button" data-terminal-send aria-label="Transmitir mensaje"><span>TRANSMITIR</span></button>
+   </div>
+ </section>
+ <p class="terminal-mobile-hint">Desliza lateralmente para inspeccionar la máquina completa.</p>
+ <aside class="terminal-privacy-note"><strong>PROTOTIPO VISUAL</strong><span>La transmisión aún no está conectada. Lo que escribas permanece en esta página y no se envía ni se guarda.</span></aside>
+ <script type="application/json" id="terminalPosterData">[]</script>
+ </main><footer class="site-footer"><div class="footer-sigil">◉</div>
+<p><strong>AQUELLO QUE NOS RODEA</strong></p>
+<p>Un universo de horror creado por <strong>Dylan P. MOЯBO</strong>.</p>
+<p class="footer-small">Ficción. Los documentos, entidades y acontecimientos de este archivo forman parte de una obra narrativa.</p>
+<p class="footer-small">© 2026 Dylan P. MOЯBO. Todos los derechos reservados.</p><button type="button" class="cookie-settings-link" id="cookieSettings">Configurar cookies</button></footer>
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-labelledby="cookieTitle" aria-describedby="cookieDescription" hidden><div class="cookie-banner-inner"><div><strong id="cookieTitle">Privacidad y cookies</strong><p id="cookieDescription">Usamos almacenamiento técnico para recordar tu confirmación de edad, esta elección y tu progreso en el libro y las conexiones del Archivo. Google Analytics, que mide las visitas, solo se activará si aceptas.</p><details><summary>Más información</summary><p>El progreso del libro y la apertura de conexiones se recuerdan solo en este navegador; no se guarda el código introducido. Si aceptas, Google Analytics podrá instalar cookies de medición y recibir datos de navegación. Puedes rechazarlo y seguir usando toda la web. Cambia tu decisión cuando quieras desde «Configurar cookies», al pie de cualquier página.</p></details></div><div class="cookie-actions"><button type="button" id="cookieReject">Rechazar</button><button type="button" id="cookieAccept">Aceptar</button></div></div></div><script defer src="assets/js/terminal.js?v=20260921"></script></body></html>

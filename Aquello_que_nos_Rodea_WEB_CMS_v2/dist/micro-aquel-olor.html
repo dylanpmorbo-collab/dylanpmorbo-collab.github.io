@@ -1,0 +1,225 @@
+<!doctype html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<script>try{if(localStorage.getItem('aqnr_age_ok')==='yes')document.documentElement.classList.add('age-verified')}catch(e){}</script>
+<title>Aquel Olor | Microrrelato | Aquello que nos Rodea</title><meta name="description" content="Manu detecta un desagradable olor al llegar a casa de trabajar.">
+<meta name="theme-color" content="#070706"><meta property="og:title" content="Aquel Olor | Microrrelato | Aquello que nos Rodea">
+<meta property="og:description" content="Manu detecta un desagradable olor al llegar a casa de trabajar."><meta property="og:type" content="website">
+<meta property="og:image" content="/assets/uploads/microrrelatos/aquel-olor-web.webp"><link rel="icon" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css?v=arranque-digital-20260926"><script defer src="assets/js/main.js?v=testimonios-bobinas-20260926"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('[data-published-date]').forEach(function(el){
+    const raw=el.getAttribute('data-published-date');
+    const start=raw?new Date(raw+'T00:00:00'):null;
+    if(!start || Number.isNaN(start.getTime())){el.hidden=true;return;}
+    const age=Date.now()-start.getTime();
+    el.hidden=age<0 || age>=7*24*60*60*1000;
+  });
+
+  // Si esta página se abrió desde una tarjeta de ARCHIVOS RELACIONADOS,
+  // muestra un acceso persistente para regresar al expediente exacto de origen.
+  const params=new URLSearchParams(window.location.search);
+  const from=params.get('aqnr_from');
+  const fromLabel=params.get('aqnr_from_label');
+  if(from){
+    try{
+      const target=new URL(from,window.location.href);
+      if(target.origin===window.location.origin && target.href!==window.location.href){
+        // Todas las conexiones posteriores conservan el primer expediente de la ruta.
+        document.querySelectorAll('.related-archive-card').forEach(function(card){
+          try{
+            const next=new URL(card.href,window.location.href);
+            if(next.origin!==window.location.origin) return;
+            next.searchParams.set('aqnr_from',target.href);
+            next.searchParams.set('aqnr_from_label',fromLabel||'EXPEDIENTE DE ORIGEN');
+            card.href=next.href;
+          }catch(e){}
+        });
+        const wrap=document.createElement('div');
+        wrap.className='connection-return-tab';
+        const link=document.createElement('a');
+        link.className='connection-return-link';
+        link.href=target.href;
+        link.setAttribute('aria-label','Volver al expediente de origen');
+        const mark=document.createElement('span');
+        mark.className='connection-return-mark';
+        mark.setAttribute('aria-hidden','true');
+        mark.textContent='↶';
+        const copy=document.createElement('span');
+        copy.className='connection-return-copy';
+        const small=document.createElement('small');
+        small.textContent='VOLVER AL PUNTO DE ORIGEN';
+        const strong=document.createElement('strong');
+        strong.textContent=fromLabel||'EXPEDIENTE DE ORIGEN';
+        copy.appendChild(small); copy.appendChild(strong);
+        link.appendChild(mark); link.appendChild(copy); wrap.appendChild(link);
+        document.body.appendChild(wrap);
+      }
+    }catch(e){}
+  }
+});
+</script></head>
+ <body class="archive-area micro-story-page"><div class="age-gate" id="ageGate" role="dialog" aria-modal="true" aria-labelledby="ageGateTitle"><div class="age-panel"><div class="age-symbol">◉</div><p class="eyebrow">ACCESO AL ARCHIVO // +18</p><h2 id="ageGateTitle">Contenido para adultos</h2><p>Esta web contiene ficción de terror y puede incluir violencia, imágenes perturbadoras y contenido sexual. El acceso está reservado a mayores de 18 años.</p><p class="age-fiction-statement">TODOS LOS DOCUMENTOS, INFORMES Y RECORTES DE PRENSA DE ESTE ARCHIVO FORMAN PARTE DE UNA OBRA DE FICCIÓN. NO SON DOCUMENTOS OFICIALES NI NOTICIAS REALES.</p><button class="btn primary" id="ageEnter" type="button">Sí, soy mayor de 18 años</button><a class="btn ghost" href="about:blank">Salir</a></div></div><div class="grain" aria-hidden="true"></div><header class="site-header">
+<a class="brand" href="index.html"><span class="brand-mark">◉</span><span>AQUELLO QUE NOS RODEA</span></a>
+<button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
+<nav class="main-nav">
+<a href="index.html" class="nav-link ">Inicio</a>
+<a href="relatos.html" class="nav-link ">Relatos</a>
+<a href="archivo-microrrelatos.html" class="nav-link active">Microrrelatos</a>
+<a href="archivo.html" class="nav-link ">El Archivo</a>
+<a href="escaner.html" class="nav-link ">Escáner</a>
+<a href="terminal.html" class="nav-link ">Terminal</a>
+<a href="sobre.html" class="nav-link ">Dylan P. MOЯBO</a>
+</nav></header><div class="archive-top-nav" aria-label="Navegación interna del Archivo"><nav class="archive-top-nav-inner"><a href="archivo.html" class="" >EL ARCHIVO</a><a href="archivo-entidades.html" class="" >ENTIDADES</a><a href="archivo-personajes.html" class="" >PERSONAJES</a><a href="archivo-lugares.html" class="" >LUGARES</a><a href="archivo-planos.html" class="" >PLANOS</a><a href="archivo-organizaciones.html" class="" >ORGANIZACIONES</a><a href="archivo-documentos.html" class="" >DOCUMENTOS</a><a href="archivo-sucesos.html" class="" >SUCESOS</a><a href="archivo-testimonios.html" class="" >TESTIMONIOS</a><a href="archivo-relatos.html" class="" >RELATOS</a><a href="archivo-microrrelatos.html" class="active" aria-current="page">MICRORRELATOS</a></nav></div><main>
+ <section class="micro-story-hero">
+   <div class="micro-story-heading">
+     <div class="story-label-row"><p class="eyebrow">MICRORRELATO // M-003</p><span class="new-badge" data-published-date="2026-09-02" hidden>NOVEDAD</span></div>
+     <h1>AQUEL OLOR</h1>
+     <p class="micro-story-excerpt">Manu detecta un desagradable olor al llegar a casa de trabajar.</p>
+     <div class="meta-row"><span>715 palabras</span><span>&lt; 2 min</span></div>
+     <a class="btn primary" href="#lectura">LEER</a>
+   </div>
+   <figure class="micro-story-cover reveal"><img src="/assets/uploads/microrrelatos/aquel-olor-web.webp" alt="Ilustración de Aquel Olor"></figure>
+ </section>
+ 
+ <section class="reader-shell micro-reader" id="lectura">
+   <aside class="reader-tools"><button data-reader="minus" aria-label="Reducir texto">A−</button><button data-reader="plus" aria-label="Aumentar texto">A+</button></aside>
+   <article class="story-text micro-story-text">
+     <div class="story-marker">MICRORRELATO // M-003</div>
+     <p>Aquel olor no le dejaba pensar.</p>
+<p>¿De dónde venía?</p>
+<p>Cuando se marchó de casa por la mañana, aquello no olía así.</p>
+<p>Recorrió todo el piso intentando localizar el punto exacto del que procedía, pero daba igual dónde se colocara: toda la casa apestaba por igual.</p>
+<p>Fue entonces cuando lo notó.</p>
+<p>El techo del salón estaba ligeramente abombado. Era casi imperceptible, salvo cuando la luz incidía desde cierto ángulo.</p>
+<p>—¿Qué coño…? —murmuró.</p>
+<p>Se acercó a la zona más afectada y estuvo unos segundos observándola. Al final fue a por la escoba y dio un golpecito con el mango.</p>
+<p>El techo ondeó.</p>
+<p>Era como si la pintura estuviera reteniendo una enorme bolsa de agua filtrada desde el piso superior. Y la presión parecía aumentar por momentos.</p>
+<p>—Joder. Lo que me faltaba.</p>
+<p>Salió del apartamento y subió al piso de arriba. Llamó a la puerta.</p>
+<p>—¿Sí? —se oyó desde dentro.</p>
+<p>—Lisa, soy Manu. ¿Puedes abrir?</p>
+<p>Unos pasos se acercaron y, unos segundos después, la puerta se abrió.</p>
+<p>—¡Manu! —exclamó ella, sorprendida—. ¿Ha pasado algo?</p>
+<p>—Pues creo que sí. ¿Puedes bajar un momento? Creo que tenemos un problema de cañerías.</p>
+<p>—No me jodas.</p>
+<p>Manu asintió con una mueca de preocupación.</p>
+<p>Bajaron juntos.</p>
+<p>Al entrar en el salón, vieron que la burbuja había crecido. Ahora resultaba imposible no verla.</p>
+<p>—¿Y ese olor? —preguntó Lisa.</p>
+<p>Manu señaló el techo.</p>
+<p>—Por cómo huele, tiene que ser una bajante.</p>
+<p>Lisa lo miró con incredulidad.</p>
+<p>—¿Una bajante? ¿En medio del salón?</p>
+<p>Manu volvió a mirar el techo, menos seguro de su explicación.</p>
+<p>—Entonces… ¿qué es?</p>
+<p>Lisa observó la burbuja.</p>
+<p>—No tengo ni idea. Trae una silla y un cuchillo.</p>
+<p>—¡Y una mierda! —respondió él al comprender lo que pretendía.</p>
+<p>La bolsa siguió creciendo. Para entonces, casi todo el techo del salón estaba abombado.</p>
+<p>—Pues tenemos dos opciones —dijo Lisa—: cuchillo o salir de aquí y esperar a que reviente. Y, por cómo se está llenando, será cuestión de minutos.</p>
+<p>Manu levantó la vista.</p>
+<p>En el centro de la habitación, el techo había descendido tanto que casi podía tocarlo sin necesidad de saltar.</p>
+<p>—Vámonos, Manu. Esto va a reventar.</p>
+<p>Él miró alrededor, buscando algo que pudiera salvar del desastre que se avecinaba.</p>
+<p>Lisa lo agarró de la camiseta y tiró de él hacia el pasillo. Cerró la puerta del salón.</p>
+<p>Un segundo después, un estruendo sacudió el piso.</p>
+<p>Manu se llevó las manos a la cabeza. Imaginar su salón inundado por aquello que olía tan mal le provocó una punzada de ansiedad.</p>
+<p>Lisa frunció el ceño.</p>
+<p>—Qué raro.</p>
+<p>—¿Qué?</p>
+<p>—Ya no huele.</p>
+<p>Manu se quedó inmóvil.</p>
+<p>Era verdad.</p>
+<p>El hedor había desaparecido por completo. Tampoco salía agua por debajo de la puerta. Nada goteaba al otro lado.</p>
+<p>Todo estaba extrañamente en calma.</p>
+<p>Lisa apoyó una mano en el pomo.</p>
+<p>—Espera —dijo Manu.</p>
+<p>Ella abrió.</p>
+<p>Y dio un paso atrás.</p>
+<p>Manu se acercó a la puerta, preparado para encontrarse el desastre.</p>
+<p>Pero el salón estaba impoluto.</p>
+<p>No había agua.</p>
+<p>No había manchas.</p>
+<p>No había olor.</p>
+<p>Todo estaba exactamente donde debía estar. Incluso el techo volvía a estar liso.</p>
+<p>—¿Qué… ha sido eso? —preguntó Manu.</p>
+<p>Lisa seguía mirando la habitación.</p>
+<p>—No lo sé. Pero sí sé que no pienso quedarme aquí para averiguarlo.</p>
+<p>Se dio la vuelta y salió del apartamento.</p>
+<p>Manu dio unos pasos dentro del salón.</p>
+<p>Entonces escuchó un golpe seco a su espalda.</p>
+<p>La puerta acababa de cerrarse.</p>
+<p>Se giró.</p>
+<p>Ya no estaba en su casa.</p>
+<p>El olor había vuelto.</p>
+<p>Y era mucho peor.</p>
+<p>Manu estaba desnudo.</p>
+<p>A pocos metros, una extraña máquina, construida con piezas que parecían basura, emitía una débil luz verde. Un pitido intermitente se fue apagando hasta desaparecer.</p>
+<p>Frente a él había una criatura.</p>
+<p>Lo observaba con curiosidad.</p>
+<p>Era enorme. La piel gruesa y grisácea estaba atravesada por vetas oscuras y pequeñas formaciones cristalinas. Tenía los hombros desproporcionadamente anchos, los brazos demasiado largos y una barba apelmazada que ocultaba buena parte de un rostro todavía inquietantemente humano.</p>
+<p>La criatura emitió un gruñido y alzó los brazos.</p>
+<p>Entonces, detrás de Manu, miles de voces guturales estallaron al mismo tiempo.</p>
+<p>Se giró sobresaltado.</p>
+<p>Había más.</p>
+<p>Muchos más.</p>
+<p>Filas y filas de aquellas criaturas se extendían alrededor del lugar, observándolo.</p>
+<p>Manu buscó una salida.</p>
+<p>No encontró ninguna.</p>
+<p>Un nuevo estruendo recorrió aquella inmensa cavidad.</p>
+<p>Esta vez reconoció perfectamente lo que era.</p>
+<p>Una ovación.</p>
+     <div class="story-end">FIN</div>
+   </article>
+   <aside class="legal-notice reveal"><h2>Aviso legal</h2><div><p>Copyright © 2026 Dylan P. MORBO. Todos los derechos reservados. Esta obra está protegida por las leyes internacionales de propiedad intelectual y derechos de autor. Queda totalmente prohibida la reproducción, copia, distribución, traducción o adaptación de este texto por cualquier medio digital o físico sin la autorización expresa del autor. Obra bajo custodia legal y registro de fecha certificada.</p></div></aside>
+   <section class="related-archive-gateway reveal" id="archivos-relacionados" aria-label="Acceso a conexiones">
+   <div class="related-archive-actions">
+     <a class="related-archive-action related-archive-explore" href="archivo.html">EXPLORAR POR TU CUENTA ↗</a>
+     <button class="related-archive-action related-archive-show" type="button" aria-controls="related-connections-panel" aria-expanded="false">MOSTRAR CONEXIONES ↓</button>
+   </div>
+   <form class="related-archive-code-form" hidden>
+     <p class="related-archive-code-hint">El código está escondido en El Archivo. Explora sus páginas para encontrarlo.</p>
+     <label>INTRODUCE EL CÓDIGO DE APERTURA <input type="text" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="off" required aria-label="Código de seis cifras"></label>
+     <button type="submit">DESBLOQUEAR</button>
+   </form>
+   <p class="related-archive-code-message" role="status" aria-live="polite"></p>
+   <div class="related-archive-block" id="related-connections-panel" hidden>
+   <div class="related-archive-heading">
+     <div>
+       <p class="related-archive-kicker">TRAZAS DETECTADAS</p>
+       <div class="section-label">ARCHIVOS RELACIONADOS // 01</div>
+     </div>
+     <span class="related-archive-sigil" aria-hidden="true">◉</span>
+   </div>
+   <div class="related-archive-grid">
+     <a class="related-archive-card has-thumbnail" href="https://dylanpmorbo-collab.github.io/archivo-documentos-desapariciones-sin-resolver.html?aqnr_from=micro-aquel-olor.html%23archivos-relacionados&amp;aqnr_from_label=Aquel%20Olor">
+         <div class="related-archive-media">
+           <img src="/assets/uploads/SUCESOS/desapariciones techo/informe-policial-desaparicion-2008-web.webp" alt="" loading="lazy">
+           <span class="related-archive-type">DOCUMENTO</span>
+         </div>
+         <div class="related-archive-copy">
+           <h3>DESAPARICIONES SIN RESOLVER INFORMES POLICIALES</h3>
+           <p>Cuatro informes policiales, cuatro lugares distintos, cuatro épocas distintas... mismos patrones.</p>
+           <span class="related-archive-open">CONSULTAR EXPEDIENTE <b aria-hidden="true">→</b></span>
+         </div>
+       </a>
+   </div>
+   </div>
+   <script>(function(){const gate=document.currentScript.closest('.related-archive-gateway');if(!gate)return;const button=gate.querySelector('.related-archive-show'),panel=gate.querySelector('.related-archive-block'),form=gate.querySelector('.related-archive-code-form'),input=form.querySelector('input'),message=gate.querySelector('.related-archive-code-message');let unlocked=false;try{unlocked=localStorage.getItem('aqnr_connections_unlocked')==='yes'}catch(e){}button.addEventListener('click',function(){if(!unlocked){form.hidden=!form.hidden;if(!form.hidden)input.focus();return;}panel.hidden=!panel.hidden;button.setAttribute('aria-expanded',String(!panel.hidden));button.textContent=panel.hidden?'MOSTRAR CONEXIONES ↓':'OCULTAR CONEXIONES ↑';});form.addEventListener('submit',function(event){event.preventDefault();if(input.value.trim()!=="641729"){message.textContent='CÓDIGO INCORRECTO';input.select();return;}unlocked=true;try{localStorage.setItem('aqnr_connections_unlocked','yes')}catch(e){}input.value='';form.hidden=true;message.textContent='ACCESO CONCEDIDO. PULSA «MOSTRAR CONEXIONES» PARA ABRIRLAS.';button.focus();});window.addEventListener('storage',function(event){if(event.key==='aqnr_connections_unlocked'&&event.newValue==='yes')unlocked=true;});})();</script>
+ </section>
+ </section>
+ <section class="post-story reveal">
+   <p class="eyebrow">ARCHIVO BREVE CERRADO</p>
+   <h2>Hay historias que sólo necesitan unas líneas.</h2>
+   <div class="hero-actions"><a class="btn primary" href="archivo-microrrelatos.html">Volver a microrrelatos</a><a class="btn ghost" href="archivo.html">Índice general</a></div>
+ </section>
+ </main><footer class="site-footer"><div class="footer-sigil">◉</div>
+<p><strong>AQUELLO QUE NOS RODEA</strong></p>
+<p>Un universo de horror creado por <strong>Dylan P. MOЯBO</strong>.</p>
+<p class="footer-small">Ficción. Los documentos, entidades y acontecimientos de este archivo forman parte de una obra narrativa.</p>
+<p class="footer-small">© 2026 Dylan P. MOЯBO. Todos los derechos reservados.</p><button type="button" class="cookie-settings-link" id="cookieSettings">Configurar cookies</button></footer>
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-labelledby="cookieTitle" aria-describedby="cookieDescription" hidden><div class="cookie-banner-inner"><div><strong id="cookieTitle">Privacidad y cookies</strong><p id="cookieDescription">Usamos almacenamiento técnico para recordar tu confirmación de edad, esta elección y tu progreso en el libro y las conexiones del Archivo. Google Analytics, que mide las visitas, solo se activará si aceptas.</p><details><summary>Más información</summary><p>El progreso del libro y la apertura de conexiones se recuerdan solo en este navegador; no se guarda el código introducido. Si aceptas, Google Analytics podrá instalar cookies de medición y recibir datos de navegación. Puedes rechazarlo y seguir usando toda la web. Cambia tu decisión cuando quieras desde «Configurar cookies», al pie de cualquier página.</p></details></div><div class="cookie-actions"><button type="button" id="cookieReject">Rechazar</button><button type="button" id="cookieAccept">Aceptar</button></div></div></div></body></html>
