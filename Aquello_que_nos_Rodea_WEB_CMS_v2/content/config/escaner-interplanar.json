@@ -4,40 +4,143 @@
   "intro": "Una fotografía puede conservar señales que la vista humana no percibe.",
   "tablet_image": "/assets/uploads/escaner/tableta-scrappunk-cenital.png",
   "folder_rules": [
-    { "folder": "archivo", "visible": true },
-    { "folder": "conexiones", "visible": false },
-    { "folder": "documentos", "visible": true },
-    { "folder": "entidades", "visible": true },
-    { "folder": "entidades/ŚUKRAHĀRĪ", "visible": true },
-    { "folder": "escaner", "visible": false },
-    { "folder": "escaner/capas", "visible": false },
-    { "folder": "huella-digital", "visible": true },
-    { "folder": "informes-digitales", "visible": true },
-    { "folder": "informes-policiales", "visible": true },
-    { "folder": "informes-policiales/RICHARD ALCOY POLICIAL", "visible": true },
-    { "folder": "interface", "visible": false },
-    { "folder": "interfaz", "visible": false },
-    { "folder": "microrrelatos", "visible": false },
-    { "folder": "personajes", "visible": true },
-    { "folder": "personajes/Neolin", "visible": true },
-    { "folder": "personajes/Richard", "visible": true },
-    { "folder": "personajes/Richard/facebook Javi", "visible": true },
-    { "folder": "personajes/Richard/LISBOA2023", "visible": true },
-    { "folder": "personajes/Richard/MAYORCA", "visible": true },
-    { "folder": "personajes/Richard/POLICIA", "visible": true },
-    { "folder": "Prensa tradicional", "visible": false },
-    { "folder": "Prensa tradicional/Rasputin", "visible": true },
-    { "folder": "prensa-digital", "visible": false },
-    { "folder": "prensa-fisica", "visible": false },
-    { "folder": "relatos", "visible": false },
-    { "folder": "SECTAS Y ORGANIZACIONES", "visible": true },
-    { "folder": "SECTAS Y ORGANIZACIONES/LA PLAGA", "visible": true },
-    { "folder": "SUCESOS", "visible": true },
-    { "folder": "SUCESOS/desapariciones techo", "visible": true },
-    { "folder": "SUCESOS/secuestro discoteca", "visible": true },
-    { "folder": "terminal", "visible": false },
-    { "folder": "testimonios", "visible": true }
+    {
+      "folder": "archivo",
+      "visible": true
+    },
+    {
+      "folder": "conexiones",
+      "visible": false
+    },
+    {
+      "folder": "documentos",
+      "visible": true
+    },
+    {
+      "folder": "entidades",
+      "visible": true
+    },
+    {
+      "folder": "entidades/ŚUKRAHĀRĪ",
+      "visible": true
+    },
+    {
+      "folder": "escaner",
+      "visible": false
+    },
+    {
+      "folder": "escaner/capas",
+      "visible": false
+    },
+    {
+      "folder": "huella-digital",
+      "visible": true
+    },
+    {
+      "folder": "informes-digitales",
+      "visible": true
+    },
+    {
+      "folder": "informes-policiales",
+      "visible": true
+    },
+    {
+      "folder": "informes-policiales/RICHARD ALCOY POLICIAL",
+      "visible": true
+    },
+    {
+      "folder": "interface",
+      "visible": false
+    },
+    {
+      "folder": "interfaz",
+      "visible": false
+    },
+    {
+      "folder": "microrrelatos",
+      "visible": false
+    },
+    {
+      "folder": "personajes",
+      "visible": true
+    },
+    {
+      "folder": "personajes/Neolin",
+      "visible": true
+    },
+    {
+      "folder": "personajes/Richard",
+      "visible": true
+    },
+    {
+      "folder": "personajes/Richard/facebook Javi",
+      "visible": true
+    },
+    {
+      "folder": "personajes/Richard/LISBOA2023",
+      "visible": true
+    },
+    {
+      "folder": "personajes/Richard/MAYORCA",
+      "visible": true
+    },
+    {
+      "folder": "personajes/Richard/POLICIA",
+      "visible": true
+    },
+    {
+      "folder": "Prensa tradicional",
+      "visible": false
+    },
+    {
+      "folder": "Prensa tradicional/Rasputin",
+      "visible": true
+    },
+    {
+      "folder": "prensa-digital",
+      "visible": false
+    },
+    {
+      "folder": "prensa-fisica",
+      "visible": false
+    },
+    {
+      "folder": "relatos",
+      "visible": false
+    },
+    {
+      "folder": "SECTAS Y ORGANIZACIONES",
+      "visible": true
+    },
+    {
+      "folder": "SECTAS Y ORGANIZACIONES/LA PLAGA",
+      "visible": true
+    },
+    {
+      "folder": "SUCESOS",
+      "visible": true
+    },
+    {
+      "folder": "SUCESOS/desapariciones techo",
+      "visible": true
+    },
+    {
+      "folder": "SUCESOS/secuestro discoteca",
+      "visible": true
+    },
+    {
+      "folder": "terminal",
+      "visible": false
+    },
+    {
+      "folder": "testimonios",
+      "visible": true
+    }
   ],
-  "signals": [],
-  "additional_images": []
+  "signals": [
+    {
+      "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/definitiva-web.webp",
+      "overlay": "/assets/uploads/escaner/capas/definitiva-web-capa-interplanar.png"
+    }
+  ]
 }
