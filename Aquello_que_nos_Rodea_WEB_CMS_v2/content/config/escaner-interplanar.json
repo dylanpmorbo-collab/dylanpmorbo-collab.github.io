@@ -141,6 +141,10 @@
     {
       "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/definitiva-web.webp",
       "overlay": "/assets/uploads/escaner/capas/definitiva-web-capa-interplanar.png"
+    },
+    {
+      "image": "/assets/uploads/personajes/Richard/MAYORCA/aquapark-web.webp",
+      "overlay": "/assets/uploads/escaner/capas/aquapark-capa-interplanar.png"
     }
   ]
 }
