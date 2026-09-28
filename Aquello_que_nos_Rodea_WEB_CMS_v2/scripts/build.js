@@ -112,6 +112,7 @@ function header(active=''){
 <a href="relatos.html" class="nav-link ${active==='relatos'?'active':''}">Relatos</a>
 <a href="archivo-microrrelatos.html" class="nav-link ${active==='microrrelatos'?'active':''}">Microrrelatos</a>
 <a href="archivo.html" class="nav-link ${active==='archivo'?'active':''}">El Archivo</a>
+<a href="escaner.html" class="nav-link ${active==='escaner'?'active':''}">Escáner</a>
 <a href="terminal.html" class="nav-link ${active==='terminal'?'active':''}">Terminal</a>
 <a href="sobre.html" class="nav-link ${active==='sobre'?'active':''}">Dylan P. MOЯBO</a>
 </nav></header>`;
@@ -1582,6 +1583,8 @@ if(terminalConfig.enabled!==false){
  </main>${footer(site)}<script defer src="assets/js/terminal.js?v=20260921"></script></body></html>`;
  fs.writeFileSync(path.join(DIST,'terminal.html'),terminalPage);
 }
+
+require('./build-scanner')({root:ROOT,dist:DIST,site,archiveEntries,characters,head,header,footer,esc});
 
 // La página "Sobre" sigue siendo fija por ahora
 let about=fs.readFileSync(path.join(ROOT,'sobre.static.html'),'utf8');
