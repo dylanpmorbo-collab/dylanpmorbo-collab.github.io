@@ -83,6 +83,12 @@ media:
     output: /assets/uploads/terminal
     rename: safe
     categories: [image]
+  - name: escaner_capas
+    label: Capas transparentes del escáner
+    input: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads/escaner/capas
+    output: /assets/uploads/escaner/capas
+    rename: safe
+    categories: [image]
 
 content:
   - name: relatos
@@ -3525,6 +3531,90 @@ content:
             label: Incluir en la rotación
             type: boolean
             default: true
+
+  - name: escaner_interplanar
+    label: Escáner interplanar
+    type: file
+    path: Aquello_que_nos_Rodea_WEB_CMS_v2/content/config/escaner-interplanar.json
+    format: json
+    fields:
+      - name: enabled
+        label: Mostrar la página
+        type: boolean
+        default: true
+      - name: page_title
+        label: Título de la página
+        type: string
+      - name: intro
+        label: Texto de entrada
+        type: text
+      - name: tablet_image
+        label: Imagen de la tableta cenital (1672 × 941 px)
+        type: image
+        required: true
+        options:
+          media: default
+        description: "La pantalla debe conservar su posición y proporción para que encaje el explorador."
+      - name: folder_rules
+        label: Carpetas y subcarpetas del escáner
+        type: object
+        required: false
+        description: "Cada carpeta tiene su propio interruptor. Si apagas una carpeta superior, todo su interior queda oculto aunque sus subcarpetas estén activadas."
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{folder}"
+        fields:
+          - name: folder
+            label: Carpeta o subcarpeta
+            type: string
+            required: true
+            description: "Ruta desde assets/uploads; ejemplo: personajes/Richard/MAYORCA. Si creas una carpeta nueva, aparecerá por defecto y puedes añadir aquí su ruta para apagarla."
+          - name: visible
+            label: Activada en el escáner
+            type: boolean
+            default: true
+      - name: signals
+        label: Fotos con señal interplanar
+        type: object
+        required: false
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{image}"
+        fields:
+          - name: image
+            label: Fotografía original ya subida
+            type: image
+            required: true
+            options:
+              media: default
+            description: "Selecciona la foto existente; no hay que subirla otra vez."
+          - name: overlay
+            label: PNG transparente de radiación
+            type: image
+            required: true
+            options:
+              media: escaner_capas
+            description: "Solo señales, sin fondo ni foto; del mismo tamaño que la original. No aparece en las carpetas públicas de la tableta."
+      - name: additional_images
+        label: Títulos personalizados de fotografías
+        type: object
+        required: false
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: title
+            label: Título mostrado
+            type: string
+          - name: image
+            label: Imagen existente
+            type: image
+            required: true
+            options:
+              media: default
 
   - name: frases_archivo
     label: Frases inquietantes
