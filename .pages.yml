@@ -4,7 +4,7 @@ media:
     input: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads
     output: /assets/uploads
     rename: safe
-    categories: [image, video, audio]
+    categories: [image]
   - name: relatos
     label: Relatos
     input: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads/relatos
@@ -84,7 +84,7 @@ media:
     rename: safe
     categories: [image]
   - name: escaner_capas
-    label: Capas transparentes del escáner
+    label: Capas transparentes del escáner (solo edición)
     input: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads/escaner/capas
     output: /assets/uploads/escaner/capas
     rename: safe
@@ -152,7 +152,7 @@ content:
         label: Portada (1200 × 1800 px)
         type: image
         options:
-          media: default
+          media: relatos
         description: "Tamaño recomendado: 1200 × 1800 píxeles (2:3). Se reduce en la página; las miniaturas pueden recortar un poco los bordes."
       - name: content_warning
         label: Advertencia de contenido
@@ -168,7 +168,7 @@ content:
         label: Texto del relato
         type: rich-text
         options:
-          media: default
+          media: relatos
       - name: show_related_archive
         label: Mostrar archivos relacionados
         type: boolean
@@ -200,7 +200,7 @@ content:
             type: image
             required: false
             options:
-              media: default
+              media: conexiones
             description: "Opcional. Prepara 400 × 700 píxeles (4:7); la tarjeta puede recortar ligeramente al adaptarse a la pantalla."
           - name: url
             label: Enlace
@@ -266,7 +266,7 @@ content:
                 type: image
                 required: false
                 options:
-                  media: default
+                  media: relatos
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -358,7 +358,7 @@ content:
         type: image
         required: false
         options:
-          media: default
+          media: microrrelatos
         description: "Tamaño recomendado: 1200 × 1200 píxeles (cuadrada). La portada se recorta a ese formato."
       - name: content_warning
         label: Advertencia de contenido
@@ -375,7 +375,7 @@ content:
         type: rich-text
         required: true
         options:
-          media: default
+          media: microrrelatos
       - name: show_related_archive
         label: Mostrar archivos relacionados
         type: boolean
@@ -407,7 +407,7 @@ content:
             type: image
             required: false
             options:
-              media: default
+              media: conexiones
             description: "Opcional. Prepara 400 × 700 píxeles (4:7); la tarjeta puede recortar ligeramente al adaptarse a la pantalla."
           - name: url
             label: Enlace
@@ -473,7 +473,7 @@ content:
                 type: image
                 required: false
                 options:
-                  media: default
+                  media: microrrelatos
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -549,7 +549,7 @@ content:
         type: image
         required: false
         options:
-          media: default
+          media: archivo
         description: "Tamaño recomendado: 1200 × 900 píxeles (4:3). Aparece en la ficha y cabecera; el encuadre puede recortarse según la pantalla."
       - name: status
         label: Estado
@@ -606,7 +606,7 @@ content:
             type: file
             required: true
             options:
-              media: default
+              media: testimonios_audio
               categories: [audio]
             description: "Se recomienda MP3 para compatibilidad con navegadores."
           - name: transcript
@@ -618,7 +618,7 @@ content:
         type: rich-text
         required: false
         options:
-          media: default
+          media: archivo
         description: "Aquí va la información extensa que sólo aparece al abrir el expediente completo."
       - name: sections
         label: Apartados / información descubierta
@@ -637,7 +637,7 @@ content:
             label: Contenido
             type: rich-text
             options:
-              media: default
+              media: archivo
       - name: gallery
         label: Galería del expediente
         type: object
@@ -653,7 +653,7 @@ content:
             type: image
             required: true
             options:
-              media: default
+              media: archivo
           - name: caption
             label: Pie de imagen
             type: string
@@ -699,7 +699,7 @@ content:
                 type: image
                 required: true
                 options:
-                  media: default
+                  media: documentos
               - name: caption
                 label: Nombre / pie de página
                 type: string
@@ -742,7 +742,7 @@ content:
         label: Informes físicos
         type: object
         required: false
-        description: "Cada carpeta es un expediente; dentro puedes añadir hasta cinco documentos A4."
+        description: "Carpetas de informes en papel. Cada informe se reparte en folios que se leen de uno en uno."
         list:
           max: 30
           collapsible:
@@ -777,91 +777,34 @@ content:
                   label: Morado
                 - value: vital
                   label: Rojo
-          - name: documents
-            label: Documentos de esta carpeta (máximo 5)
-            type: object
+          - name: image
+            label: Imagen 1 / portada de la carpeta (800 × 500 px)
+            type: image
             required: false
-            description: "Cada documento tiene sus propios folios A4 y entre cero y seis fotografías. Si hay varios, se crea un índice automáticamente."
-            list:
-              max: 5
-              collapsible:
-                collapsed: true
-                summary: "{title}"
-            fields:
-              - name: title
-                label: Título del documento
-                type: string
-                required: true
-              - name: paper
-                label: Color del papel
-                type: select
-                required: false
-                default: blanco
-                options:
-                  values:
-                    - value: blanco
-                      label: Blanco
-                    - value: crema
-                      label: Crema
-                    - value: amarillo
-                      label: Amarillo pálido
-                    - value: gris
-                      label: Gris claro
-                    - value: verde
-                      label: Verde pálido
-              - name: letterhead
-                label: Membrete PNG de la primera hoja (1600 × 320 píxeles)
-                type: image
-                required: false
-                options:
-                  media: default
-                description: "Prepara un PNG exactamente de 1600 × 320 píxeles (5:1). Se muestra entero, sin recorte. Si no subes nada, no queda hueco."
-              - name: body
-                label: Texto del documento (Markdown)
-                type: rich-text
-                required: false
-                options:
-                  format: markdown
-                  media: default
-                  switcher: true
-                description: "Admite varias páginas; puedes dejarlo vacío si el documento solo contiene fotos."
-              - name: image
-                label: Fotografía 1 / miniatura del índice (800 × 500 px)
-                type: image
-                required: false
-                options:
-                  media: default
-                description: "Tamaño recomendado: 800 × 500 píxeles. El índice la muestra como fotocopia; al abrir se puede ampliar."
-              - name: image_2
-                label: Fotografía 2 (800 × 500 px)
-                type: image
-                required: false
-                options:
-                  media: default
-              - name: image_3
-                label: Fotografía 3 (800 × 500 px)
-                type: image
-                required: false
-                options:
-                  media: default
-              - name: image_4
-                label: Fotografía 4 (800 × 500 px)
-                type: image
-                required: false
-                options:
-                  media: default
-              - name: image_5
-                label: Fotografía 5 (800 × 500 px)
-                type: image
-                required: false
-                options:
-                  media: default
-              - name: image_6
-                label: Fotografía 6 (800 × 500 px)
-                type: image
-                required: false
-                options:
-                  media: default
+            options:
+              media: informes_policiales
+            description: "Tamaño recomendado: 800 × 500 píxeles (8:5). La carpeta recorta para llenar su ventana; al abrir, también se ve al principio del informe."
+          - name: image_2
+            label: Imagen 2 del informe
+            type: image
+            required: false
+            options:
+              media: informes_policiales
+          - name: image_3
+            label: Imagen 3 del informe
+            type: image
+            required: false
+            options:
+              media: informes_policiales
+          - name: body
+            label: Texto del informe (Markdown)
+            type: rich-text
+            required: true
+            options:
+              format: markdown
+              media: false
+              switcher: true
+            description: "Admite títulos, negritas, cursivas, listas, citas y enlaces. El texto se reparte en folios conservando los párrafos."
       - name: show_digital_reports
         label: Mostrar informes digitales
         type: boolean
@@ -904,35 +847,12 @@ content:
             type: image
             required: false
             options:
-              media: default
+              media: informes_digitales
             description: "Prepara 600 × 300 píxeles (2:1). Se ajusta entera, sin recorte, dentro de la pegatina; el título se escribe aparte."
           - name: summary
             label: Referencia o nota breve
             type: string
             required: false
-          - name: boot_seconds
-            label: Segundos de carga del escritorio (1–5)
-            type: number
-            default: 1
-            required: false
-            description: "Si no cambias nada, dura 1 segundo. El visitante puede pulsar SALTAR."
-          - name: boot_messages
-            label: Mensajes ocultos durante la carga
-            type: text
-            required: false
-            description: "Opcional. Escribe un mensaje por línea. Se mezclarán con el texto normal de arranque; si lo dejas vacío, solo aparecerá el estándar. Máximo 12 líneas."
-          - name: boot_flash_enabled
-            label: Activar imagen fugaz durante la carga
-            type: boolean
-            default: false
-            required: false
-          - name: boot_flash_image
-            label: Imagen fugaz (recomendado 800 × 600 px)
-            type: image
-            required: false
-            options:
-              media: default
-            description: "Opcional. Se verá durante medio segundo, sin recortes. Solo aparece si activas la opción anterior."
           - name: folders
             label: Carpetas del escritorio
             type: object
@@ -952,7 +872,7 @@ content:
                 type: image
                 required: false
                 options:
-                  media: default
+                  media: informes_digitales
                 description: "Prepara 152 × 128 píxeles, preferiblemente PNG transparente. Se reduce a un máximo de 76 × 64 sin recorte."
               - name: order
                 label: Orden en el escritorio
@@ -989,7 +909,7 @@ content:
                     type: image
                     required: false
                     options:
-                      media: default
+                      media: informes_digitales
                     description: "Si no ocultas la imagen, se muestra directamente. Para el falso pixelado, aquí puedes subir incluso una imagen de error."
                   - name: image_visibility
                     label: Cómo mostrar la imagen
@@ -1009,28 +929,21 @@ content:
                     type: image
                     required: false
                     options:
-                      media: default
+                      media: informes_digitales
                     description: "Solo para «Falso pixelado». Sube una imagen YA pixelada; al desbloquear se sustituirá por la imagen del campo anterior."
-                  - name: scan_image
-                    label: Lectura verde del escáner interplanar
-                    type: image
-                    required: false
-                    options:
-                      media: default
-                    description: "Opcional. Sube una copia de la imagen principal con exactamente los mismos píxeles y encuadre. Aplica el tono verde y dibuja ahí las siluetas o rastros; solo se verán dentro de la lente. Si lo dejas vacío, el escáner mostrará una lectura verde provisional de la foto."
                   - name: masthead_image
                     label: Membrete o banner de esta ficha (600 × 120 píxeles)
                     type: image
                     required: false
                     options:
-                      media: default
+                      media: informes_digitales
                     description: "Prepara una imagen de exactamente 600 × 120 píxeles (proporción 5:1). Se reducirá sin recortes; si queda vacío, no aparecerá ningún membrete."
                   - name: video
                     label: Vídeo principal de la ficha
                     type: file
                     required: false
                     options:
-                      media: default
+                      media: informes_digitales
                       categories: [video]
                     description: "Se reproduce como archivo principal si el tipo es VÍDEO. Si el tipo es IMAGEN, aparecerá como adjunto para no perder los vídeos ya cargados."
                   - name: poster
@@ -1038,14 +951,14 @@ content:
                     type: image
                     required: false
                     options:
-                      media: default
+                      media: informes_digitales
                     description: "Para vídeo horizontal, prepara 1280 × 720 píxeles (16:9). Si es vertical, usa 720 × 1280 para respetar su proporción."
                   - name: annotated_image
                     label: Versión con marcas o anotaciones visuales
                     type: image
                     required: false
                     options:
-                      media: default
+                      media: informes_digitales
                     description: "Si la añades, el visitante podrá alternar entre la imagen original y esta versión."
                   - name: order
                     label: Orden dentro de la carpeta
@@ -1096,14 +1009,14 @@ content:
                         type: image
                         required: false
                         options:
-                          media: default
+                          media: informes_digitales
                         description: "Si acompaña a un vídeo como portada: 1280 × 720 px horizontal o 720 × 1280 px vertical. Si es una imagen adjunta, conserva su proporción original."
                       - name: video
                         label: Vídeo adjunto
                         type: file
                         required: false
                         options:
-                          media: default
+                          media: informes_digitales
                           categories: [video]
                         description: "Rellena imagen o vídeo. Si rellenas ambos, se mostrará el vídeo y la imagen servirá de miniatura."
                       - name: note
@@ -1141,7 +1054,7 @@ content:
             type: image
             required: false
             options:
-              media: default
+              media: conexiones
             description: "Opcional. Prepara 400 × 700 píxeles (4:7); la tarjeta puede recortar ligeramente al adaptarse a la pantalla."
           - name: url
             label: Enlace
@@ -1207,7 +1120,7 @@ content:
                 type: image
                 required: false
                 options:
-                  media: default
+                  media: archivo
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -1283,20 +1196,20 @@ content:
             type: image
             required: false
             options:
-              media: default
+              media: prensa_digital
           - name: video
             label: Vídeo reproducible
             type: file
             required: false
             options:
-              media: default
+              media: prensa_digital
               categories: [video]
           - name: poster
             label: Portada del vídeo (1280 × 720 px)
             type: image
             required: false
             options:
-              media: default
+              media: prensa_digital
             description: "Para vídeo horizontal, prepara 1280 × 720 píxeles (16:9). Si es vertical, usa 720 × 1280."
           - name: summary
             label: Entradilla o descripción
@@ -1349,74 +1262,6 @@ content:
             required: false
             description: "Contexto o discrepancias detectadas al archivar la noticia."
 
-      - name: show_physical_press
-        label: Mostrar prensa física
-        type: boolean
-        default: false
-        description: "Abre un apartado propio de recortes de papel en dos columnas. Cada imagen conserva su proporción original."
-      - name: physical_press
-        label: Prensa física · recortes y fragmentos
-        type: object
-        required: false
-        description: "Una caja por recorte. La cabecera y sus datos son opcionales para poder archivar también trozos de periódico."
-        list:
-          max: 40
-          collapsible:
-            collapsed: true
-            summary: "{headline}"
-        fields:
-          - name: headline
-            label: Título del recorte o titular
-            type: string
-            required: true
-          - name: image
-            label: Imagen del recorte (proporción libre; sin recorte automático)
-            type: image
-            required: true
-            options:
-              media: default
-            description: "Sube la imagen con el tamaño y la proporción que tenga tu recorte. La web la reducirá sin recortarla; al pulsarla se amplía."
-          - name: publication
-            label: Cabecera / nombre ficticio del periódico
-            type: string
-            required: false
-            description: "Opcional. Déjalo vacío si el trozo de periódico no conserva la cabecera."
-          - name: masthead_image
-            label: Cabecera gráfica opcional (1600 × 320 px)
-            type: image
-            required: false
-            options:
-              media: default
-            description: "Si preparas una cabecera gráfica, usa 1600 × 320 píxeles (5:1). Aparecerá entera, sin recorte."
-          - name: date
-            label: Fecha impresa
-            type: string
-            required: false
-          - name: edition
-            label: Edición / número
-            type: string
-            required: false
-          - name: place
-            label: Lugar de edición
-            type: string
-            required: false
-          - name: price
-            label: Precio impreso
-            type: string
-            required: false
-          - name: section
-            label: Sección del periódico
-            type: string
-            required: false
-          - name: byline
-            label: Firma
-            type: string
-            required: false
-          - name: caption
-            label: Pie o nota del recorte
-            type: text
-            required: false
-
   - name: personajes
     label: Personajes
     type: collection
@@ -1455,7 +1300,7 @@ content:
         type: image
         required: false
         options:
-          media: default
+          media: personajes
         description: "Tamaño recomendado: 1200 × 900 píxeles (4:3). El encuadre puede recortarse en las tarjetas y cabeceras."
       - name: status
         label: Estado
@@ -1524,7 +1369,7 @@ content:
             type: file
             required: true
             options:
-              media: default
+              media: testimonios_audio
               categories: [audio]
             description: "Se recomienda MP3 para compatibilidad con navegadores."
           - name: transcript
@@ -1536,7 +1381,7 @@ content:
         type: rich-text
         required: false
         options:
-          media: default
+          media: personajes
       - name: sections
         label: Apartados / información descubierta
         type: object
@@ -1554,7 +1399,7 @@ content:
             label: Contenido
             type: rich-text
             options:
-              media: default
+              media: personajes
       - name: show_digital_footprint
         label: Mostrar huella digital
         type: boolean
@@ -1614,8 +1459,7 @@ content:
                   - name: title
                     label: Título de esta foto
                     type: string
-                    required: false
-                    description: "Opcional si rellenas la ficha completa de abajo."
+                    required: true
                   - name: date
                     label: Fecha de esta foto
                     type: string
@@ -1631,21 +1475,7 @@ content:
                     type: image
                     required: true
                     options:
-                      media: default
-                  - name: quick_entry
-                    label: Ficha completa de esta foto (pegar de una vez)
-                    type: text
-                    required: false
-                    default: |
-                      TÍTULO:
-                      FECHA:
-                      DESCRIPCIÓN:
-                      ALT:
-                      AMPLIAR:
-                      OCULTAR:
-                      REACCIONES:
-                      COMENTARIOS:
-                    description: "Rellena esta plantilla o pega una ficha con los mismos encabezados. Admite varias líneas en descripción y comentarios. En AMPLIAR y OCULTAR escribe sí o no. Los valores escritos aquí prevalecen sobre las casillas sueltas; deja un valor vacío para usar la casilla correspondiente. Los comentarios empiezan con @usuario en una línea."
+                      media: huella_digital
                   - name: alt
                     label: Descripción accesible
                     type: string
@@ -1675,8 +1505,7 @@ content:
                   - name: title
                     label: Título de este vídeo
                     type: string
-                    required: false
-                    description: "Opcional si rellenas la ficha completa de abajo."
+                    required: true
                   - name: date
                     label: Fecha de este vídeo
                     type: string
@@ -1692,19 +1521,8 @@ content:
                     type: file
                     required: true
                     options:
-                      media: default
+                      media: huella_digital
                       categories: [video]
-                  - name: quick_entry
-                    label: Ficha completa de este vídeo (pegar de una vez)
-                    type: text
-                    required: false
-                    default: |
-                      TÍTULO:
-                      FECHA:
-                      DESCRIPCIÓN:
-                      REACCIONES:
-                      COMENTARIOS:
-                    description: "Rellena esta plantilla o pega una ficha con los mismos encabezados. Admite varias líneas en descripción y comentarios. Los valores escritos aquí prevalecen sobre las casillas sueltas; deja un valor vacío para usar la casilla correspondiente. Los comentarios empiezan con @usuario en una línea."
                   - name: reactions
                     label: Me gusta / reacciones de este vídeo
                     type: string
@@ -1749,7 +1567,7 @@ content:
             type: image
             required: false
             options:
-              media: default
+              media: huella_digital
           - name: source
             label: Fuente documental
             type: string
@@ -1777,7 +1595,7 @@ content:
             type: image
             required: true
             options:
-              media: default
+              media: personajes
           - name: caption
             label: Pie de imagen
             type: string
@@ -1823,7 +1641,7 @@ content:
                 type: image
                 required: true
                 options:
-                  media: default
+                  media: documentos
               - name: caption
                 label: Nombre / pie de página
                 type: string
@@ -1866,7 +1684,7 @@ content:
         label: Informes físicos
         type: object
         required: false
-        description: "Cada carpeta es un expediente; dentro puedes añadir hasta cinco documentos A4."
+        description: "Carpetas de informes en papel. Cada informe se reparte en folios que se leen de uno en uno."
         list:
           max: 30
           collapsible:
@@ -1901,91 +1719,34 @@ content:
                   label: Morado
                 - value: vital
                   label: Rojo
-          - name: documents
-            label: Documentos de esta carpeta (máximo 5)
-            type: object
+          - name: image
+            label: Imagen 1 / portada de la carpeta (800 × 500 px)
+            type: image
             required: false
-            description: "Cada documento tiene sus propios folios A4 y entre cero y seis fotografías. Si hay varios, se crea un índice automáticamente."
-            list:
-              max: 5
-              collapsible:
-                collapsed: true
-                summary: "{title}"
-            fields:
-              - name: title
-                label: Título del documento
-                type: string
-                required: true
-              - name: paper
-                label: Color del papel
-                type: select
-                required: false
-                default: blanco
-                options:
-                  values:
-                    - value: blanco
-                      label: Blanco
-                    - value: crema
-                      label: Crema
-                    - value: amarillo
-                      label: Amarillo pálido
-                    - value: gris
-                      label: Gris claro
-                    - value: verde
-                      label: Verde pálido
-              - name: letterhead
-                label: Membrete PNG de la primera hoja (1600 × 320 píxeles)
-                type: image
-                required: false
-                options:
-                  media: default
-                description: "Prepara un PNG exactamente de 1600 × 320 píxeles (5:1). Se muestra entero, sin recorte. Si no subes nada, no queda hueco."
-              - name: body
-                label: Texto del documento (Markdown)
-                type: rich-text
-                required: false
-                options:
-                  format: markdown
-                  media: default
-                  switcher: true
-                description: "Admite varias páginas; puedes dejarlo vacío si el documento solo contiene fotos."
-              - name: image
-                label: Fotografía 1 / miniatura del índice (800 × 500 px)
-                type: image
-                required: false
-                options:
-                  media: default
-                description: "Tamaño recomendado: 800 × 500 píxeles. El índice la muestra como fotocopia; al abrir se puede ampliar."
-              - name: image_2
-                label: Fotografía 2 (800 × 500 px)
-                type: image
-                required: false
-                options:
-                  media: default
-              - name: image_3
-                label: Fotografía 3 (800 × 500 px)
-                type: image
-                required: false
-                options:
-                  media: default
-              - name: image_4
-                label: Fotografía 4 (800 × 500 px)
-                type: image
-                required: false
-                options:
-                  media: default
-              - name: image_5
-                label: Fotografía 5 (800 × 500 px)
-                type: image
-                required: false
-                options:
-                  media: default
-              - name: image_6
-                label: Fotografía 6 (800 × 500 px)
-                type: image
-                required: false
-                options:
-                  media: default
+            options:
+              media: informes_policiales
+            description: "Tamaño recomendado: 800 × 500 píxeles (8:5). La carpeta recorta para llenar su ventana; al abrir, también se ve al principio del informe."
+          - name: image_2
+            label: Imagen 2 del informe
+            type: image
+            required: false
+            options:
+              media: informes_policiales
+          - name: image_3
+            label: Imagen 3 del informe
+            type: image
+            required: false
+            options:
+              media: informes_policiales
+          - name: body
+            label: Texto del informe (Markdown)
+            type: rich-text
+            required: true
+            options:
+              format: markdown
+              media: false
+              switcher: true
+            description: "Admite títulos, negritas, cursivas, listas, citas y enlaces. El texto se reparte en folios conservando los párrafos."
       - name: show_digital_reports
         label: Mostrar informes digitales
         type: boolean
@@ -2028,35 +1789,12 @@ content:
             type: image
             required: false
             options:
-              media: default
+              media: informes_digitales
             description: "Prepara 600 × 300 píxeles (2:1). Se ajusta entera, sin recorte, dentro de la pegatina; el título se escribe aparte."
           - name: summary
             label: Referencia o nota breve
             type: string
             required: false
-          - name: boot_seconds
-            label: Segundos de carga del escritorio (1–5)
-            type: number
-            default: 1
-            required: false
-            description: "Si no cambias nada, dura 1 segundo. El visitante puede pulsar SALTAR."
-          - name: boot_messages
-            label: Mensajes ocultos durante la carga
-            type: text
-            required: false
-            description: "Opcional. Escribe un mensaje por línea. Se mezclarán con el texto normal de arranque; si lo dejas vacío, solo aparecerá el estándar. Máximo 12 líneas."
-          - name: boot_flash_enabled
-            label: Activar imagen fugaz durante la carga
-            type: boolean
-            default: false
-            required: false
-          - name: boot_flash_image
-            label: Imagen fugaz (recomendado 800 × 600 px)
-            type: image
-            required: false
-            options:
-              media: default
-            description: "Opcional. Se verá durante medio segundo, sin recortes. Solo aparece si activas la opción anterior."
           - name: folders
             label: Carpetas del escritorio
             type: object
@@ -2076,7 +1814,7 @@ content:
                 type: image
                 required: false
                 options:
-                  media: default
+                  media: informes_digitales
                 description: "Prepara 152 × 128 píxeles, preferiblemente PNG transparente. Se reduce a un máximo de 76 × 64 sin recorte."
               - name: order
                 label: Orden en el escritorio
@@ -2113,7 +1851,7 @@ content:
                     type: image
                     required: false
                     options:
-                      media: default
+                      media: informes_digitales
                     description: "Si no ocultas la imagen, se muestra directamente. Para el falso pixelado, aquí puedes subir incluso una imagen de error."
                   - name: image_visibility
                     label: Cómo mostrar la imagen
@@ -2133,28 +1871,21 @@ content:
                     type: image
                     required: false
                     options:
-                      media: default
+                      media: informes_digitales
                     description: "Solo para «Falso pixelado». Sube una imagen YA pixelada; al desbloquear se sustituirá por la imagen del campo anterior."
-                  - name: scan_image
-                    label: Lectura verde del escáner interplanar
-                    type: image
-                    required: false
-                    options:
-                      media: default
-                    description: "Opcional. Sube una copia de la imagen principal con exactamente los mismos píxeles y encuadre. Aplica el tono verde y dibuja ahí las siluetas o rastros; solo se verán dentro de la lente. Si lo dejas vacío, el escáner mostrará una lectura verde provisional de la foto."
                   - name: masthead_image
                     label: Membrete o banner de esta ficha (600 × 120 píxeles)
                     type: image
                     required: false
                     options:
-                      media: default
+                      media: informes_digitales
                     description: "Prepara una imagen de exactamente 600 × 120 píxeles (proporción 5:1). Se reducirá sin recortes; si queda vacío, no aparecerá ningún membrete."
                   - name: video
                     label: Vídeo principal de la ficha
                     type: file
                     required: false
                     options:
-                      media: default
+                      media: informes_digitales
                       categories: [video]
                     description: "Se reproduce como archivo principal si el tipo es VÍDEO. Si el tipo es IMAGEN, aparecerá como adjunto para no perder los vídeos ya cargados."
                   - name: poster
@@ -2162,14 +1893,14 @@ content:
                     type: image
                     required: false
                     options:
-                      media: default
+                      media: informes_digitales
                     description: "Para vídeo horizontal, prepara 1280 × 720 píxeles (16:9). Si es vertical, usa 720 × 1280 para respetar su proporción."
                   - name: annotated_image
                     label: Versión con marcas o anotaciones visuales
                     type: image
                     required: false
                     options:
-                      media: default
+                      media: informes_digitales
                     description: "Si la añades, el visitante podrá alternar entre la imagen original y esta versión."
                   - name: order
                     label: Orden dentro de la carpeta
@@ -2220,14 +1951,14 @@ content:
                         type: image
                         required: false
                         options:
-                          media: default
+                          media: informes_digitales
                         description: "Si acompaña a un vídeo como portada: 1280 × 720 px horizontal o 720 × 1280 px vertical. Si es una imagen adjunta, conserva su proporción original."
                       - name: video
                         label: Vídeo adjunto
                         type: file
                         required: false
                         options:
-                          media: default
+                          media: informes_digitales
                           categories: [video]
                         description: "Rellena imagen o vídeo. Si rellenas ambos, se mostrará el vídeo y la imagen servirá de miniatura."
                       - name: note
@@ -2265,7 +1996,7 @@ content:
             type: image
             required: false
             options:
-              media: default
+              media: conexiones
             description: "Opcional. Prepara 400 × 700 píxeles (4:7); la tarjeta puede recortar ligeramente al adaptarse a la pantalla."
           - name: url
             label: Enlace
@@ -2331,7 +2062,7 @@ content:
                 type: image
                 required: false
                 options:
-                  media: default
+                  media: personajes
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -2424,7 +2155,7 @@ content:
                 type: image
                 required: false
                 options:
-                  media: default
+                  media: archivo
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -2513,7 +2244,7 @@ content:
                 type: image
                 required: false
                 options:
-                  media: default
+                  media: archivo
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -2602,7 +2333,7 @@ content:
                 type: image
                 required: false
                 options:
-                  media: default
+                  media: archivo
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -2691,7 +2422,7 @@ content:
                 type: image
                 required: false
                 options:
-                  media: default
+                  media: archivo
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -2780,7 +2511,7 @@ content:
                 type: image
                 required: false
                 options:
-                  media: default
+                  media: archivo
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -2869,7 +2600,7 @@ content:
                 type: image
                 required: false
                 options:
-                  media: default
+                  media: archivo
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -2958,7 +2689,7 @@ content:
                 type: image
                 required: false
                 options:
-                  media: default
+                  media: archivo
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -3047,7 +2778,7 @@ content:
                 type: image
                 required: false
                 options:
-                  media: default
+                  media: archivo
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -3136,7 +2867,7 @@ content:
                 type: image
                 required: false
                 options:
-                  media: default
+                  media: archivo
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -3225,7 +2956,7 @@ content:
                 type: image
                 required: false
                 options:
-                  media: default
+                  media: archivo
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -3272,70 +3003,70 @@ content:
         type: image
         required: true
         options:
-          media: default
+          media: archivo
         description: "Ilustración de cabecera, proporción 3:1. PNG transparente recomendado; se muestra completa sin recorte."
       - name: personajes
         label: Personajes (2172 × 724 px)
         type: image
         required: true
         options:
-          media: default
+          media: archivo
         description: "Ilustración de cabecera, proporción 3:1. PNG transparente recomendado; se muestra completa sin recorte."
       - name: lugares
         label: Lugares (2172 × 724 px)
         type: image
         required: true
         options:
-          media: default
+          media: archivo
         description: "Ilustración de cabecera, proporción 3:1. PNG transparente recomendado; se muestra completa sin recorte."
       - name: planos
         label: Planos (2172 × 724 px)
         type: image
         required: true
         options:
-          media: default
+          media: archivo
         description: "Ilustración de cabecera, proporción 3:1. PNG transparente recomendado; se muestra completa sin recorte."
       - name: organizaciones
         label: Organizaciones (2172 × 724 px)
         type: image
         required: true
         options:
-          media: default
+          media: archivo
         description: "Ilustración de cabecera, proporción 3:1. PNG transparente recomendado; se muestra completa sin recorte."
       - name: documentos
         label: Documentos (2172 × 724 px)
         type: image
         required: true
         options:
-          media: default
+          media: archivo
         description: "Ilustración de cabecera, proporción 3:1. PNG transparente recomendado; se muestra completa sin recorte."
       - name: sucesos
         label: Sucesos (2172 × 724 px)
         type: image
         required: true
         options:
-          media: default
+          media: archivo
         description: "Ilustración de cabecera, proporción 3:1. PNG transparente recomendado; se muestra completa sin recorte."
       - name: testimonios
         label: Testimonios (2172 × 724 px)
         type: image
         required: true
         options:
-          media: default
+          media: archivo
         description: "Ilustración de cabecera, proporción 3:1. PNG transparente recomendado; se muestra completa sin recorte."
       - name: relatos
         label: Relatos (2172 × 724 px)
         type: image
         required: true
         options:
-          media: default
+          media: archivo
         description: "Ilustración de cabecera, proporción 3:1. PNG transparente recomendado; se muestra completa sin recorte."
       - name: microrrelatos
         label: Microrrelatos (2172 × 724 px)
         type: image
         required: true
         options:
-          media: default
+          media: archivo
         description: "Ilustración de cabecera, proporción 3:1. PNG transparente recomendado; se muestra completa sin recorte."
 
   - name: configuracion
@@ -3381,7 +3112,7 @@ content:
         label: Imagen del libro (1448 × 1086 px)
         type: image
         options:
-          media: default
+          media: interfaz
         description: "Prepara 1448 × 1086 píxeles (4:3), con el mismo encuadre y posición de página que el libro actual. Se ajusta completo, sin recorte."
       - name: random_mode
         label: Modo aleatorio
@@ -3393,7 +3124,7 @@ content:
         type: image
         required: false
         options:
-          media: default
+          media: interfaz
         description: "Prepara 1024 × 1536 píxeles (2:3), solo tinta sobre fondo transparente. Se adapta al hueco del libro sin recorte."
       - name: connection_code
         label: Código para abrir conexiones
@@ -3420,7 +3151,7 @@ content:
             type: image
             required: true
             options:
-              media: default
+              media: interfaz
             description: "Prepara 1024 × 1536 píxeles (2:3), preferiblemente con transparencia. Se ajusta al hueco del libro sin recorte."
           - name: enabled
             label: Mostrar esta imagen
@@ -3478,7 +3209,7 @@ content:
         type: image
         required: true
         options:
-          media: default
+          media: terminal
         description: "Prepara 1536 × 1024 píxeles (3:2). Es el fondo de la máquina; debe mantener la pantalla y el cartel en sus posiciones para que las zonas interactivas encajen."
       - name: screen_heading
         label: Cabecera de la pantalla
@@ -3505,7 +3236,7 @@ content:
         type: image
         required: false
         options:
-          media: default
+          media: terminal
         description: "Prepara 900 × 1000 píxeles (aprox. 9:10). El cartel se recorta para llenar el hueco y sus bordes están corroídos."
       - name: posters
         label: Carteles para la rotación
@@ -3525,7 +3256,7 @@ content:
             type: image
             required: true
             options:
-              media: default
+              media: terminal
             description: "Prepara 900 × 1000 píxeles (aprox. 9:10). Se recorta para llenar el hueco; deja lo importante lejos de los bordes corroídos."
           - name: enabled
             label: Incluir en la rotación
@@ -3555,11 +3286,24 @@ content:
         options:
           media: default
         description: "La pantalla debe conservar su posición y proporción para que encaje el explorador."
+      - name: browser_view
+        label: Vista inicial de las carpetas
+        type: select
+        default: desktop
+        options:
+          values: [desktop, list]
+      - name: desktop_wallpaper
+        label: Fondo de pantalla del escritorio
+        type: image
+        required: false
+        options:
+          media: interfaz
+        description: "Imagen de fondo de la pantalla de la tableta. Recomendado: horizontal, 1167 × 698 px o mayor; se recorta para llenar la pantalla. Puedes dejarlo vacío para usar el fondo oscuro."
       - name: folder_rules
         label: Carpetas y subcarpetas del escáner
         type: object
         required: false
-        description: "Cada carpeta tiene su propio interruptor. Si apagas una carpeta superior, todo su interior queda oculto aunque sus subcarpetas estén activadas."
+        description: "Activa o desactiva cada carpeta. Si una carpeta superior está desactivada, nada de su interior aparecerá aunque una subcarpeta esté activada. Las carpetas nuevas aparecen por defecto; añade su ruta aquí para poder apagarlas."
         list:
           collapsible:
             collapsed: true
@@ -3569,7 +3313,7 @@ content:
             label: Carpeta o subcarpeta
             type: string
             required: true
-            description: "Ruta desde assets/uploads; ejemplo: personajes/Richard/MAYORCA. Si creas una carpeta nueva, aparecerá por defecto y puedes añadir aquí su ruta para apagarla."
+            description: "Ruta desde assets/uploads, por ejemplo personajes/Richard Alcoy."
           - name: visible
             label: Activada en el escáner
             type: boolean
@@ -3584,7 +3328,7 @@ content:
             summary: "{image}"
         fields:
           - name: image
-            label: Fotografía original ya subida
+            label: Fotografía original ya publicada
             type: image
             required: true
             options:
@@ -3596,9 +3340,9 @@ content:
             required: true
             options:
               media: escaner_capas
-            description: "Solo señales, sin fondo ni foto; del mismo tamaño que la original. No aparece en las carpetas públicas de la tableta."
+            description: "Exporta solo las señales, sin fondo ni foto. Debe tener exactamente las mismas dimensiones en píxeles que la original. Esta carpeta no aparece en el explorador público de la tableta."
       - name: additional_images
-        label: Títulos personalizados de fotografías
+        label: Imágenes adicionales para el escáner
         type: object
         required: false
         list:
