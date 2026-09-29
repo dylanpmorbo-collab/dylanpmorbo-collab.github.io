@@ -58,6 +58,7 @@
       "media": [
         {
           "kind": "photo",
+          "title": "No hay quien le quite el balón ⚽",
           "image": "/assets/uploads/personajes/Richard/facebook Javi/balon.webp",
           "quick_entry": "TÍTULO: No hay quien le quite el balón ⚽\nFECHA:\nDESCRIPCIÓN:\nALT: Último partido de la temporada. Hoy tocaba sufrir desde la banda 😂\nAMPLIAR: no\nOCULTAR: no\nREACCIONES: 👍🏻 18\nCOMENTARIOS: @Elena Martínez:\nQué concentración lleva 😂❤️\n\n@Carlos Moreno:\nTiene maneras el chaval 👍\n\n@Pilar Martínez:\nPero si ya corre más que tú Javier jajaja\n\n@Javier Alcoy:\nEso no era muy difícil 😂\n\n@Miguel Alcoy:\nDale unos años y lo fichamos para el Zaragoza",
           "sensitive": false,
@@ -65,6 +66,7 @@
         },
         {
           "kind": "photo",
+          "title": "¡CAMPEONES! 🏆",
           "image": "/assets/uploads/personajes/Richard/facebook Javi/campeon.webp",
           "quick_entry": "TÍTULO: ¡CAMPEONES! 🏆\nFECHA:\nDESCRIPCIÓN:\nALT: Se lo han currado todo el año y hoy les ha tocado celebrarlo. Qué contentos estaban todos.\nAMPLIAR: no\nOCULTAR: no\nREACCIONES: 👍🏻 36\nCOMENTARIOS: @Elena Martínez:\nEnhorabuena campeones!!! ❤️👏\n\n@Carlos Moreno:\nEsa copa no se suelta en toda la tarde 😂\n\n@Pilar Martínez:\nRichard está que no cabe en sí de felicidad\n\n@Miguel Alcoy:\nGrande el equipo!!\n\n@Javier Alcoy:\nHoy se lo han ganado de sobra.\n\n@Raúl Gómez:\nQué recuerdos dan estas fotos. Enhorabuena a todos los chavales.",
           "sensitive": false,
@@ -72,16 +74,19 @@
         },
         {
           "kind": "photo",
+          "title": "Mi campeón ❤️",
           "image": "/assets/uploads/personajes/Richard/facebook Javi/micampeon.webp",
           "quick_entry": "TÍTULO: Mi campeón ❤️\nFECHA:\nDESCRIPCIÓN:\nALT: Creo que estaba yo más contento que él. Orgulloso de ti, hijo.\nAMPLIAR: no\nOCULTAR: no\nREACCIONES: 👍🏻 72\nCOMENTARIOS: @Elena Martínez:\nMis chicos ❤️❤️ Qué pena no haber pillado también vuestra cara justo antes 😂\n\n@Pilar Martínez:\nEsta foto hay que guardarla para siempre ❤️\n\n@Carlos Moreno:\nLa cara del padre lo dice todo. Enhorabuena Richard!\n\n@Miguel Alcoy:\nJavi vas a acabar llorando tú antes que el niño 😂\n\n@Javier Alcoy:\nCasi casi 😂\n\n@Ana Beltrán:\nQué bonita foto 😊",
           "sensitive": false,
           "zoom": false
         },
         {
-          "kind": "video",
-          "title": "Tarde de fútbol con mi chico. Victoria del Zaragoza y a casa contentos. ⚽💙",
-          "video": "/assets/uploads/personajes/Richard/facebook Javi/estadiopapa-optimizado-12mb.mp4",
-          "quick_entry": "TÍTULO: Tarde de fútbol con mi chico. Victoria del Zaragoza y a casa contentos. ⚽💙\nFECHA:\nDESCRIPCIÓN:\nREACCIONES: 👍🏻23\nCOMENTARIOS: @Elena Martínez:\nQué guapos mis chicos ❤️\n\n@Richard Alcoy:\nLa próxima invitas tú a comer 😂\n\n@Javier Alcoy:\nComo siempre, ¿no? 😂\n\n@Miguel Alcoy:\nCómo ha crecido el chaval!!\n\n@Pilar Martínez:\nQué mayor está Richard 😘\n\n@Carlos Moreno:\nBuena tarde os habéis pegado. Y encima ganando 👍\n\n@Javier Alcoy:\nYa tocaba una alegría jajaja\n\n@Ana Beltrán:\nIgualitos los dos 😊"
+          "kind": "photo",
+          "title": "Vamos a ganar",
+          "image": "/assets/uploads/personajes/Richard/facebook Javi/imagen-de-codex-16-sept-2026-173145.png",
+          "quick_entry": "TÍTULO: Vamos a ganar\nFECHA:\nDESCRIPCIÓN: Tarde de fútbol con mi chico. Victoria del Zaragoza y a casa contentos. ⚽💙\nREACCIONES: 👍🏻23\nCOMENTARIOS: @Elena Martínez:\nQué guapos mis chicos ❤️\n\n@Richard Alcoy:\nLa próxima invitas tú a comer 😂\n\n@Javier Alcoy:\nComo siempre, ¿no? 😂\n\n@Miguel Alcoy:\nCómo ha crecido el chaval!!\n\n@Pilar Martínez:\nQué mayor está Richard 😘\n\n@Carlos Moreno:\nBuena tarde os habéis pegado. Y encima ganando 👍\n\n@Javier Alcoy:\nYa tocaba una alegría jajaja\n\n@Ana Beltrán:\nIgualitos los dos 😊",
+          "sensitive": false,
+          "zoom": false
         },
         {
           "kind": "photo",
