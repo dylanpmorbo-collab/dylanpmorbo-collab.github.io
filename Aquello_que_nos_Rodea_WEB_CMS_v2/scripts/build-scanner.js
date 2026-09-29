@@ -104,8 +104,7 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
       </div>
     </div>
   </section></div>
-  <p class="scanner-hint">En pantallas estrechas, desliza para recorrer la tableta. La lente muestra radiación solo cuando existe una capa PNG asociada.</p>
-  <script type="application/json" id="scannerCatalog">${data}</script>
+    <script type="application/json" id="scannerCatalog">${data}</script>
 </main>${footer(site)}<script defer src="assets/js/scanner.js?v=2"></script></body></html>`;
   fs.writeFileSync(path.join(dist, 'escaner.html'), page);
   console.log(`Escáner: ${catalog.length} imágenes y ${catalog.filter(item => item.overlay).length} señales configuradas.`);
