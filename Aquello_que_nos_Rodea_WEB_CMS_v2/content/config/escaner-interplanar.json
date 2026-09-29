@@ -139,7 +139,7 @@
     },
     {
       "folder": "Personajes/Richard/fotos no visibles",
-      "visible": true
+      "visible": false
     }
   ],
   "signals": [
