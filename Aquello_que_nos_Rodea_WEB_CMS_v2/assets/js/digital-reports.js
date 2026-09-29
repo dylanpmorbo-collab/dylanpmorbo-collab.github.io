@@ -9,156 +9,10 @@
     let fullscreenExitAt=0;
     let fullscreenReturnPending=false;
     let primaryMediaNodes=null;
-    let bootTimers=[];
-    let scannerTrigger=null;
-    let scanResizeObserver=null;
-    let scanZoom=1;
-    let scanPanX=0,scanPanY=0;
-    let scanPanMode=false,scanPanStart=null;
-
-    function clearBootTimers(){bootTimers.forEach(id=>{clearTimeout(id);clearInterval(id)});bootTimers=[];}
-    function finishBoot(){
-      clearBootTimers();
-      const boot=workspace.querySelector('[data-retro-boot]');
-      if(boot)boot.hidden=true;
-      const surface=desktop();
-      if(surface)surface.hidden=false;
-      surface?.querySelector('[data-retro-folder]')?.focus();
-    }
-    function startBoot(){
-      const boot=workspace.querySelector('[data-retro-boot]');
-      if(!boot){finishBoot();return;}
-      if(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches){finishBoot();return;}
-      const duration=Math.min(5,Math.max(1,Number(boot.dataset.bootDuration)||1))*1000;
-      const log=boot.querySelector('[data-retro-boot-log]');
-      const bar=boot.querySelector('[data-retro-boot-bar]');
-      const percent=boot.querySelector('[data-retro-boot-percent]');
-      const emblem=boot.querySelector('[data-retro-boot-emblem]');
-      const flash=boot.querySelector('[data-retro-boot-flash]');
-      const custom=Array.from(boot.querySelectorAll('[data-retro-boot-line]'),line=>line.textContent);
-      const lines=['DUB.SAR BIOS 16-BIT // ARCHIVO DIGITAL','COMPROBANDO MEMORIA .......... OK','LEYENDO UNIDAD MMC ........... OK',...custom,'MONTANDO DIRECTORIOS ......... OK','ACCESO AUTORIZADO'];
-      const began=performance.now();
-      let shown=0;
-      const tick=()=>{
-        const progress=Math.min(1,(performance.now()-began)/duration);
-        const target=Math.min(lines.length,Math.floor(progress*lines.length));
-        while(shown<target){const row=document.createElement('div');row.textContent='> '+lines[shown++];log.append(row);log.scrollTop=log.scrollHeight;}
-        bar.style.width=Math.round(progress*100)+'%';
-        percent.textContent=Math.round(progress*100)+'%';
-      };
-      bootTimers.push(setInterval(tick,40));
-      bootTimers.push(setTimeout(()=>{emblem.hidden=true;boot.classList.add('is-scrolling');},Math.min(220,duration*.2)));
-      if(flash?.querySelector('img')){
-        const at=Math.min(duration-550,Math.max(250,duration*.4));
-        bootTimers.push(setTimeout(()=>{flash.hidden=false;},at));
-        bootTimers.push(setTimeout(()=>{flash.hidden=true;},at+500));
-      }
-      bootTimers.push(setTimeout(()=>{tick();finishBoot();},duration));
-      boot.querySelector('[data-retro-boot-skip]')?.focus();
-    }
 
     function desktop(){return workspace.querySelector('[data-retro-desktop]');}
     function folderWindow(){return desktop()?.querySelector('[data-retro-folder-window]');}
     function fileWindow(){return desktop()?.querySelector('[data-retro-file-window]');}
-    function scanner(){return desktop()?.querySelector('[data-retro-scanner]');}
-    function closeScanner(restoreFocus=true){
-      const tablet=scanner();
-      if(!tablet || tablet.hidden)return;
-      tablet.hidden=true;
-      scanResizeObserver?.disconnect();scanResizeObserver=null;
-      scanPanStart=null;
-      tablet.querySelector('[data-retro-scan-base]').removeAttribute('src');
-      tablet.querySelector('[data-retro-scan-layer]').removeAttribute('src');
-      if(restoreFocus && scannerTrigger?.isConnected)scannerTrigger.focus();
-      scannerTrigger=null;
-    }
-    function positionLens(frame,x,y){
-      frame.style.setProperty('--scan-x',Math.max(0,Math.min(100,x))+'%');
-      frame.style.setProperty('--scan-y',Math.max(0,Math.min(100,y))+'%');
-    }
-    function updateScanPan(tablet){
-      const viewport=tablet.querySelector('[data-retro-scan-viewport]');
-      const frame=tablet.querySelector('[data-retro-scan-photo]');
-      const limitX=Math.max(0,(frame.offsetWidth-viewport.clientWidth)/2);
-      const limitY=Math.max(0,(frame.offsetHeight-viewport.clientHeight)/2);
-      scanPanX=Math.max(-limitX,Math.min(limitX,scanPanX));
-      scanPanY=Math.max(-limitY,Math.min(limitY,scanPanY));
-      frame.style.setProperty('--scan-pan-x',scanPanX+'px');
-      frame.style.setProperty('--scan-pan-y',scanPanY+'px');
-    }
-    function updateScanZoomControls(tablet){
-      tablet.querySelector('[data-retro-scan-zoom-level]').textContent=Math.round(scanZoom*100)+'%';
-      tablet.querySelector('[data-retro-scan-zoom-out]').disabled=scanZoom<=1;
-      tablet.querySelector('[data-retro-scan-zoom-in]').disabled=scanZoom>=4;
-      tablet.querySelector('[data-retro-scan-zoom-reset]').disabled=scanZoom===1&&scanPanX===0&&scanPanY===0;
-      const move=tablet.querySelector('[data-retro-scan-pan]');
-      move.disabled=scanZoom<=1;
-      move.setAttribute('aria-pressed',String(scanPanMode));
-      tablet.querySelector('[data-retro-scan-viewport]').classList.toggle('is-panning',scanPanMode);
-    }
-    function setScanZoom(tablet,value){
-      scanZoom=Math.max(1,Math.min(4,value));
-      if(scanZoom===1){scanPanX=scanPanY=0;scanPanMode=false;}
-      const base=tablet.querySelector('[data-retro-scan-base]');
-      const viewport=tablet.querySelector('[data-retro-scan-viewport]');
-      const frame=tablet.querySelector('[data-retro-scan-photo]');
-      if(base.naturalWidth&&base.naturalHeight){
-        const fit=Math.min(viewport.clientWidth/base.naturalWidth,viewport.clientHeight/base.naturalHeight);
-        frame.style.width=Math.max(1,Math.floor(base.naturalWidth*fit*scanZoom))+'px';
-        frame.style.height=Math.max(1,Math.floor(base.naturalHeight*fit*scanZoom))+'px';
-        updateScanPan(tablet);
-      }
-      updateScanZoomControls(tablet);
-    }
-    function openScanner(button){
-      const tablet=scanner();
-      const source=button.dataset.scanSource;
-      if(!tablet||!source)return;
-      closeScanner(false);
-      scannerTrigger=button;
-      tablet.hidden=false;
-      const viewport=tablet.querySelector('[data-retro-scan-viewport]');
-      const frame=tablet.querySelector('[data-retro-scan-photo]');
-      const base=tablet.querySelector('[data-retro-scan-base]');
-      const layer=tablet.querySelector('[data-retro-scan-layer]');
-      const reveal=tablet.querySelector('[data-retro-scan-reveal]');
-      const status=tablet.querySelector('[data-retro-scan-status]');
-      const reading=button.dataset.scanReading;
-      let simulated=!reading;
-      const size=tablet.querySelector('[data-retro-scan-size]');
-      size.value='190';
-      scanZoom=1;scanPanX=scanPanY=0;scanPanMode=false;scanPanStart=null;
-      frame.style.setProperty('--scan-radius','95px');
-      frame.style.setProperty('--scan-diameter','190px');
-      positionLens(frame,50,50);
-      updateScanZoomControls(tablet);
-      status.textContent='CARGANDO CAPTURA…';
-      reveal.classList.toggle('is-simulated',simulated);
-      const fit=()=>setScanZoom(tablet,scanZoom);
-      const updateStatus=()=>{
-        if(!base.naturalWidth||!layer.naturalWidth)return;
-        status.textContent=simulated?'LECTURA SIMULADA · SIN CAPA CARGADA'
-          : base.naturalWidth!==layer.naturalWidth||base.naturalHeight!==layer.naturalHeight
-            ? 'AVISO: DIMENSIONES DISTINTAS':'LECTURA ESTABLE · BUSCA UNA SEÑAL';
-      };
-      base.onload=()=>{fit();updateStatus();};
-      base.onerror=()=>{status.textContent='NO SE PUEDE ABRIR LA FOTOGRAFÍA';};
-      layer.onload=updateStatus;
-      layer.onerror=()=>{
-        status.textContent='LECTURA NO DISPONIBLE · MODO SIMULADO';
-        simulated=true;
-        reveal.classList.add('is-simulated');
-        layer.onerror=null;layer.src=source;
-      };
-      base.src=source;
-      layer.src=reading||source;
-      if(typeof ResizeObserver==='function'){
-        scanResizeObserver=new ResizeObserver(fit);
-        scanResizeObserver.observe(viewport);
-      }
-      requestAnimationFrame(fit);
-      frame.focus();
-    }
     function pauseVideos(container){container?.querySelectorAll('video').forEach(video=>video.pause());}
     function fileEntries(){return Array.from(folderWindow()?.querySelectorAll('[data-retro-file]')||[]);}
     function updateFileNavigation(){
@@ -190,7 +44,6 @@
     function closeFile(restoreFocus=true){
       const window=fileWindow();
       if(!window || window.hidden)return;
-      closeScanner(false);
       pauseVideos(window);
       window.hidden=true;
       window.classList.remove('is-maximized');
@@ -298,7 +151,7 @@
       dialog.querySelector('[data-digital-dialog-title]').textContent=button.querySelector('strong')?.textContent||'INFORME DIGITAL';
       dialog.showModal();
       document.body.classList.add('archive-digital-dialog-open');
-      startBoot();
+      closeReport.focus();
     }
     function expandVideo(button){
       const video=button.closest('.retro-file-detail')?.querySelector('video');
@@ -326,8 +179,7 @@
     workspace.addEventListener('click',event=>{
       const button=event.target.closest('button');
       if(!button)return;
-      if(button.hasAttribute('data-retro-boot-skip'))finishBoot();
-      else if(button.hasAttribute('data-retro-folder'))openFolder(button);
+      if(button.hasAttribute('data-retro-folder'))openFolder(button);
       else if(button.hasAttribute('data-retro-file'))openFile(button);
       else if(button.hasAttribute('data-retro-file-close'))closeFile();
       else if(button.hasAttribute('data-retro-file-prev'))stepFile(-1);
@@ -344,16 +196,7 @@
         wrap.classList.remove('is-concealed','is-pixelated');
         wrap.querySelector('canvas')?.remove();
         wrap.querySelector('.retro-image-warning')?.remove();
-        fileWindow().querySelectorAll('[data-retro-zoom],[data-retro-annotated],[data-retro-scan]').forEach(control=>control.hidden=false);
-      }
-      else if(button.hasAttribute('data-retro-scan'))openScanner(button);
-      else if(button.hasAttribute('data-retro-scan-close'))closeScanner();
-      else if(button.hasAttribute('data-retro-scan-zoom-in'))setScanZoom(scanner(),scanZoom<1.5?1.5:scanZoom<2?2:scanZoom<3?3:4);
-      else if(button.hasAttribute('data-retro-scan-zoom-out'))setScanZoom(scanner(),scanZoom>3?3:scanZoom>2?2:scanZoom>1.5?1.5:1);
-      else if(button.hasAttribute('data-retro-scan-zoom-reset'))setScanZoom(scanner(),1);
-      else if(button.hasAttribute('data-retro-scan-pan')){
-        scanPanMode=!scanPanMode;
-        updateScanZoomControls(scanner());
+        fileWindow().querySelectorAll('[data-retro-zoom],[data-retro-annotated]').forEach(control=>control.hidden=false);
       }
       else if(button.hasAttribute('data-retro-zoom')){
         const media=button.closest('.retro-file-detail')?.querySelector('.retro-file-media');
@@ -368,58 +211,7 @@
         button.textContent=marked?'VER MARCAS':'VER ORIGINAL';
       }
     });
-    workspace.addEventListener('input',event=>{
-      if(!event.target.matches('[data-retro-scan-size]'))return;
-      const frame=scanner()?.querySelector('[data-retro-scan-photo]');
-      if(!frame)return;
-      const diameter=Number(event.target.value);
-      frame.style.setProperty('--scan-radius',diameter/2+'px');
-      frame.style.setProperty('--scan-diameter',diameter+'px');
-    });
-    workspace.addEventListener('pointermove',event=>{
-      if(scanPanStart){
-        const tablet=scanner();
-        scanPanX=scanPanStart.x+event.clientX-scanPanStart.clientX;
-        scanPanY=scanPanStart.y+event.clientY-scanPanStart.clientY;
-        updateScanPan(tablet);
-        updateScanZoomControls(tablet);
-        return;
-      }
-      const frame=event.target.closest('[data-retro-scan-photo]');
-      if(!frame||scanner()?.hidden||scanPanMode)return;
-      const rect=frame.getBoundingClientRect();
-      positionLens(frame,(event.clientX-rect.left)/rect.width*100,(event.clientY-rect.top)/rect.height*100);
-    });
-    workspace.addEventListener('pointerdown',event=>{
-      const viewport=event.target.closest('[data-retro-scan-viewport]');
-      if(viewport&&scanPanMode&&!scanner()?.hidden){
-        scanPanStart={clientX:event.clientX,clientY:event.clientY,x:scanPanX,y:scanPanY};
-        viewport.setPointerCapture?.(event.pointerId);
-        event.preventDefault();
-        return;
-      }
-      const frame=event.target.closest('[data-retro-scan-photo]');
-      if(!frame||scanner()?.hidden)return;
-      frame.setPointerCapture?.(event.pointerId);
-      const rect=frame.getBoundingClientRect();
-      positionLens(frame,(event.clientX-rect.left)/rect.width*100,(event.clientY-rect.top)/rect.height*100);
-    });
-    workspace.addEventListener('pointerup',()=>{scanPanStart=null;});
-    workspace.addEventListener('pointercancel',()=>{scanPanStart=null;});
     workspace.addEventListener('keydown',event=>{
-      const tablet=scanner();
-      if(tablet&&!tablet.hidden){
-        if(event.key==='Escape'){event.preventDefault();closeScanner();return;}
-        const frame=tablet.querySelector('[data-retro-scan-photo]');
-        if(event.target===frame && ['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(event.key)){
-          event.preventDefault();
-          const x=parseFloat(frame.style.getPropertyValue('--scan-x'))||50;
-          const y=parseFloat(frame.style.getPropertyValue('--scan-y'))||50;
-          const step=event.shiftKey?10:3;
-          positionLens(frame,x+(event.key==='ArrowRight'?step:event.key==='ArrowLeft'?-step:0),y+(event.key==='ArrowDown'?step:event.key==='ArrowUp'?-step:0));
-          return;
-        }
-      }
       if(fileWindow()?.hidden || !fileWindow()?.contains(event.target))return;
       if(event.target.closest('video,button'))return;
       if(event.key==='ArrowLeft'||event.key==='ArrowRight'){
@@ -435,13 +227,10 @@
         if(document.fullscreenElement)document.exitFullscreen?.().catch(()=>{});
         else fullscreenReturnPending=false;
       }
-      else if(scanner() && !scanner().hidden){event.preventDefault();closeScanner();}
       else if(fileWindow() && !fileWindow().hidden){event.preventDefault();closeFile();}
       else if(folderWindow() && !folderWindow().hidden){event.preventDefault();closeFolder();}
     });
     dialog.addEventListener('close',()=>{
-      clearBootTimers();
-      closeScanner(false);
       pauseVideos(workspace);
       workspace.replaceChildren();
       document.body.classList.remove('archive-digital-dialog-open');

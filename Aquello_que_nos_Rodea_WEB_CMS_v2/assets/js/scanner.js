@@ -7,6 +7,11 @@
   const $ = selector => root.querySelector(selector);
   const folders = $('[data-scanner-folders]');
   const grid = $('[data-scanner-grid]');
+  const desktopGrid = $('[data-scanner-desktop-grid]');
+  const breadcrumb = $('[data-scanner-breadcrumb]');
+  const desktop = $('[data-scanner-desktop]');
+  const list = $('[data-scanner-list]');
+  const viewToggle = $('[data-scanner-view-toggle]');
   const search = $('#scannerSearch');
   const browser = $('[data-scanner-browser]');
   const viewer = $('[data-scanner-viewer]');
@@ -26,6 +31,14 @@
   try { saved = JSON.parse(localStorage.getItem(key) || '{}') || {}; } catch { saved = {}; }
   const folderNames = [...new Set(catalog.map(item => item.folder))];
   let folder = folderNames[0] || '';
+  const folderPaths = new Set();
+  catalog.forEach(item => {
+    const parts = String(item.folder_path ?? item.folder.replaceAll(' / ', '/')).split('/').filter(Boolean);
+    parts.forEach((_, index) => folderPaths.add(parts.slice(0, index + 1).join('/')));
+  });
+  let desktopPath = '';
+  let view = root.dataset.scannerInitialView === 'list' ? 'list' : 'desktop';
+  try { if (localStorage.getItem('aqnr_scanner_view') === 'list' || localStorage.getItem('aqnr_scanner_view') === 'desktop') view = localStorage.getItem('aqnr_scanner_view'); } catch {}
   let current = null;
   let enabled = false;
   let overlayValid = false;
@@ -38,13 +51,22 @@
     return node;
   }
   function status(text) { $('[data-scanner-status]').textContent = text; }
+  function photoButton(item, className) {
+    const button = element('button', className);
+    button.type = 'button';
+    const image = element('img'); image.src = item.image; image.alt = ''; image.loading = 'lazy';
+    const title = element('span', '', item.title);
+    button.append(image, title);
+    button.addEventListener('click', () => openImage(item));
+    return button;
+  }
   function renderFolders() {
     folders.replaceChildren();
     folderNames.forEach(name => {
       const button = element('button', 'scanner-folder' + (name === folder ? ' is-active' : ''), '▣  ' + name.toUpperCase());
       button.type = 'button';
       button.setAttribute('aria-pressed', String(name === folder));
-      button.addEventListener('click', () => { folder = name; search.value = ''; renderFolders(); renderGrid(); });
+      button.addEventListener('click', () => { folder = name; search.value = ''; renderBrowser(); });
       folders.append(button);
     });
   }
@@ -56,16 +78,54 @@
     $('[data-scanner-folder-title]').textContent = query ? 'RESULTADOS DE BÚSQUEDA' : folder.toUpperCase();
     $('[data-scanner-count]').textContent = items.length + ' ARCHIVO' + (items.length === 1 ? '' : 'S');
     grid.replaceChildren();
-    items.forEach(item => {
-      const button = element('button', 'scanner-file');
-      button.type = 'button';
-      const image = element('img'); image.src = item.image; image.alt = ''; image.loading = 'lazy';
-      const title = element('span', '', item.title);
-      button.append(image, title);
-      button.addEventListener('click', () => openImage(item));
-      grid.append(button);
-    });
+    items.forEach(item => grid.append(photoButton(item, 'scanner-file')));
     if (!items.length) grid.append(element('p', 'scanner-empty', catalog.length ? 'No hay imágenes en esta carpeta.' : 'Todavía no hay imágenes publicadas para escanear.'));
+  }
+  function renderDesktop() {
+    const query = search.value.trim().toLocaleLowerCase('es');
+    desktopGrid.replaceChildren();
+    breadcrumb.replaceChildren();
+    const addCrumb = (label, path) => {
+      const button = element('button', '', label);
+      button.type = 'button';
+      button.addEventListener('click', () => { desktopPath = path; search.value = ''; renderDesktop(); });
+      breadcrumb.append(button);
+    };
+    addCrumb('ESCRITORIO', '');
+    if (query) {
+      breadcrumb.append(element('span', '', '› RESULTADOS'));
+      const matches = catalog.filter(item => (item.title + ' ' + item.folder + ' ' + item.filename).toLocaleLowerCase('es').includes(query));
+      matches.forEach(item => desktopGrid.append(photoButton(item, 'scanner-desktop-file')));
+      if (!matches.length) desktopGrid.append(element('p', 'scanner-empty', 'No hay imágenes que coincidan.'));
+      return;
+    }
+    let partial = '';
+    for (const segment of desktopPath.split('/').filter(Boolean)) {
+      partial = partial ? partial + '/' + segment : segment;
+      breadcrumb.append(element('span', '', '›'));
+      addCrumb(segment, partial);
+    }
+    const children = [...folderPaths].filter(path => {
+      const parent = path.includes('/') ? path.slice(0, path.lastIndexOf('/')) : '';
+      return parent === desktopPath;
+    }).sort((a, b) => a.localeCompare(b, 'es'));
+    children.forEach(path => {
+      const button = element('button', 'scanner-desktop-folder');
+      button.type = 'button';
+      button.append(element('span', 'scanner-folder-icon'), element('span', 'scanner-desktop-label', path.split('/').at(-1)));
+      button.addEventListener('click', () => { desktopPath = path; renderDesktop(); });
+      desktopGrid.append(button);
+    });
+    catalog.filter(item => (item.folder_path ?? item.folder.replaceAll(' / ', '/')) === desktopPath)
+      .forEach(item => desktopGrid.append(photoButton(item, 'scanner-desktop-file')));
+    if (!desktopGrid.children.length) desktopGrid.append(element('p', 'scanner-empty', 'Esta carpeta no contiene imágenes visibles.'));
+  }
+  function renderBrowser() {
+    desktop.hidden = view !== 'desktop';
+    list.hidden = view !== 'list';
+    viewToggle.textContent = view === 'desktop' ? 'VISTA: ESCRITORIO' : 'VISTA: LISTADO';
+    viewToggle.setAttribute('aria-label', view === 'desktop' ? 'Cambiar a listado de carpetas' : 'Cambiar a escritorio de carpetas');
+    renderFolders(); renderGrid(); renderDesktop();
   }
   function fit() {
     if (!current || !photo.naturalWidth || viewer.hidden) return;
@@ -139,7 +199,12 @@
     overlay.removeAttribute('src');
     status('ESPERANDO SELECCIÓN');
   }
-  search.addEventListener('input', renderGrid);
+  search.addEventListener('input', () => { renderGrid(); renderDesktop(); });
+  viewToggle.addEventListener('click', () => {
+    view = view === 'desktop' ? 'list' : 'desktop';
+    try { localStorage.setItem('aqnr_scanner_view', view); } catch {}
+    renderBrowser();
+  });
   $('[data-scanner-back]').addEventListener('click', closeImage);
   toggle.addEventListener('click', () => setLens(!enabled));
   size.addEventListener('input', placeLens);
@@ -169,6 +234,5 @@
     try { localStorage.setItem(key, JSON.stringify(saved)); } catch { status('NO SE PUDIERON GUARDAR LAS NOTAS'); }
   });
   window.addEventListener('resize', fit);
-  renderFolders();
-  renderGrid();
+  renderBrowser();
 })();
