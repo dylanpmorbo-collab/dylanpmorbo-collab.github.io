@@ -3,6 +3,7 @@
   "page_title": "Escáner interplanar",
   "intro": "Una fotografía puede conservar señales que la vista humana no percibe.",
   "tablet_image": "/assets/uploads/escaner/tableta-scrappunk-cenital.png",
+  "browser_view": "desktop",
   "folder_rules": [
     {
       "folder": "archivo",
@@ -134,6 +135,10 @@
     },
     {
       "folder": "testimonios",
+      "visible": true
+    },
+    {
+      "folder": "personajes/richard/fotos no visibles",
       "visible": true
     }
   ],
