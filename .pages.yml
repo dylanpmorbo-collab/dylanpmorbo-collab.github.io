@@ -1459,7 +1459,7 @@ content:
                   - name: title
                     label: Título de esta foto
                     type: string
-                    required: true
+                    required: false
                   - name: date
                     label: Fecha de esta foto
                     type: string
@@ -1476,6 +1476,20 @@ content:
                     required: true
                     options:
                       media: huella_digital
+                  - name: quick_entry
+                    label: Ficha completa de esta foto (pegar de una vez)
+                    type: text
+                    required: false
+                    default: |
+                      TÍTULO:
+                      FECHA:
+                      DESCRIPCIÓN:
+                      ALT:
+                      AMPLIAR:
+                      OCULTAR:
+                      REACCIONES:
+                      COMENTARIOS:
+                    description: "Puedes pegar toda la ficha aquí. Los valores escritos prevalecen sobre las casillas sueltas; deja un valor vacío para usar la casilla correspondiente."
                   - name: alt
                     label: Descripción accesible
                     type: string
@@ -1505,7 +1519,7 @@ content:
                   - name: title
                     label: Título de este vídeo
                     type: string
-                    required: true
+                    required: false
                   - name: date
                     label: Fecha de este vídeo
                     type: string
@@ -1523,6 +1537,17 @@ content:
                     options:
                       media: huella_digital
                       categories: [video]
+                  - name: quick_entry
+                    label: Ficha completa de este vídeo (pegar de una vez)
+                    type: text
+                    required: false
+                    default: |
+                      TÍTULO:
+                      FECHA:
+                      DESCRIPCIÓN:
+                      REACCIONES:
+                      COMENTARIOS:
+                    description: "Puedes pegar toda la ficha aquí. Los valores escritos prevalecen sobre las casillas sueltas; deja un valor vacío para usar la casilla correspondiente."
                   - name: reactions
                     label: Me gusta / reacciones de este vídeo
                     type: string
