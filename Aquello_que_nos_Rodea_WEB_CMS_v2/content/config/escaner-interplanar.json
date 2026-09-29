@@ -150,6 +150,10 @@
     {
       "image": "/assets/uploads/personajes/Richard/MAYORCA/aquapark-web.webp",
       "overlay": "/assets/uploads/escaner/capas/aquapark-capa-interplanar.png"
+    },
+    {
+      "image": "/assets/uploads/entidades/ŚUKRAHĀRĪ/reunioon-web.webp",
+      "overlay": "/assets/uploads/escaner/capas/reunioon-capa-interplanar.png"
     }
   ]
 }
