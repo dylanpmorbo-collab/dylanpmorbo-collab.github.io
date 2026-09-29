@@ -14,7 +14,25 @@
 .scanner-screen-head strong{color:#d2e5b6;white-space:nowrap}
 .scanner-screen-head>span:last-child{margin-left:auto;text-align:right;font-size:9px;color:#8bbf98}
 .scanner-live-dot{width:7px;height:7px;border-radius:50%;background:#5fec8d;box-shadow:0 0 10px #54ef8e}
-.scanner-browser{display:grid;grid-template-columns:26% minmax(0,1fr);min-height:0;flex:1}
+.scanner-browser-bar{display:flex;align-items:center;gap:8px;padding:6px 10px;background:#0a1b14;border-bottom:1px solid #355340;font-size:9px;letter-spacing:.08em}
+.scanner-browser-bar label{color:#a8c6a6}
+.scanner-browser-bar input{flex:1;min-width:0;padding:6px 8px;border:1px solid #53725b;background:#06130c;color:#dcf2d7;outline-color:#8bd9a3}
+.scanner-browser-bar button{padding:6px 8px;border:1px solid #618466;background:#173321;color:#d8eccb;white-space:nowrap}
+.scanner-browser-bar button:hover{background:#285336}
+.scanner-browser{min-height:0;flex:1;overflow:hidden}
+.scanner-list{display:grid;grid-template-columns:26% minmax(0,1fr);height:100%;min-height:0}
+.scanner-desktop{height:100%;min-height:0;display:flex;flex-direction:column;background-color:#07150e;background-image:linear-gradient(140deg,rgba(3,12,8,.47),rgba(4,15,10,.75)),var(--scanner-wallpaper,radial-gradient(circle at 65% 25%,#244533,#07150e 72%));background-size:cover;background-position:center}
+.scanner-breadcrumb{display:flex;align-items:center;gap:5px;min-height:32px;padding:3px 10px;background:rgba(4,15,10,.82);border-bottom:1px solid #527258;overflow-x:auto;white-space:nowrap}
+.scanner-breadcrumb button{border:0;background:transparent;color:#d2e5b6;padding:5px 3px;text-decoration:underline;text-underline-offset:3px}
+.scanner-breadcrumb button:hover{color:#fff}
+.scanner-breadcrumb span{color:#a1bca2}
+.scanner-desktop-grid{flex:1;min-height:0;overflow:auto;padding:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(102px,1fr));grid-auto-rows:max-content;gap:18px 13px;align-content:start}
+.scanner-desktop-folder,.scanner-desktop-file{min-width:0;min-height:102px;padding:6px 5px;border:1px solid transparent;border-radius:5px;background:rgba(5,16,10,.37);color:#f0f4da;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;text-shadow:0 1px 3px #000}
+.scanner-desktop-folder:hover,.scanner-desktop-folder:focus-visible,.scanner-desktop-file:hover,.scanner-desktop-file:focus-visible{background:rgba(66,117,75,.55);border-color:#b7e9a6}
+.scanner-folder-icon{display:block;position:relative;width:58px;height:43px;margin-top:9px;border:2px solid #c99d52;border-radius:4px;background:linear-gradient(160deg,#e3bd76,#85602d);box-shadow:0 5px 11px #0009,inset 0 2px 4px #ffe3a077}
+.scanner-folder-icon::before{content:'';position:absolute;left:3px;top:-9px;width:26px;height:9px;border:2px solid #c99d52;border-bottom:0;border-radius:4px 5px 0 0;background:#c39854}
+.scanner-desktop-label,.scanner-desktop-file span{font-size:10px;line-height:1.25;overflow-wrap:anywhere;max-width:100%}
+.scanner-desktop-file img{display:block;width:70px;height:57px;object-fit:cover;background:#020806;border:2px solid #aac9a8;box-shadow:0 5px 12px #0009}
 .scanner-folders{overflow:auto;padding:12px 8px;border-right:1px solid #355340;background:rgba(7,20,15,.84)}
 .scanner-folders label{display:block;font-size:9px;letter-spacing:.11em;color:#8ba78c;margin-bottom:7px}
 .scanner-folders input{box-sizing:border-box;width:100%;padding:8px;border:1px solid #53725b;background:#06130c;color:#dcf2d7;outline-color:#8bd9a3}
