@@ -58,7 +58,7 @@
       "media": [
         {
           "kind": "photo",
-          "image": "/assets/uploads/personajes/Richard/facebook Javi/balon.webp",
+          "image": "/assets/uploads/personajes/Richard/FACEBOOK JAVIER ALCOY/balon.webp",
           "quick_entry": "TÍTULO: No hay quien le quite el balón ⚽\nFECHA:\nDESCRIPCIÓN:\nALT: Último partido de la temporada. Hoy tocaba sufrir desde la banda 😂\nAMPLIAR: no\nOCULTAR: no\nREACCIONES: 👍🏻 18\nCOMENTARIOS: @Elena Martínez:\nQué concentración lleva 😂❤️\n\n@Carlos Moreno:\nTiene maneras el chaval 👍\n\n@Pilar Martínez:\nPero si ya corre más que tú Javier jajaja\n\n@Javier Alcoy:\nEso no era muy difícil 😂\n\n@Miguel Alcoy:\nDale unos años y lo fichamos para el Zaragoza",
           "sensitive": false,
           "zoom": false
@@ -255,8 +255,6 @@
       "importance": "basico",
       "label_image": "/assets/uploads/informes-digitales/mmc.png",
       "summary": "VOLCADO FORENSE // 20–28 JUN 2016",
-      "boot_seconds": 1,
-      "boot_flash_enabled": false,
       "folders": [
         {
           "title": "Dispositivo de Richard Alcoy",
@@ -268,7 +266,6 @@
               "kind": "IMAGEN",
               "image": "/assets/uploads/archivo/definitiva.png",
               "image_visibility": "normal",
-              "scan_image": "/assets/uploads/archivo/definitiva-radiacion-interplanar-1.png",
               "masthead_image": "/assets/uploads/informes-digitales/designer-4.png",
               "order": 1,
               "date_time": "20 a 28 de junio de 2016",
