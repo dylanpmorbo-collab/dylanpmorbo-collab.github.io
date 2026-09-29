@@ -6,7 +6,7 @@
   "folder_rules": [
     {
       "folder": "archivo",
-      "visible": true
+      "visible": false
     },
     {
       "folder": "conexiones",
