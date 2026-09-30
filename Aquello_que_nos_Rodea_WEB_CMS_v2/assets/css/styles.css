@@ -463,7 +463,7 @@
     radial-gradient(circle at 16% 18%,rgba(92,64,28,.13),transparent 23%),
     radial-gradient(circle at 82% 72%,rgba(92,64,28,.10),transparent 27%),
     repeating-linear-gradient(0deg,rgba(70,52,29,.025) 0,rgba(70,52,29,.025) 1px,transparent 1px,transparent 4px),
-    #d8c6a3;
+    var(--paper-color,#d8c6a3);
   border:1px solid rgba(91,66,32,.45);
   box-shadow:0 18px 55px rgba(0,0,0,.38),inset 0 0 70px rgba(79,55,25,.12);
   transform:rotate(-.08deg);
@@ -983,6 +983,49 @@ DOCUMENTOS NAVEGABLES — AJUSTES FINALES DE GEOMETRÍA Y LECTURA
 .archive-police-report-text code{background:rgba(61,47,30,.15);padding:.08em .25em}
 .archive-police-report-text a{color:#554123;text-decoration:underline}
 @media(max-width:700px){.archive-police-dialog{width:100vw;height:100dvh}.archive-police-dialog-scroll{padding:12px}.archive-police-dialog-scroll .archive-police-report{min-height:0;padding:48px 22px 68px}.archive-police-report-attachments{grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}.archive-police-report-attachment img{height:160px}.archive-police-dialog-header,.archive-police-dialog-footer{padding:12px 15px}.archive-police-dialog-footer button{font-size:9px}.archive-police-folder-grid{grid-template-columns:minmax(0,360px)}}
+/* Each folio keeps the proportions of its chosen physical paper. */
+.archive-police-dialog-scroll .archive-police-report{--paper-width:880px;--paper-aspect:210 / 297;--paper-padding:64px;--paper-font:19px;width:min(100%,var(--paper-width));max-width:none;min-height:0;aspect-ratio:var(--paper-aspect);padding:var(--paper-padding) var(--paper-padding) calc(var(--paper-padding) + 30px);overflow:auto}
+.archive-police-dialog-scroll .archive-police-report[data-paper-size="mini-a4"]{--paper-width:796px;--paper-aspect:190 / 270;--paper-padding:52px;--paper-font:18px}
+.archive-police-dialog-scroll .archive-police-report[data-paper-size="a5"]{--paper-width:620px;--paper-aspect:148 / 210;--paper-padding:40px;--paper-font:16px}
+.archive-police-dialog-scroll .archive-police-report[data-paper-size="a6"]{--paper-width:440px;--paper-aspect:105 / 148;--paper-padding:27px;--paper-font:14px}
+.archive-police-dialog-scroll .archive-police-report[data-paper-size="a7"]{--paper-width:310px;--paper-aspect:74 / 105;--paper-padding:18px;--paper-font:12px}
+.archive-police-dialog-scroll .archive-police-report[data-paper-size="a8"]{--paper-width:218px;--paper-aspect:52 / 74;--paper-padding:12px;--paper-font:10.5px}
+.archive-police-dialog-scroll .archive-police-report[data-paper-orientation="landscape"]{--paper-aspect:297 / 210;--paper-width:1000px}
+.archive-police-dialog-scroll .archive-police-report[data-paper-size="mini-a4"][data-paper-orientation="landscape"]{--paper-aspect:270 / 190;--paper-width:1000px}
+.archive-police-dialog-scroll .archive-police-report[data-paper-size="a5"][data-paper-orientation="landscape"]{--paper-aspect:210 / 148;--paper-width:870px}
+.archive-police-dialog-scroll .archive-police-report[data-paper-size="a6"][data-paper-orientation="landscape"]{--paper-aspect:148 / 105;--paper-width:620px}
+.archive-police-dialog-scroll .archive-police-report[data-paper-size="a7"][data-paper-orientation="landscape"]{--paper-aspect:105 / 74;--paper-width:438px}
+.archive-police-dialog-scroll .archive-police-report[data-paper-size="a8"][data-paper-orientation="landscape"]{--paper-aspect:74 / 52;--paper-width:308px}
+.archive-police-report[data-paper="blanco"]{--paper-color:#eeeae0}
+.archive-police-report[data-paper="crema"]{--paper-color:#e5d9b9}
+.archive-police-report[data-paper="amarillo"]{--paper-color:#e6dfa9}
+.archive-police-report[data-paper="gris"]{--paper-color:#d2d2cd}
+.archive-police-report[data-paper="verde"]{--paper-color:#cdd7bd}
+.archive-police-dialog-scroll .archive-police-report-text{font-size:var(--paper-font);line-height:1.5;overflow-wrap:anywhere}
+.archive-police-dialog-scroll .archive-police-report-heading{font-size:calc(var(--paper-font) * 1.4);padding-right:0;overflow-wrap:anywhere}
+.archive-police-dialog-scroll .archive-police-report-folio{left:var(--paper-padding);right:var(--paper-padding);bottom:calc(var(--paper-padding) * .45)}
+.archive-police-dialog-scroll .archive-police-report:after{font-size:calc(var(--paper-font) * .48);right:var(--paper-padding);top:calc(var(--paper-padding) * .3)}
+.archive-police-dialog-scroll .archive-police-report-attachments{margin:1em 0;gap:.6em;grid-template-columns:repeat(auto-fit,minmax(min(100%,110px),1fr))}
+.archive-police-dialog-scroll .archive-police-report-attachment{padding:5px 5px 12px;max-width:min(100%,300px)}
+.archive-police-dialog-scroll .archive-police-report-attachment img{height:auto;max-height:180px}
+.archive-police-report[data-paper-size="a6"] .archive-police-report-attachment img{max-height:85px}
+.archive-police-report[data-paper-size="a7"] .archive-police-report-attachment img{max-height:65px}
+.archive-police-report[data-paper-size="a8"] .archive-police-report-attachment img{max-height:45px}
+.archive-police-report[data-paper-size="a7"]:after,.archive-police-report[data-paper-size="a8"]:after{display:none}
+.archive-police-report[data-paper-size="a8"] .archive-police-report-folio{font-size:7px}
+.archive-police-dialog-scroll .archive-police-index nav{display:grid;gap:10px;margin-top:24px}
+.archive-police-index-entry{display:flex;align-items:center;gap:12px;width:100%;padding:9px;border:1px solid rgba(70,54,32,.28);background:rgba(255,255,255,.13);color:#29251e;text-align:left;cursor:pointer}
+.archive-police-index-entry img,.archive-police-index-placeholder{width:54px;height:48px;object-fit:cover;display:grid;place-items:center;background:rgba(80,61,38,.15)}
+.archive-police-index-entry>span:nth-last-child(2){flex:1;overflow-wrap:anywhere}
+.archive-police-index-number{font:700 12px var(--display)}
+.archive-police-letterhead{display:block;width:min(100%,600px);height:auto;margin:0 0 20px}
+.archive-police-fiction-note{position:relative;z-index:2;margin:14px 0 0;color:#5e5548;font:10px/1.3 var(--display)}
+.archive-police-report-attachment button{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in}
+.archive-police-report-attachment figcaption{margin-top:6px;color:#5e5548;font:9px var(--display)}
+.archive-police-report-attachments{font-size:var(--paper-font)}
+.archive-police-report[data-paper-size="a8"] .archive-police-fiction-note,.archive-police-report[data-paper-size="a7"] .archive-police-fiction-note{font-size:7px}
+.archive-police-dialog-scroll .archive-police-report-text p{margin-bottom:.9em}
+@media(max-width:700px){.archive-police-dialog-scroll .archive-police-report{--paper-padding:clamp(10px,5vw,28px)}.archive-police-dialog-scroll .archive-police-report-text{font-size:clamp(10px,var(--paper-font),18px)}}
 
 /* Corcheras documentales opcionales de cada sección del Archivo. */
 .archive-corkboard-section{padding-top:45px}
