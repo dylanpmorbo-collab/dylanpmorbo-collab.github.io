@@ -3559,8 +3559,47 @@ content:
             options:
               media: default
 
+  - name: censura_fotos
+    label: Censura global de fotografías
+    type: file
+    path: Aquello_que_nos_Rodea_WEB_CMS_v2/content/config/censura-fotos.json
+    format: json
+    fields:
+      - name: photos
+        label: Fotografías censuradas
+        type: object
+        required: false
+        description: "Selecciona cada fotografía original una sola vez. Su censura se aplicará automáticamente en toda la web. Mostrar revela solo esa aparición."
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{image}"
+        fields:
+          - name: image
+            label: Fotografía original
+            type: image
+            required: true
+            options:
+              media: default
+          - name: mode
+            label: Tipo de censura
+            type: select
+            required: true
+            default: pixelado
+            options:
+              values: [pixelado, falso]
+            description: "pixelado: mosaico real; falso: muestra la imagen sustituta hasta pulsar Mostrar."
+          - name: fake_pixel_image
+            label: Imagen sustituta para falso pixelado
+            type: image
+            required: false
+            options:
+              media: default
+            description: "Solo se usa en falso pixelado. Elige la versión que se ve antes de pulsar Mostrar."
+
   - name: frases_archivo
     label: Frases inquietantes
     type: file
     path: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/data/frases-archivo.txt
     format: raw
+
