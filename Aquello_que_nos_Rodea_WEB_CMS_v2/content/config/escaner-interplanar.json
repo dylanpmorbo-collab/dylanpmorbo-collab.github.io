@@ -158,6 +158,18 @@
     {
       "image": "/assets/uploads/SUCESOS/desapariciones techo/informe-policial-desaparicion-1985-web.webp",
       "overlay": "/assets/uploads/escaner/capas/informe-policial-desaparicion-1985-capa-interplanar.png"
+    },
+    {
+      "image": "/assets/uploads/SUCESOS/desapariciones techo/informe-policial-desaparicion-1994-desaparecido-web.webp",
+      "overlay": "/assets/uploads/escaner/capas/informe-policial-desaparicion-1994-desaparecido-capa-interplanar.png"
+    },
+    {
+      "image": "/assets/uploads/SUCESOS/desapariciones techo/informe-policial-desaparicion-2002-web.webp",
+      "overlay": "/assets/uploads/escaner/capas/informe-policial-desaparicion-2002-capa-interplanar.png"
+    },
+    {
+      "image": "/assets/uploads/SUCESOS/desapariciones techo/informe-policial-desaparicion-2008-web.webp",
+      "overlay": "/assets/uploads/escaner/capas/informe-policial-desaparicion-2008-capa-interplanar.png"
     }
   ]
 }
