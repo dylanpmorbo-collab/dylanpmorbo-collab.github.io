@@ -154,6 +154,10 @@
     {
       "image": "/assets/uploads/entidades/ŚUKRAHĀRĪ/reunioon-web.webp",
       "overlay": "/assets/uploads/escaner/capas/reunioon-capa-interplanar.png"
+    },
+    {
+      "image": "/assets/uploads/SUCESOS/desapariciones techo/informe-policial-desaparicion-1985-web.webp",
+      "overlay": "/assets/uploads/escaner/capas/informe-policial-desaparicion-1985-capa-interplanar.png"
     }
   ]
 }
