@@ -7,6 +7,23 @@
   "status": "Documentado",
   "show_documents": false,
   "show_police_report": true,
+  "police_reports": [
+    {
+      "title": "INFORME",
+      "type": "POLICIAL",
+      "importance": "basico",
+      "documents": [
+        {
+          "title": "DENUNCIA INICIAL DE DESAPARICIÓN",
+          "paper": "blanco",
+          "paper_size": "a4",
+          "paper_orientation": "portrait",
+          "body": "**BRIGADA PROVINCIAL DE POLICÍA JUDICIAL**\n\n**DENUNCIA INICIAL DE DESAPARICIÓN**\n\n*Síntesis de comparecencia y primeras actuaciones*\n\n\n|  |  |\n| -------------- | ---------------------------------------------------------------------- |\n| **FECHA** | 01/09/2024 |\n| **UNIDAD** | Brigada Provincial de Policía Judicial · investigación de desaparición |\n| **CARPETA** | 01 — DESAPARICIÓN Y RECONSTRUCCIÓN DEL TRAYECTO |\n| **REFERENCIA** | HOMICIDIOS-ZAG-2024-06182 |\n\n\n\n\n\n\n\n**HECHOS COMUNICADOS**\n\n- Candy Bernal refiere que la noche del 31/08 salió con Richard y el resto del grupo. Tras permanecer en Sala Oasis (Basilio Boggiero 28), las amistades se dirigían a Sala Creedence.\n- Richard se separó del grupo durante el trayecto por malestar gastrointestinal agravado por el consumo de alcohol. No consta que llegara a entrar en Creedence.\n- La compareciente detectó después una llamada perdida de Richard y efectuó múltiples devoluciones sin respuesta. Marcos Lafuente registró igualmente una llamada no atendida.\n- Richard no se encontraba en su domicilio y su vehículo permanecía estacionado en las inmediaciones. No se apreciaron preparativos de viaje ni circunstancias personales, familiares o laborales compatibles con una ausencia planificada.\n\n**DESCRIPCIÓN OPERATIVA**\n\n- Richard Alcoy Martínez, nacido el 17/05/1998, 26 años; ≈1,69 m y ≈71 kg; pelo castaño corto, barba corta, complexión media con ligero abdomen.\n- Vestimenta: sudadera beige/crema de cuello redondo, camiseta blanca interior, vaquero azul medio-claro, zapatillas claras Pull&Bear, calcetines blancos y cadenas finas plateadas.\n- Efectos: teléfono móvil, cartera/documentación, llaves de domicilio y vehículo y dinero en efectivo.\n\n**MEDIDAS INMEDIATAS**\n\n- Comprobación de ingresos hospitalarios y asistencias urgentes: resultado inicial negativo.\n- Verificación del domicilio y del vehículo, contactos con amistades y familiares y preservación urgente de datos de telefonía y nube.\n- Se incorpora como último movimiento financiero conocido el reintegro de 100 € efectuado antes de la cena.\n\n**VALORACIÓN**\n\nLa desaparición carece de continuidad conductual y financiera y resulta discordante con los compromisos inmediatos de Richard. Se mantiene investigación activa y preservación prioritaria de evidencia digital.\n\n  \n",
+          "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/se-busca-ra.webp"
+        }
+      ]
+    }
+  ],
   "show_digital_reports": false,
   "show_related_archive": true,
   "related_archive": [
