@@ -1,0 +1,33 @@
+.global-censor-host {
+  position: relative;
+}
+
+img[data-global-mode="pixelado"]:not(.global-censored-ready) {
+  filter: blur(20px);
+}
+
+img.global-censored {
+  image-rendering: pixelated;
+}
+
+.global-censor-reveal {
+  position: absolute;
+  z-index: 12;
+  right: 0.65rem;
+  bottom: 0.65rem;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid #b99b61;
+  border-radius: 3px;
+  color: #f8e8c6;
+  background: rgba(13, 14, 11, 0.92);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+  font: 700 0.75rem/1.2 system-ui, sans-serif;
+  letter-spacing: 0.09em;
+  cursor: pointer;
+}
+
+.global-censor-reveal:hover,
+.global-censor-reveal:focus-visible {
+  background: #392a17;
+  outline: 2px solid #dbc38b;
+}
