@@ -1,5 +1,6 @@
 .scanner-page{background:#050807;color:#c5d9bd}
-.scanner-main{min-height:100vh;padding:112px 0 70px;background:radial-gradient(circle at 50% 20%,#18211b,#050807 70%)}
+.scanner-main{min-height:100vh;padding:112px 0 70px;background:radial-gradient(circle at 50% 20%,#18211b,#050807 70%);text-transform:uppercase}
+.scanner-main input::placeholder,.scanner-main textarea::placeholder{text-transform:uppercase}
 .scanner-heading{padding:0 24px;text-align:center;margin:0 auto 25px;max-width:850px}
 .scanner-heading h1{font-family:'Cinzel',serif;font-size:clamp(28px,4vw,55px);color:#d9c38e;margin:8px 0 12px}
 .scanner-heading p:last-child{font-size:clamp(16px,2vw,21px);color:#aeb7a7;margin:0}
@@ -54,6 +55,9 @@
 .scanner-viewer-head button:hover,.scanner-controls button:hover{background:#285336}
 .scanner-viewer-head strong{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .scanner-viewer-head span{font-size:9px;color:#9bbb9a;white-space:nowrap}
+.scanner-viewer-nav{display:flex;gap:4px;flex:none}
+.scanner-viewer-nav button{min-width:28px;padding:5px 7px;font-size:14px;line-height:1}
+.scanner-viewer-nav button:disabled{cursor:default;opacity:.38;background:#102319}
 .scanner-photo-stage{flex:1;min-height:0;overflow:auto;display:flex;align-items:safe center;justify-content:safe center;padding:12px;background:#020806;scrollbar-color:#537258 #06130c}
 .scanner-photo-frame{position:relative;flex:none;overflow:hidden;outline:none;background:#000}
 .scanner-photo-frame:focus-visible{outline:2px solid #afeea9;outline-offset:2px}

@@ -81,7 +81,7 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
   const wallpaper = exists(config.desktop_wallpaper) ? config.desktop_wallpaper : '';
   const initialView = config.browser_view === 'list' ? 'list' : 'desktop';
   const scannerHead = head(`${title} | ${site.site_title}`, config.intro || 'Escáner de fotografías del Archivo.', tablet)
-    .replace('</head>', '<link rel="stylesheet" href="assets/css/scanner.css?v=2"></head>');
+    .replace('</head>', '<link rel="stylesheet" href="assets/css/scanner.css?v=3"></head>');
   const page = `${scannerHead}
 <body class="scanner-page">${header('escaner')}<main class="scanner-main">
   <div class="scanner-heading"><p class="eyebrow">GRAN MERCADO // INSTRUMENTO DE LECTURA</p><h1>${esc(title)}</h1><p>${esc(config.intro || '')}</p></div>
@@ -95,7 +95,7 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
         <div class="scanner-list" data-scanner-list hidden><aside class="scanner-folders" aria-label="Carpetas de imágenes"><div data-scanner-folders></div></aside><div class="scanner-files"><div class="scanner-files-head"><strong data-scanner-folder-title>FOTOGRAFÍAS</strong><span data-scanner-count></span></div><div class="scanner-grid" data-scanner-grid></div></div></div>
       </div>
       <div class="scanner-viewer" data-scanner-viewer hidden>
-        <div class="scanner-viewer-head"><button type="button" data-scanner-back>← VOLVER</button><strong data-scanner-title></strong><span data-scanner-file-count></span></div>
+        <div class="scanner-viewer-head"><button type="button" data-scanner-back>← VOLVER</button><strong data-scanner-title></strong><div class="scanner-viewer-nav" aria-label="Recorrer fotografías de esta carpeta"><button type="button" data-scanner-previous aria-label="Fotografía anterior de esta carpeta" title="Fotografía anterior" disabled>‹</button><button type="button" data-scanner-next aria-label="Fotografía siguiente de esta carpeta" title="Fotografía siguiente" disabled>›</button></div><span data-scanner-file-count></span></div>
         <div class="scanner-photo-stage" data-scanner-stage><div class="scanner-photo-frame" data-scanner-frame tabindex="0" aria-label="Fotografía; mueve el puntero para explorarla con la lente">
           <img class="scanner-photo" data-scanner-photo alt=""><div class="scanner-lens" data-scanner-lens aria-hidden="true"><div class="scanner-lens-content" data-scanner-lens-content><img class="scanner-lens-photo" data-scanner-lens-photo alt=""><img class="scanner-lens-overlay" data-scanner-overlay alt="" hidden></div><i class="scanner-lens-crosshair"></i></div>
         </div></div>
@@ -104,8 +104,8 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
       </div>
     </div>
   </section></div>
-    <script type="application/json" id="scannerCatalog">${data}</script>
-</main>${footer(site)}<script defer src="assets/js/scanner.js?v=2"></script></body></html>`;
+  <script type="application/json" id="scannerCatalog">${data}</script>
+</main>${footer(site)}<script defer src="assets/js/scanner.js?v=3"></script></body></html>`;
   fs.writeFileSync(path.join(dist, 'escaner.html'), page);
   console.log(`Escáner: ${catalog.length} imágenes y ${catalog.filter(item => item.overlay).length} señales configuradas.`);
 };

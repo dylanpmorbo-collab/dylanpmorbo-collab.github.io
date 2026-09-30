@@ -15,6 +15,8 @@
   const search = $('#scannerSearch');
   const browser = $('[data-scanner-browser]');
   const viewer = $('[data-scanner-viewer]');
+  const previous = $('[data-scanner-previous]');
+  const next = $('[data-scanner-next]');
   const stage = $('[data-scanner-stage]');
   const frame = $('[data-scanner-frame]');
   const photo = $('[data-scanner-photo]');
@@ -168,7 +170,25 @@
     if (!overlayValid) status('CAPA INCOMPATIBLE · MEDIDAS DISTINTAS');
     else if (enabled) status('SEÑAL INTERPLANAR EN LECTURA');
   }
-  function openImage(item) {
+  function folderImages(item) {
+    const path = item.folder_path ?? item.folder;
+    return catalog.filter(candidate => (candidate.folder_path ?? candidate.folder) === path);
+  }
+  function updateImageNavigation() {
+    const siblings = current ? folderImages(current) : [];
+    const index = siblings.findIndex(item => item.image === current?.image);
+    previous.disabled = index <= 0;
+    next.disabled = index < 0 || index >= siblings.length - 1;
+  }
+  function moveImage(direction) {
+    if (!current) return;
+    const siblings = folderImages(current);
+    const index = siblings.findIndex(item => item.image === current.image);
+    const target = siblings[index + direction];
+    if (target) openImage(target, true);
+  }
+  function openImage(item, preserveView = false) {
+    const lensWasEnabled = enabled;
     current = item;
     browser.hidden = true;
     viewer.hidden = false;
@@ -182,9 +202,10 @@
     if (item.overlay) overlay.src = item.overlay;
     else overlay.removeAttribute('src');
     notes.value = saved[item.image] || '';
-    zoom.value = '100';
-    $('[data-scanner-zoom-value]').textContent = '100 %';
-    setLens(false);
+    if (!preserveView) zoom.value = '100';
+    $('[data-scanner-zoom-value]').textContent = zoom.value + ' %';
+    setLens(preserveView && lensWasEnabled);
+    updateImageNavigation();
     if (photo.complete && photo.naturalWidth) requestAnimationFrame(() => { fit(); validateOverlay(); });
     else photo.addEventListener('load', () => { fit(); validateOverlay(); }, { once: true });
     if (item.overlay && overlay.complete) validateOverlay();
@@ -206,6 +227,8 @@
     renderBrowser();
   });
   $('[data-scanner-back]').addEventListener('click', closeImage);
+  previous.addEventListener('click', () => moveImage(-1));
+  next.addEventListener('click', () => moveImage(1));
   toggle.addEventListener('click', () => setLens(!enabled));
   size.addEventListener('input', placeLens);
   zoom.addEventListener('input', () => {
