@@ -26,6 +26,12 @@ function markdownToHTML(src=''){
   return String(src).replace(/\r\n/g,'\n').split(/\n\s*\n/)
     .map(b=>b.trim()).filter(Boolean)
     .map(b=>{
+      if(/^>/.test(b)){
+        const quoteLines=b.split('\n').map(line=>line.replace(/^>\s?/, ''));
+        if(quoteLines.every(line=>/^>?\s*$/.test(line))) return '';
+        return `<blockquote>${inlineMarkdown(quoteLines.join('\n')).replace(/\n/g,'<br>')}</blockquote>`;
+      }
+      if(/^(?:-{3,}|_{3,}|\*{3,})$/.test(b)) return '<hr>';
       if(/^###\s+/.test(b)) return `<h3>${inlineMarkdown(b.replace(/^###\s+/,''))}</h3>`;
       if(/^##\s+/.test(b)) return `<h2>${inlineMarkdown(b.replace(/^##\s+/,''))}</h2>`;
       if(/^#\s+/.test(b)) return `<h1>${inlineMarkdown(b.replace(/^#\s+/,''))}</h1>`;
@@ -1151,7 +1157,7 @@ function archivePoliceReportV2(item){
      title,body:report.body||'',paper:'crema',image:report.image,image_2:report.image_2,
      image_3:report.image_3,image_4:report.image_4,image_5:report.image_5,image_6:report.image_6
    }];
-   const cover=documents.find(doc=>doc.image)?.image||report.image;
+   const cover=report.cover_image||'';
    folderCards.push('<button type="button" class="archive-police-folder" data-police-open="'+reportIndex+'" data-importance="'+importance+'" data-report-type="'+esc(type.toUpperCase())+'" aria-label="Abrir '+esc(title)+'">'+
      '<span class="archive-police-folder-tab" aria-hidden="true"></span><span class="archive-police-folder-cover">'+(cover?'<img src="'+esc(cover)+'" alt="" loading="lazy">':'<span aria-hidden="true">▤</span>')+'</span>'+
      '<span class="archive-police-folder-copy"><small>'+esc(type.toUpperCase())+' // '+String(reportIndex+1).padStart(2,'0')+'</small><strong>'+esc(title)+'</strong><span>'+documents.length+' DOCUMENTO'+(documents.length===1?'':'S')+' · ABRIR EXPEDIENTE →</span></span></button>');

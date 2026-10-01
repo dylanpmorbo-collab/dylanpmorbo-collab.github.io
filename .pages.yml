@@ -777,6 +777,13 @@ content:
                   label: Morado
                 - value: vital
                   label: Rojo
+          - name: cover_image
+            label: Portada independiente de la carpeta (800 × 500 px)
+            type: image
+            required: false
+            options:
+              media: default
+            description: "Esta imagen solo aparece en la portada exterior de la carpeta; no forma parte del informe."
           - name: documents
             label: Documentos de esta carpeta (máximo 5)
             type: object
@@ -856,12 +863,12 @@ content:
                   switcher: true
                 description: "Admite varias páginas; puedes dejarlo vacío si el documento solo contiene fotos."
               - name: image
-                label: Fotografía 1 / miniatura del índice (800 × 500 px)
+                label: Fotografía 1 del informe / miniatura del índice (800 × 500 px)
                 type: image
                 required: false
                 options:
                   media: default
-                description: "Tamaño recomendado: 800 × 500 píxeles. El índice la muestra como fotocopia; al abrir se puede ampliar."
+                description: "Primera imagen que aparece dentro del informe; la portada exterior de la carpeta se configura por separado."
               - name: image_2
                 label: Fotografía 2 (800 × 500 px)
                 type: image
@@ -1831,6 +1838,13 @@ content:
                   label: Morado
                 - value: vital
                   label: Rojo
+          - name: cover_image
+            label: Portada independiente de la carpeta (800 × 500 px)
+            type: image
+            required: false
+            options:
+              media: default
+            description: "Esta imagen solo aparece en la portada exterior de la carpeta; no forma parte del informe."
           - name: documents
             label: Documentos de esta carpeta (máximo 5)
             type: object
@@ -1910,12 +1924,12 @@ content:
                   switcher: true
                 description: "Admite varias páginas; puedes dejarlo vacío si el documento solo contiene fotos."
               - name: image
-                label: Fotografía 1 / miniatura del índice (800 × 500 px)
+                label: Fotografía 1 del informe / miniatura del índice (800 × 500 px)
                 type: image
                 required: false
                 options:
                   media: default
-                description: "Tamaño recomendado: 800 × 500 píxeles. El índice la muestra como fotocopia; al abrir se puede ampliar."
+                description: "Primera imagen que aparece dentro del informe; la portada exterior de la carpeta se configura por separado."
               - name: image_2
                 label: Fotografía 2 (800 × 500 px)
                 type: image

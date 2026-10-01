@@ -296,6 +296,8 @@
 .archive-entry-no-facts{margin:0;color:#746d62;font-style:italic}
 .archive-entry-content{min-width:0}
 .archive-entry-main-text,.archive-info-block{color:#b8b0a2;font-size:20px;line-height:1.7}
+.archive-entry-main-text blockquote{margin:1.05em 0;padding:0 0 0 1.1em;border-left:2px solid rgba(173,132,55,.5);color:#d1c2a4;font-style:italic}
+.archive-entry-main-text hr{margin:1.1em 0;border:0;border-top:1px solid rgba(173,132,55,.28)}
 .archive-entry-main-text>p:first-child{margin-top:0}
 .archive-entry-main-text h1,.archive-entry-main-text h2,.archive-entry-main-text h3,.archive-info-block h2,.archive-info-block .archive-extra h1,.archive-info-block .archive-extra h2,.archive-info-block .archive-extra h3{
   color:#c8b486;
