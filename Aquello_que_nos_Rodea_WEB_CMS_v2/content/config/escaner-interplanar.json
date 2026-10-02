@@ -59,10 +59,6 @@
       "visible": false
     },
     {
-      "folder": "microrrelatos",
-      "visible": false
-    },
-    {
       "folder": "personajes",
       "visible": true
     },
@@ -87,8 +83,12 @@
       "visible": true
     },
     {
-      "folder": "personajes/Richard/POLICIA",
-      "visible": true
+      "folder": "personajes/Richard/fotos no visibles",
+      "visible": false
+    },
+    {
+      "folder": "microrrelatos",
+      "visible": false
     },
     {
       "folder": "Prensa tradicional",
@@ -136,10 +136,6 @@
     },
     {
       "folder": "testimonios",
-      "visible": false
-    },
-    {
-      "folder": "personajes/Richard/fotos no visibles",
       "visible": false
     }
   ],
