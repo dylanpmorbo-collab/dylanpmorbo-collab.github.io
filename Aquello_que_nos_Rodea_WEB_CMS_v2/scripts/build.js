@@ -16,11 +16,11 @@ function copyDir(src,dst){
 }
 function inlineMarkdown(s){
   let x=esc(s);
-  x=x.replace(/`([^`]+)`/g,'<code>$1</code>');
+  x=x.replace(/\x60([^\x60]+)\x60/g,'<code>$1</code>');
   x=x.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g,'<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
   x=x.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
   x=x.replace(/\*(.+?)\*/g,'<em>$1</em>');
-  return x;
+  return x.replace(/\u001f/g,'<br>');
 }
 function markdownTableCells(line){
   const cells=[];let cell='';
@@ -35,10 +35,19 @@ function markdownTableCells(line){
 function markdownTableParts(block){
   const lines=String(block).trim().split('\n').map(line=>line.trim());
   if(lines.length<2||(!lines[0].includes('|')&&!lines[1].includes('|')))return null;
-  const headers=markdownTableCells(lines[0]),separators=markdownTableCells(lines[1]);
+  let headers=markdownTableCells(lines[0]),separators=markdownTableCells(lines[1]);
   if(separators.length!==headers.length||!separators.every(cell=>/^:?-{3,}:?$/.test(cell)))return null;
-  const alignments=separators.map(cell=>cell.startsWith(':')?(cell.endsWith(':')?'center':'left'):(cell.endsWith(':')?'right':''));
-  return {headers,alignments,rows:lines.slice(2).filter(Boolean).map(markdownTableCells)};
+  let alignments=separators.map(cell=>cell.startsWith(':')?(cell.endsWith(':')?'center':'left'):(cell.endsWith(':')?'right':''));
+  let rows=lines.slice(2).filter(Boolean).map(markdownTableCells);
+  if(headers.length===1&&!headers[0]&&rows.some(row=>row.length===1&&row[0].includes('\u001f'))){
+    headers.push('');alignments.push('');
+    rows=rows.map(row=>{
+      if(row.length!==1||!row[0].includes('\u001f'))return row;
+      const parts=row[0].split('\u001f').map(part=>part.trim());
+      return parts.length>1?[parts[0],parts.slice(1).join('\u001f')]:row;
+    });
+  }
+  return {headers,alignments,rows};
 }
 function markdownTableHTML(table){
   const row=(cells,tag)=>'<tr>'+table.headers.map((_,i)=>'<'+tag+(table.alignments[i]?' style="text-align:'+table.alignments[i]+'"':'')+'>'+inlineMarkdown(cells[i]||'')+'</'+tag+'>').join('')+'</tr>';
@@ -942,10 +951,10 @@ function archiveDocuments(item){
 function policeInlineMarkdown(value=''){
  let text=esc(value);
  text=text.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g,'<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
- text=text.replace(/`([^`]+)`/g,'<code>$1</code>');
+ text=text.replace(/\x60([^\x60]+)\x60/g,'<code>$1</code>');
  text=text.replace(/\*\*(.+?)\*\*|__(.+?)__/g,(_,a,b)=>'<strong>'+(a||b)+'</strong>');
  text=text.replace(/\*([^*\n]+)\*|_([^_\n]+)_/g,(_,a,b)=>'<em>'+(a||b)+'</em>');
- return text;
+ return text.replace(/\u001f/g,'<br>');
 }
 function policeTableCells(line){
  const cells=[];let cell='';
@@ -961,11 +970,19 @@ function policeTableCells(line){
 function policeTableParts(block){
  const lines=String(block).trim().split('\n').map(line=>line.trim());
  if(lines.length<2||!lines[0].includes('|')) return null;
- const headers=policeTableCells(lines[0]);
+ let headers=policeTableCells(lines[0]);
  const separators=policeTableCells(lines[1]);
  if(!headers.length||separators.length!==headers.length||!separators.every(cell=>/^:?-{3,}:?$/.test(cell))) return null;
- const alignments=separators.map(cell=>cell.startsWith(':')?(cell.endsWith(':')?'center':'left'):(cell.endsWith(':')?'right':''));
- const rows=lines.slice(2).filter(Boolean).map(policeTableCells);
+ let alignments=separators.map(cell=>cell.startsWith(':')?(cell.endsWith(':')?'center':'left'):(cell.endsWith(':')?'right':''));
+ let rows=lines.slice(2).filter(Boolean).map(policeTableCells);
+ if(headers.length===1&&!headers[0]&&rows.some(row=>row.length===1&&row[0].includes('\u001f'))){
+   headers.push('');alignments.push('');
+   rows=rows.map(row=>{
+     if(row.length!==1||!row[0].includes('\u001f'))return row;
+     const parts=row[0].split('\u001f').map(part=>part.trim());
+     return parts.length>1?[parts[0],parts.slice(1).join('\u001f')]:row;
+   });
+ }
  return {headers,alignments,rows};
 }
 function policeTableHTML(table){
@@ -1109,7 +1126,7 @@ function archiveDigitalReports(item){
 function archivePoliceReport(item){return archivePoliceReportV2(item);}
 
 function physicalDocumentPages(body,hasLetterhead,capacity=1150){
- const blocks=String(body||'').replace(/\r\n/g,'\n').replace(/\u001f/g,' ').split(/\n\s*\n/).map(x=>x.trim()).filter(block=>block&&!/^(?:(?:&nbsp;|&#160;|&#xA0;)|\s)*$/i.test(block));
+ const blocks=String(body||'').replace(/\r\n/g,'\n').split(/\n\s*\n/).map(x=>x.trim()).filter(block=>block&&!/^(?:(?:&nbsp;|&#160;|&#xA0;)|\s)*$/i.test(block));
  const chunks=[];
  for(const block of blocks){
    const table=policeTableParts(block);
@@ -1124,7 +1141,7 @@ function physicalDocumentPages(body,hasLetterhead,capacity=1150){
      chunks.push([lines[0],lines[1],...rows].join('\n'));
      continue;
    }
-   const chunkLimit=Math.min(1100,Math.max(45,Math.round(capacity*.86)));
+   const chunkLimit=Math.min(2200,Math.max(45,Math.round(capacity*(hasLetterhead ? .76 : .86))));
    if(block.length<=chunkLimit){chunks.push(block);continue;}
    let current='';
    for(const word of block.split(/\s+/)){
@@ -1133,8 +1150,6 @@ function physicalDocumentPages(body,hasLetterhead,capacity=1150){
    }
    if(current) chunks.push(current);
  }
- // Las tablas cortas y sus textos cercanos comparten hoja. Solo se separan
- // cuando su contenido realmente supera el espacio disponible.
  const units=[];
  for(let index=0;index<chunks.length;index++){
    let unit=chunks[index];
@@ -1150,7 +1165,7 @@ function physicalDocumentPages(body,hasLetterhead,capacity=1150){
  if(current||!pages.length) pages.push(current);
  return pages;
 }
-const physicalPaperSizes={a4:[210,297,1450],'mini-a4':[190,270,1170],a5:[148,210,760],a6:[105,148,360],a7:[74,105,160],a8:[52,74,75]};
+const physicalPaperSizes={a4:[210,297,2200],'mini-a4':[190,270,1900],a5:[148,210,1450],a6:[105,148,1050],a7:[74,105,750],a8:[52,74,500]};
 function physicalPaperSettings(doc){
  const size=Object.prototype.hasOwnProperty.call(physicalPaperSizes,doc.paper_size)?doc.paper_size:'a4';
  const orientation=doc.paper_orientation==='landscape'?'landscape':'portrait';
