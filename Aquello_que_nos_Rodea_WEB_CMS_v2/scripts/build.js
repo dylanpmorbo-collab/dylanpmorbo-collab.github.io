@@ -1226,19 +1226,22 @@ function archivePoliceReportV2(item){
    const importance=reportImportance(report.importance);
    let documents=Array.isArray(report.documents)?report.documents.filter(Boolean).slice(0,5):[];
    if(!documents.length&&(report.body||report.image||report.image_2)) documents=[{
-     title,body:report.body||'',paper:'crema',image:report.image,image_2:report.image_2,
+     title,body:report.body||'',paper:'crema',index_thumbnail:report.index_thumbnail,image:report.image,image_2:report.image_2,
      image_3:report.image_3,image_4:report.image_4,image_5:report.image_5,image_6:report.image_6
    }];
-   const cover=documents.find(doc=>doc.image)?.image||report.image;
+   const cover=String(report.cover_image||'').trim();
    folderCards.push('<button type="button" class="archive-police-folder" data-police-open="'+reportIndex+'" data-importance="'+importance+'" data-report-type="'+esc(type.toUpperCase())+'" aria-label="Abrir '+esc(title)+'">'+
      '<span class="archive-police-folder-tab" aria-hidden="true"></span><span class="archive-police-folder-cover">'+(cover?'<img src="'+esc(cover)+'" alt="" loading="lazy">':'<span aria-hidden="true">▤</span>')+'</span>'+
      '<span class="archive-police-folder-copy"><small>'+esc(type.toUpperCase())+' // '+String(reportIndex+1).padStart(2,'0')+'</small><strong>'+esc(title)+'</strong><span>'+documents.length+' DOCUMENTO'+(documents.length===1?'':'S')+' · ABRIR EXPEDIENTE →</span></span></button>');
    const pages=[];
    if(documents.length>1){
-     const rows=documents.map((doc,docIndex)=>'<button type="button" class="archive-police-index-entry" data-police-jump="'+docIndex+'">'+
-       '<span class="archive-police-index-number">'+String(docIndex+1).padStart(2,'0')+'</span>'+
-       (doc.image?'<img src="'+esc(doc.image)+'" alt="" loading="lazy">':'<span class="archive-police-index-placeholder" aria-hidden="true">▤</span>')+
-       '<span>'+esc(doc.title||('DOCUMENTO '+(docIndex+1)))+'</span><span aria-hidden="true">↗</span></button>').join('');
+     const rows=documents.map((doc,docIndex)=>{
+       const thumbnail=String(doc.index_thumbnail||'').trim();
+       return '<button type="button" class="archive-police-index-entry" data-police-jump="'+docIndex+'">'+
+         '<span class="archive-police-index-number">'+String(docIndex+1).padStart(2,'0')+'</span>'+
+         (thumbnail?'<img src="'+esc(thumbnail)+'" alt="" loading="lazy">':'<span class="archive-police-index-placeholder" aria-hidden="true">▤</span>')+
+         '<span>'+esc(doc.title||('DOCUMENTO '+(docIndex+1)))+'</span><span aria-hidden="true">↗</span></button>';
+     }).join('');;
      pages.push('<article class="archive-police-report archive-police-index" data-police-page data-police-index data-paper="crema"><div class="archive-police-report-heading">ÍNDICE DEL EXPEDIENTE</div><p class="archive-police-index-caption">'+esc(title)+' · '+documents.length+' DOCUMENTOS</p><nav aria-label="Documentos del expediente">'+rows+'</nav><div class="archive-police-report-folio">ÍNDICE / '+String(documents.length).padStart(2,'0')+' DOCUMENTOS</div></article>');
    }
    documents.forEach((doc,docIndex)=>{
