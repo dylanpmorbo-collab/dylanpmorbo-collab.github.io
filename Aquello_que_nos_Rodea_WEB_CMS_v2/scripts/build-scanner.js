@@ -10,17 +10,12 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
   const exists = value => isLocalImage(value) && fs.existsSync(path.join(root, value.slice(1)));
   const signalConfig = Array.isArray(config.signals) ? config.signals : [];
   const privateLayers = new Set(signalConfig.map(item => item && item.overlay).filter(Boolean));
-  const rules = (Array.isArray(config.folder_rules) ? config.folder_rules : [])
+  const folderSettings = new Set((Array.isArray(config.folder_rules) ? config.folder_rules : [])
     .filter(rule => rule && typeof rule.folder === 'string' && /^[^./][^\\]*$/.test(rule.folder) && !rule.folder.split('/').includes('..'))
-    .map(rule => ({ folder: rule.folder.replace(/^\/+|\/+$/g, ''), visible: rule.visible !== false }));
-  const folderSettings = new Map(rules.map(rule => [rule.folder, rule.visible]));
+    .map(rule => rule.folder.replace(/^\/+|\/+$/g, '')));
   function folderVisible(folder) {
     if (folder === 'escaner/capas' || folder.startsWith('escaner/capas/')) return false;
-    const parts = folder.split('/').filter(Boolean);
-    for (let depth = 1; depth <= parts.length; depth++) {
-      if (folderSettings.get(parts.slice(0, depth).join('/')) === false) return false;
-    }
-    return true;
+    return folderSettings.has(folder);
   }
   const metadata = new Map();
   function collect(node, inheritedTitle = '') {
