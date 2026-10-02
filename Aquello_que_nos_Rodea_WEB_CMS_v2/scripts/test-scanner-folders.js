@@ -40,27 +40,28 @@ try {
   image('nueva/sin-regla.png');
   image('escaner/capas/secreta.png');
 
-  const hiddenParent = catalog(
-    [{ folder: 'prensa', visible: false }, { folder: 'prensa/adjuntos', visible: true }],
-    [{ image: '/assets/uploads/prensa/adjuntos/foto.png', title: 'Intento de excepción' }]
+  const oneFolder = catalog(
+    [{ folder: 'prensa/adjuntos' }],
+    [{ image: '/assets/uploads/prensa/adjuntos/foto.png', title: 'Adjunto' }]
   );
-  assert.deepEqual(hiddenParent.map(item => item.filename), ['sin-regla.png']);
+  assert.deepEqual(oneFolder.map(item => item.filename), ['foto.png']);
 
-  const hiddenChild = catalog([
-    { folder: 'prensa', visible: true },
-    { folder: 'prensa/adjuntos', visible: false },
-    { folder: 'prensa/adjuntos/detalles', visible: true }
-  ]);
-  assert.deepEqual(hiddenChild.map(item => item.filename).sort(), ['recorte.png', 'sin-regla.png']);
+  const selectedFolders = catalog(
+    [{ folder: 'prensa' }, { folder: 'prensa/adjuntos' }],
+    [
+      { image: '/assets/uploads/prensa/adjuntos/foto.png', title: 'Adjunto' },
+      { image: '/assets/uploads/nueva/sin-regla.png', title: 'Carpeta nueva' }
+    ]
+  );
+  assert.deepEqual(selectedFolders.map(item => item.filename).sort(), ['foto.png', 'recorte.png']);
 
-  const visible = catalog([
-    { folder: 'prensa', visible: true },
-    { folder: 'prensa/adjuntos', visible: true }
-  ]);
-  assert.deepEqual(visible.map(item => item.filename).sort(), [
-    'foto.png', 'primer-plano.png', 'recorte.png', 'sin-regla.png'
-  ]);
-  console.log('Reglas de carpetas del escáner: OK');
+  const selectedSubfolder = catalog([{ folder: 'prensa/adjuntos/detalles' }]);
+  assert.deepEqual(selectedSubfolder.map(item => item.filename), ['primer-plano.png']);
+
+  const noneSelected = catalog([]);
+  assert.deepEqual(noneSelected, []);
+
+  console.log('Lista de inclusión de carpetas del escáner: OK');
 } finally {
   fs.rmSync(root, { recursive: true, force: true });
 }
