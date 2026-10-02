@@ -1132,13 +1132,51 @@ function physicalDocumentPages(body,hasLetterhead,capacity=1150){
    const table=policeTableParts(block);
    if(table){
      const lines=block.split('\n');
-     let rows=[],size=lines[0].length+lines[1].length+2;
+     const rows=lines.slice(2).filter(Boolean);
+     const rawHeaders=policeTableCells(lines[0]);
+     const isCmsMultiCell=rawHeaders.length===1&&!rawHeaders[0]&&rows.some(row=>{const cells=policeTableCells(row);return cells.length===1&&cells[0].includes('\u001f');});
      const tableLimit=Math.max(45,Math.round(capacity*.72));
-     for(const row of lines.slice(2)){
-       if(rows.length&&size+row.length+1>tableLimit){chunks.push([lines[0],lines[1],...rows].join('\n'));rows=[];size=lines[0].length+lines[1].length+2;}
-       rows.push(row);size+=row.length+1;
+     if(isCmsMultiCell){
+       const prefixSize=lines[0].length+lines[1].length+8;
+       const emitCmsRow=segments=>chunks.push([lines[0],lines[1],'| '+segments.join('\u001f')+' |'].join('\n'));
+       for(const row of rows){
+         const cells=policeTableCells(row);
+         if(cells.length!==1||!cells[0].includes('\u001f')){
+           emitCmsRow([cells.join(' | ')]);
+           continue;
+         }
+         const segments=cells[0].split('\u001f').map(part=>part.trim());
+         let current=[segments.shift()||''];
+         let currentSize=prefixSize+current[0].length;
+         const flush=()=>{
+           if(current.length>1||current[0])emitCmsRow(current);
+           current=[''];currentSize=prefixSize;
+         };
+         for(const part of segments){
+           let piece='';
+           for(const word of part.split(/\s+/).filter(Boolean)){
+             const candidate=piece?piece+' '+word:word;
+             if(piece&&currentSize+candidate.length+1>tableLimit){
+               if(currentSize+piece.length+1>tableLimit&&current.length>1)flush();
+               current.push(piece);currentSize+=piece.length+1;flush();piece=word;
+             }else piece=candidate;
+           }
+           if(piece){
+             if(currentSize+piece.length+1>tableLimit&&current.length>1)flush();
+             current.push(piece);currentSize+=piece.length+1;
+             if(currentSize>=tableLimit)flush();
+           }
+         }
+         if(current.length>1||current[0])flush();
+       }
+       continue;
      }
-     chunks.push([lines[0],lines[1],...rows].join('\n'));
+     let pending=[],size=lines[0].length+lines[1].length+2;
+     for(const row of rows){
+       if(pending.length&&size+row.length+1>tableLimit){chunks.push([lines[0],lines[1],...pending].join('\n'));pending=[];size=lines[0].length+lines[1].length+2;}
+       pending.push(row);size+=row.length+1;
+     }
+     if(pending.length)chunks.push([lines[0],lines[1],...pending].join('\n'));
      continue;
    }
    const chunkLimit=Math.min(2200,Math.max(45,Math.round(capacity*(hasLetterhead ? .76 : .86))));
