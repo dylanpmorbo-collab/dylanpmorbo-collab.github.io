@@ -96,7 +96,7 @@
     },
     {
       "folder": "Prensa tradicional/Rasputin",
-      "visible": true
+      "visible": false
     },
     {
       "folder": "prensa-digital",
@@ -136,7 +136,7 @@
     },
     {
       "folder": "testimonios",
-      "visible": true
+      "visible": false
     }
   ],
   "signals": [
