@@ -979,6 +979,13 @@ DOCUMENTOS NAVEGABLES — AJUSTES FINALES DE GEOMETRÍA Y LECTURA
 .archive-police-report-attachment img{width:100%;height:210px;object-fit:contain}
 .archive-police-report-attachments+.archive-police-report-text{margin-top:0}
 .archive-police-report-text h3,.archive-police-report-text h4,.archive-police-report-text h5,.archive-police-report-text h6{font:700 1.12em/1.3 "Special Elite","Courier New",monospace;margin:1.3em 0 .7em}
+.archive-police-report-text table{width:100%;border-collapse:collapse;margin:.9em 0 1.4em;font-size:.94em;line-height:1.35;table-layout:auto}
+.archive-police-report-text th,.archive-police-report-text td{border:1px solid rgba(75,59,37,.42);padding:.42em .58em;text-align:left;vertical-align:top}
+.archive-police-report-text thead th{background:rgba(90,70,42,.12);font-weight:700}
+.archive-police-report-text tbody tr:nth-child(even){background:rgba(90,70,42,.055)}
+.archive-police-report-text tbody td:first-child{font-weight:700}
+.archive-police-report-text table:has(>thead>tr>th:empty)>thead{display:none}
+
 .archive-police-report-text ul,.archive-police-report-text ol{padding-left:1.5em;margin:0 0 1.4em}
 .archive-police-report-text li{margin-bottom:.45em}
 .archive-police-report-text blockquote{border-left:3px solid #776144;padding-left:1em;margin:0 0 1.4em;font-style:italic}
