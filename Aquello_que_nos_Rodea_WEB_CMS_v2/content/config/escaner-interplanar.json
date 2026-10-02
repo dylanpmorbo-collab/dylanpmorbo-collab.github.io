@@ -137,10 +137,6 @@
     {
       "folder": "testimonios",
       "visible": true
-    },
-    {
-      "folder": "Personajes/Richard/fotos no visibles",
-      "visible": true
     }
   ],
   "signals": [
