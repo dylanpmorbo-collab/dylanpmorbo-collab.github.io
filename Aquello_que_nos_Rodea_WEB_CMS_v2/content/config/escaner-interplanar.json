@@ -7,136 +7,55 @@
   "desktop_wallpaper": "/assets/uploads/archivo/fondo-pantalla.webp",
   "folder_rules": [
     {
-      "folder": "archivo",
-      "visible": false
+      "folder": "documentos"
     },
     {
-      "folder": "conexiones",
-      "visible": false
+      "folder": "entidades"
     },
     {
-      "folder": "documentos",
-      "visible": true
+      "folder": "entidades/ŚUKRAHĀRĪ"
     },
     {
-      "folder": "entidades",
-      "visible": true
+      "folder": "informes-digitales"
     },
     {
-      "folder": "entidades/ŚUKRAHĀRĪ",
-      "visible": true
+      "folder": "informes-policiales"
     },
     {
-      "folder": "escaner",
-      "visible": false
+      "folder": "informes-policiales/RICHARD ALCOY POLICIAL"
     },
     {
-      "folder": "escaner/capas",
-      "visible": false
+      "folder": "personajes"
     },
     {
-      "folder": "huella-digital",
-      "visible": false
+      "folder": "personajes/Neolin"
     },
     {
-      "folder": "informes-digitales",
-      "visible": true
+      "folder": "personajes/Richard"
     },
     {
-      "folder": "informes-policiales",
-      "visible": true
+      "folder": "personajes/Richard/facebook Javi"
     },
     {
-      "folder": "informes-policiales/RICHARD ALCOY POLICIAL",
-      "visible": true
+      "folder": "personajes/Richard/LISBOA2023"
     },
     {
-      "folder": "interface",
-      "visible": false
+      "folder": "personajes/Richard/MAYORCA"
     },
     {
-      "folder": "interfaz",
-      "visible": false
+      "folder": "SECTAS Y ORGANIZACIONES"
     },
     {
-      "folder": "personajes",
-      "visible": true
+      "folder": "SECTAS Y ORGANIZACIONES/LA PLAGA"
     },
     {
-      "folder": "personajes/Neolin",
-      "visible": true
+      "folder": "SUCESOS"
     },
     {
-      "folder": "personajes/Richard",
-      "visible": true
+      "folder": "SUCESOS/desapariciones techo"
     },
     {
-      "folder": "personajes/Richard/facebook Javi",
-      "visible": true
-    },
-    {
-      "folder": "personajes/Richard/LISBOA2023",
-      "visible": true
-    },
-    {
-      "folder": "personajes/Richard/MAYORCA",
-      "visible": true
-    },
-    {
-      "folder": "personajes/Richard/fotos no visibles",
-      "visible": false
-    },
-    {
-      "folder": "microrrelatos",
-      "visible": false
-    },
-    {
-      "folder": "Prensa tradicional",
-      "visible": false
-    },
-    {
-      "folder": "Prensa tradicional/Rasputin",
-      "visible": false
-    },
-    {
-      "folder": "prensa-digital",
-      "visible": false
-    },
-    {
-      "folder": "prensa-fisica",
-      "visible": false
-    },
-    {
-      "folder": "relatos",
-      "visible": false
-    },
-    {
-      "folder": "SECTAS Y ORGANIZACIONES",
-      "visible": true
-    },
-    {
-      "folder": "SECTAS Y ORGANIZACIONES/LA PLAGA",
-      "visible": true
-    },
-    {
-      "folder": "SUCESOS",
-      "visible": true
-    },
-    {
-      "folder": "SUCESOS/desapariciones techo",
-      "visible": true
-    },
-    {
-      "folder": "SUCESOS/secuestro discoteca",
-      "visible": true
-    },
-    {
-      "folder": "terminal",
-      "visible": false
-    },
-    {
-      "folder": "testimonios",
-      "visible": false
+      "folder": "SUCESOS/secuestro discoteca"
     }
   ],
   "signals": [
