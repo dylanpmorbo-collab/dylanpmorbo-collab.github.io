@@ -145,7 +145,7 @@
   ],
   "signals": [
     {
-      "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/definitiva-web.webp",
+      "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/ultima-foto-web.webp",
       "overlay": "/assets/uploads/escaner/capas/definitiva-web-capa-interplanar.png"
     },
     {
@@ -162,7 +162,7 @@
     },
     {
       "image": "/assets/uploads/SUCESOS/desapariciones techo/1994-desaparicion-web.webp",
-      "overlay": "/assets/uploads/escaner/capas/informe-policial-desaparicion-1994-desaparecido-capa-interplanar.png"
+      "overlay": "/assets/uploads/escaner/capas/1994-desaparicion-capa-interplanar.png"
     },
     {
       "image": "/assets/uploads/SUCESOS/desapariciones techo/informe-policial-desaparicion-2002-web.webp",
