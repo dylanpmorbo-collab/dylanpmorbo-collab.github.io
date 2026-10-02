@@ -3538,10 +3538,10 @@ content:
           media: default
         description: "Imagen de fondo de la pantalla de la tableta. Recomendado: horizontal, 1167 × 698 px o mayor; se recorta para llenar la pantalla. Puedes dejarlo vacío para usar el fondo oscuro."
       - name: folder_rules
-        label: Carpetas y subcarpetas del escáner
+        label: Carpetas y subcarpetas activas del escáner
         type: object
         required: false
-        description: "Activa o desactiva cada carpeta. Si una carpeta superior está desactivada, nada de su interior aparecerá aunque una subcarpeta esté activada. Las carpetas nuevas aparecen por defecto; añade su ruta aquí para poder apagarlas."
+        description: "Lista de inclusión: solo se muestran las rutas que añadas aquí. Cada ruta activa solo esa carpeta; añade también las subcarpetas que quieras mostrar. Si una ruta no aparece en la lista, queda oculta. Las carpetas nuevas empiezan ocultas."
         list:
           collapsible:
             collapsed: true
@@ -3552,10 +3552,6 @@ content:
             type: string
             required: true
             description: "Ruta desde assets/uploads, por ejemplo personajes/Richard Alcoy."
-          - name: visible
-            label: Activada en el escáner
-            type: boolean
-            default: true
       - name: signals
         label: Fotos con señal interplanar
         type: object
