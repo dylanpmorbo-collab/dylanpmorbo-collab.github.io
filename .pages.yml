@@ -778,12 +778,12 @@ content:
                 - value: vital
                   label: Rojo
           - name: cover_image
-            label: Portada independiente de la carpeta (800 × 500 px)
+            label: Miniatura independiente de la carpeta en el índice (800 × 500 px)
             type: image
             required: false
             options:
               media: default
-            description: "Esta imagen solo aparece en la portada exterior de la carpeta; no forma parte del informe."
+            description: "Esta imagen solo aparece en la tarjeta de la carpeta en el índice; no forma parte del informe ni de sus fotografías."
           - name: documents
             label: Documentos de esta carpeta (máximo 5)
             type: object
@@ -862,13 +862,20 @@ content:
                   media: default
                   switcher: true
                 description: "Admite varias páginas; puedes dejarlo vacío si el documento solo contiene fotos."
-              - name: image
-                label: Fotografía 1 del informe / miniatura del índice (800 × 500 px)
+              - name: index_thumbnail
+                label: Miniatura independiente en el índice (800 × 500 px)
                 type: image
                 required: false
                 options:
                   media: default
-                description: "Primera imagen que aparece dentro del informe; la portada exterior de la carpeta se configura por separado."
+                description: "Imagen exclusiva para identificar este documento en el índice; no se añade al informe."
+              - name: image
+                label: Fotografía 1 del informe (800 × 500 px)
+                type: image
+                required: false
+                options:
+                  media: default
+                description: "Primera fotografía incluida en el anexo del informe. No se utiliza como miniatura del índice."
               - name: image_2
                 label: Fotografía 2 (800 × 500 px)
                 type: image
