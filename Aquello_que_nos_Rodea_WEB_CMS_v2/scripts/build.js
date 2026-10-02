@@ -1052,21 +1052,23 @@ function archiveDigitalReports(item){
        '<span>'+esc(name)+'</span></button>';
    }).join('');
    const folderTemplates=folders.map((folder,folderIndex)=>{
-     const files=orderedDigitalItems(folder.files).filter(file=>file.image||file.video||file.annotated_image).slice(0,100);
+     const files=orderedDigitalItems(folder.files).filter(file=>file.image||file.video||file.annotated_image||String(file.kind||'').toUpperCase()==='TEXTO').slice(0,100);
      const entries=files.map((file,fileIndex)=>{
        const title=String(file.title||('ARCHIVO '+String(fileIndex+1).padStart(2,'0')));
-       const isVideo=Boolean(file.video && (String(file.kind||'').toUpperCase()==='VIDEO'||!file.image));
+       const isText=String(file.kind||'').toUpperCase()==='TEXTO';
+       const isVideo=!isText&&Boolean(file.video && (String(file.kind||'').toUpperCase()==='VIDEO'||!file.image));
        const thumb=isVideo?(file.poster||file.image):(file.image_visibility==='falso'&&file.fake_pixel_image?file.fake_pixel_image:(file.image||file.annotated_image));
        return '<button type="button" class="retro-file-entry" data-retro-file="'+fileIndex+'" aria-label="Abrir '+esc(title)+'">'+
-         '<span class="retro-file-thumb">'+(thumb?'<img src="'+esc(thumb)+'" alt="" loading="lazy">':'<span aria-hidden="true">▶</span>')+'</span>'+
-         '<span class="retro-file-name">'+esc(title)+'</span><small>'+(isVideo?'VÍDEO':'IMAGEN')+'</small></button>';
+         '<span class="retro-file-thumb">'+(thumb?'<img src="'+esc(thumb)+'" alt="" loading="lazy">':'<span aria-hidden="true">'+(isText?'▤':'▶')+'</span>')+'</span>'+
+         '<span class="retro-file-name">'+esc(title)+'</span><small>'+(isText?'TEXTO':isVideo?'VÍDEO':'IMAGEN')+'</small></button>';
      }).join('');
      return '<template data-retro-folder-template="'+folderIndex+'"><div class="retro-file-grid">'+(entries||'<p class="retro-empty">No hay archivos en esta carpeta.</p>')+'</div></template>';
    }).join('');
    const fileTemplates=folders.flatMap((folder,folderIndex)=>
-     orderedDigitalItems(folder.files).filter(file=>file.image||file.video||file.annotated_image).slice(0,100).map((file,fileIndex)=>{
+     orderedDigitalItems(folder.files).filter(file=>file.image||file.video||file.annotated_image||String(file.kind||'').toUpperCase()==='TEXTO').slice(0,100).map((file,fileIndex)=>{
        const title=String(file.title||('ARCHIVO '+String(fileIndex+1).padStart(2,'0')));
-       const isVideo=Boolean(file.video && (String(file.kind||'').toUpperCase()==='VIDEO'||!file.image));
+       const isText=String(file.kind||'').toUpperCase()==='TEXTO';
+       const isVideo=!isText&&Boolean(file.video && (String(file.kind||'').toUpperCase()==='VIDEO'||!file.image));
        const image=file.image||file.annotated_image;
        const concealMode=!isVideo&&image?(file.image_visibility==='falso'&&file.fake_pixel_image?'falso':file.image_visibility==='pixelado'?'pixelado':'normal'):'normal';
        const initialImage=concealMode==='falso'?file.fake_pixel_image:image;
@@ -1091,19 +1093,21 @@ function archiveDigitalReports(item){
          return '<template data-retro-attachment-template="'+attachmentIndex+'" data-retro-attachment-kind="'+(attachment.video?'video':'image')+'">'+content+'</template>';
        }).join('');
        const details=[
-         ['TIPO',isVideo?'Vídeo':'Imagen'],['FECHA Y HORA',file.date_time],['LUGAR',file.location],
+         ['TIPO',isText?'Texto':isVideo?'Vídeo':'Imagen'],['FECHA Y HORA',file.date_time],['LUGAR',file.location],
          ['DISPOSITIVO',file.source_device],['ANÁLISIS',file.analysis_type],['ESTADO',file.status]
        ].filter(([,value])=>value).map(([label,value])=>'<div><dt>'+label+'</dt><dd>'+esc(value)+'</dd></div>').join('');
-       const media=isVideo
-         ? '<video controls playsinline preload="metadata"'+(file.poster?' poster="'+esc(file.poster)+'"':'')+' aria-label="'+esc(title)+'"><source src="'+esc(file.video)+'">Tu navegador no puede reproducir este vídeo.</video>'
-         : '<div class="retro-image-scroll'+(concealMode==='normal'?'':' is-concealed')+'" data-retro-image-wrap data-conceal-mode="'+concealMode+'"><img src="'+esc(initialImage)+'" alt="'+esc(title)+'" data-retro-image data-original="'+esc(image)+'"'+(file.image&&file.annotated_image&&file.image!==file.annotated_image?' data-annotated="'+esc(file.annotated_image)+'"':'')+'>'+(concealMode!=='normal'?'<div class="retro-image-warning"><p>Esta imagen puede resultar ofensiva o contener contenido sexual explícito.</p><button type="button" data-retro-reveal>DESBLOQUEAR IMAGEN</button></div>':'')+'</div>';
-       return '<template data-retro-file-template="'+folderIndex+':'+fileIndex+'"><div class="retro-file-detail">'+
-         '<div class="retro-file-media">'+media+'</div><aside class="retro-file-info">'+
+       const media=isText
+         ? '<article class="retro-text-document">'+(file.body?markdownToHTML(file.body):'<p>Este documento todavía no contiene texto.</p>')+'</article>'
+         : isVideo
+           ? '<video controls playsinline preload="metadata"'+(file.poster?' poster="'+esc(file.poster)+'"':'')+' aria-label="'+esc(title)+'"><source src="'+esc(file.video)+'">Tu navegador no puede reproducir este vídeo.</video>'
+           : '<div class="retro-image-scroll'+(concealMode==='normal'?'':' is-concealed')+'" data-retro-image-wrap data-conceal-mode="'+concealMode+'"><img src="'+esc(initialImage)+'" alt="'+esc(title)+'" data-retro-image data-original="'+esc(image)+'"'+(file.image&&file.annotated_image&&file.image!==file.annotated_image?' data-annotated="'+esc(file.annotated_image)+'"':'')+'>'+(concealMode!=='normal'?'<div class="retro-image-warning"><p>Esta imagen puede resultar ofensiva o contener contenido sexual explícito.</p><button type="button" data-retro-reveal>DESBLOQUEAR IMAGEN</button></div>':'')+'</div>';
+       return '<template data-retro-file-template="'+folderIndex+':'+fileIndex+'"><div class="retro-file-detail'+(isText?' is-text-document':'')+'">'+
+         '<div class="retro-file-media'+(isText?' is-text-document':'')+'">'+media+'</div><aside class="retro-file-info">'+
          (file.masthead_image?'<img class="retro-file-masthead" src="'+esc(file.masthead_image)+'" alt="Membrete del archivo" loading="lazy">':'')+'<h3>'+esc(title)+'</h3>'+
          (isVideo?'<div class="retro-file-tools retro-file-video-tools" data-retro-primary-tools><button type="button" data-retro-video-expand>⛶ VER VÍDEO ENTERO</button></div>':'')+
          '<dl>'+details+'</dl>'+
          (file.notes?'<div class="retro-file-notes"><strong>NOTAS DEL ARCHIVO</strong>'+plainTextToHTML(file.notes)+'</div>':'')+
-         (!isVideo?'<div class="retro-file-tools" data-retro-primary-tools><button type="button" data-retro-zoom'+(concealMode!=='normal'?' hidden':'')+'>AMPLIAR</button>'+(file.image&&file.annotated_image&&file.image!==file.annotated_image?'<button type="button" data-retro-annotated'+(concealMode!=='normal'?' hidden':'')+'>VER MARCAS</button>':'')+'</div>':'')+
+         (!isVideo&&!isText?'<div class="retro-file-tools" data-retro-primary-tools><button type="button" data-retro-zoom'+(concealMode!=='normal'?' hidden':'')+'>AMPLIAR</button>'+(file.image&&file.annotated_image&&file.image!==file.annotated_image?'<button type="button" data-retro-annotated'+(concealMode!=='normal'?' hidden':'')+'>VER MARCAS</button>':'')+'</div>':'')+
          (attachments.length?'<section class="retro-attachments"><h4>ARCHIVOS ADJUNTOS AL DOCUMENTO</h4><div class="retro-attachment-list">'+attachmentButtons+'</div><div class="retro-file-tools"><button type="button" data-retro-attachment-return hidden>VOLVER AL DOCUMENTO</button><button type="button" data-retro-attachment-zoom data-retro-zoom hidden>AMPLIAR IMAGEN</button><button type="button" data-retro-attachment-expand data-retro-video-expand hidden>⛶ VER VÍDEO ENTERO</button></div></section>':'')+
          '</aside>'+attachmentTemplates+'</div></template>';
      })
