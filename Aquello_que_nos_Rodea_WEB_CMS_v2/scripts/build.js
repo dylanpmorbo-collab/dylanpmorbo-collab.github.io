@@ -1,11 +1,9 @@
 
 const fs = require('fs');
 const path = require('path');
-const {imagePath, loadPhotoCensorship, buildPhotoCensorship} = require('./build-photo-censorship');
 
 const ROOT = path.resolve(__dirname, '..');
 const DIST = path.join(ROOT, 'dist');
-const globalCensorship = loadPhotoCensorship(ROOT);
 
 function readJSON(p){ return JSON.parse(fs.readFileSync(p,'utf8')); }
 function esc(s=''){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
@@ -18,24 +16,49 @@ function copyDir(src,dst){
 }
 function inlineMarkdown(s){
   let x=esc(s);
+  x=x.replace(/`([^`]+)`/g,'<code>$1</code>');
+  x=x.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g,'<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
   x=x.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
   x=x.replace(/\*(.+?)\*/g,'<em>$1</em>');
   return x;
+}
+function markdownTableCells(line){
+  const cells=[];let cell='';
+  const value=String(line).trim().replace(/^\|/,'').replace(/\|$/,'');
+  for(let i=0;i<value.length;i++){
+    if(value[i]==='\\'&&value[i+1]==='|'){cell+='|';i++;continue;}
+    if(value[i]==='|'){cells.push(cell.trim());cell='';continue;}
+    cell+=value[i];
+  }
+  cells.push(cell.trim());return cells;
+}
+function markdownTableParts(block){
+  const lines=String(block).trim().split('\n').map(line=>line.trim());
+  if(lines.length<2||(!lines[0].includes('|')&&!lines[1].includes('|')))return null;
+  const headers=markdownTableCells(lines[0]),separators=markdownTableCells(lines[1]);
+  if(separators.length!==headers.length||!separators.every(cell=>/^:?-{3,}:?$/.test(cell)))return null;
+  const alignments=separators.map(cell=>cell.startsWith(':')?(cell.endsWith(':')?'center':'left'):(cell.endsWith(':')?'right':''));
+  return {headers,alignments,rows:lines.slice(2).filter(Boolean).map(markdownTableCells)};
+}
+function markdownTableHTML(table){
+  const row=(cells,tag)=>'<tr>'+table.headers.map((_,i)=>'<'+tag+(table.alignments[i]?' style="text-align:'+table.alignments[i]+'"':'')+'>'+inlineMarkdown(cells[i]||'')+'</'+tag+'>').join('')+'</tr>';
+  return '<table><thead>'+row(table.headers,'th')+'</thead><tbody>'+table.rows.map(cells=>row(cells,'td')).join('')+'</tbody></table>';
 }
 function markdownToHTML(src=''){
   return String(src).replace(/\r\n/g,'\n').split(/\n\s*\n/)
     .map(b=>b.trim()).filter(Boolean)
     .map(b=>{
-      if(/^>/.test(b)){
-        const quoteLines=b.split('\n').map(line=>line.replace(/^>\s?/, ''));
-        if(quoteLines.every(line=>/^>?\s*$/.test(line))) return '';
-        return `<blockquote>${inlineMarkdown(quoteLines.join('\n')).replace(/\n/g,'<br>')}</blockquote>`;
-      }
-      if(/^(?:-{3,}|_{3,}|\*{3,})$/.test(b)) return '<hr>';
+      const table=markdownTableParts(b);
+      if(table)return markdownTableHTML(table);
+      if(/^(?:-{3,}|_{3,}|\*{3,})$/.test(b))return '<hr>';
+      const lines=b.split('\n');
+      if(lines.every(line=>/^\s*[-*+]\s+/.test(line)))return '<ul>'+lines.map(line=>'<li>'+inlineMarkdown(line.replace(/^\s*[-*+]\s+/,''))+'</li>').join('')+'</ul>';
+      if(lines.every(line=>/^\s*\d+[.)]\s+/.test(line)))return '<ol>'+lines.map(line=>'<li>'+inlineMarkdown(line.replace(/^\s*\d+[.)]\s+/,''))+'</li>').join('')+'</ol>';
+      if(lines.every(line=>/^\s*>\s?/.test(line)))return '<blockquote>'+lines.map(line=>inlineMarkdown(line.replace(/^\s*>\s?/,''))).join('<br>')+'</blockquote>';
       if(/^###\s+/.test(b)) return `<h3>${inlineMarkdown(b.replace(/^###\s+/,''))}</h3>`;
       if(/^##\s+/.test(b)) return `<h2>${inlineMarkdown(b.replace(/^##\s+/,''))}</h2>`;
       if(/^#\s+/.test(b)) return `<h1>${inlineMarkdown(b.replace(/^#\s+/,''))}</h1>`;
-      return `<p>${inlineMarkdown(b).replace(/\n/g,'<br>')}</p>`;
+      return `<p>${lines.map(inlineMarkdown).join('<br>')}</p>`;
     }).join('\n');
 }
 function plainTextToHTML(src=''){
@@ -940,7 +963,7 @@ function policeTableParts(block){
  if(lines.length<2||!lines[0].includes('|')) return null;
  const headers=policeTableCells(lines[0]);
  const separators=policeTableCells(lines[1]);
- if(headers.length<2||separators.length!==headers.length||!separators.every(cell=>/^:?-{3,}:?$/.test(cell))) return null;
+ if(!headers.length||separators.length!==headers.length||!separators.every(cell=>/^:?-{3,}:?$/.test(cell))) return null;
  const alignments=separators.map(cell=>cell.startsWith(':')?(cell.endsWith(':')?'center':'left'):(cell.endsWith(':')?'right':''));
  const rows=lines.slice(2).filter(Boolean).map(policeTableCells);
  return {headers,alignments,rows};
@@ -1016,10 +1039,9 @@ function archiveDigitalReports(item){
      const entries=files.map((file,fileIndex)=>{
        const title=String(file.title||('ARCHIVO '+String(fileIndex+1).padStart(2,'0')));
        const isVideo=Boolean(file.video && (String(file.kind||'').toUpperCase()==='VIDEO'||!file.image));
-       const globalRule=globalCensorship.get(imagePath(file.image||file.annotated_image));
-       const thumb=isVideo?(file.poster||file.image):(globalRule?.mode==='falso'?globalRule.fake:(file.image_visibility==='falso'&&file.fake_pixel_image?file.fake_pixel_image:(file.image||file.annotated_image)));
+       const thumb=isVideo?(file.poster||file.image):(file.image_visibility==='falso'&&file.fake_pixel_image?file.fake_pixel_image:(file.image||file.annotated_image));
        return '<button type="button" class="retro-file-entry" data-retro-file="'+fileIndex+'" aria-label="Abrir '+esc(title)+'">'+
-         '<span class="retro-file-thumb">'+(thumb?'<img src="'+esc(thumb)+'" alt="" loading="lazy"'+(globalRule?.mode==='falso'?' data-original="'+esc(file.image||file.annotated_image)+'"':'')+'>':'<span aria-hidden="true">▶</span>')+'</span>'+
+         '<span class="retro-file-thumb">'+(thumb?'<img src="'+esc(thumb)+'" alt="" loading="lazy">':'<span aria-hidden="true">▶</span>')+'</span>'+
          '<span class="retro-file-name">'+esc(title)+'</span><small>'+(isVideo?'VÍDEO':'IMAGEN')+'</small></button>';
      }).join('');
      return '<template data-retro-folder-template="'+folderIndex+'"><div class="retro-file-grid">'+(entries||'<p class="retro-empty">No hay archivos en esta carpeta.</p>')+'</div></template>';
@@ -1029,9 +1051,8 @@ function archiveDigitalReports(item){
        const title=String(file.title||('ARCHIVO '+String(fileIndex+1).padStart(2,'0')));
        const isVideo=Boolean(file.video && (String(file.kind||'').toUpperCase()==='VIDEO'||!file.image));
        const image=file.image||file.annotated_image;
-       const globalRule=globalCensorship.get(imagePath(image));
-       const concealMode=!isVideo&&image?(globalRule?.mode||(file.image_visibility==='falso'&&file.fake_pixel_image?'falso':file.image_visibility==='pixelado'?'pixelado':'normal')):'normal';
-       const initialImage=concealMode==='falso'?(globalRule?.fake||file.fake_pixel_image):image;
+       const concealMode=!isVideo&&image?(file.image_visibility==='falso'&&file.fake_pixel_image?'falso':file.image_visibility==='pixelado'?'pixelado':'normal'):'normal';
+       const initialImage=concealMode==='falso'?file.fake_pixel_image:image;
        const attachments=(Array.isArray(file.attachments)?file.attachments:[])
          .filter(attachment=>attachment && (attachment.video || attachment.image)).slice(0,8);
        if(!isVideo && file.video && !attachments.some(attachment=>attachment.video===file.video)){
@@ -1058,7 +1079,7 @@ function archiveDigitalReports(item){
        ].filter(([,value])=>value).map(([label,value])=>'<div><dt>'+label+'</dt><dd>'+esc(value)+'</dd></div>').join('');
        const media=isVideo
          ? '<video controls playsinline preload="metadata"'+(file.poster?' poster="'+esc(file.poster)+'"':'')+' aria-label="'+esc(title)+'"><source src="'+esc(file.video)+'">Tu navegador no puede reproducir este vídeo.</video>'
-         : '<div class="retro-image-scroll'+(concealMode==='normal'?'':' is-concealed')+'" data-retro-image-wrap data-conceal-mode="'+concealMode+'"><img src="'+esc(initialImage)+'" alt="'+esc(title)+'" data-retro-image data-original="'+esc(image)+'"'+(file.image&&file.annotated_image&&file.image!==file.annotated_image?' data-annotated="'+esc(file.annotated_image)+'"':'')+'>'+(concealMode!=='normal'?'<div class="retro-image-warning">'+(globalRule?'':'<p>Esta imagen puede resultar ofensiva o contener contenido sexual explícito.</p>')+'<button type="button" data-retro-reveal>'+(globalRule?'MOSTRAR':'DESBLOQUEAR IMAGEN')+'</button></div>':'')+'</div>';
+         : '<div class="retro-image-scroll'+(concealMode==='normal'?'':' is-concealed')+'" data-retro-image-wrap data-conceal-mode="'+concealMode+'"><img src="'+esc(initialImage)+'" alt="'+esc(title)+'" data-retro-image data-original="'+esc(image)+'"'+(file.image&&file.annotated_image&&file.image!==file.annotated_image?' data-annotated="'+esc(file.annotated_image)+'"':'')+'>'+(concealMode!=='normal'?'<div class="retro-image-warning"><p>Esta imagen puede resultar ofensiva o contener contenido sexual explícito.</p><button type="button" data-retro-reveal>DESBLOQUEAR IMAGEN</button></div>':'')+'</div>';
        return '<template data-retro-file-template="'+folderIndex+':'+fileIndex+'"><div class="retro-file-detail">'+
          '<div class="retro-file-media">'+media+'</div><aside class="retro-file-info">'+
          (file.masthead_image?'<img class="retro-file-masthead" src="'+esc(file.masthead_image)+'" alt="Membrete del archivo" loading="lazy">':'')+'<h3>'+esc(title)+'</h3>'+
@@ -1157,7 +1178,7 @@ function archivePoliceReportV2(item){
      title,body:report.body||'',paper:'crema',image:report.image,image_2:report.image_2,
      image_3:report.image_3,image_4:report.image_4,image_5:report.image_5,image_6:report.image_6
    }];
-   const cover=report.cover_image||'';
+   const cover=documents.find(doc=>doc.image)?.image||report.image;
    folderCards.push('<button type="button" class="archive-police-folder" data-police-open="'+reportIndex+'" data-importance="'+importance+'" data-report-type="'+esc(type.toUpperCase())+'" aria-label="Abrir '+esc(title)+'">'+
      '<span class="archive-police-folder-tab" aria-hidden="true"></span><span class="archive-police-folder-cover">'+(cover?'<img src="'+esc(cover)+'" alt="" loading="lazy">':'<span aria-hidden="true">▤</span>')+'</span>'+
      '<span class="archive-police-folder-copy"><small>'+esc(type.toUpperCase())+' // '+String(reportIndex+1).padStart(2,'0')+'</small><strong>'+esc(title)+'</strong><span>'+documents.length+' DOCUMENTO'+(documents.length===1?'':'S')+' · ABRIR EXPEDIENTE →</span></span></button>');
@@ -1582,6 +1603,4 @@ fs.writeFileSync(path.join(DIST,'sobre.html'),about);
 
 // robots + sitemap placeholder
 fs.writeFileSync(path.join(DIST,'robots.txt'),'User-agent: *\\nAllow: /\\n');
-buildPhotoCensorship({root:ROOT, dist:DIST, entries:globalCensorship});
 console.log(`Construida web con ${stories.length} relato(s) y ${micros.length} microrrelato(s).`);
-
