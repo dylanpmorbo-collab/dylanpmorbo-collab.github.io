@@ -1116,14 +1116,15 @@ function physicalDocumentPages(body,hasLetterhead,capacity=1150){
    if(table){
      const lines=block.split('\n');
      let rows=[],size=lines[0].length+lines[1].length+2;
+     const tableLimit=Math.max(45,Math.round(capacity*.72));
      for(const row of lines.slice(2)){
-       if(rows.length&&(rows.length>=Math.max(1,Math.round(capacity/190))||size+row.length+1>capacity*.65)){chunks.push([lines[0],lines[1],...rows].join('\n'));rows=[];size=lines[0].length+lines[1].length+2;}
+       if(rows.length&&size+row.length+1>tableLimit){chunks.push([lines[0],lines[1],...rows].join('\n'));rows=[];size=lines[0].length+lines[1].length+2;}
        rows.push(row);size+=row.length+1;
      }
      chunks.push([lines[0],lines[1],...rows].join('\n'));
      continue;
    }
-   const chunkLimit=Math.min(1100,Math.max(45,Math.round(capacity*.94)));
+   const chunkLimit=Math.min(1100,Math.max(45,Math.round(capacity*.86)));
    if(block.length<=chunkLimit){chunks.push(block);continue;}
    let current='';
    for(const word of block.split(/\s+/)){
@@ -1132,22 +1133,19 @@ function physicalDocumentPages(body,hasLetterhead,capacity=1150){
    }
    if(current) chunks.push(current);
  }
- const pages=[];let current='',limit=hasLetterhead?Math.round(capacity*.74):capacity;
- for(const chunk of chunks){
-   if(policeTableParts(chunk)){
-     let heading='';
-     if(current){
-       const parts=current.split('\n\n');
-       const last=parts[parts.length-1];
-       if(last.length<100&&(/^(?:\*\*|#{1,4}\s)/.test(last))){heading=parts.pop();}
-       if(parts.length) pages.push(parts.join('\n\n'));
-     }
-     pages.push((heading?heading+'\n\n':'')+chunk);
-     current='';limit=capacity;
-     continue;
-   }
-   if(current && current.length+chunk.length+2>limit){pages.push(current);current='';limit=capacity;}
-   current+=(current?'\n\n':'')+chunk;
+ // Las tablas cortas y sus textos cercanos comparten hoja. Solo se separan
+ // cuando su contenido realmente supera el espacio disponible.
+ const units=[];
+ for(let index=0;index<chunks.length;index++){
+   let unit=chunks[index];
+   const isHeading=/^(?:#{1,4}\s+.+|\*\*[^\n]{1,140}\*\*)$/.test(unit);
+   if(isHeading&&chunks[index+1])unit+='\n\n'+chunks[++index];
+   units.push(unit);
+ }
+ const pages=[];let current='',limit=hasLetterhead?Math.round(capacity*.88):capacity;
+ for(const unit of units){
+   if(current&&current.length+unit.length+2>limit){pages.push(current);current='';limit=capacity;}
+   current+=(current?'\n\n':'')+unit;
  }
  if(current||!pages.length) pages.push(current);
  return pages;
