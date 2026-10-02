@@ -1004,7 +1004,16 @@ content:
                     required: false
                     default: IMAGEN
                     options:
-                      values: [IMAGEN, VIDEO]
+                      values: [IMAGEN, VIDEO, TEXTO]
+                  - name: body
+                    label: Texto del informe (Markdown)
+                    type: rich-text
+                    required: false
+                    options:
+                      format: markdown
+                      media: false
+                      switcher: true
+                    description: "Solo para tipo TEXTO. Admite títulos, negritas, cursivas, listas, citas, tablas y enlaces."
                   - name: image
                     label: Imagen que se verá al desbloquear
                     type: image
@@ -2065,7 +2074,16 @@ content:
                     required: false
                     default: IMAGEN
                     options:
-                      values: [IMAGEN, VIDEO]
+                      values: [IMAGEN, VIDEO, TEXTO]
+                  - name: body
+                    label: Texto del informe (Markdown)
+                    type: rich-text
+                    required: false
+                    options:
+                      format: markdown
+                      media: false
+                      switcher: true
+                    description: "Solo para tipo TEXTO. Admite títulos, negritas, cursivas, listas, citas, tablas y enlaces."
                   - name: image
                     label: Imagen que se verá al desbloquear
                     type: image
