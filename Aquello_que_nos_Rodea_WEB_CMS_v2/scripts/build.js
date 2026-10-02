@@ -1109,7 +1109,7 @@ function archiveDigitalReports(item){
 function archivePoliceReport(item){return archivePoliceReportV2(item);}
 
 function physicalDocumentPages(body,hasLetterhead,capacity=1150){
- const blocks=String(body||'').replace(/\r\n/g,'\n').split(/\n\s*\n/).map(x=>x.trim()).filter(block=>block&&!/^(?:(?:&nbsp;|&#160;|\u00a0)\s*)+$/i.test(block));
+ const blocks=String(body||'').replace(/\r\n/g,'\n').replace(/\u001f/g,' ').split(/\n\s*\n/).map(x=>x.trim()).filter(block=>block&&!/^(?:(?:&nbsp;|&#160;|&#xA0;)|\s)*$/i.test(block));
  const chunks=[];
  for(const block of blocks){
    const table=policeTableParts(block);
@@ -1150,11 +1150,11 @@ function physicalDocumentPages(body,hasLetterhead,capacity=1150){
  if(current||!pages.length) pages.push(current);
  return pages;
 }
-const physicalPaperSizes={a4:[210,297,1150],'mini-a4':[190,270,930],a5:[148,210,600],a6:[105,148,285],a7:[74,105,125],a8:[52,74,60]};
+const physicalPaperSizes={a4:[210,297,1450],'mini-a4':[190,270,1170],a5:[148,210,760],a6:[105,148,360],a7:[74,105,160],a8:[52,74,75]};
 function physicalPaperSettings(doc){
  const size=Object.prototype.hasOwnProperty.call(physicalPaperSizes,doc.paper_size)?doc.paper_size:'a4';
  const orientation=doc.paper_orientation==='landscape'?'landscape':'portrait';
- const capacity=Math.round(physicalPaperSizes[size][2]*(orientation==='landscape'?.82:1));
+ const capacity=Math.round(physicalPaperSizes[size][2]*(orientation==='landscape'?.62:1));
  return {size,orientation,capacity};
 }
 function archivePoliceReportV2(item){
