@@ -1044,23 +1044,15 @@ DOCUMENTOS NAVEGABLES — AJUSTES FINALES DE GEOMETRÍA Y LECTURA
 .archive-corkboard-stage{position:relative;width:100%;min-width:940px;height:790px;overflow:hidden;background-color:#59412d;background-image:linear-gradient(rgba(14,9,5,.12),rgba(14,9,5,.12)),url('../img/corkboard-a.webp');background-position:center;background-size:100% 100%;background-repeat:no-repeat;box-shadow:0 24px 55px rgba(0,0,0,.35)}
 .archive-corkboard-design-b{background-image:linear-gradient(rgba(14,9,5,.12),rgba(14,9,5,.12)),url('../img/corkboard-b.webp')}
 .archive-corkboard-design-c{background-image:linear-gradient(rgba(14,9,5,.12),rgba(14,9,5,.12)),url('../img/corkboard-c.webp')}
-/* Diseño D: panel de evidencias de acero esmaltado con imanes. */
+/* Diseño D: panel magnético fotográfico, sin la textura de pizarra CSS. */
 .archive-corkboard-design-d{
-  background-color:#1c2b32;
-  background-image:
-    radial-gradient(circle at 18px 18px,#343e43 0 3px,#9ca8a9 4px,#303a3e 6px,transparent 7px),
-    radial-gradient(circle at calc(100% - 18px) 18px,#343e43 0 3px,#9ca8a9 4px,#303a3e 6px,transparent 7px),
-    radial-gradient(circle at 18px calc(100% - 18px),#343e43 0 3px,#9ca8a9 4px,#303a3e 6px,transparent 7px),
-    radial-gradient(circle at calc(100% - 18px) calc(100% - 18px),#343e43 0 3px,#9ca8a9 4px,#303a3e 6px,transparent 7px),
-    repeating-linear-gradient(0deg,transparent 0 31px,rgba(199,219,221,.035) 32px),
-    repeating-linear-gradient(90deg,transparent 0 31px,rgba(199,219,221,.035) 32px),
-    linear-gradient(135deg,#25383e,#15262e 55%,#29383c);
-  border:12px solid #879397;
-  box-shadow:inset 0 0 0 3px #101d24,inset 0 0 45px rgba(0,0,0,.65),0 24px 55px rgba(0,0,0,.45);
-}
-.archive-corkboard-design-d::before{
-  content:"";position:absolute;inset:6px;border:1px solid rgba(206,222,222,.19);
-  pointer-events:none;z-index:0;
+  background-color:#1d2830;
+  background-image:linear-gradient(rgba(8,13,17,.04),rgba(8,13,17,.04)),url('../img/magnetic-evidence-board-d.webp');
+  background-position:center;
+  background-size:100% 100%;
+  background-repeat:no-repeat;
+  border:0;
+  box-shadow:0 24px 55px rgba(0,0,0,.45);
 }
 .archive-corkboard-design-d .archive-corkboard-threads{filter:drop-shadow(0 1px 1px rgba(0,0,0,.55))}
 .archive-corkboard-design-d .archive-corkboard-threads path{stroke:#b35e4e;stroke-width:2}
