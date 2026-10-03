@@ -103,6 +103,11 @@
         "id": "una",
         "type": "foto",
         "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/cctv-no-5.webp"
+      },
+      {
+        "id": "otra",
+        "type": "foto",
+        "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/cctv-no-50.webp"
       }
     ]
   },
