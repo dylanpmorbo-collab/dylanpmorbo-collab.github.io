@@ -1545,7 +1545,7 @@ fs.writeFileSync(path.join(DIST,'archivo.html'),archivePage);
 
 function renderCorkboard(board,label,entry=false){
 if(!board || board.enabled!==true) return '';
-const design=['b','c'].includes(String(board.design||'').toLowerCase())?String(board.design).toLowerCase():'a';
+const design=['b','c','d'].includes(String(board.design||'').toLowerCase())?String(board.design).toLowerCase():'a';
 const positions=[[15,12],[38,12],[61,12],[84,12],[15,40],[38,40],[61,40],[84,40],[15,68],[38,68],[61,68],[84,68]];
 const clamp=(value,min,max,fallback)=>{const n=Number(value);return value===null||value===undefined||value===''||!Number.isFinite(n)?fallback:Math.min(max,Math.max(min,n));};
 const pieces=(Array.isArray(board.pieces)?board.pieces:[]).slice(0,12).map((piece,index)=>{
@@ -1572,7 +1572,7 @@ const cards=pieces.map(piece=>{
 }).join('');
 const pins=pieces.map(piece=>'<span class="archive-corkboard-pin" style="--piece-x:'+piece.x+'%;--piece-y:'+piece.y+'%" aria-hidden="true"></span>').join('');
 return '<section class="section archive-corkboard-section'+(entry?' archive-entry-corkboard':'')+'" aria-label="Tablón de conexiones de '+esc(label)+'">'+
-'<div class="section-label">CORCHERA // '+esc(label)+'</div>'+
+'<div class="section-label">'+(design==='d'?'PANEL MAGNÉTICO // ':'CORCHERA // ')+esc(label)+'</div>'+
 '<h2>'+esc(String(board.title||'TABLÓN DE CONEXIONES'))+'</h2>'+
 '<p class="archive-corkboard-hint">Desliza para explorar el tablón →</p>'+
 '<div class="archive-corkboard-scroll"><div class="archive-corkboard-stage archive-corkboard-design-'+design+'">'+
