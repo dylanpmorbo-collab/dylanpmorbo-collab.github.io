@@ -47,7 +47,8 @@
     {
       "title": "INFORME",
       "type": "POLICIAL",
-      "importance": "basico"
+      "importance": "basico",
+      "cover_image": "/assets/uploads/personajes/Richard/fotos no visibles/designer-14-web.webp"
     }
   ],
   "show_digital_reports": false,
