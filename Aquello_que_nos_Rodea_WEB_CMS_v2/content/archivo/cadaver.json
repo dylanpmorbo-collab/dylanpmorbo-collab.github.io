@@ -120,10 +120,6 @@
     ],
     "threads": [
       {
-        "from": "Prueva visual 1",
-        "to": "Prueba visual 2"
-      },
-      {
         "from": "Prueba visual 2",
         "to": "Prueba visual 3"
       }
