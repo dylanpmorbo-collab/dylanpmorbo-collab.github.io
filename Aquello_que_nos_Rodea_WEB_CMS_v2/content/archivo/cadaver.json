@@ -100,7 +100,7 @@
     "title": "TABLÓN DE CONEXIONES",
     "pieces": [
       {
-        "id": "Prueva visual 1",
+        "id": "Prueba visual 1",
         "type": "foto",
         "title": "Fotograma de cámara municipal nº 5 — Av. de Madrid / P.º María Agustín / Conde de Aranda — 01/09/2024, 02:16:xx |",
         "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/cctv-no-5.webp",
@@ -129,8 +129,8 @@
     ],
     "threads": [
       {
-        "from": "Prueva visual 1",
-        "to": "Prueva visual 2"
+        "from": "Prueba visual 1",
+        "to": "Prueba visual 2"
       },
       {
         "from": "Prueba visual 2",
