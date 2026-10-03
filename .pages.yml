@@ -227,7 +227,7 @@ content:
             type: select
             default: A
             options:
-              values: [A, B, C]
+              values: [A, B, C, D]
           - name: title
             label: Título del tablón
             type: string
@@ -434,7 +434,7 @@ content:
             type: select
             default: A
             options:
-              values: [A, B, C]
+              values: [A, B, C, D]
           - name: title
             label: Título del tablón
             type: string
@@ -1191,7 +1191,7 @@ content:
             type: select
             default: A
             options:
-              values: [A, B, C]
+              values: [A, B, C, D]
           - name: title
             label: Título del tablón
             type: string
@@ -2261,7 +2261,7 @@ content:
             type: select
             default: A
             options:
-              values: [A, B, C]
+              values: [A, B, C, D]
           - name: title
             label: Título del tablón
             type: string
@@ -2353,8 +2353,8 @@ content:
             type: select
             default: A
             options:
-              values: [A, B, C]
-            description: "A es el tablón actual. B y C son otras texturas de madera y corcho."
+              values: [A, B, C, D]
+            description: "A, B y C son corcheras clásicas; D es un panel magnético policial."
           - name: title
             label: Título del tablón
             type: string
@@ -2442,8 +2442,8 @@ content:
             type: select
             default: A
             options:
-              values: [A, B, C]
-            description: "A es el tablón actual. B y C son otras texturas de madera y corcho."
+              values: [A, B, C, D]
+            description: "A, B y C son corcheras clásicas; D es un panel magnético policial."
           - name: title
             label: Título del tablón
             type: string
@@ -2531,8 +2531,8 @@ content:
             type: select
             default: A
             options:
-              values: [A, B, C]
-            description: "A es el tablón actual. B y C son otras texturas de madera y corcho."
+              values: [A, B, C, D]
+            description: "A, B y C son corcheras clásicas; D es un panel magnético policial."
           - name: title
             label: Título del tablón
             type: string
@@ -2620,8 +2620,8 @@ content:
             type: select
             default: A
             options:
-              values: [A, B, C]
-            description: "A es el tablón actual. B y C son otras texturas de madera y corcho."
+              values: [A, B, C, D]
+            description: "A, B y C son corcheras clásicas; D es un panel magnético policial."
           - name: title
             label: Título del tablón
             type: string
@@ -2709,8 +2709,8 @@ content:
             type: select
             default: A
             options:
-              values: [A, B, C]
-            description: "A es el tablón actual. B y C son otras texturas de madera y corcho."
+              values: [A, B, C, D]
+            description: "A, B y C son corcheras clásicas; D es un panel magnético policial."
           - name: title
             label: Título del tablón
             type: string
@@ -2798,8 +2798,8 @@ content:
             type: select
             default: A
             options:
-              values: [A, B, C]
-            description: "A es el tablón actual. B y C son otras texturas de madera y corcho."
+              values: [A, B, C, D]
+            description: "A, B y C son corcheras clásicas; D es un panel magnético policial."
           - name: title
             label: Título del tablón
             type: string
@@ -2887,8 +2887,8 @@ content:
             type: select
             default: A
             options:
-              values: [A, B, C]
-            description: "A es el tablón actual. B y C son otras texturas de madera y corcho."
+              values: [A, B, C, D]
+            description: "A, B y C son corcheras clásicas; D es un panel magnético policial."
           - name: title
             label: Título del tablón
             type: string
@@ -2976,8 +2976,8 @@ content:
             type: select
             default: A
             options:
-              values: [A, B, C]
-            description: "A es el tablón actual. B y C son otras texturas de madera y corcho."
+              values: [A, B, C, D]
+            description: "A, B y C son corcheras clásicas; D es un panel magnético policial."
           - name: title
             label: Título del tablón
             type: string
@@ -3065,8 +3065,8 @@ content:
             type: select
             default: A
             options:
-              values: [A, B, C]
-            description: "A es el tablón actual. B y C son otras texturas de madera y corcho."
+              values: [A, B, C, D]
+            description: "A, B y C son corcheras clásicas; D es un panel magnético policial."
           - name: title
             label: Título del tablón
             type: string
@@ -3154,8 +3154,8 @@ content:
             type: select
             default: A
             options:
-              values: [A, B, C]
-            description: "A es el tablón actual. B y C son otras texturas de madera y corcho."
+              values: [A, B, C, D]
+            description: "A, B y C son corcheras clásicas; D es un panel magnético policial."
           - name: title
             label: Título del tablón
             type: string
