@@ -62,9 +62,9 @@
 .scanner-photo-frame{position:relative;flex:none;overflow:hidden;outline:none;background:#000}
 .scanner-photo-frame:focus-visible{outline:2px solid #afeea9;outline-offset:2px}
 .scanner-photo,.scanner-lens-photo,.scanner-lens-overlay{display:block;width:100%;height:100%;object-fit:fill}
-.scanner-lens{position:absolute;z-index:2;border-radius:50%;overflow:hidden;pointer-events:none;border:3px solid #a9f6b3;box-sizing:border-box;box-shadow:0 0 0 2px #174e2e,0 0 22px #6fec9d, inset 0 0 20px #82ffc2}
+.scanner-lens{position:absolute;z-index:2;border-radius:50%;overflow:hidden;background:#020806;pointer-events:none;border:3px solid #a9f6b3;box-sizing:border-box;box-shadow:0 0 0 2px #174e2e,0 0 22px #6fec9d, inset 0 0 20px #82ffc2}
 .scanner-lens-content{position:absolute;top:0;left:0}
-.scanner-lens-photo{filter:grayscale(.5) sepia(.8) hue-rotate(65deg) saturate(1.8) brightness(.75)}
+.scanner-lens-photo{opacity:.72;filter:grayscale(.5) sepia(.8) hue-rotate(65deg) saturate(1.8) brightness(.75)}
 .scanner-lens-overlay{position:absolute;inset:0}
 .scanner-lens::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 4px,rgba(138,255,172,.08) 5px 6px);animation:scanner-glitch 2.8s steps(2,end) infinite}
 .scanner-lens-crosshair{position:absolute;left:50%;top:50%;width:18px;height:18px;transform:translate(-50%,-50%);border:1px solid rgba(195,255,201,.8);border-radius:50%;box-shadow:0 0 12px #b3ffc1}
