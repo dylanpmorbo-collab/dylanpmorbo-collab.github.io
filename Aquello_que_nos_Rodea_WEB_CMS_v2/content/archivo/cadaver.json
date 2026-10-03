@@ -95,7 +95,7 @@
     }
   ],
   "corkboard": {
-    "enabled": true,
+    "enabled": false,
     "design": "D",
     "title": "TABLÓN DE CONEXIONES",
     "pieces": [
