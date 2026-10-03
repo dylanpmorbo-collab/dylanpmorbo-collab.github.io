@@ -9,6 +9,48 @@
     let fullscreenExitAt=0;
     let fullscreenReturnPending=false;
     let primaryMediaNodes=null;
+    let bootTimers=[];
+
+    function clearBootTimers(){bootTimers.forEach(id=>{clearTimeout(id);clearInterval(id)});bootTimers=[];}
+    function finishBoot(){
+      clearBootTimers();
+      const boot=workspace.querySelector('[data-retro-boot]');
+      if(boot)boot.hidden=true;
+      const surface=desktop();
+      if(surface)surface.hidden=false;
+      surface?.querySelector('[data-retro-folder]')?.focus();
+    }
+    function startBoot(){
+      const boot=workspace.querySelector('[data-retro-boot]');
+      if(!boot){finishBoot();return;}
+      if(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches){finishBoot();return;}
+      const duration=Math.min(5,Math.max(1,Number(boot.dataset.bootDuration)||1))*1000;
+      const log=boot.querySelector('[data-retro-boot-log]');
+      const bar=boot.querySelector('[data-retro-boot-bar]');
+      const percent=boot.querySelector('[data-retro-boot-percent]');
+      const emblem=boot.querySelector('[data-retro-boot-emblem]');
+      const flash=boot.querySelector('[data-retro-boot-flash]');
+      const custom=Array.from(boot.querySelectorAll('[data-retro-boot-line]'),line=>line.textContent);
+      const lines=['DUB.SAR BIOS 16-BIT // ARCHIVO DIGITAL','COMPROBANDO MEMORIA .......... OK','LEYENDO UNIDAD MMC ........... OK',...custom,'MONTANDO DIRECTORIOS ......... OK','ACCESO AUTORIZADO'];
+      const began=performance.now();
+      let shown=0;
+      const tick=()=>{
+        const progress=Math.min(1,(performance.now()-began)/duration);
+        const target=Math.min(lines.length,Math.floor(progress*lines.length));
+        while(shown<target){const row=document.createElement('div');row.textContent='> '+lines[shown++];log.append(row);log.scrollTop=log.scrollHeight;}
+        bar.style.width=Math.round(progress*100)+'%';
+        percent.textContent=Math.round(progress*100)+'%';
+      };
+      bootTimers.push(setInterval(tick,40));
+      bootTimers.push(setTimeout(()=>{emblem.hidden=true;boot.classList.add('is-scrolling');},Math.min(220,duration*.2)));
+      if(flash?.querySelector('img')){
+        const at=Math.min(duration-550,Math.max(250,duration*.4));
+        bootTimers.push(setTimeout(()=>{flash.hidden=false;},at));
+        bootTimers.push(setTimeout(()=>{flash.hidden=true;},at+500));
+      }
+      bootTimers.push(setTimeout(()=>{tick();finishBoot();},duration));
+      boot.querySelector('[data-retro-boot-skip]')?.focus();
+    }
 
     function desktop(){return workspace.querySelector('[data-retro-desktop]');}
     function folderWindow(){return desktop()?.querySelector('[data-retro-folder-window]');}
@@ -151,7 +193,7 @@
       dialog.querySelector('[data-digital-dialog-title]').textContent=button.querySelector('strong')?.textContent||'INFORME DIGITAL';
       dialog.showModal();
       document.body.classList.add('archive-digital-dialog-open');
-      closeReport.focus();
+      startBoot();
     }
     function expandVideo(button){
       const video=button.closest('.retro-file-detail')?.querySelector('video');
@@ -179,7 +221,8 @@
     workspace.addEventListener('click',event=>{
       const button=event.target.closest('button');
       if(!button)return;
-      if(button.hasAttribute('data-retro-folder'))openFolder(button);
+      if(button.hasAttribute('data-retro-boot-skip'))finishBoot();
+      else if(button.hasAttribute('data-retro-folder'))openFolder(button);
       else if(button.hasAttribute('data-retro-file'))openFile(button);
       else if(button.hasAttribute('data-retro-file-close'))closeFile();
       else if(button.hasAttribute('data-retro-file-prev'))stepFile(-1);
@@ -231,6 +274,7 @@
       else if(folderWindow() && !folderWindow().hidden){event.preventDefault();closeFolder();}
     });
     dialog.addEventListener('close',()=>{
+      clearBootTimers();
       pauseVideos(workspace);
       workspace.replaceChildren();
       document.body.classList.remove('archive-digital-dialog-open');

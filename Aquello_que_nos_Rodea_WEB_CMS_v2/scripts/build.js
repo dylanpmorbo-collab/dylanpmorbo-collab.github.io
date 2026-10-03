@@ -1044,6 +1044,9 @@ function archiveDigitalReports(item){
      '<span class="archive-mmc-contacts" aria-hidden="true"></span><span class="archive-mmc-hint">'+folderCount+' CARPETA'+(folderCount===1?'':'S')+' · ABRIR ESCRITORIO →</span></button>';
  }).join('');
  const templates=reports.map((report,index)=>{
+   const bootDuration=Math.min(5,Math.max(1,Math.round(Number(report.boot_seconds)||1)));
+   const bootMessages=String(report.boot_messages||'').split(/\r?\n/).map(line=>line.trim()).filter(Boolean).slice(0,12);
+   const bootFlash=report.boot_flash_enabled===true && Boolean(report.boot_flash_image);
    const folders=orderedDigitalItems(report.folders).filter(folder=>folder.title || folder.files?.length).slice(0,40);
    const folderButtons=folders.map((folder,folderIndex)=>{
      const name=String(folder.title||('CARPETA '+String(folderIndex+1).padStart(2,'0')));
@@ -1102,17 +1105,25 @@ function archiveDigitalReports(item){
            ? '<video controls playsinline preload="metadata"'+(file.poster?' poster="'+esc(file.poster)+'"':'')+' aria-label="'+esc(title)+'"><source src="'+esc(file.video)+'">Tu navegador no puede reproducir este vídeo.</video>'
            : '<div class="retro-image-scroll'+(concealMode==='normal'?'':' is-concealed')+'" data-retro-image-wrap data-conceal-mode="'+concealMode+'"><img src="'+esc(initialImage)+'" alt="'+esc(title)+'" data-retro-image data-original="'+esc(image)+'"'+(file.image&&file.annotated_image&&file.image!==file.annotated_image?' data-annotated="'+esc(file.annotated_image)+'"':'')+'>'+(concealMode!=='normal'?'<div class="retro-image-warning"><p>Esta imagen puede resultar ofensiva o contener contenido sexual explícito.</p><button type="button" data-retro-reveal>DESBLOQUEAR IMAGEN</button></div>':'')+'</div>';
        return '<template data-retro-file-template="'+folderIndex+':'+fileIndex+'"><div class="retro-file-detail'+(isText?' is-text-document':'')+'">'+
-         '<div class="retro-file-media'+(isText?' is-text-document':'')+'">'+media+'</div><aside class="retro-file-info">'+
+         '<div class="retro-file-media-column"><div class="retro-file-media'+(isText?' is-text-document':'')+'">'+media+'</div>'+
+         (!isVideo&&!isText?'<div class="retro-file-tools retro-file-media-tools" data-retro-primary-tools><button type="button" data-retro-zoom'+(concealMode!=='normal'?' hidden':'')+'>AMPLIAR</button></div>':'')+
+         (attachments.length?'<div class="retro-file-tools retro-file-media-tools"><button type="button" data-retro-attachment-zoom data-retro-zoom hidden>AMPLIAR IMAGEN</button></div>':'')+
+         '</div><aside class="retro-file-info">'+
          (file.masthead_image?'<img class="retro-file-masthead" src="'+esc(file.masthead_image)+'" alt="Membrete del archivo" loading="lazy">':'')+'<h3>'+esc(title)+'</h3>'+
          (isVideo?'<div class="retro-file-tools retro-file-video-tools" data-retro-primary-tools><button type="button" data-retro-video-expand>⛶ VER VÍDEO ENTERO</button></div>':'')+
          '<dl>'+details+'</dl>'+
          (file.notes?'<div class="retro-file-notes"><strong>NOTAS DEL ARCHIVO</strong>'+plainTextToHTML(file.notes)+'</div>':'')+
-         (!isVideo&&!isText?'<div class="retro-file-tools" data-retro-primary-tools><button type="button" data-retro-zoom'+(concealMode!=='normal'?' hidden':'')+'>AMPLIAR</button>'+(file.image&&file.annotated_image&&file.image!==file.annotated_image?'<button type="button" data-retro-annotated'+(concealMode!=='normal'?' hidden':'')+'>VER MARCAS</button>':'')+'</div>':'')+
-         (attachments.length?'<section class="retro-attachments"><h4>ARCHIVOS ADJUNTOS AL DOCUMENTO</h4><div class="retro-attachment-list">'+attachmentButtons+'</div><div class="retro-file-tools"><button type="button" data-retro-attachment-return hidden>VOLVER AL DOCUMENTO</button><button type="button" data-retro-attachment-zoom data-retro-zoom hidden>AMPLIAR IMAGEN</button><button type="button" data-retro-attachment-expand data-retro-video-expand hidden>⛶ VER VÍDEO ENTERO</button></div></section>':'')+
+         (file.image&&file.annotated_image&&file.image!==file.annotated_image?'<div class="retro-file-tools" data-retro-primary-tools><button type="button" data-retro-annotated'+(concealMode!=='normal'?' hidden':'')+'>VER MARCAS</button></div>':'')+
+         (attachments.length?'<section class="retro-attachments"><h4>ARCHIVOS ADJUNTOS AL DOCUMENTO</h4><div class="retro-attachment-list">'+attachmentButtons+'</div><div class="retro-file-tools"><button type="button" data-retro-attachment-return hidden>VOLVER AL DOCUMENTO</button><button type="button" data-retro-attachment-expand data-retro-video-expand hidden>⛶ VER VÍDEO ENTERO</button></div></section>':'')+
          '</aside>'+attachmentTemplates+'</div></template>';
      })
    ).join('');
-   return '<template data-digital-report-template="'+index+'"><div class="retro-desktop" data-retro-desktop>'+
+   return '<template data-digital-report-template="'+index+'"><div class="retro-boot" data-retro-boot data-boot-duration="'+bootDuration+'" role="status" aria-label="Iniciando archivo digital">'+
+     '<div class="retro-boot-emblem" data-retro-boot-emblem><img src="assets/img/sello-archivistas.png" alt="Emblema de los Archivistas"></div>'+
+     '<div class="retro-boot-log" data-retro-boot-log aria-live="off"></div><div class="retro-boot-progress"><span data-retro-boot-bar></span></div><div class="retro-boot-percent" data-retro-boot-percent>0%</div>'+
+     '<button type="button" class="retro-boot-skip" data-retro-boot-skip>SALTAR →</button>'+
+     '<div class="retro-boot-flash" data-retro-boot-flash hidden>'+(bootFlash?'<img src="'+esc(report.boot_flash_image)+'" alt="">':'')+'</div>'+
+     '<div hidden>'+bootMessages.map(line=>'<span data-retro-boot-line>'+esc(line)+'</span>').join('')+'</div></div><div class="retro-desktop" data-retro-desktop hidden>'+
      '<img class="retro-desktop-mark" src="assets/img/sello-archivistas.png" alt="" aria-hidden="true" loading="lazy">'+
      '<div class="retro-desktop-header"><span>ARCHIVO DIGITAL // '+String(index+1).padStart(2,'0')+'</span><span>'+esc(report.summary||'DUB.SAR')+'</span></div>'+
      '<div class="retro-desktop-icons">'+folderButtons+'</div>'+
