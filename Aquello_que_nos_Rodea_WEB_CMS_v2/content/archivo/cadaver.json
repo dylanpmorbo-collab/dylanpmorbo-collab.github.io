@@ -100,6 +100,11 @@
     "title": "TABLÓN DE CONEXIONES",
     "pieces": [
       {
+        "id": "Hora aprox",
+        "type": "nota",
+        "text": "DISCOTECA OASIS 01:52am"
+      },
+      {
         "id": "Prueba visual 1",
         "type": "foto",
         "title": "Fotograma de cámara municipal nº 5 — Av. de Madrid / P.º María Agustín / Conde de Aranda — 01/09/2024, 02:16:xx |",
@@ -128,6 +133,10 @@
       }
     ],
     "threads": [
+      {
+        "from": "Hora aprox",
+        "to": "Prueba visual 1"
+      },
       {
         "from": "Prueba visual 1",
         "to": "Prueba visual 2"
