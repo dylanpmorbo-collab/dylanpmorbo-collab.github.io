@@ -110,11 +110,21 @@
         "type": "foto",
         "title": "Fotograma de cámara municipal nº 50 — N330 / P.º de Calanda / Av. de Madrid — 01/09/2024, 02:28:17. |",
         "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/cctv-no-50.webp"
+      },
+      {
+        "id": "Prueba visual 2",
+        "type": "foto",
+        "title": "Banco Sabadell, Av. de Madrid 52, CAM 01 — 01/09/2024, 02:22:17",
+        "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/cajero-final-web.webp"
       }
     ],
     "threads": [
       {
         "from": "Prueva visual 1",
+        "to": "Prueba visual 2"
+      },
+      {
+        "from": "Prueba visual 2",
         "to": "Prueba visual 3"
       }
     ]
