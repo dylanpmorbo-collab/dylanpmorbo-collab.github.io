@@ -228,6 +228,7 @@ content:
             default: A
             options:
               values: [A, B, C, D]
+            description: "D es el panel magnético policial; A, B y C conservan las corcheras clásicas."
           - name: title
             label: Título del tablón
             type: string
@@ -435,6 +436,7 @@ content:
             default: A
             options:
               values: [A, B, C, D]
+            description: "D es el panel magnético policial; A, B y C conservan las corcheras clásicas."
           - name: title
             label: Título del tablón
             type: string
@@ -1192,6 +1194,7 @@ content:
             default: A
             options:
               values: [A, B, C, D]
+            description: "D es el panel magnético policial; A, B y C conservan las corcheras clásicas."
           - name: title
             label: Título del tablón
             type: string
@@ -2262,6 +2265,7 @@ content:
             default: A
             options:
               values: [A, B, C, D]
+            description: "D es el panel magnético policial; A, B y C conservan las corcheras clásicas."
           - name: title
             label: Título del tablón
             type: string
