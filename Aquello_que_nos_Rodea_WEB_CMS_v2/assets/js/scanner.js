@@ -52,12 +52,13 @@
     if (text !== undefined) node.textContent = text;
     return node;
   }
+  function displayLabel(value) { return String(value ?? '').toLocaleUpperCase('es'); }
   function status(text) { $('[data-scanner-status]').textContent = text; }
   function photoButton(item, className) {
     const button = element('button', className);
     button.type = 'button';
     const image = element('img'); image.src = item.image; image.alt = ''; image.loading = 'lazy';
-    const title = element('span', '', item.title);
+    const title = element('span', '', displayLabel(item.title));
     button.append(image, title);
     button.addEventListener('click', () => openImage(item));
     return button;
@@ -65,7 +66,7 @@
   function renderFolders() {
     folders.replaceChildren();
     folderNames.forEach(name => {
-      const button = element('button', 'scanner-folder' + (name === folder ? ' is-active' : ''), '▣  ' + name.toUpperCase());
+      const button = element('button', 'scanner-folder' + (name === folder ? ' is-active' : ''), '▣  ' + displayLabel(name));
       button.type = 'button';
       button.setAttribute('aria-pressed', String(name === folder));
       button.addEventListener('click', () => { folder = name; search.value = ''; renderBrowser(); });
@@ -77,7 +78,7 @@
     const items = catalog.filter(item => query
       ? (item.title + ' ' + item.folder + ' ' + item.filename).toLocaleLowerCase('es').includes(query)
       : item.folder === folder);
-    $('[data-scanner-folder-title]').textContent = query ? 'RESULTADOS DE BÚSQUEDA' : folder.toUpperCase();
+    $('[data-scanner-folder-title]').textContent = query ? 'RESULTADOS DE BÚSQUEDA' : displayLabel(folder);
     $('[data-scanner-count]').textContent = items.length + ' ARCHIVO' + (items.length === 1 ? '' : 'S');
     grid.replaceChildren();
     items.forEach(item => grid.append(photoButton(item, 'scanner-file')));
@@ -88,7 +89,7 @@
     desktopGrid.replaceChildren();
     breadcrumb.replaceChildren();
     const addCrumb = (label, path) => {
-      const button = element('button', '', label);
+      const button = element('button', '', displayLabel(label));
       button.type = 'button';
       button.addEventListener('click', () => { desktopPath = path; search.value = ''; renderDesktop(); });
       breadcrumb.append(button);
@@ -114,7 +115,7 @@
     children.forEach(path => {
       const button = element('button', 'scanner-desktop-folder');
       button.type = 'button';
-      button.append(element('span', 'scanner-folder-icon'), element('span', 'scanner-desktop-label', path.split('/').at(-1)));
+      button.append(element('span', 'scanner-folder-icon'), element('span', 'scanner-desktop-label', displayLabel(path.split('/').at(-1))));
       button.addEventListener('click', () => { desktopPath = path; renderDesktop(); });
       desktopGrid.append(button);
     });
@@ -192,8 +193,8 @@
     current = item;
     browser.hidden = true;
     viewer.hidden = false;
-    $('[data-scanner-title]').textContent = item.title;
-    $('[data-scanner-file-count]').textContent = item.folder.toUpperCase();
+    $('[data-scanner-title]').textContent = displayLabel(item.title);
+    $('[data-scanner-file-count]').textContent = displayLabel(item.folder);
     photo.src = item.image;
     photo.alt = item.title;
     lensPhoto.src = item.image;
