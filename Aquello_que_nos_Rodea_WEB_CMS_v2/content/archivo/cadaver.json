@@ -109,6 +109,12 @@
         "type": "foto",
         "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/cctv-no-50.webp"
       }
+    ],
+    "threads": [
+      {
+        "from": "una",
+        "to": "otra"
+      }
     ]
   },
   "show_digital_press": false
