@@ -103,7 +103,10 @@
         "id": "Prueva visual 1",
         "type": "foto",
         "title": "Fotograma de cámara municipal nº 5 — Av. de Madrid / P.º María Agustín / Conde de Aranda — 01/09/2024, 02:16:xx |",
-        "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/cctv-no-5.webp"
+        "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/cctv-no-5.webp",
+        "x": 15.4,
+        "y": 8,
+        "rotation": 2
       },
       {
         "id": "Prueba visual 3",
