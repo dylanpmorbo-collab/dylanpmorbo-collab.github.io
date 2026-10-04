@@ -110,6 +110,15 @@
     {
       "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/intercambio-de-que-web.webp",
       "overlay": "/assets/uploads/escaner/capas/intercambio-de-que-capa-interplanar-web.webp"
-    }
+    },
+    {
+      "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/cam05con-web.webp",
+      "overlay": "/assets/uploads/escaner/capas/cam05con-capa-interplanar-web.webp"
+    },
+    {
+      "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/cajero-final-con-web.webp",
+      "overlay": "/assets/uploads/escaner/capas/cajero-final-con-capa-interplanar-web.webp"
+    },
+    {}
   ]
 }
