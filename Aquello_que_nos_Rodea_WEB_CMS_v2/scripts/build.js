@@ -88,7 +88,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=videos-rastro-20260921"><script defer src="assets/js/main.js?v=testimonios-20260920"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=prensa-fisica-20261004"><script defer src="assets/js/main.js?v=testimonios-20260920"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -611,6 +611,30 @@ function digitalFootprintMarkup(item){
    '<div class="digital-grid">'+cards+'</div></div>'+
    '<script>(function(){const section=document.currentScript.closest(".digital-footprint");if(!section)return;section.addEventListener("toggle",function(){if(!section.open)section.querySelectorAll("video").forEach(video=>video.pause());});section.querySelectorAll("[data-digital-button]").forEach(button=>button.addEventListener("click",function(){const selected=button.dataset.digitalButton;section.querySelectorAll("[data-digital-button]").forEach(b=>b.setAttribute("aria-pressed",String(b===button)));section.querySelectorAll("[data-digital-filter]").forEach(card=>{card.hidden=selected!=="TODAS"&&card.dataset.digitalFilter!==selected;if(card.hidden)card.querySelectorAll("video").forEach(video=>video.pause());});}));section.querySelectorAll("[data-digital-reveal]").forEach(button=>button.addEventListener("click",function(){const photo=button.closest(".digital-sensitive");photo.classList.remove("digital-sensitive","is-pixelated");photo.querySelector("canvas")?.remove();photo.querySelector("[data-digital-zoom]")?.removeAttribute("hidden");button.parentElement.remove();}));section.querySelectorAll("[data-digital-carousel]").forEach(carousel=>{const slides=Array.from(carousel.querySelectorAll("[data-digital-slide]"));const counter=carousel.querySelector("[data-digital-counter]");let current=0;function show(offset){slides[current].querySelectorAll("video").forEach(video=>video.pause());slides[current].hidden=true;current=(current+offset+slides.length)%slides.length;slides[current].hidden=false;carousel.querySelectorAll("[data-digital-engagement]").forEach((panel,i)=>{panel.hidden=i!==current;});counter.textContent=(current+1)+" / "+slides.length;}carousel.querySelector("[data-digital-prev]").addEventListener("click",()=>show(-1));carousel.querySelector("[data-digital-next]").addEventListener("click",()=>show(1));carousel.addEventListener("keydown",event=>{if(event.target!==carousel)return;if(event.key==="ArrowLeft"||event.key==="ArrowRight"){event.preventDefault();show(event.key==="ArrowLeft"?-1:1);}});});})();<\/script>'+
    '</details>';
+}
+
+function physicalPressMarkup(item){
+ if(!item || item.show_physical_press!==true) return '';
+ const pieces=(Array.isArray(item.physical_press)?item.physical_press:[]).filter(piece=>piece&&piece.image);
+ if(!pieces.length) return '';
+ const cards=pieces.map((piece,index)=>{
+   const meta=[piece.date,piece.edition,piece.place,piece.price].filter(Boolean);
+   const translation=piece.show_translation===true?String(piece.translation_text||'').trim():'';
+   return '<article class="archive-physical-press-card digital-piece reveal">'+
+     (piece.masthead_image?'<img class="archive-physical-press-masthead" src="'+esc(piece.masthead_image)+'" alt="'+esc(piece.publication||'Cabecera del periódico')+'" loading="lazy">':piece.publication?'<strong class="archive-physical-press-name">'+esc(piece.publication)+'</strong>':'')+
+     (meta.length?'<p class="archive-physical-press-meta">'+meta.map(esc).join(' · ')+'</p>':'')+
+     (piece.section?'<p class="archive-physical-press-section">'+esc(piece.section)+'</p>':'')+
+     '<h3>'+esc(piece.headline||'RECORTE '+(index+1))+'</h3>'+
+     (piece.byline?'<p class="archive-physical-press-byline">'+esc(piece.byline)+'</p>':'')+
+     '<figure class="archive-physical-press-image"><div class="archive-physical-press-visual"><button type="button" data-physical-press-open aria-label="Ampliar recorte '+esc(piece.headline||String(index+1))+'"><img src="'+esc(piece.image)+'" alt="'+esc(piece.headline||'Recorte de prensa')+'" loading="lazy"></button>'+
+     (translation?'<div class="archive-physical-press-translation" hidden><span class="archive-document-translation-label">TRADUCCIÓN'+(piece.translation_language?' // '+esc(String(piece.translation_language).toUpperCase()):'')+'</span><span class="archive-physical-press-translation-text">'+esc(translation)+'</span></div>':'')+
+     '</div>'+(piece.caption?'<figcaption>'+esc(piece.caption)+'</figcaption>':'')+'</figure>'+
+     (translation?'<button class="archive-physical-press-translation-toggle" type="button" data-physical-press-translation-toggle aria-expanded="false">MOSTRAR TRADUCCIÓN</button>':'')+
+     '<p class="archive-fiction-note">Recorte ficticio · obra narrativa</p></article>';
+ }).join('');
+ return '<details class="archive-physical-press digital-footprint"><summary class="digital-footprint-toggle"><span><small class="archive-code">RECORTES EN PAPEL // '+String(pieces.length).padStart(2,'0')+'</small><strong>PRENSA FÍSICA</strong></span><span class="digital-footprint-toggle-action"><span class="digital-closed-label">DESPLEGAR ↓</span><span class="digital-open-label">REDUCIR ↑</span></span></summary>'+
+   '<div class="digital-footprint-content"><div class="digital-grid archive-physical-press-grid">'+cards+'</div></div>'+
+   '<dialog class="archive-physical-press-dialog" aria-label="Recorte de prensa ampliado"><button type="button" data-physical-press-close aria-label="Cerrar recorte">✕</button><button type="button" data-physical-press-prev aria-label="Recorte anterior">‹</button><img data-physical-press-large alt=""><button type="button" data-physical-press-next aria-label="Recorte siguiente">›</button><p data-physical-press-counter aria-live="polite"></p><small>Recorte ficticio · obra narrativa</small></dialog><script defer src="assets/js/physical-press.js?v=20261004"></script></details>';
 }
 
 function digitalPressMarkup(item){
@@ -1406,7 +1430,7 @@ function archiveEntryPage(section,item){
    <div class="archive-back-row"><a class="text-link" href="${section.file}">← VOLVER A ${section.label}</a><a class="text-link" href="archivo.html">ÍNDICE GENERAL</a></div>
    ${detailsMarkup}
    ${archiveGallery(item)}
-   ${section.key==='personajes'?digitalFootprintMarkup(item):digitalPressMarkup(item)}
+   ${section.key==='personajes'?digitalFootprintMarkup(item):physicalPressMarkup(item)+digitalPressMarkup(item)}
    ${archiveDocuments(item)}
    ${archivePoliceReport(item)}
    ${relatedArchiveMarkup(item,itemHref(section,item),title)}

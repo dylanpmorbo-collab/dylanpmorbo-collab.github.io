@@ -1,5 +1,15 @@
 (() => {
   document.querySelectorAll('.archive-physical-press').forEach(section => {
+    section.querySelectorAll('[data-physical-press-translation-toggle]').forEach(button => {
+      const overlay=button.closest('.archive-physical-press-card')?.querySelector('.archive-physical-press-translation');
+      if(!overlay)return;
+      button.addEventListener('click',() => {
+        const showing=overlay.hidden;
+        overlay.hidden=!showing;
+        button.setAttribute('aria-expanded',String(showing));
+        button.textContent=showing?'OCULTAR TRADUCCIÓN':'MOSTRAR TRADUCCIÓN';
+      });
+    });
     const dialog=section.querySelector('.archive-physical-press-dialog');
     const buttons=[...section.querySelectorAll('[data-physical-press-open]')];
     if(!dialog||!buttons.length)return;

@@ -1305,6 +1305,83 @@ content:
                 type: string
                 required: true
 
+      - name: show_physical_press
+        label: Mostrar prensa física
+        type: boolean
+        default: false
+        description: "Muestra los recortes de papel en dos columnas, con ampliación sin recorte automático."
+      - name: physical_press
+        label: Prensa física · recortes y fragmentos
+        type: object
+        required: false
+        list:
+          max: 40
+          collapsible:
+            collapsed: true
+            summary: "{headline}"
+        fields:
+          - name: headline
+            label: Título del recorte o titular
+            type: string
+            required: true
+          - name: image
+            label: Imagen del recorte (proporción libre)
+            type: image
+            required: true
+            options:
+              media: default
+          - name: publication
+            label: Cabecera / nombre ficticio del periódico
+            type: string
+            required: false
+          - name: masthead_image
+            label: Cabecera gráfica opcional (1600 × 320 px)
+            type: image
+            required: false
+            options:
+              media: default
+          - name: date
+            label: Fecha impresa
+            type: string
+            required: false
+          - name: edition
+            label: Edición / número
+            type: string
+            required: false
+          - name: place
+            label: Lugar de edición
+            type: string
+            required: false
+          - name: price
+            label: Precio impreso
+            type: string
+            required: false
+          - name: section
+            label: Sección del periódico
+            type: string
+            required: false
+          - name: byline
+            label: Firma
+            type: string
+            required: false
+          - name: caption
+            label: Pie o nota del recorte
+            type: text
+            required: false
+          - name: show_translation
+            label: Incluir botón de traducción
+            type: boolean
+            default: false
+          - name: translation_language
+            label: Idioma de la traducción
+            type: string
+            required: false
+          - name: translation_text
+            label: Texto de la traducción
+            type: text
+            required: false
+            description: "Se muestra sobre el recorte con un fondo oscuro al pulsar el botón."
+
       - name: show_digital_press
         label: Mostrar prensa digital
         type: boolean
