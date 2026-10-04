@@ -198,26 +198,6 @@
       }
     ]
   },
-  "show_digital_press": false,
-  "show_physical_press": true,
-  "physical_press": [
-    {
-      "headline": "DESAPARECE",
-      "image": "/assets/uploads/documentos/designer-4.png",
-      "date": "12/12/12",
-      "edition": "203012-1003",
-      "place": "zaragoza",
-      "price": "1,5€",
-      "section": "PORTADA",
-      "byline": "Patxi Jimenez"
-    },
-    {
-      "headline": "ENCUENTRAN CUERPO",
-      "image": "/assets/uploads/documentos/hayan-cuerponw2.png"
-    },
-    {
-      "headline": "SE CONFIRMA LA TRAGEDIA",
-      "image": "/assets/uploads/documentos/confirman-identidad.png"
-    }
-  ]
+  "show_physical_press": false,
+  "show_digital_press": false
 }
