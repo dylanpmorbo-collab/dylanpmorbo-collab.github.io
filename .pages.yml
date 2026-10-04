@@ -17,10 +17,154 @@ media:
     output: /assets/uploads/microrrelatos
     rename: safe
     categories: [image]
+  - name: planos
+    label: Planos de la Maquinaria
+    type: collection
+    path: Aquello_que_nos_Rodea_WEB_CMS_v2/content/planos
+    format: json
+    filename: "{primary}.json"
+    view:
+      fields: [plane_order, title, published]
+      primary: title
+      sort: [plane_order, title]
+      search: [title, summary]
+    fields:
+      - name: title
+        label: Nombre del plano
+        type: string
+        required: true
+      - name: slug
+        label: Dirección web
+        type: string
+        required: true
+        pattern:
+          regex: "^[a-z0-9-]+$"
+          message: "Usa solo minúsculas, números y guiones."
+      - name: plane_order
+        label: Orden entre los cuatro planos
+        type: number
+        required: true
+      - name: archive_number
+        label: Número de expediente
+        type: string
+        required: false
+      - name: published
+        label: Publicado
+        type: boolean
+        default: false
+      - name: panorama
+        label: Panorámica principal
+        type: image
+        required: false
+        options:
+          media: planos
+        description: "Imagen ancha del plano. Ocupa toda la cabecera con el nombre superpuesto; también identifica el plano en el índice."
+      - name: summary
+        label: Frase introductoria
+        type: text
+        required: false
+        description: "Una o dos frases visibles sobre la panorámica y en el índice."
+      - name: definition
+        label: Qué es este plano
+        type: text
+        required: false
+      - name: perception
+        label: Cómo se percibe desde dentro
+        type: text
+        required: false
+      - name: machinery_role
+        label: Papel en la Maquinaria
+        type: text
+        required: false
+        description: "Si aún no está definido, explica qué se sabe y qué sigue abierto; no hace falta inventar una respuesta."
+      - name: role_status
+        label: Grado de certeza sobre ese papel
+        type: select
+        required: false
+        options:
+          values: [CONFIRMADO, HIPÓTESIS, EN ESTUDIO, DESCONOCIDO]
+      - name: contact
+        label: Señales de contacto con otros planos
+        type: text
+        required: false
+        description: "Si queda vacío, el apartado no se muestra."
+      - name: open_questions
+        label: Preguntas abiertas
+        type: object
+        required: false
+        list:
+          max: 10
+          collapsible:
+            collapsed: true
+            summary: "{question}"
+        fields:
+          - name: question
+            label: Pregunta
+            type: string
+            required: true
+      - name: plane_connections
+        label: Relación con otros planos
+        type: object
+        required: false
+        list:
+          max: 4
+          collapsible:
+            collapsed: true
+            summary: "{name}"
+        fields:
+          - name: name
+            label: Nombre del otro plano
+            type: string
+            required: true
+          - name: description
+            label: Qué relación se conoce
+            type: text
+            required: false
+      - name: show_related_archive
+        label: Mostrar casos documentados
+        type: boolean
+        default: false
+      - name: related_archive
+        label: Casos y documentos relacionados
+        type: object
+        required: false
+        list:
+          max: 12
+          collapsible:
+            collapsed: true
+            summary: "{type} · {title}"
+        fields:
+          - name: type
+            label: Tipo
+            type: select
+            default: ARCHIVO
+            options:
+              values: [ARCHIVO, DOCUMENTO, SUCESO, LUGAR, PERSONAJE, ENTIDAD, PLANO, OTRO]
+          - name: title
+            label: Título visible
+            type: string
+            required: true
+          - name: thumbnail
+            label: Miniatura
+            type: image
+            required: false
+            options:
+              media: default
+          - name: url
+            label: Enlace al expediente
+            type: string
+            required: true
+
   - name: archivo
     label: El Archivo
     input: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads/archivo
     output: /assets/uploads/archivo
+    rename: safe
+    categories: [image]
+  - name: planos
+    label: Panorámicas de los planos
+    input: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads/planos
+    output: /assets/uploads/planos
     rename: safe
     categories: [image]
   - name: personajes
@@ -3796,4 +3940,3 @@ content:
     type: file
     path: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/data/frases-archivo.txt
     format: raw
-
