@@ -82,7 +82,7 @@
       "title": "INFORMES DIGITALES RICHARD ALCOY",
       "importance": "basico",
       "label_image": "/assets/uploads/archivo/ETIQUETAS/diseno-2.webp",
-      "desktop_background_color": "#16865a",
+      "desktop_background_color": "#000080",
       "boot_seconds": 1,
       "boot_flash_enabled": false,
       "folders": [
