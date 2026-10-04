@@ -75,7 +75,7 @@
     }
   ],
   "show_digital_reports": false,
-  "show_related_archive": false,
+  "show_related_archive": true,
   "related_archive": [
     {
       "type": "MICRORRELATO",
