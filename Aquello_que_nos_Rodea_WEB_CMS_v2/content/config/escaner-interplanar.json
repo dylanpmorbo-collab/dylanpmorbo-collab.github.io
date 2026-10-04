@@ -60,10 +60,6 @@
   ],
   "signals": [
     {
-      "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/ultima-foto.webp",
-      "overlay": "/assets/uploads/escaner/capas/definitiva-web-capa-interplanar.png"
-    },
-    {
       "image": "/assets/uploads/personajes/Richard/MAYORCA/aquapark-web.webp",
       "overlay": "/assets/uploads/escaner/capas/aquapark-capa-interplanar.png"
     },
@@ -122,6 +118,10 @@
     {
       "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/cam50con-web.webp",
       "overlay": "/assets/uploads/escaner/capas/cam50con-capa-interplanar.png"
+    },
+    {
+      "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/ultima-foto.webp",
+      "overlay": "/assets/uploads/escaner/capas/definitiva-web-capa-interplanar.png"
     },
     {}
   ]
