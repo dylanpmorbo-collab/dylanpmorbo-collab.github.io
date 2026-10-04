@@ -28,7 +28,7 @@
   "body": "Las víctimas no aportan nada. \n\nLas que no saben lo que les pasó no pueden decir nada y las que sí lo saben no quieren.",
   "gallery": [
     {
-      "image": "/assets/uploads/archivo/reunioon.png",
+      "image": "/assets/uploads/entidades/ŚUKRAHĀRĪ/reunioon-web.webp",
       "caption": "¿Qué planean?"
     },
     {
@@ -52,6 +52,7 @@
   ],
   "show_documents": false,
   "show_police_report": false,
+  "show_digital_reports": false,
   "show_related_archive": true,
   "related_archive": [
     {
@@ -66,5 +67,11 @@
       "thumbnail": "/assets/uploads/conexiones/portada18.png",
       "url": "https://dylanpmorbo-collab.github.io/relato-la-carne-ofrecida.html"
     }
-  ]
+  ],
+  "corkboard": {
+    "enabled": false,
+    "design": "A",
+    "title": "TABLÓN DE CONEXIONES"
+  },
+  "show_digital_press": false
 }
