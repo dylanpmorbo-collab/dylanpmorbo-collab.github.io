@@ -405,7 +405,7 @@ const archiveSectionDefs=[
  {key:'entidades',label:'ENTIDADES',typeLabel:'ENTIDAD',eyebrow:'CATÁLOGO // ENTIDADES',desc:'Seres, presencias y formas de vida cuya existencia ha quedado registrada.',items:archiveByCategory('ENTIDAD'),file:'archivo-entidades.html',image:String(archiveSectionImages.entidades||'/assets/img/archivo-secciones/entidades.png').trim()},
  {key:'personajes',label:'PERSONAJES',typeLabel:'PERSONA',eyebrow:'CATÁLOGO // PERSONAS',desc:'Individuos relacionados con los expedientes, los sucesos y aquello que permanece oculto.',items:characters,file:'archivo-personajes.html',image:String(archiveSectionImages.personajes||'/assets/img/archivo-secciones/personajes.png').trim()},
  {key:'lugares',label:'LUGARES',typeLabel:'LUGAR',eyebrow:'CATÁLOGO // LUGARES',desc:'Localizaciones vinculadas a anomalías, testimonios o acontecimientos registrados.',items:archiveByCategory('LUGAR'),file:'archivo-lugares.html',image:String(archiveSectionImages.lugares||'/assets/img/archivo-secciones/lugares.png').trim()},
- {key:'planos',label:'PLANOS',typeLabel:'PLANO',eyebrow:'CATÁLOGO // PLANOS',desc:'Los cuatro planos de la Maquinaria. Lo conocido es solo una parte de su estructura.',items:[...planes,...archiveByCategory('PLANO')],file:'archivo-planos.html',image:String(archiveSectionImages.planos||'/assets/img/archivo-secciones/planos.png').trim()},
+ {key:'planos',label:'PLANOS',typeLabel:'PLANO',eyebrow:'CATÁLOGO // PLANOS',desc:'Capas de realidad, territorios dimensionales y estructuras que existen fuera de las coordenadas ordinarias.',items:[...planes,...archiveByCategory('PLANO')],file:'archivo-planos.html',image:String(archiveSectionImages.planos||'/assets/img/archivo-secciones/planos.png').trim()},
  {key:'organizaciones',label:'ORGANIZACIONES',typeLabel:'ORGANIZACIÓN',eyebrow:'CATÁLOGO // ORGANIZACIONES',desc:'Grupos, cultos, instituciones y redes cuya actividad aparece en los archivos.',items:archiveByCategory('ORGANIZACIÓN'),file:'archivo-organizaciones.html',image:String(archiveSectionImages.organizaciones||'/assets/img/archivo-secciones/organizaciones.png').trim()},
  {key:'documentos',label:'DOCUMENTOS',typeLabel:'DOCUMENTO',eyebrow:'CATÁLOGO // DOCUMENTOS',desc:'Textos, pruebas, registros y materiales recuperados o parcialmente descifrados.',items:archiveByCategory('DOCUMENTO'),file:'archivo-documentos.html',image:String(archiveSectionImages.documentos||'/assets/img/archivo-secciones/documentos.png').trim()},
  {key:'sucesos',label:'SUCESOS',typeLabel:'SUCESO',eyebrow:'CATÁLOGO // SUCESOS',desc:'Incidentes cuya explicación permanece incompleta, contradictoria o clasificada.',items:archiveByCategory('SUCESO'),file:'archivo-sucesos.html',image:String(archiveSectionImages.sucesos||'/assets/img/archivo-secciones/sucesos.png').trim()},
@@ -1407,24 +1407,6 @@ function planeSequence(item){
  const order=Number(item.plane_order);
  return Number.isInteger(order)&&order>0 ? String(order).padStart(2,'0')+' / 04' : 'PLANO DE LA MAQUINARIA';
 }
-function planeIndexPage(section){
- const cards=section.items.map(item=>{
-   const image=itemImage(item);
-   const title=itemTitle(section,item);
-   return `<a class="plane-index-card reveal${image?'':' no-image'}" href="${esc(itemHref(section,item))}">
-     ${image?`<img src="${esc(image)}" alt="" loading="lazy">`:''}
-     <span class="plane-index-card-content"><small>PLANO ${esc(planeSequence(item))}</small><strong>${esc(title)}</strong><span>${esc(itemSummary(section,item))}</span><b>EXPLORAR EL PLANO →</b></span>
-   </a>`;
- }).join('');
- return `${head(`Planos | El Archivo | ${site.site_title}`,section.desc,itemImage(section.items[0])||section.image)}
- <body class="archive-area plane-index-page">${header('archivo')}${archiveTopNav(section.key)}<main>
- <section class="plane-index-heading section"><p class="eyebrow">ARCHIVO // LA MAQUINARIA</p><h1>LOS PLANOS</h1><p>${esc(section.desc)}</p></section>
- <section class="plane-index-list section" aria-label="Planos documentados">
-   ${cards||'<div class="archive-empty"><p class="archive-code">SIN DATOS DISPONIBLES</p><h2>NO HAY PLANOS PÚBLICOS.</h2></div>'}
- </section>
- <div class="section plane-return"><a class="text-link" href="archivo.html">← VOLVER AL ÍNDICE GENERAL</a></div>
- </main>${footer(site)}</body></html>`;
-}
 function planeEntryPage(section,item){
  const title=itemTitle(section,item);
  const image=itemImage(item);
@@ -1682,7 +1664,7 @@ for(const section of archiveSectionDefs){
  const list=section.items.length
    ? `<div class="archive-entry-grid">${section.items.map(item=>archiveEntryCard(section,item)).join('')}</div>`
    : `<div class="archive-empty reveal"><p class="archive-code">SIN DATOS DISPONIBLES</p><h2>NO HAY EXPEDIENTES PÚBLICOS.</h2><p>Esta sección permanece vacía o clasificada por el momento.</p></div>`;
- const sectionPage=section.key==='planos'?planeIndexPage(section):`${head(`${section.label} | El Archivo | ${site.site_title}`,section.desc,section.image||'/assets/img/hero.webp')}
+ const sectionPage=`${head(`${section.label} | El Archivo | ${site.site_title}`,section.desc,section.image||'/assets/img/hero.webp')}
  <body class="archive-area">${header(section.key==='microrrelatos'?'microrrelatos':'archivo')}${archiveTopNav(section.key)}<main>
  <section class="page-hero compact archive-section-hero${section.image?'':' no-art'}">
    <div class="archive-section-hero-copy">
