@@ -89,35 +89,35 @@
     },
     {
       "image": "/assets/uploads/entidades/ŚUKRAHĀRĪ/reunioon-web.webp",
-      "overlay": "/assets/uploads/escaner/capas/reunioon-capa-interplanar-web.webp"
+      "overlay": "/assets/uploads/escaner/capas/reunioon-capa-interplanar.png"
     },
     {
       "image": "/assets/uploads/entidades/ŚUKRAHĀRĪ/amenaza-web.webp",
-      "overlay": "/assets/uploads/escaner/capas/amenaza-capa-interplanar-web.webp"
+      "overlay": "/assets/uploads/escaner/capas/amenaza-capa-interplanar.png"
     },
     {
       "image": "/assets/uploads/entidades/ŚUKRAHĀRĪ/cazando-web.webp",
-      "overlay": "/assets/uploads/escaner/capas/cazando-capa-interplanar-web.webp"
+      "overlay": "/assets/uploads/escaner/capas/cazando-capa-interplanar.png"
     },
     {
       "image": "/assets/uploads/entidades/ŚUKRAHĀRĪ/la-plaza-web.webp",
-      "overlay": "/assets/uploads/escaner/capas/la-plaza-capa-interplanar-web.webp"
+      "overlay": "/assets/uploads/escaner/capas/la-plaza-capa-interplanar.png"
     },
     {
       "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/de-que-hablan-web.webp",
-      "overlay": "/assets/uploads/escaner/capas/de-que-hablan-capa-interplanar-web.webp"
+      "overlay": "/assets/uploads/escaner/capas/de-que-hablan-capa-interplanar.png"
     },
     {
       "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/intercambio-de-que-web.webp",
-      "overlay": "/assets/uploads/escaner/capas/intercambio-de-que-capa-interplanar-web.webp"
+      "overlay": "/assets/uploads/escaner/capas/intercambio-de-que-capa-interplanar.png"
     },
     {
       "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/cam05con-web.webp",
-      "overlay": "/assets/uploads/escaner/capas/cam05con-capa-interplanar-web.webp"
+      "overlay": "/assets/uploads/escaner/capas/cam05con-capa-interplanar.png"
     },
     {
       "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/cajero-final-con-web.webp",
-      "overlay": "/assets/uploads/escaner/capas/cajero-final-con-capa-interplanar-web.webp"
+      "overlay": "/assets/uploads/escaner/capas/cajero-final-con-capa-interplanar.png"
     },
     {}
   ]
