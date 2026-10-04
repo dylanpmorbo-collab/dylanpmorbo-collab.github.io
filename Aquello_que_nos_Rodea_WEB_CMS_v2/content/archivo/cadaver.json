@@ -145,58 +145,7 @@
   "corkboard": {
     "enabled": false,
     "design": "D",
-    "title": "TABLÓN DE CONEXIONES",
-    "pieces": [
-      {
-        "id": "Hora aprox",
-        "type": "nota",
-        "text": "DISCOTECA OASIS 01:52am",
-        "x": 12.9,
-        "y": 21.7,
-        "rotation": -1
-      },
-      {
-        "id": "Prueba visual 1",
-        "type": "foto",
-        "title": "Fotograma de cámara municipal nº 5 — Av. de Madrid / P.º María Agustín / Conde de Aranda — 01/09/2024, 02:16:xx |",
-        "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/cctv-no-5.webp",
-        "x": 38,
-        "y": 9.8,
-        "rotation": 2
-      },
-      {
-        "id": "Prueba visual 2",
-        "type": "foto",
-        "title": "Banco Sabadell, Av. de Madrid 52, CAM 01 — 01/09/2024, 02:22:17",
-        "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/cajero-final-web.webp",
-        "x": 63.8,
-        "y": 21.8,
-        "rotation": 1
-      },
-      {
-        "id": "Prueba visual 3",
-        "type": "foto",
-        "title": "Fotograma de cámara municipal nº 50 — N330 / P.º de Calanda / Av. de Madrid — 01/09/2024, 02:28:17. |",
-        "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/cctv-no-50.webp",
-        "x": 87.9,
-        "y": 10.3,
-        "rotation": -2
-      }
-    ],
-    "threads": [
-      {
-        "from": "Hora aprox",
-        "to": "Prueba visual 1"
-      },
-      {
-        "from": "Prueba visual 1",
-        "to": "Prueba visual 2"
-      },
-      {
-        "from": "Prueba visual 2",
-        "to": "Prueba visual 3"
-      }
-    ]
+    "title": "TABLÓN DE CONEXIONES"
   },
   "show_physical_press": false,
   "show_digital_press": false
