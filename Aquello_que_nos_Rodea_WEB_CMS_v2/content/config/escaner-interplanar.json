@@ -68,10 +68,6 @@
       "overlay": "/assets/uploads/escaner/capas/aquapark-capa-interplanar.png"
     },
     {
-      "image": "/assets/uploads/entidades/ŚUKRAHĀRĪ/reunioon-web.webp",
-      "overlay": "/assets/uploads/escaner/capas/reunioon-capa-interplanar.png"
-    },
-    {
       "image": "/assets/uploads/SUCESOS/desapariciones techo/informe-policial-desaparicion-1985-web.webp",
       "overlay": "/assets/uploads/escaner/capas/informe-policial-desaparicion-1985-capa-interplanar.png"
     },
@@ -91,6 +87,29 @@
       "image": "/assets/uploads/personajes/Richard/LISBOA2023/lisboa1-bandadas-foto1.png",
       "overlay": "/assets/uploads/escaner/capas/lisboa1-capa-interplanar.png"
     },
-    {}
+    {
+      "image": "/assets/uploads/entidades/ŚUKRAHĀRĪ/reunioon-web.webp",
+      "overlay": "/assets/uploads/escaner/capas/reunioon-capa-interplanar-web.webp"
+    },
+    {
+      "image": "/assets/uploads/entidades/ŚUKRAHĀRĪ/amenaza-web.webp",
+      "overlay": "/assets/uploads/escaner/capas/amenaza-capa-interplanar-web.webp"
+    },
+    {
+      "image": "/assets/uploads/entidades/ŚUKRAHĀRĪ/cazando-web.webp",
+      "overlay": "/assets/uploads/escaner/capas/cazando-capa-interplanar-web.webp"
+    },
+    {
+      "image": "/assets/uploads/entidades/ŚUKRAHĀRĪ/la-plaza-web.webp",
+      "overlay": "/assets/uploads/escaner/capas/la-plaza-capa-interplanar-web.webp"
+    },
+    {
+      "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/de-que-hablan-web.webp",
+      "overlay": "/assets/uploads/escaner/capas/de-que-hablan-capa-interplanar-web.webp"
+    },
+    {
+      "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/intercambio-de-que-web.webp",
+      "overlay": "/assets/uploads/escaner/capas/intercambio-de-que-capa-interplanar-web.webp"
+    }
   ]
 }
