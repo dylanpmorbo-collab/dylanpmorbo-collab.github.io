@@ -82,6 +82,9 @@
       "title": "INFORMES DIGITALES RICHARD ALCOY",
       "importance": "basico",
       "label_image": "/assets/uploads/archivo/ETIQUETAS/diseno-2.webp",
+      "desktop_background_color": "#16865a",
+      "boot_seconds": 1,
+      "boot_flash_enabled": false,
       "folders": [
         {
           "title": "INFORMES",
@@ -95,12 +98,12 @@
               "attachments": [
                 {
                   "title": "Fotograma de cámara municipal nº 5 ",
-                  "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/imagen-de-chatgpt-30-sept-2026-065952-web.webp",
+                  "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/cam05con-web.webp",
                   "note": "— Av. de Madrid / P.º María Agustín / Conde de Aranda — 01/09/2024, 02:16:xx"
                 },
                 {
                   "title": "Fotograma de cámara privada ",
-                  "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/cajero-final-web.webp",
+                  "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/cajero-final-con-web.webp",
                   "note": "— Banco Sabadell, Av. de Madrid 52, CAM 01 — 01/09/2024, 02:22:17"
                 },
                 {
