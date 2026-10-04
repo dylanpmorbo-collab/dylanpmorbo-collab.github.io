@@ -1047,6 +1047,9 @@ function archiveDigitalReports(item){
    const bootDuration=Math.min(5,Math.max(1,Math.round(Number(report.boot_seconds)||1)));
    const bootMessages=String(report.boot_messages||'').split(/\r?\n/).map(line=>line.trim()).filter(Boolean).slice(0,12);
    const bootFlash=report.boot_flash_enabled===true && Boolean(report.boot_flash_image);
+   const desktopColor=String(report.desktop_background_color||'').trim();
+   const desktopColorStyle=/^#[0-9a-fA-F]{6}$/.test(desktopColor)?' style="background-color:'+desktopColor+'"':'';
+   const desktopWallpaper=String(report.desktop_wallpaper||'').trim();
    const folders=orderedDigitalItems(report.folders).filter(folder=>folder.title || folder.files?.length).slice(0,40);
    const folderButtons=folders.map((folder,folderIndex)=>{
      const name=String(folder.title||('CARPETA '+String(folderIndex+1).padStart(2,'0')));
@@ -1123,8 +1126,8 @@ function archiveDigitalReports(item){
      '<div class="retro-boot-log" data-retro-boot-log aria-live="off"></div><div class="retro-boot-progress"><span data-retro-boot-bar></span></div><div class="retro-boot-percent" data-retro-boot-percent>0%</div>'+
      '<button type="button" class="retro-boot-skip" data-retro-boot-skip>SALTAR →</button>'+
      '<div class="retro-boot-flash" data-retro-boot-flash hidden>'+(bootFlash?'<img src="'+esc(report.boot_flash_image)+'" alt="">':'')+'</div>'+
-     '<div hidden>'+bootMessages.map(line=>'<span data-retro-boot-line>'+esc(line)+'</span>').join('')+'</div></div><div class="retro-desktop" data-retro-desktop hidden>'+
-     '<img class="retro-desktop-mark" src="assets/img/sello-archivistas.png" alt="" aria-hidden="true" loading="lazy">'+
+     '<div hidden>'+bootMessages.map(line=>'<span data-retro-boot-line>'+esc(line)+'</span>').join('')+'</div></div><div class="retro-desktop" data-retro-desktop hidden'+desktopColorStyle+'>'+
+     (desktopWallpaper?'<img class="retro-desktop-wallpaper" src="'+esc(desktopWallpaper)+'" alt="" aria-hidden="true">':'<img class="retro-desktop-mark" src="assets/img/sello-archivistas.png" alt="" aria-hidden="true" loading="lazy">')+
      '<div class="retro-desktop-header"><span>ARCHIVO DIGITAL // '+String(index+1).padStart(2,'0')+'</span><span>'+esc(report.summary||'DUB.SAR')+'</span></div>'+
      '<div class="retro-desktop-icons">'+folderButtons+'</div>'+
      '<div class="retro-desktop-status">'+folders.length+' CARPETA'+(folders.length===1?'':'S')+' // SELECCIONE UNA UNIDAD</div>'+

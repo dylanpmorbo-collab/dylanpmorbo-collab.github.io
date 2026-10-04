@@ -956,6 +956,22 @@ content:
             label: Referencia o nota breve
             type: string
             required: false
+          - name: desktop_background_color
+            label: Color de fondo del escritorio (#RRGGBB)
+            type: string
+            required: false
+            default: "#16865a"
+            pattern:
+              regex: "^#[0-9A-Fa-f]{6}$"
+              message: "Escribe un color como #16865a."
+            description: "Se usa detrás del wallpaper o, si no eliges imagen, como fondo del escritorio."
+          - name: desktop_wallpaper
+            label: Wallpaper del escritorio
+            type: image
+            required: false
+            options:
+              media: default
+            description: "Opcional. Usa una imagen horizontal; se ajusta para cubrir el escritorio y puede recortarse en los bordes. Si lo dejas vacío, se conserva el sello actual."
           - name: boot_seconds
             label: Segundos de carga del escritorio (1–5)
             type: number
@@ -2050,6 +2066,22 @@ content:
             label: Referencia o nota breve
             type: string
             required: false
+          - name: desktop_background_color
+            label: Color de fondo del escritorio (#RRGGBB)
+            type: string
+            required: false
+            default: "#16865a"
+            pattern:
+              regex: "^#[0-9A-Fa-f]{6}$"
+              message: "Escribe un color como #16865a."
+            description: "Se usa detrás del wallpaper o, si no eliges imagen, como fondo del escritorio."
+          - name: desktop_wallpaper
+            label: Wallpaper del escritorio
+            type: image
+            required: false
+            options:
+              media: default
+            description: "Opcional. Usa una imagen horizontal; se ajusta para cubrir el escritorio y puede recortarse en los bordes. Si lo dejas vacío, se conserva el sello actual."
           - name: boot_seconds
             label: Segundos de carga del escritorio (1–5)
             type: number
