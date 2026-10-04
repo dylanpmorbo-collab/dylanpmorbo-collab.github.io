@@ -3,7 +3,7 @@
   "archive_number": "001",
   "category": "ORGANIZACIÓN",
   "published": true,
-  "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/foto-archivo-la-plaga-web.webp",
+  "image": "/assets/uploads/archivo/LOGOS/imagen-de-chatgpt-30-sept-2026-010316-web.webp",
   "status": "ACCESO PARCIAL",
   "summary": "Organización clandestina cuyos miembros parecen mantener una relación de veneración con los Śukrahārī.",
   "note": "\n\nNOTA DEL ARCHIVO\n\nLa relación parece ser simbiótica, pero todavía no existen datos suficientes para determinar qué reciben exactamente los Śukrahārī de La Plaga ni qué obtiene la organización de ellos.\n\nNo confundir veneración con control.\n\nLos datos disponibles sugieren precisamente lo contrario.",
@@ -46,6 +46,10 @@
     {
       "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/intercambio-de-que-web.webp",
       "caption": "¿Le ha dado algo?"
+    },
+    {
+      "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/foto-archivo-la-plaga-web.webp",
+      "caption": "1921"
     }
   ],
   "show_documents": false,
