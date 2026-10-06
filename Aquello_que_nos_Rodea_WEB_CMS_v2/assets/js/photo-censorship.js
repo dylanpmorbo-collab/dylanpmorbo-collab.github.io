@@ -105,7 +105,7 @@
       if (img.dataset.globalMode) clear(img);
       return;
     }
-    const permanentThumbnail = !!img.closest('.archive-police-report-attachment');
+    const permanentThumbnail = !!img.closest('.archive-police-report-attachment, .scanner-desktop-file, .scanner-file');
     if (img.dataset.globalMode && img.dataset.globalKey === key && (img._globalCensorButton || (permanentThumbnail && img.classList.contains('global-censored')))) return;
     if (img.dataset.globalMode) clear(img);
     const original = img.dataset.globalOriginal || currentSrc;
