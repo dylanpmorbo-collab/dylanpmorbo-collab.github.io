@@ -123,6 +123,13 @@
       "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/ultima-foto.webp",
       "overlay": "/assets/uploads/escaner/capas/ultima-foto-capa-interplanar.png"
     },
-    {}
+    {
+      "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/investigacion-de-la-zona.webp",
+      "overlay": "/assets/uploads/escaner/capas/escenamovil.png"
+    },
+    {
+      "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/trazas-sangre.webp",
+      "overlay": "/assets/uploads/escaner/capas/trazas-sangre-capa-interplanar-1.png"
+    }
   ]
 }
