@@ -1,3 +1,12 @@
 {
-  "photos": []
+  "photos": [
+    {
+      "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/autopsia-r-a.png",
+      "mode": "pixelado"
+    },
+    {
+      "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/levantamientodecadaverr-a.png",
+      "mode": "pixelado"
+    }
+  ]
 }
