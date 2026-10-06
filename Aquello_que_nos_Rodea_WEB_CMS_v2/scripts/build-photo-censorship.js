@@ -54,7 +54,7 @@ function buildPhotoCensorship({root, dist, entries}) {
   );
   const head = '<link rel="stylesheet" href="/assets/css/photo-censorship.css?v=visor-fotos-20261006">' +
     '<script src="/assets/js/photo-censorship-data.js?v=1"></script>' +
-    '<script defer src="/assets/js/photo-censorship.js?v=escaner-censura-20261006"></script>';
+    '<script defer src="/assets/js/photo-censorship.js?v=escaner-miniaturas-20261006"></script>';
   let pageCount = 0;
   walkHtml(dist, filename => {
     let html = fs.readFileSync(filename, 'utf8');
