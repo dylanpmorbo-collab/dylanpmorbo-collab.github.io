@@ -64,6 +64,31 @@
     source.src = original;
   }
 
+  function revealImage(img) {
+    const original = img.dataset.globalOriginal;
+    if (!original) return;
+    img.dataset.globalRevealed = 'true';
+    removeButton(img);
+    img.classList.remove('global-censored', 'global-censored-ready');
+    setRenderedSource(img, original);
+    img.removeAttribute('data-global-mode');
+  }
+
+  function revealWithScannerPair(img) {
+    const frame = img.closest('[data-scanner-frame]');
+    const key = img.dataset.globalKey;
+    if (!frame || !key) {
+      revealImage(img);
+      return;
+    }
+    frame.querySelectorAll('[data-scanner-photo], [data-scanner-lens-photo]').forEach(other => {
+      if (other.dataset.globalKey !== key && imagePath(other.getAttribute('src')) !== key) return;
+      if (!other.dataset.globalOriginal) other.dataset.globalOriginal = other.getAttribute('src');
+      if (!other.dataset.globalKey) other.dataset.globalKey = key;
+      revealImage(other);
+    });
+  }
+
   function apply(img) {
     if (!(img instanceof HTMLImageElement) || img.hasAttribute('data-retro-image') || img.hasAttribute('data-police-image-large')) return;
     const currentSrc = img.getAttribute('src') || '';
@@ -104,11 +129,7 @@
     button.addEventListener('click', event => {
       event.preventDefault();
       event.stopPropagation();
-      img.dataset.globalRevealed = 'true';
-      removeButton(img);
-      img.classList.remove('global-censored', 'global-censored-ready');
-      setRenderedSource(img, original);
-      img.removeAttribute('data-global-mode');
+      revealWithScannerPair(img);
       host.querySelector('[data-digital-zoom]')?.removeAttribute('hidden');
     });
     host.appendChild(button);
