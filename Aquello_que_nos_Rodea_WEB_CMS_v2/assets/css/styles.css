@@ -1461,3 +1461,22 @@ html:not(.age-verified){overflow:hidden}
 .retro-attachment small{margin-top:3px;font:10px/1.25 "Courier New",monospace;color:#555}
 body.archive-digital-dialog-open{overflow:hidden}
 @media(max-width:700px){.archive-digital-dialog{width:100vw;height:100dvh;border:0}.retro-desktop-mark{width:85%}.retro-desktop-icons{grid-template-columns:repeat(auto-fill,minmax(92px,1fr));padding:17px 9px}.retro-folder-icon{width:90px}.retro-folder-window,.retro-file-window{left:0;top:28px;width:100%;height:calc(100% - 56px)}.retro-window-content{padding:8px}.retro-file-detail{display:flex;flex-direction:column;height:auto;min-height:100%}.retro-file-media{min-height:220px;max-height:48dvh}.retro-file-info{overflow:visible}.retro-desktop-header,.retro-desktop-status{font-size:9px}.archive-mmc-card{min-height:220px}}
+
+/* Visor de fotografías adjuntas: imagen completa y controles siempre visibles. */
+.archive-police-image-dialog{position:fixed;width:min(96vw,1400px);height:94dvh;max-width:none;max-height:none;box-sizing:border-box;padding:64px 80px 76px;border:1px solid #8c7548;background:#0b0a08;color:#d5cdbd;box-shadow:0 35px 110px rgba(0,0,0,.8);overflow:hidden}
+.archive-police-image-dialog::backdrop{background:rgba(0,0,0,.9)}
+.archive-police-image-dialog[open]{display:flex;align-items:center;justify-content:center}
+.archive-police-image-dialog [data-police-image-large]{display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
+.archive-police-image-dialog .archive-police-image-pixelated{image-rendering:pixelated}
+.archive-police-image-dialog .archive-police-image-pixel-pending{filter:blur(20px)}
+.archive-police-image-dialog button{color:#f2dfb6;background:rgba(20,18,14,.94);border:1px solid #9c8052;cursor:pointer;font:700 11px var(--display);letter-spacing:.08em}
+.archive-police-image-dialog button:hover:not(:disabled),.archive-police-image-dialog button:focus-visible{background:#473722;outline:2px solid #e2c486;outline-offset:2px}
+.archive-police-image-dialog [data-police-image-close]{position:absolute;z-index:3;top:14px;right:16px;width:42px;height:42px;font-size:22px}
+.archive-police-image-dialog .archive-police-image-nav{position:absolute;z-index:2;top:50%;transform:translateY(-50%);min-width:108px;min-height:54px;padding:10px 12px}
+.archive-police-image-dialog [data-police-image-prev]{left:12px}
+.archive-police-image-dialog [data-police-image-next]{right:12px}
+.archive-police-image-dialog .archive-police-image-nav:disabled{visibility:hidden}
+.archive-police-image-dialog .archive-police-image-counter{position:absolute;top:25px;left:24px;font:700 11px var(--display);letter-spacing:.12em;color:#d1bc8d}
+.archive-police-image-dialog .archive-police-image-reveal{position:absolute;z-index:3;bottom:16px;left:50%;transform:translateX(-50%);min-height:44px;padding:10px 18px;white-space:nowrap}
+.archive-police-image-dialog .archive-police-image-reveal[hidden]{display:none}
+@media(max-width:700px){.archive-police-image-dialog{width:100vw;height:100dvh;padding:64px 12px 78px}.archive-police-image-dialog .archive-police-image-nav{top:auto;bottom:12px;transform:none;min-width:44px;min-height:44px;font-size:0}.archive-police-image-dialog [data-police-image-prev]::after{content:'←';font-size:24px}.archive-police-image-dialog [data-police-image-next]::after{content:'→';font-size:24px}.archive-police-image-dialog .archive-police-image-counter{left:15px;top:28px}}
