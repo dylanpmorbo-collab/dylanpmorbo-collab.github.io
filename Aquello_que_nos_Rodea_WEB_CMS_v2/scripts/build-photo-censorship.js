@@ -52,9 +52,9 @@ function buildPhotoCensorship({root, dist, entries}) {
     path.join(dist, 'assets', 'js', 'photo-censorship-data.js'),
     'window.AQNR_PHOTO_CENSORSHIP = ' + JSON.stringify(data).replace(/</g, '\\u003c') + ';\n'
   );
-  const head = '<link rel="stylesheet" href="/assets/css/photo-censorship.css?v=1">' +
+  const head = '<link rel="stylesheet" href="/assets/css/photo-censorship.css?v=visor-fotos-20261006">' +
     '<script src="/assets/js/photo-censorship-data.js?v=1"></script>' +
-    '<script defer src="/assets/js/photo-censorship.js?v=1"></script>';
+    '<script defer src="/assets/js/photo-censorship.js?v=visor-fotos-20261006"></script>';
   let pageCount = 0;
   walkHtml(dist, filename => {
     let html = fs.readFileSync(filename, 'utf8');
