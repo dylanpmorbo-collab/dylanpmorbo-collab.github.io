@@ -65,7 +65,7 @@
   }
 
   function apply(img) {
-    if (!(img instanceof HTMLImageElement) || img.hasAttribute('data-retro-image')) return;
+    if (!(img instanceof HTMLImageElement) || img.hasAttribute('data-retro-image') || img.hasAttribute('data-police-image-large')) return;
     const currentSrc = img.getAttribute('src') || '';
     if (img.dataset.globalRenderedSrc && currentSrc === img.dataset.globalRenderedSrc) return;
     if (img.dataset.globalRevealed === 'true') {
@@ -80,7 +80,8 @@
       if (img.dataset.globalMode) clear(img);
       return;
     }
-    if (img.dataset.globalMode && img.dataset.globalKey === key && img._globalCensorButton) return;
+    const permanentThumbnail = !!img.closest('.archive-police-report-attachment');
+    if (img.dataset.globalMode && img.dataset.globalKey === key && (img._globalCensorButton || (permanentThumbnail && img.classList.contains('global-censored')))) return;
     if (img.dataset.globalMode) clear(img);
     const original = img.dataset.globalOriginal || currentSrc;
     img.dataset.globalMode = rule.mode;
@@ -94,6 +95,7 @@
     const host = parent.tagName === 'BUTTON' || parent.tagName === 'A' ? parent.parentElement : parent;
     if (!host) return;
     host.classList.add('global-censor-host');
+    if (!permanentThumbnail) {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'global-censor-reveal';
@@ -111,6 +113,7 @@
     });
     host.appendChild(button);
     img._globalCensorButton = button;
+    }
     host.querySelector('[data-digital-zoom]')?.setAttribute('hidden', '');
 
     if (rule.mode === 'falso') {
