@@ -1090,6 +1090,9 @@ DOCUMENTOS NAVEGABLES — AJUSTES FINALES DE GEOMETRÍA Y LECTURA
 .archive-police-dialog-scroll .archive-police-report-folio{left:var(--paper-padding);right:var(--paper-padding);bottom:calc(var(--paper-padding) * .45)}
 .archive-police-dialog-scroll .archive-police-report:after{font-size:calc(var(--paper-font) * .48);right:var(--paper-padding);top:calc(var(--paper-padding) * .3)}
 .archive-police-dialog-scroll .archive-police-report-attachments{margin:1em 0;gap:.6em;grid-template-columns:repeat(auto-fit,minmax(min(100%,110px),1fr))}
+.archive-police-dialog-scroll [data-police-annex] .archive-police-report-attachments{grid-template-columns:repeat(2,minmax(0,1fr))}
+.archive-police-dialog-scroll [data-police-annex][data-paper-orientation="landscape"]:is([data-paper-size="a4"],[data-paper-size="mini-a4"]) .archive-police-report-attachments{grid-template-columns:repeat(3,minmax(0,1fr))}
+.archive-police-dialog-scroll [data-police-annex]:is([data-paper-size="a6"],[data-paper-size="a7"],[data-paper-size="a8"]) .archive-police-report-attachments{grid-template-columns:minmax(0,1fr)}
 .archive-police-dialog-scroll .archive-police-report-attachment{padding:5px 5px 12px;max-width:min(100%,300px)}
 .archive-police-dialog-scroll .archive-police-report-attachment img{height:auto;max-height:180px}
 .archive-police-report[data-paper-size="a6"] .archive-police-report-attachment img{max-height:85px}
@@ -1110,6 +1113,7 @@ DOCUMENTOS NAVEGABLES — AJUSTES FINALES DE GEOMETRÍA Y LECTURA
 .archive-police-report[data-paper-size="a8"] .archive-police-fiction-note,.archive-police-report[data-paper-size="a7"] .archive-police-fiction-note{font-size:7px}
 .archive-police-dialog-scroll .archive-police-report-text p{margin-bottom:.9em}
 @media(max-width:700px){.archive-police-dialog-scroll .archive-police-report{--paper-padding:clamp(10px,5vw,28px)}.archive-police-dialog-scroll .archive-police-report-text{font-size:clamp(10px,var(--paper-font),18px)}}
+@media(max-width:700px){.archive-police-dialog-scroll [data-police-annex][data-paper-orientation="landscape"]:is([data-paper-size="a4"],[data-paper-size="mini-a4"]) .archive-police-report-attachments{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 /* Corcheras documentales opcionales de cada sección del Archivo. */
 .archive-corkboard-section{padding-top:45px}
