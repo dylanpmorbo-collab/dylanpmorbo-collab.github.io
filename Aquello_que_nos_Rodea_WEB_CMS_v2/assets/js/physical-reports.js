@@ -13,7 +13,16 @@
     const imageCounter=lightbox.querySelector('[data-police-image-counter]');
     const imagePrev=lightbox.querySelector('[data-police-image-prev]');
     const imageNext=lightbox.querySelector('[data-police-image-next]');
-    let page=0,trigger=null,images=[],imageIndex=0,imageTrigger=null;
+    const reveal=document.createElement('button');
+    reveal.type='button';
+    reveal.className='archive-police-image-reveal';
+    reveal.textContent='MOSTRAR ORIGINAL';
+    reveal.setAttribute('aria-label','Mostrar fotografía original ampliada');
+    reveal.hidden=true;
+    lightbox.appendChild(reveal);
+    imagePrev.textContent='← ANTERIOR';
+    imageNext.textContent='SIGUIENTE →';
+    let page=0,trigger=null,images=[],imageIndex=0,imageTrigger=null,imageOriginal='',imageRevealed=false;
     const pages=()=>[...viewer.querySelectorAll('[data-police-page]')];
     function showPage(){
       const all=pages();
@@ -72,10 +81,30 @@
     function showImage(){
       const thumb=images[imageIndex]?.querySelector('img');
       if(!thumb)return;
-      large.src=thumb.currentSrc||thumb.src;large.alt=thumb.alt;
+      imageOriginal=thumb.dataset.globalOriginal||thumb.getAttribute('src')||'';
+      imageRevealed=false;
+      const censored=!!thumb.dataset.globalMode;
+      large.src=thumb.currentSrc||thumb.src;
+      large.alt=thumb.alt;
+      large.classList.toggle('archive-police-image-pixelated',censored);
+      large.classList.toggle('archive-police-image-pixel-pending',censored&&thumb.dataset.globalMode==='pixelado'&&!thumb.classList.contains('global-censored-ready'));
+      reveal.hidden=!censored;
       imageCounter.textContent='IMAGEN '+(imageIndex+1)+' / '+images.length;
       imagePrev.disabled=imageIndex===0;imageNext.disabled=imageIndex===images.length-1;
     }
+    viewer.addEventListener('load',event=>{
+      const thumb=images[imageIndex]?.querySelector('img');
+      if(event.target!==thumb||imageRevealed||!lightbox.open||!thumb.classList.contains('global-censored-ready'))return;
+      large.src=thumb.currentSrc||thumb.src;
+      large.classList.remove('archive-police-image-pixel-pending');
+    },true);
+    reveal.addEventListener('click',()=>{
+      if(!imageOriginal)return;
+      imageRevealed=true;
+      large.src=imageOriginal;
+      large.classList.remove('archive-police-image-pixelated','archive-police-image-pixel-pending');
+      reveal.hidden=true;
+    });
     imagePrev.addEventListener('click',()=>{if(imageIndex>0){imageIndex--;showImage();}});
     imageNext.addEventListener('click',()=>{if(imageIndex<images.length-1){imageIndex++;showImage();}});
     lightbox.querySelector('[data-police-image-close]').addEventListener('click',()=>lightbox.close());
@@ -86,6 +115,7 @@
     });
     lightbox.addEventListener('close',()=>{
       large.removeAttribute('src');images=[];
+      imageOriginal='';imageRevealed=false;reveal.hidden=true;
       if(imageTrigger?.isConnected)imageTrigger.focus();
     });
   });
