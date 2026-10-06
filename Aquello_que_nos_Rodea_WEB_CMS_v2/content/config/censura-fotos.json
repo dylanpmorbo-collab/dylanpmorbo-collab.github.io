@@ -2,8 +2,11 @@
   "photos": [
     {
       "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/autopsia-r-a-web.webp",
-      "mode": "pixelado",
-      "fake_pixel_image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/investigacion-de-la-zona.webp"
+      "mode": "pixelado"
+    },
+    {
+      "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/investigacion-de-la-zona.webp",
+      "mode": "pixelado"
     }
   ]
 }
