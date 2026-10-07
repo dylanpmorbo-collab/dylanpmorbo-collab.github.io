@@ -1279,8 +1279,10 @@ function archivePoliceReportV2(item){
    const importance=reportImportance(report.importance);
    let documents=Array.isArray(report.documents)?report.documents.filter(Boolean).slice(0,5):[];
    if(!documents.length&&(report.body||report.image||report.image_2)) documents=[{
-     title,body:report.body||'',paper:'crema',index_thumbnail:report.index_thumbnail,image:report.image,image_2:report.image_2,
-     image_3:report.image_3,image_4:report.image_4,image_5:report.image_5,image_6:report.image_6
+     title,body:report.body||'',paper:'crema',index_thumbnail:report.index_thumbnail,image:report.image,image_title:report.image_title,
+     image_2:report.image_2,image_2_title:report.image_2_title,image_3:report.image_3,image_3_title:report.image_3_title,
+     image_4:report.image_4,image_4_title:report.image_4_title,image_5:report.image_5,image_5_title:report.image_5_title,
+     image_6:report.image_6,image_6_title:report.image_6_title
    }];
    const cover=String(report.cover_image||'').trim();
    folderCards.push('<button type="button" class="archive-police-folder" data-police-open="'+reportIndex+'" data-importance="'+importance+'" data-report-type="'+esc(type.toUpperCase())+'" aria-label="Abrir '+esc(title)+'">'+
@@ -1302,7 +1304,9 @@ function archivePoliceReportV2(item){
      const paper=paperValues.has(doc.paper)?doc.paper:'crema';
      const paperFormat=physicalPaperSettings(doc);
      const paperAttributes=' data-paper="'+paper+'" data-paper-size="'+paperFormat.size+'" data-paper-orientation="'+paperFormat.orientation+'"';
-     const images=[doc.image,doc.image_2,doc.image_3,doc.image_4,doc.image_5,doc.image_6].filter(Boolean).map(String);
+     const images=['image','image_2','image_3','image_4','image_5','image_6']
+      .filter(key=>doc[key])
+      .map(key=>({src:String(doc[key]),title:String(doc[key+'_title']||'').trim()}));
      const textPages=physicalDocumentPages(doc.body,Boolean(doc.letterhead),paperFormat.capacity);
      const annexes=[];
      const annexSize=paperFormat.size==='a4'||paperFormat.size==='mini-a4'?6:paperFormat.size==='a5'?4:1;
@@ -1317,7 +1321,11 @@ function archivePoliceReportV2(item){
          '<div class="archive-police-report-folio">DOCUMENTO '+String(docIndex+1).padStart(2,'0')+' · FOLIO '+String(pageIndex+1).padStart(2,'0')+' / '+String(total).padStart(2,'0')+'</div></article>');
      });
      annexes.forEach((photos,annexIndex)=>{
-       const attachments=photos.map((image,i)=>'<figure class="archive-police-report-attachment"><button type="button" data-police-image-open aria-label="Ampliar fotografía '+(annexIndex*annexSize+i+1)+' de '+esc(docTitle)+'"><img src="'+esc(image)+'" alt="Fotografía '+(annexIndex*annexSize+i+1)+' de '+esc(docTitle)+'" loading="lazy"></button><figcaption>FOTOGRAFÍA '+String(annexIndex*annexSize+i+1).padStart(2,'0')+'</figcaption></figure>').join('');
+       const attachments=photos.map((photo,i)=>{
+        const number=annexIndex*annexSize+i+1;
+        const label=photo.title||('FOTOGRAFÍA '+String(number).padStart(2,'0'));
+        return '<figure class="archive-police-report-attachment"><button type="button" data-police-image-open aria-label="Ampliar '+esc(label)+'"><img src="'+esc(photo.src)+'" alt="'+esc(label)+'" loading="lazy"></button><figcaption>'+esc(label)+'</figcaption></figure>';
+      }).join('');
        pages.push('<article class="archive-police-report" data-police-page data-police-annex data-police-document="'+docIndex+'"'+paperAttributes+'><div class="archive-police-report-heading">ANEXO FOTOGRÁFICO</div><div class="archive-police-report-attachments">'+attachments+'</div>'+(annexIndex===annexes.length-1?'<p class="archive-police-fiction-note">Documento ficticio creado para una obra narrativa. No es un documento oficial.</p>':'')+'<div class="archive-police-report-folio">DOCUMENTO '+String(docIndex+1).padStart(2,'0')+' · FOLIO '+String(textPages.length+annexIndex+1).padStart(2,'0')+' / '+String(total).padStart(2,'0')+'</div></article>');
      });
    });
