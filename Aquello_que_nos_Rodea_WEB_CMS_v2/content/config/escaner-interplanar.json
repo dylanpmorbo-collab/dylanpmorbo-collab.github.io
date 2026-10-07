@@ -130,6 +130,10 @@
     {
       "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/trazas-sangre.webp",
       "overlay": "/assets/uploads/escaner/capas/trazas-sangre-capa-interplanar-1.png"
+    },
+    {
+      "image": "/assets/uploads/personajes/Richard/LISBOA2023/nuno1-5-2-web.webp",
+      "overlay": "/assets/uploads/escaner/capas/nuno1-5-2-web-capa-interplanar.png"
     }
   ]
 }
