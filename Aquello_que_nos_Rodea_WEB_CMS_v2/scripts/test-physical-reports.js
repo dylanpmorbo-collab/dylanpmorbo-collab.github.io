@@ -15,7 +15,7 @@ vm.runInContext(source.slice(source.indexOf('function policeInlineMarkdown('),so
 vm.runInContext(source.slice(start,end),context);
 const fixture={show_police_report:true,police_reports:[{
   title:'Expediente de prueba',type:'POLICIAL',documents:[
-    {title:'Primero',paper:'blanco',letterhead:'membrete.png',body:'Un texto',image:'foto-1.png'},
+    {title:'Primero',paper:'blanco',letterhead:'membrete.png',body:'Un texto',image:'foto-1.png',image_title:'Vista de la escena'},
     {title:'Segundo',paper:'verde',body:'Otro texto'}
   ]
 }]};
@@ -26,6 +26,8 @@ assert(html.includes('data-paper="verde"'));
 assert(html.includes('class="archive-police-letterhead"'));
 assert.strictEqual((html.match(/class="archive-police-letterhead"/g)||[]).length,1);
 assert(html.includes('data-police-image-open'));
+assert(html.includes('<figcaption>Vista de la escena</figcaption>'));
+assert(html.includes('alt="Vista de la escena"'));
 assert(!context.archivePoliceReportV2({show_police_report:false}).includes('archive-police-dialog'));
 const single=context.archivePoliceReportV2({show_police_report:true,police_reports:[{title:'Solo',documents:[{title:'Hoja',body:'Texto'}]}]});
 assert(!single.includes('ÍNDICE DEL EXPEDIENTE'));
@@ -35,5 +37,7 @@ const long=context.archivePoliceReportV2({show_police_report:true,police_reports
 assert.strictEqual((long.match(/class="archive-police-report-heading">Diligencias preliminares<\/div>/g)||[]).length,1);
 assert(!long.includes('Diligencias preliminares<small> · CONTINUACIÓN'));
 assert(long.includes('class="archive-police-report-heading">ANEXO FOTOGRÁFICO</div>'));
+assert(long.includes('<figcaption>FOTOGRAFÍA 01</figcaption>'));
+assert(long.includes('<figcaption>FOTOGRAFÍA 02</figcaption>'));
 assert(!long.includes('Diligencias preliminares · ANEXO FOTOGRÁFICO'));
 console.log('Expedientes físicos: pruebas correctas');
