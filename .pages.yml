@@ -1022,36 +1022,66 @@ content:
                 options:
                   media: default
                 description: "Primera fotografía incluida en el anexo del informe. No se utiliza como miniatura del índice."
+              - name: image_title
+                label: Título de la fotografía 1
+                type: string
+                required: false
+                description: "Si lo dejas vacío, se mostrará FOTOGRAFÍA 01."
               - name: image_2
                 label: Fotografía 2 (800 × 500 px)
                 type: image
                 required: false
                 options:
                   media: default
+              - name: image_2_title
+                label: Título de la fotografía 2
+                type: string
+                required: false
+                description: "Si lo dejas vacío, se mostrará FOTOGRAFÍA 02."
               - name: image_3
                 label: Fotografía 3 (800 × 500 px)
                 type: image
                 required: false
                 options:
                   media: default
+              - name: image_3_title
+                label: Título de la fotografía 3
+                type: string
+                required: false
+                description: "Si lo dejas vacío, se mostrará FOTOGRAFÍA 03."
               - name: image_4
                 label: Fotografía 4 (800 × 500 px)
                 type: image
                 required: false
                 options:
                   media: default
+              - name: image_4_title
+                label: Título de la fotografía 4
+                type: string
+                required: false
+                description: "Si lo dejas vacío, se mostrará FOTOGRAFÍA 04."
               - name: image_5
                 label: Fotografía 5 (800 × 500 px)
                 type: image
                 required: false
                 options:
                   media: default
+              - name: image_5_title
+                label: Título de la fotografía 5
+                type: string
+                required: false
+                description: "Si lo dejas vacío, se mostrará FOTOGRAFÍA 05."
               - name: image_6
                 label: Fotografía 6 (800 × 500 px)
                 type: image
                 required: false
                 options:
                   media: default
+              - name: image_6_title
+                label: Título de la fotografía 6
+                type: string
+                required: false
+                description: "Si lo dejas vacío, se mostrará FOTOGRAFÍA 06."
       - name: show_digital_reports
         label: Mostrar informes digitales
         type: boolean
@@ -2209,36 +2239,66 @@ content:
                 options:
                   media: default
                 description: "Primera imagen que aparece dentro del informe; la portada exterior de la carpeta se configura por separado."
+              - name: image_title
+                label: Título de la fotografía 1
+                type: string
+                required: false
+                description: "Si lo dejas vacío, se mostrará FOTOGRAFÍA 01."
               - name: image_2
                 label: Fotografía 2 (800 × 500 px)
                 type: image
                 required: false
                 options:
                   media: default
+              - name: image_2_title
+                label: Título de la fotografía 2
+                type: string
+                required: false
+                description: "Si lo dejas vacío, se mostrará FOTOGRAFÍA 02."
               - name: image_3
                 label: Fotografía 3 (800 × 500 px)
                 type: image
                 required: false
                 options:
                   media: default
+              - name: image_3_title
+                label: Título de la fotografía 3
+                type: string
+                required: false
+                description: "Si lo dejas vacío, se mostrará FOTOGRAFÍA 03."
               - name: image_4
                 label: Fotografía 4 (800 × 500 px)
                 type: image
                 required: false
                 options:
                   media: default
+              - name: image_4_title
+                label: Título de la fotografía 4
+                type: string
+                required: false
+                description: "Si lo dejas vacío, se mostrará FOTOGRAFÍA 04."
               - name: image_5
                 label: Fotografía 5 (800 × 500 px)
                 type: image
                 required: false
                 options:
                   media: default
+              - name: image_5_title
+                label: Título de la fotografía 5
+                type: string
+                required: false
+                description: "Si lo dejas vacío, se mostrará FOTOGRAFÍA 05."
               - name: image_6
                 label: Fotografía 6 (800 × 500 px)
                 type: image
                 required: false
                 options:
                   media: default
+              - name: image_6_title
+                label: Título de la fotografía 6
+                type: string
+                required: false
+                description: "Si lo dejas vacío, se mostrará FOTOGRAFÍA 06."
       - name: show_digital_reports
         label: Mostrar informes digitales
         type: boolean
