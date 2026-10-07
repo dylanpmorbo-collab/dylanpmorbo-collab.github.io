@@ -31,6 +31,7 @@
     img.removeAttribute('data-global-key');
     img.removeAttribute('data-global-fake');
     delete img.dataset.globalRenderedSrc;
+    delete img.dataset.globalRevealed;
   }
 
   function pixelate(img, original, key) {
@@ -95,19 +96,20 @@
     if (img.dataset.globalRenderedSrc && currentSrc === img.dataset.globalRenderedSrc) return;
     if (img.dataset.globalRevealed === 'true') {
       if (imagePath(currentSrc) === img.dataset.globalKey) return;
-      delete img.dataset.globalRevealed;
+      clear(img);
     }
     const staticKey = img.dataset.globalKey;
     const key = staticKey && (currentSrc === img.dataset.globalFake || currentSrc === img.dataset.globalOriginal)
       ? staticKey : imagePath(currentSrc);
     const rule = catalog[key];
     if (!rule) {
-      if (img.dataset.globalMode) clear(img);
+      if (img.dataset.globalKey || img.dataset.globalMode) clear(img);
       return;
     }
     const permanentThumbnail = !!img.closest('.archive-police-report-attachment, .scanner-desktop-file, .scanner-file');
-    if (img.dataset.globalMode && img.dataset.globalKey === key && (img._globalCensorButton || (permanentThumbnail && img.classList.contains('global-censored')))) return;
-    if (img.dataset.globalMode) clear(img);
+    const noRevealButton = permanentThumbnail || img.hasAttribute('data-scanner-lens-photo');
+    if (img.dataset.globalMode && img.dataset.globalKey === key && (img._globalCensorButton || (noRevealButton && img.classList.contains('global-censored')))) return;
+    if (img.dataset.globalKey || img.dataset.globalMode) clear(img);
     const original = img.dataset.globalOriginal || currentSrc;
     img.dataset.globalMode = rule.mode;
     img.dataset.globalOriginal = original;
@@ -120,7 +122,7 @@
     const host = parent.tagName === 'BUTTON' || parent.tagName === 'A' ? parent.parentElement : parent;
     if (!host) return;
     host.classList.add('global-censor-host');
-    if (!permanentThumbnail) {
+    if (!noRevealButton) {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'global-censor-reveal';
