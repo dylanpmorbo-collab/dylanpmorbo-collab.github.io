@@ -23,7 +23,10 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
     if (!node || typeof node !== 'object') return;
     const title = String(node.title || node.caption || node.name || inheritedTitle || '').trim();
     for (const [key, value] of Object.entries(node)) {
-      if (/^image(?:_\d+)?$/.test(key) && isLocalImage(value) && title && !metadata.has(value)) metadata.set(value, title);
+      if (/^image(?:_\d+)?$/.test(key) && isLocalImage(value)) {
+        const imageTitle=String(node[key+'_title']||title).trim();
+        if (imageTitle && !metadata.has(value)) metadata.set(value, imageTitle);
+      }
       else if (value && typeof value === 'object') collect(value, title);
     }
   }
