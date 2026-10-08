@@ -147,15 +147,15 @@
         "type": "foto",
         "title": "INFORME DE PERSONA DESAPARECIDA — 01/04/2026",
         "image": "/assets/uploads/SUCESOS/desapariciones techo/techo-2026-web.webp",
-        "x": 47.6,
-        "y": 69.9
+        "x": 49.6,
+        "y": 8
       },
       {
         "id": "nota1",
         "type": "nota",
         "text": "¿QUÉ SON ESOS CÍRCULOS?\n¿QUIEN LOS HACE?\n¿QUÉ SIGNIFICAN?",
-        "x": 51.1,
-        "y": 36.1
+        "x": 50,
+        "y": 68.9
       }
     ],
     "threads": [
