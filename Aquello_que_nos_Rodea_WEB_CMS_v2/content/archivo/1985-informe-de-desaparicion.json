@@ -113,7 +113,7 @@
       {
         "id": "foto1",
         "type": "foto",
-        "title": "1985 — Informe de desaparición",
+        "title": "DESAPARICIÓN VALLADOLID — 18 de octubre de 1985",
         "image": "/assets/uploads/SUCESOS/desapariciones techo/informe-policial-desaparicion-1985-web.webp",
         "x": 18.4,
         "y": 8.7
@@ -121,7 +121,7 @@
       {
         "id": "foto2",
         "type": "foto",
-        "title": "INFORME DE PERSONA DESAPARECIDA — 22/02/1994",
+        "title": "INFORME DE PERSONA DESAPARECIDA — OVIEDO — 7 de marzo de 1994",
         "image": "/assets/uploads/SUCESOS/desapariciones techo/1994-desaparicion-web.webp",
         "x": 84,
         "y": 8
@@ -129,7 +129,7 @@
       {
         "id": "foto3",
         "type": "foto",
-        "title": "INFORME DE INCIDENCIA / DESAPARICIÓN — 03/09/2002",
+        "title": "INFORME DE INCIDENCIA / DESAPARICIÓN — 22 de mayo de 2002",
         "image": "/assets/uploads/SUCESOS/desapariciones techo/informe-policial-desaparicion-2002-web.webp",
         "x": 21.1,
         "y": 59.6
@@ -137,10 +137,18 @@
       {
         "id": "foto4",
         "type": "foto",
-        "title": "INFORME DE PERSONA DESAPARECIDA — 19/11/2008",
+        "title": "INFORME DE PERSONA DESAPARECIDA — 12/11/2008",
         "image": "/assets/uploads/SUCESOS/desapariciones techo/informe-policial-desaparicion-2008-web.webp",
         "x": 80.1,
         "y": 49.1
+      },
+      {
+        "id": "foto5",
+        "type": "foto",
+        "title": "INFORME DE PERSONA DESAPARECIDA — 01/04/2026",
+        "image": "/assets/uploads/SUCESOS/desapariciones techo/techo-2026-web.webp",
+        "x": 47.6,
+        "y": 69.9
       },
       {
         "id": "nota1",
