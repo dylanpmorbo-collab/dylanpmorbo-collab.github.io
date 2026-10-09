@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Editor interplanar — prototipo</title>
+<style>
+:root{font:15px system-ui,sans-serif;color:#e7f3e6;background:#101711}
+*{box-sizing:border-box}body{margin:0}header{padding:18px 24px;background:#17261a;border-bottom:1px solid #3c6041}h1{font-size:1.3rem;margin:0 0 4px}p{margin:0;color:#b9cbb9}
+main{display:grid;grid-template-columns:270px minmax(0,1fr);min-height:calc(100vh - 77px)}
+aside{padding:18px;display:grid;align-content:start;gap:15px;border-right:1px solid #3c6041}
+label{display:grid;gap:5px}input,select,button{font:inherit}input[type=file]{max-width:100%}input[type=range]{width:100%;accent-color:#93ca8f}
+button,select{background:#263d29;color:inherit;border:1px solid #638467;border-radius:4px;padding:9px}
+button{cursor:pointer}button:disabled{opacity:.45;cursor:default}.actions{display:grid;gap:8px}
+#stage{display:grid;place-items:center;padding:18px;overflow:auto;background:#0a100b}
+canvas{max-width:100%;max-height:calc(100vh - 115px);width:auto;height:auto;cursor:crosshair;box-shadow:0 0 0 1px #5a725c}
+#status{color:#b3eca9;min-height:2.5em}.note{font-size:.82rem;line-height:1.4}
+@media(max-width:700px){main{display:block}aside{border-right:0;border-bottom:1px solid #3c6041}canvas{max-height:none}}
+</style>
+</head>
+<body>
+<header><h1>Editor interplanar · prototipo</h1><p>Genera un PNG de radiación transparente del mismo tamaño que la foto.</p></header>
+<main>
+<aside>
+<label>Fotografía <input id="file" type="file" accept="image/*"></label>
+<label>Efecto <select id="kind"><option value="fire">Halo ardiente</option><option value="eyes">Ojos brillantes</option></select></label>
+<label>Variante <select id="variant"></select></label>
+<label>Tamaño <input id="size" type="range" min="8" max="85" value="32"><output id="sizeOut">32</output></label>
+<label>Intensidad <input id="power" type="range" min="10" max="100" value="75"><output id="powerOut">75</output></label>
+<div class="actions"><button id="undo" disabled>Deshacer último</button><button id="clear" disabled>Borrar todo</button><button id="save" disabled>Descargar capa PNG</button></div>
+<p id="status" role="status">Abre una foto para empezar.</p>
+<p class="note">Halo: pulsa el centro de la persona. Ojos: pulsa cada ojo una vez. Puedes combinar ambos efectos. La foto nunca se modifica.</p>
+<p class="note">El rostro demoníaco requiere adaptar una máscara a cada cara; esta primera prueba aún no lo incluye.</p>
+</aside>
+<section id="stage"><canvas id="preview" aria-label="Vista previa"></canvas></section>
+</main>
+<script>
+"use strict";
+const el=id=>document.getElementById(id);
+const canvas=el("preview"),view=canvas.getContext("2d"),overlay=document.createElement("canvas"),paint=overlay.getContext("2d");
+const colors={
+fire:[["Fuego natural","#ff6b12","#ffe081"],["Fuego frío","#238dff","#c7efff"],["Llamas negras","#45305d","#b074bd"],["Radiación verde","#38c960","#d6ff9b"]],
+eyes:[["Rojo","#ee2525","#fff1c3"],["Ámbar","#efa331","#fff2b6"],["Verde","#40e77b","#e0ffcb"],["Violeta","#a05dff","#efdbff"],["Blanco espectral","#a6d7f2","#ffffff"]]
+};
+let photo=null,items=[],firstEye=null;
+function variants(){
+ const list=colors[el("kind").value];
+ el("variant").replaceChildren(...list.map((c,i)=>{const o=document.createElement("option");o.value=i;o.textContent=c[0];return o}));
+ firstEye=null;
+ el("status").textContent=photo?(el("kind").value==="eyes"?"Marca el primer ojo.":"Pulsa el centro del cuerpo."):"Abre una foto para empezar.";
+}
+function buttons(){el("undo").disabled=el("clear").disabled=!items.length;el("save").disabled=!photo}
+function pos(e){const r=canvas.getBoundingClientRect();return{x:(e.clientX-r.left)*canvas.width/r.width,y:(e.clientY-r.top)*canvas.height/r.height}}
+function halo(o){
+ const c=colors.fire[o.variant],small=Math.min(overlay.width,overlay.height),rx=small*o.size/200,ry=rx*1.55;
+ paint.save();paint.globalAlpha=o.power/100;paint.globalCompositeOperation="screen";paint.strokeStyle=c[1];paint.lineWidth=Math.max(2,rx*.06);paint.shadowColor=c[1];paint.shadowBlur=rx*.3;
+ paint.beginPath();paint.ellipse(o.x,o.y,rx,ry,0,0,Math.PI*2);paint.stroke();paint.shadowBlur=0;
+ const count=Math.max(40,Math.round(rx*.5));
+ for(let i=0;i<count;i++){
+  const a=i*2*Math.PI/count,bx=o.x+Math.cos(a)*rx,by=o.y+Math.sin(a)*ry;
+  const h=ry*(.12+.24*Math.sin(i*3.11)**2),dx=Math.cos(a)*rx*.13,w=Math.max(3,rx*.035);
+  const g=paint.createLinearGradient(bx,by,bx+dx,by-h);
+  g.addColorStop(0,c[2]);g.addColorStop(.5,c[1]);g.addColorStop(1,c[1]+"00");
+  paint.fillStyle=g;paint.beginPath();paint.moveTo(bx-w,by);
+  paint.quadraticCurveTo(bx+dx*.3-w,by-h*.55,bx+dx,by-h);
+  paint.quadraticCurveTo(bx+dx*.3+w,by-h*.5,bx+w,by);paint.closePath();paint.fill();
+ }
+ paint.restore();
+}
+function eye(x,y,r,c,alpha){
+ paint.save();paint.globalAlpha=alpha;paint.shadowColor=c[1];paint.shadowBlur=r*3;
+ const g=paint.createRadialGradient(x,y,0,x,y,r*2.7);
+ g.addColorStop(0,c[2]);g.addColorStop(.25,c[1]);g.addColorStop(1,c[1]+"00");
+ paint.fillStyle=g;paint.beginPath();paint.arc(x,y,r*2.7,0,Math.PI*2);paint.fill();paint.restore();
+}
+function draw(){
+ if(!photo)return;
+ paint.clearRect(0,0,overlay.width,overlay.height);
+ for(const o of items){
+  if(o.kind==="fire")halo(o);
+  else{const r=Math.max(2,Math.min(overlay.width,overlay.height)*o.size/2200),c=colors.eyes[o.variant];eye(o.a.x,o.a.y,r,c,o.power/100);eye(o.b.x,o.b.y,r,c,o.power/100)}
+ }
+ view.clearRect(0,0,canvas.width,canvas.height);view.drawImage(photo,0,0);view.drawImage(overlay,0,0);
+}
+el("file").addEventListener("change",async e=>{
+ const file=e.target.files[0];if(!file)return;
+ try{
+  const next=await createImageBitmap(file);if(photo)photo.close();photo=next;
+  canvas.width=overlay.width=next.width;canvas.height=overlay.height=next.height;
+  items=[];firstEye=null;draw();buttons();
+  el("status").textContent="Foto abierta: "+next.width+" × "+next.height+" píxeles.";
+ }catch{el("status").textContent="No se pudo abrir la foto. Prueba con JPG o PNG."}
+});
+canvas.addEventListener("click",e=>{
+ if(!photo)return;
+ const p=pos(e),kind=el("kind").value;
+ const common={kind,variant:Number(el("variant").value),size:Number(el("size").value),power:Number(el("power").value)};
+ if(kind==="eyes"){
+  if(!firstEye){firstEye=p;el("status").textContent="Marca ahora el segundo ojo.";return}
+  items.push({...common,a:firstEye,b:p});firstEye=null;
+ }else items.push({...common,...p});
+ draw();buttons();el("status").textContent="Efecto colocado. Puedes añadir otro o descargar la capa.";
+});
+el("kind").addEventListener("change",variants);
+for(const id of ["size","power"])el(id).addEventListener("input",()=>el(id+"Out").value=el(id).value);
+el("undo").addEventListener("click",()=>{items.pop();firstEye=null;draw();buttons();el("status").textContent="Último efecto eliminado."});
+el("clear").addEventListener("click",()=>{items=[];firstEye=null;draw();buttons();el("status").textContent="Capa vacía."});
+el("save").addEventListener("click",()=>{
+ if(!photo)return;
+ overlay.toBlob(blob=>{
+  if(!blob){el("status").textContent="No se pudo crear el PNG.";return}
+  const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="capa-interplanar.png";a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),60000);el("status").textContent="Capa PNG descargada.";
+ },"image/png");
+});
+variants();buttons();
+</script>
+</body>
+</html>
