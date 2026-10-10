@@ -6,6 +6,27 @@
   document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
   document.querySelectorAll('.redacted').forEach(el=>el.addEventListener('click',()=>el.classList.toggle('revealed')));
 
+  document.querySelectorAll('[data-sandbox-carousel]').forEach(carousel=>{
+    const slides=Array.from(carousel.querySelectorAll('[data-sandbox-slide]'));
+    const counter=carousel.querySelector('[data-sandbox-counter]');
+    if(slides.length<2||!counter)return;
+    let current=0;
+    const show=step=>{
+      slides[current].querySelectorAll('video').forEach(video=>video.pause());
+      slides[current].hidden=true;
+      current=(current+step+slides.length)%slides.length;
+      slides[current].hidden=false;
+      counter.textContent=`${current+1} / ${slides.length}`;
+    };
+    carousel.querySelector('[data-sandbox-prev]')?.addEventListener('click',()=>show(-1));
+    carousel.querySelector('[data-sandbox-next]')?.addEventListener('click',()=>show(1));
+    carousel.addEventListener('keydown',event=>{
+      if(event.target!==carousel||!['ArrowLeft','ArrowRight'].includes(event.key))return;
+      event.preventDefault();
+      show(event.key==='ArrowLeft'?-1:1);
+    });
+  });
+
   document.querySelectorAll('.archive-testimonies').forEach(panel=>{
     const audio=panel.querySelector('.testimony-audio');
     const playButton=panel.querySelector('[data-testimony-play]');

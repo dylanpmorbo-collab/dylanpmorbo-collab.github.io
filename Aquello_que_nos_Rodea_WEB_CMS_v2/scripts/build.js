@@ -297,6 +297,13 @@ const planes=fs.existsSync(planeDir)
     .sort((a,b)=>Number(a.plane_order||99)-Number(b.plane_order||99))
  : [];
 
+const placeDir=path.join(ROOT,'content/lugares');
+const places=fs.existsSync(placeDir)
+ ? fs.readdirSync(placeDir).filter(x=>x.endsWith('.json')).map(x=>readJSON(path.join(placeDir,x)))
+    .filter(x=>x.published!==false)
+    .sort((a,b)=>Number(a.place_order||9999)-Number(b.place_order||9999) || String(a.title||'').localeCompare(String(b.title||''),'es'))
+ : [];
+
 const characterDir=path.join(ROOT,'content/personajes');
 const characters=fs.existsSync(characterDir)
  ? fs.readdirSync(characterDir).filter(x=>x.endsWith('.json')).map(x=>readJSON(path.join(characterDir,x)))
@@ -406,7 +413,7 @@ function archiveByCategory(cat){ return archiveEntries.filter(x=>(x.category||'A
 const archiveSectionDefs=[
  {key:'entidades',label:'ENTIDADES',typeLabel:'ENTIDAD',eyebrow:'CATÁLOGO // ENTIDADES',desc:'Seres, presencias y formas de vida cuya existencia ha quedado registrada.',items:archiveByCategory('ENTIDAD'),file:'archivo-entidades.html',image:String(archiveSectionImages.entidades||'/assets/img/archivo-secciones/entidades.png').trim()},
  {key:'personajes',label:'PERSONAJES',typeLabel:'PERSONA',eyebrow:'CATÁLOGO // PERSONAS',desc:'Individuos relacionados con los expedientes, los sucesos y aquello que permanece oculto.',items:characters,file:'archivo-personajes.html',image:String(archiveSectionImages.personajes||'/assets/img/archivo-secciones/personajes.png').trim()},
- {key:'lugares',label:'LUGARES',typeLabel:'LUGAR',eyebrow:'CATÁLOGO // LUGARES',desc:'Localizaciones vinculadas a anomalías, testimonios o acontecimientos registrados.',items:archiveByCategory('LUGAR'),file:'archivo-lugares.html',image:String(archiveSectionImages.lugares||'/assets/img/archivo-secciones/lugares.png').trim()},
+ {key:'lugares',label:'LUGARES',typeLabel:'LUGAR',eyebrow:'CATÁLOGO // LUGARES',desc:'Localizaciones vinculadas a anomalías, testimonios o acontecimientos registrados.',items:places,file:'archivo-lugares.html',image:String(archiveSectionImages.lugares||'/assets/img/archivo-secciones/lugares.png').trim()},
  {key:'planos',label:'PLANOS',typeLabel:'PLANO',eyebrow:'CATÁLOGO // PLANOS',desc:'Capas de realidad, territorios dimensionales y estructuras que existen fuera de las coordenadas ordinarias.',items:[...planes,...archiveByCategory('PLANO')],file:'archivo-planos.html',image:String(archiveSectionImages.planos||'/assets/img/archivo-secciones/planos.png').trim()},
  {key:'organizaciones',label:'ORGANIZACIONES',typeLabel:'ORGANIZACIÓN',eyebrow:'CATÁLOGO // ORGANIZACIONES',desc:'Grupos, cultos, instituciones y redes cuya actividad aparece en los archivos.',items:archiveByCategory('ORGANIZACIÓN'),file:'archivo-organizaciones.html',image:String(archiveSectionImages.organizaciones||'/assets/img/archivo-secciones/organizaciones.png').trim()},
  {key:'documentos',label:'DOCUMENTOS',typeLabel:'DOCUMENTO',eyebrow:'CATÁLOGO // DOCUMENTOS',desc:'Textos, pruebas, registros y materiales recuperados o parcialmente descifrados.',items:archiveByCategory('DOCUMENTO'),file:'archivo-documentos.html',image:String(archiveSectionImages.documentos||'/assets/img/archivo-secciones/documentos.png').trim()},
@@ -463,15 +470,18 @@ function archiveTopNav(activeKey='index'){
 }
 function archiveEntryCard(section,item){
  const title=itemTitle(section,item);
- const image=itemImage(item);
+ const flexible=section.key==='planos'||section.key==='lugares';
+ const image=String(itemImage(item)||'').trim();
+ const summary=flexible?String(item.summary||'').trim():itemSummary(section,item);
+ const number=String(item.archive_number||'').trim();
  const facts=itemFacts(section,item).slice(0,2);
  const compactFacts=facts.length ? `<dl class="archive-entry-card-facts">${facts.map(f=>`<div><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div>`).join('')}</dl>` : '';
- return `<a class="archive-entry-card reveal" href="${itemHref(section,item)}">
-   ${image?`<div class="archive-entry-card-image"><img src="${esc(image)}" alt="${esc(title)}"></div>`:`<div class="archive-entry-card-image archive-entry-card-placeholder" aria-hidden="true"><span>◉</span></div>`}
+ return `<a class="archive-entry-card reveal${flexible&&!image?' no-media':''}" href="${itemHref(section,item)}">
+   ${image?`<div class="archive-entry-card-image"><img src="${esc(image)}" alt="${esc(title)}"></div>`:flexible?'':`<div class="archive-entry-card-image archive-entry-card-placeholder" aria-hidden="true"><span>◉</span></div>`}
    <div class="archive-entry-card-body">
-     <div class="archive-entry-card-top"><p class="archive-code">${section.typeLabel} // ${esc(itemArchiveNumber(item))}</p>${section.key==='microrrelatos' || section.key==='relatos'?newBadge(item):''}${itemStatus(item)?`<span class="archive-entry-status">${esc(itemStatus(item))}</span>`:''}</div>
+     <div class="archive-entry-card-top"><p class="archive-code">${section.typeLabel}${flexible?(number?' // '+esc(number):''):' // '+esc(itemArchiveNumber(item))}</p>${section.key==='microrrelatos' || section.key==='relatos'?newBadge(item):''}${itemStatus(item)?`<span class="archive-entry-status">${esc(itemStatus(item))}</span>`:''}</div>
      <h2>${esc(String(title).toUpperCase())}</h2>
-     <p class="archive-entry-summary">${esc(itemSummary(section,item))}</p>
+     ${summary?`<p class="archive-entry-summary">${esc(summary)}</p>`:''}
      ${compactFacts}
      <span class="archive-entry-open">CONSULTAR EXPEDIENTE →</span>
    </div>
@@ -1419,29 +1429,59 @@ function planeSequence(item){
  const order=Number(item.plane_order);
  return Number.isInteger(order)&&order>0 ? String(order).padStart(2,'0')+' / 04' : 'PLANO DE LA MAQUINARIA';
 }
+function sandboxCards(item){
+ const blocks=(Array.isArray(item.sandbox)?item.sandbox:[]).filter(block=>block&&String(block.title||'').trim());
+ if(!blocks.length) return '';
+ const cards=blocks.map(block=>{
+   const title=String(block.title).trim();
+   const body=String(block.text||'').trim();
+   const media=(Array.isArray(block.media)?block.media:[]).filter(entry=>entry&&(
+     (entry.kind==='video'&&entry.video)||(entry.kind==='image'&&entry.image)||(!entry.kind&&(entry.image||entry.video))
+   ));
+   const slides=media.map((entry,index)=>{
+     const video=entry.kind==='video'||(!entry.kind&&entry.video);
+     const visual=video
+       ? `<video controls playsinline preload="metadata"${entry.poster?` poster="${esc(entry.poster)}"`:''} aria-label="${esc(entry.caption||`Vídeo ${index+1} de ${title}`)}"><source src="${esc(entry.video)}">Tu navegador no puede reproducir este vídeo.</video>`
+       : `<img src="${esc(entry.image)}" alt="${esc(entry.alt||entry.caption||`${title}, imagen ${index+1}`)}" loading="lazy">`;
+     return `<figure class="sandbox-slide" data-sandbox-slide${index?' hidden':''}><div class="sandbox-slide-media">${visual}</div>${entry.caption?`<figcaption>${esc(entry.caption)}</figcaption>`:''}</figure>`;
+   });
+   const gallery=slides.length?`<div class="sandbox-carousel"${slides.length>1?' data-sandbox-carousel tabindex="0"':''} aria-label="Galería de ${esc(title)}"><div class="sandbox-carousel-viewport">${slides.join('')}</div>${slides.length>1?`<div class="sandbox-carousel-controls"><button type="button" data-sandbox-prev aria-label="Anterior imagen o vídeo">←</button><span data-sandbox-counter aria-live="polite">1 / ${slides.length}</span><button type="button" data-sandbox-next aria-label="Siguiente imagen o vídeo">→</button></div>`:''}</div>`:'';
+   const text=body?`<div class="sandbox-card-text">${plainTextToHTML(body)}</div>`:'';
+   const contents=block.content_order==='TEXTO_PRIMERO'?text+gallery:gallery+text;
+   return `<article class="sandbox-card reveal"><h2>${esc(title)}</h2>${contents}</article>`;
+ }).join('');
+ return `<div class="sandbox-grid">${cards}</div>`;
+}
 function planeEntryPage(section,item){
+ const isPlace=section.key==='lugares';
  const title=itemTitle(section,item);
- const image=itemImage(item);
+ const image=String(itemImage(item)||'').trim();
  const summary=String(item.summary||'').trim();
  const definition=String(item.definition||item.body||'').trim();
  const perception=String(item.perception||'').trim();
  const role=String(item.machinery_role||'').trim();
  const contact=String(item.contact||'').trim();
- const questions=(Array.isArray(item.open_questions)?item.open_questions:[]).filter(x=>x&&x.question);
- const connections=(Array.isArray(item.plane_connections)?item.plane_connections:[]).filter(x=>x&&x.name);
+ const questions=(Array.isArray(item.open_questions)?item.open_questions:[]).filter(x=>x&&String(x.question||'').trim());
+ const relationList=isPlace?item.place_connections:item.plane_connections;
+ const connections=(Array.isArray(relationList)?relationList:[]).filter(x=>x&&String(x.name||'').trim());
  const panel=(label,heading,text,extra='')=>text?`<article class="plane-panel reveal"><p class="archive-code">${label}</p><h2>${heading}</h2>${extra}<div>${plainTextToHTML(text)}</div></article>`:'';
  const roleState=role&&item.role_status?`<span class="plane-state">${esc(item.role_status)}</span>`:'';
- return `${head(`${title} | Planos | El Archivo | ${site.site_title}`,summary,image||section.image)}
- <body class="archive-area plane-entry-page">${header('archivo')}${archiveTopNav(section.key)}<main>
+ const panels=[panel('01 // EXPERIENCIA','Cómo se percibe',perception),panel('02 // ESTRUCTURA','Su papel en la Maquinaria',role,roleState),panel('03 // UMBRAL',isPlace?'Contacto con otros lugares o planos':'Contacto con otros planos',contact)].filter(Boolean);
+ const order=Number(item.place_order);
+ const eyebrow=isPlace?(Number.isInteger(order)&&order>0?`LUGAR ${String(order).padStart(2,'0')}`:'LUGAR // ARCHIVO'):`PLANO ${planeSequence(item)} · LA MAQUINARIA`;
+ const archiveNumber=String(item.archive_number||'').trim();
+ return `${head(`${title} | ${isPlace?'Lugares':'Planos'} | El Archivo | ${site.site_title}`,summary,image||section.image)}
+ <body class="archive-area plane-entry-page${isPlace?' place-entry-page':''}">${header('archivo')}${archiveTopNav(section.key)}<main>
  <section class="plane-hero${image?'':' no-image'}" aria-labelledby="plane-title">
    ${image?`<img class="plane-hero-image" src="${esc(image)}" alt="">`:''}
-   <div class="plane-hero-content"><p class="eyebrow">PLANO ${esc(planeSequence(item))} · LA MAQUINARIA</p><h1 id="plane-title">${esc(title)}</h1>${summary?`<p>${esc(summary)}</p>`:''}</div>
+   <div class="plane-hero-content"><p class="eyebrow">${esc(eyebrow)}${archiveNumber?` · EXPEDIENTE ${esc(archiveNumber)}`:''}</p><h1 id="plane-title">${esc(title)}</h1>${summary?`<p>${esc(summary)}</p>`:''}</div>
  </section>
- <div class="section plane-body"><div class="archive-back-row"><a class="text-link" href="archivo-planos.html">← VOLVER A LOS PLANOS</a><a class="text-link" href="archivo.html">ÍNDICE GENERAL</a></div>
-   <div class="plane-introduction"><p class="archive-code">EXPEDIENTE // ${esc(itemArchiveNumber(item))}</p><h2>Qué es este plano</h2>${definition?`<div>${plainTextToHTML(definition)}</div>`:''}</div>
-   <div class="plane-panel-grid">${panel('01 // EXPERIENCIA','Cómo se percibe',perception)}${panel('02 // ESTRUCTURA','Su papel en la Maquinaria',role,roleState)}${panel('03 // UMBRAL','Contacto con otros planos',contact)}</div>
+ <div class="section plane-body"><div class="archive-back-row"><a class="text-link" href="${esc(section.file)}">← VOLVER A LOS ${isPlace?'LUGARES':'PLANOS'}</a><a class="text-link" href="archivo.html">ÍNDICE GENERAL</a></div>
+   ${definition?`<div class="plane-introduction"><h2>Qué es este ${isPlace?'lugar':'plano'}</h2><div>${plainTextToHTML(definition)}</div></div>`:''}
+   ${panels.length?`<div class="plane-panel-grid">${panels.join('')}</div>`:''}
    ${questions.length?`<section class="plane-questions reveal"><p class="archive-code">INVESTIGACIÓN ABIERTA</p><h2>Preguntas sin respuesta</h2><ol>${questions.map(x=>`<li>${esc(x.question)}</li>`).join('')}</ol></section>`:''}
-   ${connections.length?`<section class="plane-connections reveal"><p class="archive-code">RELACIONES REGISTRADAS</p><h2>Los otros planos</h2><div class="plane-connections-grid">${connections.map(x=>`<article><h3>${esc(x.name)}</h3>${x.description?`<p>${esc(x.description)}</p>`:''}</article>`).join('')}</div></section>`:''}
+   ${connections.length?`<section class="plane-connections reveal"><p class="archive-code">RELACIONES REGISTRADAS</p><h2>Los otros ${isPlace?'lugares':'planos'}</h2><div class="plane-connections-grid">${connections.map(x=>`<article><h3>${esc(x.name)}</h3>${String(x.description||'').trim()?`<p>${esc(x.description)}</p>`:''}</article>`).join('')}</div></section>`:''}
+   ${sandboxCards(item)}
    ${relatedArchiveMarkup(item,itemHref(section,item),title)}
  </div>
  </main>${footer(site)}</body></html>`;
@@ -1449,7 +1489,7 @@ function planeEntryPage(section,item){
 
 function archiveEntryPage(section,item){
  if(section.key==='microrrelatos') return microEntryPage(section,item);
- if(section.key==='planos') return planeEntryPage(section,item);
+ if(section.key==='planos'||section.key==='lugares') return planeEntryPage(section,item);
  const title=itemTitle(section,item);
  const summary=itemSummary(section,item);
  const image=itemImage(item);

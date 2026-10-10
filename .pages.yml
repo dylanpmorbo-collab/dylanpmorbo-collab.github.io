@@ -24,11 +24,17 @@ media:
     rename: safe
     categories: [image]
   - name: planos
-    label: Panorámicas de los planos
+    label: Medios de los planos
     input: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads/planos
     output: /assets/uploads/planos
     rename: safe
-    categories: [image]
+    categories: [image, video]
+  - name: lugares
+    label: Medios de los lugares
+    input: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads/lugares
+    output: /assets/uploads/lugares
+    rename: safe
+    categories: [image, video]
   - name: personajes
     label: Personajes
     input: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/uploads/personajes
@@ -652,6 +658,286 @@ content:
             type: string
             required: true
 
+      - name: sandbox
+        label: Sandbox · apartados libres
+        type: object
+        required: false
+        description: "Añade y ordena cajas. En la web solo se ve el título de cada caja, nunca la palabra Sandbox. Puedes combinar texto, fotos y vídeos libremente."
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: title
+            label: Título del apartado
+            type: string
+            required: true
+          - name: text
+            label: Texto (opcional)
+            type: text
+            required: false
+          - name: content_order
+            label: Orden dentro de la caja
+            type: select
+            default: MEDIOS_PRIMERO
+            options:
+              values: [MEDIOS_PRIMERO, TEXTO_PRIMERO]
+          - name: media
+            label: Carrusel de imágenes y vídeos
+            type: block
+            required: false
+            description: "Añade fotos y vídeos en el orden en que deben verse. Con uno solo no aparecen flechas; con varios se crea un carrusel."
+            blockKey: kind
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{caption}"
+            blocks:
+              - name: image
+                label: Imagen
+                fields:
+                  - name: image
+                    label: Archivo de imagen
+                    type: image
+                    required: true
+                    options:
+                      media: planos
+                  - name: alt
+                    label: Descripción accesible
+                    type: string
+                    required: false
+                  - name: caption
+                    label: Pie de imagen
+                    type: string
+                    required: false
+              - name: video
+                label: Vídeo
+                fields:
+                  - name: video
+                    label: Archivo de vídeo
+                    type: file
+                    required: true
+                    options:
+                      media: planos
+                      categories: [video]
+                  - name: poster
+                    label: Portada opcional del vídeo
+                    type: image
+                    required: false
+                    options:
+                      media: planos
+                  - name: caption
+                    label: Pie de vídeo
+                    type: string
+                    required: false
+
+  - name: lugares
+    label: Lugares
+    type: collection
+    path: Aquello_que_nos_Rodea_WEB_CMS_v2/content/lugares
+    format: json
+    filename: "{primary}.json"
+    view:
+      fields: [place_order, title, published]
+      primary: title
+      sort: [place_order, title]
+      search: [title, summary]
+    fields:
+      - name: title
+        label: Nombre del lugar
+        type: string
+        required: true
+      - name: slug
+        label: Dirección web
+        type: string
+        required: true
+        pattern:
+          regex: "^[a-z0-9-]+$"
+          message: "Usa solo minúsculas, números y guiones."
+      - name: place_order
+        label: Orden en la sección Lugares
+        type: number
+        required: false
+      - name: archive_number
+        label: Número de expediente
+        type: string
+        required: false
+      - name: published
+        label: Publicado
+        type: boolean
+        default: false
+      - name: panorama
+        label: Panorámica principal
+        type: image
+        required: false
+        options:
+          media: lugares
+        description: "Imagen ancha del lugar. Ocupa la cabecera con el nombre superpuesto y también aparece en el índice."
+      - name: summary
+        label: Frase introductoria
+        type: text
+        required: false
+      - name: definition
+        label: Qué es este lugar
+        type: text
+        required: false
+      - name: perception
+        label: Cómo se percibe desde dentro
+        type: text
+        required: false
+      - name: machinery_role
+        label: Papel en la Maquinaria
+        type: text
+        required: false
+      - name: role_status
+        label: Grado de certeza sobre ese papel
+        type: select
+        required: false
+        options:
+          values: [CONFIRMADO, HIPÓTESIS, EN ESTUDIO, DESCONOCIDO]
+      - name: contact
+        label: Señales de contacto con otros lugares o planos
+        type: text
+        required: false
+      - name: open_questions
+        label: Preguntas abiertas
+        type: object
+        required: false
+        list:
+          max: 10
+          collapsible:
+            collapsed: true
+            summary: "{question}"
+        fields:
+          - name: question
+            label: Pregunta
+            type: string
+            required: true
+      - name: place_connections
+        label: Relación con otros lugares
+        type: object
+        required: false
+        list:
+          max: 12
+          collapsible:
+            collapsed: true
+            summary: "{name}"
+        fields:
+          - name: name
+            label: Nombre del otro lugar
+            type: string
+            required: true
+          - name: description
+            label: Qué relación se conoce
+            type: text
+            required: false
+      - name: show_related_archive
+        label: Mostrar casos documentados
+        type: boolean
+        default: false
+      - name: related_archive
+        label: Casos y documentos relacionados
+        type: object
+        required: false
+        list:
+          max: 12
+          collapsible:
+            collapsed: true
+            summary: "{type} · {title}"
+        fields:
+          - name: type
+            label: Tipo
+            type: select
+            default: ARCHIVO
+            options:
+              values: [ARCHIVO, DOCUMENTO, SUCESO, LUGAR, PERSONAJE, ENTIDAD, PLANO, OTRO]
+          - name: title
+            label: Título visible
+            type: string
+            required: true
+          - name: thumbnail
+            label: Miniatura
+            type: image
+            required: false
+            options:
+              media: default
+          - name: url
+            label: Enlace al expediente
+            type: string
+            required: true
+      - name: sandbox
+        label: Sandbox · apartados libres
+        type: object
+        required: false
+        description: "Añade y ordena cajas. En la web solo se ve el título de cada caja, nunca la palabra Sandbox. Puedes combinar texto, fotos y vídeos libremente."
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: title
+            label: Título del apartado
+            type: string
+            required: true
+          - name: text
+            label: Texto (opcional)
+            type: text
+            required: false
+          - name: content_order
+            label: Orden dentro de la caja
+            type: select
+            default: MEDIOS_PRIMERO
+            options:
+              values: [MEDIOS_PRIMERO, TEXTO_PRIMERO]
+          - name: media
+            label: Carrusel de imágenes y vídeos
+            type: block
+            required: false
+            description: "Añade fotos y vídeos en el orden en que deben verse. Con uno solo no aparecen flechas; con varios se crea un carrusel."
+            blockKey: kind
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{caption}"
+            blocks:
+              - name: image
+                label: Imagen
+                fields:
+                  - name: image
+                    label: Archivo de imagen
+                    type: image
+                    required: true
+                    options:
+                      media: lugares
+                  - name: alt
+                    label: Descripción accesible
+                    type: string
+                    required: false
+                  - name: caption
+                    label: Pie de imagen
+                    type: string
+                    required: false
+              - name: video
+                label: Vídeo
+                fields:
+                  - name: video
+                    label: Archivo de vídeo
+                    type: file
+                    required: true
+                    options:
+                      media: lugares
+                      categories: [video]
+                  - name: poster
+                    label: Portada opcional del vídeo
+                    type: image
+                    required: false
+                    options:
+                      media: lugares
+                  - name: caption
+                    label: Pie de vídeo
+                    type: string
+                    required: false
+
   - name: archivo
     label: El Archivo
     type: collection
@@ -685,7 +971,7 @@ content:
         type: select
         default: ENTIDAD
         options:
-          values: [ENTIDAD, LUGAR, PLANO, ORGANIZACIÓN, DOCUMENTO, SUCESO, TESTIMONIO]
+          values: [ENTIDAD, PLANO, ORGANIZACIÓN, DOCUMENTO, SUCESO, TESTIMONIO]
       - name: published
         label: Publicado
         type: boolean

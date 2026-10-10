@@ -254,6 +254,7 @@
 .plane-index-card-content b{margin-top:30px}
 .plane-return{padding-top:0}
 .plane-hero{position:relative;display:flex;align-items:flex-end;min-height:min(86vh,850px);padding:195px 7vw 90px;overflow:hidden;border-bottom:1px solid var(--line);background:linear-gradient(145deg,#0c151a,#11100e)}
+.plane-hero.no-image{min-height:0;padding-top:185px;padding-bottom:60px}
 .plane-hero-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 58%}
 .plane-hero:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(3,5,6,.96),rgba(3,5,6,.43) 58%,rgba(3,5,6,.2)),linear-gradient(90deg,rgba(3,5,6,.47),transparent 68%)}
 .plane-hero-content{position:relative;z-index:1;max-width:1000px}
@@ -277,7 +278,26 @@
 .plane-connections-grid article{padding:24px;border:1px solid var(--line);background:#10100e}
 .plane-connections-grid h3{margin:0 0 12px;color:#cdb98c;font:600 21px var(--display)}
 .plane-connections-grid p{margin:0;color:#ada394;font-size:17px}
-@media(max-width:700px){.plane-index-heading{padding-top:175px}.plane-index-card{min-height:450px}.plane-index-card:after{background:linear-gradient(0deg,rgba(4,7,8,.95),rgba(4,7,8,.08) 90%)}.plane-hero{min-height:72vh;padding:180px 24px 56px}.plane-hero h1{font-size:clamp(44px,11vw,68px)}.plane-hero-image{object-position:55% center}.plane-body{padding-top:34px}.plane-introduction{margin:55px 0}.plane-panel-grid,.plane-connections-grid{grid-template-columns:1fr}.plane-questions,.plane-connections{margin-top:58px}}
+.sandbox-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:80px}
+.sandbox-card{min-width:0;padding:clamp(25px,3vw,40px);border:1px solid var(--line);background:linear-gradient(145deg,#13120f,#0a0a09)}
+.sandbox-card h2{margin:0 0 22px;color:#d6c39f;font:500 clamp(29px,3vw,43px)/1.1 var(--serif)}
+.sandbox-card-text{color:#bdb4a7;font-size:20px;line-height:1.5}
+.sandbox-card-text p{margin:0 0 15px}
+.sandbox-card-text p:last-child{margin-bottom:0}
+.sandbox-card-text+.sandbox-carousel{margin-top:22px}
+.sandbox-carousel{min-width:0;margin:0 0 22px;border:1px solid #302a22;background:#070706}
+.sandbox-card .sandbox-carousel:last-child{margin-bottom:0}
+.sandbox-carousel-viewport{display:grid;aspect-ratio:4/3;min-height:280px}
+.sandbox-slide{grid-area:1/1;display:flex;flex-direction:column;min-width:0;min-height:0;margin:0}
+.sandbox-slide[hidden]{display:none!important}
+.sandbox-slide-media{flex:1;min-height:0}
+.sandbox-slide img,.sandbox-slide video{display:block;width:100%;height:100%;object-fit:contain}
+.sandbox-slide video{background:#050504}
+.sandbox-slide figcaption{padding:11px 15px;color:#a99a7e;font-size:15px;line-height:1.4;border-top:1px solid #302a22}
+.sandbox-carousel-controls{display:flex;align-items:center;justify-content:center;gap:18px;padding:9px 12px;border-top:1px solid #302a22;color:#baa77f;font:600 13px var(--display);letter-spacing:.12em}
+.sandbox-carousel-controls button{width:36px;height:32px;border:1px solid #5a4b30;background:#17140f;color:#d2b879;cursor:pointer;font-size:18px}
+.sandbox-carousel-controls button:hover,.sandbox-carousel-controls button:focus-visible{background:#302719;outline:1px solid #b99a5d;outline-offset:2px}
+@media(max-width:700px){.plane-index-heading{padding-top:175px}.plane-index-card{min-height:450px}.plane-index-card:after{background:linear-gradient(0deg,rgba(4,7,8,.95),rgba(4,7,8,.08) 90%)}.plane-hero{min-height:72vh;padding:180px 24px 56px}.plane-hero.no-image{min-height:0;padding-top:155px;padding-bottom:48px}.plane-hero h1{font-size:clamp(44px,11vw,68px)}.plane-hero-image{object-position:55% center}.plane-body{padding-top:34px}.plane-introduction{margin:55px 0}.plane-panel-grid,.plane-connections-grid,.sandbox-grid{grid-template-columns:1fr}.plane-questions,.plane-connections,.sandbox-grid{margin-top:58px}.sandbox-carousel-viewport{min-height:240px}}
 
 .archive-entry-hero{
   min-height:72vh;
@@ -366,6 +386,7 @@
 @media(max-width:980px){
   .archive-entry-grid{grid-template-columns:1fr}
   .archive-entry-card{display:grid;grid-template-columns:minmax(210px,.62fr) minmax(0,1fr)}
+  .archive-entry-card.no-media{display:flex}
   .archive-entry-card-image{height:100%;min-height:320px;border-bottom:0;border-right:1px solid var(--line)}
   .archive-entry-hero{grid-template-columns:1fr minmax(300px,.62fr);gap:4vw;padding-inline:4vw}
   .archive-entry-layout{grid-template-columns:1fr;gap:42px}

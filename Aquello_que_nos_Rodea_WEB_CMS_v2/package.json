@@ -3,6 +3,7 @@
   "private": true,
   "version": "2.0.0",
   "scripts": {
-    "build": "node scripts/build.js"
+    "build": "node scripts/build.js",
+    "test:locations": "node scripts/test-location-pages.js"
   }
 }
