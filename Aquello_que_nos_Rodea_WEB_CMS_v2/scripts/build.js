@@ -24,12 +24,12 @@ function extractMarkdownImages(value){
     const html=markdownImageHTML(alt,source,title);
     if(!html) return match;
     images.push(html);
-    return '\u001eAQNR_IMAGE_'+(images.length-1)+'\u001e';
+    return '\u001eAQNRIMAGE'+(images.length-1)+'\u001e';
   });
   return {text,images};
 }
 function restoreMarkdownImages(html,images){
-  return html.replace(/\u001eAQNR_IMAGE_(\d+)\u001e/g,(_,index)=>images[Number(index)]||'');
+  return html.replace(/\u001eAQNRIMAGE(\d+)\u001e/g,(_,index)=>images[Number(index)]||'');
 }
 function standaloneMarkdownImage(block){
   const match=String(block).match(new RegExp('^'+markdownImagePattern.source+'$'));
@@ -1220,8 +1220,27 @@ function archiveDigitalReports(item){
 }
 function archivePoliceReport(item){return archivePoliceReportV2(item);}
 
+function physicalDocumentBlocks(body){
+ const blocks=[];
+ for(const paragraph of String(body||'').replace(/\r\n/g,'\n').split(/\n\s*\n/)){
+   let lines=[];
+   const flush=()=>{
+     const block=lines.join('\n').trim();
+     if(block&&!/^(?:(?:&nbsp;|&#160;|&#xA0;)|\s)*$/i.test(block))blocks.push(block);
+     lines=[];
+   };
+   for(const line of paragraph.split('\n')){
+     if(standaloneMarkdownImage(line.trim())){
+       flush();
+       blocks.push(line.trim());
+     }else lines.push(line);
+   }
+   flush();
+ }
+ return blocks;
+}
 function physicalDocumentPages(body,hasLetterhead,capacity=1150){
- const blocks=String(body||'').replace(/\r\n/g,'\n').split(/\n\s*\n/).map(x=>x.trim()).filter(block=>block&&!/^(?:(?:&nbsp;|&#160;|&#xA0;)|\s)*$/i.test(block));
+ const blocks=physicalDocumentBlocks(body);
  const chunks=[];
  for(const block of blocks){
    const table=policeTableParts(block);
@@ -1287,24 +1306,17 @@ function physicalDocumentPages(body,hasLetterhead,capacity=1150){
  for(let index=0;index<chunks.length;index++){
    let unit=chunks[index];
    const isHeading=/^(?:#{1,4}\s+.+|\*\*[^\n]{1,140}\*\*)$/.test(unit);
-   if(isHeading&&chunks[index+1])unit+='\n\n'+chunks[++index];
+   if(isHeading&&chunks[index+1]&&!standaloneMarkdownImage(chunks[index+1]))unit+='\n\n'+chunks[++index];
    units.push(unit);
  }
- const pages=[];let current='',limit=hasLetterhead?Math.round(capacity*.88):capacity;
+ const pages=[];let current='',size=0,limit=hasLetterhead?Math.round(capacity*.88):capacity;
  for(let index=0;index<units.length;index++){
    const unit=units[index];
-   if(standaloneMarkdownImage(unit)){
-     if(current){pages.push(current);current='';}
-     let imagePage=unit;
-     if(units[index+1]&&/^>\s?/.test(units[index+1])&&units[index+1].length<400){
-       imagePage+='\n\n'+units[++index];
-     }
-     pages.push(imagePage);
-     limit=capacity;
-     continue;
-   }
-   if(current&&current.length+unit.length+2>limit){pages.push(current);current='';limit=capacity;}
+   // A framed image occupies physical space even though its Markdown is short.
+   const cost=standaloneMarkdownImage(unit)?Math.round(capacity*.45):unit.length;
+   if(current&&size+cost+2>limit){pages.push(current);current='';size=0;limit=capacity;}
    current+=(current?'\n\n':'')+unit;
+   size+=cost+2;
  }
  if(current||!pages.length) pages.push(current);
  return pages;
@@ -1836,3 +1848,4 @@ fs.writeFileSync(path.join(DIST,'sobre.html'),about);
 fs.writeFileSync(path.join(DIST,'robots.txt'),'User-agent: *\\nAllow: /\\n');
 buildPhotoCensorship({root:ROOT, dist:DIST, entries:globalCensorship});
 console.log(`Construida web con ${stories.length} relato(s) y ${micros.length} microrrelato(s).`);
+

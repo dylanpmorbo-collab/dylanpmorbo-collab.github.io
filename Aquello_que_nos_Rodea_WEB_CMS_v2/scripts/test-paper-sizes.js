@@ -8,8 +8,9 @@ const context = {
   archiveDigitalReports: () => ({ count: 0, html: '' }),
 };
 vm.createContext(context);
+vm.runInContext(source.slice(source.indexOf('function markdownImageHTML('),source.indexOf('function copyDir(')), context);
 vm.runInContext(source.slice(source.indexOf('function policeInlineMarkdown('), source.indexOf('function orderedDigitalItems(')), context);
-vm.runInContext(source.slice(source.indexOf('function physicalDocumentPages('), source.indexOf('function archiveInformationBlocks(')), context);
+vm.runInContext(source.slice(source.indexOf('function physicalDocumentBlocks('), source.indexOf('function archiveInformationBlocks(')), context);
 
 const sizeNames = ['a4', 'mini-a4', 'a5', 'a6', 'a7', 'a8'];
 const colors = ['blanco', 'crema', 'amarillo', 'gris', 'verde'];
@@ -30,3 +31,4 @@ assert(old.includes('data-paper-size="a4"'));
 assert(old.includes('data-paper-orientation="portrait"'));
 assert(old.includes('data-paper="verde"'));
 console.log('Tamaños, orientación, colores y Markdown: pruebas correctas');
+

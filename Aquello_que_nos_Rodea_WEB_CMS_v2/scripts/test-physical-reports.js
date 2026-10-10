@@ -2,7 +2,7 @@ const assert=require('assert');
 const fs=require('fs');
 const vm=require('vm');
 const source=fs.readFileSync(require.resolve('./build.js'),'utf8');
-const start=source.indexOf('function physicalDocumentPages(');
+const start=source.indexOf('function physicalDocumentBlocks(');
 const end=source.indexOf('function archiveInformationBlocks(',start);
 assert(start>=0&&end>start);
 const context={
@@ -11,6 +11,7 @@ const context={
   esc:value=>String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;')
 };
 vm.createContext(context);
+vm.runInContext(source.slice(source.indexOf('function markdownImageHTML('),source.indexOf('function copyDir(')),context);
 vm.runInContext(source.slice(source.indexOf('function policeInlineMarkdown('),source.indexOf('const reportImportanceLabels=')),context);
 vm.runInContext(source.slice(start,end),context);
 const fixture={show_police_report:true,police_reports:[{
@@ -41,3 +42,4 @@ assert(long.includes('<figcaption>FOTOGRAFÍA 01</figcaption>'));
 assert(long.includes('<figcaption>FOTOGRAFÍA 02</figcaption>'));
 assert(!long.includes('Diligencias preliminares · ANEXO FOTOGRÁFICO'));
 console.log('Expedientes físicos: pruebas correctas');
+
