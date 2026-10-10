@@ -1313,7 +1313,7 @@ function physicalDocumentPages(body,hasLetterhead,capacity=1150){
  for(let index=0;index<units.length;index++){
    const unit=units[index];
    // A framed image occupies physical space even though its Markdown is short.
-   const cost=standaloneMarkdownImage(unit)?Math.round(capacity*.45):unit.length;
+   const cost=standaloneMarkdownImage(unit)?Math.round(capacity*.32):unit.length;
    if(current&&size+cost+2>limit){pages.push(current);current='';size=0;limit=capacity;}
    current+=(current?'\n\n':'')+unit;
    size+=cost+2;

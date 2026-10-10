@@ -37,7 +37,11 @@ const imagePages=context.physicalDocumentPages('Texto anterior.\n'+inlineImage+'
 assert.strictEqual(imagePages.length,1);
 assert.strictEqual(imagePages[0],'Texto anterior.\n\n'+inlineImage+'\n\nTexto posterior.');
 assert(context.policeMarkdownToHTML(imagePages[0]).includes('<figure class="markdown-figure">'));
-const crowdedPages=context.physicalDocumentPages('Nota '.repeat(250)+'\n'+inlineImage,false,2200);
+const roomForImage=context.physicalDocumentPages('Nota '.repeat(250)+'\n'+inlineImage,false,2200);
+assert.strictEqual(roomForImage.length,1);
+const twoImages=context.physicalDocumentPages(inlineImage+'\n'+inlineImage,false,2200);
+assert.strictEqual(twoImages.length,1);
+const crowdedPages=context.physicalDocumentPages('Nota '.repeat(340)+'\n'+inlineImage,false,2200);
 assert.strictEqual(crowdedPages.length,2);
 assert.strictEqual(crowdedPages[1],inlineImage);
 console.log('Markdown de informes físicos: tablas correctas');
