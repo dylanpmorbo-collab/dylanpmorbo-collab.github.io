@@ -560,7 +560,7 @@ content:
         type: image
         required: false
         options:
-          media: planos
+          media: default
         description: "Imagen ancha del plano. Ocupa toda la cabecera con el nombre superpuesto; también identifica el plano en el índice."
       - name: summary
         label: Frase introductoria
@@ -701,7 +701,7 @@ content:
                     type: image
                     required: true
                     options:
-                      media: planos
+                      media: default
                   - name: alt
                     label: Descripción accesible
                     type: string
@@ -718,14 +718,14 @@ content:
                     type: file
                     required: true
                     options:
-                      media: planos
+                      media: default
                       categories: [video]
                   - name: poster
                     label: Portada opcional del vídeo
                     type: image
                     required: false
                     options:
-                      media: planos
+                      media: default
                   - name: caption
                     label: Pie de vídeo
                     type: string
@@ -771,7 +771,7 @@ content:
         type: image
         required: false
         options:
-          media: lugares
+          media: default
         description: "Imagen ancha del lugar. Ocupa la cabecera con el nombre superpuesto y también aparece en el índice."
       - name: summary
         label: Frase introductoria
@@ -908,7 +908,7 @@ content:
                     type: image
                     required: true
                     options:
-                      media: lugares
+                      media: default
                   - name: alt
                     label: Descripción accesible
                     type: string
@@ -925,14 +925,14 @@ content:
                     type: file
                     required: true
                     options:
-                      media: lugares
+                      media: default
                       categories: [video]
                   - name: poster
                     label: Portada opcional del vídeo
                     type: image
                     required: false
                     options:
-                      media: lugares
+                      media: default
                   - name: caption
                     label: Pie de vídeo
                     type: string
@@ -1512,7 +1512,7 @@ content:
                     required: false
                     options:
                       format: markdown
-                      media: false
+                      media: default
                       switcher: true
                     description: "Solo para tipo TEXTO. Admite títulos, negritas, cursivas, listas, citas, tablas y enlaces."
                   - name: image
@@ -2729,7 +2729,7 @@ content:
                     required: false
                     options:
                       format: markdown
-                      media: false
+                      media: default
                       switcher: true
                     description: "Solo para tipo TEXTO. Admite títulos, negritas, cursivas, listas, citas, tablas y enlaces."
                   - name: image

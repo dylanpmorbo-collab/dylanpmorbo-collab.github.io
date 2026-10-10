@@ -43,6 +43,7 @@ try {
   const placeHtml = fs.readFileSync(path.join(scratch, 'dist/archivo-lugares-torre-hundida.html'), 'utf8');
   const planeIndex = fs.readFileSync(path.join(scratch, 'dist/archivo-planos.html'), 'utf8');
   const placeIndex = fs.readFileSync(path.join(scratch, 'dist/archivo-lugares.html'), 'utf8');
+  const richardHtml = fs.readFileSync(path.join(scratch, 'dist/archivo-sucesos-homicidio-richard-alcoy.html'), 'utf8');
 
   assert.match(planeHtml, /<h2>Solo texto<\/h2>/);
   assert.match(planeHtml, /<h2>Pruebas visuales<\/h2>/);
@@ -65,7 +66,11 @@ try {
   assert.doesNotMatch(placeHtml, />Sandbox</);
   assert.match(placeIndex, /archivo-lugares-torre-hundida.html/);
   assert.ok(fs.existsSync(path.join(scratch, 'dist/archivo-planos-plano-humano.html')));
-  console.log('OK: Planos y Lugares generan fichas flexibles sin huecos vacíos.');
+  const mapImage = /<img class="markdown-image" src="\/assets\/uploads\/archivo\/mapa-web\.webp"/g;
+  assert.equal([...richardHtml.matchAll(mapImage)].length, 2, 'El mapa Markdown debe verse en el informe físico y el digital de Richard.');
+  assert.match(richardHtml, /archive-police-report-text[\s\S]*?<figure class="markdown-figure"><img class="markdown-image" src="\/assets\/uploads\/archivo\/mapa-web\.webp"/);
+  assert.match(richardHtml, /retro-text-document[\s\S]*?<figure class="markdown-figure"><img class="markdown-image" src="\/assets\/uploads\/archivo\/mapa-web\.webp"/);
+  console.log('OK: Planos, Lugares y las imágenes Markdown de los informes físicos y digitales.');
 } finally {
   if (scratch.startsWith(os.tmpdir() + path.sep) && path.basename(scratch).startsWith('aqnr-location-test-')) {
     fs.rmSync(scratch, { recursive: true, force: true });

@@ -9,6 +9,32 @@ const globalCensorship = loadPhotoCensorship(ROOT);
 
 function readJSON(p){ return JSON.parse(fs.readFileSync(p,'utf8')); }
 function esc(s=''){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function markdownImageHTML(alt,source,title=''){
+  let url=String(source||'').trim().replace(/^<|>$/g,'');
+  const repositoryAssets=url.match(/^(?:\.\/)?Aquello_que_nos_Rodea_WEB_CMS_v2\/(assets\/.*)$/);
+  if(repositoryAssets) url='/'+repositoryAssets[1];
+  else if(/^(?:\.\/)?assets\//.test(url)) url='/'+url.replace(/^\.\//,'');
+  if(!url||(!/^https?:\/\//i.test(url)&&(!url.startsWith('/')||url.startsWith('//')))) return '';
+  return '<img class="markdown-image" src="'+esc(url)+'" alt="'+esc(alt)+'"'+(title?' title="'+esc(title)+'"':'')+' loading="lazy">';
+}
+const markdownImagePattern=/!\[([^\]\n]*)\]\(\s*(<[^>\n]+>|[^)\n]+?)(?:\s+["']([^"'\n]*)["'])?\s*\)/g;
+function extractMarkdownImages(value){
+  const images=[];
+  const text=String(value).replace(markdownImagePattern,(match,alt,source,title)=>{
+    const html=markdownImageHTML(alt,source,title);
+    if(!html) return match;
+    images.push(html);
+    return '\u001eAQNR_IMAGE_'+(images.length-1)+'\u001e';
+  });
+  return {text,images};
+}
+function restoreMarkdownImages(html,images){
+  return html.replace(/\u001eAQNR_IMAGE_(\d+)\u001e/g,(_,index)=>images[Number(index)]||'');
+}
+function standaloneMarkdownImage(block){
+  const match=String(block).match(new RegExp('^'+markdownImagePattern.source+'$'));
+  return match?markdownImageHTML(match[1],match[2],match[3]):'';
+}
 function copyDir(src,dst){
   fs.mkdirSync(dst,{recursive:true});
   for(const ent of fs.readdirSync(src,{withFileTypes:true})){
@@ -17,12 +43,13 @@ function copyDir(src,dst){
   }
 }
 function inlineMarkdown(s){
-  let x=esc(s);
+  const {text,images}=extractMarkdownImages(s);
+  let x=esc(text);
   x=x.replace(/\x60([^\x60]+)\x60/g,'<code>$1</code>');
   x=x.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g,'<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
   x=x.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
   x=x.replace(/\*(.+?)\*/g,'<em>$1</em>');
-  return x.replace(/\u001f/g,'<br>');
+  return restoreMarkdownImages(x.replace(/\u001f/g,'<br>'),images);
 }
 function markdownTableCells(line){
   const cells=[];let cell='';
@@ -61,6 +88,8 @@ function markdownToHTML(src=''){
     .map(b=>{
       const table=markdownTableParts(b);
       if(table)return markdownTableHTML(table);
+      const image=standaloneMarkdownImage(b);
+      if(image)return '<figure class="markdown-figure">'+image+'</figure>';
       if(/^(?:-{3,}|_{3,}|\*{3,})$/.test(b))return '<hr>';
       const lines=b.split('\n');
       if(lines.every(line=>/^\s*[-*+]\s+/.test(line)))return '<ul>'+lines.map(line=>'<li>'+inlineMarkdown(line.replace(/^\s*[-*+]\s+/,''))+'</li>').join('')+'</ul>';
@@ -90,7 +119,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=visor-fotos-20261006"><script defer src="assets/js/main.js?v=testimonios-20260920"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=markdown-20261010"><script defer src="assets/js/main.js?v=testimonios-20260920"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -992,12 +1021,13 @@ function archiveDocuments(item){
 
 
 function policeInlineMarkdown(value=''){
- let text=esc(value);
+ const {text:raw,images}=extractMarkdownImages(value);
+ let text=esc(raw);
  text=text.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g,'<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
  text=text.replace(/\x60([^\x60]+)\x60/g,'<code>$1</code>');
  text=text.replace(/\*\*(.+?)\*\*|__(.+?)__/g,(_,a,b)=>'<strong>'+(a||b)+'</strong>');
  text=text.replace(/\*([^*\n]+)\*|_([^_\n]+)_/g,(_,a,b)=>'<em>'+(a||b)+'</em>');
- return text.replace(/\u001f/g,'<br>');
+ return restoreMarkdownImages(text.replace(/\u001f/g,'<br>'),images);
 }
 function policeTableCells(line){
  const cells=[];let cell='';
@@ -1037,6 +1067,8 @@ function policeMarkdownToHTML(source=''){
    const lines=block.split('\n');
    const table=policeTableParts(block);
    if(table) return policeTableHTML(table);
+   const image=standaloneMarkdownImage(block);
+   if(image) return '<figure class="markdown-figure">'+image+'</figure>';
    const heading=block.match(/^(#{1,4})\s+(.+)$/);
    if(heading && lines.length===1) return '<h'+Math.min(heading[1].length+2,6)+'>'+policeInlineMarkdown(heading[2])+'</h'+Math.min(heading[1].length+2,6)+'>';
    if(/^[-*_]{3,}$/.test(block)) return '<hr>';
@@ -1259,7 +1291,18 @@ function physicalDocumentPages(body,hasLetterhead,capacity=1150){
    units.push(unit);
  }
  const pages=[];let current='',limit=hasLetterhead?Math.round(capacity*.88):capacity;
- for(const unit of units){
+ for(let index=0;index<units.length;index++){
+   const unit=units[index];
+   if(standaloneMarkdownImage(unit)){
+     if(current){pages.push(current);current='';}
+     let imagePage=unit;
+     if(units[index+1]&&/^>\s?/.test(units[index+1])&&units[index+1].length<400){
+       imagePage+='\n\n'+units[++index];
+     }
+     pages.push(imagePage);
+     limit=capacity;
+     continue;
+   }
    if(current&&current.length+unit.length+2>limit){pages.push(current);current='';limit=capacity;}
    current+=(current?'\n\n':'')+unit;
  }

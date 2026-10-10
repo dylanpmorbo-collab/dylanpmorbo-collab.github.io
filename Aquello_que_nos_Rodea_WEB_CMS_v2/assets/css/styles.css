@@ -1439,6 +1439,11 @@ html:not(.age-verified){overflow:hidden}
 .retro-text-document th,.retro-text-document td{padding:7px;border:1px solid #bbb;text-align:left}
 .retro-text-document blockquote{margin:1em 0;padding:8px 14px;border-left:3px solid #888;background:#f3f3f3}
 .retro-text-document a{color:#0645ad}
+.markdown-figure{max-width:100%;margin:1.5em 0}
+.markdown-image{display:block;max-width:100%;height:auto;margin:1em auto;object-fit:contain}
+.markdown-figure .markdown-image{margin:0 auto}
+.retro-text-document .markdown-image{width:auto;max-height:70vh}
+.archive-police-report-text .markdown-image{width:auto;max-height:calc(var(--paper-width, 840px) * .48)}
 .retro-file-media video{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
 .retro-file-media video:fullscreen,.retro-file-media video:-webkit-full-screen{width:100%;height:100%;max-width:none;max-height:none;object-fit:contain;background:#000}
 .retro-file-window.is-maximized{left:0;top:28px;width:100%;height:calc(100% - 56px)}
