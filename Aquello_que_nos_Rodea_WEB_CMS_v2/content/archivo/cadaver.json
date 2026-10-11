@@ -203,11 +203,13 @@
       ]
     },
     {
-      "title": "𒁾𒊬 [ARCHIVOS CONFIDENCIALES]",
+      "title": "𒁾𒊬 [ARCHIVOS RECUPERADOS]",
       "importance": "basico",
       "label_image": "/assets/uploads/archivo/LOGOS/fondo-pantalla.webp",
+      "summary": "Archivos recuperados de dispositivos y almacenamientos digitales relacionados con Richard Alcoy.",
       "desktop_background_color": "#16865a",
       "boot_seconds": 3,
+      "boot_messages": "ACCEDIENDO A SITIO PROTEGIDO.\nRECUPERACIÓN POSIBLES IMÁGENES SENSIBLES.\n...............\nVISUALIZAR BAJO SU RESPONSAVILIDAD.",
       "boot_flash_enabled": false
     }
   ],
