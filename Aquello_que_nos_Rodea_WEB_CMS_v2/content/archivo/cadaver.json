@@ -210,7 +210,8 @@
       "desktop_background_color": "#16865a",
       "boot_seconds": 3,
       "boot_messages": "ACCEDIENDO A SITIO PROTEGIDO.\nRECUPERACIÓN POSIBLES IMÁGENES SENSIBLES.\n...............\nVISUALIZAR BAJO SU RESPONSAVILIDAD.",
-      "boot_flash_enabled": false
+      "boot_flash_enabled": true,
+      "boot_flash_image": "/assets/uploads/archivo/LOGOS/designer-19-web.webp"
     }
   ],
   "show_related_archive": true,
