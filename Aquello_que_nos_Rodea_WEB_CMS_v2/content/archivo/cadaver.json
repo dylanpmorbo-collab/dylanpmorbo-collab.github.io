@@ -209,7 +209,33 @@
       "boot_seconds": 3,
       "boot_messages": "ACCEDIENDO A SITIO PROTEGIDO.\nRECUPERACIÓN POSIBLES IMÁGENES SENSIBLES.\n...............\nVISUALIZAR BAJO SU RESPONSAVILIDAD.",
       "boot_flash_enabled": true,
-      "boot_flash_image": "/assets/uploads/archivo/GIFT/callejontirado.gif"
+      "boot_flash_image": "/assets/uploads/archivo/GIFT/callejontirado.gif",
+      "folders": [
+        {
+          "title": "Conversaciones Recuperadas",
+          "order": 1,
+          "circuit_difficulty": "ninguno",
+          "files": [
+            {
+              "title": "Archivo whatsapp 1",
+              "kind": "IMAGEN",
+              "circuit_difficulty": "ninguno",
+              "image": "/assets/uploads/archivo/conversaciones/captura-conversacion-web.webp",
+              "image_visibility": "normal",
+              "attachments": [
+                {
+                  "title": "Imagen 8873_02.png",
+                  "image": "/assets/uploads/archivo/conversaciones/Adjuntos/nochepalmahotelsalidamarcha2-web.webp"
+                },
+                {
+                  "title": "VID_063847.mp4",
+                  "video": "/assets/uploads/archivo/conversaciones/Adjuntos/mayorcanight2016-optimizado-627kb.mp4"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ],
   "show_related_archive": true,
