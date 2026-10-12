@@ -213,6 +213,7 @@
       "folders": [
         {
           "title": "Conversaciones Recuperadas",
+          "icon": "/assets/uploads/archivo/LOGOS/sin-titulo-1.webp",
           "order": 1,
           "circuit_difficulty": "ninguno",
           "files": [
