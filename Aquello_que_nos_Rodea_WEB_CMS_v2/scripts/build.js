@@ -1,6 +1,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const {imagePath, loadPhotoCensorship, buildPhotoCensorship} = require('./build-photo-censorship');
 
 const ROOT = path.resolve(__dirname, '..');
@@ -119,7 +120,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=circuito-20261012b"><script defer src="assets/js/main.js?v=testimonios-20260920"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=acceso-20261012a"><script defer src="assets/js/main.js?v=testimonios-20260920"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -1109,6 +1110,26 @@ function circuitAttributes(level,kind,key){
    ? ' data-circuit-level="'+difficulty+'" data-circuit-key="'+esc(kind+':'+key)+'"'
    : '';
 }
+function accessAttributes(item,kind,key,defaultImage){
+ const method=String(item.access_method||'automatico').toLowerCase();
+ const difficulty=['basico','medio','dificil'].includes(String(item.circuit_difficulty||'').toLowerCase())
+   ? String(item.circuit_difficulty).toLowerCase() : 'basico';
+ if(method==='ninguno')return '';
+ if(method==='automatico')return circuitAttributes(item.circuit_difficulty,kind,key);
+ if(method==='corriente')return circuitAttributes(difficulty,kind,key);
+ const unique=esc(kind+':'+key);
+ if(method==='imagen'){
+   const image=String(item.access_image||defaultImage||'assets/img/sello-archivistas.png').trim();
+   return ' data-access-type="imagen" data-access-level="'+difficulty+'" data-access-key="'+unique+'" data-access-image="'+esc(image)+'"';
+ }
+ if(method==='codigo'){
+   const code=String(item.access_code||'').normalize('NFKC').trim().replace(/\s+/g,' ').toUpperCase();
+   if(!code)throw Error('Falta el código de acceso para '+kind+': '+key);
+   const hash=crypto.createHash('sha256').update(code).digest('hex');
+   return ' data-access-type="codigo" data-access-key="'+unique+'" data-access-hash="'+hash+'"';
+ }
+ return circuitAttributes(item.circuit_difficulty,kind,key);
+}
 function archiveDigitalReports(item){
  if(item.show_digital_reports!==true) return {count:0,html:''};
  const reports=(Array.isArray(item.digital_reports)?item.digital_reports:[])
@@ -1118,7 +1139,7 @@ function archiveDigitalReports(item){
    const title=String(report.title||('INFORME DIGITAL '+String(index+1).padStart(2,'0')));
    const importance=reportImportance(report.importance);
    const folderCount=orderedDigitalItems(report.folders).length;
-   return '<button type="button" class="archive-mmc-card" data-digital-open="'+index+'" data-importance="'+importance+'"'+circuitAttributes(report.circuit_difficulty,'informe',index+':'+title)+' aria-label="Abrir informe digital: '+esc(title)+'">'+
+   return '<button type="button" class="archive-mmc-card" data-digital-open="'+index+'" data-importance="'+importance+'"'+accessAttributes(report,'informe',index+':'+title,report.label_image)+' aria-label="Abrir informe digital: '+esc(title)+'">'+
      '<span class="archive-mmc-label">'+
      (report.label_image?'<img src="'+esc(report.label_image)+'" alt="" loading="lazy">':'<span class="archive-mmc-mark" aria-hidden="true">DUB.SAR // ARCHIVO</span>')+
      '<strong>'+esc(title)+'</strong></span><span class="archive-mmc-foot"><small>MMC // '+String(index+1).padStart(2,'0')+'</small></span>'+
@@ -1134,7 +1155,7 @@ function archiveDigitalReports(item){
    const folders=orderedDigitalItems(report.folders).filter(folder=>folder.title || folder.files?.length).slice(0,40);
    const folderButtons=folders.map((folder,folderIndex)=>{
      const name=String(folder.title||('CARPETA '+String(folderIndex+1).padStart(2,'0')));
-     return '<button type="button" class="retro-folder-icon" data-retro-folder="'+folderIndex+'"'+circuitAttributes(folder.circuit_difficulty,'carpeta',index+':'+folderIndex+':'+String(report.title||'')+' / '+name)+' aria-label="Abrir carpeta '+esc(name)+'">'+
+     return '<button type="button" class="retro-folder-icon" data-retro-folder="'+folderIndex+'"'+accessAttributes(folder,'carpeta',index+':'+folderIndex+':'+String(report.title||'')+' / '+name,folder.icon)+' aria-label="Abrir carpeta '+esc(name)+'">'+
        '<span class="retro-folder-image">'+(folder.icon?'<img src="'+esc(folder.icon)+'" alt="" loading="lazy">':'<span class="retro-folder-drawn" aria-hidden="true"></span>')+'</span>'+
        '<span>'+esc(name)+'</span></button>';
    }).join('');
@@ -1145,9 +1166,10 @@ function archiveDigitalReports(item){
        const isText=String(file.kind||'').toUpperCase()==='TEXTO';
        const isVideo=!isText&&Boolean(file.video && (String(file.kind||'').toUpperCase()==='VIDEO'||!file.image));
        const globalRule=globalCensorship.get(imagePath(file.image||file.annotated_image));
-       const locked=['basico','medio','dificil'].includes(String(file.circuit_difficulty||'').toLowerCase());
+       const access=accessAttributes(file,'archivo',index+':'+folderIndex+':'+fileIndex+':'+String(report.title||'')+' / '+String(folder.title||'')+' / '+title,file.image||file.poster);
+       const locked=Boolean(access);
        const thumb=locked?'':isVideo?(file.poster||file.image):(globalRule?.mode==='falso'?globalRule.fake:(file.image_visibility==='falso'&&file.fake_pixel_image?file.fake_pixel_image:(file.image||file.annotated_image)));
-       return '<button type="button" class="retro-file-entry" data-retro-file="'+fileIndex+'"'+circuitAttributes(file.circuit_difficulty,'archivo',index+':'+folderIndex+':'+fileIndex+':'+String(report.title||'')+' / '+String(folder.title||'')+' / '+title)+' aria-label="Abrir '+esc(title)+'">'+
+       return '<button type="button" class="retro-file-entry" data-retro-file="'+fileIndex+'"'+access+' aria-label="Abrir '+esc(title)+'">'+
          '<span class="retro-file-thumb">'+(thumb?'<img src="'+esc(thumb)+'" alt="" loading="lazy"'+(globalRule?.mode==='falso'?' data-original="'+esc(file.image||file.annotated_image)+'"':'')+'>':'<span aria-hidden="true">'+(locked?'▣':isText?'▤':'▶')+'</span>')+'</span>'+
          '<span class="retro-file-name">'+esc(title)+'</span><small>'+(isText?'TEXTO':isVideo?'VÍDEO':'IMAGEN')+'</small></button>';
      }).join('');
@@ -1223,7 +1245,7 @@ function archiveDigitalReports(item){
  return {count:reports.length,html:'<div class="archive-digital-report-group"><div class="archive-report-subheading">INFORMES DIGITALES // '+String(reports.length).padStart(2,'0')+'</div>'+
    '<div class="archive-police-folder-grid archive-mmc-grid">'+cards+'</div>'+templates+
    '<dialog class="archive-digital-dialog" aria-label="Escritorio de informe digital"><div class="archive-digital-dialog-shell"><header class="archive-digital-dialog-header"><span data-digital-dialog-title>INFORME DIGITAL</span><button type="button" data-digital-close aria-label="Cerrar escritorio">✕</button></header><div data-digital-workspace></div></div></dialog></div>'+
-   '<script defer src="assets/js/circuit-puzzle.js?v=20261012b"></script><script defer src="assets/js/digital-reports.js?v=20261012"></script>'};
+   '<script defer src="assets/js/circuit-puzzle.js?v=20261012b"></script><script defer src="assets/js/archive-access.js?v=20261012a"></script><script defer src="assets/js/digital-reports.js?v=20261012c"></script>'};
 }
 function archivePoliceReport(item){return archivePoliceReportV2(item);}
 
@@ -1855,4 +1877,3 @@ fs.writeFileSync(path.join(DIST,'sobre.html'),about);
 fs.writeFileSync(path.join(DIST,'robots.txt'),'User-agent: *\\nAllow: /\\n');
 buildPhotoCensorship({root:ROOT, dist:DIST, entries:globalCensorship});
 console.log(`Construida web con ${stories.length} relato(s) y ${micros.length} microrrelato(s).`);
-

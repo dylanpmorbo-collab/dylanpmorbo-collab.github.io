@@ -53,11 +53,18 @@
     }
 
     function desktop(){return workspace.querySelector('[data-retro-desktop]');}
-    function requiresCircuit(button,onSolve,onCancel){
-      if(!button?.dataset.circuitLevel || !window.ArchiveCircuitPuzzle)return false;
-      const key=location.pathname+'|'+button.dataset.circuitKey+'|'+button.dataset.circuitLevel;
+    function requiresAccess(button,onSolve,onCancel){
+      if(!button)return false;
       const label=button.querySelector('.retro-file-name')?.textContent||button.querySelector('strong')?.textContent||button.textContent.trim()||'Archivo digital';
-      return window.ArchiveCircuitPuzzle.guard({host:workspace,key,level:button.dataset.circuitLevel,label,onSolve,onCancel:()=>{onCancel?.();button.focus();}});
+      const cancel=()=>{onCancel?.();button.focus();};
+      if(button.dataset.accessType && window.ArchiveAccess){
+        const key=location.pathname+'|'+button.dataset.accessKey+'|'+button.dataset.accessType+'|'+(button.dataset.accessLevel||button.dataset.accessHash||'')+'|'+(button.dataset.accessImage||'');
+        if(button.dataset.accessType==='imagen')return window.ArchiveAccess.guardImage({host:workspace,key,level:button.dataset.accessLevel,label,image:button.dataset.accessImage,onSolve,onCancel:cancel});
+        if(button.dataset.accessType==='codigo')return window.ArchiveAccess.guardCode({host:workspace,key,hash:button.dataset.accessHash,label,onSolve,onCancel:cancel});
+      }
+      if(!button.dataset.circuitLevel || !window.ArchiveCircuitPuzzle)return false;
+      const key=location.pathname+'|'+button.dataset.circuitKey+'|'+button.dataset.circuitLevel;
+      return window.ArchiveCircuitPuzzle.guard({host:workspace,key,level:button.dataset.circuitLevel,label,onSolve,onCancel:cancel});
     }
     function folderWindow(){return desktop()?.querySelector('[data-retro-folder-window]');}
     function fileWindow(){return desktop()?.querySelector('[data-retro-file-window]');}
@@ -110,7 +117,7 @@
       folderTrigger=null;
     }
     function openFolder(button){
-      if(requiresCircuit(button,()=>openFolder(button)))return;
+      if(requiresAccess(button,()=>openFolder(button)))return;
       const surface=desktop();
       const template=surface?.querySelector('template[data-retro-folder-template="'+button.dataset.retroFolder+'"]');
       if(!template)return;
@@ -124,7 +131,7 @@
       window.querySelector('[data-retro-folder-close]').focus();
     }
     function openFile(button){
-      if(requiresCircuit(button,()=>openFile(button)))return;
+      if(requiresAccess(button,()=>openFile(button)))return;
       const surface=desktop();
       const folder=folderWindow();
       if(!surface || !folder || folder.hidden)return;
@@ -201,7 +208,7 @@
       dialog.querySelector('[data-digital-dialog-title]').textContent=button.querySelector('strong')?.textContent||'INFORME DIGITAL';
       dialog.showModal();
       document.body.classList.add('archive-digital-dialog-open');
-      if(!requiresCircuit(button,()=>startBoot(),()=>dialog.close()))startBoot();
+      if(!requiresAccess(button,()=>startBoot(),()=>dialog.close()))startBoot();
     }
     function expandVideo(button){
       const video=button.closest('.retro-file-detail')?.querySelector('video');
@@ -227,7 +234,7 @@
       if(button && group.contains(button))openReport(button);
     });
     workspace.addEventListener('click',event=>{
-      if(event.target.closest('[data-circuit-overlay]'))return;
+      if(event.target.closest('[data-circuit-overlay],[data-access-overlay]'))return;
       const button=event.target.closest('button');
       if(!button)return;
       if(button.hasAttribute('data-retro-boot-skip'))finishBoot();
@@ -274,8 +281,8 @@
     closeReport.addEventListener('click',()=>dialog.close());
     dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close();});
     dialog.addEventListener('cancel',event=>{
-      const puzzle=workspace.querySelector('[data-circuit-overlay]');
-      if(puzzle){event.preventDefault();puzzle.querySelector('[data-circuit-cancel]')?.click();return;}
+      const puzzle=workspace.querySelector('[data-circuit-overlay],[data-access-overlay]');
+      if(puzzle){event.preventDefault();puzzle.querySelector('[data-circuit-cancel],[data-access-cancel]')?.click();return;}
       if(fullscreenReturnPending || Date.now()-fullscreenExitAt<500){
         event.preventDefault();
         if(document.fullscreenElement)document.exitFullscreen?.().catch(()=>{});
@@ -299,4 +306,3 @@
     });
   });
 })();
-

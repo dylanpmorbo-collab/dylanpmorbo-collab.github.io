@@ -1533,7 +1533,6 @@ body.archive-digital-dialog-open{overflow:hidden}
 .archive-police-image-dialog .archive-police-image-reveal[hidden]{display:none}
 @media(max-width:700px){.archive-police-image-dialog{width:100vw;height:100dvh;padding:64px 12px 78px}.archive-police-image-dialog .archive-police-image-nav{top:auto;bottom:12px;transform:none;min-width:44px;min-height:44px;font-size:0}.archive-police-image-dialog [data-police-image-prev]::after{content:'←';font-size:24px}.archive-police-image-dialog [data-police-image-next]::after{content:'→';font-size:24px}.archive-police-image-dialog .archive-police-image-counter{left:15px;top:28px}}
 
-
 /* Circuitos opcionales de acceso a informes, carpetas y archivos digitales. */
 .archive-digital-dialog [data-digital-workspace]{position:relative}
 .circuit-overlay{position:absolute;inset:0;z-index:20;display:grid;place-items:center;padding:14px;overflow:auto;background:#06110bed;color:#b5eab8;font-family:"Courier New",monospace}
@@ -1566,3 +1565,24 @@ body.archive-digital-dialog-open{overflow:hidden}
 .circuit-actions button:focus-visible{outline:2px solid #bbffbf;outline-offset:3px}
 @media(max-width:650px){.circuit-overlay{padding:6px}.circuit-panel{padding:9px}.circuit-play{grid-template-columns:27px minmax(0,1fr) 27px;gap:2px}.circuit-terminal{font-size:11px;gap:0}.circuit-terminal b{font-size:8px}.circuit-board{gap:1px;padding:2px}.circuit-tile svg g{stroke-width:17}}
 
+/* Reconstrucción de imágenes y códigos de acceso del Archivo digital. */
+.access-overlay{position:absolute;inset:0;z-index:20;display:grid;place-items:center;padding:14px;overflow:auto;background:#06110bf2;color:#b5eab8;font-family:"Courier New",monospace}
+.access-panel{width:min(100%,660px);padding:clamp(12px,3vw,24px);border:2px ridge #64856c;background:#07170d;box-shadow:0 0 38px #53dd6b33,inset 0 0 28px #153d21}
+.access-panel header small{color:#74c580;font-size:11px;letter-spacing:.13em}
+.access-panel h2{margin:7px 0;color:#e2f5dc;font:700 clamp(16px,3vw,23px)/1.2 "Courier New",monospace}
+.access-panel header p{margin:0 0 14px;font-size:12px}
+.access-picture-board{display:grid;grid-template-columns:repeat(var(--picture-size),minmax(0,1fr));grid-template-rows:repeat(var(--picture-size),minmax(0,1fr));gap:2px;width:min(100%,540px);aspect-ratio:4/3;margin:auto;padding:5px;border:2px inset #355741;background:#010703}
+.access-picture-tile{position:relative;display:block;min-width:0;min-height:0;padding:0;overflow:hidden;border:1px solid #557760;border-radius:0;background:#14241a;cursor:pointer;touch-action:manipulation}
+.access-picture-tile img{position:absolute;max-width:none;object-fit:cover;pointer-events:none;user-select:none}
+.access-picture-tile.is-empty{border-color:#25412b;background:repeating-linear-gradient(45deg,#081b0e 0 5px,#0e2816 5px 10px);cursor:default}
+.access-picture-tile:not(:disabled):hover,.access-picture-tile:not(:disabled):focus-visible{outline:3px solid #bcffbd;outline-offset:-3px;z-index:1}
+.access-picture-tile:disabled:not(.is-empty){cursor:default}
+.access-status{min-height:20px;margin:12px 0;color:#d0e7bc;font:700 11px "Courier New",monospace;text-align:center}
+.access-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:10px}
+.access-actions button{min-height:34px;padding:6px 12px;border:2px outset #b7c7b9;border-radius:0;background:#bac9bd;color:#06170b;font:700 11px "Courier New",monospace;cursor:pointer}
+.access-actions button:disabled{opacity:.6;cursor:wait}
+.access-actions button:focus-visible{outline:2px solid #bbffbf;outline-offset:3px}
+.access-code-panel{max-width:520px}.access-code-panel form label{display:block;margin:10px 0 6px;font-size:11px;font-weight:700;letter-spacing:.1em}
+.access-code-panel input{display:block;width:100%;padding:10px 12px;border:2px inset #64856c;border-radius:0;background:#020a05;color:#dcffdf;font:700 20px "Courier New",monospace;letter-spacing:.08em}
+.access-code-panel input:focus-visible{outline:2px solid #bbffbf;outline-offset:2px}
+@media(max-width:650px){.access-overlay{padding:6px}.access-panel{padding:9px}.access-picture-board{gap:1px;padding:2px}}

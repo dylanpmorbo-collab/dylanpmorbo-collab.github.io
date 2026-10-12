@@ -1413,7 +1413,7 @@ content:
               media: default
             description: "Prepara 600 × 300 píxeles (2:1). Se ajusta entera, sin recorte, dentro de la pegatina; el título se escribe aparte."
           - name: circuit_difficulty
-            label: Puzle para abrir este informe
+            label: Dificultad del puzle de corriente o imagen
             type: select
             required: false
             default: ninguno
@@ -1423,6 +1423,30 @@ content:
                 - { value: basico, label: Básico · 4 × 4 }
                 - { value: medio, label: Medio · 6 × 6 }
                 - { value: dificil, label: Difícil · 8 × 8 }
+          - name: access_method
+            label: Tipo de bloqueo para abrir el informe
+            type: select
+            required: false
+            default: automatico
+            options:
+              values:
+                - { value: automatico, label: Automático · respetar el puzle anterior }
+                - { value: ninguno, label: Sin bloqueo }
+                - { value: corriente, label: Circuito eléctrico }
+                - { value: imagen, label: Reconstruir imagen }
+                - { value: codigo, label: Introducir código }
+          - name: access_image
+            label: Imagen para el puzle de cuadrados
+            type: image
+            required: false
+            options:
+              media: default
+            description: "Solo para Reconstruir imagen. Si queda vacía, se usa la imagen de la etiqueta de la MMC."
+          - name: access_code
+            label: Código para abrir el informe
+            type: string
+            required: false
+            description: "Solo para Introducir código. Esconde las pistas manualmente por el Archivo. No es una medida de seguridad: el contenido del repositorio es público."
           - name: summary
             label: Referencia o nota breve
             type: string
@@ -1497,7 +1521,7 @@ content:
                 type: string
                 required: false
               - name: circuit_difficulty
-                label: Puzle para abrir esta carpeta
+                label: Dificultad del puzle de corriente o imagen
                 type: select
                 required: false
                 default: ninguno
@@ -1507,6 +1531,30 @@ content:
                     - { value: basico, label: Básico · 4 × 4 }
                     - { value: medio, label: Medio · 6 × 6 }
                     - { value: dificil, label: Difícil · 8 × 8 }
+              - name: access_method
+                label: Tipo de bloqueo para abrir la carpeta
+                type: select
+                required: false
+                default: automatico
+                options:
+                  values:
+                    - { value: automatico, label: Automático · respetar el puzle anterior }
+                    - { value: ninguno, label: Sin bloqueo }
+                    - { value: corriente, label: Circuito eléctrico }
+                    - { value: imagen, label: Reconstruir imagen }
+                    - { value: codigo, label: Introducir código }
+              - name: access_image
+                label: Imagen para el puzle de cuadrados
+                type: image
+                required: false
+                options:
+                  media: default
+                description: "Solo para Reconstruir imagen. Si queda vacía, se usa el icono de la carpeta."
+              - name: access_code
+                label: Código para abrir la carpeta
+                type: string
+                required: false
+                description: "Solo para Introducir código. Esconde las pistas manualmente por el Archivo; no es seguridad real."
               - name: files
                 label: Archivos de esta carpeta
                 type: object
@@ -1529,7 +1577,7 @@ content:
                     options:
                       values: [IMAGEN, VIDEO, TEXTO]
                   - name: circuit_difficulty
-                    label: Puzle para abrir esta imagen o archivo
+                    label: Dificultad del puzle de corriente o imagen
                     type: select
                     required: false
                     default: ninguno
@@ -1539,6 +1587,30 @@ content:
                         - { value: basico, label: Básico · 4 × 4 }
                         - { value: medio, label: Medio · 6 × 6 }
                         - { value: dificil, label: Difícil · 8 × 8 }
+                  - name: access_method
+                    label: Tipo de bloqueo para abrir este archivo
+                    type: select
+                    required: false
+                    default: automatico
+                    options:
+                      values:
+                        - { value: automatico, label: Automático · respetar el puzle anterior }
+                        - { value: ninguno, label: Sin bloqueo }
+                        - { value: corriente, label: Circuito eléctrico }
+                        - { value: imagen, label: Reconstruir imagen }
+                        - { value: codigo, label: Introducir código }
+                  - name: access_image
+                    label: Imagen para el puzle de cuadrados
+                    type: image
+                    required: false
+                    options:
+                      media: default
+                    description: "Solo para Reconstruir imagen. Si queda vacía, se usa la imagen de este archivo."
+                  - name: access_code
+                    label: Código para abrir este archivo
+                    type: string
+                    required: false
+                    description: "Solo para Introducir código. Esconde las pistas manualmente por el Archivo; no es seguridad real."
                   - name: body
                     label: Texto del informe (Markdown)
                     type: rich-text
@@ -2662,8 +2734,12 @@ content:
             options:
               media: default
             description: "Prepara 600 × 300 píxeles (2:1). Se ajusta entera, sin recorte, dentro de la pegatina; el título se escribe aparte."
+          - name: summary
+            label: Referencia o nota breve
+            type: string
+            required: false
           - name: circuit_difficulty
-            label: Puzle para abrir este informe
+            label: Dificultad del puzle de corriente o imagen
             type: select
             required: false
             default: ninguno
@@ -2673,10 +2749,30 @@ content:
                 - { value: basico, label: Básico · 4 × 4 }
                 - { value: medio, label: Medio · 6 × 6 }
                 - { value: dificil, label: Difícil · 8 × 8 }
-          - name: summary
-            label: Referencia o nota breve
+          - name: access_method
+            label: Tipo de bloqueo para abrir el informe
+            type: select
+            required: false
+            default: automatico
+            options:
+              values:
+                - { value: automatico, label: Automático · respetar el puzle anterior }
+                - { value: ninguno, label: Sin bloqueo }
+                - { value: corriente, label: Circuito eléctrico }
+                - { value: imagen, label: Reconstruir imagen }
+                - { value: codigo, label: Introducir código }
+          - name: access_image
+            label: Imagen para el puzle de cuadrados
+            type: image
+            required: false
+            options:
+              media: default
+            description: "Solo para Reconstruir imagen. Si queda vacía, se usa la imagen de la etiqueta de la MMC."
+          - name: access_code
+            label: Código para abrir el informe
             type: string
             required: false
+            description: "Solo para Introducir código. Esconde las pistas manualmente por el Archivo. No es una medida de seguridad: el contenido del repositorio es público."
           - name: desktop_background_color
             label: Color de fondo del escritorio (#RRGGBB)
             type: string
@@ -2747,7 +2843,7 @@ content:
                 type: string
                 required: false
               - name: circuit_difficulty
-                label: Puzle para abrir esta carpeta
+                label: Dificultad del puzle de corriente o imagen
                 type: select
                 required: false
                 default: ninguno
@@ -2757,6 +2853,30 @@ content:
                     - { value: basico, label: Básico · 4 × 4 }
                     - { value: medio, label: Medio · 6 × 6 }
                     - { value: dificil, label: Difícil · 8 × 8 }
+              - name: access_method
+                label: Tipo de bloqueo para abrir la carpeta
+                type: select
+                required: false
+                default: automatico
+                options:
+                  values:
+                    - { value: automatico, label: Automático · respetar el puzle anterior }
+                    - { value: ninguno, label: Sin bloqueo }
+                    - { value: corriente, label: Circuito eléctrico }
+                    - { value: imagen, label: Reconstruir imagen }
+                    - { value: codigo, label: Introducir código }
+              - name: access_image
+                label: Imagen para el puzle de cuadrados
+                type: image
+                required: false
+                options:
+                  media: default
+                description: "Solo para Reconstruir imagen. Si queda vacía, se usa el icono de la carpeta."
+              - name: access_code
+                label: Código para abrir la carpeta
+                type: string
+                required: false
+                description: "Solo para Introducir código. Esconde las pistas manualmente por el Archivo; no es seguridad real."
               - name: files
                 label: Archivos de esta carpeta
                 type: object
@@ -2779,7 +2899,7 @@ content:
                     options:
                       values: [IMAGEN, VIDEO, TEXTO]
                   - name: circuit_difficulty
-                    label: Puzle para abrir esta imagen o archivo
+                    label: Dificultad del puzle de corriente o imagen
                     type: select
                     required: false
                     default: ninguno
@@ -2789,6 +2909,30 @@ content:
                         - { value: basico, label: Básico · 4 × 4 }
                         - { value: medio, label: Medio · 6 × 6 }
                         - { value: dificil, label: Difícil · 8 × 8 }
+                  - name: access_method
+                    label: Tipo de bloqueo para abrir este archivo
+                    type: select
+                    required: false
+                    default: automatico
+                    options:
+                      values:
+                        - { value: automatico, label: Automático · respetar el puzle anterior }
+                        - { value: ninguno, label: Sin bloqueo }
+                        - { value: corriente, label: Circuito eléctrico }
+                        - { value: imagen, label: Reconstruir imagen }
+                        - { value: codigo, label: Introducir código }
+                  - name: access_image
+                    label: Imagen para el puzle de cuadrados
+                    type: image
+                    required: false
+                    options:
+                      media: default
+                    description: "Solo para Reconstruir imagen. Si queda vacía, se usa la imagen de este archivo."
+                  - name: access_code
+                    label: Código para abrir este archivo
+                    type: string
+                    required: false
+                    description: "Solo para Introducir código. Esconde las pistas manualmente por el Archivo; no es seguridad real."
                   - name: body
                     label: Texto del informe (Markdown)
                     type: rich-text
