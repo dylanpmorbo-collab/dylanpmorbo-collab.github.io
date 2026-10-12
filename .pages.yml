@@ -1555,6 +1555,50 @@ content:
                 type: string
                 required: false
                 description: "Solo para Introducir código. Esconde las pistas manualmente por el Archivo; no es seguridad real."
+              - name: opening_notice_enabled
+                label: Mostrar aviso antes de abrir esta carpeta
+                type: boolean
+                required: false
+                default: false
+              - name: opening_notice_title
+                label: Título del aviso
+                type: string
+                required: false
+              - name: opening_notice_text
+                label: Texto del aviso
+                type: text
+                required: false
+                description: "Admite varios párrafos. El texto se muestra tal como lo escribas, antes de abrir la carpeta."
+              - name: opening_notice_image
+                label: Imagen opcional del aviso
+                type: image
+                required: false
+                options:
+                  media: default
+              - name: opening_notice_accent
+                label: Color del aviso (#RRGGBB)
+                type: string
+                required: false
+                description: "Opcional. Por ejemplo #d6a85b."
+              - name: opening_notice_confirm
+                label: Texto del botón para continuar
+                type: string
+                required: false
+                description: "Por defecto: ABRIR CARPETA."
+              - name: opening_notice_cancel
+                label: Texto del botón para volver
+                type: string
+                required: false
+                description: "Por defecto: CANCELAR."
+              - name: opening_notice_frequency
+                label: Cuándo mostrar el aviso
+                type: select
+                required: false
+                default: always
+                options:
+                  values:
+                    - { value: always, label: Cada vez que se abre la carpeta }
+                    - { value: once, label: Una vez por visita a la página }
               - name: files
                 label: Archivos de esta carpeta
                 type: object
@@ -2877,6 +2921,50 @@ content:
                 type: string
                 required: false
                 description: "Solo para Introducir código. Esconde las pistas manualmente por el Archivo; no es seguridad real."
+              - name: opening_notice_enabled
+                label: Mostrar aviso antes de abrir esta carpeta
+                type: boolean
+                required: false
+                default: false
+              - name: opening_notice_title
+                label: Título del aviso
+                type: string
+                required: false
+              - name: opening_notice_text
+                label: Texto del aviso
+                type: text
+                required: false
+                description: "Admite varios párrafos. El texto se muestra tal como lo escribas, antes de abrir la carpeta."
+              - name: opening_notice_image
+                label: Imagen opcional del aviso
+                type: image
+                required: false
+                options:
+                  media: default
+              - name: opening_notice_accent
+                label: Color del aviso (#RRGGBB)
+                type: string
+                required: false
+                description: "Opcional. Por ejemplo #d6a85b."
+              - name: opening_notice_confirm
+                label: Texto del botón para continuar
+                type: string
+                required: false
+                description: "Por defecto: ABRIR CARPETA."
+              - name: opening_notice_cancel
+                label: Texto del botón para volver
+                type: string
+                required: false
+                description: "Por defecto: CANCELAR."
+              - name: opening_notice_frequency
+                label: Cuándo mostrar el aviso
+                type: select
+                required: false
+                default: always
+                options:
+                  values:
+                    - { value: always, label: Cada vez que se abre la carpeta }
+                    - { value: once, label: Una vez por visita a la página }
               - name: files
                 label: Archivos de esta carpeta
                 type: object

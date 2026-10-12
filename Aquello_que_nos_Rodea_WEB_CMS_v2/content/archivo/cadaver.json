@@ -248,7 +248,14 @@
                 }
               ]
             }
-          ]
+          ],
+          "opening_notice_enabled": true,
+          "opening_notice_title": "CONVERSACIONES RECUPERADAS · EXTRACTO",
+          "opening_notice_text": "Esta carpeta no contiene el historial completo de Richard Alcoy. Reúne fragmentos de conversaciones recuperados e incorporados a esta copia del expediente.\n\nLa ausencia de otros mensajes no significa que no existieran en el dispositivo o en sus copias asociadas.",
+          "opening_notice_confirm": "VER CONVERSACIONES",
+          "opening_notice_cancel": "VOLVER",
+          "opening_notice_accent": "#d7ae63",
+          "opening_notice_frequency": "always"
         },
         {
           "title": "Imágenes Recuperadas.",
@@ -256,7 +263,14 @@
           "order": 2,
           "description": "Volcado de imágenes y videos Richard Alcoy",
           "circuit_difficulty": "ninguno",
-          "access_method": "automatico"
+          "access_method": "automatico",
+          "opening_notice_enabled": true,
+          "opening_notice_title": "IMÁGENES RECUPERADAS · EXTRACTO",
+          "opening_notice_text": "Esta carpeta no reproduce la galería completa del teléfono de Richard Alcoy. Reúne una selección de imágenes eliminadas que pudieron recuperarse e incorporarse a esta copia del expediente.\n\nOtros archivos del volcado no se muestran aquí; su ausencia no significa que no existieran.",
+          "opening_notice_confirm": "VER IMÁGENES",
+          "opening_notice_cancel": "VOLVER",
+          "opening_notice_accent": "#d7ae63",
+          "opening_notice_frequency": "always"
         }
       ]
     }

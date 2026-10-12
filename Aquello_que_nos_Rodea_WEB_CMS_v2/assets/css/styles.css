@@ -1586,3 +1586,18 @@ body.archive-digital-dialog-open{overflow:hidden}
 .access-code-panel input{display:block;width:100%;padding:10px 12px;border:2px inset #64856c;border-radius:0;background:#020a05;color:#dcffdf;font:700 20px "Courier New",monospace;letter-spacing:.08em}
 .access-code-panel input:focus-visible{outline:2px solid #bbffbf;outline-offset:2px}
 @media(max-width:650px){.access-overlay{padding:6px}.access-panel{padding:9px}.access-picture-board{gap:1px;padding:2px}}
+
+/* Aviso opcional y personalizable antes de abrir una carpeta digital. */
+.retro-folder-notice-overlay{position:absolute;inset:0;z-index:25;display:grid;place-items:center;overflow:auto;padding:18px;background:rgba(3,6,14,.84)}
+.retro-folder-notice{--folder-notice-accent:#d5b675;width:min(100%,580px);max-height:100%;overflow:auto;border:2px solid var(--folder-notice-accent);background:#e8e3d1;color:#1d211e;box-shadow:0 16px 55px #000b;font-family:"Special Elite",Georgia,serif}
+.retro-folder-notice header{display:flex;align-items:center;gap:12px;padding:15px 19px;border-bottom:1px solid #b9b4a4;background:#171c1b;color:#f5eedb}
+.retro-folder-notice header span{display:grid;flex:0 0 auto;place-items:center;width:32px;height:32px;border:2px solid var(--folder-notice-accent);border-radius:50%;color:var(--folder-notice-accent);font:700 22px/1 Arial,sans-serif}
+.retro-folder-notice h2{margin:0;color:inherit;font:700 clamp(17px,3vw,23px)/1.2 "Special Elite",Georgia,serif}
+.retro-folder-notice-image{display:block;max-width:100%;max-height:220px;object-fit:contain;margin:17px auto 0}
+.retro-folder-notice-body{padding:17px 20px 2px;font-size:clamp(14px,2vw,17px);line-height:1.55}
+.retro-folder-notice-body p{margin:0 0 14px}
+.retro-folder-notice-actions{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:10px;padding:8px 20px 20px}
+.retro-folder-notice-actions button{min-height:38px;padding:8px 15px;border:1px solid #666;background:#f3f0e8;color:#222;font:700 12px "Special Elite",Georgia,serif;cursor:pointer}
+.retro-folder-notice-actions [data-folder-notice-continue]{border-color:#1e2520;background:var(--folder-notice-accent);color:#161915}
+.retro-folder-notice-actions button:focus-visible{outline:3px solid #1c6fdb;outline-offset:2px}
+@media(max-width:600px){.retro-folder-notice-overlay{padding:8px}.retro-folder-notice-image{max-height:150px}.retro-folder-notice-body{padding:14px 14px 0}.retro-folder-notice-actions{padding:8px 14px 14px}}

@@ -10,6 +10,8 @@
     let fullscreenReturnPending=false;
     let primaryMediaNodes=null;
     let bootTimers=[];
+    let noticeTrigger=null;
+    const seenFolderNotices=new Set();
 
     function clearBootTimers(){bootTimers.forEach(id=>{clearTimeout(id);clearInterval(id)});bootTimers=[];}
     function finishBoot(){
@@ -116,8 +118,27 @@
       if(restoreFocus && folderTrigger?.isConnected)folderTrigger.focus();
       folderTrigger=null;
     }
-    function openFolder(button){
+    function closeFolderNotice(restoreFocus=true){
+      workspace.querySelector('[data-folder-notice-overlay]')?.remove();
+      const surface=desktop();
+      if(surface)surface.inert=false;
+      if(restoreFocus && noticeTrigger?.isConnected)noticeTrigger.focus();
+      noticeTrigger=null;
+    }
+    function showFolderNotice(button){
+      const surface=desktop();
+      const template=surface?.querySelector('template[data-retro-folder-notice-template="'+button.dataset.retroFolder+'"]');
+      if(!template || (template.dataset.noticeFrequency==='once' && seenFolderNotices.has(button.dataset.retroFolder)))return false;
+      closeFolderNotice(false);
+      noticeTrigger=button;
+      workspace.append(template.content.cloneNode(true));
+      surface.inert=true;
+      workspace.querySelector('[data-folder-notice-continue]')?.focus();
+      return true;
+    }
+    function openFolder(button,skipNotice=false){
       if(requiresAccess(button,()=>openFolder(button)))return;
+      if(!skipNotice && showFolderNotice(button))return;
       const surface=desktop();
       const template=surface?.querySelector('template[data-retro-folder-template="'+button.dataset.retroFolder+'"]');
       if(!template)return;
@@ -235,6 +256,17 @@
     });
     workspace.addEventListener('click',event=>{
       if(event.target.closest('[data-circuit-overlay],[data-access-overlay]'))return;
+      const notice=event.target.closest('[data-folder-notice-overlay]');
+      if(notice){
+        if(event.target.closest('[data-folder-notice-continue]')){
+          const trigger=noticeTrigger;
+          const template=desktop()?.querySelector('template[data-retro-folder-notice-template="'+trigger?.dataset.retroFolder+'"]');
+          if(template?.dataset.noticeFrequency==='once')seenFolderNotices.add(trigger.dataset.retroFolder);
+          closeFolderNotice(false);
+          if(trigger?.isConnected)openFolder(trigger,true);
+        }else if(event.target.closest('[data-folder-notice-cancel]') || event.target===notice)closeFolderNotice();
+        return;
+      }
       const button=event.target.closest('button');
       if(!button)return;
       if(button.hasAttribute('data-retro-boot-skip'))finishBoot();
@@ -271,6 +303,14 @@
       }
     });
     workspace.addEventListener('keydown',event=>{
+      const notice=workspace.querySelector('[data-folder-notice-overlay]');
+      if(notice && event.key==='Tab'){
+        const buttons=Array.from(notice.querySelectorAll('button:not(:disabled)'));
+        const first=buttons[0],last=buttons[buttons.length-1];
+        if(event.shiftKey && document.activeElement===first){event.preventDefault();last?.focus();}
+        else if(!event.shiftKey && document.activeElement===last){event.preventDefault();first?.focus();}
+        return;
+      }
       if(fileWindow()?.hidden || !fileWindow()?.contains(event.target))return;
       if(event.target.closest('video,button'))return;
       if(event.key==='ArrowLeft'||event.key==='ArrowRight'){
@@ -283,6 +323,7 @@
     dialog.addEventListener('cancel',event=>{
       const puzzle=workspace.querySelector('[data-circuit-overlay],[data-access-overlay]');
       if(puzzle){event.preventDefault();puzzle.querySelector('[data-circuit-cancel],[data-access-cancel]')?.click();return;}
+      if(workspace.querySelector('[data-folder-notice-overlay]')){event.preventDefault();closeFolderNotice();return;}
       if(fullscreenReturnPending || Date.now()-fullscreenExitAt<500){
         event.preventDefault();
         if(document.fullscreenElement)document.exitFullscreen?.().catch(()=>{});
@@ -301,6 +342,7 @@
       folderTrigger=null;
       fileTrigger=null;
       primaryMediaNodes=null;
+      noticeTrigger=null;
       fullscreenReturnPending=false;
       fullscreenExitAt=0;
     });

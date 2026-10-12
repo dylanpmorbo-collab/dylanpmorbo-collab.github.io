@@ -120,7 +120,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=acceso-20261012a"><script defer src="assets/js/main.js?v=testimonios-20260920"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=aviso-20261013a"><script defer src="assets/js/main.js?v=testimonios-20260920"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -1159,6 +1159,24 @@ function archiveDigitalReports(item){
        '<span class="retro-folder-image">'+(folder.icon?'<img src="'+esc(folder.icon)+'" alt="" loading="lazy">':'<span class="retro-folder-drawn" aria-hidden="true"></span>')+'</span>'+
        '<span>'+esc(name)+'</span></button>';
    }).join('');
+   const folderNotices=folders.map((folder,folderIndex)=>{
+     if(folder.opening_notice_enabled!==true)return '';
+     const title=String(folder.opening_notice_title||'Aviso').trim();
+     const body=plainTextToHTML(folder.opening_notice_text||'');
+     const confirm=String(folder.opening_notice_confirm||'ABRIR CARPETA').trim();
+     const cancel=String(folder.opening_notice_cancel||'CANCELAR').trim();
+     const image=String(folder.opening_notice_image||'').trim();
+     const accent=String(folder.opening_notice_accent||'').trim();
+     const style=/^#[0-9a-fA-F]{6}$/.test(accent)?' style="--folder-notice-accent:'+accent+'"':'';
+     const frequency=folder.opening_notice_frequency==='once'?'once':'always';
+     return '<template data-retro-folder-notice-template="'+folderIndex+'" data-notice-frequency="'+frequency+'">'+
+       '<div class="retro-folder-notice-overlay" data-folder-notice-overlay><section class="retro-folder-notice" role="dialog" aria-modal="true" aria-labelledby="folder-notice-title-'+index+'-'+folderIndex+'"'+style+'>'+
+       '<header><span aria-hidden="true">!</span><h2 id="folder-notice-title-'+index+'-'+folderIndex+'">'+esc(title)+'</h2></header>'+
+       (image?'<img class="retro-folder-notice-image" src="'+esc(image)+'" alt="">':'')+
+       (body?'<div class="retro-folder-notice-body">'+body+'</div>':'')+
+       '<div class="retro-folder-notice-actions"><button type="button" data-folder-notice-cancel>'+esc(cancel)+'</button><button type="button" data-folder-notice-continue>'+esc(confirm)+'</button></div>'+
+       '</section></div></template>';
+   }).join('');
    const folderTemplates=folders.map((folder,folderIndex)=>{
      const files=orderedDigitalItems(folder.files).filter(file=>file.image||file.video||file.annotated_image||String(file.kind||'').toUpperCase()==='TEXTO').slice(0,100);
      const entries=files.map((file,fileIndex)=>{
@@ -1237,7 +1255,7 @@ function archiveDigitalReports(item){
      '<div class="retro-desktop-header"><span>ARCHIVO DIGITAL // '+String(index+1).padStart(2,'0')+'</span><span>'+esc(report.summary||'DUB.SAR')+'</span></div>'+
      '<div class="retro-desktop-icons">'+folderButtons+'</div>'+
      '<div class="retro-desktop-status">'+folders.length+' CARPETA'+(folders.length===1?'':'S')+' // SELECCIONE UNA UNIDAD</div>'+
-     folderTemplates+fileTemplates+
+     folderNotices+folderTemplates+fileTemplates+
      '<section class="retro-window retro-folder-window" data-retro-folder-window hidden aria-label="Contenido de carpeta"><header class="retro-window-titlebar"><strong data-retro-folder-title>CARPETA</strong><button type="button" data-retro-folder-close aria-label="Cerrar carpeta">✕</button></header><div class="retro-window-content" data-retro-folder-content></div></section>'+
      '<section class="retro-window retro-file-window" data-retro-file-window hidden aria-label="Archivo recuperado"><header class="retro-window-titlebar"><strong data-retro-file-title>ARCHIVO</strong><span class="retro-file-nav"><button type="button" data-retro-file-prev aria-label="Archivo anterior" title="Archivo anterior">←</button><button type="button" data-retro-file-next aria-label="Archivo siguiente" title="Archivo siguiente">→</button><button type="button" data-retro-file-close aria-label="Volver a la carpeta">✕</button></span></header><div class="retro-window-content" data-retro-file-content></div></section>'+
      '</div></template>';
@@ -1245,7 +1263,7 @@ function archiveDigitalReports(item){
  return {count:reports.length,html:'<div class="archive-digital-report-group"><div class="archive-report-subheading">INFORMES DIGITALES // '+String(reports.length).padStart(2,'0')+'</div>'+
    '<div class="archive-police-folder-grid archive-mmc-grid">'+cards+'</div>'+templates+
    '<dialog class="archive-digital-dialog" aria-label="Escritorio de informe digital"><div class="archive-digital-dialog-shell"><header class="archive-digital-dialog-header"><span data-digital-dialog-title>INFORME DIGITAL</span><button type="button" data-digital-close aria-label="Cerrar escritorio">✕</button></header><div data-digital-workspace></div></div></dialog></div>'+
-   '<script defer src="assets/js/circuit-puzzle.js?v=20261012b"></script><script defer src="assets/js/archive-access.js?v=20261012a"></script><script defer src="assets/js/digital-reports.js?v=20261012c"></script>'};
+   '<script defer src="assets/js/circuit-puzzle.js?v=20261012b"></script><script defer src="assets/js/archive-access.js?v=20261012a"></script><script defer src="assets/js/digital-reports.js?v=aviso-20261013a"></script>'};
 }
 function archivePoliceReport(item){return archivePoliceReportV2(item);}
 
