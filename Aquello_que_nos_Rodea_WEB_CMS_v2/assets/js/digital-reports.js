@@ -53,6 +53,12 @@
     }
 
     function desktop(){return workspace.querySelector('[data-retro-desktop]');}
+    function requiresCircuit(button,onSolve,onCancel){
+      if(!button?.dataset.circuitLevel || !window.ArchiveCircuitPuzzle)return false;
+      const key=location.pathname+'|'+button.dataset.circuitKey+'|'+button.dataset.circuitLevel;
+      const label=button.querySelector('.retro-file-name')?.textContent||button.querySelector('strong')?.textContent||button.textContent.trim()||'Archivo digital';
+      return window.ArchiveCircuitPuzzle.guard({host:workspace,key,level:button.dataset.circuitLevel,label,onSolve,onCancel:()=>{onCancel?.();button.focus();}});
+    }
     function folderWindow(){return desktop()?.querySelector('[data-retro-folder-window]');}
     function fileWindow(){return desktop()?.querySelector('[data-retro-file-window]');}
     function pauseVideos(container){container?.querySelectorAll('video').forEach(video=>video.pause());}
@@ -104,6 +110,7 @@
       folderTrigger=null;
     }
     function openFolder(button){
+      if(requiresCircuit(button,()=>openFolder(button)))return;
       const surface=desktop();
       const template=surface?.querySelector('template[data-retro-folder-template="'+button.dataset.retroFolder+'"]');
       if(!template)return;
@@ -117,6 +124,7 @@
       window.querySelector('[data-retro-folder-close]').focus();
     }
     function openFile(button){
+      if(requiresCircuit(button,()=>openFile(button)))return;
       const surface=desktop();
       const folder=folderWindow();
       if(!surface || !folder || folder.hidden)return;
@@ -193,7 +201,7 @@
       dialog.querySelector('[data-digital-dialog-title]').textContent=button.querySelector('strong')?.textContent||'INFORME DIGITAL';
       dialog.showModal();
       document.body.classList.add('archive-digital-dialog-open');
-      startBoot();
+      if(!requiresCircuit(button,()=>startBoot(),()=>dialog.close()))startBoot();
     }
     function expandVideo(button){
       const video=button.closest('.retro-file-detail')?.querySelector('video');
@@ -219,6 +227,7 @@
       if(button && group.contains(button))openReport(button);
     });
     workspace.addEventListener('click',event=>{
+      if(event.target.closest('[data-circuit-overlay]'))return;
       const button=event.target.closest('button');
       if(!button)return;
       if(button.hasAttribute('data-retro-boot-skip'))finishBoot();
@@ -265,6 +274,8 @@
     closeReport.addEventListener('click',()=>dialog.close());
     dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close();});
     dialog.addEventListener('cancel',event=>{
+      const puzzle=workspace.querySelector('[data-circuit-overlay]');
+      if(puzzle){event.preventDefault();puzzle.querySelector('[data-circuit-cancel]')?.click();return;}
       if(fullscreenReturnPending || Date.now()-fullscreenExitAt<500){
         event.preventDefault();
         if(document.fullscreenElement)document.exitFullscreen?.().catch(()=>{});
@@ -288,3 +299,4 @@
     });
   });
 })();
+

@@ -1412,6 +1412,17 @@ content:
             options:
               media: default
             description: "Prepara 600 × 300 píxeles (2:1). Se ajusta entera, sin recorte, dentro de la pegatina; el título se escribe aparte."
+          - name: circuit_difficulty
+            label: Puzle para abrir este informe
+            type: select
+            required: false
+            default: ninguno
+            options:
+              values:
+                - { value: ninguno, label: Sin puzle }
+                - { value: basico, label: Básico · 4 × 4 }
+                - { value: medio, label: Medio · 6 × 6 }
+                - { value: dificil, label: Difícil · 8 × 8 }
           - name: summary
             label: Referencia o nota breve
             type: string
@@ -1485,6 +1496,17 @@ content:
                 label: Nota de la carpeta
                 type: string
                 required: false
+              - name: circuit_difficulty
+                label: Puzle para abrir esta carpeta
+                type: select
+                required: false
+                default: ninguno
+                options:
+                  values:
+                    - { value: ninguno, label: Sin puzle }
+                    - { value: basico, label: Básico · 4 × 4 }
+                    - { value: medio, label: Medio · 6 × 6 }
+                    - { value: dificil, label: Difícil · 8 × 8 }
               - name: files
                 label: Archivos de esta carpeta
                 type: object
@@ -1506,6 +1528,17 @@ content:
                     default: IMAGEN
                     options:
                       values: [IMAGEN, VIDEO, TEXTO]
+                  - name: circuit_difficulty
+                    label: Puzle para abrir esta imagen o archivo
+                    type: select
+                    required: false
+                    default: ninguno
+                    options:
+                      values:
+                        - { value: ninguno, label: Sin puzle }
+                        - { value: basico, label: Básico · 4 × 4 }
+                        - { value: medio, label: Medio · 6 × 6 }
+                        - { value: dificil, label: Difícil · 8 × 8 }
                   - name: body
                     label: Texto del informe (Markdown)
                     type: rich-text
@@ -2629,6 +2662,17 @@ content:
             options:
               media: default
             description: "Prepara 600 × 300 píxeles (2:1). Se ajusta entera, sin recorte, dentro de la pegatina; el título se escribe aparte."
+          - name: circuit_difficulty
+            label: Puzle para abrir este informe
+            type: select
+            required: false
+            default: ninguno
+            options:
+              values:
+                - { value: ninguno, label: Sin puzle }
+                - { value: basico, label: Básico · 4 × 4 }
+                - { value: medio, label: Medio · 6 × 6 }
+                - { value: dificil, label: Difícil · 8 × 8 }
           - name: summary
             label: Referencia o nota breve
             type: string
@@ -2702,6 +2746,17 @@ content:
                 label: Nota de la carpeta
                 type: string
                 required: false
+              - name: circuit_difficulty
+                label: Puzle para abrir esta carpeta
+                type: select
+                required: false
+                default: ninguno
+                options:
+                  values:
+                    - { value: ninguno, label: Sin puzle }
+                    - { value: basico, label: Básico · 4 × 4 }
+                    - { value: medio, label: Medio · 6 × 6 }
+                    - { value: dificil, label: Difícil · 8 × 8 }
               - name: files
                 label: Archivos de esta carpeta
                 type: object
@@ -2723,6 +2778,17 @@ content:
                     default: IMAGEN
                     options:
                       values: [IMAGEN, VIDEO, TEXTO]
+                  - name: circuit_difficulty
+                    label: Puzle para abrir esta imagen o archivo
+                    type: select
+                    required: false
+                    default: ninguno
+                    options:
+                      values:
+                        - { value: ninguno, label: Sin puzle }
+                        - { value: basico, label: Básico · 4 × 4 }
+                        - { value: medio, label: Medio · 6 × 6 }
+                        - { value: dificil, label: Difícil · 8 × 8 }
                   - name: body
                     label: Texto del informe (Markdown)
                     type: rich-text

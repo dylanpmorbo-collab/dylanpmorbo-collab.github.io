@@ -1103,6 +1103,12 @@ function orderedDigitalItems(items){
      return position(a)-position(b)||a.index-b.index;
    }).map(entry=>entry.item);
 }
+function circuitAttributes(level,kind,key){
+ const difficulty=String(level||'').toLowerCase();
+ return ['basico','medio','dificil'].includes(difficulty)
+   ? ' data-circuit-level="'+difficulty+'" data-circuit-key="'+esc(kind+':'+key)+'"'
+   : '';
+}
 function archiveDigitalReports(item){
  if(item.show_digital_reports!==true) return {count:0,html:''};
  const reports=(Array.isArray(item.digital_reports)?item.digital_reports:[])
@@ -1112,7 +1118,7 @@ function archiveDigitalReports(item){
    const title=String(report.title||('INFORME DIGITAL '+String(index+1).padStart(2,'0')));
    const importance=reportImportance(report.importance);
    const folderCount=orderedDigitalItems(report.folders).length;
-   return '<button type="button" class="archive-mmc-card" data-digital-open="'+index+'" data-importance="'+importance+'" aria-label="Abrir informe digital: '+esc(title)+'">'+
+   return '<button type="button" class="archive-mmc-card" data-digital-open="'+index+'" data-importance="'+importance+'"'+circuitAttributes(report.circuit_difficulty,'informe',index+':'+title)+' aria-label="Abrir informe digital: '+esc(title)+'">'+
      '<span class="archive-mmc-label">'+
      (report.label_image?'<img src="'+esc(report.label_image)+'" alt="" loading="lazy">':'<span class="archive-mmc-mark" aria-hidden="true">DUB.SAR // ARCHIVO</span>')+
      '<strong>'+esc(title)+'</strong></span><span class="archive-mmc-foot"><small>MMC // '+String(index+1).padStart(2,'0')+'</small></span>'+
@@ -1128,7 +1134,7 @@ function archiveDigitalReports(item){
    const folders=orderedDigitalItems(report.folders).filter(folder=>folder.title || folder.files?.length).slice(0,40);
    const folderButtons=folders.map((folder,folderIndex)=>{
      const name=String(folder.title||('CARPETA '+String(folderIndex+1).padStart(2,'0')));
-     return '<button type="button" class="retro-folder-icon" data-retro-folder="'+folderIndex+'" aria-label="Abrir carpeta '+esc(name)+'">'+
+     return '<button type="button" class="retro-folder-icon" data-retro-folder="'+folderIndex+'"'+circuitAttributes(folder.circuit_difficulty,'carpeta',index+':'+folderIndex+':'+String(report.title||'')+' / '+name)+' aria-label="Abrir carpeta '+esc(name)+'">'+
        '<span class="retro-folder-image">'+(folder.icon?'<img src="'+esc(folder.icon)+'" alt="" loading="lazy">':'<span class="retro-folder-drawn" aria-hidden="true"></span>')+'</span>'+
        '<span>'+esc(name)+'</span></button>';
    }).join('');
@@ -1139,9 +1145,10 @@ function archiveDigitalReports(item){
        const isText=String(file.kind||'').toUpperCase()==='TEXTO';
        const isVideo=!isText&&Boolean(file.video && (String(file.kind||'').toUpperCase()==='VIDEO'||!file.image));
        const globalRule=globalCensorship.get(imagePath(file.image||file.annotated_image));
-       const thumb=isVideo?(file.poster||file.image):(globalRule?.mode==='falso'?globalRule.fake:(file.image_visibility==='falso'&&file.fake_pixel_image?file.fake_pixel_image:(file.image||file.annotated_image)));
-       return '<button type="button" class="retro-file-entry" data-retro-file="'+fileIndex+'" aria-label="Abrir '+esc(title)+'">'+
-         '<span class="retro-file-thumb">'+(thumb?'<img src="'+esc(thumb)+'" alt="" loading="lazy"'+(globalRule?.mode==='falso'?' data-original="'+esc(file.image||file.annotated_image)+'"':'')+'>':'<span aria-hidden="true">'+(isText?'▤':'▶')+'</span>')+'</span>'+
+       const locked=['basico','medio','dificil'].includes(String(file.circuit_difficulty||'').toLowerCase());
+       const thumb=locked?'':isVideo?(file.poster||file.image):(globalRule?.mode==='falso'?globalRule.fake:(file.image_visibility==='falso'&&file.fake_pixel_image?file.fake_pixel_image:(file.image||file.annotated_image)));
+       return '<button type="button" class="retro-file-entry" data-retro-file="'+fileIndex+'"'+circuitAttributes(file.circuit_difficulty,'archivo',index+':'+folderIndex+':'+fileIndex+':'+String(report.title||'')+' / '+String(folder.title||'')+' / '+title)+' aria-label="Abrir '+esc(title)+'">'+
+         '<span class="retro-file-thumb">'+(thumb?'<img src="'+esc(thumb)+'" alt="" loading="lazy"'+(globalRule?.mode==='falso'?' data-original="'+esc(file.image||file.annotated_image)+'"':'')+'>':'<span aria-hidden="true">'+(locked?'▣':isText?'▤':'▶')+'</span>')+'</span>'+
          '<span class="retro-file-name">'+esc(title)+'</span><small>'+(isText?'TEXTO':isVideo?'VÍDEO':'IMAGEN')+'</small></button>';
      }).join('');
      return '<template data-retro-folder-template="'+folderIndex+'"><div class="retro-file-grid">'+(entries||'<p class="retro-empty">No hay archivos en esta carpeta.</p>')+'</div></template>';
@@ -1216,7 +1223,7 @@ function archiveDigitalReports(item){
  return {count:reports.length,html:'<div class="archive-digital-report-group"><div class="archive-report-subheading">INFORMES DIGITALES // '+String(reports.length).padStart(2,'0')+'</div>'+
    '<div class="archive-police-folder-grid archive-mmc-grid">'+cards+'</div>'+templates+
    '<dialog class="archive-digital-dialog" aria-label="Escritorio de informe digital"><div class="archive-digital-dialog-shell"><header class="archive-digital-dialog-header"><span data-digital-dialog-title>INFORME DIGITAL</span><button type="button" data-digital-close aria-label="Cerrar escritorio">✕</button></header><div data-digital-workspace></div></div></dialog></div>'+
-   '<script defer src="assets/js/digital-reports.js"></script>'};
+   '<script defer src="assets/js/circuit-puzzle.js?v=20261012"></script><script defer src="assets/js/digital-reports.js?v=20261012"></script>'};
 }
 function archivePoliceReport(item){return archivePoliceReportV2(item);}
 
