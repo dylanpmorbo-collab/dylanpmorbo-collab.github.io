@@ -222,6 +222,11 @@
               "circuit_difficulty": "ninguno",
               "image": "/assets/uploads/archivo/conversaciones/captura-conversacion-web.webp",
               "image_visibility": "normal",
+              "order": -2,
+              "date_time": "26 de junio 2016 01:03am",
+              "location": "MAYORCA",
+              "source_device": "Iphone Richard Alcoy",
+              "status": "COMPLETO",
               "attachments": [
                 {
                   "title": "Imagen 8873_02.png",
