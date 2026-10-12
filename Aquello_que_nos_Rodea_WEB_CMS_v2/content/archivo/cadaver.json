@@ -243,6 +243,7 @@
         },
         {
           "title": "Imágenes Recuperadas.",
+          "icon": "/assets/uploads/archivo/LOGOS/imagen-de-chatgpt-12-oct-2026-150908.png",
           "order": 2,
           "description": "Volcado de imágenes y videos Richard Alcoy",
           "circuit_difficulty": "ninguno"
