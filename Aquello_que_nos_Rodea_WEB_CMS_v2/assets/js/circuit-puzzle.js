@@ -110,7 +110,7 @@
     overlay.className='circuit-overlay';
     overlay.dataset.circuitOverlay='';
     overlay.setAttribute('aria-label','Desencriptar '+label);
-    overlay.innerHTML='<div class="circuit-panel"><header><small>ARCHIVO // ACCESO CIFRADO</small><h2></h2><p>Gira las piezas móviles hasta llevar la corriente de A a B. Los módulos remachados son fijos.</p></header><div class="circuit-play"><span class="circuit-terminal circuit-terminal-a">A<br>ENTRADA</span><div class="circuit-board" role="group" aria-label="Circuito giratorio"></div><span class="circuit-terminal circuit-terminal-b">B<br>SALIDA</span></div><p class="circuit-status" aria-live="polite"></p><div class="circuit-actions"><button type="button" data-circuit-reset>OTRO CIRCUITO</button><button type="button" data-circuit-cancel>VOLVER</button></div></div>';
+    overlay.innerHTML='<div class="circuit-panel"><header><small>ARCHIVO // ACCESO CIFRADO</small><h2></h2><p>Gira las piezas móviles para conducir la corriente desde A hasta B. Los módulos remachados son fijos.</p><div class="circuit-legend"><span><b>A</b> ENTRADA · lado izquierdo</span><span><b>B</b> SALIDA · lado derecho</span></div></header><div class="circuit-play"><div class="circuit-rail"><span class="circuit-terminal circuit-terminal-a" aria-label="Entrada A">A <b aria-hidden="true">▶</b></span></div><div class="circuit-board" role="group" aria-label="Circuito giratorio"></div><div class="circuit-rail"><span class="circuit-terminal circuit-terminal-b" aria-label="Salida B"><b aria-hidden="true">▶</b> B</span></div></div><p class="circuit-status" aria-live="polite"></p><div class="circuit-actions"><button type="button" data-circuit-reset>OTRO CIRCUITO</button><button type="button" data-circuit-cancel>VOLVER</button></div></div>';
     overlay.querySelector('h2').textContent=label;
     const grid=overlay.querySelector('.circuit-board');
     grid.style.setProperty('--circuit-size',String(board.size));
@@ -126,12 +126,17 @@
     });
     function render(){
       const state=trace(board);
+      overlay.querySelector('.circuit-play').style.setProperty('--circuit-size',String(board.size));
+      overlay.querySelector('.circuit-terminal-a').style.gridRow=String(board.start+1);
+      overlay.querySelector('.circuit-terminal-b').style.gridRow=String(board.end+1);
       buttons.forEach((button,index)=>{
         button.innerHTML=tileSVG(board.tiles[index]);
         button.disabled=!!board.tiles[index].fixed;
         button.classList.toggle('is-fixed',!!board.tiles[index].fixed);
         button.setAttribute('aria-label','Fila '+(Math.floor(index/board.size)+1)+', columna '+(index%board.size+1)+(board.tiles[index].fixed?'. Pieza fija.':'. Girar pieza.'));
         button.classList.toggle('is-powered',state.energized.has(index));
+        button.classList.toggle('is-entry',index===board.start*board.size);
+        button.classList.toggle('is-exit',index===board.end*board.size+board.size-1);
       });
       overlay.querySelector('.circuit-terminal-b').classList.toggle('is-powered',state.solved);
       overlay.querySelector('.circuit-status').textContent=state.solved?'CONEXIÓN RESTABLECIDA · ACCESO CONCEDIDO':'CONEXIÓN INTERRUMPIDA';

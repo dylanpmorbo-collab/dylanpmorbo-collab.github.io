@@ -1541,14 +1541,20 @@ body.archive-digital-dialog-open{overflow:hidden}
 .circuit-panel header small{color:#74c580;font-size:11px;letter-spacing:.13em}
 .circuit-panel h2{margin:7px 0;color:#e2f5dc;font:700 clamp(16px,3vw,23px)/1.2 "Courier New",monospace}
 .circuit-panel header p{margin:0 0 14px;font-size:12px}
-.circuit-play{display:grid;grid-template-columns:minmax(36px,1fr) minmax(0,500px) minmax(36px,1fr);align-items:center;gap:8px}
-.circuit-terminal{color:#8ac994;font:700 11px/1.4 "Courier New",monospace;text-align:center;overflow-wrap:anywhere}
+.circuit-legend{display:flex;justify-content:space-between;flex-wrap:wrap;gap:5px 16px;margin:-3px 0 12px;color:#b8d5b7;font:700 10px/1.3 "Courier New",monospace}
+.circuit-legend b{color:#d3ffd6;font-size:13px}
+.circuit-play{display:grid;grid-template-columns:minmax(38px,1fr) minmax(0,500px) minmax(38px,1fr);align-items:stretch;gap:5px}
+.circuit-rail{display:grid;grid-template-rows:repeat(var(--circuit-size),minmax(0,1fr));min-width:0;height:100%}
+.circuit-terminal{align-self:center;display:flex;align-items:center;justify-content:center;gap:2px;min-width:0;color:#d6b971;font:700 15px/1 "Courier New",monospace;text-align:center;white-space:nowrap}
+.circuit-terminal b{font-size:12px}
 .circuit-terminal-a{color:#a9ffa9;text-shadow:0 0 8px #54e070}
 .circuit-terminal-b.is-powered{color:#c9ffd0;text-shadow:0 0 10px #47f465}
 .circuit-board{display:grid;grid-template-columns:repeat(var(--circuit-size),minmax(0,1fr));gap:3px;min-width:0;width:100%;margin:auto;padding:5px;border:2px inset #355741;background:#010703}
 .circuit-tile{display:block;aspect-ratio:1;min-width:0;width:100%;padding:0;border:1px solid #477451;border-radius:2px;background:linear-gradient(135deg,#28432b,#0f2615);color:#91bd97;cursor:pointer;touch-action:manipulation}
 .circuit-tile.is-fixed{position:relative;border-color:#947c4a;background:linear-gradient(135deg,#33402d,#1d271a);cursor:default}
 .circuit-tile.is-fixed::after{content:'•';position:absolute;right:2px;bottom:0;color:#c4a86e;font-size:11px;line-height:1}
+.circuit-tile.is-entry{outline:2px solid #a8ffad;outline-offset:-2px;box-shadow:0 0 10px #69ff7d88}
+.circuit-tile.is-exit{outline:2px solid #efce7f;outline-offset:-2px;box-shadow:0 0 10px #efce7f77}
 .circuit-tile svg{display:block;width:100%;height:100%}
 .circuit-tile svg g{fill:#8dab90;stroke:#8dab90;stroke-width:13;stroke-linecap:round}
 .circuit-tile.is-powered{background:#194e25;box-shadow:inset 0 0 12px #43e96888}
@@ -1558,5 +1564,5 @@ body.archive-digital-dialog-open{overflow:hidden}
 .circuit-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:10px}
 .circuit-actions button{min-height:34px;padding:6px 12px;border:2px outset #b7c7b9;border-radius:0;background:#bac9bd;color:#06170b;font:700 11px "Courier New",monospace;cursor:pointer}
 .circuit-actions button:focus-visible{outline:2px solid #bbffbf;outline-offset:3px}
-@media(max-width:650px){.circuit-overlay{padding:6px}.circuit-panel{padding:9px}.circuit-play{grid-template-columns:28px minmax(0,1fr) 28px;gap:3px}.circuit-terminal{font-size:8px}.circuit-board{gap:1px;padding:2px}.circuit-tile svg g{stroke-width:17}}
+@media(max-width:650px){.circuit-overlay{padding:6px}.circuit-panel{padding:9px}.circuit-play{grid-template-columns:27px minmax(0,1fr) 27px;gap:2px}.circuit-terminal{font-size:11px;gap:0}.circuit-terminal b{font-size:8px}.circuit-board{gap:1px;padding:2px}.circuit-tile svg g{stroke-width:17}}
 
