@@ -239,6 +239,12 @@
               ]
             }
           ]
+        },
+        {
+          "title": "Imágenes Recuperadas.",
+          "order": 2,
+          "description": "Volcado de imágenes y videos Richard Alcoy",
+          "circuit_difficulty": "ninguno"
         }
       ]
     }
