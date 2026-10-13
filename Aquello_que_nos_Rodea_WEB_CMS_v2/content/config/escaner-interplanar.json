@@ -158,6 +158,9 @@
       "image": "/assets/uploads/SUCESOS/secuestro discoteca/imagen-de-codex-26-sept-2026-013032-6-web.webp",
       "overlay": "/assets/uploads/escaner/capas/discoteca4.png"
     },
-    {}
+    {
+      "image": "/assets/uploads/personajes/Richard/LISBOA2023/escaparate-massimo-dutti-en-la-ciudad.png",
+      "overlay": "/assets/uploads/escaner/capas/escaparate-massimo-dutti-en-la-ciudad-capa-interplanar.png"
+    }
   ]
 }
