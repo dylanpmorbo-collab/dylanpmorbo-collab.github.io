@@ -258,6 +258,22 @@
     },
     {
       "platform": "INSTAGRAM",
+      "type": "Publicaciones",
+      "title": "LAURA",
+      "media": [
+        {
+          "kind": "photo",
+          "title": "Bendito match 😂❤️",
+          "image": "/assets/uploads/personajes/Richard/LAURA/img3279-web.webp",
+          "quick_entry": "TÍTULO: Bendito match 😂❤️\n\nFECHA: Mediados de 2019\n\nDESCRIPCIÓN:\nQuién me iba a decir a mí que Tinder iba a funcionar tan bien jajajaja. Pues nada, os presento a Laura, que me tiene bastante tontico últimamente ❤️😘\n\nALT: Selfie con Laura, que encima de guapa tiene que aguantarme 😂❤️\n\nAMPLIAR: no\n\nOCULTAR: no\n\nREACCIONES: 🤍56 🗨️5\n\nCOMENTARIOS:\n\n@marcoslafuente_\nPero bueno Richard qué calladito te lo tenías 😂😂\n\n@daniserrano98\nJAJAJA al final Tinder va a servir para algo\n\n@luciaroyoo\nPero qué guapos los dos!! 😍❤️\n\n@alexmorenoo\nMenuda sonrisa llevas últimamente cabrón jajajaj\n\n@paulagimeno_\nQué bonita pareja hacéis 🥹💕",
+          "sensitive": false,
+          "zoom": false
+        }
+      ],
+      "status": "Online"
+    },
+    {
+      "platform": "INSTAGRAM",
       "type": "STORY",
       "title": "Primer beso",
       "date": "29/08/2021 · 19:34",
@@ -364,22 +380,6 @@
           "zoom": false
         }
       ]
-    },
-    {
-      "platform": "INSTAGRAM",
-      "type": "Publicaciones",
-      "title": "LAURA",
-      "media": [
-        {
-          "kind": "photo",
-          "title": "Bendito match 😂❤️",
-          "image": "/assets/uploads/personajes/Richard/LAURA/img3279-web.webp",
-          "quick_entry": "TÍTULO: Bendito match 😂❤️\n\nFECHA: Mediados de 2019\n\nDESCRIPCIÓN:\nQuién me iba a decir a mí que Tinder iba a funcionar tan bien jajajaja. Pues nada, os presento a Laura, que me tiene bastante tontico últimamente ❤️😘\n\nALT: Selfie con Laura, que encima de guapa tiene que aguantarme 😂❤️\n\nAMPLIAR: no\n\nOCULTAR: no\n\nREACCIONES: 🤍56 🗨️5\n\nCOMENTARIOS:\n\n@marcoslafuente_\nPero bueno Richard qué calladito te lo tenías 😂😂\n\n@daniserrano98\nJAJAJA al final Tinder va a servir para algo\n\n@luciaroyoo\nPero qué guapos los dos!! 😍❤️\n\n@alexmorenoo\nMenuda sonrisa llevas últimamente cabrón jajajaj\n\n@paulagimeno_\nQué bonita pareja hacéis 🥹💕",
-          "sensitive": false,
-          "zoom": false
-        }
-      ],
-      "status": "Online"
     }
   ],
   "show_documents": false,
