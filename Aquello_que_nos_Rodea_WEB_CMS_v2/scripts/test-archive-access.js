@@ -27,6 +27,7 @@ const context={
   orderedDigitalItems:items=>Array.isArray(items)?items:[],
   globalCensorship:new Map(),
   imagePath:value=>value,
+  digitalFileUpdateId:()=> 'test-notification',
   plainTextToHTML:value=>String(value),
   markdownToHTML:value=>String(value)
 };
@@ -38,7 +39,7 @@ const item={show_digital_reports:true,digital_reports:[{
     {title:'Texto antiguo',kind:'TEXTO',body:'Pista',circuit_difficulty:'basico'}
   ]}]
 }]};
-const html=context.archiveDigitalReports(item).html;
+const html=context.archiveDigitalReports({key:'sucesos'},item).html;
 assert.match(html,/data-digital-open="0"[^>]*data-access-type="imagen"[^>]*data-access-level="medio"/);
 assert.match(html,/data-retro-folder="0"[^>]*data-access-type="codigo"/);
 assert.match(html,/data-retro-file="0"[^>]*data-access-type="imagen"[^>]*data-access-level="dificil"/);
@@ -57,3 +58,4 @@ puzzle.hashCode('  shura   19  ').then(hash=>{
   assert.equal(hash,crypto.createHash('sha256').update('SHURA 19').digest('hex'));
   console.log('Acceso por imagen 4×4, 6×6 y 8×8; código; compatibilidad con corriente: OK');
 }).catch(error=>{console.error(error);process.exitCode=1;});
+

@@ -135,6 +135,16 @@ content:
         label: Publicado
         type: boolean
         default: true
+      - name: notify_new
+        label: Avisar como novedad en la web
+        type: boolean
+        default: true
+        description: "Desactívalo si este relato debe aparecer sin notificación. El aviso se borra para cada lector al abrirlo."
+      - name: notification_revision
+        label: Avisar de una actualización del relato
+        type: string
+        required: false
+        description: "Opcional. Cambia este valor (por ejemplo, 2026-10-15) solo cuando quieras volver a notificar una versión ampliada."
       - name: published_date
         label: Fecha de publicación
         type: date
@@ -344,6 +354,15 @@ content:
         label: Publicado
         type: boolean
         default: true
+      - name: notify_new
+        label: Avisar como novedad en la web
+        type: boolean
+        default: true
+      - name: notification_revision
+        label: Avisar de una actualización
+        type: string
+        required: false
+        description: "Cambia este valor solo cuando quieras volver a notificar este microrrelato."
       - name: published_date
         label: Fecha de publicación
         type: date
@@ -555,6 +574,15 @@ content:
         label: Publicado
         type: boolean
         default: false
+      - name: notify_new
+        label: Avisar como novedad en la web
+        type: boolean
+        default: true
+      - name: notification_revision
+        label: Avisar de datos nuevos en esta ficha
+        type: string
+        required: false
+        description: "Pon una clave nueva (por ejemplo, 2026-10-15) cuando añadas datos importantes a una ficha ya publicada."
       - name: panorama
         label: Panorámica principal
         type: image
@@ -766,6 +794,15 @@ content:
         label: Publicado
         type: boolean
         default: false
+      - name: notify_new
+        label: Avisar como novedad en la web
+        type: boolean
+        default: true
+      - name: notification_revision
+        label: Avisar de datos nuevos en esta ficha
+        type: string
+        required: false
+        description: "Pon una clave nueva cuando quieras notificar una ampliación de esta ficha."
       - name: panorama
         label: Panorámica principal
         type: image
@@ -976,6 +1013,16 @@ content:
         label: Publicado
         type: boolean
         default: true
+      - name: notify_new
+        label: Avisar como novedad en la web
+        type: boolean
+        default: true
+        description: "Desactívalo para publicar esta ficha sin aviso. Las piezas internas tienen su propio control."
+      - name: notification_revision
+        label: Avisar de datos nuevos en este expediente
+        type: string
+        required: false
+        description: "Al ampliar una ficha existente, cambia esta clave (por ejemplo, 2026-10-15) para que reaparezca en Novedades."
       - name: image
         label: Imagen principal / miniatura (1200 × 900 px)
         type: image
@@ -1086,6 +1133,14 @@ content:
             required: true
             options:
               media: default
+          - name: notify_new
+            label: Avisar como imagen nueva
+            type: boolean
+            default: true
+          - name: notification_revision
+            label: Volver a notificar esta imagen (clave opcional)
+            type: string
+            required: false
           - name: caption
             label: Pie de imagen
             type: string
@@ -1613,6 +1668,16 @@ content:
                     label: Nombre del archivo
                     type: string
                     required: true
+                  - name: notify_new
+                    label: Avisar al recuperar este archivo
+                    type: boolean
+                    default: true
+                    description: "Desactívalo para que el archivo aparezca sin entrar en Novedades."
+                  - name: notification_revision
+                    label: Volver a notificar este archivo (clave opcional)
+                    type: string
+                    required: false
+                    description: "Cambia la clave cuando quieras anunciar una versión nueva del mismo archivo."
                   - name: kind
                     label: Tipo de archivo
                     type: select
@@ -1933,6 +1998,14 @@ content:
             label: Título del recorte o titular
             type: string
             required: true
+          - name: notify_new
+            label: Avisar al añadir este recorte
+            type: boolean
+            default: true
+          - name: notification_revision
+            label: Volver a notificar este recorte (clave opcional)
+            type: string
+            required: false
           - name: image
             label: Imagen del recorte (proporción libre)
             type: image
@@ -2021,6 +2094,14 @@ content:
             label: Titular
             type: string
             required: true
+          - name: notify_new
+            label: Avisar al añadir esta noticia
+            type: boolean
+            default: true
+          - name: notification_revision
+            label: Volver a notificar esta noticia (clave opcional)
+            type: string
+            required: false
           - name: byline
             label: Autor o firma
             type: string
@@ -2133,6 +2214,15 @@ content:
         label: Publicado
         type: boolean
         default: true
+      - name: notify_new
+        label: Avisar como novedad en la web
+        type: boolean
+        default: true
+      - name: notification_revision
+        label: Avisar de datos nuevos en este personaje
+        type: string
+        required: false
+        description: "Cambia esta clave cuando quieras notificar una ampliación importante de la ficha."
       - name: image
         label: Imagen principal / miniatura (1200 × 900 px)
         type: image
@@ -2459,6 +2549,14 @@ content:
             required: true
             options:
               media: default
+          - name: notify_new
+            label: Avisar como imagen nueva
+            type: boolean
+            default: true
+          - name: notification_revision
+            label: Volver a notificar esta imagen (clave opcional)
+            type: string
+            required: false
           - name: caption
             label: Pie de imagen
             type: string
@@ -2979,6 +3077,16 @@ content:
                     label: Nombre del archivo
                     type: string
                     required: true
+                  - name: notify_new
+                    label: Avisar al recuperar este archivo
+                    type: boolean
+                    default: true
+                    description: "Desactívalo para que el archivo aparezca sin entrar en Novedades."
+                  - name: notification_revision
+                    label: Volver a notificar este archivo (clave opcional)
+                    type: string
+                    required: false
+                    description: "Cambia la clave cuando quieras anunciar una versión nueva del mismo archivo."
                   - name: kind
                     label: Tipo de archivo
                     type: select
@@ -4584,3 +4692,4 @@ content:
     type: file
     path: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/data/frases-archivo.txt
     format: raw
+

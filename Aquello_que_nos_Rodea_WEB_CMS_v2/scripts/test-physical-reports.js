@@ -20,7 +20,8 @@ const fixture={show_police_report:true,police_reports:[{
     {title:'Segundo',paper:'verde',body:'Otro texto'}
   ]
 }]};
-const html=context.archivePoliceReportV2(fixture);
+const section={key:'sucesos'};
+const html=context.archivePoliceReportV2(section,fixture);
 assert(html.includes('ÍNDICE DEL EXPEDIENTE'));
 assert(html.includes('data-police-jump="1"'));
 assert(html.includes('data-paper="verde"'));
@@ -29,10 +30,10 @@ assert.strictEqual((html.match(/class="archive-police-letterhead"/g)||[]).length
 assert(html.includes('data-police-image-open'));
 assert(html.includes('<figcaption>Vista de la escena</figcaption>'));
 assert(html.includes('alt="Vista de la escena"'));
-assert(!context.archivePoliceReportV2({show_police_report:false}).includes('archive-police-dialog'));
-const single=context.archivePoliceReportV2({show_police_report:true,police_reports:[{title:'Solo',documents:[{title:'Hoja',body:'Texto'}]}]});
+assert(!context.archivePoliceReportV2(section,{show_police_report:false}).includes('archive-police-dialog'));
+const single=context.archivePoliceReportV2(section,{show_police_report:true,police_reports:[{title:'Solo',documents:[{title:'Hoja',body:'Texto'}]}]});
 assert(!single.includes('ÍNDICE DEL EXPEDIENTE'));
-const long=context.archivePoliceReportV2({show_police_report:true,police_reports:[{title:'Expediente largo',documents:[{
+const long=context.archivePoliceReportV2(section,{show_police_report:true,police_reports:[{title:'Expediente largo',documents:[{
   title:'Diligencias preliminares',body:'Texto '.repeat(400),image:'foto-1.png',image_2:'foto-2.png'
 }]}]});
 assert.strictEqual((long.match(/class="archive-police-report-heading">Diligencias preliminares<\/div>/g)||[]).length,1);
@@ -42,4 +43,5 @@ assert(long.includes('<figcaption>FOTOGRAFÍA 01</figcaption>'));
 assert(long.includes('<figcaption>FOTOGRAFÍA 02</figcaption>'));
 assert(!long.includes('Diligencias preliminares · ANEXO FOTOGRÁFICO'));
 console.log('Expedientes físicos: pruebas correctas');
+
 

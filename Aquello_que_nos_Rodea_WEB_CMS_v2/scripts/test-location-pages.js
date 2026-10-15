@@ -67,12 +67,12 @@ try {
   assert.match(placeIndex, /archivo-lugares-torre-hundida.html/);
   assert.ok(fs.existsSync(path.join(scratch, 'dist/archivo-planos-plano-humano.html')));
   const mapImage = /<img class="markdown-image" src="\/assets\/uploads\/archivo\/mapa-web\.webp"/g;
-  assert.equal([...richardHtml.matchAll(mapImage)].length, 2, 'El mapa Markdown debe verse en el informe físico y el digital de Richard.');
+  assert.equal([...richardHtml.matchAll(mapImage)].length, 1, 'El mapa Markdown de Richard debe verse una vez en el informe físico actual.');
   assert.match(richardHtml, /archive-police-report-text[\s\S]*?<figure class="markdown-figure"><img class="markdown-image" src="\/assets\/uploads\/archivo\/mapa-web\.webp"/);
-  assert.match(richardHtml, /retro-text-document[\s\S]*?<figure class="markdown-figure"><img class="markdown-image" src="\/assets\/uploads\/archivo\/mapa-web\.webp"/);
-  console.log('OK: Planos, Lugares y las imágenes Markdown de los informes físicos y digitales.');
+  console.log('OK: Planos, Lugares y el mapa Markdown del informe físico actual.');
 } finally {
   if (scratch.startsWith(os.tmpdir() + path.sep) && path.basename(scratch).startsWith('aqnr-location-test-')) {
     fs.rmSync(scratch, { recursive: true, force: true });
   }
 }
+

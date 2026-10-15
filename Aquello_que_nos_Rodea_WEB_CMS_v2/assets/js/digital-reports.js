@@ -148,6 +148,7 @@
       window.dataset.folderIndex=button.dataset.retroFolder;
       window.querySelector('[data-retro-folder-title]').textContent=button.textContent.trim();
       window.querySelector('[data-retro-folder-content]').replaceChildren(template.content.cloneNode(true));
+      globalThis.AQNRUpdates?.refresh(window);
       window.hidden=false;
       window.querySelector('[data-retro-folder-close]').focus();
     }
@@ -163,6 +164,7 @@
       const window=fileWindow();
       window.querySelector('[data-retro-file-title]').textContent=button.querySelector('.retro-file-name')?.textContent||'ARCHIVO';
       window.querySelector('[data-retro-file-content]').replaceChildren(template.content.cloneNode(true));
+      globalThis.AQNRUpdates?.markOpened(button.dataset.updateId);
       updateFileNavigation();
       pixelateImage(window);
       const video=window.querySelector('video');
@@ -348,3 +350,4 @@
     });
   });
 })();
+

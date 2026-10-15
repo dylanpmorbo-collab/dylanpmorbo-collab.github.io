@@ -14,8 +14,9 @@ vm.runInContext(source.slice(source.indexOf('function physicalDocumentBlocks('),
 
 const sizeNames = ['a4', 'mini-a4', 'a5', 'a6', 'a7', 'a8'];
 const colors = ['blanco', 'crema', 'amarillo', 'gris', 'verde'];
+const section = { key: 'sucesos' };
 for (const size of sizeNames) for (const orientation of ['portrait', 'landscape']) for (const color of colors) {
-  const html = context.archivePoliceReportV2({ show_police_report: true, police_reports: [{
+  const html = context.archivePoliceReportV2(section, { show_police_report: true, police_reports: [{
     title: 'Prueba', documents: [{ title: 'Factura', body: '**Negrita** y texto', paper: color,
       paper_size: size, paper_orientation: orientation }],
   }] });
@@ -24,11 +25,12 @@ for (const size of sizeNames) for (const orientation of ['portrait', 'landscape'
   assert(html.includes(`data-paper="${color}"`));
   assert(html.includes('<strong>Negrita</strong>'));
 }
-const old = context.archivePoliceReportV2({ show_police_report: true, police_reports: [{
+const old = context.archivePoliceReportV2(section, { show_police_report: true, police_reports: [{
   title: 'Antiguo', documents: [{ title: 'Hoja', body: 'Texto', paper: 'verde' }],
 }] });
 assert(old.includes('data-paper-size="a4"'));
 assert(old.includes('data-paper-orientation="portrait"'));
 assert(old.includes('data-paper="verde"'));
 console.log('Tamaños, orientación, colores y Markdown: pruebas correctas');
+
 

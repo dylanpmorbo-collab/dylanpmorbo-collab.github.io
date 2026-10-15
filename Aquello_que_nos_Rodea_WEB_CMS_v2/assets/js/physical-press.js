@@ -20,6 +20,7 @@
     let index=0,trigger=null;
     function show(){
       const thumbnail=buttons[index].querySelector('img');
+      window.AQNRUpdates?.markOpened(buttons[index].closest('[data-update-id]')?.dataset.updateId);
       image.src=thumbnail.currentSrc||thumbnail.src;
       image.alt=thumbnail.alt;
       counter.textContent='RECORTE '+(index+1)+' / '+buttons.length;
@@ -44,3 +45,4 @@
     });
   });
 })();
+

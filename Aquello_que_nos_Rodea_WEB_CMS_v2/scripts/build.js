@@ -120,7 +120,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=aviso-20261013a"><script defer src="assets/js/main.js?v=testimonios-20260920"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=novedades-20261015"><script defer src="assets/js/main.js?v=testimonios-20260920"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -187,7 +187,7 @@ function header(active=''){
 <a href="escaner.html" class="nav-link ${active==='escaner'?'active':''}">Escáner</a>
 <a href="terminal.html" class="nav-link ${active==='terminal'?'active':''}">Terminal</a>
 <a href="sobre.html" class="nav-link ${active==='sobre'?'active':''}">Dylan P. MOЯBO</a>
-</nav></header>`;
+</nav><div class="site-updates"><button class="site-updates-toggle" type="button" data-updates-toggle aria-expanded="false" aria-controls="siteUpdatesPanel"><span aria-hidden="true">◉</span> NOVEDADES <b data-updates-count hidden>0</b></button><section class="site-updates-panel" id="siteUpdatesPanel" data-updates-panel hidden aria-label="Archivos nuevos"><div class="site-updates-heading"><strong>RECUPERACIÓN ACTIVA</strong><button type="button" data-updates-close aria-label="Cerrar novedades">×</button></div><p class="site-updates-intro">Archivos incorporados desde tu última visita. Desaparecen de aquí cuando abres cada pieza.</p><div data-updates-list></div><p class="site-updates-note">El seguimiento se guarda solo en este navegador.</p></section></div></header>`;
 }
 function footer(site){
  return `<footer class="site-footer"><div class="footer-sigil">◉</div>
@@ -195,7 +195,7 @@ function footer(site){
 <p>Un universo de horror creado por <strong>${esc(site.author)}</strong>.</p>
 <p class="footer-small">${esc(site.footer_note)}</p>
 <p class="footer-small">© 2026 ${esc(site.author)}. Todos los derechos reservados.</p><button type="button" class="cookie-settings-link" id="cookieSettings">Configurar cookies</button></footer>
-<div class="cookie-banner" id="cookieBanner" role="dialog" aria-labelledby="cookieTitle" aria-describedby="cookieDescription" hidden><div class="cookie-banner-inner"><div><strong id="cookieTitle">Privacidad y cookies</strong><p id="cookieDescription">Usamos almacenamiento técnico para recordar tu confirmación de edad, esta elección y tu progreso en el libro y las conexiones del Archivo. Google Analytics, que mide las visitas, solo se activará si aceptas.</p><details><summary>Más información</summary><p>El progreso del libro y la apertura de conexiones se recuerdan solo en este navegador; no se guarda el código introducido. Si aceptas, Google Analytics podrá instalar cookies de medición y recibir datos de navegación. Puedes rechazarlo y seguir usando toda la web. Cambia tu decisión cuando quieras desde «Configurar cookies», al pie de cualquier página.</p></details></div><div class="cookie-actions"><button type="button" id="cookieReject">Rechazar</button><button type="button" id="cookieAccept">Aceptar</button></div></div></div>`;
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-labelledby="cookieTitle" aria-describedby="cookieDescription" hidden><div class="cookie-banner-inner"><div><strong id="cookieTitle">Privacidad y cookies</strong><p id="cookieDescription">Usamos almacenamiento técnico para recordar tu confirmación de edad, esta elección, tu progreso en el libro y las conexiones del Archivo, y qué novedades has abierto. Google Analytics, que mide las visitas, solo se activará si aceptas.</p><details><summary>Más información</summary><p>El progreso del libro, la apertura de conexiones y los avisos de novedades se recuerdan solo en este navegador; no se guarda el código introducido. Si aceptas, Google Analytics podrá instalar cookies de medición y recibir datos de navegación. Puedes rechazarlo y seguir usando toda la web. Cambia tu decisión cuando quieras desde «Configurar cookies», al pie de cualquier página.</p></details></div><div class="cookie-actions"><button type="button" id="cookieReject">Rechazar</button><button type="button" id="cookieAccept">Aceptar</button></div></div></div>`;
 }
 function wordCount(s){return String(s).trim().split(/\s+/).filter(Boolean).length;}
 
@@ -479,6 +479,37 @@ function itemHref(section,item){
  if(section.key==='relatos') return `relato-${itemSlug(section,item)}.html`;
  return `archivo-${section.key}-${itemSlug(section,item)}.html`;
 }
+function updateId(...parts){return crypto.createHash('sha1').update(parts.map(x=>String(x||'')).join('\u001f')).digest('hex').slice(0,20);}
+function entryUpdateId(section,item){return updateId('entry',itemHref(section,item));}
+function digitalFileUpdateId(section,item,report,folder,file){
+ return updateId('digital',itemHref(section,item),report.title,folder.title,file.notification_id||file.image||file.video||file.annotated_image||file.title);
+}
+function pressUpdateId(section,item,kind,piece){return updateId(kind,itemHref(section,item),piece.notification_id||piece.image||piece.video||piece.headline);}
+function galleryUpdateId(section,item,g){return updateId('gallery',itemHref(section,item),g.notification_id||g.image);}
+const updateRegistry=[];
+for(const section of archiveSectionDefs){
+ for(const item of section.items){
+  const href=itemHref(section,item),parent=itemTitle(section,item);
+  updateRegistry.push({id:entryUpdateId(section,item),version:String(item.notification_revision||''),title:parent,context:section.label,kind:'page',href,notify:item.notify_new!==false});
+  if(item.show_digital_reports===true)for(const report of (Array.isArray(item.digital_reports)?item.digital_reports:[]).filter(report=>report&&(report.title||report.folders?.length)).slice(0,30)){
+   for(const folder of orderedDigitalItems(report.folders).filter(folder=>folder.title||folder.files?.length).slice(0,40)){
+    for(const file of orderedDigitalItems(folder.files).filter(file=>file.image||file.video||file.annotated_image||String(file.kind||'').toUpperCase()==='TEXTO').slice(0,100)){
+     updateRegistry.push({id:digitalFileUpdateId(section,item,report,folder,file),version:String(file.notification_revision||''),title:String(file.title||'Archivo recuperado'),context:parent+' · '+String(folder.title||'Carpeta'),kind:'file',href:href+'#informes-digitales',notify:file.notify_new!==false});
+    }
+   }
+  }
+  if(item.show_physical_press===true)for(const piece of (Array.isArray(item.physical_press)?item.physical_press:[]).filter(p=>p&&p.image)){
+   updateRegistry.push({id:pressUpdateId(section,item,'physical-press',piece),version:String(piece.notification_revision||''),title:String(piece.headline||'Recorte de prensa'),context:parent+' · prensa física',kind:'file',href:href+'#prensa-fisica',notify:piece.notify_new!==false});
+  }
+  if(item.show_digital_press===true)for(const piece of (Array.isArray(item.digital_press)?item.digital_press:[]).filter(p=>p&&(p.image||p.video||p.headline||p.summary))){
+   updateRegistry.push({id:pressUpdateId(section,item,'digital-press',piece),version:String(piece.notification_revision||''),title:String(piece.headline||'Noticia recuperada'),context:parent+' · prensa digital',kind:'file',href:href+'#prensa-digital',notify:piece.notify_new!==false});
+  }
+  for(const g of (Array.isArray(item.gallery)?item.gallery:[]).filter(g=>g&&g.image).slice(0,10)){
+   updateRegistry.push({id:galleryUpdateId(section,item,g),version:String(g.notification_revision||''),title:String(g.caption||'Imagen recuperada'),context:parent+' · galería',kind:'file',href:href+'#evidencias-visuales',notify:g.notify_new!==false});
+  }
+ }
+}
+fs.writeFileSync(path.join(DIST,'assets/js/updates-data.js'),'window.AQNR_UPDATES='+JSON.stringify(updateRegistry)+';\n');
 function itemFacts(section,item){
  const facts=[];
  if(itemStatus(item)) facts.push({label:'Estado',value:itemStatus(item)});
@@ -517,13 +548,13 @@ function archiveEntryCard(section,item){
    </div>
  </a>`;
 }
-function archiveGallery(item){
+function archiveGallery(section,item){
  const gallery=(Array.isArray(item.gallery)?item.gallery:[]).filter(g=>g && g.image).slice(0,10);
  if(!gallery.length) return '';
- return `<section class="archive-entry-gallery-block">
+ return `<section class="archive-entry-gallery-block" id="evidencias-visuales">
    <div class="section-label">EVIDENCIAS VISUALES // ${String(gallery.length).padStart(2,'0')}</div>
    <div class="archive-entry-gallery">${gallery.map((g,i)=>`<figure class="archive-gallery-item reveal">
-     <a href="${esc(g.image)}" target="_blank" rel="noopener"><img src="${esc(g.image)}" alt="${esc(g.caption||`${item.title||item.name||'Expediente'} — imagen ${i+1}`)}"></a>
+     <a href="${esc(g.image)}" target="_blank" rel="noopener" data-update-id="${galleryUpdateId(section,item,g)}"><img src="${esc(g.image)}" alt="${esc(g.caption||`${item.title||item.name||'Expediente'} — imagen ${i+1}`)}"></a>
      ${(g.caption||g.description)?`<figcaption>${g.caption?`<strong>${esc(g.caption)}</strong>`:''}${g.description?`<span>${esc(g.description).replace(/\r?\n/g,'<br>')}</span>`:''}</figcaption>`:''}
    </figure>`).join('')}</div>
  </section>`;
@@ -662,14 +693,14 @@ function digitalFootprintMarkup(item){
    '</details>';
 }
 
-function physicalPressMarkup(item){
+function physicalPressMarkup(section,item){
  if(!item || item.show_physical_press!==true) return '';
  const pieces=(Array.isArray(item.physical_press)?item.physical_press:[]).filter(piece=>piece&&piece.image);
  if(!pieces.length) return '';
  const cards=pieces.map((piece,index)=>{
    const meta=[piece.date,piece.edition,piece.place,piece.price].filter(Boolean);
    const translation=piece.show_translation===true?String(piece.translation_text||'').trim():'';
-   return '<article class="archive-physical-press-card digital-piece reveal">'+
+   return '<article class="archive-physical-press-card digital-piece reveal" data-update-id="'+pressUpdateId(section,item,'physical-press',piece)+'">'+
      (piece.masthead_image?'<img class="archive-physical-press-masthead" src="'+esc(piece.masthead_image)+'" alt="'+esc(piece.publication||'Cabecera del periódico')+'" loading="lazy">':piece.publication?'<strong class="archive-physical-press-name">'+esc(piece.publication)+'</strong>':'')+
      (meta.length?'<p class="archive-physical-press-meta">'+meta.map(esc).join(' · ')+'</p>':'')+
      (piece.section?'<p class="archive-physical-press-section">'+esc(piece.section)+'</p>':'')+
@@ -681,12 +712,12 @@ function physicalPressMarkup(item){
      (translation?'<button class="archive-physical-press-translation-toggle" type="button" data-physical-press-translation-toggle aria-expanded="false">MOSTRAR TRADUCCIÓN</button>':'')+
      '<p class="archive-fiction-note">Recorte ficticio · obra narrativa</p></article>';
  }).join('');
- return '<details class="archive-physical-press digital-footprint"><summary class="digital-footprint-toggle"><span><small class="archive-code">RECORTES EN PAPEL // '+String(pieces.length).padStart(2,'0')+'</small><strong>PRENSA FÍSICA</strong></span><span class="digital-footprint-toggle-action"><span class="digital-closed-label">DESPLEGAR ↓</span><span class="digital-open-label">REDUCIR ↑</span></span></summary>'+
+ return '<details class="archive-physical-press digital-footprint" id="prensa-fisica"><summary class="digital-footprint-toggle"><span><small class="archive-code">RECORTES EN PAPEL // '+String(pieces.length).padStart(2,'0')+'</small><strong>PRENSA FÍSICA</strong></span><span class="digital-footprint-toggle-action"><span class="digital-closed-label">DESPLEGAR ↓</span><span class="digital-open-label">REDUCIR ↑</span></span></summary>'+
    '<div class="digital-footprint-content"><div class="digital-grid archive-physical-press-grid">'+cards+'</div></div>'+
    '<dialog class="archive-physical-press-dialog" aria-label="Recorte de prensa ampliado"><button type="button" data-physical-press-close aria-label="Cerrar recorte">✕</button><button type="button" data-physical-press-prev aria-label="Recorte anterior">‹</button><img data-physical-press-large alt=""><button type="button" data-physical-press-next aria-label="Recorte siguiente">›</button><p data-physical-press-counter aria-live="polite"></p><small>Recorte ficticio · obra narrativa</small></dialog><script defer src="assets/js/physical-press.js?v=20261004"></script></details>';
 }
 
-function digitalPressMarkup(item){
+function digitalPressMarkup(section,item){
  if(!item || item.show_digital_press!==true) return '';
  const pieces=(Array.isArray(item.digital_press)?item.digital_press:[])
    .filter(piece=>piece && (piece.image||piece.video||piece.headline||piece.summary));
@@ -701,9 +732,9 @@ function digitalPressMarkup(item){
    const video=piece.video?'<div class="archive-press-media"><video controls playsinline preload="metadata"'+(piece.poster?' poster="'+esc(piece.poster)+'"':'')+' aria-label="'+esc(piece.headline||'Vídeo de prensa')+'"><source src="'+esc(piece.video)+'">Tu navegador no puede reproducir este vídeo.</video></div>':'';
    const original=String(piece.url||'').trim();
    const originalLink=/^https?:\/\//i.test(original)?'<a class="archive-press-original" href="'+esc(original)+'" target="_blank" rel="noopener noreferrer">CONSULTAR NOTICIA ORIGINAL ↗</a>':'';
-   return '<article class="archive-press-card reveal">'+
+   return '<details class="archive-press-card reveal" data-update-id="'+pressUpdateId(section,item,'digital-press',piece)+'"><summary class="archive-press-card-summary">'+
      '<header class="archive-press-card-head"><span class="archive-press-icon" aria-hidden="true">▤</span><div><strong>'+esc(outlet)+'</strong><span>'+esc(kind)+(piece.date?' · '+esc(piece.date):'')+'</span></div><b>'+String(index+1).padStart(2,'0')+'</b></header>'+
-     (piece.headline?'<h3>'+esc(piece.headline)+'</h3>':'')+
+     (piece.headline?'<h3>'+esc(piece.headline)+'</h3>':'')+'<span class="archive-press-open-label">ABRIR NOTICIA ↓</span></summary><div class="archive-press-card-body">'+
      (piece.byline?'<p class="archive-press-byline">'+esc(piece.byline)+'</p>':'')+
      image+video+
      (piece.summary?'<div class="archive-press-summary">'+plainTextToHTML(piece.summary)+'</div>':'')+
@@ -711,9 +742,9 @@ function digitalPressMarkup(item){
      (comments.length?'<div class="archive-press-comments"><h4>COMENTARIOS RECUPERADOS</h4>'+comments.map(x=>'<p><strong>'+esc(x.author||'Usuario')+'</strong>'+(x.date?' <time>'+esc(x.date)+'</time>':'')+' · '+esc(x.text||'').replace(/\r?\n/g,'<br>')+'</p>').join('')+'</div>':'')+
      (piece.archive_note?'<aside class="archive-press-note"><strong>NOTA DE ARCHIVO</strong>'+plainTextToHTML(piece.archive_note)+'</aside>':'')+
      (details?'<dl class="archive-press-details">'+details+'</dl>':'')+originalLink+
-     '</article>';
+     '</div></details>';
  }).join('');
- return '<details class="archive-press digital-footprint" aria-labelledby="archive-press-title">'+
+ return '<details class="archive-press digital-footprint" id="prensa-digital" aria-labelledby="archive-press-title">'+
    '<summary class="digital-footprint-toggle"><span><small class="archive-code">RECORTES RECUPERADOS // '+String(pieces.length).padStart(2,'0')+'</small><strong id="archive-press-title">PRENSA DIGITAL</strong></span><span class="digital-footprint-toggle-action"><span class="digital-closed-label">DESPLEGAR ↓</span><span class="digital-open-label">REDUCIR ↑</span></span></summary>'+
    '<div class="digital-footprint-content"><p class="digital-footprint-description">Noticias y material audiovisual incorporados al expediente.</p><div class="archive-press-list">'+cards+'</div></div>'+
    '<script>(function(){const section=document.currentScript.closest(".archive-press");if(!section)return;section.addEventListener("toggle",function(){if(!section.open)section.querySelectorAll("video").forEach(video=>video.pause());});})();<\/script>'+
@@ -1130,7 +1161,7 @@ function accessAttributes(item,kind,key,defaultImage){
  }
  return circuitAttributes(item.circuit_difficulty,kind,key);
 }
-function archiveDigitalReports(item){
+function archiveDigitalReports(section,item){
  if(item.show_digital_reports!==true) return {count:0,html:''};
  const reports=(Array.isArray(item.digital_reports)?item.digital_reports:[])
    .filter(report=>report && (report.title || report.folders?.length)).slice(0,30);
@@ -1187,13 +1218,13 @@ function archiveDigitalReports(item){
        const access=accessAttributes(file,'archivo',index+':'+folderIndex+':'+fileIndex+':'+String(report.title||'')+' / '+String(folder.title||'')+' / '+title,file.image||file.poster);
        const locked=Boolean(access);
        const thumb=locked?'':isVideo?(file.poster||file.image):(globalRule?.mode==='falso'?globalRule.fake:(file.image_visibility==='falso'&&file.fake_pixel_image?file.fake_pixel_image:(file.image||file.annotated_image)));
-       return '<button type="button" class="retro-file-entry" data-retro-file="'+fileIndex+'"'+access+' aria-label="Abrir '+esc(title)+'">'+
+       return '<button type="button" class="retro-file-entry" data-retro-file="'+fileIndex+'" data-update-id="'+digitalFileUpdateId(section,item,report,folder,file)+'"'+access+' aria-label="Abrir '+esc(title)+'">'+
          '<span class="retro-file-thumb">'+(thumb?'<img src="'+esc(thumb)+'" alt="" loading="lazy"'+(globalRule?.mode==='falso'?' data-original="'+esc(file.image||file.annotated_image)+'"':'')+'>':'<span aria-hidden="true">'+(locked?'▣':isText?'▤':'▶')+'</span>')+'</span>'+
          '<span class="retro-file-name">'+esc(title)+'</span><small>'+(isText?'TEXTO':isVideo?'VÍDEO':'IMAGEN')+'</small></button>';
      }).join('');
-     return '<template data-retro-folder-template="'+folderIndex+'"><div class="retro-file-grid">'+(entries||'<p class="retro-empty">No hay archivos en esta carpeta.</p>')+'</div></template>';
+     return '<template data-retro-folder-template="'+folderIndex+'"><div class="retro-file-grid">'+(entries||'<p class="retro-empty">No hay archivos en esta carpeta.</p>')+'<div class="retro-recovery-pending" role="status" aria-label="Recuperación de archivos en curso"><span class="retro-recovery-photo" aria-hidden="true"><i></i></span><strong>RECUPERANDO…</strong><small>La unidad sigue examinando fragmentos</small></div></div></template>';
    }).join('');
-   const fileTemplates=folders.flatMap((folder,folderIndex)=>
+     const fileTemplates=folders.flatMap((folder,folderIndex)=>
      orderedDigitalItems(folder.files).filter(file=>file.image||file.video||file.annotated_image||String(file.kind||'').toUpperCase()==='TEXTO').slice(0,100).map((file,fileIndex)=>{
        const title=String(file.title||('ARCHIVO '+String(fileIndex+1).padStart(2,'0')));
        const isText=String(file.kind||'').toUpperCase()==='TEXTO';
@@ -1260,12 +1291,12 @@ function archiveDigitalReports(item){
      '<section class="retro-window retro-file-window" data-retro-file-window hidden aria-label="Archivo recuperado"><header class="retro-window-titlebar"><strong data-retro-file-title>ARCHIVO</strong><span class="retro-file-nav"><button type="button" data-retro-file-prev aria-label="Archivo anterior" title="Archivo anterior">←</button><button type="button" data-retro-file-next aria-label="Archivo siguiente" title="Archivo siguiente">→</button><button type="button" data-retro-file-close aria-label="Volver a la carpeta">✕</button></span></header><div class="retro-window-content" data-retro-file-content></div></section>'+
      '</div></template>';
  }).join('');
- return {count:reports.length,html:'<div class="archive-digital-report-group"><div class="archive-report-subheading">INFORMES DIGITALES // '+String(reports.length).padStart(2,'0')+'</div>'+
+   return {count:reports.length,html:'<div class="archive-digital-report-group" id="informes-digitales"><div class="archive-report-subheading">INFORMES DIGITALES // '+String(reports.length).padStart(2,'0')+'</div>'+
    '<div class="archive-police-folder-grid archive-mmc-grid">'+cards+'</div>'+templates+
    '<dialog class="archive-digital-dialog" aria-label="Escritorio de informe digital"><div class="archive-digital-dialog-shell"><header class="archive-digital-dialog-header"><span data-digital-dialog-title>INFORME DIGITAL</span><button type="button" data-digital-close aria-label="Cerrar escritorio">✕</button></header><div data-digital-workspace></div></div></dialog></div>'+
    '<script defer src="assets/js/circuit-puzzle.js?v=20261012b"></script><script defer src="assets/js/archive-access.js?v=20261012a"></script><script defer src="assets/js/digital-reports.js?v=aviso-20261013a"></script>'};
 }
-function archivePoliceReport(item){return archivePoliceReportV2(item);}
+function archivePoliceReport(section,item){return archivePoliceReportV2(section,item);}
 
 function physicalDocumentBlocks(body){
  const blocks=[];
@@ -1375,8 +1406,8 @@ function physicalPaperSettings(doc){
  const capacity=Math.round(physicalPaperSizes[size][2]*(orientation==='landscape'?.62:1));
  return {size,orientation,capacity};
 }
-function archivePoliceReportV2(item){
- const digital=archiveDigitalReports(item);
+function archivePoliceReportV2(section,item){
+ const digital=archiveDigitalReports(section,item);
  const raw=item.show_police_report===true&&Array.isArray(item.police_reports)?item.police_reports:[];
  let reports=raw.filter(report=>report&&(report.title||report.body||report.documents?.length)).slice(0,30);
  if(item.show_police_report===true&&!reports.length&&String(item.police_report||'').trim()){
@@ -1623,10 +1654,10 @@ function archiveEntryPage(section,item){
  <section class="section archive-entry-shell">
    <div class="archive-back-row"><a class="text-link" href="${section.file}">← VOLVER A ${section.label}</a><a class="text-link" href="archivo.html">ÍNDICE GENERAL</a></div>
    ${detailsMarkup}
-   ${archiveGallery(item)}
-   ${section.key==='personajes'?digitalFootprintMarkup(item):physicalPressMarkup(item)+digitalPressMarkup(item)}
+   ${archiveGallery(section,item)}
+   ${section.key==='personajes'?digitalFootprintMarkup(item):physicalPressMarkup(section,item)+digitalPressMarkup(section,item)}
    ${archiveDocuments(item)}
-   ${archivePoliceReport(item)}
+   ${archivePoliceReport(section,item)}
    ${relatedArchiveMarkup(item,itemHref(section,item),title)}
  </section>
  </main>${footer(site)}</body></html>`;
@@ -1895,3 +1926,4 @@ fs.writeFileSync(path.join(DIST,'sobre.html'),about);
 fs.writeFileSync(path.join(DIST,'robots.txt'),'User-agent: *\\nAllow: /\\n');
 buildPhotoCensorship({root:ROOT, dist:DIST, entries:globalCensorship});
 console.log(`Construida web con ${stories.length} relato(s) y ${micros.length} microrrelato(s).`);
+
