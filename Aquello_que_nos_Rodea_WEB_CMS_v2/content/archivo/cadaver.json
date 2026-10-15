@@ -3,6 +3,7 @@
   "archive_number": "001",
   "category": "SUCESO",
   "published": true,
+  "notify_new": true,
   "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/se-busca-ra.webp",
   "status": "NO RESUELTO",
   "summary": "La madrugada del 1 de septiembre de 2024, Richard Alcoy, un joven zaragozano de 26 años, se separó de sus amigos después de una noche de fiesta y emprendió solo el camino de regreso a casa.\nNunca llegó.",
@@ -148,9 +149,13 @@
           "title": "INFORMES",
           "circuit_difficulty": "ninguno",
           "access_method": "automatico",
+          "show_recovery_placeholder": false,
+          "opening_notice_enabled": false,
+          "opening_notice_frequency": "always",
           "files": [
             {
               "title": "DILIGENCIA DE RECEPCIÓN Y VALORACIÓN DE DATOS DE GEOLOCALIZACIÓN",
+              "notify_new": true,
               "kind": "TEXTO",
               "circuit_difficulty": "ninguno",
               "access_method": "automatico",
@@ -159,6 +164,7 @@
             },
             {
               "title": "INFORME DE ANÁLISIS DE VIDEOVIGILANCIA",
+              "notify_new": true,
               "kind": "TEXTO",
               "circuit_difficulty": "ninguno",
               "access_method": "automatico",
@@ -185,6 +191,7 @@
             },
             {
               "title": "INFORME DE ANÁLISIS DE EVIDENCIA DIGITAL",
+              "notify_new": true,
               "kind": "TEXTO",
               "circuit_difficulty": "ninguno",
               "access_method": "automatico",
@@ -224,9 +231,18 @@
           "description": "Conversaciones de mensajería recuperadas",
           "circuit_difficulty": "ninguno",
           "access_method": "automatico",
+          "show_recovery_placeholder": true,
+          "opening_notice_enabled": true,
+          "opening_notice_title": "CONVERSACIONES RECUPERADAS · EXTRACTO",
+          "opening_notice_text": "Esta carpeta no contiene el historial completo de Richard Alcoy. Reúne fragmentos de conversaciones recuperados e incorporados a esta copia del expediente.\n\nLa ausencia de otros mensajes no significa que no existieran en el dispositivo o en sus copias asociadas.",
+          "opening_notice_accent": "#d7ae63",
+          "opening_notice_confirm": "VER CONVERSACIONES",
+          "opening_notice_cancel": "VOLVER",
+          "opening_notice_frequency": "always",
           "files": [
             {
               "title": "Archivo whatsapp 1",
+              "notify_new": true,
               "kind": "IMAGEN",
               "circuit_difficulty": "ninguno",
               "access_method": "automatico",
@@ -248,14 +264,7 @@
                 }
               ]
             }
-          ],
-          "opening_notice_enabled": true,
-          "opening_notice_title": "CONVERSACIONES RECUPERADAS · EXTRACTO",
-          "opening_notice_text": "Esta carpeta no contiene el historial completo de Richard Alcoy. Reúne fragmentos de conversaciones recuperados e incorporados a esta copia del expediente.\n\nLa ausencia de otros mensajes no significa que no existieran en el dispositivo o en sus copias asociadas.",
-          "opening_notice_confirm": "VER CONVERSACIONES",
-          "opening_notice_cancel": "VOLVER",
-          "opening_notice_accent": "#d7ae63",
-          "opening_notice_frequency": "always"
+          ]
         },
         {
           "title": "Imágenes Recuperadas.",
@@ -264,12 +273,13 @@
           "description": "Volcado de imágenes y videos Richard Alcoy",
           "circuit_difficulty": "ninguno",
           "access_method": "automatico",
+          "show_recovery_placeholder": true,
           "opening_notice_enabled": true,
           "opening_notice_title": "IMÁGENES RECUPERADAS · EXTRACTO",
           "opening_notice_text": "Esta carpeta no reproduce la galería completa del teléfono de Richard Alcoy. Reúne una selección de imágenes eliminadas que pudieron recuperarse e incorporarse a esta copia del expediente.\n\nOtros archivos del volcado no se muestran aquí; su ausencia no significa que no existieran.",
+          "opening_notice_accent": "#d7ae63",
           "opening_notice_confirm": "VER IMÁGENES",
           "opening_notice_cancel": "VOLVER",
-          "opening_notice_accent": "#d7ae63",
           "opening_notice_frequency": "always"
         }
       ]
