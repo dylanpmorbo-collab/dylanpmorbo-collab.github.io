@@ -1610,6 +1610,12 @@ content:
                 type: string
                 required: false
                 description: "Solo para Introducir código. Esconde las pistas manualmente por el Archivo; no es seguridad real."
+              - name: show_recovery_placeholder
+                label: Mostrar imagen «RECUPERANDO…» en esta carpeta
+                type: boolean
+                required: false
+                default: true
+                description: "Desactívalo si esta carpeta no debe mostrar la recuperación en curso. No afecta a otras carpetas."
               - name: opening_notice_enabled
                 label: Mostrar aviso antes de abrir esta carpeta
                 type: boolean
@@ -3019,6 +3025,12 @@ content:
                 type: string
                 required: false
                 description: "Solo para Introducir código. Esconde las pistas manualmente por el Archivo; no es seguridad real."
+              - name: show_recovery_placeholder
+                label: Mostrar imagen «RECUPERANDO…» en esta carpeta
+                type: boolean
+                required: false
+                default: true
+                description: "Desactívalo si esta carpeta no debe mostrar la recuperación en curso. No afecta a otras carpetas."
               - name: opening_notice_enabled
                 label: Mostrar aviso antes de abrir esta carpeta
                 type: boolean

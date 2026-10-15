@@ -1222,7 +1222,8 @@ function archiveDigitalReports(section,item){
          '<span class="retro-file-thumb">'+(thumb?'<img src="'+esc(thumb)+'" alt="" loading="lazy"'+(globalRule?.mode==='falso'?' data-original="'+esc(file.image||file.annotated_image)+'"':'')+'>':'<span aria-hidden="true">'+(locked?'▣':isText?'▤':'▶')+'</span>')+'</span>'+
          '<span class="retro-file-name">'+esc(title)+'</span><small>'+(isText?'TEXTO':isVideo?'VÍDEO':'IMAGEN')+'</small></button>';
      }).join('');
-     return '<template data-retro-folder-template="'+folderIndex+'"><div class="retro-file-grid">'+(entries||'<p class="retro-empty">No hay archivos en esta carpeta.</p>')+'<div class="retro-recovery-pending" role="status" aria-label="Recuperación de archivos en curso"><span class="retro-recovery-photo" aria-hidden="true"><i></i></span><strong>RECUPERANDO…</strong><small>La unidad sigue examinando fragmentos</small></div></div></template>';
+     const recovery=folder.show_recovery_placeholder===false?'':'<div class="retro-recovery-pending" role="status" aria-label="Recuperación de archivos en curso"><span class="retro-recovery-photo" aria-hidden="true"><i></i></span><strong>RECUPERANDO…</strong><small>La unidad sigue examinando fragmentos</small></div>';
+     return '<template data-retro-folder-template="'+folderIndex+'"><div class="retro-file-grid">'+(entries||'<p class="retro-empty">No hay archivos en esta carpeta.</p>')+recovery+'</div></template>';
    }).join('');
      const fileTemplates=folders.flatMap((folder,folderIndex)=>
      orderedDigitalItems(folder.files).filter(file=>file.image||file.video||file.annotated_image||String(file.kind||'').toUpperCase()==='TEXTO').slice(0,100).map((file,fileIndex)=>{

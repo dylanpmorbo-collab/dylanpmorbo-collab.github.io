@@ -48,9 +48,15 @@ assert.doesNotMatch(html,/<span class="retro-file-thumb"><img src="foto-secreta.
 assert.doesNotMatch(html,/SHURA 19/);
 assert.match(html,new RegExp(crypto.createHash('sha256').update('SHURA 19').digest('hex')));
 assert.match(html,/assets\/js\/archive-access\.js/);
+assert.match(html,/retro-recovery-pending/);
+const hiddenRecoveryItem={show_digital_reports:true,digital_reports:[{title:'Informe sin recuperación',folders:[{title:'Carpeta completa',show_recovery_placeholder:false,files:[{title:'Foto',kind:'IMAGEN',image:'foto.webp'}]}]}]};
+const hiddenRecoveryHtml=context.archiveDigitalReports({key:'sucesos'},hiddenRecoveryItem).html;
+assert.doesNotMatch(hiddenRecoveryHtml,/retro-recovery-pending/);
+assert.match(hiddenRecoveryHtml,/foto\.webp/);
 assert.equal(context.accessAttributes({access_method:'ninguno',circuit_difficulty:'basico'},'archivo','test',''), '');
 assert.throws(()=>context.accessAttributes({access_method:'codigo'},'archivo','sin clave',''),/Falta el código/);
 const cms=fs.readFileSync(path.join(__dirname,'..','..','.pages.yml'),'utf8');
+assert.equal((cms.match(/- name: show_recovery_placeholder\b/g)||[]).length,2,'Falta el control de recuperación en alguna carpeta del CMS');
 for(const field of ['access_method','access_image','access_code']){
   assert.equal((cms.match(new RegExp('- name: '+field+'\\b','g'))||[]).length,6,`Falta el campo ${field} en algún informe, carpeta o archivo del CMS`);
 }
