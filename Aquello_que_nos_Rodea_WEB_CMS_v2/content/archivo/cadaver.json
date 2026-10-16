@@ -238,7 +238,7 @@
           "opening_notice_accent": "#d7ae63",
           "opening_notice_confirm": "VER CONVERSACIONES",
           "opening_notice_cancel": "VOLVER",
-          "opening_notice_frequency": "always",
+          "opening_notice_frequency": "once",
           "files": [
             {
               "title": "Archivo whatsapp 1",
