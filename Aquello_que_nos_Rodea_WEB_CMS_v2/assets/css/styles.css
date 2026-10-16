@@ -1023,7 +1023,12 @@ DOCUMENTOS NAVEGABLES — AJUSTES FINALES DE GEOMETRÍA Y LECTURA
 .archive-physical-press-image figcaption{margin-top:10px;color:#584b39;font:12px/1.45 Georgia,serif}
 .archive-physical-press-translation{position:absolute;inset:0;display:flex;flex-direction:column;gap:12px;overflow:auto;padding:clamp(15px,3vw,32px);background:rgba(5,5,4,.87);color:#f1e8d7}
 .archive-physical-press-translation[hidden]{display:none!important}
-.archive-physical-press-translation-text{white-space:pre-wrap;overflow-wrap:anywhere;font:500 clamp(14px,1.5vw,20px)/1.5 Georgia,serif}
+.archive-physical-press-translation-text{overflow-wrap:anywhere;font:500 clamp(14px,1.5vw,20px)/1.5 Georgia,serif}
+.archive-physical-press-translation-text>:first-child{margin-top:0}
+.archive-physical-press-translation-text>:last-child{margin-bottom:0}
+.archive-physical-press-translation-text p,.archive-physical-press-translation-text ul,.archive-physical-press-translation-text ol,.archive-physical-press-translation-text blockquote{margin:0 0 .8em}
+.archive-physical-press-translation-text ul,.archive-physical-press-translation-text ol{padding-left:1.5em}
+.archive-physical-press-translation-text a{color:#e8c878}
 .archive-physical-press-translation-toggle{display:block;margin:12px 0 0;padding:10px 13px;border:1px solid #6c542b;background:#322a1e;color:#f1e8d7;font:700 10px var(--display);letter-spacing:.08em;cursor:pointer}
 .archive-physical-press-translation-toggle:hover,.archive-physical-press-translation-toggle:focus-visible{background:#4b3923;outline:2px solid #6c542b;outline-offset:2px}
 .archive-physical-press-card .archive-fiction-note{color:#5e543f}

@@ -717,7 +717,7 @@ function physicalPressMarkup(section,item){
      '<h3>'+esc(piece.headline||'RECORTE '+(index+1))+'</h3>'+
      (piece.byline?'<p class="archive-physical-press-byline">'+esc(piece.byline)+'</p>':'')+
      '<figure class="archive-physical-press-image"><div class="archive-physical-press-visual"><button type="button" data-physical-press-open aria-label="Ampliar recorte '+esc(piece.headline||String(index+1))+'"><img src="'+esc(piece.image)+'" alt="'+esc(piece.headline||'Recorte de prensa')+'" loading="lazy"></button>'+
-     (translation?'<div class="archive-physical-press-translation" hidden><span class="archive-document-translation-label">TRADUCCIÓN'+(piece.translation_language?' // '+esc(String(piece.translation_language).toUpperCase()):'')+'</span><span class="archive-physical-press-translation-text">'+esc(translation)+'</span></div>':'')+
+     (translation?'<div class="archive-physical-press-translation" hidden><span class="archive-document-translation-label">TRADUCCIÓN'+(piece.translation_language?' // '+esc(String(piece.translation_language).toUpperCase()):'')+'</span><div class="archive-physical-press-translation-text">'+markdownToHTML(translation)+'</div></div>':'')+
      '</div>'+(piece.caption?'<figcaption>'+esc(piece.caption)+'</figcaption>':'')+'</figure>'+
      (translation?'<button class="archive-physical-press-translation-toggle" type="button" data-physical-press-translation-toggle aria-expanded="false">MOSTRAR TRADUCCIÓN</button>':'')+
      '<p class="archive-fiction-note">Recorte ficticio · obra narrativa</p></article>';

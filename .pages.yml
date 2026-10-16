@@ -2070,9 +2070,13 @@ content:
             type: string
             required: false
           - name: translation_text
-            label: Texto de la traducción
-            type: text
+            label: Texto de la traducción (Markdown)
+            type: rich-text
             required: false
+            options:
+              format: markdown
+              media: default
+              switcher: true
             description: "Se muestra sobre el recorte con un fondo oscuro al pulsar el botón."
 
       - name: physical_press_blocks
@@ -2164,9 +2168,13 @@ content:
                 type: string
                 required: false
               - name: translation_text
-                label: Texto de la traducción
-                type: text
+                label: Texto de la traducción (Markdown)
+                type: rich-text
                 required: false
+                options:
+                  format: markdown
+                  media: default
+                  switcher: true
                 description: "Se muestra sobre el recorte con un fondo oscuro al pulsar el botón."
 
       - name: show_digital_press
