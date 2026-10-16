@@ -517,6 +517,7 @@
 }
 .archive-police-report-pages{display:flex;flex-direction:column;gap:34px}
 .archive-police-report{
+  --report-font:"Special Elite","Courier New",monospace;
   position:relative;
   width:100%;
   min-height:920px;
@@ -567,7 +568,7 @@
   padding:0 110px 16px 0;
   border-bottom:1px solid rgba(54,45,33,.35);
   color:#252018;
-  font:400 clamp(19px,2.2vw,27px)/1.2 "Special Elite","Courier New",monospace;
+  font:400 clamp(19px,2.2vw,27px)/1.2 var(--report-font);
   letter-spacing:.08em;
 }
 
@@ -597,7 +598,7 @@
   z-index:1;
   margin-top:28px;
   color:#2d2922;
-  font:400 clamp(16px,1.55vw,19px)/1.65 "Special Elite","Courier New",monospace;
+  font:400 clamp(16px,1.55vw,19px)/1.65 var(--report-font);
   text-shadow:0 0 .25px rgba(0,0,0,.45);
 }
 .archive-police-report-attachment+.archive-police-report-text{margin-top:0}
@@ -1079,7 +1080,10 @@ DOCUMENTOS NAVEGABLES — AJUSTES FINALES DE GEOMETRÍA Y LECTURA
 .archive-police-report-attachment,.archive-police-dialog-scroll .archive-police-report-attachment{width:100%;max-width:300px;margin:0;padding:8px 8px 24px;transform:none}
 .archive-police-report-attachment img{width:100%;height:210px;object-fit:contain}
 .archive-police-report-attachments+.archive-police-report-text{margin-top:0}
-.archive-police-report-text h3,.archive-police-report-text h4,.archive-police-report-text h5,.archive-police-report-text h6{font:700 1.12em/1.3 "Special Elite","Courier New",monospace;margin:1.3em 0 .7em}
+.archive-police-report-text h3,.archive-police-report-text h4,.archive-police-report-text h5,.archive-police-report-text h6{font:700 1.12em/1.3 var(--report-font);margin:1.3em 0 .7em}
+.archive-police-report[data-font-style="modern"]{--report-font:Arial,Helvetica,sans-serif}
+.archive-police-report[data-font-style="modern"] .archive-police-report-heading{font-weight:700;letter-spacing:.025em}
+.archive-police-report[data-font-style="modern"] .archive-police-report-text{text-shadow:none}
 .archive-police-report-text table{width:100%;border-collapse:collapse;margin:.9em 0 1.4em;font-size:.94em;line-height:1.35;table-layout:auto}
 .archive-police-report-text th,.archive-police-report-text td{border:1px solid rgba(75,59,37,.42);padding:.42em .58em;text-align:left;vertical-align:top}
 .archive-police-report-text thead th{background:rgba(90,70,42,.12);font-weight:700}
