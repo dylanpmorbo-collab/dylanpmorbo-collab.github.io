@@ -519,6 +519,8 @@
 .archive-police-report{
   --report-font:"Special Elite","Courier New",monospace;
   position:relative;
+  display:flex;
+  flex-direction:column;
   width:100%;
   min-height:920px;
   margin:0;
@@ -606,11 +608,11 @@
 .archive-police-report-text p{margin:0 0 1.45em}
 .archive-police-report-text p:last-child{margin-bottom:0}
 .archive-police-report-folio{
-  position:absolute;
+  position:relative;
   z-index:2;
-  left:clamp(30px,6vw,82px);
-  right:clamp(30px,6vw,82px);
-  bottom:30px;
+  flex:0 0 auto;
+  width:100%;
+  margin-top:auto;
   padding-top:12px;
   border-top:1px solid rgba(54,45,33,.22);
   color:rgba(45,38,29,.58);
@@ -626,7 +628,7 @@
   .archive-police-report:after{right:18px;top:17px;font-size:8px}
   .archive-police-report-heading{padding-right:88px}
   .archive-police-report-attachment{width:min(330px,84%);margin-top:38px}
-  .archive-police-report-folio{left:24px;right:24px;bottom:24px}
+  .archive-police-report-folio{width:100%}
 }
 
 /* ARCHIVOS RELACIONADOS — conexiones visuales prioritarias */
@@ -1117,7 +1119,7 @@ DOCUMENTOS NAVEGABLES — AJUSTES FINALES DE GEOMETRÍA Y LECTURA
 .archive-police-report[data-paper="verde"]{--paper-color:#cdd7bd}
 .archive-police-dialog-scroll .archive-police-report-text{font-size:var(--paper-font);line-height:1.5;overflow-wrap:anywhere}
 .archive-police-dialog-scroll .archive-police-report-heading{font-size:calc(var(--paper-font) * 1.4);padding-right:0;overflow-wrap:anywhere}
-.archive-police-dialog-scroll .archive-police-report-folio{left:var(--paper-padding);right:var(--paper-padding);bottom:calc(var(--paper-padding) * .45)}
+.archive-police-dialog-scroll .archive-police-report-folio{width:100%}
 .archive-police-dialog-scroll .archive-police-report:after{font-size:calc(var(--paper-font) * .48);right:var(--paper-padding);top:calc(var(--paper-padding) * .3)}
 .archive-police-dialog-scroll .archive-police-report-attachments{margin:1em 0;gap:.6em;grid-template-columns:repeat(auto-fit,minmax(min(100%,110px),1fr))}
 .archive-police-dialog-scroll [data-police-annex] .archive-police-report-attachments{grid-template-columns:repeat(2,minmax(0,1fr))}
