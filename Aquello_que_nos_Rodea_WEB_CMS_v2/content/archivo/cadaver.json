@@ -326,14 +326,7 @@
     "design": "D",
     "title": "TABLÓN DE CONEXIONES"
   },
-  "show_physical_press": true,
-  "physical_press": [
-    {
-      "headline": "sdfdfdsf",
-      "notify_new": true,
-      "image": "/assets/uploads/archivo/conversaciones/laura-cuernos-web.webp",
-      "show_translation": false
-    }
-  ],
+  "show_physical_press": false,
+  "physical_press_title": "PRENSA FÍSICA",
   "show_digital_press": false
 }
