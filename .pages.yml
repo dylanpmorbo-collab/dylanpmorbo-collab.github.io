@@ -1333,6 +1333,18 @@ content:
                       label: Vertical
                     - value: landscape
                       label: Horizontal
+              - name: font_style
+                label: Fuente del documento
+                type: select
+                required: false
+                default: typewriter
+                description: "Los documentos existentes conservan la fuente de máquina de escribir. Elige moderna para informes actuales."
+                options:
+                  values:
+                    - value: typewriter
+                      label: Máquina de escribir
+                    - value: modern
+                      label: Moderna
               - name: letterhead
                 label: Membrete PNG de la primera hoja (1600 × 320 píxeles)
                 type: image
@@ -2862,6 +2874,18 @@ content:
                       label: Vertical
                     - value: landscape
                       label: Horizontal
+              - name: font_style
+                label: Fuente del documento
+                type: select
+                required: false
+                default: typewriter
+                description: "Los documentos existentes conservan la fuente de máquina de escribir. Elige moderna para informes actuales."
+                options:
+                  values:
+                    - value: typewriter
+                      label: Máquina de escribir
+                    - value: modern
+                      label: Moderna
               - name: letterhead
                 label: Membrete PNG de la primera hoja (1600 × 320 píxeles)
                 type: image
