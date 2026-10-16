@@ -263,6 +263,33 @@
                   "video": "/assets/uploads/personajes/Richard/Volcado de imágenes/mayorcanight2016-optimizado-627kb.mp4"
                 }
               ]
+            },
+            {
+              "title": "Archivo whatsapp 2",
+              "notify_new": true,
+              "kind": "IMAGEN",
+              "circuit_difficulty": "ninguno",
+              "access_method": "automatico",
+              "image": "/assets/uploads/archivo/conversaciones/laura-cuernos-web.webp",
+              "image_visibility": "normal",
+              "attachments": [
+                {
+                  "title": "IMG_3211",
+                  "image": "/assets/uploads/personajes/Richard/Volcado de imágenes/img3211-web.webp"
+                },
+                {
+                  "title": "IMG_3212",
+                  "image": "/assets/uploads/personajes/Richard/Volcado de imágenes/img3212-web.webp"
+                },
+                {
+                  "title": "IMG_3213",
+                  "image": "/assets/uploads/personajes/Richard/Volcado de imágenes/img3213-web.webp"
+                },
+                {
+                  "title": "IMG_3214",
+                  "image": "/assets/uploads/personajes/Richard/Volcado de imágenes/img3214-web.webp"
+                }
+              ]
             }
           ]
         },
