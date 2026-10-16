@@ -1231,6 +1231,7 @@ function archiveDigitalReports(section,item){
        const isText=String(file.kind||'').toUpperCase()==='TEXTO';
        const isVideo=!isText&&Boolean(file.video && (String(file.kind||'').toUpperCase()==='VIDEO'||!file.image));
        const image=file.image||file.annotated_image;
+       const isChatScreenshot=!isText&&!isVideo&&/whats?app/i.test(title);
        const globalRule=globalCensorship.get(imagePath(image));
        const concealMode=!isText&&!isVideo&&image?(globalRule?.mode||(file.image_visibility==='falso'&&file.fake_pixel_image?'falso':file.image_visibility==='pixelado'?'pixelado':'normal')):'normal';
        const initialImage=concealMode==='falso'?(globalRule?.fake||file.fake_pixel_image):image;
@@ -1264,7 +1265,7 @@ function archiveDigitalReports(section,item){
            ? '<video controls playsinline preload="metadata"'+(file.poster?' poster="'+esc(file.poster)+'"':'')+' aria-label="'+esc(title)+'"><source src="'+esc(file.video)+'">Tu navegador no puede reproducir este vídeo.</video>'
            : '<div class="retro-image-scroll'+(concealMode==='normal'?'':' is-concealed')+'" data-retro-image-wrap data-conceal-mode="'+concealMode+'"><img src="'+esc(initialImage)+'" alt="'+esc(title)+'" data-retro-image data-original="'+esc(image)+'"'+(file.image&&file.annotated_image&&file.image!==file.annotated_image?' data-annotated="'+esc(file.annotated_image)+'"':'')+'>'+(concealMode!=='normal'?'<div class="retro-image-warning">'+(globalRule?'':'<p>Esta imagen puede resultar ofensiva o contener contenido sexual explícito.</p>')+'<button type="button" data-retro-reveal>'+(globalRule?'MOSTRAR':'DESBLOQUEAR IMAGEN')+'</button></div>':'')+'</div>';
        return '<template data-retro-file-template="'+folderIndex+':'+fileIndex+'"><div class="retro-file-detail'+(isText?' is-text-document':'')+'">'+
-         '<div class="retro-file-media-column"><div class="retro-file-media'+(isText?' is-text-document':'')+'">'+media+'</div>'+
+         '<div class="retro-file-media-column"><div class="retro-file-media'+(isText?' is-text-document':'')+(isChatScreenshot?' is-chat-screenshot':'')+'">'+media+'</div>'+
          (!isVideo&&!isText?'<div class="retro-file-tools retro-file-media-tools" data-retro-primary-tools><button type="button" data-retro-zoom'+(concealMode!=='normal'?' hidden':'')+'>AMPLIAR</button></div>':'')+
          (attachments.length?'<div class="retro-file-tools retro-file-media-tools"><button type="button" data-retro-attachment-zoom data-retro-zoom hidden>AMPLIAR IMAGEN</button></div>':'')+
          '</div><aside class="retro-file-info">'+

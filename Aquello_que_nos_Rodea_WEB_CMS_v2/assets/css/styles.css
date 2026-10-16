@@ -1504,13 +1504,21 @@ html:not(.age-verified){overflow:hidden}
 .retro-image-scroll{display:grid;place-items:center;width:100%;height:100%;min-height:0;overflow:auto}
 .retro-image-scroll.is-concealed{position:relative;overflow:hidden}
 .retro-image-scroll img{display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
+.retro-file-media.is-chat-screenshot .retro-image-scroll:not(.is-concealed){display:block}
+.retro-file-media.is-chat-screenshot .retro-image-scroll:not(.is-concealed) img[data-retro-image]{width:100%;max-width:none;max-height:none;height:auto}
 .retro-image-scroll.is-pixelated img{opacity:0}
 .retro-image-scroll canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;image-rendering:pixelated}
 .retro-image-warning{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:18px;background:rgba(0,0,0,.42);color:#fff;text-align:center}
 .retro-image-warning p{max-width:320px;margin:0;font:700 13px/1.4 Arial,Helvetica,sans-serif;text-shadow:0 1px 5px #000}
 .retro-image-warning button{padding:8px 12px;border:2px outset #fff;background:#c0c0c0;color:#111;font:700 11px Arial,Helvetica,sans-serif;cursor:pointer}
-.retro-file-media.is-zoomed .retro-image-scroll{display:block}
-.retro-file-media.is-zoomed img{max-width:none;max-height:none}
+.retro-image-full-dialog{box-sizing:border-box;width:calc(100vw - 16px);height:calc(100dvh - 16px);max-width:none;max-height:none;margin:auto;padding:0;border:3px outset #eee;background:#202020;color:#fff;overflow:hidden}
+.retro-image-full-dialog[open]{display:flex;flex-direction:column}
+.retro-image-full-dialog::backdrop{background:rgba(0,0,0,.93)}
+.retro-image-full-header{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:34px;padding:4px 8px;background:#000080;color:#fff;font:700 12px Arial,Helvetica,sans-serif}
+.retro-image-full-header button{min-width:30px;min-height:26px;border:2px outset #eee;border-radius:0;background:#c0c0c0;color:#111;font:700 16px Arial,Helvetica,sans-serif;cursor:pointer}
+.retro-image-full-scroll{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain}
+.retro-image-full-scroll img{display:block;width:100%;height:auto;max-width:none;image-rendering:auto}
+@media(max-width:700px){.retro-image-full-dialog{width:100vw;height:100dvh;border:0}}
 .retro-file-info{min-width:0;overflow:auto;padding:9px;border:2px inset #aaa;background:#f5f5f5}
 .retro-file-masthead{display:block;width:100%;max-width:600px;aspect-ratio:5/1;height:auto;margin:0 0 12px;object-fit:contain;image-rendering:auto}
 .retro-file-info h3{margin:0 0 12px;font:700 15px/1.3 Arial,Helvetica,sans-serif;overflow-wrap:anywhere}

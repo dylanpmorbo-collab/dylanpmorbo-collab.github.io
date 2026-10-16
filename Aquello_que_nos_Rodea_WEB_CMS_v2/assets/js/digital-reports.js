@@ -9,6 +9,8 @@
     let fullscreenExitAt=0;
     let fullscreenReturnPending=false;
     let primaryMediaNodes=null;
+    let imageZoomDialog=null;
+    let imageZoomReturnButton=null;
     let bootTimers=[];
     let noticeTrigger=null;
     const seenFolderNotices=new Set();
@@ -97,6 +99,32 @@
       };
       if(image.complete)draw();
       else image.addEventListener('load',draw,{once:true});
+    }
+    function expandImage(button){
+      const image=button.closest('.retro-file-detail')?.querySelector('.retro-file-media .retro-image-scroll img');
+      if(!image || image.closest('.is-concealed'))return;
+      if(!imageZoomDialog){
+        imageZoomDialog=document.createElement('dialog');
+        imageZoomDialog.className='retro-image-full-dialog';
+        imageZoomDialog.setAttribute('aria-label','Imagen ampliada');
+        imageZoomDialog.innerHTML='<div class="retro-image-full-header"><strong>IMAGEN AMPLIADA</strong><button type="button" data-retro-image-full-close aria-label="Cerrar imagen ampliada">✕</button></div><div class="retro-image-full-scroll"><img alt=""></div>';
+        document.body.append(imageZoomDialog);
+        imageZoomDialog.addEventListener('click',event=>{
+          if(event.target===imageZoomDialog || event.target.closest('[data-retro-image-full-close]'))imageZoomDialog.close();
+        });
+        imageZoomDialog.addEventListener('close',()=>{
+          imageZoomDialog.querySelector('img').removeAttribute('src');
+          if(imageZoomReturnButton?.isConnected)imageZoomReturnButton.focus();
+          imageZoomReturnButton=null;
+        });
+      }
+      const enlarged=imageZoomDialog.querySelector('img');
+      enlarged.src=image.currentSrc||image.src;
+      enlarged.alt=image.alt||'Imagen del archivo';
+      imageZoomDialog.querySelector('.retro-image-full-scroll').scrollTop=0;
+      imageZoomReturnButton=button;
+      imageZoomDialog.showModal();
+      imageZoomDialog.querySelector('[data-retro-image-full-close]').focus();
     }
     function closeFile(restoreFocus=true){
       const window=fileWindow();
@@ -292,10 +320,7 @@
         fileWindow().querySelectorAll('[data-retro-zoom],[data-retro-annotated]').forEach(control=>control.hidden=false);
       }
       else if(button.hasAttribute('data-retro-zoom')){
-        const media=button.closest('.retro-file-detail')?.querySelector('.retro-file-media');
-        if(!media)return;
-        media.classList.toggle('is-zoomed');
-        button.textContent=media.classList.contains('is-zoomed')?'AJUSTAR':'AMPLIAR';
+        expandImage(button);
       }else if(button.hasAttribute('data-retro-annotated')){
         const image=button.closest('.retro-file-detail')?.querySelector('[data-retro-image]');
         if(!image || !image.dataset.annotated)return;
@@ -335,6 +360,7 @@
       else if(folderWindow() && !folderWindow().hidden){event.preventDefault();closeFolder();}
     });
     dialog.addEventListener('close',()=>{
+      if(imageZoomDialog?.open)imageZoomDialog.close();
       clearBootTimers();
       pauseVideos(workspace);
       workspace.replaceChildren();
