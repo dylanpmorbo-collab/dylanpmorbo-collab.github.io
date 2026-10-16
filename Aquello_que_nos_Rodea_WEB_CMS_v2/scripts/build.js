@@ -1446,6 +1446,7 @@ function archivePoliceReportV2(section,item){
      '<span class="archive-police-folder-copy"><small>'+esc(type.toUpperCase())+' // '+String(reportIndex+1).padStart(2,'0')+'</small><strong>'+esc(title)+'</strong><span>'+documents.length+' DOCUMENTO'+(documents.length===1?'':'S')+' · ABRIR EXPEDIENTE →</span></span></button>');
    const pages=[];
    if(documents.length>1){
+     const indexFontStyle=report.index_font_style==='modern'?'modern':report.index_font_style==='typewriter'?'typewriter':documents[0]?.font_style==='modern'?'modern':'typewriter';
      const rows=documents.map((doc,docIndex)=>{
        const thumbnail=String(doc.index_thumbnail||'').trim();
        return '<button type="button" class="archive-police-index-entry" data-police-jump="'+docIndex+'">'+
@@ -1453,7 +1454,7 @@ function archivePoliceReportV2(section,item){
          (thumbnail?'<img src="'+esc(thumbnail)+'" alt="" loading="lazy">':'<span class="archive-police-index-placeholder" aria-hidden="true">▤</span>')+
          '<span>'+esc(doc.title||('DOCUMENTO '+(docIndex+1)))+'</span><span aria-hidden="true">↗</span></button>';
      }).join('');;
-     pages.push('<article class="archive-police-report archive-police-index" data-police-page data-police-index data-paper="crema"><div class="archive-police-report-heading">ÍNDICE DEL EXPEDIENTE</div><p class="archive-police-index-caption">'+esc(title)+' · '+documents.length+' DOCUMENTOS</p><nav aria-label="Documentos del expediente">'+rows+'</nav><div class="archive-police-report-folio">ÍNDICE / '+String(documents.length).padStart(2,'0')+' DOCUMENTOS</div></article>');
+     pages.push('<article class="archive-police-report archive-police-index" data-police-page data-police-index data-paper="crema" data-font-style="'+indexFontStyle+'"><div class="archive-police-report-heading">ÍNDICE DEL EXPEDIENTE</div><p class="archive-police-index-caption">'+esc(title)+' · '+documents.length+' DOCUMENTOS</p><nav aria-label="Documentos del expediente">'+rows+'</nav><div class="archive-police-report-folio">ÍNDICE / '+String(documents.length).padStart(2,'0')+' DOCUMENTOS</div></article>');
    }
    documents.forEach((doc,docIndex)=>{
      const docTitle=String(doc.title||('DOCUMENTO '+String(docIndex+1).padStart(2,'0')));
@@ -1491,7 +1492,7 @@ function archivePoliceReportV2(section,item){
  const physical=reports.length?'<div class="archive-report-subheading">INFORMES FÍSICOS // '+String(reports.length).padStart(2,'0')+'</div><div class="archive-police-folder-grid">'+folderCards.join('')+'</div>'+templates.join('')+
    '<dialog class="archive-police-dialog" aria-labelledby="archive-police-dialog-title"><div class="archive-police-dialog-shell"><header class="archive-police-dialog-header"><div><small id="archive-police-dialog-type">EXPEDIENTE</small><h2 id="archive-police-dialog-title"></h2></div><button type="button" data-police-close aria-label="Cerrar expediente">✕</button></header><div class="archive-police-dialog-scroll"><div data-police-pages></div></div><footer class="archive-police-dialog-footer"><small class="archive-police-viewer-note">Obra de ficción · no es un documento oficial</small><button type="button" data-police-prev>← ANTERIOR</button><button type="button" data-police-index-button hidden>ÍNDICE</button><span data-police-counter></span><button type="button" data-police-next>SIGUIENTE →</button></footer></div></dialog>'+
    '<dialog class="archive-police-image-dialog" aria-label="Imagen adjunta ampliada"><button type="button" data-police-image-close aria-label="Cerrar imagen ampliada">✕</button><button type="button" class="archive-police-image-nav" data-police-image-prev aria-label="Imagen anterior">‹</button><img data-police-image-large alt=""><button type="button" class="archive-police-image-nav" data-police-image-next aria-label="Imagen siguiente">›</button><span class="archive-police-image-counter" data-police-image-counter aria-live="polite"></span></dialog>'+
-   '<script defer src="assets/js/physical-reports.js?v=visor-fotos-20261006"></script>':'';
+   '<script defer src="assets/js/physical-reports.js?v=scroll-unico-20261017"></script>':'';
  return '<section class="archive-police-report-block" aria-label="Informes"><div class="section-label">INFORMES // '+String(reports.length+digital.count).padStart(2,'0')+'</div>'+physical+digital.html+'</section>';
 }
 
