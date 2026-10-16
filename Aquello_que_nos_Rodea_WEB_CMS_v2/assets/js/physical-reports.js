@@ -46,9 +46,10 @@
       viewer.replaceChildren(template.content.cloneNode(true));
       dialog.querySelector('#archive-police-dialog-title').textContent=button.querySelector('strong').textContent;
       dialog.querySelector('#archive-police-dialog-type').textContent='EXPEDIENTE // '+button.dataset.reportType;
-      page=0;showPage();dialog.showModal();
+      page=0;dialog.showModal();showPage();
       document.body.classList.add('archive-police-dialog-open');
-      dialog.querySelector('[data-police-close]').focus();
+      dialog.querySelector('[data-police-close]').focus({preventScroll:true});
+      scroll.scrollTop=0;
     }));
     viewer.addEventListener('click',event=>{
       const jump=event.target.closest('[data-police-jump]');
