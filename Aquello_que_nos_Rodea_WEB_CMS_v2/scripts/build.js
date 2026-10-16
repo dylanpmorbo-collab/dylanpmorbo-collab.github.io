@@ -1459,7 +1459,8 @@ function archivePoliceReportV2(section,item){
      const docTitle=String(doc.title||('DOCUMENTO '+String(docIndex+1).padStart(2,'0')));
      const paper=paperValues.has(doc.paper)?doc.paper:'crema';
      const paperFormat=physicalPaperSettings(doc);
-     const paperAttributes=' data-paper="'+paper+'" data-paper-size="'+paperFormat.size+'" data-paper-orientation="'+paperFormat.orientation+'"';
+     const fontStyle=doc.font_style==='modern'?'modern':'typewriter';
+     const paperAttributes=' data-paper="'+paper+'" data-paper-size="'+paperFormat.size+'" data-paper-orientation="'+paperFormat.orientation+'" data-font-style="'+fontStyle+'"';
      const images=['image','image_2','image_3','image_4','image_5','image_6']
       .filter(key=>doc[key])
       .map(key=>({src:String(doc[key]),title:String(doc[key+'_title']||'').trim()}));
