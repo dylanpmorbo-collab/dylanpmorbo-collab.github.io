@@ -1247,6 +1247,20 @@ content:
             required: false
             default: "POLICIAL"
             description: "Escribe la clase de informe: policial, médico, forense, psicológico u otra. Los antiguos se consideran policiales hasta que los cambies."
+          - name: index_font_style
+            label: Fuente del índice
+            type: select
+            required: false
+            default: auto
+            description: "Solo se muestra cuando la carpeta contiene varios documentos. En automático sigue la fuente del primer documento."
+            options:
+              values:
+                - value: auto
+                  label: Automática (igual que el primer documento)
+                - value: typewriter
+                  label: Máquina de escribir
+                - value: modern
+                  label: Moderna
           - name: importance
             label: Color de la carpeta
             type: select
@@ -2788,6 +2802,20 @@ content:
             required: false
             default: "POLICIAL"
             description: "Escribe la clase de informe: policial, médico, forense, psicológico u otra. Los antiguos se consideran policiales hasta que los cambies."
+          - name: index_font_style
+            label: Fuente del índice
+            type: select
+            required: false
+            default: auto
+            description: "Solo se muestra cuando la carpeta contiene varios documentos. En automático sigue la fuente del primer documento."
+            options:
+              values:
+                - value: auto
+                  label: Automática (igual que el primer documento)
+                - value: typewriter
+                  label: Máquina de escribir
+                - value: modern
+                  label: Moderna
           - name: importance
             label: Color de la carpeta
             type: select
