@@ -485,6 +485,13 @@ function digitalFileUpdateId(section,item,report,folder,file){
  return updateId('digital',itemHref(section,item),report.title,folder.title,file.notification_id||file.image||file.video||file.annotated_image||file.title);
 }
 function pressUpdateId(section,item,kind,piece){return updateId(kind,itemHref(section,item),piece.notification_id||piece.image||piece.video||piece.headline);}
+function physicalPressBlocks(item){
+ const first=item.show_physical_press===true?[{title:String(item.physical_press_title||'PRENSA FÍSICA'),pieces:item.physical_press}]:[];
+ const additional=Array.isArray(item.physical_press_blocks)?item.physical_press_blocks.filter(block=>block&&typeof block==='object'):[];
+ return first.concat(additional);
+}
+function physicalPressAnchor(index){return index===0?'prensa-fisica':'prensa-fisica-'+(index+1);}
+function physicalPressUpdateId(section,item,index,piece){return pressUpdateId(section,item,index===0?'physical-press':'physical-press-'+(index+1),piece);}
 function galleryUpdateId(section,item,g){return updateId('gallery',itemHref(section,item),g.notification_id||g.image);}
 const updateRegistry=[];
 for(const section of archiveSectionDefs){
@@ -498,9 +505,11 @@ for(const section of archiveSectionDefs){
     }
    }
   }
-  if(item.show_physical_press===true)for(const piece of (Array.isArray(item.physical_press)?item.physical_press:[]).filter(p=>p&&p.image)){
-   updateRegistry.push({id:pressUpdateId(section,item,'physical-press',piece),version:String(piece.notification_revision||''),title:String(piece.headline||'Recorte de prensa'),context:parent+' · prensa física',kind:'file',href:href+'#prensa-fisica',notify:piece.notify_new!==false});
-  }
+  physicalPressBlocks(item).forEach((block,index)=>{
+   for(const piece of (Array.isArray(block.pieces)?block.pieces:[]).filter(p=>p&&p.image)){
+    updateRegistry.push({id:physicalPressUpdateId(section,item,index,piece),version:String(piece.notification_revision||''),title:String(piece.headline||'Recorte de prensa'),context:parent+' · '+String(block.title||'Bloque de recortes'),kind:'file',href:href+'#'+physicalPressAnchor(index),notify:piece.notify_new!==false});
+   }
+  });
   if(item.show_digital_press===true)for(const piece of (Array.isArray(item.digital_press)?item.digital_press:[]).filter(p=>p&&(p.image||p.video||p.headline||p.summary))){
    updateRegistry.push({id:pressUpdateId(section,item,'digital-press',piece),version:String(piece.notification_revision||''),title:String(piece.headline||'Noticia recuperada'),context:parent+' · prensa digital',kind:'file',href:href+'#prensa-digital',notify:piece.notify_new!==false});
   }
@@ -694,13 +703,14 @@ function digitalFootprintMarkup(item){
 }
 
 function physicalPressMarkup(section,item){
- if(!item || item.show_physical_press!==true) return '';
- const pieces=(Array.isArray(item.physical_press)?item.physical_press:[]).filter(piece=>piece&&piece.image);
- if(!pieces.length) return '';
- const cards=pieces.map((piece,index)=>{
+ if(!item) return '';
+ const blocks=physicalPressBlocks(item).map((block,blockIndex)=>({block,blockIndex,pieces:(Array.isArray(block.pieces)?block.pieces:[]).filter(piece=>piece&&piece.image)})).filter(entry=>entry.pieces.length);
+ if(!blocks.length) return '';
+ return blocks.map(({block,blockIndex,pieces})=>{
+  const cards=pieces.map((piece,index)=>{
    const meta=[piece.date,piece.edition,piece.place,piece.price].filter(Boolean);
    const translation=piece.show_translation===true?String(piece.translation_text||'').trim():'';
-   return '<article class="archive-physical-press-card digital-piece reveal" data-update-id="'+pressUpdateId(section,item,'physical-press',piece)+'">'+
+   return '<article class="archive-physical-press-card digital-piece reveal" data-update-id="'+physicalPressUpdateId(section,item,blockIndex,piece)+'">'+
      (piece.masthead_image?'<img class="archive-physical-press-masthead" src="'+esc(piece.masthead_image)+'" alt="'+esc(piece.publication||'Cabecera del periódico')+'" loading="lazy">':piece.publication?'<strong class="archive-physical-press-name">'+esc(piece.publication)+'</strong>':'')+
      (meta.length?'<p class="archive-physical-press-meta">'+meta.map(esc).join(' · ')+'</p>':'')+
      (piece.section?'<p class="archive-physical-press-section">'+esc(piece.section)+'</p>':'')+
@@ -711,10 +721,11 @@ function physicalPressMarkup(section,item){
      '</div>'+(piece.caption?'<figcaption>'+esc(piece.caption)+'</figcaption>':'')+'</figure>'+
      (translation?'<button class="archive-physical-press-translation-toggle" type="button" data-physical-press-translation-toggle aria-expanded="false">MOSTRAR TRADUCCIÓN</button>':'')+
      '<p class="archive-fiction-note">Recorte ficticio · obra narrativa</p></article>';
- }).join('');
- return '<details class="archive-physical-press digital-footprint" id="prensa-fisica"><summary class="digital-footprint-toggle"><span><small class="archive-code">RECORTES EN PAPEL // '+String(pieces.length).padStart(2,'0')+'</small><strong>PRENSA FÍSICA</strong></span><span class="digital-footprint-toggle-action"><span class="digital-closed-label">DESPLEGAR ↓</span><span class="digital-open-label">REDUCIR ↑</span></span></summary>'+
+  }).join('');
+  return '<details class="archive-physical-press digital-footprint" id="'+physicalPressAnchor(blockIndex)+'"><summary class="digital-footprint-toggle"><span><small class="archive-code">RECORTES EN PAPEL // '+String(pieces.length).padStart(2,'0')+'</small><strong>'+esc(block.title||'BLOQUE DE RECORTES')+'</strong></span><span class="digital-footprint-toggle-action"><span class="digital-closed-label">DESPLEGAR ↓</span><span class="digital-open-label">REDUCIR ↑</span></span></summary>'+
    '<div class="digital-footprint-content"><div class="digital-grid archive-physical-press-grid">'+cards+'</div></div>'+
-   '<dialog class="archive-physical-press-dialog" aria-label="Recorte de prensa ampliado"><button type="button" data-physical-press-close aria-label="Cerrar recorte">✕</button><button type="button" data-physical-press-prev aria-label="Recorte anterior">‹</button><img data-physical-press-large alt=""><button type="button" data-physical-press-next aria-label="Recorte siguiente">›</button><p data-physical-press-counter aria-live="polite"></p><small>Recorte ficticio · obra narrativa</small></dialog><script defer src="assets/js/physical-press.js?v=20261004"></script></details>';
+   '<dialog class="archive-physical-press-dialog" aria-label="Recorte de prensa ampliado"><button type="button" data-physical-press-close aria-label="Cerrar recorte">✕</button><button type="button" data-physical-press-prev aria-label="Recorte anterior">‹</button><img data-physical-press-large alt=""><button type="button" data-physical-press-next aria-label="Recorte siguiente">›</button><p data-physical-press-counter aria-live="polite"></p><small>Recorte ficticio · obra narrativa</small></dialog></details>';
+ }).join('')+'<script defer src="assets/js/physical-press.js?v=20261004"></script>';
 }
 
 function digitalPressMarkup(section,item){
@@ -1657,7 +1668,9 @@ function archiveEntryPage(section,item){
    <div class="archive-back-row"><a class="text-link" href="${section.file}">← VOLVER A ${section.label}</a><a class="text-link" href="archivo.html">ÍNDICE GENERAL</a></div>
    ${detailsMarkup}
    ${archiveGallery(section,item)}
-   ${section.key==='personajes'?digitalFootprintMarkup(item):physicalPressMarkup(section,item)+digitalPressMarkup(section,item)}
+   ${section.key==='personajes'?digitalFootprintMarkup(item):''}
+   ${physicalPressMarkup(section,item)}
+   ${section.key==='personajes'?'':digitalPressMarkup(section,item)}
    ${archiveDocuments(item)}
    ${archivePoliceReport(section,item)}
    ${relatedArchiveMarkup(item,itemHref(section,item),title)}
