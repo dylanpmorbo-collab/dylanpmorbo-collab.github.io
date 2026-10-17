@@ -24,6 +24,14 @@
     imageNext.textContent='SIGUIENTE →';
     let page=0,trigger=null,images=[],imageIndex=0,imageTrigger=null,imageOriginal='',imageRevealed=false;
     const pages=()=>[...viewer.querySelectorAll('[data-police-page]')];
+    function sizeActivePage(){
+      const active=pages()[page];
+      if(!active)return;
+      const [paperWidth,paperHeight]=getComputedStyle(active).getPropertyValue('--paper-aspect').split('/').map(Number);
+      if(paperWidth>0&&paperHeight>0){
+        active.style.minHeight=Math.ceil(active.getBoundingClientRect().width*paperHeight/paperWidth)+'px';
+      }
+    }
     function showPage(){
       const all=pages();
       all.forEach((element,i)=>{element.hidden=i!==page;});
@@ -33,6 +41,7 @@
       prev.disabled=page===0;
       next.disabled=page>=all.length-1;
       indexButton.hidden=!all[0]?.hasAttribute('data-police-index')||page===0;
+      sizeActivePage();
       scroll.scrollTop=0;
     }
     function setPage(value){
@@ -79,6 +88,7 @@
       document.body.classList.remove('archive-police-dialog-open');
       viewer.replaceChildren();if(trigger?.isConnected)trigger.focus();
     });
+    window.addEventListener('resize',()=>{if(dialog.open)sizeActivePage();});
     function showImage(){
       const thumb=images[imageIndex]?.querySelector('img');
       if(!thumb)return;
