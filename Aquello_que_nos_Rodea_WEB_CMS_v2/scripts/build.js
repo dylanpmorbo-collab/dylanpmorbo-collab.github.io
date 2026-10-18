@@ -1169,7 +1169,7 @@ function accessDescriptor(item,kind,key,defaultImage){
    const code=String(item.access_code||'').normalize('NFKC').trim().replace(/\s+/g,' ').toUpperCase();
    if(!code)throw Error('Falta el código de acceso para '+kind+': '+key);
    const hash=crypto.createHash('sha256').update(code).digest('hex');
-   return {type:'codigo',key:unique,hash,hint:kind==='carpeta'?String(item.access_hint||'').trim():''};
+   return {type:'codigo',key:unique,hash,hint:String(item.access_hint||'').trim()};
  }
  return ['basico','medio','dificil'].includes(String(item.circuit_difficulty||'').toLowerCase())
    ? {type:'circuito',key:unique,level:String(item.circuit_difficulty).toLowerCase()} : null;

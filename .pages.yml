@@ -1528,6 +1528,11 @@ content:
             type: string
             required: false
             description: "Solo para Introducir código. Esconde las pistas manualmente por el Archivo. No es una medida de seguridad: el contenido del repositorio es público."
+          - name: access_hint
+            label: Texto de ayuda del código
+            type: string
+            required: false
+            description: "Solo para Introducir código. Se muestra bajo el título de la ventana. Si lo dejas vacío, aparece el texto habitual sobre las pistas."
           - name: summary
             label: Referencia o nota breve
             type: string
@@ -1757,6 +1762,11 @@ content:
                     type: string
                     required: false
                     description: "Solo para Introducir código. Esconde las pistas manualmente por el Archivo; no es seguridad real."
+                  - name: access_hint
+                    label: Texto de ayuda del código
+                    type: string
+                    required: false
+                    description: "Solo para Introducir código. Se muestra bajo el título de la ventana. Si lo dejas vacío, aparece el texto habitual sobre las pistas."
                   - name: body
                     label: Texto del informe (Markdown)
                     type: rich-text
@@ -3085,6 +3095,11 @@ content:
             type: string
             required: false
             description: "Solo para Introducir código. Esconde las pistas manualmente por el Archivo. No es una medida de seguridad: el contenido del repositorio es público."
+          - name: access_hint
+            label: Texto de ayuda del código
+            type: string
+            required: false
+            description: "Solo para Introducir código. Se muestra bajo el título de la ventana. Si lo dejas vacío, aparece el texto habitual sobre las pistas."
           - name: desktop_background_color
             label: Color de fondo del escritorio (#RRGGBB)
             type: string
@@ -3310,6 +3325,11 @@ content:
                     type: string
                     required: false
                     description: "Solo para Introducir código. Esconde las pistas manualmente por el Archivo; no es seguridad real."
+                  - name: access_hint
+                    label: Texto de ayuda del código
+                    type: string
+                    required: false
+                    description: "Solo para Introducir código. Se muestra bajo el título de la ventana. Si lo dejas vacío, aparece el texto habitual sobre las pistas."
                   - name: body
                     label: Texto del informe (Markdown)
                     type: rich-text
