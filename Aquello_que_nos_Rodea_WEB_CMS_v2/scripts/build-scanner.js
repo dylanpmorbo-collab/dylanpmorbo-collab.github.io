@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-module.exports = function buildScanner({ root, dist, site, archiveEntries, characters, head, header, footer, esc }) {
+module.exports = function buildScanner({ root, dist, site, archiveEntries, characters, head, header, footer, esc, accessDescriptor, orderedDigitalItems, itemHref }) {
   const configPath = path.join(root, 'content/config/escaner-interplanar.json');
   const config = fs.existsSync(configPath) ? JSON.parse(fs.readFileSync(configPath, 'utf8')) : { enabled: false };
   if (config.enabled === false) return;
@@ -10,12 +10,75 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
   const exists = value => isLocalImage(value) && fs.existsSync(path.join(root, value.slice(1)));
   const signalConfig = Array.isArray(config.signals) ? config.signals : [];
   const privateLayers = new Set(signalConfig.map(item => item && item.overlay).filter(Boolean));
-  const folderSettings = new Set((Array.isArray(config.folder_rules) ? config.folder_rules : [])
+  const folderSettings = new Map((Array.isArray(config.folder_rules) ? config.folder_rules : [])
     .filter(rule => rule && typeof rule.folder === 'string' && /^[^./][^\\]*$/.test(rule.folder) && !rule.folder.split('/').includes('..'))
-    .map(rule => rule.folder.replace(/^\/+|\/+$/g, '')));
+    .map(rule => [rule.folder.replace(/^\/+|\/+$/g, ''), rule]));
   function folderVisible(folder) {
     if (folder === 'escaner/capas' || folder.startsWith('escaner/capas/')) return false;
     return folderSettings.has(folder);
+  }
+  const imageAccess = new Map();
+  const accessSources = new Map();
+  const categoryKeys = {
+    'ENTIDAD':'entidades','ORGANIZACIÓN':'organizaciones','DOCUMENTO':'documentos',
+    'SUCESO':'sucesos','TESTIMONIO':'testimonios','LUGAR':'lugares','PLANO':'planos'
+  };
+  function addAccess(image, page, gates) {
+    if (!isLocalImage(image) || !gates.length) return;
+    const existing = imageAccess.get(image) || [];
+    for (const gate of gates) {
+      const scoped = { ...gate, page };
+      if (!existing.some(value => JSON.stringify(value) === JSON.stringify(scoped))) existing.push(scoped);
+    }
+    imageAccess.set(image, existing);
+  }
+  function collectDigitalAccess(item, sectionKey) {
+    if (item.show_digital_reports !== true) return;
+    const section = { key: sectionKey };
+    const page = itemHref(section, item);
+    const reports = (Array.isArray(item.digital_reports) ? item.digital_reports : [])
+      .filter(report => report && (report.title || report.folders?.length)).slice(0, 30);
+    reports.forEach((report, reportIndex) => {
+      const title = String(report.title || ('INFORME DIGITAL ' + String(reportIndex + 1).padStart(2, '0')));
+      const reportGate = accessDescriptor(report, 'informe', reportIndex + ':' + title, report.label_image);
+      const reportGates = reportGate ? [reportGate] : [];
+      accessSources.set(page + '|'+ reportIndex, reportGates);
+      addAccess(report.label_image, page, reportGates);
+      const folders = orderedDigitalItems(report.folders).filter(folder => folder.title || folder.files?.length).slice(0, 40);
+      folders.forEach((folder, folderIndex) => {
+        const name = String(folder.title || ('CARPETA ' + String(folderIndex + 1).padStart(2, '0')));
+        const folderGate = accessDescriptor(folder, 'carpeta', reportIndex + ':' + folderIndex + ':' + String(report.title || '') + ' / ' + name, folder.icon);
+        const folderGates = folderGate ? [...reportGates, folderGate] : reportGates;
+        accessSources.set(page + '|' + reportIndex + '|' + folderIndex, folderGates);
+        addAccess(folder.icon, page, folderGates);
+        const files = orderedDigitalItems(folder.files)
+          .filter(file => file.image || file.video || file.annotated_image || String(file.kind || '').toUpperCase() === 'TEXTO').slice(0, 100);
+        files.forEach((file, fileIndex) => {
+          const fileTitle = String(file.title || ('ARCHIVO ' + String(fileIndex + 1).padStart(2, '0')));
+          const fileGate = accessDescriptor(file, 'archivo', reportIndex + ':' + folderIndex + ':' + fileIndex + ':' + String(report.title || '') + ' / ' + String(folder.title || '') + ' / ' + fileTitle, file.image || file.poster);
+          const gates = fileGate ? [...folderGates, fileGate] : folderGates;
+          accessSources.set(page + '|' + reportIndex + '|' + folderIndex + '|' + fileIndex, gates);
+          for (const image of [file.image, file.annotated_image, file.poster, file.fake_pixel_image]) addAccess(image, page, gates);
+        });
+      });
+    });
+  }
+  archiveEntries.forEach(item => collectDigitalAccess(item, categoryKeys[String(item.category || '').toUpperCase()] || 'otros'));
+  characters.forEach(item => collectDigitalAccess(item, 'personajes'));
+  function gatesForFolder(folder) {
+    const gates = [];
+    const segments = folder.split('/');
+    for (let index = 1; index <= segments.length; index++) {
+      const source = folderSettings.get(segments.slice(0, index).join('/'))?.access_from;
+      if (!source) continue;
+      const page = String(source.page || '');
+      const locator = [source.report, source.folder, source.file]
+        .filter(value => Number.isInteger(value) && value >= 0).join('|');
+      const inherited = accessSources.get(page + '|' + locator);
+      if (!inherited) throw Error('Acceso de escáner sin correspondencia: ' + folder);
+      for (const gate of inherited) if (!gates.some(value => JSON.stringify(value) === JSON.stringify({ ...gate, page }))) gates.push({ ...gate, page });
+    }
+    return gates;
   }
   const metadata = new Map();
   function collect(node, inheritedTitle = '') {
@@ -49,7 +112,9 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
       title: String(title || metadata.get(value) || filename.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ')).trim(),
       folder_path: folder,
       folder: folder.replaceAll('/', ' / ') || 'Archivo',
-      filename
+      filename,
+      access: [...new Map([...(imageAccess.get(value) || []), ...gatesForFolder(folder)]
+        .map(gate => [JSON.stringify(gate), gate])).values()]
     });
   }
   function walk(directory, parts = []) {
@@ -103,7 +168,7 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
     </div>
   </section></div>
   <script type="application/json" id="scannerCatalog">${data}</script>
-</main>${footer(site)}<script defer src="assets/js/scanner.js?v=4"></script></body></html>`;
+</main>${footer(site)}<script defer src="assets/js/scanner-access.js?v=1"></script><script defer src="assets/js/scanner.js?v=5"></script></body></html>`;
   fs.writeFileSync(path.join(dist, 'escaner.html'), page);
   console.log(`Escáner: ${catalog.length} imágenes y ${catalog.filter(item => item.overlay).length} señales configuradas.`);
 };

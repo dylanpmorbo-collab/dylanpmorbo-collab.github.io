@@ -1152,25 +1152,34 @@ function circuitAttributes(level,kind,key){
    ? ' data-circuit-level="'+difficulty+'" data-circuit-key="'+esc(kind+':'+key)+'"'
    : '';
 }
-function accessAttributes(item,kind,key,defaultImage){
+function accessDescriptor(item,kind,key,defaultImage){
  const method=String(item.access_method||'automatico').toLowerCase();
  const difficulty=['basico','medio','dificil'].includes(String(item.circuit_difficulty||'').toLowerCase())
    ? String(item.circuit_difficulty).toLowerCase() : 'basico';
- if(method==='ninguno')return '';
- if(method==='automatico')return circuitAttributes(item.circuit_difficulty,kind,key);
- if(method==='corriente')return circuitAttributes(difficulty,kind,key);
- const unique=esc(kind+':'+key);
+ const unique=kind+':'+key;
+ if(method==='ninguno')return null;
+ if(method==='automatico')return ['basico','medio','dificil'].includes(String(item.circuit_difficulty||'').toLowerCase())
+   ? {type:'circuito',key:unique,level:String(item.circuit_difficulty).toLowerCase()} : null;
+ if(method==='corriente')return {type:'circuito',key:unique,level:difficulty};
  if(method==='imagen'){
    const image=String(item.access_image||defaultImage||'assets/img/sello-archivistas.png').trim();
-   return ' data-access-type="imagen" data-access-level="'+difficulty+'" data-access-key="'+unique+'" data-access-image="'+esc(image)+'"';
+   return {type:'imagen',key:unique,level:difficulty,image};
  }
  if(method==='codigo'){
    const code=String(item.access_code||'').normalize('NFKC').trim().replace(/\s+/g,' ').toUpperCase();
    if(!code)throw Error('Falta el código de acceso para '+kind+': '+key);
    const hash=crypto.createHash('sha256').update(code).digest('hex');
-   return ' data-access-type="codigo" data-access-key="'+unique+'" data-access-hash="'+hash+'"';
+   return {type:'codigo',key:unique,hash};
  }
- return circuitAttributes(item.circuit_difficulty,kind,key);
+ return ['basico','medio','dificil'].includes(String(item.circuit_difficulty||'').toLowerCase())
+   ? {type:'circuito',key:unique,level:String(item.circuit_difficulty).toLowerCase()} : null;
+}
+function accessAttributes(item,kind,key,defaultImage){
+ const access=accessDescriptor(item,kind,key,defaultImage);
+ if(!access)return '';
+ if(access.type==='circuito')return circuitAttributes(access.level,kind,key);
+ if(access.type==='imagen')return ' data-access-type="imagen" data-access-level="'+access.level+'" data-access-key="'+esc(access.key)+'" data-access-image="'+esc(access.image)+'"';
+ return ' data-access-type="codigo" data-access-key="'+esc(access.key)+'" data-access-hash="'+access.hash+'"';
 }
 function archiveDigitalReports(section,item){
  if(item.show_digital_reports!==true) return {count:0,html:''};
@@ -1931,7 +1940,8 @@ if(terminalConfig.enabled!==false){
 }
 
 require('./build-scanner')({
-  root:ROOT,dist:DIST,site,archiveEntries,characters,micros,head,header,footer,esc
+  root:ROOT,dist:DIST,site,archiveEntries,characters,micros,head,header,footer,esc,
+  accessDescriptor,orderedDigitalItems,itemHref
 });
 
 // La página "Sobre" sigue siendo fija por ahora

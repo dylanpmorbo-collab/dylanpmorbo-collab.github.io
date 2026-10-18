@@ -4,6 +4,11 @@
   if (!root || !source) return;
   let catalog = [];
   try { catalog = JSON.parse(source.textContent); } catch { return; }
+  const allImages = catalog;
+  function isAccessible(item) {
+    try { return window.ScannerAccess.isAccessible(item, location.pathname, localStorage); }
+    catch { return !item.access?.length; }
+  }
   const $ = selector => root.querySelector(selector);
   const folders = $('[data-scanner-folders]');
   const grid = $('[data-scanner-grid]');
@@ -31,13 +36,22 @@
   const key = 'aqnr_scanner_notes_v1';
   let saved = {};
   try { saved = JSON.parse(localStorage.getItem(key) || '{}') || {}; } catch { saved = {}; }
-  const folderNames = [...new Set(catalog.map(item => item.folder))];
+  let folderNames = [];
   let folder = folderNames[0] || '';
   const folderPaths = new Set();
-  catalog.forEach(item => {
-    const parts = String(item.folder_path ?? item.folder.replaceAll(' / ', '/')).split('/').filter(Boolean);
-    parts.forEach((_, index) => folderPaths.add(parts.slice(0, index + 1).join('/')));
-  });
+  function refreshAccess() {
+    catalog = allImages.filter(isAccessible);
+    folderNames = [...new Set(catalog.map(item => item.folder))];
+    if (!folderNames.includes(folder)) folder = folderNames[0] || '';
+    folderPaths.clear();
+    catalog.forEach(item => {
+      const parts = String(item.folder_path ?? item.folder.replaceAll(' / ', '/')).split('/').filter(Boolean);
+      parts.forEach((_, index) => folderPaths.add(parts.slice(0, index + 1).join('/')));
+    });
+    if (desktopPath && !folderPaths.has(desktopPath)) desktopPath = '';
+    if (current && !isAccessible(current)) closeImage();
+    renderBrowser();
+  }
   let desktopPath = '';
   let view = root.dataset.scannerInitialView === 'list' ? 'list' : 'desktop';
   try { if (localStorage.getItem('aqnr_scanner_view') === 'list' || localStorage.getItem('aqnr_scanner_view') === 'desktop') view = localStorage.getItem('aqnr_scanner_view'); } catch {}
@@ -189,6 +203,7 @@
     if (target) openImage(target, true);
   }
   function openImage(item, preserveView = false) {
+    if (!isAccessible(item)) { refreshAccess(); return; }
     const lensWasEnabled = enabled;
     current = item;
     browser.hidden = true;
@@ -258,5 +273,10 @@
     try { localStorage.setItem(key, JSON.stringify(saved)); } catch { status('NO SE PUDIERON GUARDAR LAS NOTAS'); }
   });
   window.addEventListener('resize', fit);
-  renderBrowser();
+  window.addEventListener('pageshow', refreshAccess);
+  window.addEventListener('focus', refreshAccess);
+  window.addEventListener('storage', event => {
+    if (event.key?.startsWith('archivo-acceso-v1:') || event.key?.startsWith('archivo-circuito-v1:') || event.key === null) refreshAccess();
+  });
+  refreshAccess();
 })();
