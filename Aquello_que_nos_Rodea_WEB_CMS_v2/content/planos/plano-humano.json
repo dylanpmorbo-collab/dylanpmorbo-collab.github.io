@@ -11,7 +11,13 @@
   "role_status": "DESCONOCIDO",
   "open_questions": [
     {
-      "question": "¿De dónde venimos?"
+      "question": "¿Qué o quien nos puso aqui?"
+    },
+    {
+      "question": "¿Estamos solos?"
+    },
+    {
+      "question": "¿Existe una única realidad?"
     }
   ],
   "show_related_archive": false
