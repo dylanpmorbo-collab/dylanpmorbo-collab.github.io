@@ -3,7 +3,9 @@
   "archive_number": "001",
   "category": "ORGANIZACIÓN",
   "published": true,
+  "notify_new": true,
   "image": "/assets/uploads/archivo/LOGOS/sello-cera-plaga-1200x900-web.webp",
+  "hero_image_frame": false,
   "status": "ACCESO PARCIAL",
   "summary": "Organización clandestina cuyos miembros parecen mantener una relación de veneración con los Śukrahārī.",
   "note": "\n\nNOTA DEL ARCHIVO\n\nLa relación parece ser simbiótica, pero todavía no existen datos suficientes para determinar qué reciben exactamente los Śukrahārī de La Plaga ni qué obtiene la organización de ellos.\n\nNo confundir veneración con control.\n\nLos datos disponibles sugieren precisamente lo contrario.",
@@ -41,14 +43,17 @@
   "gallery": [
     {
       "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/de-que-hablan-web.webp",
+      "notify_new": true,
       "caption": "¿Cómo se comunican?"
     },
     {
       "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/intercambio-de-que-web.webp",
+      "notify_new": true,
       "caption": "¿Le ha dado algo?"
     },
     {
       "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/foto-archivo-la-plaga-web.webp",
+      "notify_new": true,
       "caption": "1921"
     }
   ],
@@ -70,5 +75,6 @@
     "title": "TABLÓN DE CONEXIONES"
   },
   "show_physical_press": false,
+  "physical_press_title": "PRENSA FÍSICA",
   "show_digital_press": false
 }
