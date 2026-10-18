@@ -7,6 +7,11 @@
   "notify_new": true,
   "panorama": "/assets/uploads/planos/plano-humano-panorama.jpg",
   "role_status": "DESCONOCIDO",
+  "open_questions": [
+    {
+      "question": "¿De dónde venimos?"
+    }
+  ],
   "show_related_archive": false,
   "sandbox": [
     {
