@@ -1030,6 +1030,12 @@ content:
         options:
           media: default
         description: "Tamaño recomendado: 1200 × 900 píxeles (4:3). Aparece en la ficha y cabecera; el encuadre puede recortarse según la pantalla."
+      - name: hero_image_frame
+        label: Mostrar marco en la imagen principal de la cabecera
+        type: boolean
+        required: false
+        default: true
+        description: "Desactívalo para un PNG o WebP transparente. Solo afecta al marco de la imagen grande del expediente; la miniatura no cambia."
       - name: status
         label: Estado
         type: string
@@ -2384,6 +2390,12 @@ content:
         options:
           media: default
         description: "Tamaño recomendado: 1200 × 900 píxeles (4:3). El encuadre puede recortarse en las tarjetas y cabeceras."
+      - name: hero_image_frame
+        label: Mostrar marco en la imagen principal de la cabecera
+        type: boolean
+        required: false
+        default: true
+        description: "Desactívalo para un PNG o WebP transparente. Solo afecta al marco de la imagen grande del expediente; la miniatura no cambia."
       - name: status
         label: Estado
         type: string

@@ -120,7 +120,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=folio-elastico-20261017"><script defer src="assets/js/main.js?v=testimonios-20260920"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=marco-opcional-20261019"><script defer src="assets/js/main.js?v=testimonios-20260920"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -1673,7 +1673,7 @@ function archiveEntryPage(section,item){
      <p>${esc(summary)}</p>
      ${itemStatus(item)?`<span class="archive-entry-hero-status">${esc(itemStatus(item))}</span>`:''}
    </div>
-   ${image?`<figure class="archive-entry-hero-image reveal"><img src="${esc(image)}" alt="${esc(title)}"></figure>`:''}
+   ${image?`<figure class="archive-entry-hero-image${item.hero_image_frame===false?' archive-entry-hero-image--unframed':''} reveal"><img src="${esc(image)}" alt="${esc(title)}"></figure>`:''}
  </section>
  <section class="section archive-entry-shell">
    <div class="archive-back-row"><a class="text-link" href="${section.file}">← VOLVER A ${section.label}</a><a class="text-link" href="archivo.html">ÍNDICE GENERAL</a></div>
