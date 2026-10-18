@@ -7,5 +7,22 @@
   "notify_new": true,
   "panorama": "/assets/uploads/planos/plano-humano-panorama.jpg",
   "role_status": "DESCONOCIDO",
-  "show_related_archive": false
+  "show_related_archive": false,
+  "sandbox": [
+    {
+      "title": "PLANO HUMANO",
+      "text": "Clasificación: Plano de realidad\nDenominación: Plano Humano\nReferencia física: Tierra\nHabitantes predominantes: Seres humanos\nEstado de conocimiento: Parcial",
+      "content_order": "TEXTO_PRIMERO"
+    },
+    {
+      "title": "IDENTIFICACIÓN",
+      "text": "Se denomina Plano Humano al entorno de realidad en el que se desarrolla la existencia de la humanidad. Abarca el mundo físico conocido y constituye el punto de referencia desde el que se estudian los fenómenos que podrían indicar la existencia de otros estados de realidad.\n\nLa denominación responde a criterios de clasificación y no presupone que la humanidad sea su único habitante ni que se conozcan todos los aspectos de su naturaleza.",
+      "content_order": "TEXTO_PRIMERO"
+    },
+    {
+      "title": "DESCRIPCIÓN GENERAL",
+      "text": "El Plano Humano constituye el ámbito de la experiencia cotidiana. En él se desarrollan los procesos naturales, biológicos y sociales que conforman la existencia humana.\n\nSu aparente estabilidad y la regularidad de sus fenómenos han permitido el desarrollo del conocimiento científico. No obstante, la capacidad para describir una realidad mediante leyes observables no garantiza que se comprenda íntegramente su naturaleza.",
+      "content_order": "TEXTO_PRIMERO"
+    }
+  ]
 }
