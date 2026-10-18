@@ -92,12 +92,13 @@
     });
     render();buttons[neighbors(board.tiles.indexOf(-1),board.size)[0]]?.focus();return true;
   }
-  function guardCode({host,key,hash,label,onSolve,onCancel}){
+  function guardCode({host,key,hash,label,hint,onSolve,onCancel}){
     if(!/^[0-9a-f]{64}$/.test(hash||''))return false;
     if(read(key)?.solved)return false;
     const overlay=createOverlay(host,label,'Código de acceso');
-    overlay.innerHTML='<div class="access-panel access-code-panel"><header><small>ARCHIVO // ACCESO CIFRADO</small><h2></h2><p>Introduce el código de acceso. Las pistas pueden estar repartidas por el Archivo.</p></header><form data-access-code-form><label for="archive-access-code">CÓDIGO ENCONTRADO</label><input id="archive-access-code" name="code" type="text" maxlength="64" autocomplete="off" autocapitalize="characters" spellcheck="false" required><p class="access-status" aria-live="polite">ACCESO BLOQUEADO</p><div class="access-actions"><button type="submit">COMPROBAR CÓDIGO</button><button type="button" data-access-cancel>VOLVER</button></div></form></div>';
+    overlay.innerHTML='<div class="access-panel access-code-panel"><header><small>ARCHIVO // ACCESO CIFRADO</small><h2></h2><p data-access-hint></p></header><form data-access-code-form><label for="archive-access-code">CÓDIGO ENCONTRADO</label><input id="archive-access-code" name="code" type="text" maxlength="64" autocomplete="off" autocapitalize="characters" spellcheck="false" required><p class="access-status" aria-live="polite">ACCESO BLOQUEADO</p><div class="access-actions"><button type="submit">COMPROBAR CÓDIGO</button><button type="button" data-access-cancel>VOLVER</button></div></form></div>';
     overlay.querySelector('h2').textContent=label;
+    overlay.querySelector('[data-access-hint]').textContent=String(hint||'').trim()||'Introduce el código de acceso. Las pistas pueden estar repartidas por el Archivo.';
     overlay.addEventListener('click',event=>{event.stopPropagation();if(event.target.closest('[data-access-cancel]')){overlay.remove();onCancel?.();}});
     overlay.addEventListener('submit',async event=>{
       event.preventDefault();event.stopPropagation();const form=event.target,input=form.elements.code,status=overlay.querySelector('.access-status');

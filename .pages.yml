@@ -1636,6 +1636,11 @@ content:
                 type: string
                 required: false
                 description: "Solo para Introducir código. Esconde las pistas manualmente por el Archivo; no es seguridad real."
+              - name: access_hint
+                label: Texto de ayuda del código
+                type: string
+                required: false
+                description: "Solo para Introducir código. Se muestra bajo el título de la ventana. Si lo dejas vacío, aparece el texto habitual sobre las pistas."
               - name: show_recovery_placeholder
                 label: Mostrar imagen «RECUPERANDO…» en esta carpeta
                 type: boolean
@@ -3184,6 +3189,11 @@ content:
                 type: string
                 required: false
                 description: "Solo para Introducir código. Esconde las pistas manualmente por el Archivo; no es seguridad real."
+              - name: access_hint
+                label: Texto de ayuda del código
+                type: string
+                required: false
+                description: "Solo para Introducir código. Se muestra bajo el título de la ventana. Si lo dejas vacío, aparece el texto habitual sobre las pistas."
               - name: show_recovery_placeholder
                 label: Mostrar imagen «RECUPERANDO…» en esta carpeta
                 type: boolean

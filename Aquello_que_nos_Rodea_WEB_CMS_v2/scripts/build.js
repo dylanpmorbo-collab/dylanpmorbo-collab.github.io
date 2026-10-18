@@ -1169,7 +1169,7 @@ function accessDescriptor(item,kind,key,defaultImage){
    const code=String(item.access_code||'').normalize('NFKC').trim().replace(/\s+/g,' ').toUpperCase();
    if(!code)throw Error('Falta el código de acceso para '+kind+': '+key);
    const hash=crypto.createHash('sha256').update(code).digest('hex');
-   return {type:'codigo',key:unique,hash};
+   return {type:'codigo',key:unique,hash,hint:kind==='carpeta'?String(item.access_hint||'').trim():''};
  }
  return ['basico','medio','dificil'].includes(String(item.circuit_difficulty||'').toLowerCase())
    ? {type:'circuito',key:unique,level:String(item.circuit_difficulty).toLowerCase()} : null;
@@ -1179,7 +1179,7 @@ function accessAttributes(item,kind,key,defaultImage){
  if(!access)return '';
  if(access.type==='circuito')return circuitAttributes(access.level,kind,key);
  if(access.type==='imagen')return ' data-access-type="imagen" data-access-level="'+access.level+'" data-access-key="'+esc(access.key)+'" data-access-image="'+esc(access.image)+'"';
- return ' data-access-type="codigo" data-access-key="'+esc(access.key)+'" data-access-hash="'+access.hash+'"';
+ return ' data-access-type="codigo" data-access-key="'+esc(access.key)+'" data-access-hash="'+access.hash+'"'+(access.hint?' data-access-hint="'+esc(access.hint)+'"':'');
 }
 function archiveDigitalReports(section,item){
  if(item.show_digital_reports!==true) return {count:0,html:''};
@@ -1316,7 +1316,7 @@ function archiveDigitalReports(section,item){
    return {count:reports.length,html:'<div class="archive-digital-report-group" id="informes-digitales"><div class="archive-report-subheading">INFORMES DIGITALES // '+String(reports.length).padStart(2,'0')+'</div>'+
    '<div class="archive-police-folder-grid archive-mmc-grid">'+cards+'</div>'+templates+
    '<dialog class="archive-digital-dialog" aria-label="Escritorio de informe digital"><div class="archive-digital-dialog-shell"><header class="archive-digital-dialog-header"><span data-digital-dialog-title>INFORME DIGITAL</span><button type="button" data-digital-close aria-label="Cerrar escritorio">✕</button></header><div data-digital-workspace></div></div></dialog></div>'+
-   '<script defer src="assets/js/circuit-puzzle.js?v=20261012b"></script><script defer src="assets/js/archive-access.js?v=20261012a"></script><script defer src="assets/js/digital-reports.js?v=aviso-20261013a"></script>'};
+   '<script defer src="assets/js/circuit-puzzle.js?v=20261012b"></script><script defer src="assets/js/archive-access.js?v=20261019a"></script><script defer src="assets/js/digital-reports.js?v=20261019a"></script>'};
 }
 function archivePoliceReport(section,item){return archivePoliceReportV2(section,item);}
 
