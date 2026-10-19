@@ -120,7 +120,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=marco-opcional-20261019"><script defer src="assets/js/main.js?v=testimonios-20260920"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=mmc-etiqueta-amplia-20261019"><script defer src="assets/js/main.js?v=testimonios-20260920"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -1189,12 +1189,11 @@ function archiveDigitalReports(section,item){
  const cards=reports.map((report,index)=>{
    const title=String(report.title||('INFORME DIGITAL '+String(index+1).padStart(2,'0')));
    const importance=reportImportance(report.importance);
-   const folderCount=orderedDigitalItems(report.folders).length;
    return '<button type="button" class="archive-mmc-card" data-digital-open="'+index+'" data-importance="'+importance+'"'+accessAttributes(report,'informe',index+':'+title,report.label_image)+' aria-label="Abrir informe digital: '+esc(title)+'">'+
      '<span class="archive-mmc-label">'+
      (report.label_image?'<img src="'+esc(report.label_image)+'" alt="" loading="lazy">':'<span class="archive-mmc-mark" aria-hidden="true">DUB.SAR // ARCHIVO</span>')+
-     '<strong>'+esc(title)+'</strong></span><span class="archive-mmc-foot"><small>MMC // '+String(index+1).padStart(2,'0')+'</small></span>'+
-     '<span class="archive-mmc-contacts" aria-hidden="true"></span><span class="archive-mmc-hint">'+folderCount+' CARPETA'+(folderCount===1?'':'S')+' · ABRIR ESCRITORIO →</span></button>';
+     '</span><strong class="archive-mmc-title">'+esc(title)+'</strong>'+
+     '<span class="archive-mmc-foot"><small>MMC // '+String(index+1).padStart(2,'0')+'</small></span></button>';
  }).join('');
  const templates=reports.map((report,index)=>{
    const bootDuration=Math.min(5,Math.max(1,Math.round(Number(report.boot_seconds)||1)));

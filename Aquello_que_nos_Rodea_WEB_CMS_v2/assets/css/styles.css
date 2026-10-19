@@ -1377,21 +1377,19 @@ html:not(.age-verified){overflow:hidden}
 .archive-police-folder[data-importance] .archive-police-folder-tab{border-color:var(--folder-edge);background:var(--folder-light)}
 .archive-police-folder[data-importance] .archive-police-folder-cover{border-color:var(--folder-edge);background:var(--folder-cover)}
 .archive-police-folder[data-importance] .archive-police-folder-cover>span{color:var(--folder-light)}
-.archive-mmc-card{--mmc-light:#333838;--mmc-dark:#141719;--mmc-edge:#737b77;--mmc-ink:#e9e5d8;position:relative;display:flex;flex-direction:column;min-width:0;min-height:244px;padding:15px 15px 11px;overflow:hidden;border:2px solid var(--mmc-edge);border-radius:4px;background:linear-gradient(150deg,var(--mmc-light),var(--mmc-dark) 70%);clip-path:polygon(0 0,calc(100% - 28px) 0,100% 28px,100% 100%,0 100%);filter:drop-shadow(0 12px 16px rgba(0,0,0,.4));color:var(--mmc-ink);text-align:left;cursor:pointer;transition:transform .2s,filter .2s}
+.archive-mmc-card{--mmc-light:#333838;--mmc-dark:#141719;--mmc-edge:#737b77;--mmc-ink:#e9e5d8;position:relative;display:flex;flex-direction:column;min-width:0;min-height:260px;padding:15px 15px 11px;overflow:hidden;border:2px solid var(--mmc-edge);border-radius:4px;background:linear-gradient(150deg,var(--mmc-light),var(--mmc-dark) 70%);clip-path:polygon(0 0,calc(100% - 28px) 0,100% 28px,100% 100%,0 100%);filter:drop-shadow(0 12px 16px rgba(0,0,0,.4));color:var(--mmc-ink);text-align:left;cursor:pointer;transition:transform .2s,filter .2s}
 .archive-mmc-card::before{content:"";position:absolute;top:12px;right:-6px;width:38px;height:2px;background:var(--mmc-edge);transform:rotate(45deg);pointer-events:none}
 .archive-mmc-card:hover,.archive-mmc-card:focus-visible{transform:translateY(-4px);filter:drop-shadow(0 17px 20px rgba(0,0,0,.5));outline:2px solid #dbc58f;outline-offset:3px}
 .archive-mmc-card[data-importance="normal"]{--mmc-light:#477452;--mmc-dark:#183a27;--mmc-edge:#81a982}
 .archive-mmc-card[data-importance="interesante"]{--mmc-light:#476f9a;--mmc-dark:#1c3a5b;--mmc-edge:#86a9c5}
 .archive-mmc-card[data-importance="importante"]{--mmc-light:#75548d;--mmc-dark:#3e2355;--mmc-edge:#ac8ebd}
 .archive-mmc-card[data-importance="vital"]{--mmc-light:#98474b;--mmc-dark:#521e28;--mmc-edge:#c77d7e}
-.archive-mmc-label{display:flex;flex-direction:column;justify-content:flex-end;min-height:144px;padding:9px 11px;border:1px solid #eee4cf;border-radius:3px;background:linear-gradient(130deg,#e6dfcd,#bbb19a);color:#1d221e;box-shadow:inset 0 0 0 2px rgba(0,0,0,.09)}
-.archive-mmc-label img{display:block;width:100%;height:88px;object-fit:contain;margin:auto auto 7px}
-.archive-mmc-label strong{font:700 15px/1.17 var(--display);overflow-wrap:anywhere}
-.archive-mmc-mark{display:grid;place-items:center;min-height:90px;color:#796b54;font:700 12px/1.2 var(--display);letter-spacing:.1em;text-align:center}
-.archive-mmc-foot{display:flex;justify-content:space-between;gap:8px;margin-top:8px;font:700 9px/1.2 var(--display);letter-spacing:.1em}
+.archive-mmc-label{display:grid;place-items:center;flex:1 0 176px;min-height:176px;padding:8px;border:1px solid #eee4cf;border-radius:3px;background:linear-gradient(130deg,#e6dfcd,#bbb19a);color:#1d221e;box-shadow:inset 0 0 0 2px rgba(0,0,0,.09)}
+.archive-mmc-label img{display:block;width:100%;height:100%;min-height:0;object-fit:contain}
+.archive-mmc-title{display:block;margin-top:9px;font:700 15px/1.17 var(--display);overflow-wrap:anywhere}
+.archive-mmc-mark{display:grid;place-items:center;width:100%;height:100%;color:#796b54;font:700 12px/1.2 var(--display);letter-spacing:.1em;text-align:center}
+.archive-mmc-foot{display:flex;justify-content:flex-end;gap:8px;margin-top:8px;font:700 9px/1.2 var(--display);letter-spacing:.1em}
 .archive-mmc-foot small{font:inherit}
-.archive-mmc-contacts{align-self:flex-end;width:46%;height:13px;margin:7px 1px 0;border:1px solid #6b5632;background:repeating-linear-gradient(90deg,#a3813d 0 13%,#332d22 13% 16%);box-shadow:inset 0 2px rgba(255,231,150,.38)}
-.archive-mmc-hint{margin-top:8px;color:var(--mmc-ink);font:700 8px/1.3 var(--display);letter-spacing:.08em}
 .archive-digital-dialog{width:min(1130px,calc(100vw - 28px));height:min(850px,calc(100dvh - 28px));max-width:none;max-height:none;margin:auto;padding:0;border:3px ridge #d2d2d2;background:#c0c0c0;color:#111;font-family:Arial,Helvetica,sans-serif;box-shadow:0 25px 80px #000}
 .archive-digital-dialog::backdrop{background:rgba(0,0,0,.91)}
 .archive-digital-dialog-shell{display:flex;flex-direction:column;width:100%;height:100%;min-height:0}
