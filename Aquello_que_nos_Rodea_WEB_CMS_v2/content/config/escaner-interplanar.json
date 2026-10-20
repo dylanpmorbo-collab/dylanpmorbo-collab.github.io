@@ -69,7 +69,8 @@
   ],
   "secret_folder_rules": [
     {
-      "folder": "SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven"
+      "folder": "SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven",
+      "code": "1234"
     }
   ],
   "signals": [
