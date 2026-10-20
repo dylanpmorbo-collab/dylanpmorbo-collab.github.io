@@ -67,6 +67,7 @@
       "folder": "personajes/Richard/Volcado de imágenes/GALERÍA"
     }
   ],
+  "secret_folder_rules": [],
   "signals": [
     {
       "image": "/assets/uploads/personajes/Richard/MAYORCA/aquapark-web.webp",

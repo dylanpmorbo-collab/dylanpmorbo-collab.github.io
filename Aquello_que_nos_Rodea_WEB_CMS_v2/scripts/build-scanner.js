@@ -10,12 +10,24 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
   const exists = value => isLocalImage(value) && fs.existsSync(path.join(root, value.slice(1)));
   const signalConfig = Array.isArray(config.signals) ? config.signals : [];
   const privateLayers = new Set(signalConfig.map(item => item && item.overlay).filter(Boolean));
+  const validRule = rule => rule && typeof rule.folder === 'string' && /^[^./][^\\]*$/.test(rule.folder) && !rule.folder.split('/').includes('..');
   const folderSettings = new Map((Array.isArray(config.folder_rules) ? config.folder_rules : [])
-    .filter(rule => rule && typeof rule.folder === 'string' && /^[^./][^\\]*$/.test(rule.folder) && !rule.folder.split('/').includes('..'))
+    .filter(validRule)
     .map(rule => [rule.folder.replace(/^\/+|\/+$/g, ''), rule]));
+  (Array.isArray(config.secret_folder_rules) ? config.secret_folder_rules : [])
+    .filter(validRule)
+    .forEach(rule => {
+      const folder = rule.folder.replace(/^\/+|\/+$/g, '');
+      folderSettings.set(folder, { ...folderSettings.get(folder), ...rule, secret: true });
+    });
   function folderVisible(folder) {
     if (folder === 'escaner/capas' || folder.startsWith('escaner/capas/')) return false;
     return folderSettings.has(folder);
+  }
+  function secretAncestors(folder) {
+    const parts = folder.split('/');
+    return parts.map((_, index) => parts.slice(0, index + 1).join('/'))
+      .filter(path => folderSettings.get(path)?.secret === true);
   }
   const imageAccess = new Map();
   const accessSources = new Map();
@@ -112,6 +124,7 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
       title: String(title || metadata.get(value) || filename.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ')).trim(),
       folder_path: folder,
       folder: folder.replaceAll('/', ' / ') || 'Archivo',
+      secret_folders: secretAncestors(folder),
       filename,
       access: [...new Map([...(imageAccess.get(value) || []), ...gatesForFolder(folder)]
         .map(gate => [JSON.stringify(gate), gate])).values()]
@@ -168,7 +181,7 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
     </div>
   </section></div>
   <script type="application/json" id="scannerCatalog">${data}</script>
-</main>${footer(site)}<script defer src="assets/js/scanner-access.js?v=1"></script><script defer src="assets/js/scanner.js?v=5"></script></body></html>`;
+</main>${footer(site)}<script defer src="assets/js/scanner-access.js?v=1"></script><script defer src="assets/js/scanner-folders.js?v=1"></script><script defer src="assets/js/scanner.js?v=6"></script></body></html>`;
   fs.writeFileSync(path.join(dist, 'escaner.html'), page);
   console.log(`Escáner: ${catalog.length} imágenes y ${catalog.filter(item => item.overlay).length} señales configuradas.`);
 };

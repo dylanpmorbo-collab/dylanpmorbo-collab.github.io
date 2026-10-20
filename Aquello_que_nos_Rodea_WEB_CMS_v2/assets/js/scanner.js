@@ -5,6 +5,8 @@
   let catalog = [];
   try { catalog = JSON.parse(source.textContent); } catch { return; }
   const allImages = catalog;
+  const folderTools = window.ScannerFolders;
+  const revealedSecrets = new Set();
   function isAccessible(item) {
     try { return window.ScannerAccess.isAccessible(item, location.pathname, localStorage); }
     catch { return !item.access?.length; }
@@ -39,16 +41,34 @@
   let folderNames = [];
   let folder = folderNames[0] || '';
   const folderPaths = new Set();
+  function visibleImages() { return folderTools.visibleItems(catalog, revealedSecrets); }
+  function secretMatches() { return folderTools.matchingSecrets(catalog, search.value); }
+  function openFolder(path) {
+    folderTools.secretPaths(catalog)
+      .filter(secret => path === secret || path.startsWith(secret + '/'))
+      .forEach(secret => revealedSecrets.add(secret));
+    desktopPath = path;
+    folder = catalog.find(item => folderTools.pathOf(item) === path)?.folder || path.replaceAll('/', ' / ');
+    search.value = '';
+    renderBrowser();
+  }
+  function secretFolderButton(path) {
+    const button = element('button', 'scanner-desktop-folder scanner-secret-result');
+    button.type = 'button';
+    button.append(element('span', 'scanner-folder-icon'), element('span', 'scanner-desktop-label', displayLabel(path.split('/').at(-1))));
+    button.addEventListener('click', () => openFolder(path));
+    return button;
+  }
   function refreshAccess() {
     catalog = allImages.filter(isAccessible);
-    folderNames = [...new Set(catalog.map(item => item.folder))];
+    folderNames = [...new Set(visibleImages().map(item => item.folder))];
     if (!folderNames.includes(folder)) folder = folderNames[0] || '';
     folderPaths.clear();
     catalog.forEach(item => {
       const parts = String(item.folder_path ?? item.folder.replaceAll(' / ', '/')).split('/').filter(Boolean);
       parts.forEach((_, index) => folderPaths.add(parts.slice(0, index + 1).join('/')));
     });
-    if (desktopPath && !folderPaths.has(desktopPath)) desktopPath = '';
+    if (desktopPath && !folderTools.hasVisibleContents(catalog, desktopPath, revealedSecrets)) desktopPath = '';
     if (current && !isAccessible(current)) closeImage();
     renderBrowser();
   }
@@ -78,6 +98,8 @@
     return button;
   }
   function renderFolders() {
+    folderNames = [...new Set(visibleImages().map(item => item.folder))];
+    if (!folderNames.includes(folder)) folder = folderNames[0] || '';
     folders.replaceChildren();
     folderNames.forEach(name => {
       const button = element('button', 'scanner-folder' + (name === folder ? ' is-active' : ''), '▣  ' + displayLabel(name));
@@ -89,14 +111,18 @@
   }
   function renderGrid() {
     const query = search.value.trim().toLocaleLowerCase('es');
-    const items = catalog.filter(item => query
+    const items = visibleImages().filter(item => query
       ? (item.title + ' ' + item.folder + ' ' + item.filename).toLocaleLowerCase('es').includes(query)
       : item.folder === folder);
+    const secretFolders = query ? secretMatches() : [];
     $('[data-scanner-folder-title]').textContent = query ? 'RESULTADOS DE BÚSQUEDA' : displayLabel(folder);
-    $('[data-scanner-count]').textContent = items.length + ' ARCHIVO' + (items.length === 1 ? '' : 'S');
+    $('[data-scanner-count]').textContent = secretFolders.length
+      ? secretFolders.length + ' CARPETA' + (secretFolders.length === 1 ? '' : 'S') + ' · ' + items.length + ' ARCHIVO' + (items.length === 1 ? '' : 'S')
+      : items.length + ' ARCHIVO' + (items.length === 1 ? '' : 'S');
     grid.replaceChildren();
+    secretFolders.forEach(path => grid.append(secretFolderButton(path)));
     items.forEach(item => grid.append(photoButton(item, 'scanner-file')));
-    if (!items.length) grid.append(element('p', 'scanner-empty', catalog.length ? 'No hay imágenes en esta carpeta.' : 'Todavía no hay imágenes publicadas para escanear.'));
+    if (!items.length && !secretFolders.length) grid.append(element('p', 'scanner-empty', catalog.length ? 'No hay imágenes en esta carpeta.' : 'Todavía no hay imágenes publicadas para escanear.'));
   }
   function renderDesktop() {
     const query = search.value.trim().toLocaleLowerCase('es');
@@ -111,9 +137,11 @@
     addCrumb('ESCRITORIO', '');
     if (query) {
       breadcrumb.append(element('span', '', '› RESULTADOS'));
-      const matches = catalog.filter(item => (item.title + ' ' + item.folder + ' ' + item.filename).toLocaleLowerCase('es').includes(query));
+      const secretFolders = secretMatches();
+      secretFolders.forEach(path => desktopGrid.append(secretFolderButton(path)));
+      const matches = visibleImages().filter(item => (item.title + ' ' + item.folder + ' ' + item.filename).toLocaleLowerCase('es').includes(query));
       matches.forEach(item => desktopGrid.append(photoButton(item, 'scanner-desktop-file')));
-      if (!matches.length) desktopGrid.append(element('p', 'scanner-empty', 'No hay imágenes que coincidan.'));
+      if (!matches.length && !secretFolders.length) desktopGrid.append(element('p', 'scanner-empty', 'No hay imágenes que coincidan.'));
       return;
     }
     let partial = '';
@@ -124,7 +152,7 @@
     }
     const children = [...folderPaths].filter(path => {
       const parent = path.includes('/') ? path.slice(0, path.lastIndexOf('/')) : '';
-      return parent === desktopPath;
+      return parent === desktopPath && folderTools.hasVisibleContents(catalog, path, revealedSecrets);
     }).sort((a, b) => a.localeCompare(b, 'es'));
     children.forEach(path => {
       const button = element('button', 'scanner-desktop-folder');
@@ -133,7 +161,7 @@
       button.addEventListener('click', () => { desktopPath = path; renderDesktop(); });
       desktopGrid.append(button);
     });
-    catalog.filter(item => (item.folder_path ?? item.folder.replaceAll(' / ', '/')) === desktopPath)
+    visibleImages().filter(item => folderTools.pathOf(item) === desktopPath)
       .forEach(item => desktopGrid.append(photoButton(item, 'scanner-desktop-file')));
     if (!desktopGrid.children.length) desktopGrid.append(element('p', 'scanner-empty', 'Esta carpeta no contiene imágenes visibles.'));
   }

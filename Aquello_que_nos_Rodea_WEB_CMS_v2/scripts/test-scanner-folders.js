@@ -3,6 +3,7 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const buildScanner = require('./build-scanner');
+const scannerFolders = require('../assets/js/scanner-folders');
 
 const root = fs.mkdtempSync(path.join(os.tmpdir(), 'scanner-folders-'));
 const dist = path.join(root, 'dist');
@@ -16,10 +17,11 @@ function image(relativePath) {
   fs.writeFileSync(file, png);
 }
 
-function catalog(folderRules, additionalImages = []) {
+function catalog(folderRules, additionalImages = [], secretFolderRules = []) {
   fs.writeFileSync(configPath, JSON.stringify({
     enabled: true,
     folder_rules: folderRules,
+    secret_folder_rules: secretFolderRules,
     additional_images: additionalImages,
     signals: []
   }));
@@ -61,7 +63,33 @@ try {
   const noneSelected = catalog([]);
   assert.deepEqual(noneSelected, []);
 
-  console.log('Lista de inclusión de carpetas del escáner: OK');
+  const secret = catalog(
+    [{ folder: 'prensa' }], [],
+    [{ folder: 'prensa/adjuntos' }, { folder: 'prensa/adjuntos/detalles' }]
+  );
+  assert.deepEqual(secret.map(item => item.filename).sort(), ['foto.png', 'primer-plano.png', 'recorte.png']);
+  assert.deepEqual(secret.find(item => item.filename === 'recorte.png').secret_folders, []);
+  assert.deepEqual(secret.find(item => item.filename === 'foto.png').secret_folders, ['prensa/adjuntos']);
+  assert.deepEqual(secret.find(item => item.filename === 'primer-plano.png').secret_folders,
+    ['prensa/adjuntos', 'prensa/adjuntos/detalles']);
+  assert.deepEqual(scannerFolders.matchingSecrets(secret, 'adjunto'), []);
+  assert.deepEqual(scannerFolders.matchingSecrets(secret, ' ADJUNTOS '), ['prensa/adjuntos']);
+  assert.deepEqual(scannerFolders.matchingSecrets(secret, 'foto.png'), []);
+  assert.deepEqual(scannerFolders.visibleItems(secret, new Set()).map(item => item.filename), ['recorte.png']);
+  assert.equal(scannerFolders.hasVisibleContents(secret, 'prensa/adjuntos', new Set()), false);
+  assert.equal(scannerFolders.hasVisibleContents(secret, 'prensa', new Set()), true);
+  assert.deepEqual(scannerFolders.visibleItems(secret, new Set(['prensa/adjuntos'])).map(item => item.filename).sort(),
+    ['foto.png', 'recorte.png']);
+  assert.equal(scannerFolders.hasVisibleContents(secret, 'prensa/adjuntos/detalles', new Set(['prensa/adjuntos'])), false);
+  assert.equal(scannerFolders.hasVisibleContents(secret, 'prensa/adjuntos/detalles',
+    new Set(['prensa/adjuntos', 'prensa/adjuntos/detalles'])), true);
+
+  const onlySecret = catalog([], [], [{ folder: 'prensa/adjuntos' }]);
+  assert.deepEqual(onlySecret.map(item => item.filename), ['foto.png']);
+  assert.equal(scannerFolders.hasVisibleContents(onlySecret, 'prensa', new Set()), false);
+  assert.deepEqual(scannerFolders.matchingSecrets(onlySecret, 'adjuntos'), ['prensa/adjuntos']);
+
+  console.log('Carpetas visibles y secretas del escáner: OK');
 } finally {
   fs.rmSync(root, { recursive: true, force: true });
 }

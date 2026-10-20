@@ -4820,6 +4820,21 @@ content:
             type: string
             required: true
             description: "Ruta desde assets/uploads, por ejemplo personajes/Richard Alcoy."
+      - name: secret_folder_rules
+        label: Carpetas secretas del escáner
+        type: object
+        required: false
+        description: "Estas carpetas no aparecen al navegar ni en búsquedas parciales. Solo se muestran al escribir exactamente su nombre en el buscador del escáner. Usa una ruta por carpeta; sus subcarpetas también deben añadirse si quieres mostrar sus imágenes."
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{folder}"
+        fields:
+          - name: folder
+            label: Carpeta o subcarpeta secreta
+            type: string
+            required: true
+            description: "Ruta desde assets/uploads, por ejemplo personajes/Nombre secreto. La búsqueda se hace por el último nombre de la ruta."
       - name: signals
         label: Fotos con señal interplanar
         type: object
