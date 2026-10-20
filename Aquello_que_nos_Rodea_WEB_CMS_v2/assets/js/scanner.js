@@ -5,8 +5,16 @@
   let catalog = [];
   try { catalog = JSON.parse(source.textContent); } catch { return; }
   const allImages = catalog;
+  let secretCodes = {};
+  try { secretCodes = JSON.parse(document.getElementById('scannerSecretCodes')?.textContent || '{}') || {}; } catch {}
   const folderTools = window.ScannerFolders;
   const revealedSecrets = new Set();
+  const secretStorageKey = 'aqnr_scanner_secret_folders_v1';
+  let storedSecrets = {};
+  try { storedSecrets = JSON.parse(localStorage.getItem(secretStorageKey) || '{}') || {}; } catch {}
+  folderTools.secretPaths(allImages).forEach(path => {
+    if (storedSecrets[path] === (secretCodes[path] || 'open')) revealedSecrets.add(path);
+  });
   function isAccessible(item) {
     try { return window.ScannerAccess.isAccessible(item, location.pathname, localStorage); }
     catch { return !item.access?.length; }
@@ -35,6 +43,13 @@
   const zoom = $('[data-scanner-zoom]');
   const toggle = $('[data-scanner-toggle]');
   const notes = $('[data-scanner-notes]');
+  const secretLock = $('[data-scanner-secret-lock]');
+  const secretForm = $('[data-scanner-secret-form]');
+  const secretInput = $('[data-scanner-secret-code]');
+  const secretError = $('[data-scanner-secret-error]');
+  let pendingFolder = '';
+  let secretAttempt = 0;
+  const approvedCodes = new Set();
   const key = 'aqnr_scanner_notes_v1';
   let saved = {};
   try { saved = JSON.parse(localStorage.getItem(key) || '{}') || {}; } catch { saved = {}; }
@@ -43,20 +58,62 @@
   const folderPaths = new Set();
   function visibleImages() { return folderTools.visibleItems(catalog, revealedSecrets); }
   function secretMatches() { return folderTools.matchingSecrets(catalog, search.value); }
+  function secretsOnPath(path) {
+    return folderTools.secretPaths(catalog).filter(secret => path === secret || path.startsWith(secret + '/'));
+  }
+  function rememberSecrets(paths) {
+    paths.forEach(path => {
+      revealedSecrets.add(path);
+      storedSecrets[path] = secretCodes[path] || 'open';
+    });
+    try { localStorage.setItem(secretStorageKey, JSON.stringify(storedSecrets)); } catch {}
+  }
   function openFolder(path) {
-    folderTools.secretPaths(catalog)
-      .filter(secret => path === secret || path.startsWith(secret + '/'))
-      .forEach(secret => revealedSecrets.add(secret));
+    rememberSecrets(secretsOnPath(path));
     desktopPath = path;
     folder = catalog.find(item => folderTools.pathOf(item) === path)?.folder || path.replaceAll('/', ' / ');
     search.value = '';
     renderBrowser();
   }
+  function closeSecretLock() {
+    secretAttempt++;
+    pendingFolder = '';
+    approvedCodes.clear();
+    secretLock.hidden = true;
+    secretInput.value = '';
+    secretError.hidden = true;
+    search.focus();
+  }
+  function continueSecretOpen() {
+    const needed = secretsOnPath(pendingFolder)
+      .find(path => secretCodes[path] && !revealedSecrets.has(path) && !approvedCodes.has(path));
+    if (needed) {
+      secretLock.hidden = false;
+      $('[data-scanner-secret-name]').textContent = displayLabel(needed.split('/').at(-1));
+      secretInput.value = '';
+      secretError.textContent = 'CÓDIGO INCORRECTO';
+      secretError.hidden = true;
+      secretInput.focus();
+      secretLock.dataset.path = needed;
+      return;
+    }
+    const path = pendingFolder;
+    pendingFolder = '';
+    approvedCodes.clear();
+    secretLock.hidden = true;
+    openFolder(path);
+  }
+  function requestOpenFolder(path) {
+    secretAttempt++;
+    pendingFolder = path;
+    approvedCodes.clear();
+    continueSecretOpen();
+  }
   function secretFolderButton(path) {
     const button = element('button', 'scanner-desktop-folder scanner-secret-result');
     button.type = 'button';
     button.append(element('span', 'scanner-folder-icon'), element('span', 'scanner-desktop-label', displayLabel(path.split('/').at(-1))));
-    button.addEventListener('click', () => openFolder(path));
+    button.addEventListener('click', () => requestOpenFolder(path));
     return button;
   }
   function refreshAccess() {
@@ -265,6 +322,46 @@
     status('ESPERANDO SELECCIÓN');
   }
   search.addEventListener('input', () => { renderGrid(); renderDesktop(); });
+  secretForm.addEventListener('submit', async event => {
+    event.preventDefault();
+    if (!pendingFolder) return;
+    const attempt = secretAttempt;
+    const requestedFolder = pendingFolder;
+    const requestedCodePath = secretLock.dataset.path;
+    const expected = secretCodes[requestedCodePath];
+    const value = secretInput.value.trim();
+    if (!value || !expected) { secretError.hidden = false; return; }
+    let actual = '';
+    try {
+      const bytes = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value));
+      actual = [...new Uint8Array(bytes)].map(byte => byte.toString(16).padStart(2, '0')).join('');
+    } catch {
+      if (secretAttempt !== attempt) return;
+      secretError.textContent = 'NO SE PUDO VERIFICAR EL CÓDIGO';
+      secretError.hidden = false;
+      return;
+    }
+    if (secretAttempt !== attempt || pendingFolder !== requestedFolder || secretLock.dataset.path !== requestedCodePath) return;
+    if (actual !== expected) {
+      secretError.textContent = 'CÓDIGO INCORRECTO';
+      secretError.hidden = false;
+      secretInput.select();
+      return;
+    }
+    approvedCodes.add(requestedCodePath);
+    continueSecretOpen();
+  });
+  $('[data-scanner-secret-cancel]').addEventListener('click', closeSecretLock);
+  secretLock.addEventListener('keydown', event => {
+    if (event.key === 'Escape') { event.preventDefault(); closeSecretLock(); }
+    if (event.key === 'Tab') {
+      const controls = secretLock.querySelectorAll('button, input');
+      const first = controls[0];
+      const last = controls[controls.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    }
+  });
   viewToggle.addEventListener('click', () => {
     view = view === 'desktop' ? 'list' : 'desktop';
     try { localStorage.setItem('aqnr_scanner_view', view); } catch {}

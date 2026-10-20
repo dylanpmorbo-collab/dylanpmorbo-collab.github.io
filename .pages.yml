@@ -4835,6 +4835,11 @@ content:
             type: string
             required: true
             description: "Ruta desde assets/uploads, por ejemplo personajes/Nombre secreto. La búsqueda se hace por el último nombre de la ruta."
+          - name: code
+            label: Código de acceso (opcional)
+            type: string
+            required: false
+            description: "Déjalo vacío para abrir la carpeta al pulsarla. Si escribes un código, aparecerá una ventana en la tableta antes de entrar. El código distingue mayúsculas y minúsculas."
       - name: signals
         label: Fotos con señal interplanar
         type: object

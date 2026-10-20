@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { createHash } = require('crypto');
 
 module.exports = function buildScanner({ root, dist, site, archiveEntries, characters, head, header, footer, esc, accessDescriptor, orderedDigitalItems, itemHref }) {
   const configPath = path.join(root, 'content/config/escaner-interplanar.json');
@@ -20,6 +21,9 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
       const folder = rule.folder.replace(/^\/+|\/+$/g, '');
       folderSettings.set(folder, { ...folderSettings.get(folder), ...rule, secret: true });
     });
+  const secretCodes = Object.fromEntries([...folderSettings]
+    .filter(([, rule]) => rule.secret && String(rule.code ?? '').trim())
+    .map(([folder, rule]) => [folder, createHash('sha256').update(String(rule.code).trim()).digest('hex')]));
   function folderVisible(folder) {
     if (folder === 'escaner/capas' || folder.startsWith('escaner/capas/')) return false;
     return folderSettings.has(folder);
@@ -152,12 +156,13 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
   const catalog = [...entries.values()].map(item => ({ ...item, overlay: signals.get(item.image) || '' }))
     .sort((a, b) => a.folder.localeCompare(b.folder, 'es') || a.title.localeCompare(b.title, 'es'));
   const data = JSON.stringify(catalog).replace(/</g, '\\u003c');
+  const codeData = JSON.stringify(secretCodes).replace(/</g, '\\u003c');
   const title = String(config.page_title || 'Escáner interplanar');
   const tablet = exists(config.tablet_image) ? config.tablet_image : '/assets/uploads/escaner/tableta-scrappunk-cenital.png';
   const wallpaper = exists(config.desktop_wallpaper) ? config.desktop_wallpaper : '';
   const initialView = config.browser_view === 'list' ? 'list' : 'desktop';
   const scannerHead = head(`${title} | ${site.site_title}`, config.intro || 'Escáner de fotografías del Archivo.', tablet)
-    .replace('</head>', '<link rel="stylesheet" href="assets/css/scanner.css?v=4"></head>');
+    .replace('</head>', '<link rel="stylesheet" href="assets/css/scanner.css?v=5"></head>');
   const page = `${scannerHead}
 <body class="scanner-page">${header('escaner')}<main class="scanner-main">
   <div class="scanner-heading"><p class="eyebrow">GRAN MERCADO // INSTRUMENTO DE LECTURA</p><h1>${esc(title)}</h1><p>${esc(config.intro || '')}</p></div>
@@ -178,10 +183,18 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
         <div class="scanner-controls"><button type="button" data-scanner-toggle aria-pressed="false">ACTIVAR LENTE</button><label>DIÁMETRO <input type="range" data-scanner-size min="100" max="340" value="210"></label><label>ZOOM <input type="range" data-scanner-zoom min="100" max="250" value="100"><output data-scanner-zoom-value>100 %</output></label></div>
         <div class="scanner-notes"><label for="scannerNotes">ANOTACIONES PERSONALES <small>Guardadas solo en este navegador</small></label><textarea id="scannerNotes" data-scanner-notes rows="2" placeholder="Anota lo que has encontrado…"></textarea></div>
       </div>
+      <div class="scanner-secret-lock" data-scanner-secret-lock hidden>
+        <div class="scanner-secret-panel" role="dialog" aria-modal="true" aria-labelledby="scannerSecretTitle">
+          <div class="scanner-secret-panel-head"><strong id="scannerSecretTitle">ACCESO RESTRINGIDO</strong><button type="button" data-scanner-secret-cancel aria-label="Cerrar ventana de código">×</button></div>
+          <p data-scanner-secret-name></p>
+          <form data-scanner-secret-form><label for="scannerSecretCode">CÓDIGO DE ACCESO</label><input id="scannerSecretCode" data-scanner-secret-code type="text" autocomplete="off" spellcheck="false" required><p data-scanner-secret-error role="alert" hidden>CÓDIGO INCORRECTO</p><button type="submit">ABRIR CARPETA →</button></form>
+        </div>
+      </div>
     </div>
   </section></div>
   <script type="application/json" id="scannerCatalog">${data}</script>
-</main>${footer(site)}<script defer src="assets/js/scanner-access.js?v=1"></script><script defer src="assets/js/scanner-folders.js?v=2"></script><script defer src="assets/js/scanner.js?v=6"></script></body></html>`;
+  <script type="application/json" id="scannerSecretCodes">${codeData}</script>
+</main>${footer(site)}<script defer src="assets/js/scanner-access.js?v=1"></script><script defer src="assets/js/scanner-folders.js?v=2"></script><script defer src="assets/js/scanner.js?v=7"></script></body></html>`;
   fs.writeFileSync(path.join(dist, 'escaner.html'), page);
   console.log(`Escáner: ${catalog.length} imágenes y ${catalog.filter(item => item.overlay).length} señales configuradas.`);
 };

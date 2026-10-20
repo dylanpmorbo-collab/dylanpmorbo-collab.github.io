@@ -2,6 +2,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
+const { createHash } = require('node:crypto');
 const buildScanner = require('./build-scanner');
 const scannerFolders = require('../assets/js/scanner-folders');
 
@@ -10,6 +11,7 @@ const dist = path.join(root, 'dist');
 const uploads = path.join(root, 'assets', 'uploads');
 const configPath = path.join(root, 'content', 'config', 'escaner-interplanar.json');
 const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/hL8AAAAASUVORK5CYII=', 'base64');
+let builtHtml = '';
 
 function image(relativePath) {
   const file = path.join(uploads, relativePath);
@@ -29,8 +31,8 @@ function catalog(folderRules, additionalImages = [], secretFolderRules = []) {
     root, dist, site: { site_title: 'Test' }, archiveEntries: [], characters: [],
     head: () => '<html><head></head>', header: () => '', footer: () => '', esc: value => value
   });
-  const html = fs.readFileSync(path.join(dist, 'escaner.html'), 'utf8');
-  return JSON.parse(html.match(/<script type="application\/json" id="scannerCatalog">([^<]*)<\/script>/)[1]);
+  builtHtml = fs.readFileSync(path.join(dist, 'escaner.html'), 'utf8');
+  return JSON.parse(builtHtml.match(/<script type="application\/json" id="scannerCatalog">([^<]*)<\/script>/)[1]);
 }
 
 try {
@@ -89,6 +91,17 @@ try {
   assert.deepEqual(onlySecret.map(item => item.filename), ['foto.png']);
   assert.equal(scannerFolders.hasVisibleContents(onlySecret, 'prensa', new Set()), false);
   assert.deepEqual(scannerFolders.matchingSecrets(onlySecret, 'adjuntos'), ['prensa/adjuntos']);
+
+  const codedSecret = catalog([], [], [{ folder: 'prensa/adjuntos', code: ' CLAVE-7 ' }]);
+  assert.deepEqual(scannerFolders.matchingSecrets(codedSecret, 'adjuntos'), ['prensa/adjuntos']);
+  const codes = JSON.parse(builtHtml.match(/<script type="application\/json" id="scannerSecretCodes">([^<]*)<\/script>/)[1]);
+  assert.deepEqual(codes, {
+    'prensa/adjuntos': createHash('sha256').update('CLAVE-7').digest('hex')
+  });
+  assert.equal(builtHtml.includes('CLAVE-7'), false);
+  assert.equal(builtHtml.includes('data-scanner-secret-lock'), true);
+  catalog([], [], [{ folder: 'prensa/adjuntos' }]);
+  assert.deepEqual(JSON.parse(builtHtml.match(/<script type="application\/json" id="scannerSecretCodes">([^<]*)<\/script>/)[1]), {});
 
   console.log('Carpetas visibles y secretas del escáner: OK');
 } finally {
