@@ -181,7 +181,7 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
     </div>
   </section></div>
   <script type="application/json" id="scannerCatalog">${data}</script>
-</main>${footer(site)}<script defer src="assets/js/scanner-access.js?v=1"></script><script defer src="assets/js/scanner-folders.js?v=1"></script><script defer src="assets/js/scanner.js?v=6"></script></body></html>`;
+</main>${footer(site)}<script defer src="assets/js/scanner-access.js?v=1"></script><script defer src="assets/js/scanner-folders.js?v=2"></script><script defer src="assets/js/scanner.js?v=6"></script></body></html>`;
   fs.writeFileSync(path.join(dist, 'escaner.html'), page);
   console.log(`Escáner: ${catalog.length} imágenes y ${catalog.filter(item => item.overlay).length} señales configuradas.`);
 };

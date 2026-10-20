@@ -72,6 +72,7 @@ try {
   assert.deepEqual(secret.find(item => item.filename === 'foto.png').secret_folders, ['prensa/adjuntos']);
   assert.deepEqual(secret.find(item => item.filename === 'primer-plano.png').secret_folders,
     ['prensa/adjuntos', 'prensa/adjuntos/detalles']);
+  assert.deepEqual(scannerFolders.secretPaths(secret), ['prensa/adjuntos', 'prensa/adjuntos/detalles']);
   assert.deepEqual(scannerFolders.matchingSecrets(secret, 'adjunto'), []);
   assert.deepEqual(scannerFolders.matchingSecrets(secret, ' ADJUNTOS '), ['prensa/adjuntos']);
   assert.deepEqual(scannerFolders.matchingSecrets(secret, 'foto.png'), []);

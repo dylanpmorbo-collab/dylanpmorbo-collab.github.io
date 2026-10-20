@@ -12,7 +12,7 @@ const ScannerFolders = (() => {
   };
   const hasVisibleContents = (catalog, path, revealed) => visibleItems(catalog, revealed)
     .some(item => pathOf(item) === path || pathOf(item).startsWith(path + '/'));
-  return { normalize, pathOf, secretsOf, isRevealed, visibleItems, matchingSecrets, hasVisibleContents };
+  return { normalize, pathOf, secretsOf, isRevealed, visibleItems, secretPaths, matchingSecrets, hasVisibleContents };
 })();
 
 if (typeof window !== 'undefined') window.ScannerFolders = ScannerFolders;
