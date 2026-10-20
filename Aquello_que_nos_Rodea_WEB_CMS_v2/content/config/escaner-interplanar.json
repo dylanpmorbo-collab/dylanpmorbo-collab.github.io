@@ -67,7 +67,11 @@
       "folder": "personajes/Richard/Volcado de imágenes/GALERÍA"
     }
   ],
-  "secret_folder_rules": [],
+  "secret_folder_rules": [
+    {
+      "folder": "SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven"
+    }
+  ],
   "signals": [
     {
       "image": "/assets/uploads/personajes/Richard/MAYORCA/aquapark-web.webp",
