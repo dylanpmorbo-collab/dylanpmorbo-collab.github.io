@@ -15,6 +15,11 @@
   folderTools.secretPaths(allImages).forEach(path => {
     if (storedSecrets[path] === (secretCodes[path] || 'open')) revealedSecrets.add(path);
   });
+  const seenStorageKey = 'aqnr_scanner_visited_secret_folders_v1';
+  let storedSeenSecrets = {};
+  try { storedSeenSecrets = JSON.parse(localStorage.getItem(seenStorageKey) || '{}') || {}; } catch {}
+  const seenSecrets = new Set([...revealedSecrets]
+    .filter(path => storedSeenSecrets[path] === (secretCodes[path] || 'open')));
   function isAccessible(item) {
     try { return window.ScannerAccess.isAccessible(item, location.pathname, localStorage); }
     catch { return !item.access?.length; }
@@ -67,6 +72,17 @@
       storedSecrets[path] = secretCodes[path] || 'open';
     });
     try { localStorage.setItem(secretStorageKey, JSON.stringify(storedSecrets)); } catch {}
+  }
+  function markSecretVisited(path) {
+    if (!revealedSecrets.has(path) || seenSecrets.has(path)) return;
+    seenSecrets.add(path);
+    storedSeenSecrets[path] = secretCodes[path] || 'open';
+    try { localStorage.setItem(seenStorageKey, JSON.stringify(storedSeenSecrets)); } catch {}
+  }
+  function addDiscoveryMark(button, path) {
+    if (!folderTools.hasUnvisitedSecret(path, revealedSecrets, seenSecrets)) return;
+    button.append(element('span', 'scanner-folder-alert', '!'));
+    button.title = 'Carpeta secreta descubierta pendiente de visitar en esta ruta';
   }
   function openFolder(path) {
     rememberSecrets(secretsOnPath(path));
@@ -160,9 +176,11 @@
     folders.replaceChildren();
     folderNames.forEach(name => {
       const button = element('button', 'scanner-folder' + (name === folder ? ' is-active' : ''), '▣  ' + displayLabel(name));
+      const path = name.replaceAll(' / ', '/');
       button.type = 'button';
       button.setAttribute('aria-pressed', String(name === folder));
-      button.addEventListener('click', () => { folder = name; search.value = ''; renderBrowser(); });
+      addDiscoveryMark(button, path);
+      button.addEventListener('click', () => { markSecretVisited(path); folder = name; search.value = ''; renderBrowser(); });
       folders.append(button);
     });
   }
@@ -215,7 +233,8 @@
       const button = element('button', 'scanner-desktop-folder');
       button.type = 'button';
       button.append(element('span', 'scanner-folder-icon'), element('span', 'scanner-desktop-label', displayLabel(path.split('/').at(-1))));
-      button.addEventListener('click', () => { desktopPath = path; renderDesktop(); });
+      addDiscoveryMark(button, path);
+      button.addEventListener('click', () => { markSecretVisited(path); desktopPath = path; renderDesktop(); });
       desktopGrid.append(button);
     });
     visibleImages().filter(item => folderTools.pathOf(item) === desktopPath)

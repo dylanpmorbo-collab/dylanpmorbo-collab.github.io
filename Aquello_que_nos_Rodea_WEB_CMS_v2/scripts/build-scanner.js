@@ -162,7 +162,7 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
   const wallpaper = exists(config.desktop_wallpaper) ? config.desktop_wallpaper : '';
   const initialView = config.browser_view === 'list' ? 'list' : 'desktop';
   const scannerHead = head(`${title} | ${site.site_title}`, config.intro || 'Escáner de fotografías del Archivo.', tablet)
-    .replace('</head>', '<link rel="stylesheet" href="assets/css/scanner.css?v=5"></head>');
+    .replace('</head>', '<link rel="stylesheet" href="assets/css/scanner.css?v=6"></head>');
   const page = `${scannerHead}
 <body class="scanner-page">${header('escaner')}<main class="scanner-main">
   <div class="scanner-heading"><p class="eyebrow">GRAN MERCADO // INSTRUMENTO DE LECTURA</p><h1>${esc(title)}</h1><p>${esc(config.intro || '')}</p></div>
@@ -194,7 +194,7 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
   </section></div>
   <script type="application/json" id="scannerCatalog">${data}</script>
   <script type="application/json" id="scannerSecretCodes">${codeData}</script>
-</main>${footer(site)}<script defer src="assets/js/scanner-access.js?v=1"></script><script defer src="assets/js/scanner-folders.js?v=2"></script><script defer src="assets/js/scanner.js?v=7"></script></body></html>`;
+</main>${footer(site)}<script defer src="assets/js/scanner-access.js?v=1"></script><script defer src="assets/js/scanner-folders.js?v=3"></script><script defer src="assets/js/scanner.js?v=8"></script></body></html>`;
   fs.writeFileSync(path.join(dist, 'escaner.html'), page);
   console.log(`Escáner: ${catalog.length} imágenes y ${catalog.filter(item => item.overlay).length} señales configuradas.`);
 };

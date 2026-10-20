@@ -12,7 +12,9 @@ const ScannerFolders = (() => {
   };
   const hasVisibleContents = (catalog, path, revealed) => visibleItems(catalog, revealed)
     .some(item => pathOf(item) === path || pathOf(item).startsWith(path + '/'));
-  return { normalize, pathOf, secretsOf, isRevealed, visibleItems, secretPaths, matchingSecrets, hasVisibleContents };
+  const hasUnvisitedSecret = (path, revealed, visited) => [...revealed]
+    .some(secret => !visited.has(secret) && (secret === path || secret.startsWith(path + '/')));
+  return { normalize, pathOf, secretsOf, isRevealed, visibleItems, secretPaths, matchingSecrets, hasVisibleContents, hasUnvisitedSecret };
 })();
 
 if (typeof window !== 'undefined') window.ScannerFolders = ScannerFolders;

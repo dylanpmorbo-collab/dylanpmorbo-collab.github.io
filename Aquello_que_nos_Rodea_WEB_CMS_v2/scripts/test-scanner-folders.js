@@ -75,6 +75,15 @@ try {
   assert.deepEqual(secret.find(item => item.filename === 'primer-plano.png').secret_folders,
     ['prensa/adjuntos', 'prensa/adjuntos/detalles']);
   assert.deepEqual(scannerFolders.secretPaths(secret), ['prensa/adjuntos', 'prensa/adjuntos/detalles']);
+  const revealed = new Set(['prensa/adjuntos', 'prensa/adjuntos/detalles']);
+  const visited = new Set();
+  assert.equal(scannerFolders.hasUnvisitedSecret('prensa', revealed, visited), true);
+  assert.equal(scannerFolders.hasUnvisitedSecret('prensa/adjuntos', revealed, visited), true);
+  assert.equal(scannerFolders.hasUnvisitedSecret('nueva', revealed, visited), false);
+  visited.add('prensa/adjuntos');
+  assert.equal(scannerFolders.hasUnvisitedSecret('prensa/adjuntos', revealed, visited), true);
+  visited.add('prensa/adjuntos/detalles');
+  assert.equal(scannerFolders.hasUnvisitedSecret('prensa', revealed, visited), false);
   assert.deepEqual(scannerFolders.matchingSecrets(secret, 'adjunto'), []);
   assert.deepEqual(scannerFolders.matchingSecrets(secret, ' ADJUNTOS '), ['prensa/adjuntos']);
   assert.deepEqual(scannerFolders.matchingSecrets(secret, 'foto.png'), []);
