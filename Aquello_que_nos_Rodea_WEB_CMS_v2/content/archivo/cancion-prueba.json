@@ -2,7 +2,9 @@
   "title": "cancion prueba",
   "archive_number": "002",
   "category": "TESTIMONIO",
-  "published": true,
+  "published": false,
+  "notify_new": true,
+  "hero_image_frame": true,
   "status": "Documentado",
   "testimonies": [
     {
@@ -23,5 +25,7 @@
     "design": "A",
     "title": "TABLÓN DE CONEXIONES"
   },
+  "show_physical_press": false,
+  "physical_press_title": "PRENSA FÍSICA",
   "show_digital_press": false
 }
