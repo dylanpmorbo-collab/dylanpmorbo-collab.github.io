@@ -9,6 +9,8 @@
   try { secretCodes = JSON.parse(document.getElementById('scannerSecretCodes')?.textContent || '{}') || {}; } catch {}
   let folderLabels = {};
   try { folderLabels = JSON.parse(document.getElementById('scannerFolderLabels')?.textContent || '{}') || {}; } catch {}
+  let folderIcons = {};
+  try { folderIcons = JSON.parse(document.getElementById('scannerFolderIcons')?.textContent || '{}') || {}; } catch {}
   const folderTools = window.ScannerFolders;
   const folderLabel = path => folderTools.labelOf(path, folderLabels);
   const folderPathLabel = path => folderTools.displayPath(path, folderLabels);
@@ -132,7 +134,7 @@
   function secretFolderButton(path) {
     const button = element('button', 'scanner-desktop-folder scanner-secret-result');
     button.type = 'button';
-    button.append(element('span', 'scanner-folder-icon'), element('span', 'scanner-desktop-label', displayLabel(folderLabel(path))));
+    button.append(folderIcon(path), element('span', 'scanner-desktop-label', displayLabel(folderLabel(path))));
     button.addEventListener('click', () => requestOpenFolder(path));
     return button;
   }
@@ -164,6 +166,23 @@
     return node;
   }
   function displayLabel(value) { return String(value ?? '').toLocaleUpperCase('es'); }
+  function folderIcon(path, compact = false) {
+    const settings = folderIcons[path] || {};
+    const className = compact ? 'scanner-folder-icon is-compact' : 'scanner-folder-icon';
+    if (settings.image) {
+      const icon = element('img', className + ' is-custom');
+      icon.src = settings.image;
+      icon.alt = '';
+      icon.loading = 'lazy';
+      return icon;
+    }
+    const icon = element('span', className);
+    if (settings.color) {
+      icon.classList.add('is-colored');
+      icon.style.setProperty('--scanner-folder-color', settings.color);
+    }
+    return icon;
+  }
   function status(text) { $('[data-scanner-status]').textContent = text; }
   function photoButton(item, className) {
     const button = element('button', className);
@@ -180,7 +199,8 @@
     folders.replaceChildren();
     folderNames.forEach(name => {
       const path = name.replaceAll(' / ', '/');
-      const button = element('button', 'scanner-folder' + (name === folder ? ' is-active' : ''), '▣  ' + displayLabel(folderPathLabel(path)));
+      const button = element('button', 'scanner-folder' + (name === folder ? ' is-active' : ''));
+      button.append(folderIcon(path, true), element('span', 'scanner-folder-name', displayLabel(folderPathLabel(path))));
       button.type = 'button';
       button.setAttribute('aria-pressed', String(name === folder));
       addDiscoveryMark(button, path);
@@ -236,7 +256,7 @@
     children.forEach(path => {
       const button = element('button', 'scanner-desktop-folder');
       button.type = 'button';
-      button.append(element('span', 'scanner-folder-icon'), element('span', 'scanner-desktop-label', displayLabel(folderLabel(path))));
+      button.append(folderIcon(path), element('span', 'scanner-desktop-label', displayLabel(folderLabel(path))));
       addDiscoveryMark(button, path);
       button.addEventListener('click', () => { markSecretVisited(path); desktopPath = path; renderDesktop(); });
       desktopGrid.append(button);

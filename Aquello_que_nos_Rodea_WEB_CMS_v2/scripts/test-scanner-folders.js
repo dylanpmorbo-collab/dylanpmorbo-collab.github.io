@@ -43,6 +43,7 @@ try {
   image('prensa/adjuntos/detalles/primer-plano.png');
   image('nueva/sin-regla.png');
   image('escaner/capas/secreta.png');
+  image('escaner/icono.png');
 
   const oneFolder = catalog(
     [{ folder: 'prensa/adjuntos' }],
@@ -51,7 +52,8 @@ try {
   assert.deepEqual(oneFolder.map(item => item.filename), ['foto.png']);
 
   const selectedFolders = catalog(
-    [{ folder: 'prensa', label: 'Hemeroteca' }, { folder: 'prensa/adjuntos', label: 'Pruebas' }],
+    [{ folder: 'prensa', label: 'Hemeroteca', icon_color: '#4B8DC7' },
+      { folder: 'prensa/adjuntos', label: 'Pruebas', icon_color: '#9B4D9E', icon_image: '/assets/uploads/escaner/icono.png' }],
     [
       { image: '/assets/uploads/prensa/adjuntos/foto.png', title: 'Adjunto' },
       { image: '/assets/uploads/nueva/sin-regla.png', title: 'Carpeta nueva' }
@@ -60,6 +62,11 @@ try {
   assert.deepEqual(selectedFolders.map(item => item.filename).sort(), ['foto.png', 'recorte.png']);
   const labels = JSON.parse(builtHtml.match(/<script type="application\/json" id="scannerFolderLabels">([^<]*)<\/script>/)[1]);
   assert.deepEqual(labels, { prensa: 'Hemeroteca', 'prensa/adjuntos': 'Pruebas' });
+  const icons = JSON.parse(builtHtml.match(/<script type="application\/json" id="scannerFolderIcons">([^<]*)<\/script>/)[1]);
+  assert.deepEqual(icons, {
+    prensa: { color: '#4B8DC7' },
+    'prensa/adjuntos': { color: '#9B4D9E', image: '/assets/uploads/escaner/icono.png' }
+  });
   assert.equal(scannerFolders.displayPath('prensa/adjuntos', labels), 'Hemeroteca / Pruebas');
   assert.equal(selectedFolders.find(item => item.filename === 'foto.png').image,
     '/assets/uploads/prensa/adjuntos/foto.png');
@@ -107,6 +114,9 @@ try {
   assert.deepEqual(onlySecret.map(item => item.filename), ['foto.png']);
   assert.equal(scannerFolders.hasVisibleContents(onlySecret, 'prensa', new Set()), false);
   assert.deepEqual(scannerFolders.matchingSecrets(onlySecret, 'adjuntos'), ['prensa/adjuntos']);
+
+  catalog([{ folder: 'prensa', icon_color: 'red', icon_image: 'https://example.com/icono.png' }]);
+  assert.deepEqual(JSON.parse(builtHtml.match(/<script type="application\/json" id="scannerFolderIcons">([^<]*)<\/script>/)[1]), {});
 
   const codedSecret = catalog([], [], [{ folder: 'prensa/adjuntos', code: ' CLAVE-7 ' }]);
   assert.deepEqual(scannerFolders.matchingSecrets(codedSecret, 'adjuntos'), ['prensa/adjuntos']);

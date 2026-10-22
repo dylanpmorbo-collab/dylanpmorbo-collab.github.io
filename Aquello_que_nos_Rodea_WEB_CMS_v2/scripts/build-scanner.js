@@ -24,6 +24,16 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
   const folderLabels = Object.fromEntries([...folderSettings]
     .filter(([, rule]) => typeof rule.label === 'string' && rule.label.trim())
     .map(([folder, rule]) => [folder, rule.label.trim()]));
+  const folderIcons = Object.fromEntries([...folderSettings]
+    .map(([folder, rule]) => {
+      const color = String(rule.icon_color || '').trim();
+      const image = String(rule.icon_image || '').trim();
+      return [folder, {
+        ...( /^#[0-9a-fA-F]{6}$/.test(color) ? { color } : {} ),
+        ...( /^\/assets\/uploads\/[^?#]+\.png$/i.test(image) && exists(image) ? { image } : {} )
+      }];
+    })
+    .filter(([, icon]) => Object.keys(icon).length));
   const secretCodes = Object.fromEntries([...folderSettings]
     .filter(([, rule]) => rule.secret && String(rule.code ?? '').trim())
     .map(([folder, rule]) => [folder, createHash('sha256').update(String(rule.code).trim()).digest('hex')]));
@@ -161,12 +171,13 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
   const data = JSON.stringify(catalog).replace(/</g, '\\u003c');
   const codeData = JSON.stringify(secretCodes).replace(/</g, '\\u003c');
   const labelData = JSON.stringify(folderLabels).replace(/</g, '\\u003c');
+  const iconData = JSON.stringify(folderIcons).replace(/</g, '\\u003c');
   const title = String(config.page_title || 'Escáner interplanar');
   const tablet = exists(config.tablet_image) ? config.tablet_image : '/assets/uploads/escaner/tableta-scrappunk-cenital.png';
   const wallpaper = exists(config.desktop_wallpaper) ? config.desktop_wallpaper : '';
   const initialView = config.browser_view === 'list' ? 'list' : 'desktop';
   const scannerHead = head(`${title} | ${site.site_title}`, config.intro || 'Escáner de fotografías del Archivo.', tablet)
-    .replace('</head>', '<link rel="stylesheet" href="assets/css/scanner.css?v=6"></head>');
+    .replace('</head>', '<link rel="stylesheet" href="assets/css/scanner.css?v=7"></head>');
   const page = `${scannerHead}
 <body class="scanner-page">${header('escaner')}<main class="scanner-main">
   <div class="scanner-heading"><p class="eyebrow">GRAN MERCADO // INSTRUMENTO DE LECTURA</p><h1>${esc(title)}</h1><p>${esc(config.intro || '')}</p></div>
@@ -199,7 +210,8 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
   <script type="application/json" id="scannerCatalog">${data}</script>
   <script type="application/json" id="scannerSecretCodes">${codeData}</script>
   <script type="application/json" id="scannerFolderLabels">${labelData}</script>
-</main>${footer(site)}<script defer src="assets/js/scanner-access.js?v=1"></script><script defer src="assets/js/scanner-folders.js?v=4"></script><script defer src="assets/js/scanner.js?v=9"></script></body></html>`;
+  <script type="application/json" id="scannerFolderIcons">${iconData}</script>
+</main>${footer(site)}<script defer src="assets/js/scanner-access.js?v=1"></script><script defer src="assets/js/scanner-folders.js?v=4"></script><script defer src="assets/js/scanner.js?v=10"></script></body></html>`;
   fs.writeFileSync(path.join(dist, 'escaner.html'), page);
   console.log(`Escáner: ${catalog.length} imágenes y ${catalog.filter(item => item.overlay).length} señales configuradas.`);
 };

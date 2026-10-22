@@ -4825,6 +4825,18 @@ content:
             type: string
             required: false
             description: "Cambia solo el nombre que ve el lector. No renombres la ruta de arriba: las imágenes seguirán en su carpeta actual."
+          - name: icon_color
+            label: Color del icono de carpeta (opcional)
+            type: string
+            required: false
+            description: "Escribe un color hexadecimal, por ejemplo #4B8DC7. Vacío conserva el color original. Si eliges un PNG, el PNG tiene prioridad."
+          - name: icon_image
+            label: PNG personalizado de carpeta (opcional)
+            type: image
+            required: false
+            options:
+              media: default
+            description: "Sube o selecciona un PNG, preferiblemente transparente. Sustituye el icono de carpeta; no cambia la ruta de las fotografías."
       - name: secret_folder_rules
         label: Carpetas secretas del escáner
         type: object
@@ -4845,6 +4857,18 @@ content:
             type: string
             required: false
             description: "Cambia solo el nombre mostrado. Si lo rellenas, la carpeta secreta se encontrará escribiendo exactamente este nombre, sin mover imágenes."
+          - name: icon_color
+            label: Color del icono de carpeta (opcional)
+            type: string
+            required: false
+            description: "Escribe un color hexadecimal, por ejemplo #9B4D9E. Vacío conserva el color original. Si eliges un PNG, el PNG tiene prioridad."
+          - name: icon_image
+            label: PNG personalizado de carpeta (opcional)
+            type: image
+            required: false
+            options:
+              media: default
+            description: "Sube o selecciona un PNG, preferiblemente transparente. Sustituye el icono de esta carpeta secreta."
           - name: code
             label: Código de acceso (opcional)
             type: string
