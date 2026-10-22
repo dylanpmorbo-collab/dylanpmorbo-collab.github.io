@@ -59,7 +59,8 @@
       "folder": "SUCESOS/secuestro discoteca"
     },
     {
-      "folder": "SUCESOS/"
+      "folder": "SUCESOS/",
+      "label": "EXPEDIENTES"
     }
   ],
   "secret_folder_rules": [
