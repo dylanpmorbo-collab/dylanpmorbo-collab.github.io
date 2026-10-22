@@ -70,7 +70,8 @@
     },
     {
       "folder": "SECTAS Y ORGANIZACIONES/",
-      "label": "ORGANIZACIONES"
+      "label": "ORGANIZACIONES",
+      "icon_color": "#ff0000"
     }
   ],
   "secret_folder_rules": [
