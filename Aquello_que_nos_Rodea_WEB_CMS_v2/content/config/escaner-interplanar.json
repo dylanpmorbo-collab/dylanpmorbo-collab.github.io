@@ -61,6 +61,10 @@
     {
       "folder": "SUCESOS/",
       "label": "EXPEDIENTES"
+    },
+    {
+      "folder": "personajes/",
+      "label": "PERSONAS"
     }
   ],
   "secret_folder_rules": [
