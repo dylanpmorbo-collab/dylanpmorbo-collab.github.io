@@ -66,6 +66,10 @@
     {
       "folder": "personajes/",
       "label": "PERSONAS"
+    },
+    {
+      "folder": "SECTAS Y ORGANIZACIONES/",
+      "label": "ORGANIZACIONES"
     }
   ],
   "secret_folder_rules": [
