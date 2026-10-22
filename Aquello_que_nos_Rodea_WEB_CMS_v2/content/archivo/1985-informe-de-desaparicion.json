@@ -1,10 +1,11 @@
 {
   "title": "DESAPARICIONES SIN RESOLVER",
   "archive_number": "003",
-  "category": "SUCESO",
+  "category": "DOCUMENTO",
   "published": true,
   "notify_new": true,
   "image": "/assets/uploads/SUCESOS/desapariciones techo/informe-policial-desaparicion-1985-web.webp",
+  "hero_image_frame": true,
   "status": "Documentado",
   "summary": "Cuatro informes policiales, cuatro lugares distintos, cuatro épocas distintas... mismos patrones.",
   "show_documents": true,
@@ -13,6 +14,7 @@
     {
       "title": "DESAPARICIÓN VALLADOLID — 18 de octubre de 1985",
       "type": "POLICIAL",
+      "index_font_style": "auto",
       "importance": "basico",
       "cover_image": "/assets/uploads/SUCESOS/desapariciones techo/informe-policial-desaparicion-1985-web.webp",
       "documents": [
@@ -31,6 +33,7 @@
     {
       "title": "INFORME DE PERSONA DESAPARECIDA — OVIEDO — 7 de marzo de 1994",
       "type": "POLICIAL",
+      "index_font_style": "auto",
       "importance": "basico",
       "cover_image": "/assets/uploads/SUCESOS/desapariciones techo/1994-desaparicion-web.webp",
       "documents": [
@@ -49,6 +52,7 @@
     {
       "title": "INFORME DE INCIDENCIA / DESAPARICIÓN — 22 de mayo de 2002",
       "type": "POLICIAL",
+      "index_font_style": "auto",
       "importance": "basico",
       "cover_image": "/assets/uploads/SUCESOS/desapariciones techo/informe-policial-desaparicion-2002-web.webp",
       "documents": [
@@ -67,6 +71,7 @@
     {
       "title": "INFORME DE PERSONA DESAPARECIDA — 12/11/2008",
       "type": "POLICIAL",
+      "index_font_style": "auto",
       "importance": "basico",
       "cover_image": "/assets/uploads/SUCESOS/desapariciones techo/informe-policial-desaparicion-2008-web.webp",
       "documents": [
@@ -85,6 +90,7 @@
     {
       "title": "INFORME DE PERSONA DESAPARECIDA — 01/04/2026",
       "type": "POLICIAL",
+      "index_font_style": "auto",
       "importance": "basico",
       "cover_image": "/assets/uploads/SUCESOS/desapariciones techo/techo-2026-web.webp",
       "documents": [
