@@ -7,7 +7,11 @@
   const allImages = catalog;
   let secretCodes = {};
   try { secretCodes = JSON.parse(document.getElementById('scannerSecretCodes')?.textContent || '{}') || {}; } catch {}
+  let folderLabels = {};
+  try { folderLabels = JSON.parse(document.getElementById('scannerFolderLabels')?.textContent || '{}') || {}; } catch {}
   const folderTools = window.ScannerFolders;
+  const folderLabel = path => folderTools.labelOf(path, folderLabels);
+  const folderPathLabel = path => folderTools.displayPath(path, folderLabels);
   const revealedSecrets = new Set();
   const secretStorageKey = 'aqnr_scanner_secret_folders_v1';
   let storedSecrets = {};
@@ -62,7 +66,7 @@
   let folder = folderNames[0] || '';
   const folderPaths = new Set();
   function visibleImages() { return folderTools.visibleItems(catalog, revealedSecrets); }
-  function secretMatches() { return folderTools.matchingSecrets(catalog, search.value); }
+  function secretMatches() { return folderTools.matchingSecrets(catalog, search.value, folderLabels); }
   function secretsOnPath(path) {
     return folderTools.secretPaths(catalog).filter(secret => path === secret || path.startsWith(secret + '/'));
   }
@@ -105,7 +109,7 @@
       .find(path => secretCodes[path] && !revealedSecrets.has(path) && !approvedCodes.has(path));
     if (needed) {
       secretLock.hidden = false;
-      $('[data-scanner-secret-name]').textContent = displayLabel(needed.split('/').at(-1));
+      $('[data-scanner-secret-name]').textContent = displayLabel(folderLabel(needed));
       secretInput.value = '';
       secretError.textContent = 'CÓDIGO INCORRECTO';
       secretError.hidden = true;
@@ -128,7 +132,7 @@
   function secretFolderButton(path) {
     const button = element('button', 'scanner-desktop-folder scanner-secret-result');
     button.type = 'button';
-    button.append(element('span', 'scanner-folder-icon'), element('span', 'scanner-desktop-label', displayLabel(path.split('/').at(-1))));
+    button.append(element('span', 'scanner-folder-icon'), element('span', 'scanner-desktop-label', displayLabel(folderLabel(path))));
     button.addEventListener('click', () => requestOpenFolder(path));
     return button;
   }
@@ -175,8 +179,8 @@
     if (!folderNames.includes(folder)) folder = folderNames[0] || '';
     folders.replaceChildren();
     folderNames.forEach(name => {
-      const button = element('button', 'scanner-folder' + (name === folder ? ' is-active' : ''), '▣  ' + displayLabel(name));
       const path = name.replaceAll(' / ', '/');
+      const button = element('button', 'scanner-folder' + (name === folder ? ' is-active' : ''), '▣  ' + displayLabel(folderPathLabel(path)));
       button.type = 'button';
       button.setAttribute('aria-pressed', String(name === folder));
       addDiscoveryMark(button, path);
@@ -187,10 +191,10 @@
   function renderGrid() {
     const query = search.value.trim().toLocaleLowerCase('es');
     const items = visibleImages().filter(item => query
-      ? (item.title + ' ' + item.folder + ' ' + item.filename).toLocaleLowerCase('es').includes(query)
+      ? (item.title + ' ' + item.folder + ' ' + folderPathLabel(folderTools.pathOf(item)) + ' ' + item.filename).toLocaleLowerCase('es').includes(query)
       : item.folder === folder);
     const secretFolders = query ? secretMatches() : [];
-    $('[data-scanner-folder-title]').textContent = query ? 'RESULTADOS DE BÚSQUEDA' : displayLabel(folder);
+    $('[data-scanner-folder-title]').textContent = query ? 'RESULTADOS DE BÚSQUEDA' : displayLabel(folderPathLabel(folder.replaceAll(' / ', '/')));
     $('[data-scanner-count]').textContent = secretFolders.length
       ? secretFolders.length + ' CARPETA' + (secretFolders.length === 1 ? '' : 'S') + ' · ' + items.length + ' ARCHIVO' + (items.length === 1 ? '' : 'S')
       : items.length + ' ARCHIVO' + (items.length === 1 ? '' : 'S');
@@ -214,7 +218,7 @@
       breadcrumb.append(element('span', '', '› RESULTADOS'));
       const secretFolders = secretMatches();
       secretFolders.forEach(path => desktopGrid.append(secretFolderButton(path)));
-      const matches = visibleImages().filter(item => (item.title + ' ' + item.folder + ' ' + item.filename).toLocaleLowerCase('es').includes(query));
+      const matches = visibleImages().filter(item => (item.title + ' ' + item.folder + ' ' + folderPathLabel(folderTools.pathOf(item)) + ' ' + item.filename).toLocaleLowerCase('es').includes(query));
       matches.forEach(item => desktopGrid.append(photoButton(item, 'scanner-desktop-file')));
       if (!matches.length && !secretFolders.length) desktopGrid.append(element('p', 'scanner-empty', 'No hay imágenes que coincidan.'));
       return;
@@ -223,16 +227,16 @@
     for (const segment of desktopPath.split('/').filter(Boolean)) {
       partial = partial ? partial + '/' + segment : segment;
       breadcrumb.append(element('span', '', '›'));
-      addCrumb(segment, partial);
+      addCrumb(folderLabel(partial), partial);
     }
     const children = [...folderPaths].filter(path => {
       const parent = path.includes('/') ? path.slice(0, path.lastIndexOf('/')) : '';
       return parent === desktopPath && folderTools.hasVisibleContents(catalog, path, revealedSecrets);
-    }).sort((a, b) => a.localeCompare(b, 'es'));
+    }).sort((a, b) => folderLabel(a).localeCompare(folderLabel(b), 'es'));
     children.forEach(path => {
       const button = element('button', 'scanner-desktop-folder');
       button.type = 'button';
-      button.append(element('span', 'scanner-folder-icon'), element('span', 'scanner-desktop-label', displayLabel(path.split('/').at(-1))));
+      button.append(element('span', 'scanner-folder-icon'), element('span', 'scanner-desktop-label', displayLabel(folderLabel(path))));
       addDiscoveryMark(button, path);
       button.addEventListener('click', () => { markSecretVisited(path); desktopPath = path; renderDesktop(); });
       desktopGrid.append(button);
@@ -313,7 +317,7 @@
     browser.hidden = true;
     viewer.hidden = false;
     $('[data-scanner-title]').textContent = displayLabel(item.title);
-    $('[data-scanner-file-count]').textContent = displayLabel(item.folder);
+    $('[data-scanner-file-count]').textContent = displayLabel(folderPathLabel(folderTools.pathOf(item)));
     photo.src = item.image;
     photo.alt = item.title;
     lensPhoto.src = item.image;

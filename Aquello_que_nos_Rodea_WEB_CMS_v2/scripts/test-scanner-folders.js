@@ -51,13 +51,18 @@ try {
   assert.deepEqual(oneFolder.map(item => item.filename), ['foto.png']);
 
   const selectedFolders = catalog(
-    [{ folder: 'prensa' }, { folder: 'prensa/adjuntos' }],
+    [{ folder: 'prensa', label: 'Hemeroteca' }, { folder: 'prensa/adjuntos', label: 'Pruebas' }],
     [
       { image: '/assets/uploads/prensa/adjuntos/foto.png', title: 'Adjunto' },
       { image: '/assets/uploads/nueva/sin-regla.png', title: 'Carpeta nueva' }
     ]
   );
   assert.deepEqual(selectedFolders.map(item => item.filename).sort(), ['foto.png', 'recorte.png']);
+  const labels = JSON.parse(builtHtml.match(/<script type="application\/json" id="scannerFolderLabels">([^<]*)<\/script>/)[1]);
+  assert.deepEqual(labels, { prensa: 'Hemeroteca', 'prensa/adjuntos': 'Pruebas' });
+  assert.equal(scannerFolders.displayPath('prensa/adjuntos', labels), 'Hemeroteca / Pruebas');
+  assert.equal(selectedFolders.find(item => item.filename === 'foto.png').image,
+    '/assets/uploads/prensa/adjuntos/foto.png');
 
   const selectedSubfolder = catalog([{ folder: 'prensa/adjuntos/detalles' }]);
   assert.deepEqual(selectedSubfolder.map(item => item.filename), ['primer-plano.png']);
@@ -86,6 +91,8 @@ try {
   assert.equal(scannerFolders.hasUnvisitedSecret('prensa', revealed, visited), false);
   assert.deepEqual(scannerFolders.matchingSecrets(secret, 'adjunto'), []);
   assert.deepEqual(scannerFolders.matchingSecrets(secret, ' ADJUNTOS '), ['prensa/adjuntos']);
+  assert.deepEqual(scannerFolders.matchingSecrets(secret, 'PRUEBAS', { 'prensa/adjuntos': 'Pruebas' }), ['prensa/adjuntos']);
+  assert.deepEqual(scannerFolders.matchingSecrets(secret, 'ADJUNTOS', { 'prensa/adjuntos': 'Pruebas' }), []);
   assert.deepEqual(scannerFolders.matchingSecrets(secret, 'foto.png'), []);
   assert.deepEqual(scannerFolders.visibleItems(secret, new Set()).map(item => item.filename), ['recorte.png']);
   assert.equal(scannerFolders.hasVisibleContents(secret, 'prensa/adjuntos', new Set()), false);

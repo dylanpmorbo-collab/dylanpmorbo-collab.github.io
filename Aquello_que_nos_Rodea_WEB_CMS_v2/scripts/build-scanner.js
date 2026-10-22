@@ -21,6 +21,9 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
       const folder = rule.folder.replace(/^\/+|\/+$/g, '');
       folderSettings.set(folder, { ...folderSettings.get(folder), ...rule, secret: true });
     });
+  const folderLabels = Object.fromEntries([...folderSettings]
+    .filter(([, rule]) => typeof rule.label === 'string' && rule.label.trim())
+    .map(([folder, rule]) => [folder, rule.label.trim()]));
   const secretCodes = Object.fromEntries([...folderSettings]
     .filter(([, rule]) => rule.secret && String(rule.code ?? '').trim())
     .map(([folder, rule]) => [folder, createHash('sha256').update(String(rule.code).trim()).digest('hex')]));
@@ -157,6 +160,7 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
     .sort((a, b) => a.folder.localeCompare(b.folder, 'es') || a.title.localeCompare(b.title, 'es'));
   const data = JSON.stringify(catalog).replace(/</g, '\\u003c');
   const codeData = JSON.stringify(secretCodes).replace(/</g, '\\u003c');
+  const labelData = JSON.stringify(folderLabels).replace(/</g, '\\u003c');
   const title = String(config.page_title || 'Escáner interplanar');
   const tablet = exists(config.tablet_image) ? config.tablet_image : '/assets/uploads/escaner/tableta-scrappunk-cenital.png';
   const wallpaper = exists(config.desktop_wallpaper) ? config.desktop_wallpaper : '';
@@ -194,7 +198,8 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
   </section></div>
   <script type="application/json" id="scannerCatalog">${data}</script>
   <script type="application/json" id="scannerSecretCodes">${codeData}</script>
-</main>${footer(site)}<script defer src="assets/js/scanner-access.js?v=1"></script><script defer src="assets/js/scanner-folders.js?v=3"></script><script defer src="assets/js/scanner.js?v=8"></script></body></html>`;
+  <script type="application/json" id="scannerFolderLabels">${labelData}</script>
+</main>${footer(site)}<script defer src="assets/js/scanner-access.js?v=1"></script><script defer src="assets/js/scanner-folders.js?v=4"></script><script defer src="assets/js/scanner.js?v=9"></script></body></html>`;
   fs.writeFileSync(path.join(dist, 'escaner.html'), page);
   console.log(`Escáner: ${catalog.length} imágenes y ${catalog.filter(item => item.overlay).length} señales configuradas.`);
 };
