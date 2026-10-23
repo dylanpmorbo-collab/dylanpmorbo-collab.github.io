@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const {imagePath, loadPhotoCensorship, buildPhotoCensorship} = require('./build-photo-censorship');
+const {prepareSecretFichas} = require('./secret-fichas');
 
 const ROOT = path.resolve(__dirname, '..');
 const DIST = path.join(ROOT, 'dist');
@@ -48,6 +49,7 @@ function inlineMarkdown(s){
   let x=esc(text);
   x=x.replace(/\x60([^\x60]+)\x60/g,'<code>$1</code>');
   x=x.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g,'<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+  x=x.replace(/\[([^\]]+)\]\(((?:\.\/)?(?:archivo|micro|relato)-[a-z0-9-]+\.html(?:#[a-z0-9-]+)?)\)/gi,'<a href="$2">$1</a>');
   x=x.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
   x=x.replace(/\*(.+?)\*/g,'<em>$1</em>');
   return restoreMarkdownImages(x.replace(/\u001f/g,'<br>'),images);
@@ -120,7 +122,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=mmc-etiqueta-amplia-20261019"><script defer src="assets/js/main.js?v=testimonios-20260920"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=mmc-etiqueta-amplia-20261019"><link rel="stylesheet" href="assets/css/secret-fichas.css?v=1"><script defer src="assets/js/secret-fichas.js?v=1"></script><script defer src="assets/js/main.js?v=testimonios-20260920"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -479,6 +481,20 @@ function itemHref(section,item){
  if(section.key==='relatos') return `relato-${itemSlug(section,item)}.html`;
  return `archivo-${section.key}-${itemSlug(section,item)}.html`;
 }
+const scannerConfig=readJSON(path.join(ROOT,'content/config/escaner-interplanar.json'));
+const scannerSecretFolders=new Set((Array.isArray(scannerConfig.secret_folder_rules)?scannerConfig.secret_folder_rules:[])
+ .map(rule=>String(rule?.folder||'').replace(/^\/+|\/+$/g,'')));
+const validSecretTargets=new Set(archiveSectionDefs.filter(section=>section.key!=='relatos').flatMap(section=>section.items.map(item=>itemHref(section,item))));
+const secretFichas=prepareSecretFichas(scannerConfig,validSecretTargets,scannerSecretFolders);
+const secretFichaByTarget=new Map(secretFichas.map(ficha=>[ficha.target,ficha]));
+const publicItems=section=>section.items.filter(item=>!secretFichaByTarget.has(itemHref(section,item)));
+function secretFichaPage(section,item,html){
+ const descriptor=secretFichaByTarget.get(itemHref(section,item));
+ if(!descriptor)return html;
+ const data=JSON.stringify(descriptor).replace(/</g,'\\u003c');
+ return html.replace('<body class="','<body data-secret-ficha-page="'+esc(descriptor.target)+'" class="secret-ficha-locked ')
+   .replace('</body>','<script type="application/json" id="secretFichaConfig">'+data+'</script></body>');
+}
 function updateId(...parts){return crypto.createHash('sha1').update(parts.map(x=>String(x||'')).join('\u001f')).digest('hex').slice(0,20);}
 function entryUpdateId(section,item){return updateId('entry',itemHref(section,item));}
 function digitalFileUpdateId(section,item,report,folder,file){
@@ -496,6 +512,7 @@ function galleryUpdateId(section,item,g){return updateId('gallery',itemHref(sect
 const updateRegistry=[];
 for(const section of archiveSectionDefs){
  for(const item of section.items){
+  if(secretFichaByTarget.has(itemHref(section,item))) continue;
   const href=itemHref(section,item),parent=itemTitle(section,item);
   updateRegistry.push({id:entryUpdateId(section,item),version:String(item.notification_revision||''),title:parent,context:section.label,kind:'page',href,notify:item.notify_new!==false});
   if(item.show_digital_reports===true)for(const report of (Array.isArray(item.digital_reports)?item.digital_reports:[]).filter(report=>report&&(report.title||report.folders?.length)).slice(0,30)){
@@ -532,7 +549,7 @@ function itemFacts(section,item){
  }
  return facts;
 }
-function latestItem(section){ return section.items.length ? section.items[section.items.length-1] : null; }
+function latestItem(section){ const items=publicItems(section);return items.length ? items[items.length-1] : null; }
 function archiveTopNav(activeKey='index'){
  const indexLink=`<a href="archivo.html" class="${activeKey==='index'?'active':''}" ${activeKey==='index'?'aria-current="page"':''}>EL ARCHIVO</a>`;
  const sectionLinks=archiveSectionDefs.map(s=>`<a href="${s.file}" class="${activeKey===s.key?'active':''}" ${activeKey===s.key?'aria-current="page"':''}>${s.label}</a>`).join('');
@@ -1691,7 +1708,7 @@ function archiveEntryPage(section,item){
 const hubCards=archiveSectionDefs.map(section=>{
  const latest=latestItem(section);
  return `<a class="archive-hub-card reveal" href="${section.file}">
-   <div class="archive-hub-top"><span>${section.label}</span><b>${String(section.items.length).padStart(2,'0')}</b></div>
+   <div class="archive-hub-top"><span>${section.label}</span><b>${String(publicItems(section).length).padStart(2,'0')}</b></div>
    <div class="archive-hub-copy">
      <p class="archive-code">${section.key==='microrrelatos' || section.key==='relatos'?'ÚLTIMA HISTORIA':'ÚLTIMA ANOTACIÓN'}</p>
      <h2>${esc(String(itemTitle(section,latest)||'').toUpperCase())}</h2>
@@ -1871,8 +1888,14 @@ function archiveCorkboard(section){return renderCorkboard(archiveCorkboards[sect
 
 // Páginas de cada sección + página completa de cada expediente
 for(const section of archiveSectionDefs){
+ const visible=publicItems(section);
  const list=section.items.length
-   ? `<div class="archive-entry-grid">${section.items.map(item=>archiveEntryCard(section,item)).join('')}</div>`
+   ? `<div class="archive-entry-grid">${section.items.map(item=>{
+       const target=itemHref(section,item);
+       const card=archiveEntryCard(section,item);
+       const secret=secretFichaByTarget.get(target);
+       return secret?card.replace('class="archive-entry-card','hidden data-secret-ficha-card="'+esc(target)+'" data-secret-ficha-fingerprint="'+esc(secret.codeHash||'open')+'" class="archive-entry-card'):card;
+     }).join('')}</div>${!visible.length?'<div class="archive-empty reveal" data-secret-ficha-empty><p class="archive-code">ACCESO PARCIAL</p><h2>NO HAY EXPEDIENTES PÚBLICOS.</h2><p>Puede que esta sección conserve fichas todavía no descubiertas.</p></div>':''}`
    : `<div class="archive-empty reveal"><p class="archive-code">SIN DATOS DISPONIBLES</p><h2>NO HAY EXPEDIENTES PÚBLICOS.</h2><p>Esta sección permanece vacía o clasificada por el momento.</p></div>`;
  const sectionPage=`${head(`${section.label} | El Archivo | ${site.site_title}`,section.desc,section.image||'/assets/img/hero.webp')}
  <body class="archive-area">${header(section.key==='microrrelatos'?'microrrelatos':'archivo')}${archiveTopNav(section.key)}<main>
@@ -1885,14 +1908,14 @@ for(const section of archiveSectionDefs){
    ${section.image?`<div class="archive-section-hero-art reveal" aria-hidden="true"><img src="${section.image}" alt=""></div>`:''}
  </section>
  <section class="section archive-section-shell">
-   <div class="archive-back-row"><a class="text-link" href="archivo.html">← VOLVER AL ÍNDICE GENERAL</a><span>${String(section.items.length).padStart(2,'0')} EXPEDIENTE${section.items.length===1?'':'S'}</span></div>
+   <div class="archive-back-row"><a class="text-link" href="archivo.html">← VOLVER AL ÍNDICE GENERAL</a><span data-secret-ficha-count="${visible.length}">${String(visible.length).padStart(2,'0')} EXPEDIENTE${visible.length===1?'':'S'}</span></div>
    ${list}
  </section>
  ${archiveCorkboard(section)}
  </main>${footer(site)}</body></html>`;
  fs.writeFileSync(path.join(DIST,section.file),sectionPage);
  for(const item of section.items){
-   if(section.key!=='relatos') fs.writeFileSync(path.join(DIST,itemHref(section,item)),archiveEntryPage(section,item));
+   if(section.key!=='relatos') fs.writeFileSync(path.join(DIST,itemHref(section,item)),secretFichaPage(section,item,archiveEntryPage(section,item)));
  }
 }
 
@@ -1940,7 +1963,7 @@ if(terminalConfig.enabled!==false){
 
 require('./build-scanner')({
   root:ROOT,dist:DIST,site,archiveEntries,characters,micros,head,header,footer,esc,
-  accessDescriptor,orderedDigitalItems,itemHref
+  accessDescriptor,orderedDigitalItems,itemHref,secretFichas
 });
 
 // La página "Sobre" sigue siendo fija por ahora

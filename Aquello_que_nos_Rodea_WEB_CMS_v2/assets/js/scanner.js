@@ -11,6 +11,8 @@
   try { folderLabels = JSON.parse(document.getElementById('scannerFolderLabels')?.textContent || '{}') || {}; } catch {}
   let folderIcons = {};
   try { folderIcons = JSON.parse(document.getElementById('scannerFolderIcons')?.textContent || '{}') || {}; } catch {}
+  let secretFichas = [];
+  try { secretFichas = JSON.parse(document.getElementById('scannerSecretFichas')?.textContent || '[]') || []; } catch {}
   const folderTools = window.ScannerFolders;
   const folderLabel = path => folderTools.labelOf(path, folderLabels);
   const folderPathLabel = path => folderTools.displayPath(path, folderLabels);
@@ -193,6 +195,23 @@
     button.addEventListener('click', () => openImage(item));
     return button;
   }
+  function fichasInFolder(path) {
+    return revealedSecrets.has(path) ? secretFichas.filter(ficha => ficha.folder === path) : [];
+  }
+  function ficheButton(ficha, className) {
+    const button = element('button', className + ' scanner-fiche-button');
+    const icon = ficha.icon || {};
+    button.type = 'button';
+    button.style.setProperty('--secret-icon-size', String(icon.size || 64) + 'px');
+    if (icon.color) button.style.setProperty('--secret-icon-color', icon.color);
+    if (icon.background) button.style.setProperty('--secret-icon-background', icon.background);
+    const mark = icon.image ? element('img', 'scanner-fiche-mark') : element('span', 'scanner-fiche-mark', '◉');
+    if (icon.image) { mark.src = icon.image; mark.alt = ''; mark.loading = 'lazy'; }
+    button.append(mark, element('strong', '', displayLabel(icon.label || 'ABRIR EXPEDIENTE')));
+    if (icon.subtitle) button.append(element('small', '', icon.subtitle));
+    button.addEventListener('click', () => window.AQNRSecretFichas?.open(ficha, root));
+    return button;
+  }
   function renderFolders() {
     folderNames = [...new Set(visibleImages().map(item => item.folder))];
     if (!folderNames.includes(folder)) folder = folderNames[0] || '';
@@ -210,18 +229,20 @@
   }
   function renderGrid() {
     const query = search.value.trim().toLocaleLowerCase('es');
-    const items = visibleImages().filter(item => query
+    const items = visibleImages().filter(item => item.image && (query
       ? (item.title + ' ' + item.folder + ' ' + folderPathLabel(folderTools.pathOf(item)) + ' ' + item.filename).toLocaleLowerCase('es').includes(query)
-      : item.folder === folder);
+      : item.folder === folder));
     const secretFolders = query ? secretMatches() : [];
+    const fichas = query ? [] : fichasInFolder(folder.replaceAll(' / ', '/'));
     $('[data-scanner-folder-title]').textContent = query ? 'RESULTADOS DE BÚSQUEDA' : displayLabel(folderPathLabel(folder.replaceAll(' / ', '/')));
     $('[data-scanner-count]').textContent = secretFolders.length
       ? secretFolders.length + ' CARPETA' + (secretFolders.length === 1 ? '' : 'S') + ' · ' + items.length + ' ARCHIVO' + (items.length === 1 ? '' : 'S')
-      : items.length + ' ARCHIVO' + (items.length === 1 ? '' : 'S');
+      : (items.length + fichas.length) + ' ARCHIVO' + (items.length + fichas.length === 1 ? '' : 'S');
     grid.replaceChildren();
     secretFolders.forEach(path => grid.append(secretFolderButton(path)));
     items.forEach(item => grid.append(photoButton(item, 'scanner-file')));
-    if (!items.length && !secretFolders.length) grid.append(element('p', 'scanner-empty', catalog.length ? 'No hay imágenes en esta carpeta.' : 'Todavía no hay imágenes publicadas para escanear.'));
+    fichas.forEach(ficha => grid.append(ficheButton(ficha, 'scanner-file')));
+    if (!items.length && !secretFolders.length && !fichas.length) grid.append(element('p', 'scanner-empty', catalog.length ? 'No hay imágenes en esta carpeta.' : 'Todavía no hay imágenes publicadas para escanear.'));
   }
   function renderDesktop() {
     const query = search.value.trim().toLocaleLowerCase('es');
@@ -238,7 +259,7 @@
       breadcrumb.append(element('span', '', '› RESULTADOS'));
       const secretFolders = secretMatches();
       secretFolders.forEach(path => desktopGrid.append(secretFolderButton(path)));
-      const matches = visibleImages().filter(item => (item.title + ' ' + item.folder + ' ' + folderPathLabel(folderTools.pathOf(item)) + ' ' + item.filename).toLocaleLowerCase('es').includes(query));
+      const matches = visibleImages().filter(item => item.image && (item.title + ' ' + item.folder + ' ' + folderPathLabel(folderTools.pathOf(item)) + ' ' + item.filename).toLocaleLowerCase('es').includes(query));
       matches.forEach(item => desktopGrid.append(photoButton(item, 'scanner-desktop-file')));
       if (!matches.length && !secretFolders.length) desktopGrid.append(element('p', 'scanner-empty', 'No hay imágenes que coincidan.'));
       return;
@@ -261,8 +282,9 @@
       button.addEventListener('click', () => { markSecretVisited(path); desktopPath = path; renderDesktop(); });
       desktopGrid.append(button);
     });
-    visibleImages().filter(item => folderTools.pathOf(item) === desktopPath)
+    visibleImages().filter(item => item.image && folderTools.pathOf(item) === desktopPath)
       .forEach(item => desktopGrid.append(photoButton(item, 'scanner-desktop-file')));
+    fichasInFolder(desktopPath).forEach(ficha => desktopGrid.append(ficheButton(ficha, 'scanner-desktop-file')));
     if (!desktopGrid.children.length) desktopGrid.append(element('p', 'scanner-empty', 'Esta carpeta no contiene imágenes visibles.'));
   }
   function renderBrowser() {
@@ -315,7 +337,7 @@
   }
   function folderImages(item) {
     const path = item.folder_path ?? item.folder;
-    return catalog.filter(candidate => (candidate.folder_path ?? candidate.folder) === path);
+    return catalog.filter(candidate => candidate.image && (candidate.folder_path ?? candidate.folder) === path);
   }
   function updateImageNavigation() {
     const siblings = current ? folderImages(current) : [];

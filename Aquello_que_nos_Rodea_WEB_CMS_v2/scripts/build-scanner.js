@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { createHash } = require('crypto');
 
-module.exports = function buildScanner({ root, dist, site, archiveEntries, characters, head, header, footer, esc, accessDescriptor, orderedDigitalItems, itemHref }) {
+module.exports = function buildScanner({ root, dist, site, archiveEntries, characters, head, header, footer, esc, accessDescriptor, orderedDigitalItems, itemHref, secretFichas = [] }) {
   const configPath = path.join(root, 'content/config/escaner-interplanar.json');
   const config = fs.existsSync(configPath) ? JSON.parse(fs.readFileSync(configPath, 'utf8')) : { enabled: false };
   if (config.enabled === false) return;
@@ -166,12 +166,15 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
   const signals = new Map(signalConfig
     .filter(item => item && exists(item.image) && /^\/assets\/uploads\/escaner\/capas\/[^/]+\.png$/i.test(item.overlay || '') && exists(item.overlay))
     .map(item => [item.image, item.overlay]));
-  const catalog = [...entries.values()].map(item => ({ ...item, overlay: signals.get(item.image) || '' }))
-    .sort((a, b) => a.folder.localeCompare(b.folder, 'es') || a.title.localeCompare(b.title, 'es'));
+  const ficheFolders = [...new Set(secretFichas.map(ficha => ficha.folder).filter(Boolean))]
+    .map(folder => ({folder_path: folder, folder: folder.replaceAll('/', ' / '), secret_folders: secretAncestors(folder), fiche_folder: true}));
+  const catalog = [...entries.values()].map(item => ({ ...item, overlay: signals.get(item.image) || '' })).concat(ficheFolders)
+    .sort((a, b) => a.folder.localeCompare(b.folder, 'es') || String(a.title || '').localeCompare(String(b.title || ''), 'es'));
   const data = JSON.stringify(catalog).replace(/</g, '\\u003c');
   const codeData = JSON.stringify(secretCodes).replace(/</g, '\\u003c');
   const labelData = JSON.stringify(folderLabels).replace(/</g, '\\u003c');
   const iconData = JSON.stringify(folderIcons).replace(/</g, '\\u003c');
+  const ficheData = JSON.stringify(secretFichas.filter(ficha => ficha.folder)).replace(/</g, '\\u003c');
   const title = String(config.page_title || 'Escáner interplanar');
   const tablet = exists(config.tablet_image) ? config.tablet_image : '/assets/uploads/escaner/tableta-scrappunk-cenital.png';
   const wallpaper = exists(config.desktop_wallpaper) ? config.desktop_wallpaper : '';
@@ -211,7 +214,8 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
   <script type="application/json" id="scannerSecretCodes">${codeData}</script>
   <script type="application/json" id="scannerFolderLabels">${labelData}</script>
   <script type="application/json" id="scannerFolderIcons">${iconData}</script>
-</main>${footer(site)}<script defer src="assets/js/scanner-access.js?v=1"></script><script defer src="assets/js/scanner-folders.js?v=4"></script><script defer src="assets/js/scanner.js?v=10"></script></body></html>`;
+  <script type="application/json" id="scannerSecretFichas">${ficheData}</script>
+</main>${footer(site)}<script defer src="assets/js/scanner-access.js?v=1"></script><script defer src="assets/js/scanner-folders.js?v=4"></script><script defer src="assets/js/scanner.js?v=11"></script></body></html>`;
   fs.writeFileSync(path.join(dist, 'escaner.html'), page);
-  console.log(`Escáner: ${catalog.length} imágenes y ${catalog.filter(item => item.overlay).length} señales configuradas.`);
+  console.log(`Escáner: ${catalog.filter(item => item.image).length} imágenes y ${catalog.filter(item => item.overlay).length} señales configuradas.`);
 };

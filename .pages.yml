@@ -4874,6 +4874,118 @@ content:
             type: string
             required: false
             description: "Déjalo vacío para abrir la carpeta al pulsarla. Si escribes un código, aparecerá una ventana en la tableta antes de entrar. El código distingue mayúsculas y minúsculas."
+      - name: secret_fiches
+        label: Fichas secretas
+        type: object
+        required: false
+        description: "Una ficha normal del Archivo puede quedar oculta hasta que el lector entre en ella. Opcionalmente añade un icono en una carpeta secreta del escáner. También puedes enlazarla desde Markdown: [abrir ficha](archivo-entidades-nombre.html). Si tiene código, se pide igualmente al llegar desde un enlace o URL directa. Tras abrirla, aparece en su sección del Archivo en ese navegador."
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{target}"
+        fields:
+          - name: target
+            label: Dirección de la ficha
+            type: string
+            required: true
+            description: "Nombre del HTML generado, por ejemplo archivo-entidades-nombre.html. Debe corresponder a una ficha publicada."
+          - name: enabled
+            label: Activar secreto
+            type: boolean
+            default: true
+          - name: scanner_folder
+            label: Carpeta secreta del escáner (opcional)
+            type: string
+            required: false
+            description: "Ruta exacta de una de las carpetas secretas anteriores. Vacío significa que esta ficha solo se descubre mediante enlaces."
+          - name: access_type
+            label: Tipo de acceso
+            type: select
+            required: false
+            options:
+              values: [none, code]
+            description: "Vacío: se deduce del campo Código. none abre directamente; code exige el código. Se podrá ampliar con futuros puzles."
+          - name: code
+            label: Código de la ficha (opcional)
+            type: string
+            required: false
+            description: "Se pide al llegar desde el escáner, un enlace o la URL directa. Distingue mayúsculas. Al cambiarlo, caducan los desbloqueos anteriores."
+          - name: icon_label
+            label: Texto del icono en la tableta
+            type: string
+            required: false
+          - name: icon_subtitle
+            label: Subtítulo del icono
+            type: string
+            required: false
+          - name: icon_image
+            label: Imagen del icono
+            type: image
+            required: false
+            options:
+              media: default
+          - name: icon_color
+            label: Color del icono (#RRGGBB)
+            type: string
+            required: false
+          - name: icon_background
+            label: Fondo del icono (#RRGGBB)
+            type: string
+            required: false
+          - name: icon_size
+            label: Tamaño del icono en píxeles (40–110)
+            type: number
+            required: false
+          - name: dialog_eyebrow
+            label: Sobretexto de la ventana de código
+            type: string
+            required: false
+          - name: dialog_title
+            label: Título de la ventana
+            type: string
+            required: false
+          - name: dialog_description
+            label: Explicación o pista de la ventana
+            type: text
+            required: false
+          - name: dialog_label
+            label: Etiqueta del campo de código
+            type: string
+            required: false
+          - name: dialog_placeholder
+            label: Texto dentro del campo
+            type: string
+            required: false
+          - name: dialog_submit
+            label: Texto del botón de abrir
+            type: string
+            required: false
+          - name: dialog_cancel
+            label: Texto del botón de volver
+            type: string
+            required: false
+          - name: dialog_error
+            label: Mensaje de código incorrecto
+            type: string
+            required: false
+          - name: dialog_background
+            label: Fondo de ventana (#RRGGBB)
+            type: string
+            required: false
+          - name: dialog_accent
+            label: Color de acento (#RRGGBB)
+            type: string
+            required: false
+          - name: dialog_text
+            label: Color de texto (#RRGGBB)
+            type: string
+            required: false
+          - name: dialog_image
+            label: Imagen de fondo de ventana
+            type: image
+            required: false
+            options:
+              media: default
       - name: signals
         label: Fotos con señal interplanar
         type: object
