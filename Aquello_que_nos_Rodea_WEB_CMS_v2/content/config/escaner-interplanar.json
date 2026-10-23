@@ -80,18 +80,6 @@
       "code": "1234"
     }
   ],
-  "secret_fiches": [
-    {
-      "target": "https://dylanpmorbo-collab.github.io/archivo-documentos-muerte-rasputin.html",
-      "enabled": true,
-      "scanner_folder": "SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven",
-      "access_type": "code",
-      "code": "1234",
-      "icon_label": "prueba de ficha",
-      "icon_subtitle": "probando",
-      "icon_image": "/assets/uploads/archivo/LOGOS/sello-cera-plaga-1200x900-web.webp"
-    }
-  ],
   "signals": [
     {
       "image": "/assets/uploads/personajes/Richard/MAYORCA/aquapark-web.webp",
