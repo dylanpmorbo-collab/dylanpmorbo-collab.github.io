@@ -30,7 +30,8 @@
     },
     {
       "folder": "personajes/Richard",
-      "label": "RICHARD ALCOY"
+      "label": "RICHARD ALCOY",
+      "icon_image": "/assets/uploads/archivo/ICONOS/richardalcoy-web.webp"
     },
     {
       "folder": "personajes/Richard/LISBOA2023"
