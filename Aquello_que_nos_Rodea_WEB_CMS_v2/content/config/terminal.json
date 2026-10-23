@@ -7,6 +7,11 @@
   "screen_prompt": "INTRODUZCA SU MENSAJE",
   "success_message": "TRANSMISIÓN SIMULADA // EL CANAL EXTERNO TODAVÍA NO ESTÁ CONECTADO",
   "poster_mode": "aleatoria",
-  "fixed_poster": "",
-  "posters": []
+  "posters": [
+    {
+      "label": "se busca",
+      "image": "/assets/uploads/informes-policiales/RICHARD ALCOY POLICIAL/se-busca-ra.webp",
+      "enabled": true
+    }
+  ]
 }
