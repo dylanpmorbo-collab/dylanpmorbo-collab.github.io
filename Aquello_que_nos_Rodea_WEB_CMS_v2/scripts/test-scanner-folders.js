@@ -45,6 +45,7 @@ try {
   image('escaner/capas/secreta.png');
   image('escaner/icono.png');
   image('escaner/icono.webp');
+  image('escaner/icono.gif');
 
   const oneFolder = catalog(
     [{ folder: 'prensa/adjuntos' }],
@@ -72,6 +73,11 @@ try {
   assert.deepEqual(JSON.parse(builtHtml.match(/<script type="application\/json" id="scannerFolderIcons">([^<]*)<\/script>/)[1]), {
     prensa: { image: '/assets/uploads/escaner/icono.webp' }
   });
+  catalog([{ folder: 'prensa', icon_image: '/assets/uploads/escaner/icono.gif' }]);
+  assert.deepEqual(JSON.parse(builtHtml.match(/<script type="application\/json" id="scannerFolderIcons">([^<]*)<\/script>/)[1]), {
+    prensa: { image: '/assets/uploads/escaner/icono.gif' }
+  });
+  assert.equal(catalog([{ folder: 'escaner' }]).some(item => item.filename === 'icono.gif'), false);
   assert.equal(scannerFolders.displayPath('prensa/adjuntos', labels), 'Hemeroteca / Pruebas');
   assert.equal(scannerFolders.desktopLabelOf('prensa/adjuntos', { 'prensa/adjuntos': 'PRUEBAS | OCULTAS' }), 'PRUEBAS\nOCULTAS');
   assert.equal(scannerFolders.displayPath('prensa/adjuntos', { 'prensa/adjuntos': 'PRUEBAS | OCULTAS' }), 'prensa / PRUEBAS OCULTAS');

@@ -9,6 +9,9 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
 
   const isLocalImage = value => typeof value === 'string' && /^\/assets\/uploads\/[\w\W]+\.(?:png|jpe?g|webp|avif)$/i.test(value);
   const exists = value => isLocalImage(value) && fs.existsSync(path.join(root, value.slice(1)));
+  const iconExists = value => typeof value === 'string'
+    && (isLocalImage(value) || /^\/assets\/uploads\/[\w\W]+\.gif$/i.test(value))
+    && fs.existsSync(path.join(root, value.slice(1)));
   const signalConfig = Array.isArray(config.signals) ? config.signals : [];
   const privateLayers = new Set(signalConfig.map(item => item && item.overlay).filter(Boolean));
   const validRule = rule => rule && typeof rule.folder === 'string' && /^[^./][^\\]*$/.test(rule.folder) && !rule.folder.split('/').includes('..');
@@ -30,7 +33,7 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
       const image = String(rule.icon_image || '').trim();
       return [folder, {
         ...( /^#[0-9a-fA-F]{6}$/.test(color) ? { color } : {} ),
-        ...( exists(image) ? { image } : {} )
+        ...( iconExists(image) ? { image } : {} )
       }];
     })
     .filter(([, icon]) => Object.keys(icon).length));

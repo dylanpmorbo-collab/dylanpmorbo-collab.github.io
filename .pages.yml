@@ -4829,14 +4829,15 @@ content:
             label: Color del icono de carpeta (opcional)
             type: string
             required: false
-            description: "Escribe un color hexadecimal, por ejemplo #4B8DC7. Vacío conserva el color original. Si eliges un PNG, el PNG tiene prioridad."
+            description: "Escribe un color hexadecimal, por ejemplo #4B8DC7. Vacío conserva el color original. Si eliges una imagen, esta tiene prioridad."
           - name: icon_image
-            label: PNG personalizado de carpeta (opcional)
+            label: Icono de carpeta, también GIF animado (opcional)
             type: image
             required: false
             options:
               media: default
-            description: "Sube o selecciona un PNG, preferiblemente transparente. Sustituye el icono de carpeta; no cambia la ruta de las fotografías."
+              extensions: [png, jpg, jpeg, webp, avif, gif]
+            description: "Sube o selecciona PNG, WebP, JPG, AVIF o GIF animado, preferiblemente transparente. Sustituye el icono de carpeta; no cambia la ruta de las fotografías."
       - name: secret_folder_rules
         label: Carpetas secretas del escáner
         type: object
@@ -4861,14 +4862,15 @@ content:
             label: Color del icono de carpeta (opcional)
             type: string
             required: false
-            description: "Escribe un color hexadecimal, por ejemplo #9B4D9E. Vacío conserva el color original. Si eliges un PNG, el PNG tiene prioridad."
+            description: "Escribe un color hexadecimal, por ejemplo #9B4D9E. Vacío conserva el color original. Si eliges una imagen, esta tiene prioridad."
           - name: icon_image
-            label: PNG personalizado de carpeta (opcional)
+            label: Icono de carpeta, también GIF animado (opcional)
             type: image
             required: false
             options:
               media: default
-            description: "Sube o selecciona un PNG, preferiblemente transparente. Sustituye el icono de esta carpeta secreta."
+              extensions: [png, jpg, jpeg, webp, avif, gif]
+            description: "Sube o selecciona PNG, WebP, JPG, AVIF o GIF animado, preferiblemente transparente. Sustituye el icono de esta carpeta secreta."
           - name: code
             label: Código de acceso (opcional)
             type: string
