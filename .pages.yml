@@ -4824,7 +4824,7 @@ content:
             label: Nombre visible en el escáner (opcional)
             type: string
             required: false
-            description: "Cambia solo el nombre que ve el lector. No renombres la ruta de arriba: las imágenes seguirán en su carpeta actual."
+            description: "Cambia solo el nombre que ve el lector. Escribe | donde quieras un salto de línea bajo el icono; no cambia la ruta de las imágenes."
           - name: icon_color
             label: Color del icono de carpeta (opcional)
             type: string
@@ -4856,7 +4856,7 @@ content:
             label: Nombre visible y de búsqueda (opcional)
             type: string
             required: false
-            description: "Cambia solo el nombre mostrado. Si lo rellenas, la carpeta secreta se encontrará escribiendo exactamente este nombre, sin mover imágenes."
+            description: "Cambia solo el nombre mostrado. Escribe | donde quieras un salto de línea bajo el icono; al buscar la carpeta secreta, escribe el nombre completo sin la barra."
           - name: icon_color
             label: Color del icono de carpeta (opcional)
             type: string

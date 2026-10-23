@@ -54,6 +54,7 @@
 .scanner-folder-icon.is-compact::before{left:1px;top:-5px;width:10px;height:5px;border-width:1px;border-radius:2px 2px 0 0}
 .scanner-folder-icon.is-compact.is-custom{width:24px;height:22px;margin:0;border:0}
 .scanner-desktop-label,.scanner-desktop-file span{font-size:10px;line-height:1.25;overflow-wrap:anywhere;max-width:100%}
+.scanner-desktop-label{white-space:pre-line}
 .scanner-desktop-file img{display:block;width:70px;height:57px;object-fit:cover;background:#020806;border:2px solid #aac9a8;box-shadow:0 5px 12px #0009}
 .scanner-folders{overflow:auto;padding:12px 8px;border-right:1px solid #355340;background:rgba(7,20,15,.84)}
 .scanner-folders label{display:block;font-size:9px;letter-spacing:.11em;color:#8ba78c;margin-bottom:7px}

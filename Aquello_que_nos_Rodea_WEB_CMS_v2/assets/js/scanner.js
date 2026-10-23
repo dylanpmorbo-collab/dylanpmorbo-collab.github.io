@@ -136,7 +136,7 @@
   function secretFolderButton(path) {
     const button = element('button', 'scanner-desktop-folder scanner-secret-result');
     button.type = 'button';
-    button.append(folderIcon(path), element('span', 'scanner-desktop-label', displayLabel(folderLabel(path))));
+    button.append(folderIcon(path), element('span', 'scanner-desktop-label', displayLabel(folderTools.desktopLabelOf(path, folderLabels))));
     button.addEventListener('click', () => requestOpenFolder(path));
     return button;
   }
@@ -277,7 +277,7 @@
     children.forEach(path => {
       const button = element('button', 'scanner-desktop-folder');
       button.type = 'button';
-      button.append(folderIcon(path), element('span', 'scanner-desktop-label', displayLabel(folderLabel(path))));
+      button.append(folderIcon(path), element('span', 'scanner-desktop-label', displayLabel(folderTools.desktopLabelOf(path, folderLabels))));
       addDiscoveryMark(button, path);
       button.addEventListener('click', () => { markSecretVisited(path); desktopPath = path; renderDesktop(); });
       desktopGrid.append(button);

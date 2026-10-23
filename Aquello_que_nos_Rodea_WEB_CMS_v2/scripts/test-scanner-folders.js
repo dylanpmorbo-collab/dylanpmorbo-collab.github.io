@@ -73,6 +73,8 @@ try {
     prensa: { image: '/assets/uploads/escaner/icono.webp' }
   });
   assert.equal(scannerFolders.displayPath('prensa/adjuntos', labels), 'Hemeroteca / Pruebas');
+  assert.equal(scannerFolders.desktopLabelOf('prensa/adjuntos', { 'prensa/adjuntos': 'PRUEBAS | OCULTAS' }), 'PRUEBAS\nOCULTAS');
+  assert.equal(scannerFolders.displayPath('prensa/adjuntos', { 'prensa/adjuntos': 'PRUEBAS | OCULTAS' }), 'prensa / PRUEBAS OCULTAS');
   assert.equal(selectedFolders.find(item => item.filename === 'foto.png').image,
     '/assets/uploads/prensa/adjuntos/foto.png');
 
@@ -104,6 +106,7 @@ try {
   assert.deepEqual(scannerFolders.matchingSecrets(secret, 'adjunto'), []);
   assert.deepEqual(scannerFolders.matchingSecrets(secret, ' ADJUNTOS '), ['prensa/adjuntos']);
   assert.deepEqual(scannerFolders.matchingSecrets(secret, 'PRUEBAS', { 'prensa/adjuntos': 'Pruebas' }), ['prensa/adjuntos']);
+  assert.deepEqual(scannerFolders.matchingSecrets(secret, 'PRUEBAS OCULTAS', { 'prensa/adjuntos': 'Pruebas | Ocultas' }), ['prensa/adjuntos']);
   assert.deepEqual(scannerFolders.matchingSecrets(secret, 'ADJUNTOS', { 'prensa/adjuntos': 'Pruebas' }), []);
   assert.deepEqual(scannerFolders.matchingSecrets(secret, 'foto.png'), []);
   assert.deepEqual(scannerFolders.visibleItems(secret, new Set()).map(item => item.filename), ['recorte.png']);
