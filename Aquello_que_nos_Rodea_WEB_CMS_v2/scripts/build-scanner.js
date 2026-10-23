@@ -30,7 +30,7 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
       const image = String(rule.icon_image || '').trim();
       return [folder, {
         ...( /^#[0-9a-fA-F]{6}$/.test(color) ? { color } : {} ),
-        ...( /^\/assets\/uploads\/[^?#]+\.png$/i.test(image) && exists(image) ? { image } : {} )
+        ...( exists(image) ? { image } : {} )
       }];
     })
     .filter(([, icon]) => Object.keys(icon).length));

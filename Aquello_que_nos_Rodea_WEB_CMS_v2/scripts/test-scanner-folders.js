@@ -44,6 +44,7 @@ try {
   image('nueva/sin-regla.png');
   image('escaner/capas/secreta.png');
   image('escaner/icono.png');
+  image('escaner/icono.webp');
 
   const oneFolder = catalog(
     [{ folder: 'prensa/adjuntos' }],
@@ -66,6 +67,10 @@ try {
   assert.deepEqual(icons, {
     prensa: { color: '#4B8DC7' },
     'prensa/adjuntos': { color: '#9B4D9E', image: '/assets/uploads/escaner/icono.png' }
+  });
+  catalog([{ folder: 'prensa', icon_image: '/assets/uploads/escaner/icono.webp' }]);
+  assert.deepEqual(JSON.parse(builtHtml.match(/<script type="application\/json" id="scannerFolderIcons">([^<]*)<\/script>/)[1]), {
+    prensa: { image: '/assets/uploads/escaner/icono.webp' }
   });
   assert.equal(scannerFolders.displayPath('prensa/adjuntos', labels), 'Hemeroteca / Pruebas');
   assert.equal(selectedFolders.find(item => item.filename === 'foto.png').image,
