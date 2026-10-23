@@ -4,7 +4,6 @@
   "intro": "Una fotografía puede conservar señales que la vista humana no percibe.",
   "tablet_image": "/assets/uploads/escaner/tableta-scrappunk-cenital.png",
   "browser_view": "desktop",
-  "secret_fiches": [],
   "desktop_wallpaper": "/assets/uploads/archivo/LOGOS/fondo-pantalla.webp",
   "folder_rules": [
     {
@@ -79,6 +78,18 @@
     {
       "folder": "SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven",
       "code": "1234"
+    }
+  ],
+  "secret_fiches": [
+    {
+      "target": "https://dylanpmorbo-collab.github.io/archivo-documentos-muerte-rasputin.html",
+      "enabled": true,
+      "scanner_folder": "SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven",
+      "access_type": "code",
+      "code": "1234",
+      "icon_label": "prueba de ficha",
+      "icon_subtitle": "probando",
+      "icon_image": "/assets/uploads/archivo/LOGOS/sello-cera-plaga-1200x900-web.webp"
     }
   ],
   "signals": [
