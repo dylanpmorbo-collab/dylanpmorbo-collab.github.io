@@ -4888,7 +4888,7 @@ content:
             label: Dirección de la ficha
             type: string
             required: true
-            description: "Nombre del HTML generado, por ejemplo archivo-entidades-nombre.html. Debe corresponder a una ficha publicada."
+            description: "Puedes pegar la URL completa de una ficha publicada de esta web o escribir solo su nombre HTML, por ejemplo archivo-entidades-nombre.html."
           - name: enabled
             label: Activar secreto
             type: boolean

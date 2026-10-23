@@ -6,7 +6,16 @@ function prepareSecretFichas(config, validTargets, secretFolders) {
   const color = value => /^#[0-9a-f]{6}$/i.test(String(value || '')) ? String(value) : '';
   const image = value => /^\/assets\/uploads\/[^?#]+\.(?:png|jpe?g|webp|avif)$/i.test(String(value || '')) ? String(value) : '';
   return entries.filter(entry => entry && entry.enabled !== false).map(entry => {
-    const target = String(entry.target || '').trim();
+    let target = String(entry.target || '').trim();
+    if (/^https?:\/\//i.test(target)) {
+      const url = new URL(target);
+      if (url.protocol !== 'https:' || url.hostname !== 'dylanpmorbo-collab.github.io' || url.port) {
+        throw Error('La URL de una ficha secreta debe pertenecer a esta web: ' + target);
+      }
+      target = decodeURIComponent(url.pathname).replace(/^\/+/, '');
+    } else {
+      target = target.replace(/^\/+/, '').split(/[?#]/, 1)[0];
+    }
     if (!validTargets.has(target)) throw Error('Ficha secreta inexistente: ' + target);
     if (seen.has(target)) throw Error('Ficha secreta repetida: ' + target);
     seen.add(target);

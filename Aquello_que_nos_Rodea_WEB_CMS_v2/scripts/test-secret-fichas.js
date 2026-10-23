@@ -23,6 +23,9 @@ const [linkOnly] = prepareSecretFichas({secret_fiches:[{target}]},valid,folders)
 assert.equal(linkOnly.folder,'');
 assert.equal(linkOnly.accessType,'none');
 assert.equal(linkOnly.codeHash,'');
+assert.equal(prepareSecretFichas({secret_fiches:[{target:'https://dylanpmorbo-collab.github.io/' + target}]},valid,folders)[0].target,target);
+assert.equal(prepareSecretFichas({secret_fiches:[{target:'/' + target}]},valid,folders)[0].target,target);
+assert.throws(()=>prepareSecretFichas({secret_fiches:[{target:'https://example.com/' + target}]},valid,folders),/esta web/);
 
 assert.throws(()=>prepareSecretFichas({secret_fiches:[{target:'archivo-falso.html'}]},valid,folders),/inexistente/);
 assert.throws(()=>prepareSecretFichas({secret_fiches:[{target,scanner_folder:'otra'}]},valid,folders),/carpeta secreta/);
