@@ -74,6 +74,14 @@
       "folder": "SECTAS Y ORGANIZACIONES/",
       "label": "ORGANIZACIONES",
       "icon_image": "/assets/uploads/archivo/ICONOS/imagen-de-chatgpt-23-oct-2026-073553-web.webp"
+    },
+    {
+      "folder": "informes-policiales/",
+      "icon_image": "/assets/uploads/archivo/ICONOS/imagen-de-chatgpt-23-oct-2026-074456-web.webp"
+    },
+    {
+      "folder": "entidades/",
+      "icon_image": "/assets/uploads/archivo/ICONOS/imagen-de-chatgpt-23-oct-2026-070247-web.webp"
     }
   ],
   "secret_folder_rules": [
