@@ -62,16 +62,18 @@
     },
     {
       "folder": "SUCESOS/",
-      "label": "EXPEDIENTES"
+      "label": "EXPEDIENTES",
+      "icon_image": "/assets/uploads/archivo/ICONOS/imagen-de-chatgpt-23-oct-2026-074512-web.webp"
     },
     {
       "folder": "personajes/",
-      "label": "PERSONAS"
+      "label": "PERSONAS",
+      "icon_image": "/assets/uploads/archivo/ICONOS/imagen-de-chatgpt-23-oct-2026-070152-web.webp"
     },
     {
       "folder": "SECTAS Y ORGANIZACIONES/",
       "label": "ORGANIZACIONES",
-      "icon_color": "#ff0000"
+      "icon_image": "/assets/uploads/archivo/ICONOS/imagen-de-chatgpt-23-oct-2026-073553-web.webp"
     }
   ],
   "secret_folder_rules": [
