@@ -85,6 +85,10 @@
     },
     {
       "folder": "SUCESOS/secuestro discoteca"
+    },
+    {
+      "folder": "personajes/Richard/Alexx",
+      "icon_image": "/assets/uploads/archivo/ICONOS/albumfotospaginasreales.webp"
     }
   ],
   "secret_folder_rules": [
