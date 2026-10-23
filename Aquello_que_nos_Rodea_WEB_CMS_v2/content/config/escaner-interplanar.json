@@ -7,19 +7,39 @@
   "desktop_wallpaper": "/assets/uploads/archivo/LOGOS/fondo-pantalla.webp",
   "folder_rules": [
     {
+      "folder": "informes-policiales/",
+      "icon_image": "/assets/uploads/archivo/ICONOS/imagen-de-chatgpt-23-oct-2026-074456-web.webp"
+    },
+    {
       "folder": "documentos"
     },
     {
-      "folder": "entidades"
-    },
-    {
-      "folder": "entidades/ŚUKRAHĀRĪ"
+      "folder": "entidades/",
+      "icon_image": "/assets/uploads/archivo/ICONOS/imagen-de-chatgpt-23-oct-2026-070247-web.webp"
     },
     {
       "folder": "informes-digitales"
     },
     {
       "folder": "informes-policiales"
+    },
+    {
+      "folder": "SUCESOS/",
+      "label": "EXPEDIENTES",
+      "icon_image": "/assets/uploads/archivo/ICONOS/imagen-de-chatgpt-23-oct-2026-074512-web.webp"
+    },
+    {
+      "folder": "personajes/",
+      "label": "PERSONAS",
+      "icon_image": "/assets/uploads/archivo/ICONOS/imagen-de-chatgpt-23-oct-2026-070152-web.webp"
+    },
+    {
+      "folder": "SECTAS Y ORGANIZACIONES/",
+      "label": "ORGANIZACIONES",
+      "icon_image": "/assets/uploads/archivo/ICONOS/imagen-de-chatgpt-23-oct-2026-073553-web.webp"
+    },
+    {
+      "folder": "entidades/ŚUKRAHĀRĪ"
     },
     {
       "folder": "informes-policiales/RICHARD ALCOY POLICIAL",
@@ -62,29 +82,6 @@
     },
     {
       "folder": "SUCESOS/secuestro discoteca"
-    },
-    {
-      "folder": "SUCESOS/",
-      "label": "EXPEDIENTES",
-      "icon_image": "/assets/uploads/archivo/ICONOS/imagen-de-chatgpt-23-oct-2026-074512-web.webp"
-    },
-    {
-      "folder": "personajes/",
-      "label": "PERSONAS",
-      "icon_image": "/assets/uploads/archivo/ICONOS/imagen-de-chatgpt-23-oct-2026-070152-web.webp"
-    },
-    {
-      "folder": "SECTAS Y ORGANIZACIONES/",
-      "label": "ORGANIZACIONES",
-      "icon_image": "/assets/uploads/archivo/ICONOS/imagen-de-chatgpt-23-oct-2026-073553-web.webp"
-    },
-    {
-      "folder": "informes-policiales/",
-      "icon_image": "/assets/uploads/archivo/ICONOS/imagen-de-chatgpt-23-oct-2026-074456-web.webp"
-    },
-    {
-      "folder": "entidades/",
-      "icon_image": "/assets/uploads/archivo/ICONOS/imagen-de-chatgpt-23-oct-2026-070247-web.webp"
     }
   ],
   "secret_folder_rules": [
