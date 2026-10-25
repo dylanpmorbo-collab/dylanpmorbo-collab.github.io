@@ -167,7 +167,7 @@ module.exports = function buildScanner({ root, dist, site, archiveEntries, chara
     if (item && item.image) add(item.image, item.title);
   });
   const signals = new Map(signalConfig
-    .filter(item => item && exists(item.image) && /^\/assets\/uploads\/escaner\/capas\/[^/]+\.png$/i.test(item.overlay || '') && exists(item.overlay))
+    .filter(item => item && exists(item.image) && /^\/assets\/uploads\/escaner\/capas\/[^/]+\.(?:png|webp)$/i.test(item.overlay || '') && exists(item.overlay))
     .map(item => [item.image, item.overlay]));
   const ficheFolders = [...new Set(secretFichas.map(ficha => ficha.folder).filter(Boolean))]
     .map(folder => ({folder_path: folder, folder: folder.replaceAll('/', ' / '), secret_folders: secretAncestors(folder), fiche_folder: true}));

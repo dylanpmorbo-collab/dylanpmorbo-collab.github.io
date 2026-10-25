@@ -19,13 +19,13 @@ function image(relativePath) {
   fs.writeFileSync(file, png);
 }
 
-function catalog(folderRules, additionalImages = [], secretFolderRules = []) {
+function catalog(folderRules, additionalImages = [], secretFolderRules = [], signals = []) {
   fs.writeFileSync(configPath, JSON.stringify({
     enabled: true,
     folder_rules: folderRules,
     secret_folder_rules: secretFolderRules,
     additional_images: additionalImages,
-    signals: []
+    signals
   }));
   buildScanner({
     root, dist, site: { site_title: 'Test' }, archiveEntries: [], characters: [],
@@ -43,6 +43,7 @@ try {
   image('prensa/adjuntos/detalles/primer-plano.png');
   image('nueva/sin-regla.png');
   image('escaner/capas/secreta.png');
+  image('escaner/capas/secreta.webp');
   image('escaner/icono.png');
   image('escaner/icono.webp');
   image('escaner/icono.gif');
@@ -83,6 +84,18 @@ try {
   assert.equal(scannerFolders.displayPath('prensa/adjuntos', { 'prensa/adjuntos': 'PRUEBAS | OCULTAS' }), 'prensa / PRUEBAS OCULTAS');
   assert.equal(selectedFolders.find(item => item.filename === 'foto.png').image,
     '/assets/uploads/prensa/adjuntos/foto.png');
+
+  const pngOverlay = catalog([{ folder: 'prensa' }], [], [], [
+    { image: '/assets/uploads/prensa/recorte.png', overlay: '/assets/uploads/escaner/capas/secreta.png' }
+  ]);
+  assert.equal(pngOverlay.find(item => item.filename === 'recorte.png').overlay,
+    '/assets/uploads/escaner/capas/secreta.png');
+  const webpOverlay = catalog([{ folder: 'prensa' }], [], [], [
+    { image: '/assets/uploads/prensa/recorte.png', overlay: '/assets/uploads/escaner/capas/secreta.webp' }
+  ]);
+  assert.equal(webpOverlay.find(item => item.filename === 'recorte.png').overlay,
+    '/assets/uploads/escaner/capas/secreta.webp');
+  assert.equal(webpOverlay.some(item => item.filename === 'secreta.webp'), false);
 
   const selectedSubfolder = catalog([{ folder: 'prensa/adjuntos/detalles' }]);
   assert.deepEqual(selectedSubfolder.map(item => item.filename), ['primer-plano.png']);

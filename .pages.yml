@@ -5005,12 +5005,13 @@ content:
               media: default
             description: "Selecciona la foto existente; no hay que subirla otra vez."
           - name: overlay
-            label: PNG transparente de radiación
+            label: Capa transparente de radiación (PNG o WebP)
             type: image
             required: true
             options:
               media: escaner_capas
-            description: "Exporta solo las señales, sin fondo ni foto. Debe tener exactamente las mismas dimensiones en píxeles que la original. Esta carpeta no aparece en el explorador público de la tableta."
+              extensions: [png, webp]
+            description: "Exporta solo las señales, sin fondo ni foto, en PNG o WebP transparente. Debe tener exactamente las mismas dimensiones en píxeles que la original. Esta carpeta no aparece en el explorador público de la tableta."
       - name: additional_images
         label: Imágenes adicionales para el escáner
         type: object
