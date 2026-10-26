@@ -5,7 +5,7 @@ function prepareSecretFichas(config, validTargets, secretFolders) {
   const seen = new Set();
   const color = value => /^#[0-9a-f]{6}$/i.test(String(value || '')) ? String(value) : '';
   const image = value => /^\/assets\/uploads\/[^?#]+\.(?:png|jpe?g|webp|avif)$/i.test(String(value || '')) ? String(value) : '';
-  return entries.filter(entry => entry && entry.enabled !== false).map(entry => {
+  return entries.filter(entry => entry && entry.enabled !== false).flatMap(entry => {
     let target = String(entry.target || '').trim();
     if (/^https?:\/\//i.test(target)) {
       const url = new URL(target);
@@ -16,7 +16,14 @@ function prepareSecretFichas(config, validTargets, secretFolders) {
     } else {
       target = target.replace(/^\/+/, '').split(/[?#]/, 1)[0];
     }
-    if (!validTargets.has(target)) throw Error('Ficha secreta inexistente: ' + target);
+    // La dirección pública es archivo-sección-slug.html, aunque en el editor
+    // se haya escrito como una ruta de carpetas.
+    const folderStyle = target.match(/^archivo\/(entidades|personajes|lugares|planos|organizaciones|documentos|sucesos|testimonios|relatos|microrrelatos)\/([^/]+\.html)$/i);
+    if (folderStyle) target = `archivo-${folderStyle[1]}-${folderStyle[2]}`;
+    if (!validTargets.has(target)) {
+      console.warn('Ficha secreta pendiente: no existe todavía ' + target);
+      return [];
+    }
     if (seen.has(target)) throw Error('Ficha secreta repetida: ' + target);
     seen.add(target);
     const code = String(entry.code || '').trim();
@@ -25,7 +32,7 @@ function prepareSecretFichas(config, validTargets, secretFolders) {
     if (accessType === 'code' && !code) throw Error('Falta el código de ' + target);
     const folder = String(entry.scanner_folder || '').replace(/^\/+|\/+$/g, '');
     if (folder && !secretFolders.has(folder)) throw Error('La ficha ' + target + ' debe enlazarse desde una carpeta secreta configurada: ' + folder);
-    return {
+    return [{
       target,
       accessType,
       codeHash: accessType === 'code' ? createHash('sha256').update(code).digest('hex') : '',
@@ -52,7 +59,7 @@ function prepareSecretFichas(config, validTargets, secretFolders) {
         text: color(entry.dialog_text),
         image: image(entry.dialog_image)
       }
-    };
+    }];
   });
 }
 
