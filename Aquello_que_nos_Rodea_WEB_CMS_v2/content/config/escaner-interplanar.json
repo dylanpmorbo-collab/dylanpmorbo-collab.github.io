@@ -105,7 +105,9 @@
       "enabled": true,
       "scanner_folder": "SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven",
       "access_type": "none",
-      "icon_label": "Documentos"
+      "icon_label": "Documentos",
+      "icon_subtitle": "Archivo | Encriptado",
+      "icon_image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven/documentos/cartel-victoriano-de-espectaculos-orientales-web.webp"
     }
   ],
   "signals": [
