@@ -99,6 +99,12 @@
       "code": "1234"
     }
   ],
+  "secret_fiches": [
+    {
+      "target": "archivo/documentos/chamber-of-seventh-heaven.html",
+      "enabled": true
+    }
+  ],
   "signals": [
     {
       "image": "/assets/uploads/personajes/Richard/MAYORCA/aquapark-web.webp",
