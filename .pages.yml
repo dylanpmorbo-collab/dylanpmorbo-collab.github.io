@@ -2341,6 +2341,80 @@ content:
             required: false
             description: "Contexto o discrepancias detectadas al archivar la noticia."
 
+      - name: sandbox
+        label: Sandbox · apartados libres
+        type: object
+        required: false
+        description: "Añade y ordena cajas. En la web solo se ve el título de cada caja, nunca la palabra Sandbox. Puedes combinar texto, fotos y vídeos libremente."
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: title
+            label: Título del apartado
+            type: string
+            required: true
+          - name: text
+            label: Texto (opcional)
+            type: text
+            required: false
+          - name: content_order
+            label: Orden dentro de la caja
+            type: select
+            default: MEDIOS_PRIMERO
+            options:
+              values: [MEDIOS_PRIMERO, TEXTO_PRIMERO]
+          - name: media
+            label: Carrusel de imágenes y vídeos
+            type: block
+            required: false
+            description: "Añade fotos y vídeos en el orden en que deben verse. Con uno solo no aparecen flechas; con varios se crea un carrusel."
+            blockKey: kind
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{caption}"
+            blocks:
+              - name: image
+                label: Imagen
+                fields:
+                  - name: image
+                    label: Archivo de imagen
+                    type: image
+                    required: true
+                    options:
+                      media: default
+                  - name: alt
+                    label: Descripción accesible
+                    type: string
+                    required: false
+                  - name: caption
+                    label: Pie de imagen
+                    type: string
+                    required: false
+              - name: video
+                label: Vídeo
+                fields:
+                  - name: video
+                    label: Archivo de vídeo
+                    type: file
+                    required: true
+                    options:
+                      media: default
+                      categories: [video]
+                  - name: poster
+                    label: Portada opcional del vídeo
+                    type: image
+                    required: false
+                    options:
+                      media: default
+                  - name: caption
+                    label: Pie de vídeo
+                    type: string
+                    required: false
+
+
   - name: personajes
     label: Personajes
     type: collection
@@ -3600,6 +3674,80 @@ content:
                 label: Hasta la pieza
                 type: string
                 required: true
+
+      - name: sandbox
+        label: Sandbox · apartados libres
+        type: object
+        required: false
+        description: "Añade y ordena cajas. En la web solo se ve el título de cada caja, nunca la palabra Sandbox. Puedes combinar texto, fotos y vídeos libremente."
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: title
+            label: Título del apartado
+            type: string
+            required: true
+          - name: text
+            label: Texto (opcional)
+            type: text
+            required: false
+          - name: content_order
+            label: Orden dentro de la caja
+            type: select
+            default: MEDIOS_PRIMERO
+            options:
+              values: [MEDIOS_PRIMERO, TEXTO_PRIMERO]
+          - name: media
+            label: Carrusel de imágenes y vídeos
+            type: block
+            required: false
+            description: "Añade fotos y vídeos en el orden en que deben verse. Con uno solo no aparecen flechas; con varios se crea un carrusel."
+            blockKey: kind
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{caption}"
+            blocks:
+              - name: image
+                label: Imagen
+                fields:
+                  - name: image
+                    label: Archivo de imagen
+                    type: image
+                    required: true
+                    options:
+                      media: default
+                  - name: alt
+                    label: Descripción accesible
+                    type: string
+                    required: false
+                  - name: caption
+                    label: Pie de imagen
+                    type: string
+                    required: false
+              - name: video
+                label: Vídeo
+                fields:
+                  - name: video
+                    label: Archivo de vídeo
+                    type: file
+                    required: true
+                    options:
+                      media: default
+                      categories: [video]
+                  - name: poster
+                    label: Portada opcional del vídeo
+                    type: image
+                    required: false
+                    options:
+                      media: default
+                  - name: caption
+                    label: Pie de vídeo
+                    type: string
+                    required: false
+
 
   - name: corcheras_archivo
     label: Corcheras de las secciones del Archivo

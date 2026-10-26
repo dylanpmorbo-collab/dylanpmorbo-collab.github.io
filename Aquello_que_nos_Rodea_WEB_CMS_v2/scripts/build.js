@@ -1700,6 +1700,7 @@ function archiveEntryPage(section,item){
    ${section.key==='personajes'?'':digitalPressMarkup(section,item)}
    ${archiveDocuments(item)}
    ${archivePoliceReport(section,item)}
+   ${sandboxCards(item)}
    ${relatedArchiveMarkup(item,itemHref(section,item),title)}
  </section>
  </main>${footer(site)}</body></html>`;
