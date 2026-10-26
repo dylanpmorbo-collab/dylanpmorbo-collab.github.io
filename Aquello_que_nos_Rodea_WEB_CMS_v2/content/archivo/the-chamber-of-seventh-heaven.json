@@ -26,27 +26,7 @@
     "design": "A",
     "title": "TABLÓN DE CONEXIONES"
   },
-  "show_physical_press": true,
+  "show_physical_press": false,
   "physical_press_title": "DOCUMENTOS",
-  "physical_press": [
-    {
-      "headline": "Concepto",
-      "notify_new": false,
-      "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven/documentos/grabado-tecnico-victoriano-de-un-compartimento-de-madera-web.webp",
-      "show_translation": false
-    },
-    {
-      "headline": "PLANO 1",
-      "notify_new": false,
-      "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven/documentos/blackwell1895planonumeracioncorregida-web.webp",
-      "show_translation": false
-    },
-    {
-      "headline": "PLANO 2",
-      "notify_new": false,
-      "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven/documentos/planos-de-construccion-del-septimo-cielo-web.webp",
-      "show_translation": false
-    }
-  ],
   "show_digital_press": false
 }
