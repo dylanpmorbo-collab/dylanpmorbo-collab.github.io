@@ -7,7 +7,17 @@
   "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven/documentos/cartel-victoriano-de-espectaculos-orientales-web.webp",
   "hero_image_frame": true,
   "status": "Documentado",
-  "show_documents": false,
+  "show_documents": true,
+  "documents": [
+    {
+      "title": "Correspondencia",
+      "pages": [
+        {
+          "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven/documentos/carta-confidencial-de-1895-web.webp"
+        }
+      ]
+    }
+  ],
   "show_police_report": false,
   "show_digital_reports": false,
   "show_related_archive": false,
