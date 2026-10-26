@@ -16,7 +16,7 @@
     "design": "A",
     "title": "TABLÓN DE CONEXIONES"
   },
-  "show_physical_press": false,
+  "show_physical_press": true,
   "physical_press_title": "DOCUMENTOS",
   "physical_press": [
     {
