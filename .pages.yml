@@ -4711,12 +4711,18 @@ content:
         label: Texto de entrada
         type: text
       - name: scene_image
-        label: Escena del callejón y terminal (1536 × 1024 px)
+        label: Escena del terminal (1672 × 941 px)
         type: image
         required: true
         options:
           media: default
-        description: "Prepara 1536 × 1024 píxeles (3:2). Es el fondo de la máquina; debe mantener la pantalla y el cartel en sus posiciones para que las zonas interactivas encajen."
+        description: "La pantalla y la grieta deben conservar sus posiciones para que encajen el editor y los ojos."
+      - name: eyes_image
+        label: Ojos de la grieta (PNG o WebP transparente)
+        type: image
+        required: true
+        options:
+          media: default
       - name: screen_heading
         label: Cabecera de la pantalla
         type: string
@@ -4724,50 +4730,13 @@ content:
         label: Indicación para escribir
         type: string
       - name: success_message
-        label: Respuesta simulada del terminal
+        label: Confirmación tras recibir el mensaje
         type: text
-        description: "Por ahora el formulario no envía nada. Este texto aparece al pulsar el botón físico de la máquina."
-      - name: poster_mode
-        label: Modo del cartel
-        type: select
-        default: aleatoria
-        options:
-          values:
-            - value: aleatoria
-              label: Imagen aleatoria al entrar
-            - value: fija
-              label: Una imagen fija
-      - name: fixed_poster
-        label: Cartel fijo (900 × 1000 px)
-        type: image
-        required: false
-        options:
-          media: default
-        description: "Prepara 900 × 1000 píxeles (aprox. 9:10). El cartel se recorta para llenar el hueco y sus bordes están corroídos."
-      - name: posters
-        label: Carteles para la rotación
-        type: object
-        required: false
-        list:
-          collapsible:
-            collapsed: true
-            summary: "{label}"
-        fields:
-          - name: label
-            label: Nombre interno
-            type: string
-            required: true
-          - name: image
-            label: Imagen del cartel (900 × 1000 px)
-            type: image
-            required: true
-            options:
-              media: default
-            description: "Prepara 900 × 1000 píxeles (aprox. 9:10). Se recorta para llenar el hueco; deja lo importante lejos de los bordes corroídos."
-          - name: enabled
-            label: Incluir en la rotación
-            type: boolean
-            default: true
+        description: "Se muestra solo cuando el servicio acepta el envío."
+      - name: inbox
+        label: Correo receptor del terminal
+        type: string
+        description: "Los mensajes escritos en el terminal llegan a este buzón tras activar el formulario en el correo."
 
   - name: escaner_interplanar
     label: Escáner interplanar

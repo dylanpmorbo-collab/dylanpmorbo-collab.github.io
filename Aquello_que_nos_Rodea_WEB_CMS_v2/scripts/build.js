@@ -1923,13 +1923,9 @@ for(const section of archiveSectionDefs){
 // Conserva los enlaces antiguos a la sección sustituida.
 fs.writeFileSync(path.join(DIST,'archivo-otros.html'),'<!doctype html><html lang="es"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=archivo-testimonios.html"><title>Testimonios | El Archivo</title></head><body><p>La sección se ha trasladado a <a href="archivo-testimonios.html">Testimonios</a>.</p></body></html>');
 
-// Terminal visual de comunicaciones. El formulario es deliberadamente local:
-// no tiene action, no recopila direcciones y todavía no transmite datos.
+// Terminal de comunicaciones. El proveedor recibe mensajes anónimos y los envía al buzón dedicado.
 if(terminalConfig.enabled!==false){
- const terminalPosters=(Array.isArray(terminalConfig.posters)?terminalConfig.posters:[])
-   .filter(p=>p && p.image && p.enabled!==false)
-   .map(p=>({label:String(p.label||'Cartel recuperado'),image:String(p.image)}));
- const posterData=JSON.stringify(terminalPosters).replace(/</g,'\\u003c');
+ const terminalEndpoint=`https://formsubmit.co/ajax/${String(terminalConfig.inbox||'').trim()}`;
  const terminalPage=`${head(`${terminalConfig.page_title||'Terminal de comunicaciones'} | ${site.site_title}`,terminalConfig.intro||'Canal anónimo de comunicaciones.',terminalConfig.scene_image||'/assets/img/hero.webp')}
  <body class="terminal-page">${header('terminal')}<main class="terminal-main">
  <section class="terminal-intro reveal">
@@ -1937,27 +1933,27 @@ if(terminalConfig.enabled!==false){
    <h1>${esc(terminalConfig.page_title||'Terminal de comunicaciones')}</h1>
    <p>${esc(terminalConfig.intro||'Canal anónimo de transmisión.')}</p>
  </section>
- <section class="terminal-scene-viewport" aria-label="Terminal empotrado en un callejón">
-   <div class="terminal-scene" data-terminal-scene data-success="${esc(terminalConfig.success_message||'TRANSMISIÓN SIMULADA // EL CANAL EXTERNO TODAVÍA NO ESTÁ CONECTADO')}">
-     <img class="terminal-scene-art" src="${esc(terminalConfig.scene_image||'/assets/uploads/terminal/terminal-scrappunk-wall-v4-final.png')}" alt="Terminal scrappunk repartido en varios paneles empotrados en una pared de ladrillo" loading="eager">
-     <div class="terminal-eyes" data-terminal-eyes aria-hidden="true"><i><b></b></i><i><b></b></i></div>
-     <figure class="terminal-poster" data-terminal-poster data-mode="${esc(terminalConfig.poster_mode||'aleatoria')}" data-fixed="${esc(terminalConfig.fixed_poster||'')}">
-       <img alt="Cartel deteriorado recuperado" hidden>
-       <figcaption><strong>SE BUSCA INFORMACIÓN</strong><span>EL ARCHIVO ESCUCHA</span></figcaption>
-     </figure>
-     <div class="terminal-screen" aria-label="Pantalla de fósforo verde">
+ <section class="terminal-scene-viewport" aria-label="Terminal empotrado en un pasillo">
+   <div class="terminal-scene" data-terminal-scene data-endpoint="${esc(terminalEndpoint)}" data-success="${esc(terminalConfig.success_message||'TRANSMISIÓN RECIBIDA // EL ARCHIVO HA RECIBIDO SU MENSAJE')}">
+     <img class="terminal-scene-art" src="${esc(terminalConfig.scene_image||'/assets/uploads/terminal/terminal-scene-final.webp')}" alt="Gran terminal antiguo en un pasillo húmedo, con una grieta oscura encima" loading="eager">
+     <img class="terminal-eyes" data-terminal-eyes src="${esc(terminalConfig.eyes_image||'/assets/uploads/terminal/terminal-eyes.webp')}" alt="" aria-hidden="true">
+     <form class="terminal-screen" data-terminal-form action="${esc(terminalEndpoint.replace('/ajax/','/'))}" method="POST" aria-label="Pantalla de fósforo verde">
        <div class="terminal-screen-header"><span>●</span> ${esc(terminalConfig.screen_heading||'CANAL DE ENVÍO ABIERTO')}</div>
        <label for="terminalMessage">${esc(terminalConfig.screen_prompt||'INTRODUZCA SU MENSAJE')}</label>
-       <textarea id="terminalMessage" maxlength="1200" spellcheck="true" placeholder="ESCRIBA AQUÍ..."></textarea>
-       <div class="terminal-screen-footer"><span data-terminal-status>ESPERANDO ENTRADA_</span><span><b data-terminal-count>0</b>/1200</span></div>
-     </div>
-     <button class="terminal-physical-send" type="button" data-terminal-send aria-label="Transmitir mensaje"><span>TRANSMITIR</span></button>
+       <textarea id="terminalMessage" name="message" maxlength="1200" required spellcheck="true" placeholder="ESCRIBA AQUÍ..."></textarea>
+       <input type="hidden" name="_subject" value="Mensaje recibido desde el terminal del Archivo">
+       <input type="hidden" name="_captcha" value="false">
+       <input type="hidden" name="_url" value="https://dylanpmorbo-collab.github.io/terminal.html">
+       <input class="terminal-honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+       <div class="terminal-screen-footer"><span data-terminal-status role="status" aria-live="polite">ESPERANDO ENTRADA_</span><span><b data-terminal-count>0</b>/1200</span></div>
+       <button class="terminal-screen-send" type="submit" data-terminal-send>TRANSMITIR ↗</button>
+     </form>
+     <button class="terminal-physical-send" type="button" data-terminal-physical-send aria-label="Transmitir mensaje con el mando del terminal"></button>
    </div>
  </section>
  <p class="terminal-mobile-hint">Desliza lateralmente para inspeccionar la máquina completa.</p>
- <aside class="terminal-privacy-note"><strong>PROTOTIPO VISUAL</strong><span>La transmisión aún no está conectada. Lo que escribas permanece en esta página y no se envía ni se guarda.</span></aside>
- <script type="application/json" id="terminalPosterData">${posterData}</script>
- </main>${footer(site)}<script defer src="assets/js/terminal.js?v=20260921"></script></body></html>`;
+ <aside class="terminal-privacy-note"><strong>CANAL ANÓNIMO</strong><span>Tu mensaje se envía al buzón del Archivo. No incluyas datos personales que no quieras compartir.</span></aside>
+ </main>${footer(site)}<script defer src="assets/js/terminal.js?v=20261026"></script></body></html>`;
  fs.writeFileSync(path.join(DIST,'terminal.html'),terminalPage);
 }
 
