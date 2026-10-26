@@ -102,7 +102,10 @@
   "secret_fiches": [
     {
       "target": "archivo/documentos/chamber-of-seventh-heaven.html",
-      "enabled": true
+      "enabled": true,
+      "scanner_folder": "SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven",
+      "access_type": "none",
+      "icon_label": "Documentos"
     }
   ],
   "signals": [
