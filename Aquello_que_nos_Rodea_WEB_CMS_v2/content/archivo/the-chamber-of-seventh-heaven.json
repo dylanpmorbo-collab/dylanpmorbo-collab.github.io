@@ -1,0 +1,21 @@
+{
+  "title": "The Chamber of Seventh Heaven",
+  "archive_number": "036",
+  "category": "DOCUMENTO",
+  "published": true,
+  "notify_new": false,
+  "hero_image_frame": true,
+  "status": "Documentado",
+  "show_documents": false,
+  "show_police_report": false,
+  "show_digital_reports": false,
+  "show_related_archive": false,
+  "corkboard": {
+    "enabled": false,
+    "design": "A",
+    "title": "TABLÓN DE CONEXIONES"
+  },
+  "show_physical_press": false,
+  "physical_press_title": "PRENSA FÍSICA",
+  "show_digital_press": false
+}
