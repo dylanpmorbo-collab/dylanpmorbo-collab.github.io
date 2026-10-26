@@ -122,7 +122,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=terminal-ojos-20261026"><link rel="stylesheet" href="assets/css/secret-fichas.css?v=1"><script defer src="assets/js/secret-fichas.js?v=1"></script><script defer src="assets/js/main.js?v=testimonios-20260920"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=terminal-mascara-20261026"><link rel="stylesheet" href="assets/css/secret-fichas.css?v=1"><script defer src="assets/js/secret-fichas.js?v=1"></script><script defer src="assets/js/main.js?v=testimonios-20260920"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -1938,10 +1938,12 @@ if(terminalConfig.enabled!==false){
      <img class="terminal-scene-art" src="${esc(terminalConfig.scene_image||'/assets/uploads/terminal/terminal-scene-final.webp')}" alt="Gran terminal antiguo en un pasillo húmedo, con una grieta oscura encima" loading="eager">
      <div class="terminal-eyes" data-terminal-eyes aria-hidden="true">
        <img class="terminal-eyes-base" src="${esc(terminalConfig.eyes_image||'/assets/uploads/terminal/terminal-ojos-blancos.webp')}" alt="">
-       <img class="terminal-iris terminal-iris-left" src="${esc(terminalConfig.iris_image||'/assets/uploads/terminal/terminal-iris-reptiliano.webp')}" alt="">
-       <img class="terminal-iris terminal-iris-right" src="${esc(terminalConfig.iris_image||'/assets/uploads/terminal/terminal-iris-reptiliano.webp')}" alt="">
+       <div class="terminal-iris-layer" style="--eyes-mask:url('${esc(terminalConfig.eyes_mask_image||'/assets/uploads/terminal/terminal-ojos-mascara.png')}')">
+         <img class="terminal-iris terminal-iris-left" src="${esc(terminalConfig.iris_image||'/assets/uploads/terminal/terminal-iris-reptiliano.webp')}" alt="">
+         <img class="terminal-iris terminal-iris-right" src="${esc(terminalConfig.iris_image||'/assets/uploads/terminal/terminal-iris-reptiliano.webp')}" alt="">
+       </div>
      </div>
-     <form class="terminal-screen" data-terminal-form action="${esc(terminalEndpoint.replace('/ajax/','/'))}" method="POST" aria-label="Pantalla de fósforo verde">
+     <form id="terminalMessageForm" class="terminal-screen" data-terminal-form action="${esc(terminalEndpoint.replace('/ajax/','/'))}" method="POST" aria-label="Pantalla de fósforo verde">
        <div class="terminal-screen-header"><span>●</span> ${esc(terminalConfig.screen_heading||'CANAL DE ENVÍO ABIERTO')}</div>
        <label for="terminalMessage">${esc(terminalConfig.screen_prompt||'INTRODUZCA SU MENSAJE')}</label>
        <textarea id="terminalMessage" name="message" maxlength="1200" required spellcheck="true" placeholder="ESCRIBA AQUÍ..."></textarea>
@@ -1950,14 +1952,13 @@ if(terminalConfig.enabled!==false){
        <input type="hidden" name="_url" value="https://dylanpmorbo-collab.github.io/terminal.html">
        <input class="terminal-honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
        <div class="terminal-screen-footer"><span data-terminal-status role="status" aria-live="polite">ESPERANDO ENTRADA_</span><span><b data-terminal-count>0</b>/1200</span></div>
-       <button class="terminal-screen-send" type="submit" data-terminal-send>TRANSMITIR ↗</button>
      </form>
-     <button class="terminal-physical-send" type="button" data-terminal-physical-send aria-label="Transmitir mensaje con el mando del terminal"></button>
+     <button class="terminal-transmit-button" type="submit" form="terminalMessageForm" data-terminal-send><img src="${esc(terminalConfig.send_button_image||'/assets/uploads/terminal/terminal-boton-transmitir.png')}" alt=""><span>TRANSMITIR</span></button>
    </div>
  </section>
  <p class="terminal-mobile-hint">Desliza lateralmente para inspeccionar la máquina completa.</p>
  <aside class="terminal-privacy-note"><strong>CANAL ANÓNIMO</strong><span>Tu mensaje se envía al buzón del Archivo. No incluyas datos personales que no quieras compartir.</span></aside>
- </main>${footer(site)}<script defer src="assets/js/terminal.js?v=20261026b"></script></body></html>`;
+ </main>${footer(site)}<script defer src="assets/js/terminal.js?v=20261026c"></script></body></html>`;
  fs.writeFileSync(path.join(DIST,'terminal.html'),terminalPage);
 }
 

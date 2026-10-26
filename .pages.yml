@@ -4723,8 +4723,21 @@ content:
         required: true
         options:
           media: default
+      - name: eyes_mask_image
+        label: Máscara de las aberturas de los ojos (PNG transparente)
+        type: image
+        required: true
+        options:
+          media: default
+        description: "Mantiene las pupilas dentro de los ojos. Debe tener las mismas dimensiones que la base de ojos."
       - name: iris_image
         label: Iris y pupila móviles (PNG o WebP transparente)
+        type: image
+        required: true
+        options:
+          media: default
+      - name: send_button_image
+        label: Botón de transmitir (PNG transparente)
         type: image
         required: true
         options:

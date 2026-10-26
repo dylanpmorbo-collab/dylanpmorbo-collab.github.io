@@ -10,17 +10,18 @@
   const eyes=scene.querySelector('[data-terminal-eyes]');
   const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(eyes){
-    eyes.style.setProperty('--eyes-left',(36+Math.random()*6).toFixed(2)+'%');
-    eyes.style.setProperty('--eyes-top',(-.5+Math.random()*2.3).toFixed(2)+'%');
+    eyes.style.setProperty('--eyes-left',(39+Math.random()*12).toFixed(2)+'%');
+    eyes.style.setProperty('--eyes-top',(4+Math.random()*2).toFixed(2)+'%');
     const irises=Array.from(eyes.querySelectorAll('.terminal-iris'));
     if(irises.length && !reduced){
       scene.addEventListener('pointermove',function(event){
         const box=eyes.getBoundingClientRect();
         irises.forEach(function(iris,index){
-          const centerX=box.left+box.width*(index===0?.238:.762);
-          const centerY=box.top+box.height*.49;
-          const x=Math.max(-3,Math.min(3,(event.clientX-centerX)/95));
-          const y=Math.max(-1.5,Math.min(1.5,(event.clientY-centerY)/150));
+          const centerX=box.left+box.width*(index===0?.192:.808);
+          const centerY=box.top+box.height*.545;
+          const scale=scene.clientWidth/1672;
+          const x=Math.max(-8*scale,Math.min(8*scale,(event.clientX-centerX)/45));
+          const y=Math.max(-3.5*scale,Math.min(3.5*scale,(event.clientY-centerY)/90));
           iris.style.setProperty('--iris-x',x.toFixed(1)+'px');
           iris.style.setProperty('--iris-y',y.toFixed(1)+'px');
         });
@@ -39,7 +40,6 @@
   const count=scene.querySelector('[data-terminal-count]');
   const status=scene.querySelector('[data-terminal-status]');
   const send=scene.querySelector('[data-terminal-send]');
-  const physicalSend=scene.querySelector('[data-terminal-physical-send]');
   const endpoint=scene.dataset.endpoint||'';
   const finalMessage=scene.dataset.success||'TRANSMISIÓN RECIBIDA // EL ARCHIVO HA RECIBIDO SU MENSAJE';
   let pending=false;
@@ -66,7 +66,6 @@
     }
     pending=true;
     if(send) send.disabled=true;
-    if(physicalSend) physicalSend.disabled=true;
     scene.classList.add('is-transmitting');
     status.textContent='TRANSMITIENDO...';
     const controller=new AbortController();
@@ -91,12 +90,10 @@
       clearTimeout(timeout);
       pending=false;
       if(send) send.disabled=false;
-      if(physicalSend) physicalSend.disabled=false;
       scene.classList.remove('is-transmitting');
     }
   }
   if(form) form.addEventListener('submit',transmit);
-  if(physicalSend) physicalSend.addEventListener('click',function(){if(form) form.requestSubmit();});
   if(textarea) textarea.addEventListener('keydown',function(event){
     if((event.ctrlKey||event.metaKey) && event.key==='Enter'){
       event.preventDefault();
