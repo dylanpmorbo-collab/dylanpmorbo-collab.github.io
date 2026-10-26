@@ -122,7 +122,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=mmc-etiqueta-amplia-20261019"><link rel="stylesheet" href="assets/css/secret-fichas.css?v=1"><script defer src="assets/js/secret-fichas.js?v=1"></script><script defer src="assets/js/main.js?v=testimonios-20260920"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=terminal-ojos-20261026"><link rel="stylesheet" href="assets/css/secret-fichas.css?v=1"><script defer src="assets/js/secret-fichas.js?v=1"></script><script defer src="assets/js/main.js?v=testimonios-20260920"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -1936,7 +1936,11 @@ if(terminalConfig.enabled!==false){
  <section class="terminal-scene-viewport" aria-label="Terminal empotrado en un pasillo">
    <div class="terminal-scene" data-terminal-scene data-endpoint="${esc(terminalEndpoint)}" data-success="${esc(terminalConfig.success_message||'TRANSMISIÓN RECIBIDA // EL ARCHIVO HA RECIBIDO SU MENSAJE')}">
      <img class="terminal-scene-art" src="${esc(terminalConfig.scene_image||'/assets/uploads/terminal/terminal-scene-final.webp')}" alt="Gran terminal antiguo en un pasillo húmedo, con una grieta oscura encima" loading="eager">
-     <img class="terminal-eyes" data-terminal-eyes src="${esc(terminalConfig.eyes_image||'/assets/uploads/terminal/terminal-eyes.webp')}" alt="" aria-hidden="true">
+     <div class="terminal-eyes" data-terminal-eyes aria-hidden="true">
+       <img class="terminal-eyes-base" src="${esc(terminalConfig.eyes_image||'/assets/uploads/terminal/terminal-ojos-blancos.webp')}" alt="">
+       <img class="terminal-iris terminal-iris-left" src="${esc(terminalConfig.iris_image||'/assets/uploads/terminal/terminal-iris-reptiliano.webp')}" alt="">
+       <img class="terminal-iris terminal-iris-right" src="${esc(terminalConfig.iris_image||'/assets/uploads/terminal/terminal-iris-reptiliano.webp')}" alt="">
+     </div>
      <form class="terminal-screen" data-terminal-form action="${esc(terminalEndpoint.replace('/ajax/','/'))}" method="POST" aria-label="Pantalla de fósforo verde">
        <div class="terminal-screen-header"><span>●</span> ${esc(terminalConfig.screen_heading||'CANAL DE ENVÍO ABIERTO')}</div>
        <label for="terminalMessage">${esc(terminalConfig.screen_prompt||'INTRODUZCA SU MENSAJE')}</label>
@@ -1953,7 +1957,7 @@ if(terminalConfig.enabled!==false){
  </section>
  <p class="terminal-mobile-hint">Desliza lateralmente para inspeccionar la máquina completa.</p>
  <aside class="terminal-privacy-note"><strong>CANAL ANÓNIMO</strong><span>Tu mensaje se envía al buzón del Archivo. No incluyas datos personales que no quieras compartir.</span></aside>
- </main>${footer(site)}<script defer src="assets/js/terminal.js?v=20261026"></script></body></html>`;
+ </main>${footer(site)}<script defer src="assets/js/terminal.js?v=20261026b"></script></body></html>`;
  fs.writeFileSync(path.join(DIST,'terminal.html'),terminalPage);
 }
 

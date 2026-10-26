@@ -1328,8 +1328,11 @@ html:not(.age-verified){overflow:hidden}
 .terminal-scene-viewport{width:100%;overflow-x:auto;overflow-y:hidden;scrollbar-color:#6c552e #090a08;overscroll-behavior-inline:contain}
 .terminal-scene{position:relative;width:min(1672px,100vw);min-width:840px;aspect-ratio:1672/941;margin:0 auto;isolation:isolate;background:#090a08;box-shadow:0 30px 90px #000}
 .terminal-scene-art{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;user-select:none}
-.terminal-eyes{position:absolute;z-index:2;left:35%;top:-.8%;width:30%;height:14%;object-fit:contain;pointer-events:none;opacity:.84;filter:brightness(.82) drop-shadow(0 0 3px rgba(156,111,51,.32));transform:translate(var(--eye-x,0px),var(--eye-y,0px)) scaleY(var(--eye-open,1));transition:transform .14s ease,opacity .2s ease}
-.terminal-eyes.is-blinking{--eye-open:.08}
+.terminal-eyes{position:absolute;z-index:2;left:var(--eyes-left,38%);top:var(--eyes-top,.5%);width:21%;aspect-ratio:3/1;pointer-events:none;opacity:.68;filter:brightness(.72)}
+.terminal-eyes-base{display:block;width:100%;height:100%;object-fit:contain}
+.terminal-iris{position:absolute;top:49%;width:6%;height:auto;aspect-ratio:1;object-fit:contain;transform:translate(calc(-50% + var(--iris-x,0px)),calc(-50% + var(--iris-y,0px)));transition:transform .09s ease-out}
+.terminal-iris-left{left:23.8%}
+.terminal-iris-right{left:76.2%}
 .terminal-screen{position:absolute;z-index:3;left:25%;top:22.4%;width:50%;height:52%;box-sizing:border-box;display:flex;flex-direction:column;gap:1.8%;margin:0;padding:1.8% 2%;overflow:hidden;color:#8ef69b;font-family:"Courier New",monospace;text-shadow:0 0 4px rgba(44,255,85,.55);background:rgba(0,20,11,.12);border:0;border-radius:4%/6%}
 .terminal-screen::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.09) 0,rgba(0,0,0,.09) 1px,transparent 1px,transparent 4px)}
 .terminal-screen-header{display:flex;gap:8px;align-items:center;padding-bottom:1%;border-bottom:1px solid rgba(94,255,118,.45);font-size:clamp(11px,1.1vw,18px);font-weight:700;letter-spacing:.08em}
@@ -1352,7 +1355,7 @@ html:not(.age-verified){overflow:hidden}
 .terminal-privacy-note{display:flex;align-items:center;gap:18px;width:min(1120px,calc(100% - 40px));box-sizing:border-box;margin:26px auto 0;padding:16px 20px;border-left:2px solid #6d5730;background:#0b0d0b;color:#837d70;font-size:14px}
 .terminal-privacy-note strong{flex:0 0 auto;color:#b8965a;font:600 10px var(--display);letter-spacing:.12em}
 @media(max-width:900px){.terminal-scene{margin-left:0}.terminal-mobile-hint{display:block}.terminal-privacy-note{align-items:flex-start;flex-direction:column;gap:7px}.terminal-intro{margin-bottom:20px}}
-@media(prefers-reduced-motion:reduce){.terminal-scene.is-transmitting .terminal-screen{animation:none}.terminal-eyes{transition:none}}
+@media(prefers-reduced-motion:reduce){.terminal-scene.is-transmitting .terminal-screen{animation:none}.terminal-iris{transition:none}}
 
 /* Informes físicos por importancia y soportes digitales MMC. */
 .archive-report-subheading{margin:28px 0 15px;padding-bottom:10px;border-bottom:1px solid var(--line);color:#c4ac79;font:600 10px/1.2 var(--display);letter-spacing:.18em}

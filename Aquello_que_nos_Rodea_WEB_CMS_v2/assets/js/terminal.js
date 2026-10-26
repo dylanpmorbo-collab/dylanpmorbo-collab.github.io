@@ -9,25 +9,29 @@
 
   const eyes=scene.querySelector('[data-terminal-eyes]');
   const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(eyes && !reduced){
-    scene.addEventListener('pointermove',function(event){
-      const box=eyes.getBoundingClientRect();
-      const dx=event.clientX-(box.left+box.width/2);
-      const dy=event.clientY-(box.top+box.height/2);
-      const length=Math.max(1,Math.hypot(dx,dy));
-      eyes.style.setProperty('--eye-x',Math.round(dx/length*3)+'px');
-      eyes.style.setProperty('--eye-y',Math.round(dy/length*2)+'px');
-    });
-    scene.addEventListener('pointerleave',function(){
-      eyes.style.setProperty('--eye-x','0px');
-      eyes.style.setProperty('--eye-y','0px');
-    });
-    const blink=function(){
-      eyes.classList.add('is-blinking');
-      setTimeout(function(){eyes.classList.remove('is-blinking');},140);
-      setTimeout(blink,3000+Math.random()*5200);
-    };
-    setTimeout(blink,1800+Math.random()*2600);
+  if(eyes){
+    eyes.style.setProperty('--eyes-left',(36+Math.random()*6).toFixed(2)+'%');
+    eyes.style.setProperty('--eyes-top',(-.5+Math.random()*2.3).toFixed(2)+'%');
+    const irises=Array.from(eyes.querySelectorAll('.terminal-iris'));
+    if(irises.length && !reduced){
+      scene.addEventListener('pointermove',function(event){
+        const box=eyes.getBoundingClientRect();
+        irises.forEach(function(iris,index){
+          const centerX=box.left+box.width*(index===0?.238:.762);
+          const centerY=box.top+box.height*.49;
+          const x=Math.max(-3,Math.min(3,(event.clientX-centerX)/95));
+          const y=Math.max(-1.5,Math.min(1.5,(event.clientY-centerY)/150));
+          iris.style.setProperty('--iris-x',x.toFixed(1)+'px');
+          iris.style.setProperty('--iris-y',y.toFixed(1)+'px');
+        });
+      });
+      scene.addEventListener('pointerleave',function(){
+        irises.forEach(function(iris){
+          iris.style.setProperty('--iris-x','0px');
+          iris.style.setProperty('--iris-y','0px');
+        });
+      });
+    }
   }
 
   const form=scene.querySelector('[data-terminal-form]');

@@ -4718,7 +4718,13 @@ content:
           media: default
         description: "La pantalla y la grieta deben conservar sus posiciones para que encajen el editor y los ojos."
       - name: eyes_image
-        label: Ojos de la grieta (PNG o WebP transparente)
+        label: Base de ojos sin iris (PNG o WebP transparente)
+        type: image
+        required: true
+        options:
+          media: default
+      - name: iris_image
+        label: Iris y pupila móviles (PNG o WebP transparente)
         type: image
         required: true
         options:
