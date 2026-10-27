@@ -131,6 +131,7 @@
       "label_image": "/assets/uploads/archivo/ETIQUETAS/imagen-de-chatgpt-27-oct-2026-082417-web.webp",
       "circuit_difficulty": "ninguno",
       "access_method": "automatico",
+      "interface_color": "#570B14",
       "desktop_background_color": "#570B14",
       "desktop_wallpaper": "/assets/uploads/archivo/LOGOS/emblema-arcano-sobre-fondo-burdeos-web.webp",
       "boot_seconds": 1,
@@ -152,8 +153,8 @@
               "circuit_difficulty": "ninguno",
               "access_method": "automatico",
               "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven/documentos/011895-09-08pittsburgcarta-urgentepagina-11-web.webp",
-              "image_visibility": "normal",
-              "translation_text": "# Correspondencia privada — URGENTE\n\n**Compañía Imperial Oriental y de Novedades del Profesor Blackwell**  \nPittsburg, Pensilvania · 8 de septiembre de 1895\n\n**Señores:**\n\nDebo escribirles de inmediato acerca de un asunto que ha colocado a nuestro establecimiento en una situación sumamente desafortunada.\n\nDesde hace varios días, uno de nuestros Huéspedes ha mostrado un apego extraordinario hacia un caballero que visitó recientemente los aposentos privados.\n\nA pesar de todos nuestros respetuosos esfuerzos, no hemos conseguido desviar Su atención de este Visitante en particular.\n\nPosteriormente hemos descubierto que nuestro Huésped abandonó Sus aposentos durante varias noches consecutivas y buscó al caballero en otros lugares de la ciudad, sin que tuviéramos conocimiento alguno de ello.\n\nAyer por la mañana, el Visitante fue encontrado muerto cerca del río Allegheny, en circunstancias que ya han atraído la atención de las autoridades.\n\nMe temo que existen pocas dudas de que estos acontecimientos están relacionados.\n\nNo me atrevo a consignar por escrito todos los detalles, por temor a que esta correspondencia caiga en manos indebidas."
+              "translation_text": "# Correspondencia privada — URGENTE\n\n**Compañía Imperial Oriental y de Novedades del Profesor Blackwell**  \nPittsburg, Pensilvania · 8 de septiembre de 1895\n\n**Señores:**\n\nDebo escribirles de inmediato acerca de un asunto que ha colocado a nuestro establecimiento en una situación sumamente desafortunada.\n\nDesde hace varios días, uno de nuestros Huéspedes ha mostrado un apego extraordinario hacia un caballero que visitó recientemente los aposentos privados.\n\nA pesar de todos nuestros respetuosos esfuerzos, no hemos conseguido desviar Su atención de este Visitante en particular.\n\nPosteriormente hemos descubierto que nuestro Huésped abandonó Sus aposentos durante varias noches consecutivas y buscó al caballero en otros lugares de la ciudad, sin que tuviéramos conocimiento alguno de ello.\n\nAyer por la mañana, el Visitante fue encontrado muerto cerca del río Allegheny, en circunstancias que ya han atraído la atención de las autoridades.\n\nMe temo que existen pocas dudas de que estos acontecimientos están relacionados.\n\nNo me atrevo a consignar por escrito todos los detalles, por temor a que esta correspondencia caiga en manos indebidas.",
+              "image_visibility": "normal"
             }
           ]
         }
