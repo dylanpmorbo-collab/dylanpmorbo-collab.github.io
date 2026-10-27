@@ -121,8 +121,9 @@
         {
           "title": "CONFIDENCIAL",
           "icon": "/assets/uploads/archivo/ICONOS/carpeta-confidencial-pixelada-web.webp",
-          "circuit_difficulty": "ninguno",
-          "access_method": "automatico",
+          "circuit_difficulty": "dificil",
+          "access_method": "codigo",
+          "access_code": "Walter Edward Haines",
           "show_recovery_placeholder": false,
           "opening_notice_enabled": false,
           "opening_notice_frequency": "always",
