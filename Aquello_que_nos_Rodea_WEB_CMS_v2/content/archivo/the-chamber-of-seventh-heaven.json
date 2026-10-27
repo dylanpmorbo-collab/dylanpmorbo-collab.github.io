@@ -119,8 +119,8 @@
       "boot_flash_image": "/assets/uploads/archivo/GIFT/retratodelmonstruodemandbulacircular-webdistorsion.webp",
       "folders": [
         {
-          "title": "CORRESPONDENCIA",
-          "icon": "/assets/uploads/archivo/ICONOS/icono-de-carpeta-de-pergamino-pixelado.png",
+          "title": "CONFIDENCIAL",
+          "icon": "/assets/uploads/archivo/ICONOS/carpeta-confidencial-pixelada-web.webp",
           "circuit_difficulty": "ninguno",
           "access_method": "automatico",
           "show_recovery_placeholder": false,
