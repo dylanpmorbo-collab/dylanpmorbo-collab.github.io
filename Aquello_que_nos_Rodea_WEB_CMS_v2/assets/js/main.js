@@ -183,3 +183,114 @@
   else disableAnalytics();
   updateCookieBanner();
 })();
+
+
+// Amplía las imágenes y los vídeos de cada apartado libre sin alterar su carrusel.
+(() => {
+  const galleries=Array.from(document.querySelectorAll('.sandbox-carousel'));
+  if(!galleries.length||typeof HTMLDialogElement==='undefined')return;
+
+  const dialog=document.createElement('dialog');
+  dialog.className='sandbox-lightbox';
+  dialog.setAttribute('aria-label','Galería ampliada');
+  dialog.innerHTML=
+    '<div class="sandbox-lightbox-top"><strong data-sandbox-lightbox-title></strong><button type="button" data-sandbox-lightbox-close aria-label="Cerrar ampliación">×</button></div>'+
+    '<div class="sandbox-lightbox-media" data-sandbox-lightbox-media></div>'+
+    '<p class="sandbox-lightbox-caption" data-sandbox-lightbox-caption></p>'+
+    '<div class="sandbox-lightbox-controls"><button type="button" data-sandbox-lightbox-prev aria-label="Anterior imagen o vídeo">← Anterior</button><span data-sandbox-lightbox-counter aria-live="polite"></span><button type="button" data-sandbox-lightbox-next aria-label="Siguiente imagen o vídeo">Siguiente →</button></div>';
+  document.body.appendChild(dialog);
+
+  const mediaBox=dialog.querySelector('[data-sandbox-lightbox-media]');
+  const caption=dialog.querySelector('[data-sandbox-lightbox-caption]');
+  const counter=dialog.querySelector('[data-sandbox-lightbox-counter]');
+  const previous=dialog.querySelector('[data-sandbox-lightbox-prev]');
+  const next=dialog.querySelector('[data-sandbox-lightbox-next]');
+  const close=dialog.querySelector('[data-sandbox-lightbox-close]');
+  let activeGallery=null;
+  let activeSlides=[];
+  let activeIndex=0;
+  let returnFocus=null;
+
+  const stopVideo=element=>{
+    element?.querySelectorAll('video').forEach(video=>video.pause());
+  };
+  const show=index=>{
+    if(!activeSlides.length)return;
+    stopVideo(mediaBox);
+    activeIndex=(index+activeSlides.length)%activeSlides.length;
+    const slide=activeSlides[activeIndex];
+    const source=slide.querySelector('.sandbox-slide-media img, .sandbox-slide-media video');
+    if(!source)return;
+    const enlarged=source.cloneNode(true);
+    if(enlarged.tagName==='IMG')enlarged.removeAttribute('loading');
+    if(enlarged.tagName==='VIDEO'){
+      enlarged.controls=true;
+      enlarged.preload='metadata';
+    }
+    mediaBox.replaceChildren(enlarged);
+    const description=slide.querySelector('figcaption')?.textContent?.trim()||'';
+    caption.textContent=description;
+    caption.hidden=!description;
+    counter.textContent=String(activeIndex+1)+' / '+String(activeSlides.length);
+    previous.hidden=next.hidden=activeSlides.length<2;
+
+    // Mantiene sincronizado el carrusel de la ficha al avanzar en la ampliación.
+    const visible=activeSlides.findIndex(item=>!item.hidden);
+    if(visible>=0&&visible!==activeIndex){
+      const advance=activeGallery?.querySelector('[data-sandbox-next]');
+      for(let i=0;i<(activeIndex-visible+activeSlides.length)%activeSlides.length;i++)advance?.click();
+    }
+  };
+  const open=(gallery,index,trigger)=>{
+    if(dialog.open)return;
+    activeGallery=gallery;
+    dialog.querySelector('[data-sandbox-lightbox-title]').textContent=gallery.closest('.sandbox-card')?.querySelector('h2')?.textContent||'Galería';
+    activeSlides=Array.from(gallery.querySelectorAll('[data-sandbox-slide]'));
+    returnFocus=trigger;
+    stopVideo(gallery);
+    show(index);
+    dialog.showModal();
+    close.focus();
+  };
+
+  galleries.forEach(gallery=>{
+    const slides=Array.from(gallery.querySelectorAll('[data-sandbox-slide]'));
+    slides.forEach((slide,index)=>{
+      const wrapper=slide.querySelector('.sandbox-slide-media');
+      if(!wrapper)return;
+      const source=wrapper.querySelector('img,video');
+      if(!source)return;
+      const button=document.createElement('button');
+      button.type='button';
+      button.className='sandbox-expand';
+      button.setAttribute('aria-label',source.tagName==='VIDEO'?'Ampliar vídeo':'Ampliar imagen');
+      button.title='Ampliar';
+      button.textContent='⤢';
+      wrapper.appendChild(button);
+      button.addEventListener('click',()=>open(gallery,index,button));
+      if(source.tagName==='IMG'){
+        source.addEventListener('click',()=>open(gallery,index,button));
+      }
+    });
+  });
+  previous.addEventListener('click',()=>show(activeIndex-1));
+  next.addEventListener('click',()=>show(activeIndex+1));
+  close.addEventListener('click',()=>dialog.close());
+  dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close()});
+  dialog.addEventListener('keydown',event=>{
+    if(event.target.tagName==='VIDEO')return;
+    if(event.key==='ArrowLeft'||event.key==='ArrowRight'){
+      event.preventDefault();
+      show(activeIndex+(event.key==='ArrowLeft'?-1:1));
+    }
+  });
+  dialog.addEventListener('close',()=>{
+    stopVideo(mediaBox);
+    mediaBox.replaceChildren();
+    const focusTarget=activeSlides[activeIndex]?.querySelector('.sandbox-expand')||returnFocus;
+    activeGallery=null;
+    activeSlides=[];
+    focusTarget?.focus();
+    returnFocus=null;
+  });
+})();
