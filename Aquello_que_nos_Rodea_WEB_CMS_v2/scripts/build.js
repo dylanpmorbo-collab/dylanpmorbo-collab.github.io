@@ -122,7 +122,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=documentos-traduccion-rueda-20261027"><link rel="stylesheet" href="assets/css/secret-fichas.css?v=1"><script defer src="assets/js/secret-fichas.js?v=1"></script><script defer src="assets/js/main.js?v=sandbox-ampliacion-20261027"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=documentos-traduccion-markdown-20261027"><link rel="stylesheet" href="assets/css/secret-fichas.css?v=1"><script defer src="assets/js/secret-fichas.js?v=1"></script><script defer src="assets/js/main.js?v=sandbox-ampliacion-20261027"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -793,7 +793,8 @@ function archiveDocuments(item){
             .map(t=>({
               language:String(t.language||t.code||'Traducción'),
               code:String(t.code||'').trim().toLowerCase(),
-              text:String(t.text||'')
+              text:String(t.text||''),
+              html:markdownToHTML(String(t.text||''))
             }))
         }));
       if(!doc || !doc.title || !pages.length) return null;
@@ -940,7 +941,7 @@ function archiveDocuments(item){
           overlay.hidden=false;
           overlay.scrollTop=0;
           overlay.querySelector('.archive-document-translation-label').textContent='TRADUCCIÓN // '+String(t.language||t.code||'').toUpperCase();
-          overlay.querySelector('.archive-document-translation-text').textContent=t.text||'';
+          overlay.querySelector('.archive-document-translation-text').innerHTML=t.html||'';
         }
         function resetPageGeometry(figure,img){
           if(!figure || !img) return;

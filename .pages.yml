@@ -1312,10 +1312,14 @@ content:
                       regex: "^[A-Za-z0-9-]{2,12}$"
                       message: "Usa un código corto como es, en, fr o pt-BR."
                   - name: text
-                    label: Texto traducido
-                    type: text
+                    label: Texto traducido (Markdown)
+                    type: rich-text
                     required: true
-                    description: "Respeta los saltos de línea que quieras conservar en la capa de traducción."
+                    options:
+                      format: markdown
+                      media: default
+                      switcher: true
+                    description: "Escribe la traducción con títulos, párrafos, listas y otros formatos Markdown. Puedes alternar entre Editor y Source."
       - name: show_police_report
         label: Mostrar informes
         type: boolean
@@ -2968,10 +2972,14 @@ content:
                       regex: "^[A-Za-z0-9-]{2,12}$"
                       message: "Usa un código corto como es, en, fr o pt-BR."
                   - name: text
-                    label: Texto traducido
-                    type: text
+                    label: Texto traducido (Markdown)
+                    type: rich-text
                     required: true
-                    description: "Respeta los saltos de línea que quieras conservar en la capa de traducción."
+                    options:
+                      format: markdown
+                      media: default
+                      switcher: true
+                    description: "Escribe la traducción con títulos, párrafos, listas y otros formatos Markdown. Puedes alternar entre Editor y Source."
       - name: show_police_report
         label: Mostrar informes
         type: boolean
