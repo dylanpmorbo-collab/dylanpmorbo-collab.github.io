@@ -156,6 +156,15 @@
               "location": "Pittsburg, Pensilvania",
               "source_device": "Correspondencia privada",
               "status": "░DIGITALIZADO░"
+            },
+            {
+              "title": "1895/10/24 Instrucciones privadas",
+              "notify_new": false,
+              "kind": "IMAGEN",
+              "circuit_difficulty": "ninguno",
+              "access_method": "automatico",
+              "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven/documentos/041895-10-24instrucciones-privadas-web.webp",
+              "image_visibility": "normal"
             }
           ]
         }
