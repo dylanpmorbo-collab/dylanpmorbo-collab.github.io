@@ -122,7 +122,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=sandbox-ampliacion-20261027"><link rel="stylesheet" href="assets/css/secret-fichas.css?v=1"><script defer src="assets/js/secret-fichas.js?v=1"></script><script defer src="assets/js/main.js?v=sandbox-ampliacion-20261027"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=sandbox-markdown-20261027"><link rel="stylesheet" href="assets/css/secret-fichas.css?v=1"><script defer src="assets/js/secret-fichas.js?v=1"></script><script defer src="assets/js/main.js?v=sandbox-ampliacion-20261027"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -1619,7 +1619,7 @@ function sandboxCards(item){
      return `<figure class="sandbox-slide" data-sandbox-slide${index?' hidden':''}><div class="sandbox-slide-media">${visual}</div>${entry.caption?`<figcaption>${esc(entry.caption)}</figcaption>`:''}</figure>`;
    });
    const gallery=slides.length?`<div class="sandbox-carousel"${slides.length>1?' data-sandbox-carousel tabindex="0"':''} aria-label="Galería de ${esc(title)}"><div class="sandbox-carousel-viewport">${slides.join('')}</div>${slides.length>1?`<div class="sandbox-carousel-controls"><button type="button" data-sandbox-prev aria-label="Anterior imagen o vídeo">←</button><span data-sandbox-counter aria-live="polite">1 / ${slides.length}</span><button type="button" data-sandbox-next aria-label="Siguiente imagen o vídeo">→</button></div>`:''}</div>`:'';
-   const text=body?`<div class="sandbox-card-text">${plainTextToHTML(body)}</div>`:'';
+   const text=body?`<div class="sandbox-card-text">${markdownToHTML(body)}</div>`:'';
    const contents=block.content_order==='TEXTO_PRIMERO'?text+gallery:gallery+text;
    return `<article class="sandbox-card reveal"><h2>${esc(title)}</h2>${contents}</article>`;
  }).join('');

@@ -284,6 +284,19 @@
 .sandbox-card-text{color:#bdb4a7;font-size:20px;line-height:1.5}
 .sandbox-card-text p{margin:0 0 15px}
 .sandbox-card-text p:last-child{margin-bottom:0}
+
+.sandbox-card-text h1,.sandbox-card-text h2,.sandbox-card-text h3{margin:1.2em 0 .45em;color:#d6c39f;font-family:var(--serif);font-weight:500;line-height:1.2}
+.sandbox-card-text h1{font-size:1.55em}
+.sandbox-card-text h2{font-size:1.35em}
+.sandbox-card-text h3{font-size:1.15em}
+.sandbox-card-text ul,.sandbox-card-text ol{margin:0 0 18px;padding-left:1.5em}
+.sandbox-card-text li+li{margin-top:.3em}
+.sandbox-card-text blockquote{margin:1em 0;padding:.2em 1em;border-left:2px solid #8c7548;color:#d0c3a9;font-style:italic}
+.sandbox-card-text hr{height:1px;margin:1.3em 0;border:0;background:#5a4b30}
+.sandbox-card-text table{display:block;max-width:100%;margin:1em 0;border-collapse:collapse;overflow-x:auto;font-size:.85em}
+.sandbox-card-text th,.sandbox-card-text td{padding:.45em .6em;border:1px solid #5a4b30;text-align:left}
+.sandbox-card-text code{padding:.1em .25em;background:#252019;color:#e4d0a9;font-size:.9em}
+.sandbox-card-text .markdown-image{max-height:65vh}
 .sandbox-card-text+.sandbox-carousel{margin-top:22px}
 .sandbox-carousel{min-width:0;margin:0 0 22px;border:1px solid #302a22;background:#070706}
 .sandbox-card .sandbox-carousel:last-child{margin-bottom:0}
