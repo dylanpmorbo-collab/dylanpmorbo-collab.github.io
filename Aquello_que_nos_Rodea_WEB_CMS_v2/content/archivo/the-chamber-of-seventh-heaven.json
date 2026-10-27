@@ -152,6 +152,15 @@
               "status": "░DIGITALIZADO░"
             }
           ]
+        },
+        {
+          "title": "CORRESPONDENCIA",
+          "icon": "/assets/uploads/archivo/ICONOS/icono-de-carpeta-de-pergamino-pixelado.png",
+          "circuit_difficulty": "ninguno",
+          "access_method": "automatico",
+          "show_recovery_placeholder": true,
+          "opening_notice_enabled": false,
+          "opening_notice_frequency": "always"
         }
       ]
     }
