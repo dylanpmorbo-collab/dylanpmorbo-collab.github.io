@@ -161,7 +161,21 @@
           "access_method": "automatico",
           "show_recovery_placeholder": false,
           "opening_notice_enabled": false,
-          "opening_notice_frequency": "always"
+          "opening_notice_frequency": "always",
+          "files": [
+            {
+              "title": "Professor Blackwell’s Imperial Oriental & Novelty Company — Publicidad y espectáculos (1895)",
+              "notify_new": false,
+              "kind": "TEXTO",
+              "circuit_difficulty": "ninguno",
+              "access_method": "automatico",
+              "body": "## Professor Blackwell’s Imperial Oriental & Novelty Company — Publicidad y espectáculos (1895)\n\nDurante su gira estadounidense de 1895, **Professor Blackwell’s Imperial Oriental & Novelty Company** ofrecía espectáculos de variedades, exhibiciones de fuerza, danzas de inspiración oriental y actuaciones de curiosidades humanas, siguiendo las tradiciones de las ferias de finales del siglo XIX.\n\nSu publicidad destacaba por los carteles cromolitográficos de colores intensos, la ornamentación elaborada y las fotografías promocionales de sus artistas.\n\nEntre sus atracciones sobresalía **The Chamber of Seventh Heaven**, una experiencia privada reservada a caballeros, cuya entrada costaba **un dólar**, frente a los **25 centavos** del espectáculo general.\n\nUn anuncio publicado en *The Pittsburg Press* el **28 de agosto de 1895** anunciaba su apertura al día siguiente en Duquesne Way, cerca del Exposition Hall, con actuaciones hasta el 10 de septiembre.\n\nEstos materiales documentan la actividad comercial de la compañía y el carácter exclusivo y misterioso de su atracción privada.",
+              "image_visibility": "normal",
+              "date_time": "1885",
+              "location": "E.E.U.U",
+              "status": "░DIGITALIZADO░"
+            }
+          ]
         }
       ]
     }
