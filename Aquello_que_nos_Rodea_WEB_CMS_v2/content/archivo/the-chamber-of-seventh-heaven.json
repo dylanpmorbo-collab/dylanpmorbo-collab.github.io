@@ -128,6 +128,7 @@
     {
       "title": "DOCUMENTOS CONFIDENCIALES",
       "importance": "vital",
+      "label_image": "/assets/uploads/archivo/ETIQUETAS/imagen-de-chatgpt-27-oct-2026-082417-web.webp",
       "circuit_difficulty": "ninguno",
       "access_method": "automatico",
       "desktop_background_color": "#570B14",
