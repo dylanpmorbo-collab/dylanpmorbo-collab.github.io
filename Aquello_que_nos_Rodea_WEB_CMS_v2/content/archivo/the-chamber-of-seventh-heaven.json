@@ -132,12 +132,13 @@
       "circuit_difficulty": "ninguno",
       "access_method": "automatico",
       "desktop_background_color": "#570B14",
-      "desktop_wallpaper": "/assets/uploads/archivo/LOGOS/escritorio-plaga-web.webp",
+      "desktop_wallpaper": "/assets/uploads/archivo/LOGOS/emblema-arcano-sobre-fondo-burdeos-web.webp",
       "boot_seconds": 1,
       "boot_flash_enabled": false,
       "folders": [
         {
           "title": "CORRESPONDENCIA ⚿",
+          "icon": "/assets/uploads/archivo/ICONOS/carpeta-arcana-de-pergamino-pikselada-web.webp",
           "circuit_difficulty": "ninguno",
           "access_method": "automatico",
           "show_recovery_placeholder": false,
