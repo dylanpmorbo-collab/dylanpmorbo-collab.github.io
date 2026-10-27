@@ -105,9 +105,10 @@
       "enabled": true,
       "scanner_folder": "SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven",
       "access_type": "none",
-      "icon_label": "Documentos",
-      "icon_subtitle": "Archivo | Encriptado",
-      "icon_image": "/assets/uploads/archivo/ICONOS/iconoarchivosconfidencialesanimadoligero.webp"
+      "icon_label": "FICHA CONFIDENCIAL",
+      "icon_subtitle": "Archivo Encriptado",
+      "icon_image": "/assets/uploads/archivo/ICONOS/iconoarchivosconfidencialesanimadoligero.webp",
+      "icon_size": 110
     }
   ],
   "signals": [
