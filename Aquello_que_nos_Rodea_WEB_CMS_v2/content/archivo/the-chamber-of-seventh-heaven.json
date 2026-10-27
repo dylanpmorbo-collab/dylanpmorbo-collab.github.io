@@ -61,6 +61,10 @@
   ],
   "facts": [
     {
+      "label": "Naturaleza del archivo",
+      "value": "Histórico"
+    },
+    {
       "label": "Soporte documental",
       "value": "Correspondencia - Documentación - Documentos - Imágenes"
     }
