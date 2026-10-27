@@ -96,6 +96,7 @@
   "secret_folder_rules": [
     {
       "folder": "SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven",
+      "icon_image": "/assets/uploads/archivo/ICONOS/iconoarchivosconfidencialesanimadoligero.webp",
       "code": "1234"
     }
   ],
