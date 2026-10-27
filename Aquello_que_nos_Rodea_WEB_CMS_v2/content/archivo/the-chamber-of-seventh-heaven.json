@@ -170,6 +170,15 @@
           "show_recovery_placeholder": false,
           "opening_notice_enabled": false,
           "opening_notice_frequency": "always"
+        },
+        {
+          "title": "IMÁGENES RESTAURADAS",
+          "icon": "/assets/uploads/archivo/ICONOS/carpeta-de-imagenes-retro-piksel-art-web.webp",
+          "circuit_difficulty": "ninguno",
+          "access_method": "automatico",
+          "show_recovery_placeholder": true,
+          "opening_notice_enabled": false,
+          "opening_notice_frequency": "always"
         }
       ]
     }
