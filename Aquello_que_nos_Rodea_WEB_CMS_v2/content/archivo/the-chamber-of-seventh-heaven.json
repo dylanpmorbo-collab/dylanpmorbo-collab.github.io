@@ -10,7 +10,8 @@
   "sandbox": [
     {
       "title": "PLANOS CASETA",
-      "content_order": "MEDIOS_PRIMERO",
+      "text": "### THE CHAMBER OF SEVENTH HEAVEN — Planos de construcción (1895)\n\nEstos documentos muestran el diseño y las características constructivas de *The Chamber of Seventh Heaven*, una de las atracciones privadas de **Professor Blackwell’s Imperial Oriental & Novelty Company**, durante su gira estadounidense de 1895.\n\nLa instalación consistía en una barraca desmontable de madera y lona, de aproximadamente 8,5 metros de ancho por 6,7 de profundidad. Su interior estaba dividido en una sala de espera pública, tres cabinas individuales y tres aposentos reservados, estos últimos accesibles exclusivamente mediante un corredor de servicio independiente.\n\nCada cabina se comunicaba con su correspondiente aposento mediante una abertura circular de unos diez centímetros de diámetro, equipada con una tapa abatible. La segunda ilustración permite comprender la disposición de estos compartimentos y el peculiar funcionamiento de la atracción.\n\nLos planos incluyen asimismo los alzados exteriores, secciones estructurales y detalles de carpintería necesarios para montar y desmontar la instalación durante los desplazamientos de la compañía.\n\nBajo la apariencia de una sofisticada atracción para caballeros, **la distribución interior revela una cuidadosa separación entre los visitantes, el personal y aquello que permanecía oculto tras los tabiques**.",
+      "content_order": "TEXTO_PRIMERO",
       "media": [
         {
           "kind": "image",
@@ -24,7 +25,8 @@
         },
         {
           "kind": "image",
-          "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven/documentos/grabado-tecnico-victoriano-de-un-compartimento-de-madera-web.webp"
+          "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven/documentos/grabado-tecnico-victoriano-de-un-compartimento-de-madera-web.webp",
+          "caption": "Grabado explicativo de The Chamber of Seventh Heaven (1895), con una recreación de los compartimentos privados, su funcionamiento y el mecanismo de abertura circular que los comunicaba"
         }
       ]
     }
