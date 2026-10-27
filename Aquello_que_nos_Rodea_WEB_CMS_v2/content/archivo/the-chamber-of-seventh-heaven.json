@@ -101,6 +101,7 @@
     }
   ],
   "show_police_report": false,
+  "digital_reports_heading": "DOCUMENTOS DIGITALIZADOS",
   "show_digital_reports": true,
   "digital_reports": [
     {
