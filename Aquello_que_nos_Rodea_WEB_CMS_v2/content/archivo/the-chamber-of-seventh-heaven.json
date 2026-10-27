@@ -136,7 +136,8 @@
       "desktop_background_color": "#570B14",
       "desktop_wallpaper": "/assets/uploads/archivo/LOGOS/emblema-arcano-sobre-fondo-burdeos-web.webp",
       "boot_seconds": 3,
-      "boot_flash_enabled": false,
+      "boot_flash_enabled": true,
+      "boot_flash_image": "/assets/uploads/archivo/GIFT/retratodelmonstruodemandbulacircular-webdistorsion.webp",
       "folders": [
         {
           "title": "CORRESPONDENCIA",
