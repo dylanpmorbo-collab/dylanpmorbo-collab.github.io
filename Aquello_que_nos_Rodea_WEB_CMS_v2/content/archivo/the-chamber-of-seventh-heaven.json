@@ -115,7 +115,7 @@
       "desktop_background_color": "#570B14",
       "desktop_wallpaper": "/assets/uploads/archivo/LOGOS/emblema-arcano-sobre-fondo-burdeos-web.webp",
       "boot_seconds": 3,
-      "boot_standard_messages": "𒉆𒌀 (NAM-UŠ₂) Conectando a servidor.\nComprobando memoria\nComprobando estado de la conexión\nBuscando servidores\nMontando directorios",
+      "boot_messages": "𒉆𒌀 (NAM-UŠ₂)\nCONECTANDO A SERVIDORES",
       "boot_flash_enabled": true,
       "boot_flash_image": "/assets/uploads/archivo/GIFT/retratodelmonstruodemandbulacircular-webdistorsion.webp",
       "folders": [
