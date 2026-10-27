@@ -1120,7 +1120,8 @@ content:
                     label: Pie de vídeo
                     type: string
                     required: false
-
+
+
 
       - name: facts
         label: Datos de la ficha
@@ -2566,7 +2567,8 @@ content:
                     label: Pie de vídeo
                     type: string
                     required: false
-
+
+
 
       - name: facts
         label: Datos de la ficha
@@ -5210,4 +5212,6 @@ content:
     type: file
     path: Aquello_que_nos_Rodea_WEB_CMS_v2/assets/data/frases-archivo.txt
     format: raw
+
+
 
