@@ -701,9 +701,14 @@ content:
             type: string
             required: true
           - name: text
-            label: Texto (opcional)
-            type: text
+            label: Texto Markdown (opcional)
+            type: rich-text
             required: false
+            description: "Escribe con formato o cambia a Source para editar el Markdown directamente."
+            options:
+              format: markdown
+              switcher: true
+              media: default
           - name: content_order
             label: Orden dentro de la caja
             type: select
@@ -917,9 +922,14 @@ content:
             type: string
             required: true
           - name: text
-            label: Texto (opcional)
-            type: text
+            label: Texto Markdown (opcional)
+            type: rich-text
             required: false
+            description: "Escribe con formato o cambia a Source para editar el Markdown directamente."
+            options:
+              format: markdown
+              switcher: true
+              media: default
           - name: content_order
             label: Orden dentro de la caja
             type: select
@@ -1063,9 +1073,14 @@ content:
             type: string
             required: true
           - name: text
-            label: Texto (opcional)
-            type: text
+            label: Texto Markdown (opcional)
+            type: rich-text
             required: false
+            description: "Escribe con formato o cambia a Source para editar el Markdown directamente."
+            options:
+              format: markdown
+              switcher: true
+              media: default
           - name: content_order
             label: Orden dentro de la caja
             type: select
@@ -2510,9 +2525,14 @@ content:
             type: string
             required: true
           - name: text
-            label: Texto (opcional)
-            type: text
+            label: Texto Markdown (opcional)
+            type: rich-text
             required: false
+            description: "Escribe con formato o cambia a Source para editar el Markdown directamente."
+            options:
+              format: markdown
+              switcher: true
+              media: default
           - name: content_order
             label: Orden dentro de la caja
             type: select
