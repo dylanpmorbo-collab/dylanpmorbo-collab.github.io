@@ -143,7 +143,7 @@
               "circuit_difficulty": "ninguno",
               "access_method": "automatico",
               "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven/documentos/041895-10-24instrucciones-privadas-web.webp",
-              "translation_text": "# OFICINA PRIVADA\n*Exclusivamente para correspondencia interna*\n\n## INSTRUCCIONES PRIVADAS\n\n**24 de octubre de 1895**\n\n**Al Sr. Calvin R. Harrow**  \nNashville, Tennessee.\n\nSeñor:\n\nHemos recibido y examinado su memorando del día 15 del presente mes. Las medidas de precaución adoptadas tras el desafortunado incidente de Pittsburg deberán mantenerse vigentes durante el resto de la presente temporada.\n\nEn cuanto a los caballeros que soliciten nuevamente la admisión después de un breve intervalo, no deberá rechazar a ninguna persona cuya presencia haya sido expresamente solicitada por uno de nuestros venerados Huéspedes. En las demás circunstancias, podrá ejercer su habitual discreción.\n\nLos sirvientes deben comprender claramente que su responsabilidad comprende el mantenimiento de la privacidad y el buen orden, pero no les otorga autoridad para retener a un Huésped. Cualquier dificultad derivada de esta distinción deberá comunicarse de forma privada y sin demora.\n\nHa obrado correctamente al mantener la correspondencia relativa a Pittsburg separada de los registros ordinarios de la compañía. Continúe con esta práctica y no permita conversaciones innecesarias sobre el asunto entre el personal del espectáculo.\n\nSe le recuerda que la prosperidad comercial de la empresa, por deseable que sea, permanece subordinada a las obligaciones para cuyo cumplimiento fue establecida.\n\nEstas instrucciones deberán observarse hasta nueva orden.",
+              "translation_text": "# OFICINA PRIVADA\n\n*Exclusivamente para correspondencia interna*\n\n## INSTRUCCIONES PRIVADAS\n\n**24 de octubre de 1895**\n\n**Al Sr. Calvin R. Harrow**  \nNashville, Tennessee.\n\nSeñor:\n\nHemos recibido y examinado su memorando del día 15 del presente mes. Las medidas de precaución adoptadas tras el desafortunado incidente de Pittsburg deberán mantenerse vigentes durante el resto de la presente temporada.\n\nEn cuanto a los caballeros que soliciten nuevamente la admisión después de un breve intervalo, no deberá rechazar a ninguna persona cuya presencia haya sido expresamente solicitada por uno de nuestros venerados Huéspedes. En las demás circunstancias, podrá ejercer su habitual discreción.\n\nLos sirvientes deben comprender claramente que su responsabilidad comprende el mantenimiento de la privacidad y el buen orden, pero no les otorga autoridad para retener a un Huésped. Cualquier dificultad derivada de esta distinción deberá comunicarse de forma privada y sin demora.\n\nHa obrado correctamente al mantener la correspondencia relativa a Pittsburg separada de los registros ordinarios de la compañía. Continúe con esta práctica y no permita conversaciones innecesarias sobre el asunto entre el personal del espectáculo.\n\nSe le recuerda que la prosperidad comercial de la empresa, por deseable que sea, permanece subordinada a las obligaciones para cuyo cumplimiento fue establecida.\n\nEstas instrucciones deberán observarse hasta nueva orden.",
               "image_visibility": "normal",
               "date_time": "1895/10/24",
               "location": "Nashville, Tennessee",
@@ -151,6 +151,16 @@
               "status": "░DIGITALIZADO░"
             }
           ]
+        },
+        {
+          "title": "Professor Blackwell’s Imperial Oriental & Novelty Company",
+          "icon": "/assets/uploads/archivo/ICONOS/icono-pixelado-de-carpeta-y-documentos-web.webp",
+          "order": 2,
+          "circuit_difficulty": "ninguno",
+          "access_method": "automatico",
+          "show_recovery_placeholder": false,
+          "opening_notice_enabled": false,
+          "opening_notice_frequency": "always"
         }
       ]
     }
