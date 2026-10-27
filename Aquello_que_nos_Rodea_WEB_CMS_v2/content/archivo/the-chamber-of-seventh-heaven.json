@@ -59,6 +59,12 @@
       ]
     }
   ],
+  "facts": [
+    {
+      "label": "Soporte documental",
+      "value": "Correspondencia - Documentación - Documentos - Imágenes"
+    }
+  ],
   "show_documents": false,
   "documents": [
     {
