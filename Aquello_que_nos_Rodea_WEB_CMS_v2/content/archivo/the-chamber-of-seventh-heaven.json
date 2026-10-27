@@ -105,7 +105,7 @@
   "show_digital_reports": true,
   "digital_reports": [
     {
-      "title": "DOCUMENTOS CONFIDENCIALES",
+      "title": "DOCUMENTOS DIGITALIZADOS",
       "importance": "vital",
       "label_image": "/assets/uploads/archivo/ETIQUETAS/muestra-clinica-en-laboratorio-geschniegelt-web.webp",
       "circuit_difficulty": "ninguno",
@@ -121,6 +121,7 @@
         {
           "title": "CONFIDENCIAL",
           "icon": "/assets/uploads/archivo/ICONOS/carpeta-confidencial-pixelada-web.webp",
+          "description": "REQUIERE CLAVE DE ACCESO",
           "circuit_difficulty": "dificil",
           "access_method": "codigo",
           "access_code": "Walter Edward Haines",
@@ -136,7 +137,10 @@
               "access_method": "automatico",
               "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven/documentos/carta1y2-web.webp",
               "translation_text": "**COMPAÑÍA IMPERIAL ORIENTAL Y DE NOVEDADES DEL PROFESOR BLACKWELL**  \n*Correspondencia privada — URGENTE*\n\nPittsburg, Pensilvania  \n8 de septiembre de 1895\n\nSeñores:\n\nDebo escribirles de inmediato acerca de un asunto que ha colocado a nuestro establecimiento en una situación sumamente desafortunada.\n\nDesde hace varios días, uno de nuestros Huéspedes ha mostrado un extraordinario apego por un caballero que visitó recientemente los aposentos privados. Pese a todos nuestros esfuerzos, realizados con el debido respeto, no hemos logrado apartar su atención de este Visitante en particular.\n\nDesde entonces hemos descubierto que nuestro Huésped abandonó sus habitaciones durante varias noches consecutivas y buscó al caballero en otros lugares de la ciudad, sin que tuviéramos conocimiento de ello.\n\nAyer por la mañana encontraron al Visitante muerto cerca del río Allegheny, en circunstancias que ya han llamado la atención de las autoridades. Me temo que apenas cabe duda de que estos sucesos están relacionados.\n\nNo me atrevo a consignar todos los detalles por escrito, por si esta correspondencia cayera en manos indebidas.\n\nEl estado del cadáver ha causado gran alarma. Quienes examinaron los restos los describen como antinaturalmente marchitos y secos. Estoy convencido de que las visitas de nuestro Huésped han provocado este terrible desenlace.\n\nLa policía ha comenzado a hacer averiguaciones en las inmediaciones de nuestro recinto. Su atención aún no se ha centrado en los aposentos privados, pero temo que podría hacerlo en cualquier momento.\n\nHe advertido a nuestro personal que no diga nada que exceda lo relativo a la exhibición pública. Nadie aquí se atreve a contener por la fuerza a nuestro Huésped, y nuestras respetuosas súplicas han resultado inútiles.\n\nPor ello, les ruego que envíen a un representante de confianza que pueda indicarnos cómo proceder en este delicado asunto. No soy capaz de determinar qué medidas serían apropiadas ni cómo deberíamos responder a nuevas indagaciones.\n\nNuestra estancia concluye el día 10 del presente mes y tenemos previsto partir la mañana del 11. Les ruego que nos indiquen si debemos proceder según lo previsto.\n\nQuedo de ustedes, señores,  \nsu obediente servidor,\n\n**Calvin R. Harrow**  \nDirector comercial",
-              "image_visibility": "normal"
+              "image_visibility": "normal",
+              "location": "Pittsburg, Pensilvania",
+              "source_device": "Correspondencia privada",
+              "status": "░DIGITALIZADO░"
             }
           ]
         }
