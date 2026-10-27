@@ -123,7 +123,19 @@
     }
   ],
   "show_police_report": false,
-  "show_digital_reports": false,
+  "show_digital_reports": true,
+  "digital_reports": [
+    {
+      "title": "DOCUMENTOS CONFIDENCIALES",
+      "importance": "vital",
+      "circuit_difficulty": "ninguno",
+      "access_method": "automatico",
+      "desktop_background_color": "#16865a",
+      "desktop_wallpaper": "/assets/uploads/archivo/LOGOS/escritorio-plaga-web.webp",
+      "boot_seconds": 1,
+      "boot_flash_enabled": false
+    }
+  ],
   "show_related_archive": false,
   "corkboard": {
     "enabled": false,
