@@ -1711,8 +1711,8 @@ function archiveEntryPage(section,item){
    ${physicalPressMarkup(section,item)}
    ${section.key==='personajes'?'':digitalPressMarkup(section,item)}
    ${archiveDocuments(item)}
-   ${archivePoliceReport(section,item)}
    ${sandboxCards(item)}
+   ${archivePoliceReport(section,item)}
    ${relatedArchiveMarkup(item,itemHref(section,item),title)}
  </section>
  </main>${footer(site)}</body></html>`;
