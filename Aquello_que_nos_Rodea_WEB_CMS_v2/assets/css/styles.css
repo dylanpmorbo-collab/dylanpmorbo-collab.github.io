@@ -807,7 +807,7 @@ DOCUMENTOS NAVEGABLES V8 — TRADUCCIONES + LUPA/ZOOM
 .archive-document-modal-viewport.is-dragging .archive-document-modal-transform{transition:none}
 .archive-document-modal-page-canvas{display:inline-block;width:auto;height:auto;max-width:none}
 .archive-document-modal-page img{display:block;width:auto;height:auto;max-width:min(1180px,calc(100vw - 190px));max-height:calc(96vh - 145px);object-fit:contain;user-select:none;-webkit-user-drag:none;box-shadow:0 18px 48px rgba(0,0,0,.62)}
-.archive-document-modal-translation{cursor:inherit;overflow:auto;padding:clamp(24px,4vw,70px);background:rgba(5,5,4,.82)}
+.archive-document-modal-translation{cursor:auto;overflow:auto;padding:clamp(24px,4vw,70px);background:rgba(5,5,4,.82)}
 .archive-document-modal-translation .archive-document-translation-text{font-size:clamp(18px,1.7vw,27px);line-height:1.5}
 .archive-document-modal-page:has(.archive-document-modal-translation:not([hidden])) img{filter:brightness(.24) sepia(.08) contrast(1.02) saturate(.6)}
 .archive-document-modal-page figcaption{position:absolute;left:50%;bottom:5px;transform:translateX(-50%);margin:0;max-width:65%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}

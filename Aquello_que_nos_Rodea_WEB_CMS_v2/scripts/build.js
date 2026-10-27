@@ -122,7 +122,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=sandbox-markdown-20261027"><link rel="stylesheet" href="assets/css/secret-fichas.css?v=1"><script defer src="assets/js/secret-fichas.js?v=1"></script><script defer src="assets/js/main.js?v=sandbox-ampliacion-20261027"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=documentos-traduccion-rueda-20261027"><link rel="stylesheet" href="assets/css/secret-fichas.css?v=1"><script defer src="assets/js/secret-fichas.js?v=1"></script><script defer src="assets/js/main.js?v=sandbox-ampliacion-20261027"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -1047,7 +1047,7 @@ function archiveDocuments(item){
           const page=pages[modalIndex]; modalImg.src=page.image; modalImg.alt=page.caption || ('Página '+(modalIndex+1));
           modalCaption.textContent=page.caption || ''; modalCounter.textContent=(modalIndex+1)+' / '+pages.length;
           modalPrev.disabled=modalIndex<=0; modalNext.disabled=modalIndex>=pages.length-1;
-          applyTranslation(modal.querySelector('.archive-document-modal-page'),page); syncLanguageButtons();
+          applyTranslation(modal.querySelector('.archive-document-modal-page'),page); modalViewport.setAttribute('aria-label',modalTranslation.hidden?'Página ampliada. Usa la rueda o los botones para acercar.':'Traducción ampliada. Usa la rueda para recorrer el texto; Ctrl más rueda o los botones para acercar.'); syncLanguageButtons();
         }
         function modalGo(delta){ modalIndex=Math.max(0,Math.min(modalIndex+delta,pages.length-1)); resetZoom(); renderModal(); resetTranslationScroll(); }
 
@@ -1060,7 +1060,7 @@ function archiveDocuments(item){
         stage.addEventListener('touchstart',e=>{touchStartX=e.changedTouches[0].clientX;},{passive:true});
         stage.addEventListener('touchend',function(e){ if(touchStartX===null) return; const distance=e.changedTouches[0].clientX-touchStartX; touchStartX=null; if(Math.abs(distance)>=45) go(distance>0?-1:1); },{passive:true});
 
-        modalViewport.addEventListener('wheel',function(e){ e.preventDefault(); setZoom(zoom+(e.deltaY<0?ZOOM_STEP:-ZOOM_STEP),e.clientX,e.clientY); },{passive:false});
+        modalViewport.addEventListener('wheel',function(e){ if(!modalTranslation.hidden && !e.ctrlKey && !e.metaKey) return; e.preventDefault(); setZoom(zoom+(e.deltaY<0?ZOOM_STEP:-ZOOM_STEP),e.clientX,e.clientY); },{passive:false});
         modalViewport.addEventListener('dblclick',function(e){ e.preventDefault(); if(zoom>1.05) resetZoom(); else setZoom(2,e.clientX,e.clientY); });
         modalViewport.addEventListener('pointerdown',function(e){ if(zoom<=1) return; dragging=true; modalViewport.setPointerCapture(e.pointerId); dragStartX=e.clientX; dragStartY=e.clientY; dragOriginX=panX; dragOriginY=panY; modalViewport.classList.add('is-dragging'); });
         modalViewport.addEventListener('pointermove',function(e){ if(!dragging) return; panX=dragOriginX+(e.clientX-dragStartX); panY=dragOriginY+(e.clientY-dragStartY); setZoom(zoom); });
