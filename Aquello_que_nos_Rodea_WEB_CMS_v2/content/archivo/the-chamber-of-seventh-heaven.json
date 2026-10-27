@@ -133,7 +133,29 @@
       "desktop_background_color": "#570B14",
       "desktop_wallpaper": "/assets/uploads/archivo/LOGOS/escritorio-plaga-web.webp",
       "boot_seconds": 1,
-      "boot_flash_enabled": false
+      "boot_flash_enabled": false,
+      "folders": [
+        {
+          "title": "CORRESPONDENCIA ⚿",
+          "circuit_difficulty": "ninguno",
+          "access_method": "automatico",
+          "show_recovery_placeholder": false,
+          "opening_notice_enabled": false,
+          "opening_notice_frequency": "always",
+          "files": [
+            {
+              "title": "carta",
+              "notify_new": true,
+              "kind": "IMAGEN",
+              "circuit_difficulty": "ninguno",
+              "access_method": "automatico",
+              "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven/documentos/011895-09-08pittsburgcarta-urgentepagina-11-web.webp",
+              "image_visibility": "normal",
+              "notes": "8 de septiembre de 1895 · Pittsburg, PensilvaniaCOMPAÑÍA IMPERIAL ORIENTAL Y DE NOVEDADES DEL PROFESOR BLACKWELLCorrespondencia privadaURGENTEPittsburg, Pensilvania\n8 de septiembre de 1895Señores:Debo escribirles de inmediato acerca de un asunto que ha colocado a nuestro establecimiento en una situación sumamente desafortunada.Desde hace varios días, uno de nuestros Huéspedes ha mostrado un apego extraordinario hacia un caballero que visitó recientemente los aposentos privados.A pesar de todos nuestros respetuosos esfuerzos, no hemos conseguido desviar Su atención de este Visitante en particular.Posteriormente hemos descubierto que nuestro Huésped abandonó Sus aposentos durante varias noches consecutivas y buscó al caballero en otros lugares de la ciudad, sin que tuviéramos conocimiento alguno de ello.Ayer por la mañana, el Visitante fue encontrado muerto cerca del río Allegheny, en circunstancias que ya han atraído la atención de las autoridades.Me temo que existen pocas dudas de que estos acontecimientos están relacionados.No me atrevo a consignar por escrito todos los detalles, por temor a que esta correspondencia caiga en manos indebidas."
+            }
+          ]
+        }
+      ]
     }
   ],
   "show_related_archive": false,
