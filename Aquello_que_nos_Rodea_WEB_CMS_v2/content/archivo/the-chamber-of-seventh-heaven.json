@@ -7,6 +7,26 @@
   "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven/documentos/cartel-victoriano-de-espectaculos-orientales-web.webp",
   "hero_image_frame": true,
   "status": "Documentado",
+  "sandbox": [
+    {
+      "title": "PLANOS CASETA",
+      "content_order": "MEDIOS_PRIMERO",
+      "media": [
+        {
+          "kind": "image",
+          "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven/documentos/blackwell1895planonumeracioncorregida-web.webp"
+        },
+        {
+          "kind": "image",
+          "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven/documentos/planos-de-construccion-del-septimo-cielo-web.webp"
+        },
+        {
+          "kind": "image",
+          "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven/documentos/grabado-tecnico-victoriano-de-un-compartimento-de-madera-web.webp"
+        }
+      ]
+    }
+  ],
   "show_documents": true,
   "documents": [
     {
