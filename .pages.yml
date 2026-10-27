@@ -1320,6 +1320,11 @@ content:
                       media: default
                       switcher: true
                     description: "Escribe la traducción con títulos, párrafos, listas y otros formatos Markdown. Puedes alternar entre Editor y Source."
+      - name: reports_heading
+        label: Título de la sección de informes físicos
+        type: string
+        required: false
+        description: "Si queda vacío, se muestra INFORMES. Solo aparece cuando hay informes físicos."
       - name: show_police_report
         label: Mostrar informes
         type: boolean
@@ -1549,6 +1554,11 @@ content:
                 type: string
                 required: false
                 description: "Si lo dejas vacío, se mostrará FOTOGRAFÍA 06."
+      - name: digital_reports_heading
+        label: Título de la sección de informes digitales
+        type: string
+        required: false
+        description: "Si queda vacío, se muestra INFORMES DIGITALES."
       - name: show_digital_reports
         label: Mostrar informes digitales
         type: boolean
@@ -1637,6 +1647,29 @@ content:
             label: Referencia o nota breve
             type: string
             required: false
+          - name: interface_color
+            label: Color base del arranque y las franjas (#RRGGBB)
+            type: string
+            required: false
+            description: "Admite cualquier color hexadecimal, por ejemplo #6abe7b. Si queda vacío, conserva el verde actual. No cambia las barras azules."
+            pattern:
+              regex: "^#[0-9A-Fa-f]{6}$"
+              message: "Escribe un color como #6abe7b."
+          - name: desktop_top_label
+            label: Texto izquierdo de la franja superior
+            type: string
+            required: false
+            description: "Por defecto: ARCHIVO DIGITAL. Se añade automáticamente el número del informe."
+          - name: desktop_right_label
+            label: Texto derecho de la franja superior
+            type: string
+            required: false
+            description: "Por defecto: la Referencia o nota breve; si queda vacía, DUB.SAR."
+          - name: desktop_bottom_label
+            label: Texto de la franja inferior
+            type: string
+            required: false
+            description: "Por defecto: número de carpetas // SELECCIONE UNA UNIDAD. Puedes usar {count} y {carpetas} para incluir el número y CARPETA/CARPETAS."
           - name: desktop_background_color
             label: Color de fondo del escritorio (#RRGGBB)
             type: string
@@ -1659,6 +1692,11 @@ content:
             default: 1
             required: false
             description: "Si no cambias nada, dura 1 segundo. El visitante puede pulsar SALTAR."
+          - name: boot_standard_messages
+            label: Textos del arranque (uno por línea)
+            type: text
+            required: false
+            description: "Si queda vacío, conserva DUB.SAR BIOS 16-BIT y los demás mensajes actuales. Si lo rellenas, escribe todos los mensajes que quieras mostrar, uno por línea."
           - name: boot_messages
             label: Mensajes ocultos durante la carga
             type: text
@@ -1883,6 +1921,15 @@ content:
                     options:
                       media: default
                     description: "Si no ocultas la imagen, se muestra directamente. Para el falso pixelado, aquí puedes subir incluso una imagen de error."
+                  - name: translation_text
+                    label: Traducción sobre la imagen (Markdown)
+                    type: rich-text
+                    required: false
+                    options:
+                      format: markdown
+                      media: default
+                      switcher: true
+                    description: "Solo para imágenes. Activa un botón TRADUCCIÓN y muestra el texto encima de la imagen, con desplazamiento independiente."
                   - name: image_visibility
                     label: Cómo mostrar la imagen
                     type: select
@@ -2980,6 +3027,11 @@ content:
                       media: default
                       switcher: true
                     description: "Escribe la traducción con títulos, párrafos, listas y otros formatos Markdown. Puedes alternar entre Editor y Source."
+      - name: reports_heading
+        label: Título de la sección de informes físicos
+        type: string
+        required: false
+        description: "Si queda vacío, se muestra INFORMES. Solo aparece cuando hay informes físicos."
       - name: show_police_report
         label: Mostrar informes
         type: boolean
@@ -3202,6 +3254,11 @@ content:
                 type: string
                 required: false
                 description: "Si lo dejas vacío, se mostrará FOTOGRAFÍA 06."
+      - name: digital_reports_heading
+        label: Título de la sección de informes digitales
+        type: string
+        required: false
+        description: "Si queda vacío, se muestra INFORMES DIGITALES."
       - name: show_digital_reports
         label: Mostrar informes digitales
         type: boolean
@@ -3290,6 +3347,29 @@ content:
             type: string
             required: false
             description: "Solo para Introducir código. Se muestra bajo el título de la ventana. Si lo dejas vacío, aparece el texto habitual sobre las pistas."
+          - name: interface_color
+            label: Color base del arranque y las franjas (#RRGGBB)
+            type: string
+            required: false
+            description: "Admite cualquier color hexadecimal, por ejemplo #6abe7b. Si queda vacío, conserva el verde actual. No cambia las barras azules."
+            pattern:
+              regex: "^#[0-9A-Fa-f]{6}$"
+              message: "Escribe un color como #6abe7b."
+          - name: desktop_top_label
+            label: Texto izquierdo de la franja superior
+            type: string
+            required: false
+            description: "Por defecto: ARCHIVO DIGITAL. Se añade automáticamente el número del informe."
+          - name: desktop_right_label
+            label: Texto derecho de la franja superior
+            type: string
+            required: false
+            description: "Por defecto: la Referencia o nota breve; si queda vacía, DUB.SAR."
+          - name: desktop_bottom_label
+            label: Texto de la franja inferior
+            type: string
+            required: false
+            description: "Por defecto: número de carpetas // SELECCIONE UNA UNIDAD. Puedes usar {count} y {carpetas} para incluir el número y CARPETA/CARPETAS."
           - name: desktop_background_color
             label: Color de fondo del escritorio (#RRGGBB)
             type: string
@@ -3312,6 +3392,11 @@ content:
             default: 1
             required: false
             description: "Si no cambias nada, dura 1 segundo. El visitante puede pulsar SALTAR."
+          - name: boot_standard_messages
+            label: Textos del arranque (uno por línea)
+            type: text
+            required: false
+            description: "Si queda vacío, conserva DUB.SAR BIOS 16-BIT y los demás mensajes actuales. Si lo rellenas, escribe todos los mensajes que quieras mostrar, uno por línea."
           - name: boot_messages
             label: Mensajes ocultos durante la carga
             type: text
@@ -3536,6 +3621,15 @@ content:
                     options:
                       media: default
                     description: "Si no ocultas la imagen, se muestra directamente. Para el falso pixelado, aquí puedes subir incluso una imagen de error."
+                  - name: translation_text
+                    label: Traducción sobre la imagen (Markdown)
+                    type: rich-text
+                    required: false
+                    options:
+                      format: markdown
+                      media: default
+                      switcher: true
+                    description: "Solo para imágenes. Activa un botón TRADUCCIÓN y muestra el texto encima de la imagen, con desplazamiento independiente."
                   - name: image_visibility
                     label: Cómo mostrar la imagen
                     type: select

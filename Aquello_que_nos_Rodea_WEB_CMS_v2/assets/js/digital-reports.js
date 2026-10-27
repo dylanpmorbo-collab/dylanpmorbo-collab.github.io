@@ -35,7 +35,9 @@
       const emblem=boot.querySelector('[data-retro-boot-emblem]');
       const flash=boot.querySelector('[data-retro-boot-flash]');
       const custom=Array.from(boot.querySelectorAll('[data-retro-boot-line]'),line=>line.textContent);
-      const lines=['DUB.SAR BIOS 16-BIT // ARCHIVO DIGITAL','COMPROBANDO MEMORIA .......... OK','LEYENDO UNIDAD MMC ........... OK',...custom,'MONTANDO DIRECTORIOS ......... OK','ACCESO AUTORIZADO'];
+      const editedStandard=Array.from(boot.querySelectorAll('[data-retro-boot-standard-line]'),line=>line.textContent);
+      const standard=editedStandard.length?editedStandard:['DUB.SAR BIOS 16-BIT // ARCHIVO DIGITAL','COMPROBANDO MEMORIA .......... OK','LEYENDO UNIDAD MMC ........... OK','MONTANDO DIRECTORIOS ......... OK','ACCESO AUTORIZADO'];
+      const lines=[...standard.slice(0,3),...custom,...standard.slice(3)];
       const began=performance.now();
       let shown=0;
       const tick=()=>{
@@ -317,7 +319,16 @@
         wrap.classList.remove('is-concealed','is-pixelated');
         wrap.querySelector('canvas')?.remove();
         wrap.querySelector('.retro-image-warning')?.remove();
-        fileWindow().querySelectorAll('[data-retro-zoom],[data-retro-annotated]').forEach(control=>control.hidden=false);
+        fileWindow().querySelectorAll('[data-retro-zoom],[data-retro-annotated],[data-retro-translate]').forEach(control=>control.hidden=false);
+      }
+      else if(button.hasAttribute('data-retro-translate')){
+        const detail=button.closest('.retro-file-detail');
+        const overlay=detail?.querySelector('[data-retro-translation-overlay]');
+        if(!overlay)return;
+        overlay.hidden=!overlay.hidden;
+        if(!overlay.hidden)overlay.scrollTop=0;
+        button.setAttribute('aria-pressed',String(!overlay.hidden));
+        button.textContent=overlay.hidden?'TRADUCCIÓN':'VER ORIGINAL';
       }
       else if(button.hasAttribute('data-retro-zoom')){
         expandImage(button);

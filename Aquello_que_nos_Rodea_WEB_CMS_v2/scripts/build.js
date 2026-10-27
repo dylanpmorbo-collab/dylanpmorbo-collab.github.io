@@ -122,7 +122,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=sandbox-altura-independiente-20261027"><link rel="stylesheet" href="assets/css/secret-fichas.css?v=1"><script defer src="assets/js/secret-fichas.js?v=1"></script><script defer src="assets/js/main.js?v=sandbox-ampliacion-20261027"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=interfaz-traducciones-20261027"><link rel="stylesheet" href="assets/css/secret-fichas.css?v=1"><script defer src="assets/js/secret-fichas.js?v=1"></script><script defer src="assets/js/main.js?v=sandbox-ampliacion-20261027"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -1204,6 +1204,7 @@ function archiveDigitalReports(section,item){
  const reports=(Array.isArray(item.digital_reports)?item.digital_reports:[])
    .filter(report=>report && (report.title || report.folders?.length)).slice(0,30);
  if(!reports.length) return {count:0,html:''};
+ const digitalHeading=String(item.digital_reports_heading||'INFORMES DIGITALES').trim()||'INFORMES DIGITALES';
  const cards=reports.map((report,index)=>{
    const title=String(report.title||('INFORME DIGITAL '+String(index+1).padStart(2,'0')));
    const importance=reportImportance(report.importance);
@@ -1216,11 +1217,19 @@ function archiveDigitalReports(section,item){
  const templates=reports.map((report,index)=>{
    const bootDuration=Math.min(5,Math.max(1,Math.round(Number(report.boot_seconds)||1)));
    const bootMessages=String(report.boot_messages||'').split(/\r?\n/).map(line=>line.trim()).filter(Boolean).slice(0,12);
+   const standardBootMessages=String(report.boot_standard_messages||'').split(/\r?\n/).map(line=>line.trim()).filter(Boolean).slice(0,12);
    const bootFlash=report.boot_flash_enabled===true && Boolean(report.boot_flash_image);
    const desktopColor=String(report.desktop_background_color||'').trim();
-   const desktopColorStyle=/^#[0-9a-fA-F]{6}$/.test(desktopColor)?' style="background-color:'+desktopColor+'"':'';
+   const interfaceColor=/^#[0-9a-fA-F]{6}$/.test(String(report.interface_color||'').trim())?String(report.interface_color).trim():'#6abe7b';
+   const bootStyle=' style="--retro-accent:'+interfaceColor+'"';
+   const desktopColorStyle=' style="--retro-accent:'+interfaceColor+';'+(/^#[0-9a-fA-F]{6}$/.test(desktopColor)?'background-color:'+desktopColor+';':'')+'"';
    const desktopWallpaper=String(report.desktop_wallpaper||'').trim();
    const folders=orderedDigitalItems(report.folders).filter(folder=>folder.title || folder.files?.length).slice(0,40);
+   const folderCount=folders.length;
+   const folderWord=folderCount===1?'CARPETA':'CARPETAS';
+   const topLabel=String(report.desktop_top_label||'ARCHIVO DIGITAL').trim()||'ARCHIVO DIGITAL';
+   const rightLabel=String(report.desktop_right_label||report.summary||'DUB.SAR').trim()||'DUB.SAR';
+   const bottomLabel=String(report.desktop_bottom_label||'').trim().replace(/\{count\}/gi,String(folderCount)).replace(/\{carpetas\}/gi,folderWord)||folderCount+' '+folderWord+' // SELECCIONE UNA UNIDAD';
    const folderButtons=folders.map((folder,folderIndex)=>{
      const name=String(folder.title||('CARPETA '+String(folderIndex+1).padStart(2,'0')));
      return '<button type="button" class="retro-folder-icon" data-retro-folder="'+folderIndex+'"'+accessAttributes(folder,'carpeta',index+':'+folderIndex+':'+String(report.title||'')+' / '+name,folder.icon)+' aria-label="Abrir carpeta '+esc(name)+'">'+
@@ -1292,18 +1301,19 @@ function archiveDigitalReports(section,item){
            : '<div class="retro-image-scroll"><img src="'+esc(attachment.image)+'" alt="'+esc(label)+'"></div>';
          return '<template data-retro-attachment-template="'+attachmentIndex+'" data-retro-attachment-kind="'+(attachment.video?'video':'image')+'">'+content+'</template>';
        }).join('');
+       const translatedText=!isText&&!isVideo?String(file.translation_text||'').trim():'';
        const details=[
-         ['TIPO',isText?'Texto':isVideo?'Vídeo':'Imagen'],['FECHA Y HORA',file.date_time],['LUGAR',file.location],
+         ['FECHA Y HORA',file.date_time],['LUGAR',file.location],
          ['DISPOSITIVO',file.source_device],['ANÁLISIS',file.analysis_type],['ESTADO',file.status]
        ].filter(([,value])=>value).map(([label,value])=>'<div><dt>'+label+'</dt><dd>'+esc(value)+'</dd></div>').join('');
        const media=isText
          ? '<article class="retro-text-document">'+(file.body?markdownToHTML(file.body):'<p>Este documento todavía no contiene texto.</p>')+'</article>'
          : isVideo
            ? '<video controls playsinline preload="metadata"'+(file.poster?' poster="'+esc(file.poster)+'"':'')+' aria-label="'+esc(title)+'"><source src="'+esc(file.video)+'">Tu navegador no puede reproducir este vídeo.</video>'
-           : '<div class="retro-image-scroll'+(concealMode==='normal'?'':' is-concealed')+'" data-retro-image-wrap data-conceal-mode="'+concealMode+'"><img src="'+esc(initialImage)+'" alt="'+esc(title)+'" data-retro-image data-original="'+esc(image)+'"'+(file.image&&file.annotated_image&&file.image!==file.annotated_image?' data-annotated="'+esc(file.annotated_image)+'"':'')+'>'+(concealMode!=='normal'?'<div class="retro-image-warning">'+(globalRule?'':'<p>Esta imagen puede resultar ofensiva o contener contenido sexual explícito.</p>')+'<button type="button" data-retro-reveal>'+(globalRule?'MOSTRAR':'DESBLOQUEAR IMAGEN')+'</button></div>':'')+'</div>';
+           : '<div class="retro-image-scroll'+(concealMode==='normal'?'':' is-concealed')+'" data-retro-image-wrap data-conceal-mode="'+concealMode+'"><img src="'+esc(initialImage)+'" alt="'+esc(title)+'" data-retro-image data-original="'+esc(image)+'"'+(file.image&&file.annotated_image&&file.image!==file.annotated_image?' data-annotated="'+esc(file.annotated_image)+'"':'')+'>'+(concealMode!=='normal'?'<div class="retro-image-warning">'+(globalRule?'':'<p>Esta imagen puede resultar ofensiva o contener contenido sexual explícito.</p>')+'<button type="button" data-retro-reveal>'+(globalRule?'MOSTRAR':'DESBLOQUEAR IMAGEN')+'</button></div>':'')+(translatedText?'<div class="retro-file-translation" data-retro-translation-overlay hidden><div class="retro-file-translation-heading">TRADUCCIÓN</div><div class="retro-file-translation-body">'+markdownToHTML(translatedText)+'</div></div>':'')+'</div>'; 
        return '<template data-retro-file-template="'+folderIndex+':'+fileIndex+'"><div class="retro-file-detail'+(isText?' is-text-document':'')+'">'+
          '<div class="retro-file-media-column"><div class="retro-file-media'+(isText?' is-text-document':'')+(isChatScreenshot?' is-chat-screenshot':'')+'">'+media+'</div>'+
-         (!isVideo&&!isText?'<div class="retro-file-tools retro-file-media-tools" data-retro-primary-tools><button type="button" data-retro-zoom'+(concealMode!=='normal'?' hidden':'')+'>AMPLIAR</button></div>':'')+
+         (!isVideo&&!isText?'<div class="retro-file-tools retro-file-media-tools" data-retro-primary-tools><button type="button" data-retro-zoom'+(concealMode!=='normal'?' hidden':'')+'>AMPLIAR</button>'+(translatedText?'<button type="button" data-retro-translate aria-pressed="false"'+(concealMode!=='normal'?' hidden':'')+'>TRADUCCIÓN</button>':'')+'</div>':'')+
          (attachments.length?'<div class="retro-file-tools retro-file-media-tools"><button type="button" data-retro-attachment-zoom data-retro-zoom hidden>AMPLIAR IMAGEN</button></div>':'')+
          '</div><aside class="retro-file-info">'+
          (file.masthead_image?'<img class="retro-file-masthead" src="'+esc(file.masthead_image)+'" alt="Membrete del archivo" loading="lazy">':'')+'<h3>'+esc(title)+'</h3>'+
@@ -1315,25 +1325,25 @@ function archiveDigitalReports(section,item){
          '</aside>'+attachmentTemplates+'</div></template>';
      })
    ).join('');
-   return '<template data-digital-report-template="'+index+'"><div class="retro-boot" data-retro-boot data-boot-duration="'+bootDuration+'" role="status" aria-label="Iniciando archivo digital">'+
+   return '<template data-digital-report-template="'+index+'"><div class="retro-boot" data-retro-boot data-boot-duration="'+bootDuration+'"'+bootStyle+' role="status" aria-label="Iniciando archivo digital">'+
      '<div class="retro-boot-emblem" data-retro-boot-emblem><img src="assets/img/sello-archivistas.png" alt="Emblema de los Archivistas"></div>'+
      '<div class="retro-boot-log" data-retro-boot-log aria-live="off"></div><div class="retro-boot-progress"><span data-retro-boot-bar></span></div><div class="retro-boot-percent" data-retro-boot-percent>0%</div>'+
      '<button type="button" class="retro-boot-skip" data-retro-boot-skip>SALTAR →</button>'+
      '<div class="retro-boot-flash" data-retro-boot-flash hidden>'+(bootFlash?'<img src="'+esc(report.boot_flash_image)+'" alt="">':'')+'</div>'+
-     '<div hidden>'+bootMessages.map(line=>'<span data-retro-boot-line>'+esc(line)+'</span>').join('')+'</div></div><div class="retro-desktop" data-retro-desktop hidden'+desktopColorStyle+'>'+
+     '<div hidden>'+standardBootMessages.map(line=>'<span data-retro-boot-standard-line>'+esc(line)+'</span>').join('')+bootMessages.map(line=>'<span data-retro-boot-line>'+esc(line)+'</span>').join('')+'</div></div><div class="retro-desktop" data-retro-desktop hidden'+desktopColorStyle+'>'+
      (desktopWallpaper?'<img class="retro-desktop-wallpaper" src="'+esc(desktopWallpaper)+'" alt="" aria-hidden="true">':'<img class="retro-desktop-mark" src="assets/img/sello-archivistas.png" alt="" aria-hidden="true" loading="lazy">')+
-     '<div class="retro-desktop-header"><span>ARCHIVO DIGITAL // '+String(index+1).padStart(2,'0')+'</span><span>'+esc(report.summary||'DUB.SAR')+'</span></div>'+
+     '<div class="retro-desktop-header"><span>'+esc(topLabel)+' // '+String(index+1).padStart(2,'0')+'</span><span>'+esc(rightLabel)+'</span></div>'+
      '<div class="retro-desktop-icons">'+folderButtons+'</div>'+
-     '<div class="retro-desktop-status">'+folders.length+' CARPETA'+(folders.length===1?'':'S')+' // SELECCIONE UNA UNIDAD</div>'+
+     '<div class="retro-desktop-status">'+esc(bottomLabel)+'</div>'+
      folderNotices+folderTemplates+fileTemplates+
      '<section class="retro-window retro-folder-window" data-retro-folder-window hidden aria-label="Contenido de carpeta"><header class="retro-window-titlebar"><strong data-retro-folder-title>CARPETA</strong><button type="button" data-retro-folder-close aria-label="Cerrar carpeta">✕</button></header><div class="retro-window-content" data-retro-folder-content></div></section>'+
      '<section class="retro-window retro-file-window" data-retro-file-window hidden aria-label="Archivo recuperado"><header class="retro-window-titlebar"><strong data-retro-file-title>ARCHIVO</strong><span class="retro-file-nav"><button type="button" data-retro-file-prev aria-label="Archivo anterior" title="Archivo anterior">←</button><button type="button" data-retro-file-next aria-label="Archivo siguiente" title="Archivo siguiente">→</button><button type="button" data-retro-file-close aria-label="Volver a la carpeta">✕</button></span></header><div class="retro-window-content" data-retro-file-content></div></section>'+
      '</div></template>';
  }).join('');
-   return {count:reports.length,html:'<div class="archive-digital-report-group" id="informes-digitales"><div class="archive-report-subheading">INFORMES DIGITALES // '+String(reports.length).padStart(2,'0')+'</div>'+
+   return {count:reports.length,html:'<div class="archive-digital-report-group" id="informes-digitales"><div class="archive-report-subheading">'+esc(digitalHeading)+' // '+String(reports.length).padStart(2,'0')+'</div>'+
    '<div class="archive-police-folder-grid archive-mmc-grid">'+cards+'</div>'+templates+
    '<dialog class="archive-digital-dialog" aria-label="Escritorio de informe digital"><div class="archive-digital-dialog-shell"><header class="archive-digital-dialog-header"><span data-digital-dialog-title>INFORME DIGITAL</span><button type="button" data-digital-close aria-label="Cerrar escritorio">✕</button></header><div data-digital-workspace></div></div></dialog></div>'+
-   '<script defer src="assets/js/circuit-puzzle.js?v=20261012b"></script><script defer src="assets/js/archive-access.js?v=20261019a"></script><script defer src="assets/js/digital-reports.js?v=20261019a"></script>'};
+   '<script defer src="assets/js/circuit-puzzle.js?v=20261012b"></script><script defer src="assets/js/archive-access.js?v=20261019a"></script><script defer src="assets/js/digital-reports.js?v=interfaz-traducciones-20261027"></script>'};
 }
 function archivePoliceReport(section,item){return archivePoliceReportV2(section,item);}
 
@@ -1519,7 +1529,8 @@ function archivePoliceReportV2(section,item){
    '<dialog class="archive-police-dialog" aria-labelledby="archive-police-dialog-title"><div class="archive-police-dialog-shell"><header class="archive-police-dialog-header"><div><small id="archive-police-dialog-type">EXPEDIENTE</small><h2 id="archive-police-dialog-title"></h2></div><button type="button" data-police-close aria-label="Cerrar expediente">✕</button></header><div class="archive-police-dialog-scroll"><div data-police-pages></div></div><footer class="archive-police-dialog-footer"><small class="archive-police-viewer-note">Obra de ficción · no es un documento oficial</small><button type="button" data-police-prev>← ANTERIOR</button><button type="button" data-police-index-button hidden>ÍNDICE</button><span data-police-counter></span><button type="button" data-police-next>SIGUIENTE →</button></footer></div></dialog>'+
    '<dialog class="archive-police-image-dialog" aria-label="Imagen adjunta ampliada"><button type="button" data-police-image-close aria-label="Cerrar imagen ampliada">✕</button><button type="button" class="archive-police-image-nav" data-police-image-prev aria-label="Imagen anterior">‹</button><img data-police-image-large alt=""><button type="button" class="archive-police-image-nav" data-police-image-next aria-label="Imagen siguiente">›</button><span class="archive-police-image-counter" data-police-image-counter aria-live="polite"></span></dialog>'+
    '<script defer src="assets/js/physical-reports.js?v=folio-elastico-20261017"></script>':'';
- return '<section class="archive-police-report-block" aria-label="Informes"><div class="section-label">INFORMES // '+String(reports.length+digital.count).padStart(2,'0')+'</div>'+physical+digital.html+'</section>';
+ const reportsHeading=String(item.reports_heading||'INFORMES').trim()||'INFORMES';
+ return '<section class="archive-police-report-block" aria-label="Informes">'+(reports.length?'<div class="section-label">'+esc(reportsHeading)+' // '+String(reports.length+digital.count).padStart(2,'0')+'</div>':'')+physical+digital.html+'</section>'; 
 }
 
 function archiveInformationBlocks(item){

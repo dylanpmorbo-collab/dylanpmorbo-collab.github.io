@@ -1689,3 +1689,31 @@ body.archive-digital-dialog-open{overflow:hidden}
 .archive-document-translation-text table{width:100%;border-collapse:collapse;margin:0 0 .8em;font-size:.9em}
 .archive-document-translation-text th,.archive-document-translation-text td{padding:.3em .45em;border:1px solid rgba(208,170,88,.35);vertical-align:top}
 .archive-document-translation-text img{display:block;max-width:100%;height:auto;margin:.6em auto}
+
+/* Paleta configurable de cada informe digital; la barra azul de ventanas se conserva. */
+.retro-boot{background:color-mix(in srgb,var(--retro-accent,#6abe7b) 11%,#000);color:color-mix(in srgb,var(--retro-accent,#6abe7b) 43%,#fff)}
+.retro-boot-emblem{border-color:color-mix(in srgb,var(--retro-accent,#6abe7b) 73%,#000);background:color-mix(in srgb,var(--retro-accent,#6abe7b) 7%,#000);box-shadow:inset 0 0 0 4px color-mix(in srgb,var(--retro-accent,#6abe7b) 19%,#000),0 0 18px color-mix(in srgb,var(--retro-accent,#6abe7b) 40%,transparent)}
+.retro-boot-emblem img{filter:grayscale(1);opacity:.85}
+.retro-boot-log{border-color:color-mix(in srgb,var(--retro-accent,#6abe7b) 55%,#000);background:color-mix(in srgb,var(--retro-accent,#6abe7b) 4%,#000);box-shadow:inset 0 0 25px color-mix(in srgb,var(--retro-accent,#6abe7b) 22%,transparent);color:color-mix(in srgb,var(--retro-accent,#6abe7b) 48%,#fff)}
+.retro-boot-progress{border-color:color-mix(in srgb,var(--retro-accent,#6abe7b) 65%,#000);background:color-mix(in srgb,var(--retro-accent,#6abe7b) 8%,#000)}
+.retro-boot-progress span{background:repeating-linear-gradient(90deg,color-mix(in srgb,var(--retro-accent,#6abe7b) 82%,#fff) 0 8px,color-mix(in srgb,var(--retro-accent,#6abe7b) 53%,#000) 8px 10px)}
+.retro-boot-skip:focus-visible{outline-color:var(--retro-accent,#6abe7b)}
+.retro-boot-flash{background:color-mix(in srgb,var(--retro-accent,#6abe7b) 2%,#000)}
+.retro-desktop-header,.retro-desktop-status{background:color-mix(in srgb,var(--retro-accent,#6abe7b) 27%,#000);color:color-mix(in srgb,var(--retro-accent,#6abe7b) 32%,#fff)}
+/* La traducción ocupa la superficie de la imagen y tiene su propio desplazamiento. */
+.retro-image-scroll{position:relative}
+.retro-file-translation{position:absolute;inset:0;z-index:2;overflow:auto;padding:clamp(16px,2.5vw,28px);background:rgba(247,244,230,.97);color:#1d1a16;text-align:left;overscroll-behavior:contain}
+.retro-file-translation[hidden]{display:none!important}
+.retro-file-translation-heading{margin:0 0 1em;padding-bottom:.5em;border-bottom:1px solid #a79a80;color:#5a4633;font:700 11px/1.3 "Courier New",monospace;letter-spacing:.12em}
+.retro-file-translation-body{max-width:70ch;margin:0 auto;font:clamp(14px,1.3vw,18px)/1.55 Georgia,"Times New Roman",serif;overflow-wrap:anywhere}
+.retro-file-translation-body>:first-child{margin-top:0}
+.retro-file-translation-body>:last-child{margin-bottom:0}
+.retro-file-translation-body p,.retro-file-translation-body ul,.retro-file-translation-body ol,.retro-file-translation-body blockquote{margin:0 0 1em}
+.retro-file-translation-body ul,.retro-file-translation-body ol{padding-left:1.45em}
+.retro-file-translation-body h1,.retro-file-translation-body h2,.retro-file-translation-body h3{margin:1.1em 0 .45em;color:#292018;line-height:1.2}
+.retro-file-translation-body h1{font-size:1.5em}.retro-file-translation-body h2{font-size:1.3em}.retro-file-translation-body h3{font-size:1.12em}
+.retro-file-translation-body blockquote{padding-left:1em;border-left:3px solid #a49578;font-style:italic}
+.retro-file-translation-body a{color:#173e88;text-decoration:underline}
+.retro-file-translation-body table{width:100%;border-collapse:collapse;margin:1em 0;font-size:.9em}
+.retro-file-translation-body th,.retro-file-translation-body td{padding:.4em .5em;border:1px solid #bfb49e;vertical-align:top}
+.retro-file-translation-body img{display:block;max-width:100%;height:auto;margin:1em auto}
