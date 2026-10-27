@@ -158,7 +158,7 @@
           "icon": "/assets/uploads/archivo/ICONOS/icono-de-carpeta-de-pergamino-pixelado.png",
           "circuit_difficulty": "ninguno",
           "access_method": "automatico",
-          "show_recovery_placeholder": true,
+          "show_recovery_placeholder": false,
           "opening_notice_enabled": false,
           "opening_notice_frequency": "always"
         },
@@ -167,7 +167,7 @@
           "icon": "/assets/uploads/archivo/ICONOS/icono-pixelado-de-carpeta-y-documentos-web.webp",
           "circuit_difficulty": "ninguno",
           "access_method": "automatico",
-          "show_recovery_placeholder": true,
+          "show_recovery_placeholder": false,
           "opening_notice_enabled": false,
           "opening_notice_frequency": "always"
         }
