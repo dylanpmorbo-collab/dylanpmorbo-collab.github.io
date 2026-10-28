@@ -182,6 +182,17 @@
       window.hidden=false;
       window.querySelector('[data-retro-folder-close]').focus();
     }
+    function syncTranslationHeight(detail,resetScroll=false){
+      const wrap=detail?.querySelector('[data-retro-image-wrap].has-translation');
+      const sheet=wrap?.querySelector('.retro-image-sheet');
+      const overlay=sheet?.querySelector('[data-retro-translation-overlay]');
+      if(!sheet || !overlay)return;
+      sheet.style.minHeight='';
+      if(overlay.hidden)return;
+      const image=sheet.querySelector('[data-retro-image]');
+      sheet.style.minHeight=Math.ceil(Math.max(image?.getBoundingClientRect().height||0,overlay.scrollHeight))+'px';
+      if(resetScroll)wrap.scrollTop=0;
+    }
     function openFile(button){
       if(requiresAccess(button,()=>openFile(button)))return;
       const surface=desktop();
@@ -326,7 +337,7 @@
         const overlay=detail?.querySelector('[data-retro-translation-overlay]');
         if(!overlay)return;
         overlay.hidden=!overlay.hidden;
-        if(!overlay.hidden)overlay.scrollTop=0;
+        syncTranslationHeight(detail,!overlay.hidden);
         button.setAttribute('aria-pressed',String(!overlay.hidden));
         button.textContent=overlay.hidden?'TRADUCCIÓN':'VER ORIGINAL';
       }
@@ -339,6 +350,13 @@
         image.src=marked?image.dataset.original:image.dataset.annotated;
         button.textContent=marked?'VER MARCAS':'VER ORIGINAL';
       }
+    });
+    workspace.addEventListener('load',event=>{
+      if(event.target.closest?.('[data-retro-image-wrap].has-translation'))syncTranslationHeight(event.target.closest('.retro-file-detail'));
+    },true);
+    window.addEventListener('resize',()=>{
+      const open=fileWindow();
+      if(open && !open.hidden)syncTranslationHeight(open.querySelector('.retro-file-detail'));
     });
     workspace.addEventListener('keydown',event=>{
       const notice=workspace.querySelector('[data-folder-notice-overlay]');
