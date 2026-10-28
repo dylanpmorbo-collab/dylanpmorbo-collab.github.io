@@ -66,7 +66,7 @@
       if(button.dataset.accessType && window.ArchiveAccess){
         const key=location.pathname+'|'+button.dataset.accessKey+'|'+button.dataset.accessType+'|'+(button.dataset.accessLevel||button.dataset.accessHash||'')+'|'+(button.dataset.accessImage||'');
         if(button.dataset.accessType==='imagen')return window.ArchiveAccess.guardImage({host:workspace,key,level:button.dataset.accessLevel,label,image:button.dataset.accessImage,onSolve,onCancel:cancel});
-        if(button.dataset.accessType==='codigo')return window.ArchiveAccess.guardCode({host:workspace,key,hash:button.dataset.accessHash,label,hint:button.dataset.accessHint,onSolve,onCancel:cancel});
+        if(button.dataset.accessType==='codigo')return window.ArchiveAccess.guardCode({host:workspace,key,hash:button.dataset.accessHash,label,hint:button.dataset.accessHint,eyebrow:button.dataset.accessPanelEyebrow,title:button.dataset.accessPanelTitle,inputLabel:button.dataset.accessInputLabel,lockedText:button.dataset.accessLockedText,successText:button.dataset.accessSuccessText,errorText:button.dataset.accessErrorText,submitLabel:button.dataset.accessSubmitLabel,cancelLabel:button.dataset.accessCancelLabel,accent:button.dataset.accessPanelAccent,background:button.dataset.accessPanelBackground,textColor:button.dataset.accessPanelTextColor,backgroundImage:button.dataset.accessPanelImage,onSolve,onCancel:cancel});
       }
       if(!button.dataset.circuitLevel || !window.ArchiveCircuitPuzzle)return false;
       const key=location.pathname+'|'+button.dataset.circuitKey+'|'+button.dataset.circuitLevel;
