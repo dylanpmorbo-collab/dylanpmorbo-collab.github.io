@@ -1865,6 +1865,11 @@ content:
                     default: IMAGEN
                     options:
                       values: [IMAGEN, VIDEO, TEXTO]
+                  - name: display_type_label
+                    label: Texto bajo el nombre del archivo
+                    type: string
+                    required: false
+                    description: "Por defecto: IMAGEN, VÍDEO o TEXTO según el archivo. Puedes escribir CARTA, MEMORANDO, FOTOGRAFÍA, etc."
                   - name: circuit_difficulty
                     label: Dificultad del puzle de corriente o imagen
                     type: select
@@ -3565,6 +3570,11 @@ content:
                     default: IMAGEN
                     options:
                       values: [IMAGEN, VIDEO, TEXTO]
+                  - name: display_type_label
+                    label: Texto bajo el nombre del archivo
+                    type: string
+                    required: false
+                    description: "Por defecto: IMAGEN, VÍDEO o TEXTO según el archivo. Puedes escribir CARTA, MEMORANDO, FOTOGRAFÍA, etc."
                   - name: circuit_difficulty
                     label: Dificultad del puzle de corriente o imagen
                     type: select
