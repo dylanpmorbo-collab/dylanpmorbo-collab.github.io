@@ -1736,62 +1736,62 @@ body.archive-digital-dialog-open{overflow:hidden}
 .retro-image-scroll.has-translation{overscroll-behavior:contain}
 .retro-image-sheet .retro-file-translation:not([hidden]){overflow:visible;overscroll-behavior:auto}
 
-/* Prueba de soportes fotografiados: primera MMC y primera carpeta física. */
-.archive-mmc-grid>.archive-mmc-card:first-child{
+/* Soportes fotografiados para todas las MMC y carpetas físicas. */
+.archive-mmc-grid>.archive-mmc-card{
   display:block;aspect-ratio:560/386;min-height:0;width:100%;padding:0;border:0;border-radius:0;
   clip-path:none;background:transparent url('../img/mmc-realista.png') center/100% 100% no-repeat;
   color:#e9e5d8;
 }
-.archive-mmc-grid>.archive-mmc-card:first-child::before{
+.archive-mmc-grid>.archive-mmc-card::before{
   content:"";position:absolute;z-index:2;left:41%;top:7.1%;width:18%;height:4.5%;
   box-sizing:border-box;border:1px solid var(--mmc-edge);border-radius:1px;
   background:linear-gradient(135deg,color-mix(in srgb,var(--mmc-light) 76%,#fff),var(--mmc-light));
   transform:rotate(-.6deg);box-shadow:0 1px 3px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.16);
   pointer-events:none;
 }
-.archive-mmc-grid>.archive-mmc-card:first-child::after{
+.archive-mmc-grid>.archive-mmc-card::after{
   content:"";position:absolute;left:8%;right:8%;bottom:3.5%;height:3px;
   background:var(--mmc-edge);opacity:.8;pointer-events:none;
 }
-.archive-mmc-grid>.archive-mmc-card:first-child .archive-mmc-label{
+.archive-mmc-grid>.archive-mmc-card .archive-mmc-label{
   position:absolute;left:8.5%;top:15%;width:83%;height:59%;min-height:0;
   display:grid;place-items:center;padding:0;overflow:hidden;border:0;border-radius:1px;
   background:transparent;box-shadow:none;
 }
-.archive-mmc-grid>.archive-mmc-card:first-child .archive-mmc-label img{
+.archive-mmc-grid>.archive-mmc-card .archive-mmc-label img{
   width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;
 }
-.archive-mmc-grid>.archive-mmc-card:first-child .archive-mmc-title{
+.archive-mmc-grid>.archive-mmc-card .archive-mmc-title{
   position:absolute;left:8%;right:8%;top:77%;max-height:16%;margin:0;
   color:#f1e9d7;font-size:clamp(11px,1.15vw,15px);overflow:hidden;
 }
-.archive-mmc-grid>.archive-mmc-card:first-child .archive-mmc-foot{
+.archive-mmc-grid>.archive-mmc-card .archive-mmc-foot{
   position:absolute;right:8%;bottom:4.5%;margin:0;color:#e6dfd1;
 }
-.archive-police-folder-grid:not(.archive-mmc-grid)>.archive-police-folder:first-child{
+.archive-police-folder-grid:not(.archive-mmc-grid)>.archive-police-folder{
   display:block;aspect-ratio:560/455;min-height:0;width:100%;padding:0;border:0;
   background:transparent url('../img/carpeta-realista.png') center/100% 100% no-repeat;
   box-shadow:none;filter:drop-shadow(0 18px 24px rgba(0,0,0,.4));
 }
-.archive-police-folder-grid:not(.archive-mmc-grid)>.archive-police-folder:first-child:hover,
-.archive-police-folder-grid:not(.archive-mmc-grid)>.archive-police-folder:first-child:focus-visible{
+.archive-police-folder-grid:not(.archive-mmc-grid)>.archive-police-folder:hover,
+.archive-police-folder-grid:not(.archive-mmc-grid)>.archive-police-folder:focus-visible{
   box-shadow:none;filter:drop-shadow(0 24px 30px rgba(0,0,0,.5));
 }
-.archive-police-folder-grid:not(.archive-mmc-grid)>.archive-police-folder:first-child .archive-police-folder-tab{
+.archive-police-folder-grid:not(.archive-mmc-grid)>.archive-police-folder .archive-police-folder-tab{
   display:block;z-index:2;left:8.5%;top:3.7%;width:22%;height:4.2%;
   box-sizing:border-box;border:1px solid rgba(60,43,25,.45);border-radius:2px;
   clip-path:none;transform:rotate(-.7deg);box-shadow:0 1px 3px rgba(42,30,18,.35),inset 0 0 0 1px rgba(255,255,255,.25);
 }
-.archive-police-folder-grid:not(.archive-mmc-grid)>.archive-police-folder:first-child .archive-police-folder-cover{
+.archive-police-folder-grid:not(.archive-mmc-grid)>.archive-police-folder .archive-police-folder-cover{
   position:absolute;left:10%;top:18%;width:80%;height:50%;display:grid;place-items:center;
   overflow:hidden;border:0;background:transparent;box-shadow:none;
 }
-.archive-police-folder-grid:not(.archive-mmc-grid)>.archive-police-folder:first-child .archive-police-folder-cover img{
+.archive-police-folder-grid:not(.archive-mmc-grid)>.archive-police-folder .archive-police-folder-cover img{
   width:100%;height:100%;object-fit:contain;filter:sepia(.12) saturate(.8);mix-blend-mode:multiply;
 }
-.archive-police-folder-grid:not(.archive-mmc-grid)>.archive-police-folder:first-child .archive-police-folder-copy{
+.archive-police-folder-grid:not(.archive-mmc-grid)>.archive-police-folder .archive-police-folder-copy{
   position:absolute;left:8%;right:8%;top:75%;bottom:5%;gap:4px;padding:0;
   overflow:hidden;color:#292015;
 }
-.archive-police-folder-grid:not(.archive-mmc-grid)>.archive-police-folder:first-child .archive-police-folder-copy strong{font-size:clamp(12px,1.25vw,17px)}
-.archive-police-folder-grid:not(.archive-mmc-grid)>.archive-police-folder:first-child .archive-police-folder-copy>span{margin-top:0}
+.archive-police-folder-grid:not(.archive-mmc-grid)>.archive-police-folder .archive-police-folder-copy strong{font-size:clamp(12px,1.25vw,17px)}
+.archive-police-folder-grid:not(.archive-mmc-grid)>.archive-police-folder .archive-police-folder-copy>span{margin-top:0}
