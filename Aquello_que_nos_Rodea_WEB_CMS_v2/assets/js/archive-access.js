@@ -100,7 +100,11 @@
     const panel=overlay.querySelector('.access-code-panel');
     const choice=(value,fallback)=>String(value||'').trim()||fallback;
     const color=value=>/^#[0-9a-fA-F]{6}$/.test(value||'')?value:'';
-    if(color(accent))panel.style.setProperty('--code-accent',accent);
+    if(color(accent)){
+      panel.style.setProperty('--code-accent',accent);
+      panel.style.setProperty('--code-glow-outer',accent+'66');
+      panel.style.setProperty('--code-glow-inner',accent+'33');
+    }
     if(color(background))panel.style.setProperty('--code-background',background);
     if(color(textColor))panel.style.setProperty('--code-text',textColor);
     if(backgroundImage){
