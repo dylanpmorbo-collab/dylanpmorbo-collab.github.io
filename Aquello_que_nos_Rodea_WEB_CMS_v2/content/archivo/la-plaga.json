@@ -62,12 +62,12 @@
   ],
   "show_documents": false,
   "show_police_report": false,
-  "digital_reports_heading": "DOCUMENTOS RELACIONADOS",
+  "digital_reports_heading": "INVESTIGACIONES",
   "show_digital_reports": true,
   "digital_reports": [
     {
       "title": "DOCUMENTOS RELACIONADOS",
-      "importance": "basico",
+      "importance": "normal",
       "circuit_difficulty": "basico",
       "access_method": "imagen",
       "access_image": "/assets/uploads/archivo/LOGOS/emblema-gotico-del-roedor-dorado-web.webp",
