@@ -98,14 +98,27 @@
     const overlay=createOverlay(host,label,'Código de acceso');
     overlay.innerHTML='<div class="access-panel access-code-panel"><header><small></small><h2></h2><p data-access-hint></p></header><form data-access-code-form><label for="archive-access-code"></label><input id="archive-access-code" name="code" type="text" maxlength="64" autocomplete="off" autocapitalize="characters" spellcheck="false" required><p class="access-status" aria-live="polite"></p><div class="access-actions"><button type="submit"></button><button type="button" data-access-cancel></button></div></form></div>';
     const panel=overlay.querySelector('.access-code-panel');
+    overlay.classList.add('access-code-overlay');
     const choice=(value,fallback)=>String(value||'').trim()||fallback;
     const color=value=>/^#[0-9a-fA-F]{6}$/.test(value||'')?value:'';
+    const backdropColor=color(accent)||color(background);
+    if(backdropColor){
+      const channels=[1,3,5].map(index=>Math.round(parseInt(backdropColor.slice(index,index+2),16)*.16));
+      overlay.style.setProperty('--code-overlay','rgba('+channels.join(',')+',.95)');
+    }
     if(color(accent)){
       panel.style.setProperty('--code-accent',accent);
       panel.style.setProperty('--code-glow-outer',accent+'66');
       panel.style.setProperty('--code-glow-inner',accent+'33');
+      panel.style.setProperty('--code-button-background','color-mix(in srgb,'+accent+' 28%,#bcbcbc)');
+      panel.style.setProperty('--code-button-border','color-mix(in srgb,'+accent+' 25%,#d1d1d1)');
+      panel.style.setProperty('--code-button-text','#171717');
+      panel.style.setProperty('--code-input-background','color-mix(in srgb,'+accent+' 7%,#000)');
     }
-    if(color(background))panel.style.setProperty('--code-background',background);
+    if(color(background)){
+      panel.style.setProperty('--code-background',background);
+      panel.style.setProperty('--code-input-background','color-mix(in srgb,'+background+' 45%,#000)');
+    }
     if(color(textColor))panel.style.setProperty('--code-text',textColor);
     if(backgroundImage){
       const image=document.createElement('img');
