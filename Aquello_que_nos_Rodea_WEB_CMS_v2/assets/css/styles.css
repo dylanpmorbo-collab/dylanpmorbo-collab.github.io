@@ -1772,12 +1772,12 @@ body.archive-digital-dialog-open{overflow:hidden}
   box-shadow:none;filter:drop-shadow(0 24px 30px rgba(0,0,0,.5));
 }
 .archive-police-folder-grid:not(.archive-mmc-grid)>.archive-police-folder:first-child .archive-police-folder-tab{
-  display:block;z-index:2;left:7%;top:3.1%;width:28%;height:5.8%;
+  display:block;z-index:2;left:8.5%;top:3.7%;width:22%;height:4.2%;
   box-sizing:border-box;border:1px solid rgba(60,43,25,.45);border-radius:2px;
   clip-path:none;transform:rotate(-.7deg);box-shadow:0 1px 3px rgba(42,30,18,.35),inset 0 0 0 1px rgba(255,255,255,.25);
 }
 .archive-police-folder-grid:not(.archive-mmc-grid)>.archive-police-folder:first-child .archive-police-folder-cover{
-  position:absolute;left:8%;top:14%;width:84%;height:59%;display:grid;place-items:center;
+  position:absolute;left:10%;top:18%;width:80%;height:50%;display:grid;place-items:center;
   overflow:hidden;border:0;background:transparent;box-shadow:none;
 }
 .archive-police-folder-grid:not(.archive-mmc-grid)>.archive-police-folder:first-child .archive-police-folder-cover img{
