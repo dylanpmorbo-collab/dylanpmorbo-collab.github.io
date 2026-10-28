@@ -1197,7 +1197,27 @@ function accessAttributes(item,kind,key,defaultImage){
  if(!access)return '';
  if(access.type==='circuito')return circuitAttributes(access.level,kind,key);
  if(access.type==='imagen')return ' data-access-type="imagen" data-access-level="'+access.level+'" data-access-key="'+esc(access.key)+'" data-access-image="'+esc(access.image)+'"';
- return ' data-access-type="codigo" data-access-key="'+esc(access.key)+'" data-access-hash="'+access.hash+'"'+(access.hint?' data-access-hint="'+esc(access.hint)+'"':'');
+ const panelFields={
+  access_panel_eyebrow:'data-access-panel-eyebrow',
+  access_panel_title:'data-access-panel-title',
+  access_input_label:'data-access-input-label',
+  access_locked_text:'data-access-locked-text',
+  access_success_text:'data-access-success-text',
+  access_error_text:'data-access-error-text',
+  access_submit_label:'data-access-submit-label',
+  access_cancel_label:'data-access-cancel-label',
+  access_panel_accent:'data-access-panel-accent',
+  access_panel_background:'data-access-panel-background',
+  access_panel_text_color:'data-access-panel-text-color',
+  access_panel_image:'data-access-panel-image'
+ };
+ const presentation=Object.entries(panelFields).map(([field,attribute])=>{
+  const value=String(item[field]||'').trim();
+  if(!value)return '';
+  if(['access_panel_accent','access_panel_background','access_panel_text_color'].includes(field)&&!/^#[0-9a-fA-F]{6}$/.test(value))return '';
+  return ' '+attribute+'="'+esc(value)+'"';
+ }).join('');
+ return ' data-access-type="codigo" data-access-key="'+esc(access.key)+'" data-access-hash="'+access.hash+'"'+(access.hint?' data-access-hint="'+esc(access.hint)+'"':'')+presentation;
 }
 function archiveDigitalReports(section,item){
  if(item.show_digital_reports!==true) return {count:0,html:''};
