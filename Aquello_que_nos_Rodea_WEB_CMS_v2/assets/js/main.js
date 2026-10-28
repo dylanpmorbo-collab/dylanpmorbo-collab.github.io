@@ -294,3 +294,36 @@
     returnFocus=null;
   });
 })();
+
+/* Distribución compacta del sandbox sin alterar el orden de las tarjetas. */
+(() => {
+  const grids = Array.from(document.querySelectorAll('.sandbox-grid'));
+  if (!grids.length || !('ResizeObserver' in window)) return;
+  const narrow = window.matchMedia('(max-width:700px)');
+  grids.forEach(grid => {
+    const cards = Array.from(grid.children).filter(card => card.classList.contains('sandbox-card'));
+    if (cards.length < 3) return;
+    let queued = false;
+    const layout = () => {
+      queued = false;
+      if (narrow.matches) {
+        grid.classList.remove('is-masonry');
+        cards.forEach(card => { card.style.gridRowEnd = ''; });
+        return;
+      }
+      const spans = cards.map(card => Math.max(1, Math.ceil((card.getBoundingClientRect().height + 22) / 8)));
+      cards.forEach((card, index) => { card.style.gridRowEnd = 'span ' + spans[index]; });
+      grid.classList.add('is-masonry');
+    };
+    const schedule = () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(layout);
+    };
+    const observer = new ResizeObserver(schedule);
+    cards.forEach(card => observer.observe(card));
+    window.addEventListener('resize', schedule, {passive:true});
+    narrow.addEventListener?.('change', schedule);
+    schedule();
+  });
+})();
