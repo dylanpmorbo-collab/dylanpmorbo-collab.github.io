@@ -1654,6 +1654,7 @@ body.archive-digital-dialog-open{overflow:hidden}
 .access-actions button{min-height:34px;padding:6px 12px;border:2px outset #b7c7b9;border-radius:0;background:#bac9bd;color:#06170b;font:700 11px "Courier New",monospace;cursor:pointer}
 .access-actions button:disabled{opacity:.6;cursor:wait}
 .access-actions button:focus-visible{outline:2px solid #bbffbf;outline-offset:3px}
+.access-overlay.access-code-overlay{background:var(--code-overlay,#06110bf2)}
 .access-code-panel{max-width:520px;position:relative;isolation:isolate;overflow:hidden;border-color:var(--code-accent,#64856c);background:var(--code-background,#07170d);color:var(--code-text,#b5eab8);box-shadow:0 0 38px var(--code-glow-outer,#53dd6b33),inset 0 0 28px var(--code-glow-inner,#153d21)}
 .access-code-panel .access-panel-background{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;opacity:.2;pointer-events:none}
 .access-code-panel header,.access-code-panel form{position:relative;z-index:1}
@@ -1661,8 +1662,9 @@ body.archive-digital-dialog-open{overflow:hidden}
 .access-code-panel h2{color:var(--code-text,#e2f5dc)}
 .access-code-panel .access-status{color:var(--code-text,#d0e7bc)}
 .access-code-panel form label{display:block;margin:10px 0 6px;font-size:11px;font-weight:700;letter-spacing:.1em}
-.access-code-panel input{display:block;width:100%;padding:10px 12px;border:2px inset var(--code-accent,#64856c);border-radius:0;background:#020a05;color:var(--code-text,#dcffdf);font:700 20px "Courier New",monospace;letter-spacing:.08em}
+.access-code-panel input{display:block;width:100%;padding:10px 12px;border:2px inset var(--code-accent,#64856c);border-radius:0;background:var(--code-input-background,#020a05);color:var(--code-text,#dcffdf);font:700 20px "Courier New",monospace;letter-spacing:.08em}
 .access-code-panel input:focus-visible{outline:2px solid var(--code-accent,#bbffbf);outline-offset:2px}
+.access-code-panel .access-actions button{border-color:var(--code-button-border,#b7c7b9);background:var(--code-button-background,#bac9bd);color:var(--code-button-text,#06170b)}
 .access-code-panel .access-actions button:focus-visible{outline-color:var(--code-accent,#bbffbf)}
 @media(max-width:650px){.access-overlay{padding:6px}.access-panel{padding:9px}.access-picture-board{gap:1px;padding:2px}}
 
