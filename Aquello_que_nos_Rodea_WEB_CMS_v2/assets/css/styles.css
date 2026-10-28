@@ -279,6 +279,8 @@
 .plane-connections-grid h3{margin:0 0 12px;color:#cdb98c;font:600 21px var(--display)}
 .plane-connections-grid p{margin:0;color:#ada394;font-size:17px}
 .sandbox-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:22px;margin-top:80px}
+.sandbox-grid.is-masonry{grid-auto-flow:row dense;grid-auto-rows:8px;row-gap:0}
+.sandbox-grid.is-masonry .sandbox-card{align-self:start}
 .sandbox-card{min-width:0;padding:clamp(25px,3vw,40px);border:1px solid var(--line);background:linear-gradient(145deg,#13120f,#0a0a09)}
 .sandbox-card h2{margin:0 0 22px;color:#d6c39f;font:500 clamp(29px,3vw,43px)/1.1 var(--serif)}
 .sandbox-card-text{color:#bdb4a7;font-size:20px;line-height:1.5}
