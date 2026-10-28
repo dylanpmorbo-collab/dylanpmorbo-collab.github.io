@@ -57,6 +57,28 @@
           "caption": "Grabado explicativo de The Chamber of Seventh Heaven (1895), con una recreación de los compartimentos privados, su funcionamiento y el mecanismo de abertura circular que los comunicaba"
         }
       ]
+    },
+    {
+      "title": "FOTOGRAFÍAS RESTAURADAS",
+      "content_order": "MEDIOS_PRIMERO",
+      "media": [
+        {
+          "kind": "image",
+          "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/retrato-vintage-de-feria-y-misterio-web.webp"
+        },
+        {
+          "kind": "image",
+          "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven/entrada-a-la-camara-del-septimo-cielo.webp"
+        },
+        {
+          "kind": "image",
+          "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven/jolgorio-nocturno-en-la-feria.webp"
+        },
+        {
+          "kind": "image",
+          "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven/hombre-en-un-refugio-de-madera-iluminado-a-vela-desgastada.png"
+        }
+      ]
     }
   ],
   "facts": [
