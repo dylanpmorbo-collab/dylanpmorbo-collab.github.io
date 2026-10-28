@@ -1733,4 +1733,5 @@ body.archive-digital-dialog-open{overflow:hidden}
 .retro-image-sheet img[data-retro-image]{max-width:100%;max-height:none;width:auto;height:auto}
 .retro-image-sheet .retro-file-translation-body{font-size:clamp(14px,1.18vw,17px);line-height:1.45}
 .retro-image-sheet .retro-file-translation-body p{margin-bottom:.75em}
-.retro-image-sheet .retro-file-translation{overscroll-behavior:auto}
+.retro-image-scroll.has-translation{overscroll-behavior:contain}
+.retro-image-sheet .retro-file-translation:not([hidden]){overflow:visible;overscroll-behavior:auto}
