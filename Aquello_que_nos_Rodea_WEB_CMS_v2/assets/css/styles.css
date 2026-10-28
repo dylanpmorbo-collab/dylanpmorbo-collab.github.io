@@ -1742,7 +1742,13 @@ body.archive-digital-dialog-open{overflow:hidden}
   clip-path:none;background:transparent url('../img/mmc-realista.png') center/100% 100% no-repeat;
   color:#e9e5d8;
 }
-.archive-mmc-grid>.archive-mmc-card:first-child::before{content:none}
+.archive-mmc-grid>.archive-mmc-card:first-child::before{
+  content:"";position:absolute;z-index:2;left:41%;top:7.1%;width:18%;height:4.5%;
+  box-sizing:border-box;border:1px solid var(--mmc-edge);border-radius:1px;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--mmc-light) 76%,#fff),var(--mmc-light));
+  transform:rotate(-.6deg);box-shadow:0 1px 3px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.16);
+  pointer-events:none;
+}
 .archive-mmc-grid>.archive-mmc-card:first-child::after{
   content:"";position:absolute;left:8%;right:8%;bottom:3.5%;height:3px;
   background:var(--mmc-edge);opacity:.8;pointer-events:none;
