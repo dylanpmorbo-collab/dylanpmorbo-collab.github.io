@@ -1260,13 +1260,14 @@ function archiveDigitalReports(section,item){
        const title=String(file.title||('ARCHIVO '+String(fileIndex+1).padStart(2,'0')));
        const isText=String(file.kind||'').toUpperCase()==='TEXTO';
        const isVideo=!isText&&Boolean(file.video && (String(file.kind||'').toUpperCase()==='VIDEO'||!file.image));
+       const displayTypeLabel=String(file.display_type_label||'').trim()||(isText?'TEXTO':isVideo?'VÍDEO':'IMAGEN');
        const globalRule=globalCensorship.get(imagePath(file.image||file.annotated_image));
        const access=accessAttributes(file,'archivo',index+':'+folderIndex+':'+fileIndex+':'+String(report.title||'')+' / '+String(folder.title||'')+' / '+title,file.image||file.poster);
        const locked=Boolean(access);
        const thumb=locked?'':isVideo?(file.poster||file.image):(globalRule?.mode==='falso'?globalRule.fake:(file.image_visibility==='falso'&&file.fake_pixel_image?file.fake_pixel_image:(file.image||file.annotated_image)));
        return '<button type="button" class="retro-file-entry" data-retro-file="'+fileIndex+'" data-update-id="'+digitalFileUpdateId(section,item,report,folder,file)+'"'+access+' aria-label="Abrir '+esc(title)+'">'+
          '<span class="retro-file-thumb">'+(thumb?'<img src="'+esc(thumb)+'" alt="" loading="lazy"'+(globalRule?.mode==='falso'?' data-original="'+esc(file.image||file.annotated_image)+'"':'')+'>':'<span aria-hidden="true">'+(locked?'▣':isText?'▤':'▶')+'</span>')+'</span>'+
-         '<span class="retro-file-name">'+esc(title)+'</span><small>'+(isText?'TEXTO':isVideo?'VÍDEO':'IMAGEN')+'</small></button>';
+         '<span class="retro-file-name">'+esc(title)+'</span><small>'+esc(displayTypeLabel)+'</small></button>';
      }).join('');
      const recovery=folder.show_recovery_placeholder===false?'':'<div class="retro-recovery-pending" role="status" aria-label="Recuperación de archivos en curso"><span class="retro-recovery-photo" aria-hidden="true"><i></i></span><strong>RECUPERANDO…</strong><small>La unidad sigue examinando fragmentos</small></div>';
      return '<template data-retro-folder-template="'+folderIndex+'"><div class="retro-file-grid">'+(entries||'<p class="retro-empty">No hay archivos en esta carpeta.</p>')+recovery+'</div></template>';
