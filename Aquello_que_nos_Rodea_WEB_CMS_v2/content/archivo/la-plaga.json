@@ -72,8 +72,9 @@
     {
       "title": "DOCUMENTOS RELACIONADOS",
       "importance": "basico",
-      "circuit_difficulty": "ninguno",
-      "access_method": "automatico",
+      "circuit_difficulty": "basico",
+      "access_method": "imagen",
+      "access_image": "/assets/uploads/archivo/LOGOS/emblema-gotico-del-roedor-dorado-web.webp",
       "interface_color": "#570B14",
       "desktop_top_label": "Archivos relacionados con NAM-UŠ₂",
       "desktop_right_label": "𒉆𒌀 (NAM-UŠ₂)",
