@@ -10,6 +10,32 @@
   "summary": "ARCHIVO CONFIDENCIAL",
   "sandbox": [
     {
+      "title": "FOTOGRAFÍAS RESTAURADAS",
+      "content_order": "MEDIOS_PRIMERO",
+      "media": [
+        {
+          "kind": "image",
+          "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/retrato-vintage-de-feria-y-misterio-web.webp",
+          "caption": "Foto celebrando el éxito"
+        },
+        {
+          "kind": "image",
+          "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven/entrada-a-la-camara-del-septimo-cielo.webp",
+          "caption": "THE CHAMBER OF SEVENTH HEAVEN"
+        },
+        {
+          "kind": "image",
+          "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven/jolgorio-nocturno-en-la-feria.webp",
+          "caption": "El séptimo cielo te deja agotado"
+        },
+        {
+          "kind": "image",
+          "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven/hombre-en-un-refugio-de-madera-iluminado-a-vela-desgastada-web.webp",
+          "caption": "Alcanzando el séptimo cielo"
+        }
+      ]
+    },
+    {
       "title": "Professor Blackwell’s Imperial Oriental & Novelty Company",
       "text": "## Professor Blackwell’s Imperial Oriental & Novelty Company — Publicidad y espectáculos (1895)\n\nDurante su gira estadounidense de 1895, **Professor Blackwell’s Imperial Oriental & Novelty Company** ofrecía espectáculos de variedades, exhibiciones de fuerza, danzas de inspiración oriental y actuaciones de curiosidades humanas, siguiendo las tradiciones de las ferias de finales del siglo XIX.\n\nSu publicidad destacaba por los carteles cromolitográficos de colores intensos, la ornamentación elaborada y las fotografías promocionales de sus artistas.\n\nEntre sus atracciones sobresalía **The Chamber of Seventh Heaven**, una experiencia privada reservada a caballeros, cuya entrada costaba **un dólar**, frente a los **25 centavos** del espectáculo general.\n\nUn anuncio publicado en *The Pittsburg Press* el **28 de agosto de 1895** anunciaba su apertura al día siguiente en Duquesne Way, cerca del Exposition Hall, con actuaciones hasta el 10 de septiembre.\n\nEstos materiales documentan la actividad comercial de la compañía y el carácter exclusivo y misterioso de su atracción privada.",
       "content_order": "MEDIOS_PRIMERO",
@@ -33,28 +59,6 @@
           "kind": "image",
           "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven/documentos/recorte-del-pittsburgh-press-de-1895-web.webp",
           "caption": "Anuncio de Professor Blackwell’s Imperial Oriental & Novelty Company publicado en The Pittsburg Press el 28 de agosto de 1895, anunciando sus espectáculos y la apertura de The Chamber of Seventh Heaven."
-        }
-      ]
-    },
-    {
-      "title": "FOTOGRAFÍAS RESTAURADAS",
-      "content_order": "MEDIOS_PRIMERO",
-      "media": [
-        {
-          "kind": "image",
-          "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/retrato-vintage-de-feria-y-misterio-web.webp"
-        },
-        {
-          "kind": "image",
-          "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven/entrada-a-la-camara-del-septimo-cielo.webp"
-        },
-        {
-          "kind": "image",
-          "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven/jolgorio-nocturno-en-la-feria.webp"
-        },
-        {
-          "kind": "image",
-          "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/The Chamber of Seventh Heaven/hombre-en-un-refugio-de-madera-iluminado-a-vela-desgastada-web.webp"
         }
       ]
     },
