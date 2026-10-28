@@ -92,21 +92,39 @@
     });
     render();buttons[neighbors(board.tiles.indexOf(-1),board.size)[0]]?.focus();return true;
   }
-  function guardCode({host,key,hash,label,hint,onSolve,onCancel}){
+  function guardCode({host,key,hash,label,hint,eyebrow,title,inputLabel,lockedText,successText,errorText,submitLabel,cancelLabel,accent,background,textColor,backgroundImage,onSolve,onCancel}){
     if(!/^[0-9a-f]{64}$/.test(hash||''))return false;
     if(read(key)?.solved)return false;
     const overlay=createOverlay(host,label,'Código de acceso');
-    overlay.innerHTML='<div class="access-panel access-code-panel"><header><small>ARCHIVO // ACCESO CIFRADO</small><h2></h2><p data-access-hint></p></header><form data-access-code-form><label for="archive-access-code">CÓDIGO ENCONTRADO</label><input id="archive-access-code" name="code" type="text" maxlength="64" autocomplete="off" autocapitalize="characters" spellcheck="false" required><p class="access-status" aria-live="polite">ACCESO BLOQUEADO</p><div class="access-actions"><button type="submit">COMPROBAR CÓDIGO</button><button type="button" data-access-cancel>VOLVER</button></div></form></div>';
-    overlay.querySelector('h2').textContent=label;
-    overlay.querySelector('[data-access-hint]').textContent=String(hint||'').trim()||'Introduce el código de acceso. Las pistas pueden estar repartidas por el Archivo.';
+    overlay.innerHTML='<div class="access-panel access-code-panel"><header><small></small><h2></h2><p data-access-hint></p></header><form data-access-code-form><label for="archive-access-code"></label><input id="archive-access-code" name="code" type="text" maxlength="64" autocomplete="off" autocapitalize="characters" spellcheck="false" required><p class="access-status" aria-live="polite"></p><div class="access-actions"><button type="submit"></button><button type="button" data-access-cancel></button></div></form></div>';
+    const panel=overlay.querySelector('.access-code-panel');
+    const choice=(value,fallback)=>String(value||'').trim()||fallback;
+    const color=value=>/^#[0-9a-fA-F]{6}$/.test(value||'')?value:'';
+    if(color(accent))panel.style.setProperty('--code-accent',accent);
+    if(color(background))panel.style.setProperty('--code-background',background);
+    if(color(textColor))panel.style.setProperty('--code-text',textColor);
+    if(backgroundImage){
+      const image=document.createElement('img');
+      image.className='access-panel-background';
+      image.alt='';
+      image.src=backgroundImage;
+      panel.prepend(image);
+    }
+    overlay.querySelector('header small').textContent=choice(eyebrow,'ARCHIVO // ACCESO CIFRADO');
+    overlay.querySelector('h2').textContent=choice(title,label);
+    overlay.querySelector('[data-access-hint]').textContent=choice(hint,'Introduce el código de acceso. Las pistas pueden estar repartidas por el Archivo.');
+    overlay.querySelector('form label').textContent=choice(inputLabel,'CÓDIGO ENCONTRADO');
+    overlay.querySelector('.access-status').textContent=choice(lockedText,'ACCESO BLOQUEADO');
+    overlay.querySelector('[type=submit]').textContent=choice(submitLabel,'COMPROBAR CÓDIGO');
+    overlay.querySelector('[data-access-cancel]').textContent=choice(cancelLabel,'VOLVER');
     overlay.addEventListener('click',event=>{event.stopPropagation();if(event.target.closest('[data-access-cancel]')){overlay.remove();onCancel?.();}});
     overlay.addEventListener('submit',async event=>{
       event.preventDefault();event.stopPropagation();const form=event.target,input=form.elements.code,status=overlay.querySelector('.access-status');
       const submit=form.querySelector('[type=submit]');submit.disabled=true;
       try{
-        if(await hashCode(input.value)===hash){save(key,{solved:true});status.textContent='CÓDIGO CORRECTO · ACCESO CONCEDIDO';
+        if(await hashCode(input.value)===hash){save(key,{solved:true});status.textContent=choice(successText,'CÓDIGO CORRECTO · ACCESO CONCEDIDO');
           root.setTimeout(()=>{if(overlay.isConnected){overlay.remove();onSolve();}},550);
-        }else{status.textContent='CÓDIGO INCORRECTO';input.select();submit.disabled=false;}
+        }else{status.textContent=choice(errorText,'CÓDIGO INCORRECTO');input.select();submit.disabled=false;}
       }catch(error){status.textContent=error.message;submit.disabled=false;}
     });
     overlay.querySelector('input').focus();return true;
