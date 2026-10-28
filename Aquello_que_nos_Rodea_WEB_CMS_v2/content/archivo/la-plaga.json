@@ -85,8 +85,13 @@
           "circuit_difficulty": "medio",
           "access_method": "corriente",
           "show_recovery_placeholder": true,
-          "opening_notice_enabled": false,
-          "opening_notice_frequency": "always"
+          "opening_notice_enabled": true,
+          "opening_notice_title": "INVESTIGACIÓN EN CURSO",
+          "opening_notice_text": "FECHA DEL ÚLTIMO GUARDADO: 07/09/2025\n",
+          "opening_notice_accent": "#000E2D",
+          "opening_notice_confirm": "ACEPTAR",
+          "opening_notice_cancel": "CANCELAR",
+          "opening_notice_frequency": "once"
         }
       ]
     }
