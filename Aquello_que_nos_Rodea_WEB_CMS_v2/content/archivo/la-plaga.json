@@ -78,7 +78,17 @@
       "desktop_background_color": "#000E2D",
       "desktop_wallpaper": "/assets/uploads/archivo/LOGOS/cinta-abstracta-azul-en-espiral-web.webp",
       "boot_seconds": 1,
-      "boot_flash_enabled": false
+      "boot_flash_enabled": false,
+      "folders": [
+        {
+          "title": "DOCUMENTOS",
+          "circuit_difficulty": "medio",
+          "access_method": "corriente",
+          "show_recovery_placeholder": true,
+          "opening_notice_enabled": false,
+          "opening_notice_frequency": "always"
+        }
+      ]
     }
   ],
   "show_related_archive": true,
