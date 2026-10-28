@@ -66,7 +66,22 @@
   ],
   "show_documents": false,
   "show_police_report": false,
-  "show_digital_reports": false,
+  "digital_reports_heading": "DOCUMENTOS RELACIONADOS",
+  "show_digital_reports": true,
+  "digital_reports": [
+    {
+      "title": "DOCUMENTOS RELACIONADOS",
+      "importance": "basico",
+      "circuit_difficulty": "ninguno",
+      "access_method": "automatico",
+      "interface_color": "#570B14",
+      "desktop_top_label": "Archivos relacionados con NAM-UŠ₂",
+      "desktop_right_label": "𒉆𒌀 (NAM-UŠ₂)",
+      "desktop_background_color": "#16865a",
+      "boot_seconds": 1,
+      "boot_flash_enabled": false
+    }
+  ],
   "show_related_archive": true,
   "related_archive": [
     {
