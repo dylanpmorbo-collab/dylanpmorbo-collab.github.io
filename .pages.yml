@@ -1784,6 +1784,68 @@ content:
                 type: string
                 required: false
                 description: "Solo para Introducir código. Se muestra bajo el título de la ventana. Si lo dejas vacío, aparece el texto habitual sobre las pistas."
+              - name: access_panel_eyebrow
+                label: Línea superior de la ventana de código
+                type: string
+                required: false
+                description: "Por defecto: ARCHIVO // ACCESO CIFRADO."
+              - name: access_panel_title
+                label: Título de la ventana de código
+                type: string
+                required: false
+                description: "Por defecto: nombre de la carpeta."
+              - name: access_input_label
+                label: Texto sobre la casilla del código
+                type: string
+                required: false
+                description: "Por defecto: CÓDIGO ENCONTRADO."
+              - name: access_locked_text
+                label: Mensaje inicial de acceso
+                type: string
+                required: false
+                description: "Por defecto: ACCESO BLOQUEADO."
+              - name: access_success_text
+                label: Mensaje cuando el código es correcto
+                type: string
+                required: false
+                description: "Por defecto: CÓDIGO CORRECTO · ACCESO CONCEDIDO."
+              - name: access_error_text
+                label: Mensaje cuando el código es incorrecto
+                type: string
+                required: false
+                description: "Por defecto: CÓDIGO INCORRECTO."
+              - name: access_submit_label
+                label: Texto del botón para comprobar
+                type: string
+                required: false
+                description: "Por defecto: COMPROBAR CÓDIGO."
+              - name: access_cancel_label
+                label: Texto del botón para volver
+                type: string
+                required: false
+                description: "Por defecto: VOLVER."
+              - name: access_panel_accent
+                label: Color de los bordes de la ventana (#RRGGBB)
+                type: string
+                required: false
+                description: "Opcional. Por ejemplo #a46f42."
+              - name: access_panel_background
+                label: Color de fondo de la ventana (#RRGGBB)
+                type: string
+                required: false
+                description: "Opcional. Por ejemplo #15120f."
+              - name: access_panel_text_color
+                label: Color del texto de la ventana (#RRGGBB)
+                type: string
+                required: false
+                description: "Opcional. Por ejemplo #f2dec0."
+              - name: access_panel_image
+                label: Imagen de fondo de la ventana de código
+                type: image
+                required: false
+                options:
+                  media: default
+                description: "Opcional. Se muestra suavemente detrás del contenido de la ventana."
               - name: show_recovery_placeholder
                 label: Mostrar imagen «RECUPERANDO…» en esta carpeta
                 type: boolean
@@ -3489,6 +3551,68 @@ content:
                 type: string
                 required: false
                 description: "Solo para Introducir código. Se muestra bajo el título de la ventana. Si lo dejas vacío, aparece el texto habitual sobre las pistas."
+              - name: access_panel_eyebrow
+                label: Línea superior de la ventana de código
+                type: string
+                required: false
+                description: "Por defecto: ARCHIVO // ACCESO CIFRADO."
+              - name: access_panel_title
+                label: Título de la ventana de código
+                type: string
+                required: false
+                description: "Por defecto: nombre de la carpeta."
+              - name: access_input_label
+                label: Texto sobre la casilla del código
+                type: string
+                required: false
+                description: "Por defecto: CÓDIGO ENCONTRADO."
+              - name: access_locked_text
+                label: Mensaje inicial de acceso
+                type: string
+                required: false
+                description: "Por defecto: ACCESO BLOQUEADO."
+              - name: access_success_text
+                label: Mensaje cuando el código es correcto
+                type: string
+                required: false
+                description: "Por defecto: CÓDIGO CORRECTO · ACCESO CONCEDIDO."
+              - name: access_error_text
+                label: Mensaje cuando el código es incorrecto
+                type: string
+                required: false
+                description: "Por defecto: CÓDIGO INCORRECTO."
+              - name: access_submit_label
+                label: Texto del botón para comprobar
+                type: string
+                required: false
+                description: "Por defecto: COMPROBAR CÓDIGO."
+              - name: access_cancel_label
+                label: Texto del botón para volver
+                type: string
+                required: false
+                description: "Por defecto: VOLVER."
+              - name: access_panel_accent
+                label: Color de los bordes de la ventana (#RRGGBB)
+                type: string
+                required: false
+                description: "Opcional. Por ejemplo #a46f42."
+              - name: access_panel_background
+                label: Color de fondo de la ventana (#RRGGBB)
+                type: string
+                required: false
+                description: "Opcional. Por ejemplo #15120f."
+              - name: access_panel_text_color
+                label: Color del texto de la ventana (#RRGGBB)
+                type: string
+                required: false
+                description: "Opcional. Por ejemplo #f2dec0."
+              - name: access_panel_image
+                label: Imagen de fondo de la ventana de código
+                type: image
+                required: false
+                options:
+                  media: default
+                description: "Opcional. Se muestra suavemente detrás del contenido de la ventana."
               - name: show_recovery_placeholder
                 label: Mostrar imagen «RECUPERANDO…» en esta carpeta
                 type: boolean
