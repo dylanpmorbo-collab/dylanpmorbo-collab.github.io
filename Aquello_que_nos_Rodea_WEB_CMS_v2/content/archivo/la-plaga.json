@@ -143,6 +143,7 @@
           "opening_notice_enabled": true,
           "opening_notice_title": "INVESTIGACIÓN EN CURSO",
           "opening_notice_text": "FECHA DEL ÚLTIMO GUARDADO: 07/09/2025\n",
+          "opening_notice_image": "/assets/uploads/archivo/GIFT/retratodelmonstruodemandbulacircular-webdistorsion.webp",
           "opening_notice_confirm": "ACEPTAR",
           "opening_notice_cancel": "CANCELAR",
           "opening_notice_frequency": "once"
