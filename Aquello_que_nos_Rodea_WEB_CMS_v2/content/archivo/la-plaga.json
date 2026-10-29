@@ -146,6 +146,26 @@
           "opening_notice_confirm": "ACEPTAR",
           "opening_notice_cancel": "CANCELAR",
           "opening_notice_frequency": "once"
+        },
+        {
+          "title": "IMÁGENES",
+          "order": 2,
+          "circuit_difficulty": "ninguno",
+          "access_method": "automatico",
+          "show_recovery_placeholder": false,
+          "opening_notice_enabled": false,
+          "opening_notice_frequency": "always",
+          "files": [
+            {
+              "title": "IMG_6270",
+              "notify_new": true,
+              "kind": "IMAGEN",
+              "circuit_difficulty": "ninguno",
+              "access_method": "automatico",
+              "image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/de-que-hablan-web.webp",
+              "image_visibility": "normal"
+            }
+          ]
         }
       ]
     }
