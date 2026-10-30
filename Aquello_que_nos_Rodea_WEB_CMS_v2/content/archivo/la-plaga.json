@@ -54,6 +54,11 @@
       ]
     }
   ],
+  "facts_side_left_image": "/assets/uploads/archivo/GIFT/retratodelmonstruodemandbulacircular-webdistorsion.webp",
+  "facts_side_left_x": 50,
+  "facts_side_left_y": 50,
+  "facts_side_right_x": 50,
+  "facts_side_right_y": 50,
   "facts": [
     {
       "label": "Número de miembros",
