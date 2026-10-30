@@ -1669,7 +1669,7 @@ content:
             label: Texto de la franja inferior
             type: string
             required: false
-            description: "Por defecto: número de carpetas // SELECCIONE UNA UNIDAD. Puedes usar {count} y {carpetas} para incluir el número y CARPETA/CARPETAS."
+            description: "Por defecto: número de carpetas y archivos sueltos. Puedes usar {count}, {carpetas} y {archivos} en un texto propio."
           - name: desktop_background_color
             label: Color de fondo del escritorio (#RRGGBB)
             type: string
@@ -1896,6 +1896,350 @@ content:
                   values:
                     - { value: always, label: Cada vez que se abre la carpeta }
                     - { value: once, label: Una vez por visita a la página }
+          - name: desktop_files
+            label: Archivos sueltos del escritorio
+            type: object
+            required: false
+            description: "Archivos que aparecen directamente en el escritorio, con las mismas opciones y bloqueos."
+            list:
+              max: 100
+              collapsible:
+                collapsed: true
+                summary: "{title}"
+            fields:
+              - name: title
+                label: Nombre del archivo
+                type: string
+                required: true
+              - name: notify_new
+                label: Avisar al recuperar este archivo
+                type: boolean
+                default: true
+                description: "Desactívalo para que el archivo aparezca sin entrar en Novedades."
+              - name: notification_revision
+                label: Volver a notificar este archivo (clave opcional)
+                type: string
+                required: false
+                description: "Cambia la clave cuando quieras anunciar una versión nueva del mismo archivo."
+              - name: kind
+                label: Tipo de archivo
+                type: select
+                required: false
+                default: IMAGEN
+                options:
+                  values: [IMAGEN, VIDEO, TEXTO]
+              - name: display_type_label
+                label: Texto bajo el nombre del archivo
+                type: string
+                required: false
+                description: "Por defecto: IMAGEN, VÍDEO o TEXTO según el archivo. Puedes escribir CARTA, MEMORANDO, FOTOGRAFÍA, etc."
+              - name: circuit_difficulty
+                label: Dificultad del puzle de corriente o imagen
+                type: select
+                required: false
+                default: ninguno
+                options:
+                  values:
+                    - { value: ninguno, label: Sin puzle }
+                    - { value: basico, label: Básico · 4 × 4 }
+                    - { value: medio, label: Medio · 6 × 6 }
+                    - { value: dificil, label: Difícil · 8 × 8 }
+              - name: access_method
+                label: Tipo de bloqueo para abrir este archivo
+                type: select
+                required: false
+                default: automatico
+                options:
+                  values:
+                    - { value: automatico, label: Automático · respetar el puzle anterior }
+                    - { value: ninguno, label: Sin bloqueo }
+                    - { value: corriente, label: Circuito eléctrico }
+                    - { value: imagen, label: Reconstruir imagen }
+                    - { value: codigo, label: Introducir código }
+              - name: access_image
+                label: Imagen para el puzle de cuadrados
+                type: image
+                required: false
+                options:
+                  media: default
+                description: "Solo para Reconstruir imagen. Si queda vacía, se usa la imagen de este archivo."
+              - name: access_code
+                label: Código para abrir este archivo
+                type: string
+                required: false
+                description: "Solo para Introducir código. Esconde las pistas manualmente por el Archivo; no es seguridad real."
+              - name: access_hint
+                label: Texto de ayuda del código
+                type: string
+                required: false
+                description: "Solo para Introducir código. Se muestra bajo el título de la ventana. Si lo dejas vacío, aparece el texto habitual sobre las pistas."
+              - name: thumbnail_image
+                label: Miniatura del archivo (opcional)
+                type: image
+                required: false
+                options:
+                  media: default
+                description: "Se usa en el icono, tanto en una carpeta como en el escritorio. Útil para textos y archivos con varias páginas."
+              - name: body_image
+                label: Imagen dentro del texto principal (opcional)
+                type: image
+                required: false
+                options:
+                  media: default
+                description: "Aparece encima del texto cuando el tipo de archivo es TEXTO. También puedes insertar imágenes en Markdown."
+              - name: body_image_caption
+                label: Pie de la imagen del texto principal
+                type: string
+                required: false
+              - name: body
+                label: Texto del informe (Markdown)
+                type: rich-text
+                required: false
+                options:
+                  format: markdown
+                  media: default
+                  switcher: true
+                description: "Solo para tipo TEXTO. Admite títulos, negritas, cursivas, listas, citas, tablas y enlaces."
+              - name: pages
+                label: Páginas de este archivo · en orden de lectura
+                type: object
+                required: false
+                description: "Si añades páginas, esta lista define todo el contenido principal y su orden. Los campos de imagen, vídeo y texto anteriores se conservan para archivos antiguos."
+                list:
+                  max: 50
+                  collapsible:
+                    collapsed: true
+                    summary: "{title}"
+                fields:
+                  - name: title
+                    label: Título de la página
+                    type: string
+                    required: false
+                  - name: type
+                    label: Tipo de página
+                    type: select
+                    default: TEXTO
+                    options:
+                      values: [TEXTO, IMAGEN, VIDEO, GALERIA]
+                  - name: text
+                    label: Texto (Markdown)
+                    type: rich-text
+                    required: false
+                    options:
+                      format: markdown
+                      media: default
+                      switcher: true
+                  - name: text_image
+                    label: Imagen dentro de esta página de texto
+                    type: image
+                    required: false
+                    options:
+                      media: default
+                  - name: text_image_caption
+                    label: Pie de la imagen de texto
+                    type: string
+                    required: false
+                  - name: image
+                    label: Imagen de esta página
+                    type: image
+                    required: false
+                    options:
+                      media: default
+                  - name: translation_text
+                    label: Traducción de esta imagen (Markdown)
+                    type: rich-text
+                    required: false
+                    options:
+                      format: markdown
+                      media: default
+                      switcher: true
+                  - name: annotated_image
+                    label: Versión con anotaciones visuales
+                    type: image
+                    required: false
+                    options:
+                      media: default
+                  - name: image_visibility
+                    label: Cómo mostrar esta imagen
+                    type: select
+                    default: normal
+                    options:
+                      values:
+                        - { value: normal, label: Mostrar directamente }
+                        - { value: pixelado, label: Pixelado real · desbloquear }
+                        - { value: falso, label: Falso pixelado · cambiar de imagen }
+                  - name: fake_pixel_image
+                    label: Imagen de falso pixelado
+                    type: image
+                    required: false
+                    options:
+                      media: default
+                  - name: video
+                    label: Vídeo de esta página
+                    type: file
+                    required: false
+                    options:
+                      media: default
+                      categories: [video]
+                  - name: poster
+                    label: Miniatura del vídeo
+                    type: image
+                    required: false
+                    options:
+                      media: default
+                  - name: gallery_images
+                    label: Imágenes de la galería
+                    type: object
+                    required: false
+                    list:
+                      max: 30
+                      collapsible:
+                        collapsed: true
+                        summary: "{title}"
+                    fields:
+                      - name: title
+                        label: Título de la imagen
+                        type: string
+                        required: false
+                      - name: image
+                        label: Imagen
+                        type: image
+                        required: true
+                        options:
+                          media: default
+                      - name: caption
+                        label: Pie de foto
+                        type: string
+                        required: false
+              - name: image
+                label: Imagen que se verá al desbloquear
+                type: image
+                required: false
+                options:
+                  media: default
+                description: "Si no ocultas la imagen, se muestra directamente. Para el falso pixelado, aquí puedes subir incluso una imagen de error."
+              - name: translation_text
+                label: Traducción sobre la imagen (Markdown)
+                type: rich-text
+                required: false
+                options:
+                  format: markdown
+                  media: default
+                  switcher: true
+                description: "Solo para imágenes. Activa un botón TRADUCCIÓN y muestra el texto encima de la imagen, con desplazamiento en el visor."
+              - name: image_visibility
+                label: Cómo mostrar la imagen
+                type: select
+                required: false
+                default: normal
+                options:
+                  values:
+                    - value: normal
+                      label: Mostrar directamente
+                    - value: pixelado
+                      label: Pixelado real · desbloquear
+                    - value: falso
+                      label: Falso pixelado · cambiar de imagen
+              - name: fake_pixel_image
+                label: Imagen pixelada de la vista inicial
+                type: image
+                required: false
+                options:
+                  media: default
+                description: "Solo para «Falso pixelado». Sube una imagen YA pixelada; al desbloquear se sustituirá por la imagen del campo anterior."
+              - name: masthead_image
+                label: Membrete o banner de esta ficha (600 × 120 píxeles)
+                type: image
+                required: false
+                options:
+                  media: default
+                description: "Prepara una imagen de exactamente 600 × 120 píxeles (proporción 5:1). Se reducirá sin recortes; si queda vacío, no aparecerá ningún membrete."
+              - name: video
+                label: Vídeo principal de la ficha
+                type: file
+                required: false
+                options:
+                  media: default
+                  categories: [video]
+                description: "Se reproduce como archivo principal si el tipo es VÍDEO. Si el tipo es IMAGEN, aparecerá como adjunto para no perder los vídeos ya cargados."
+              - name: poster
+                label: Miniatura opcional del vídeo (1280 × 720 px)
+                type: image
+                required: false
+                options:
+                  media: default
+                description: "Para vídeo horizontal, prepara 1280 × 720 píxeles (16:9). Si es vertical, usa 720 × 1280 para respetar su proporción."
+              - name: annotated_image
+                label: Versión con marcas o anotaciones visuales
+                type: image
+                required: false
+                options:
+                  media: default
+                description: "Si la añades, el visitante podrá alternar entre la imagen original y esta versión."
+              - name: order
+                label: Orden en el escritorio
+                type: number
+                required: false
+                description: "Opcional. Si lo dejas vacío, se conserva el orden de la lista."
+              - name: date_time
+                label: Fecha y hora
+                type: string
+                required: false
+              - name: location
+                label: Lugar
+                type: string
+                required: false
+              - name: source_device
+                label: Dispositivo o procedencia
+                type: string
+                required: false
+              - name: analysis_type
+                label: Tipo de análisis
+                type: string
+                required: false
+              - name: status
+                label: Estado del archivo
+                type: string
+                required: false
+              - name: notes
+                label: Anotaciones de los archivistas
+                type: text
+                required: false
+              - name: attachments
+                label: Archivos adjuntos al documento
+                type: object
+                required: false
+                description: "Imágenes y vídeos relacionados con esta ficha. Puedes añadir hasta 8 y se abrirán dentro de la misma ventana."
+                list:
+                  max: 8
+                  collapsible:
+                    collapsed: true
+                    summary: "{title}"
+                fields:
+                  - name: title
+                    label: Nombre del adjunto
+                    type: string
+                    required: true
+                  - name: image
+                    label: Imagen adjunta
+                    type: image
+                    required: false
+                    options:
+                      media: default
+                    description: "Si acompaña a un vídeo como portada: 1280 × 720 px horizontal o 720 × 1280 px vertical. Si es una imagen adjunta, conserva su proporción original."
+                  - name: video
+                    label: Vídeo adjunto
+                    type: file
+                    required: false
+                    options:
+                      media: default
+                      categories: [video]
+                    description: "Rellena imagen o vídeo. Si rellenas ambos, se mostrará el vídeo y la imagen servirá de miniatura."
+                  - name: note
+                    label: Nota sobre el adjunto
+                    type: string
+                    required: false
+
               - name: files
                 label: Archivos de esta carpeta
                 type: object
@@ -1972,6 +2316,24 @@ content:
                     type: string
                     required: false
                     description: "Solo para Introducir código. Se muestra bajo el título de la ventana. Si lo dejas vacío, aparece el texto habitual sobre las pistas."
+                  - name: thumbnail_image
+                    label: Miniatura del archivo (opcional)
+                    type: image
+                    required: false
+                    options:
+                      media: default
+                    description: "Se usa en el icono, tanto en una carpeta como en el escritorio. Útil para textos y archivos con varias páginas."
+                  - name: body_image
+                    label: Imagen dentro del texto principal (opcional)
+                    type: image
+                    required: false
+                    options:
+                      media: default
+                    description: "Aparece encima del texto cuando el tipo de archivo es TEXTO. También puedes insertar imágenes en Markdown."
+                  - name: body_image_caption
+                    label: Pie de la imagen del texto principal
+                    type: string
+                    required: false
                   - name: body
                     label: Texto del informe (Markdown)
                     type: rich-text
@@ -1981,6 +2343,117 @@ content:
                       media: default
                       switcher: true
                     description: "Solo para tipo TEXTO. Admite títulos, negritas, cursivas, listas, citas, tablas y enlaces."
+                  - name: pages
+                    label: Páginas de este archivo · en orden de lectura
+                    type: object
+                    required: false
+                    description: "Si añades páginas, esta lista define todo el contenido principal y su orden. Los campos de imagen, vídeo y texto anteriores se conservan para archivos antiguos."
+                    list:
+                      max: 50
+                      collapsible:
+                        collapsed: true
+                        summary: "{title}"
+                    fields:
+                      - name: title
+                        label: Título de la página
+                        type: string
+                        required: false
+                      - name: type
+                        label: Tipo de página
+                        type: select
+                        default: TEXTO
+                        options:
+                          values: [TEXTO, IMAGEN, VIDEO, GALERIA]
+                      - name: text
+                        label: Texto (Markdown)
+                        type: rich-text
+                        required: false
+                        options:
+                          format: markdown
+                          media: default
+                          switcher: true
+                      - name: text_image
+                        label: Imagen dentro de esta página de texto
+                        type: image
+                        required: false
+                        options:
+                          media: default
+                      - name: text_image_caption
+                        label: Pie de la imagen de texto
+                        type: string
+                        required: false
+                      - name: image
+                        label: Imagen de esta página
+                        type: image
+                        required: false
+                        options:
+                          media: default
+                      - name: translation_text
+                        label: Traducción de esta imagen (Markdown)
+                        type: rich-text
+                        required: false
+                        options:
+                          format: markdown
+                          media: default
+                          switcher: true
+                      - name: annotated_image
+                        label: Versión con anotaciones visuales
+                        type: image
+                        required: false
+                        options:
+                          media: default
+                      - name: image_visibility
+                        label: Cómo mostrar esta imagen
+                        type: select
+                        default: normal
+                        options:
+                          values:
+                            - { value: normal, label: Mostrar directamente }
+                            - { value: pixelado, label: Pixelado real · desbloquear }
+                            - { value: falso, label: Falso pixelado · cambiar de imagen }
+                      - name: fake_pixel_image
+                        label: Imagen de falso pixelado
+                        type: image
+                        required: false
+                        options:
+                          media: default
+                      - name: video
+                        label: Vídeo de esta página
+                        type: file
+                        required: false
+                        options:
+                          media: default
+                          categories: [video]
+                      - name: poster
+                        label: Miniatura del vídeo
+                        type: image
+                        required: false
+                        options:
+                          media: default
+                      - name: gallery_images
+                        label: Imágenes de la galería
+                        type: object
+                        required: false
+                        list:
+                          max: 30
+                          collapsible:
+                            collapsed: true
+                            summary: "{title}"
+                        fields:
+                          - name: title
+                            label: Título de la imagen
+                            type: string
+                            required: false
+                          - name: image
+                            label: Imagen
+                            type: image
+                            required: true
+                            options:
+                              media: default
+                          - name: caption
+                            label: Pie de foto
+                            type: string
+                            required: false
                   - name: image
                     label: Imagen que se verá al desbloquear
                     type: image
@@ -1996,7 +2469,7 @@ content:
                       format: markdown
                       media: default
                       switcher: true
-                    description: "Solo para imágenes. Activa un botón TRADUCCIÓN y muestra el texto encima de la imagen, con desplazamiento independiente."
+                    description: "Solo para imágenes. Activa un botón TRADUCCIÓN y muestra el texto encima de la imagen, con desplazamiento en el visor."
                   - name: image_visibility
                     label: Cómo mostrar la imagen
                     type: select
@@ -3436,7 +3909,7 @@ content:
             label: Texto de la franja inferior
             type: string
             required: false
-            description: "Por defecto: número de carpetas // SELECCIONE UNA UNIDAD. Puedes usar {count} y {carpetas} para incluir el número y CARPETA/CARPETAS."
+            description: "Por defecto: número de carpetas y archivos sueltos. Puedes usar {count}, {carpetas} y {archivos} en un texto propio."
           - name: desktop_background_color
             label: Color de fondo del escritorio (#RRGGBB)
             type: string
@@ -3663,6 +4136,350 @@ content:
                   values:
                     - { value: always, label: Cada vez que se abre la carpeta }
                     - { value: once, label: Una vez por visita a la página }
+          - name: desktop_files
+            label: Archivos sueltos del escritorio
+            type: object
+            required: false
+            description: "Archivos que aparecen directamente en el escritorio, con las mismas opciones y bloqueos."
+            list:
+              max: 100
+              collapsible:
+                collapsed: true
+                summary: "{title}"
+            fields:
+              - name: title
+                label: Nombre del archivo
+                type: string
+                required: true
+              - name: notify_new
+                label: Avisar al recuperar este archivo
+                type: boolean
+                default: true
+                description: "Desactívalo para que el archivo aparezca sin entrar en Novedades."
+              - name: notification_revision
+                label: Volver a notificar este archivo (clave opcional)
+                type: string
+                required: false
+                description: "Cambia la clave cuando quieras anunciar una versión nueva del mismo archivo."
+              - name: kind
+                label: Tipo de archivo
+                type: select
+                required: false
+                default: IMAGEN
+                options:
+                  values: [IMAGEN, VIDEO, TEXTO]
+              - name: display_type_label
+                label: Texto bajo el nombre del archivo
+                type: string
+                required: false
+                description: "Por defecto: IMAGEN, VÍDEO o TEXTO según el archivo. Puedes escribir CARTA, MEMORANDO, FOTOGRAFÍA, etc."
+              - name: circuit_difficulty
+                label: Dificultad del puzle de corriente o imagen
+                type: select
+                required: false
+                default: ninguno
+                options:
+                  values:
+                    - { value: ninguno, label: Sin puzle }
+                    - { value: basico, label: Básico · 4 × 4 }
+                    - { value: medio, label: Medio · 6 × 6 }
+                    - { value: dificil, label: Difícil · 8 × 8 }
+              - name: access_method
+                label: Tipo de bloqueo para abrir este archivo
+                type: select
+                required: false
+                default: automatico
+                options:
+                  values:
+                    - { value: automatico, label: Automático · respetar el puzle anterior }
+                    - { value: ninguno, label: Sin bloqueo }
+                    - { value: corriente, label: Circuito eléctrico }
+                    - { value: imagen, label: Reconstruir imagen }
+                    - { value: codigo, label: Introducir código }
+              - name: access_image
+                label: Imagen para el puzle de cuadrados
+                type: image
+                required: false
+                options:
+                  media: default
+                description: "Solo para Reconstruir imagen. Si queda vacía, se usa la imagen de este archivo."
+              - name: access_code
+                label: Código para abrir este archivo
+                type: string
+                required: false
+                description: "Solo para Introducir código. Esconde las pistas manualmente por el Archivo; no es seguridad real."
+              - name: access_hint
+                label: Texto de ayuda del código
+                type: string
+                required: false
+                description: "Solo para Introducir código. Se muestra bajo el título de la ventana. Si lo dejas vacío, aparece el texto habitual sobre las pistas."
+              - name: thumbnail_image
+                label: Miniatura del archivo (opcional)
+                type: image
+                required: false
+                options:
+                  media: default
+                description: "Se usa en el icono, tanto en una carpeta como en el escritorio. Útil para textos y archivos con varias páginas."
+              - name: body_image
+                label: Imagen dentro del texto principal (opcional)
+                type: image
+                required: false
+                options:
+                  media: default
+                description: "Aparece encima del texto cuando el tipo de archivo es TEXTO. También puedes insertar imágenes en Markdown."
+              - name: body_image_caption
+                label: Pie de la imagen del texto principal
+                type: string
+                required: false
+              - name: body
+                label: Texto del informe (Markdown)
+                type: rich-text
+                required: false
+                options:
+                  format: markdown
+                  media: default
+                  switcher: true
+                description: "Solo para tipo TEXTO. Admite títulos, negritas, cursivas, listas, citas, tablas y enlaces."
+              - name: pages
+                label: Páginas de este archivo · en orden de lectura
+                type: object
+                required: false
+                description: "Si añades páginas, esta lista define todo el contenido principal y su orden. Los campos de imagen, vídeo y texto anteriores se conservan para archivos antiguos."
+                list:
+                  max: 50
+                  collapsible:
+                    collapsed: true
+                    summary: "{title}"
+                fields:
+                  - name: title
+                    label: Título de la página
+                    type: string
+                    required: false
+                  - name: type
+                    label: Tipo de página
+                    type: select
+                    default: TEXTO
+                    options:
+                      values: [TEXTO, IMAGEN, VIDEO, GALERIA]
+                  - name: text
+                    label: Texto (Markdown)
+                    type: rich-text
+                    required: false
+                    options:
+                      format: markdown
+                      media: default
+                      switcher: true
+                  - name: text_image
+                    label: Imagen dentro de esta página de texto
+                    type: image
+                    required: false
+                    options:
+                      media: default
+                  - name: text_image_caption
+                    label: Pie de la imagen de texto
+                    type: string
+                    required: false
+                  - name: image
+                    label: Imagen de esta página
+                    type: image
+                    required: false
+                    options:
+                      media: default
+                  - name: translation_text
+                    label: Traducción de esta imagen (Markdown)
+                    type: rich-text
+                    required: false
+                    options:
+                      format: markdown
+                      media: default
+                      switcher: true
+                  - name: annotated_image
+                    label: Versión con anotaciones visuales
+                    type: image
+                    required: false
+                    options:
+                      media: default
+                  - name: image_visibility
+                    label: Cómo mostrar esta imagen
+                    type: select
+                    default: normal
+                    options:
+                      values:
+                        - { value: normal, label: Mostrar directamente }
+                        - { value: pixelado, label: Pixelado real · desbloquear }
+                        - { value: falso, label: Falso pixelado · cambiar de imagen }
+                  - name: fake_pixel_image
+                    label: Imagen de falso pixelado
+                    type: image
+                    required: false
+                    options:
+                      media: default
+                  - name: video
+                    label: Vídeo de esta página
+                    type: file
+                    required: false
+                    options:
+                      media: default
+                      categories: [video]
+                  - name: poster
+                    label: Miniatura del vídeo
+                    type: image
+                    required: false
+                    options:
+                      media: default
+                  - name: gallery_images
+                    label: Imágenes de la galería
+                    type: object
+                    required: false
+                    list:
+                      max: 30
+                      collapsible:
+                        collapsed: true
+                        summary: "{title}"
+                    fields:
+                      - name: title
+                        label: Título de la imagen
+                        type: string
+                        required: false
+                      - name: image
+                        label: Imagen
+                        type: image
+                        required: true
+                        options:
+                          media: default
+                      - name: caption
+                        label: Pie de foto
+                        type: string
+                        required: false
+              - name: image
+                label: Imagen que se verá al desbloquear
+                type: image
+                required: false
+                options:
+                  media: default
+                description: "Si no ocultas la imagen, se muestra directamente. Para el falso pixelado, aquí puedes subir incluso una imagen de error."
+              - name: translation_text
+                label: Traducción sobre la imagen (Markdown)
+                type: rich-text
+                required: false
+                options:
+                  format: markdown
+                  media: default
+                  switcher: true
+                description: "Solo para imágenes. Activa un botón TRADUCCIÓN y muestra el texto encima de la imagen, con desplazamiento en el visor."
+              - name: image_visibility
+                label: Cómo mostrar la imagen
+                type: select
+                required: false
+                default: normal
+                options:
+                  values:
+                    - value: normal
+                      label: Mostrar directamente
+                    - value: pixelado
+                      label: Pixelado real · desbloquear
+                    - value: falso
+                      label: Falso pixelado · cambiar de imagen
+              - name: fake_pixel_image
+                label: Imagen pixelada de la vista inicial
+                type: image
+                required: false
+                options:
+                  media: default
+                description: "Solo para «Falso pixelado». Sube una imagen YA pixelada; al desbloquear se sustituirá por la imagen del campo anterior."
+              - name: masthead_image
+                label: Membrete o banner de esta ficha (600 × 120 píxeles)
+                type: image
+                required: false
+                options:
+                  media: default
+                description: "Prepara una imagen de exactamente 600 × 120 píxeles (proporción 5:1). Se reducirá sin recortes; si queda vacío, no aparecerá ningún membrete."
+              - name: video
+                label: Vídeo principal de la ficha
+                type: file
+                required: false
+                options:
+                  media: default
+                  categories: [video]
+                description: "Se reproduce como archivo principal si el tipo es VÍDEO. Si el tipo es IMAGEN, aparecerá como adjunto para no perder los vídeos ya cargados."
+              - name: poster
+                label: Miniatura opcional del vídeo (1280 × 720 px)
+                type: image
+                required: false
+                options:
+                  media: default
+                description: "Para vídeo horizontal, prepara 1280 × 720 píxeles (16:9). Si es vertical, usa 720 × 1280 para respetar su proporción."
+              - name: annotated_image
+                label: Versión con marcas o anotaciones visuales
+                type: image
+                required: false
+                options:
+                  media: default
+                description: "Si la añades, el visitante podrá alternar entre la imagen original y esta versión."
+              - name: order
+                label: Orden en el escritorio
+                type: number
+                required: false
+                description: "Opcional. Si lo dejas vacío, se conserva el orden de la lista."
+              - name: date_time
+                label: Fecha y hora
+                type: string
+                required: false
+              - name: location
+                label: Lugar
+                type: string
+                required: false
+              - name: source_device
+                label: Dispositivo o procedencia
+                type: string
+                required: false
+              - name: analysis_type
+                label: Tipo de análisis
+                type: string
+                required: false
+              - name: status
+                label: Estado del archivo
+                type: string
+                required: false
+              - name: notes
+                label: Anotaciones de los archivistas
+                type: text
+                required: false
+              - name: attachments
+                label: Archivos adjuntos al documento
+                type: object
+                required: false
+                description: "Imágenes y vídeos relacionados con esta ficha. Puedes añadir hasta 8 y se abrirán dentro de la misma ventana."
+                list:
+                  max: 8
+                  collapsible:
+                    collapsed: true
+                    summary: "{title}"
+                fields:
+                  - name: title
+                    label: Nombre del adjunto
+                    type: string
+                    required: true
+                  - name: image
+                    label: Imagen adjunta
+                    type: image
+                    required: false
+                    options:
+                      media: default
+                    description: "Si acompaña a un vídeo como portada: 1280 × 720 px horizontal o 720 × 1280 px vertical. Si es una imagen adjunta, conserva su proporción original."
+                  - name: video
+                    label: Vídeo adjunto
+                    type: file
+                    required: false
+                    options:
+                      media: default
+                      categories: [video]
+                    description: "Rellena imagen o vídeo. Si rellenas ambos, se mostrará el vídeo y la imagen servirá de miniatura."
+                  - name: note
+                    label: Nota sobre el adjunto
+                    type: string
+                    required: false
+
               - name: files
                 label: Archivos de esta carpeta
                 type: object
@@ -3739,6 +4556,24 @@ content:
                     type: string
                     required: false
                     description: "Solo para Introducir código. Se muestra bajo el título de la ventana. Si lo dejas vacío, aparece el texto habitual sobre las pistas."
+                  - name: thumbnail_image
+                    label: Miniatura del archivo (opcional)
+                    type: image
+                    required: false
+                    options:
+                      media: default
+                    description: "Se usa en el icono, tanto en una carpeta como en el escritorio. Útil para textos y archivos con varias páginas."
+                  - name: body_image
+                    label: Imagen dentro del texto principal (opcional)
+                    type: image
+                    required: false
+                    options:
+                      media: default
+                    description: "Aparece encima del texto cuando el tipo de archivo es TEXTO. También puedes insertar imágenes en Markdown."
+                  - name: body_image_caption
+                    label: Pie de la imagen del texto principal
+                    type: string
+                    required: false
                   - name: body
                     label: Texto del informe (Markdown)
                     type: rich-text
@@ -3748,6 +4583,117 @@ content:
                       media: default
                       switcher: true
                     description: "Solo para tipo TEXTO. Admite títulos, negritas, cursivas, listas, citas, tablas y enlaces."
+                  - name: pages
+                    label: Páginas de este archivo · en orden de lectura
+                    type: object
+                    required: false
+                    description: "Si añades páginas, esta lista define todo el contenido principal y su orden. Los campos de imagen, vídeo y texto anteriores se conservan para archivos antiguos."
+                    list:
+                      max: 50
+                      collapsible:
+                        collapsed: true
+                        summary: "{title}"
+                    fields:
+                      - name: title
+                        label: Título de la página
+                        type: string
+                        required: false
+                      - name: type
+                        label: Tipo de página
+                        type: select
+                        default: TEXTO
+                        options:
+                          values: [TEXTO, IMAGEN, VIDEO, GALERIA]
+                      - name: text
+                        label: Texto (Markdown)
+                        type: rich-text
+                        required: false
+                        options:
+                          format: markdown
+                          media: default
+                          switcher: true
+                      - name: text_image
+                        label: Imagen dentro de esta página de texto
+                        type: image
+                        required: false
+                        options:
+                          media: default
+                      - name: text_image_caption
+                        label: Pie de la imagen de texto
+                        type: string
+                        required: false
+                      - name: image
+                        label: Imagen de esta página
+                        type: image
+                        required: false
+                        options:
+                          media: default
+                      - name: translation_text
+                        label: Traducción de esta imagen (Markdown)
+                        type: rich-text
+                        required: false
+                        options:
+                          format: markdown
+                          media: default
+                          switcher: true
+                      - name: annotated_image
+                        label: Versión con anotaciones visuales
+                        type: image
+                        required: false
+                        options:
+                          media: default
+                      - name: image_visibility
+                        label: Cómo mostrar esta imagen
+                        type: select
+                        default: normal
+                        options:
+                          values:
+                            - { value: normal, label: Mostrar directamente }
+                            - { value: pixelado, label: Pixelado real · desbloquear }
+                            - { value: falso, label: Falso pixelado · cambiar de imagen }
+                      - name: fake_pixel_image
+                        label: Imagen de falso pixelado
+                        type: image
+                        required: false
+                        options:
+                          media: default
+                      - name: video
+                        label: Vídeo de esta página
+                        type: file
+                        required: false
+                        options:
+                          media: default
+                          categories: [video]
+                      - name: poster
+                        label: Miniatura del vídeo
+                        type: image
+                        required: false
+                        options:
+                          media: default
+                      - name: gallery_images
+                        label: Imágenes de la galería
+                        type: object
+                        required: false
+                        list:
+                          max: 30
+                          collapsible:
+                            collapsed: true
+                            summary: "{title}"
+                        fields:
+                          - name: title
+                            label: Título de la imagen
+                            type: string
+                            required: false
+                          - name: image
+                            label: Imagen
+                            type: image
+                            required: true
+                            options:
+                              media: default
+                          - name: caption
+                            label: Pie de foto
+                            type: string
+                            required: false
                   - name: image
                     label: Imagen que se verá al desbloquear
                     type: image
@@ -3763,7 +4709,7 @@ content:
                       format: markdown
                       media: default
                       switcher: true
-                    description: "Solo para imágenes. Activa un botón TRADUCCIÓN y muestra el texto encima de la imagen, con desplazamiento independiente."
+                    description: "Solo para imágenes. Activa un botón TRADUCCIÓN y muestra el texto encima de la imagen, con desplazamiento en el visor."
                   - name: image_visibility
                     label: Cómo mostrar la imagen
                     type: select
