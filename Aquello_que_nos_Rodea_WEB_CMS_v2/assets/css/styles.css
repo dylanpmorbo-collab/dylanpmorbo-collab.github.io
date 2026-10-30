@@ -1795,3 +1795,34 @@ body.archive-digital-dialog-open{overflow:hidden}
 }
 .archive-police-folder-grid:not(.archive-mmc-grid)>.archive-police-folder .archive-police-folder-copy strong{font-size:clamp(12px,1.25vw,17px)}
 .archive-police-folder-grid:not(.archive-mmc-grid)>.archive-police-folder .archive-police-folder-copy>span{margin-top:0}
+
+/* Archivos sueltos del escritorio y páginas mixtas del archivo digital. */
+.retro-desktop-icons .retro-file-entry{width:104px;min-height:105px;padding:5px;color:#fff;text-shadow:1px 1px #000;font:700 12px/1.2 Arial,Helvetica,sans-serif}
+.retro-desktop-icons .retro-file-entry small{color:#dedede;font-size:9px}
+.retro-desktop-icons .retro-file-entry:hover,.retro-desktop-icons .retro-file-entry:focus-visible{border:1px dotted #fff;background:rgba(0,0,80,.38)}
+.retro-desktop-icons .retro-file-thumb{width:76px;height:64px;box-shadow:2px 3px 1px #1c3223}
+.retro-file-media.has-pages{display:block;overflow:hidden;padding:0;background:#eee}
+.retro-file-page{box-sizing:border-box;display:flex;flex-direction:column;width:100%;height:100%;min-height:0}
+.retro-file-page[hidden],.retro-page-navigation[hidden]{display:none!important}
+.retro-file-page-content{flex:1;min-height:0;overflow:auto;display:grid;place-items:center;width:100%}
+.retro-file-page.is-text-page .retro-file-page-content{display:block;padding:clamp(18px,3vw,38px);background:#faf9f5}
+.retro-file-page.is-image-page .retro-file-page-content{overflow:hidden;background:#272727}
+.retro-file-page.is-video-page .retro-file-page-content{background:#111}
+.retro-file-page.is-gallery-page .retro-file-page-content{display:block;padding:16px;background:#ececec}
+.retro-file-page-content>.retro-image-scroll{height:100%}
+.retro-file-page-content>video{max-width:100%;max-height:100%;width:auto;height:auto}
+.retro-page-tools{flex:0 0 auto;margin:0;padding:6px 8px;background:#c0c0c0}
+.retro-page-navigation{display:flex;align-items:center;justify-content:center;gap:10px;flex:0 0 auto;min-height:34px;padding:3px 8px;border:2px outset #ddd;background:#c0c0c0;color:#111;font:700 10px/1.2 "Courier New",monospace}
+.retro-page-navigation span{max-width:65%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center}
+.retro-page-navigation button{min-width:28px;padding:3px 7px;border:2px outset #fff;background:#c0c0c0;color:#111;cursor:pointer}
+.retro-page-navigation button:disabled{opacity:.45;cursor:default}
+.retro-text-illustration{max-width:100%;margin:0 auto 20px;text-align:center}
+.retro-text-illustration img{display:block;max-width:100%;max-height:260px;width:auto;height:auto;margin:0 auto;border:1px solid #c6c2b8}
+.retro-text-illustration figcaption{margin-top:6px;color:#65605a;font:italic 12px/1.4 Georgia,"Times New Roman",serif}
+.retro-page-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start}
+.retro-page-gallery-item{min-width:0;margin:0;padding:7px;border:1px solid #aaa;background:#fafafa;box-shadow:0 2px 5px rgba(0,0,0,.15)}
+.retro-page-gallery-item button{display:block;width:100%;padding:0;border:0;background:transparent;cursor:zoom-in}
+.retro-page-gallery-item img{display:block;max-width:100%;max-height:260px;width:auto;height:auto;margin:auto;object-fit:contain}
+.retro-page-gallery-item figcaption{padding-top:6px;color:#333;font:12px/1.35 Georgia,"Times New Roman",serif}
+.retro-page-empty{padding:20px;color:#555;font:14px Georgia,"Times New Roman",serif}
+@media(max-width:650px){.retro-page-gallery{grid-template-columns:1fr}.retro-file-page.is-gallery-page .retro-file-page-content{padding:9px}}
