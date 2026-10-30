@@ -188,6 +188,15 @@
             }
           ],
           "image_visibility": "normal"
+        },
+        {
+          "title": "LEEME",
+          "notify_new": true,
+          "kind": "TEXTO",
+          "circuit_difficulty": "ninguno",
+          "access_method": "automatico",
+          "body": "Si estas leyendo esto es que me adentré demasiado en la boca del lobo.  \nQuema esta tarjeta.   \nNo busques respuestas.",
+          "image_visibility": "normal"
         }
       ]
     }
