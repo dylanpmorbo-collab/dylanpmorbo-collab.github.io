@@ -22,7 +22,7 @@
       if(boot)boot.hidden=true;
       const surface=desktop();
       if(surface)surface.hidden=false;
-      surface?.querySelector('[data-retro-folder]')?.focus();
+      surface?.querySelector('[data-retro-folder],[data-retro-file]')?.focus();
     }
     function startBoot(){
       const boot=workspace.querySelector('[data-retro-boot]');
@@ -75,7 +75,10 @@
     function folderWindow(){return desktop()?.querySelector('[data-retro-folder-window]');}
     function fileWindow(){return desktop()?.querySelector('[data-retro-file-window]');}
     function pauseVideos(container){container?.querySelectorAll('video').forEach(video=>video.pause());}
-    function fileEntries(){return Array.from(folderWindow()?.querySelectorAll('[data-retro-file]')||[]);}
+    function fileEntries(){
+      const source=fileTrigger?.closest('.retro-desktop-icons')||folderWindow();
+      return Array.from(source?.querySelectorAll('[data-retro-file]')||[]);
+    }
     function updateFileNavigation(){
       const window=fileWindow();
       const entries=fileEntries();
@@ -84,11 +87,12 @@
       window.querySelector('[data-retro-file-next]').disabled=index<0||index>=entries.length-1;
     }
     function pixelateImage(window){
-      const wrap=window.querySelector('[data-conceal-mode="pixelado"]');
+      const page=window.querySelector('[data-retro-page]:not([hidden])');
+      const wrap=page?page.querySelector('[data-conceal-mode="pixelado"]'):window.querySelector('[data-conceal-mode="pixelado"]');
       const image=wrap?.querySelector('img');
       if(!image)return;
       const draw=()=>{
-        if(!image.naturalWidth || !wrap.classList.contains('is-concealed'))return;
+        if(!image.naturalWidth || !wrap.classList.contains('is-concealed') || wrap.querySelector('canvas'))return;
         try{
           const canvas=document.createElement('canvas');
           canvas.width=32;
@@ -103,7 +107,7 @@
       else image.addEventListener('load',draw,{once:true});
     }
     function expandImage(button){
-      const image=button.closest('.retro-file-detail')?.querySelector('.retro-file-media .retro-image-scroll img');
+      const image=button.closest('.retro-page-gallery-item')?.querySelector('img')||button.closest('[data-retro-page]')?.querySelector('.retro-image-scroll img')||button.closest('.retro-file-detail')?.querySelector('.retro-file-media .retro-image-scroll img');
       if(!image || image.closest('.is-concealed'))return;
       if(!imageZoomDialog){
         imageZoomDialog=document.createElement('dialog');
@@ -183,7 +187,7 @@
       window.querySelector('[data-retro-folder-close]').focus();
     }
     function syncTranslationHeight(detail,resetScroll=false){
-      const wrap=detail?.querySelector('[data-retro-image-wrap].has-translation');
+      const wrap=detail?.querySelector('[data-retro-page]:not([hidden]) [data-retro-image-wrap].has-translation')||detail?.querySelector('[data-retro-image-wrap].has-translation');
       const sheet=wrap?.querySelector('.retro-image-sheet');
       const overlay=sheet?.querySelector('[data-retro-translation-overlay]');
       if(!sheet || !overlay)return;
@@ -193,12 +197,42 @@
       sheet.style.minHeight=Math.ceil(Math.max(image?.getBoundingClientRect().height||0,overlay.scrollHeight))+'px';
       if(resetScroll)wrap.scrollTop=0;
     }
+    function updatePageNavigation(window){
+      const detail=window?.querySelector('.retro-file-detail');
+      const pages=Array.from(detail?.querySelectorAll('[data-retro-page]')||[]);
+      const nav=detail?.querySelector('.retro-page-navigation');
+      if(!nav || !pages.length)return;
+      const index=Math.max(0,pages.findIndex(page=>!page.hidden));
+      nav.querySelector('[data-retro-page-prev]').disabled=index===0;
+      nav.querySelector('[data-retro-page-next]').disabled=index===pages.length-1;
+      const title=pages[index]?.dataset.retroPageTitle||'';
+      nav.querySelector('[data-retro-page-counter]').textContent='PÁGINA '+(index+1)+' / '+pages.length+(title?' · '+title:'');
+    }
+    function stepPage(offset){
+      const window=fileWindow();
+      const detail=window?.querySelector('.retro-file-detail');
+      const pages=Array.from(detail?.querySelectorAll('[data-retro-page]')||[]);
+      const current=pages.findIndex(page=>!page.hidden);
+      const next=current+offset;
+      if(current<0 || next<0 || next>=pages.length)return;
+      pauseVideos(pages[current]);
+      pages[current].hidden=true;
+      pages[next].hidden=false;
+      pages[next].querySelector('.retro-file-page-content')?.scrollTo(0,0);
+      pages[next].querySelector('[data-retro-image-wrap]')?.scrollTo(0,0);
+      window.classList.remove('is-maximized');
+      updatePageNavigation(window);
+      pixelateImage(window);
+      syncTranslationHeight(detail);
+      watchVideo(pages[next].querySelector('video'));
+    }
     function openFile(button){
       if(requiresAccess(button,()=>openFile(button)))return;
       const surface=desktop();
       const folder=folderWindow();
-      if(!surface || !folder || folder.hidden)return;
-      const template=surface.querySelector('template[data-retro-file-template="'+folder.dataset.folderIndex+':'+button.dataset.retroFile+'"]');
+      const container=button.dataset.retroContainer||(!folder?.hidden?folder.dataset.folderIndex:'');
+      if(!surface || container==='')return;
+      const template=surface.querySelector('template[data-retro-file-template="'+container+':'+button.dataset.retroFile+'"]');
       if(!template)return;
       closeFile(false);
       fileTrigger=button;
@@ -207,6 +241,7 @@
       window.querySelector('[data-retro-file-content]').replaceChildren(template.content.cloneNode(true));
       globalThis.AQNRUpdates?.markOpened(button.dataset.updateId);
       updateFileNavigation();
+      updatePageNavigation(window);
       pixelateImage(window);
       const video=window.querySelector('video');
       watchVideo(video);
@@ -239,6 +274,8 @@
       detail.querySelectorAll('[data-retro-attachment]').forEach(entry=>entry.setAttribute('aria-pressed',String(entry===button)));
       detail.querySelector('[data-retro-attachment-return]').hidden=false;
       detail.querySelector('[data-retro-attachment-expand]').hidden=template.dataset.retroAttachmentKind!=='video';
+      const nav=detail.querySelector('.retro-page-navigation');
+      if(nav)nav.hidden=true;
       const zoom=detail.querySelector('[data-retro-attachment-zoom]');
       zoom.hidden=template.dataset.retroAttachmentKind!=='image';
       zoom.textContent='AMPLIAR IMAGEN';
@@ -255,6 +292,8 @@
       detail.querySelectorAll('[data-retro-primary-tools]').forEach(tools=>tools.hidden=false);
       detail.querySelectorAll('[data-retro-attachment]').forEach(entry=>entry.setAttribute('aria-pressed','false'));
       button.hidden=true;
+      const nav=detail.querySelector('.retro-page-navigation');
+      if(nav)nav.hidden=false;
       detail.querySelector('[data-retro-attachment-expand]').hidden=true;
       detail.querySelector('[data-retro-attachment-zoom]').hidden=true;
       fileWindow()?.classList.remove('is-maximized');
@@ -275,7 +314,7 @@
       if(!requiresAccess(button,()=>startBoot(),()=>dialog.close()))startBoot();
     }
     function expandVideo(button){
-      const video=button.closest('.retro-file-detail')?.querySelector('video');
+      const video=button.closest('[data-retro-page]')?.querySelector('video')||button.closest('.retro-file-detail')?.querySelector('video');
       const window=fileWindow();
       if(!video || !window)return;
       if(window.classList.contains('is-maximized')){
@@ -318,6 +357,8 @@
       else if(button.hasAttribute('data-retro-file-close'))closeFile();
       else if(button.hasAttribute('data-retro-file-prev'))stepFile(-1);
       else if(button.hasAttribute('data-retro-file-next'))stepFile(1);
+      else if(button.hasAttribute('data-retro-page-prev'))stepPage(-1);
+      else if(button.hasAttribute('data-retro-page-next'))stepPage(1);
       else if(button.hasAttribute('data-retro-folder-close'))closeFolder();
       else if(button.hasAttribute('data-retro-video-expand'))expandVideo(button);
       else if(button.hasAttribute('data-retro-attachment'))showAttachment(button);
@@ -330,21 +371,22 @@
         wrap.classList.remove('is-concealed','is-pixelated');
         wrap.querySelector('canvas')?.remove();
         wrap.querySelector('.retro-image-warning')?.remove();
-        fileWindow().querySelectorAll('[data-retro-zoom],[data-retro-annotated],[data-retro-translate]').forEach(control=>control.hidden=false);
+        (wrap.closest('[data-retro-page]')||fileWindow()).querySelectorAll('[data-retro-zoom],[data-retro-annotated],[data-retro-translate]').forEach(control=>control.hidden=false);
       }
       else if(button.hasAttribute('data-retro-translate')){
         const detail=button.closest('.retro-file-detail');
-        const overlay=detail?.querySelector('[data-retro-translation-overlay]');
+        const overlay=button.closest('[data-retro-page]')?.querySelector('[data-retro-translation-overlay]')||detail?.querySelector('[data-retro-translation-overlay]');
         if(!overlay)return;
         overlay.hidden=!overlay.hidden;
         syncTranslationHeight(detail,!overlay.hidden);
         button.setAttribute('aria-pressed',String(!overlay.hidden));
         button.textContent=overlay.hidden?'TRADUCCIÓN':'VER ORIGINAL';
       }
+      else if(button.hasAttribute('data-retro-gallery-zoom'))expandImage(button);
       else if(button.hasAttribute('data-retro-zoom')){
         expandImage(button);
       }else if(button.hasAttribute('data-retro-annotated')){
-        const image=button.closest('.retro-file-detail')?.querySelector('[data-retro-image]');
+        const image=button.closest('[data-retro-page]')?.querySelector('[data-retro-image]')||button.closest('.retro-file-detail')?.querySelector('[data-retro-image]');
         if(!image || !image.dataset.annotated)return;
         const marked=image.getAttribute('src')===image.dataset.annotated;
         image.src=marked?image.dataset.original:image.dataset.annotated;
@@ -371,7 +413,9 @@
       if(event.target.closest('video,button'))return;
       if(event.key==='ArrowLeft'||event.key==='ArrowRight'){
         event.preventDefault();
-        stepFile(event.key==='ArrowLeft'?-1:1);
+        const detail=fileWindow()?.querySelector('.retro-file-detail');
+        if(detail?.querySelectorAll('[data-retro-page]').length>1)stepPage(event.key==='ArrowLeft'?-1:1);
+        else stepFile(event.key==='ArrowLeft'?-1:1);
       }
     });
     closeReport.addEventListener('click',()=>dialog.close());
