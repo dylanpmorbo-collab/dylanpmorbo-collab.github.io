@@ -122,7 +122,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=soportes-realistas-todos-20261028"><link rel="stylesheet" href="assets/css/secret-fichas.css?v=1"><script defer src="assets/js/secret-fichas.js?v=1"></script><script defer src="assets/js/main.js?v=sandbox-compacto-20261028"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=paginas-archivos-digitales-20261030"><link rel="stylesheet" href="assets/css/secret-fichas.css?v=1"><script defer src="assets/js/secret-fichas.js?v=1"></script><script defer src="assets/js/main.js?v=sandbox-compacto-20261028"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -497,6 +497,21 @@ function secretFichaPage(section,item,html){
 }
 function updateId(...parts){return crypto.createHash('sha1').update(parts.map(x=>String(x||'')).join('\u001f')).digest('hex').slice(0,20);}
 function entryUpdateId(section,item){return updateId('entry',itemHref(section,item));}
+function digitalPages(file){
+ return (Array.isArray(file?.pages)?file.pages:[]).filter(page=>page && (
+   String(page.text||'').trim() || page.text_image || page.image || page.video ||
+   (Array.isArray(page.gallery_images) && page.gallery_images.some(image=>image?.image))
+ )).slice(0,50);
+}
+function digitalPrimaryImage(file){
+ if(file?.thumbnail_image)return file.thumbnail_image;
+ const first=digitalPages(file)[0];
+ if(first)return first.image||first.poster||first.text_image||first.gallery_images?.find(image=>image?.image)?.image||'';
+ return file?.image||file?.poster||file?.body_image||file?.annotated_image||'';
+}
+function hasDigitalFileContent(file){
+ return Boolean(file && (file.image||file.video||file.annotated_image||String(file.kind||'').toUpperCase()==='TEXTO'||digitalPages(file).length));
+}
 function digitalFileUpdateId(section,item,report,folder,file){
  return updateId('digital',itemHref(section,item),report.title,folder.title,file.notification_id||file.image||file.video||file.annotated_image||file.title);
 }
@@ -515,9 +530,10 @@ for(const section of archiveSectionDefs){
   if(secretFichaByTarget.has(itemHref(section,item))) continue;
   const href=itemHref(section,item),parent=itemTitle(section,item);
   updateRegistry.push({id:entryUpdateId(section,item),version:String(item.notification_revision||''),title:parent,context:section.label,kind:'page',href,notify:item.notify_new!==false});
-  if(item.show_digital_reports===true)for(const report of (Array.isArray(item.digital_reports)?item.digital_reports:[]).filter(report=>report&&(report.title||report.folders?.length)).slice(0,30)){
-   for(const folder of orderedDigitalItems(report.folders).filter(folder=>folder.title||folder.files?.length).slice(0,40)){
-    for(const file of orderedDigitalItems(folder.files).filter(file=>file.image||file.video||file.annotated_image||String(file.kind||'').toUpperCase()==='TEXTO').slice(0,100)){
+  if(item.show_digital_reports===true)for(const report of (Array.isArray(item.digital_reports)?item.digital_reports:[]).filter(report=>report&&(report.title||report.folders?.length||report.desktop_files?.length)).slice(0,30)){
+   const collections=[...orderedDigitalItems(report.folders).filter(folder=>folder.title||folder.files?.length).slice(0,40),{title:'ESCRITORIO',files:report.desktop_files}];
+   for(const folder of collections){
+    for(const file of orderedDigitalItems(folder.files).filter(hasDigitalFileContent).slice(0,100)){
      updateRegistry.push({id:digitalFileUpdateId(section,item,report,folder,file),version:String(file.notification_revision||''),title:String(file.title||'Archivo recuperado'),context:parent+' · '+String(folder.title||'Carpeta'),kind:'file',href:href+'#informes-digitales',notify:file.notify_new!==false});
     }
    }
@@ -1219,10 +1235,53 @@ function accessAttributes(item,kind,key,defaultImage){
  }).join('');
  return ' data-access-type="codigo" data-access-key="'+esc(access.key)+'" data-access-hash="'+access.hash+'"'+(access.hint?' data-access-hint="'+esc(access.hint)+'"':'')+presentation;
 }
+function renderDigitalPages(pages,fileTitle){
+ return pages.map((page,pageIndex)=>{
+   const type=String(page.type||'TEXTO').toUpperCase();
+   const title=String(page.title||('PÁGINA '+String(pageIndex+1).padStart(2,'0')));
+   const hidden=pageIndex?' hidden':'';
+   let content='',tools='';
+   if(type==='VIDEO'){
+     content=page.video?'<video controls playsinline preload="metadata"'+(page.poster?' poster="'+esc(page.poster)+'"':'')+' aria-label="'+esc(title)+'"><source src="'+esc(page.video)+'">Tu navegador no puede reproducir este vídeo.</video>':'<p class="retro-page-empty">Añade un vídeo a esta página.</p>';
+     if(page.video)tools='<button type="button" data-retro-video-expand>⛶ VER VÍDEO ENTERO</button>';
+   }else if(type==='GALERIA'){
+     const images=(Array.isArray(page.gallery_images)?page.gallery_images:[]).filter(image=>image?.image).slice(0,30);
+     content='<div class="retro-page-gallery">'+images.map((image,imageIndex)=>{
+       const label=String(image.title||('IMAGEN '+String(imageIndex+1).padStart(2,'0')));
+       return '<figure class="retro-page-gallery-item"><button type="button" data-retro-gallery-zoom aria-label="Ampliar '+esc(label)+'"><img src="'+esc(image.image)+'" alt="'+esc(label)+'" loading="lazy"></button>'+(image.caption?'<figcaption>'+esc(image.caption)+'</figcaption>':'')+'</figure>';
+     }).join('')+'</div>';
+     if(!images.length)content='<p class="retro-page-empty">Añade imágenes a esta galería.</p>';
+   }else if(type==='IMAGEN'){
+     const image=page.image||page.annotated_image||'';
+     const globalRule=globalCensorship.get(imagePath(image));
+     const concealMode=image?(globalRule?.mode||(page.image_visibility==='falso'&&page.fake_pixel_image?'falso':page.image_visibility==='pixelado'?'pixelado':'normal')):'normal';
+     const initialImage=concealMode==='falso'?(globalRule?.fake||page.fake_pixel_image):image;
+     const translation=String(page.translation_text||'').trim();
+     content=image?'<div class="retro-image-scroll'+(translation?' has-translation':'')+(concealMode==='normal'?'':' is-concealed')+'" data-retro-image-wrap data-conceal-mode="'+concealMode+'">'+
+       (translation?'<div class="retro-image-sheet">':'')+
+       '<img src="'+esc(initialImage)+'" alt="'+esc(title)+'" data-retro-image data-original="'+esc(image)+'"'+(page.image&&page.annotated_image&&page.image!==page.annotated_image?' data-annotated="'+esc(page.annotated_image)+'"':'')+'>'+
+       (translation?'<div class="retro-file-translation" data-retro-translation-overlay hidden><div class="retro-file-translation-heading">TRADUCCIÓN</div><div class="retro-file-translation-body">'+markdownToHTML(translation)+'</div></div></div>':'')+
+       (concealMode!=='normal'?'<div class="retro-image-warning">'+(globalRule?'':'<p>Esta imagen puede resultar ofensiva o contener contenido sexual explícito.</p>')+'<button type="button" data-retro-reveal>'+(globalRule?'MOSTRAR':'DESBLOQUEAR IMAGEN')+'</button></div>':'')+'</div>'
+       :'<p class="retro-page-empty">Añade una imagen a esta página.</p>';
+     if(image)tools='<button type="button" data-retro-zoom'+(concealMode!=='normal'?' hidden':'')+'>AMPLIAR</button>'+
+       (translation?'<button type="button" data-retro-translate aria-pressed="false"'+(concealMode!=='normal'?' hidden':'')+'>TRADUCCIÓN</button>':'')+
+       (page.image&&page.annotated_image&&page.image!==page.annotated_image?'<button type="button" data-retro-annotated'+(concealMode!=='normal'?' hidden':'')+'>VER MARCAS</button>':'');
+   }else{
+     content='<article class="retro-text-document">'+
+       (page.text_image?'<figure class="retro-text-illustration"><img src="'+esc(page.text_image)+'" alt="" loading="lazy">'+(page.text_image_caption?'<figcaption>'+esc(page.text_image_caption)+'</figcaption>':'')+'</figure>':'')+
+       (page.text?markdownToHTML(page.text):'<p>Esta página todavía no contiene texto.</p>')+'</article>';
+   }
+   const kind=type==='GALERIA'?'gallery':type==='VIDEO'?'video':type==='IMAGEN'?'image':'text';
+   return '<section class="retro-file-page is-'+kind+'-page" data-retro-page="'+pageIndex+'" data-retro-page-title="'+esc(title)+'"'+hidden+'>'+
+     '<div class="retro-file-page-content">'+content+'</div>'+
+     (tools?'<div class="retro-file-tools retro-file-media-tools retro-page-tools" data-retro-primary-tools>'+tools+'</div>':'')+
+     '</section>';
+ }).join('');
+}
 function archiveDigitalReports(section,item){
  if(item.show_digital_reports!==true) return {count:0,html:''};
  const reports=(Array.isArray(item.digital_reports)?item.digital_reports:[])
-   .filter(report=>report && (report.title || report.folders?.length)).slice(0,30);
+   .filter(report=>report && (report.title || report.folders?.length || report.desktop_files?.length)).slice(0,30);
  if(!reports.length) return {count:0,html:''};
  const digitalHeading=String(item.digital_reports_heading||'INFORMES DIGITALES').trim()||'INFORMES DIGITALES';
  const cards=reports.map((report,index)=>{
@@ -1245,11 +1304,12 @@ function archiveDigitalReports(section,item){
    const desktopColorStyle=' style="--retro-accent:'+interfaceColor+';'+(/^#[0-9a-fA-F]{6}$/.test(desktopColor)?'background-color:'+desktopColor+';':'')+'"';
    const desktopWallpaper=String(report.desktop_wallpaper||'').trim();
    const folders=orderedDigitalItems(report.folders).filter(folder=>folder.title || folder.files?.length).slice(0,40);
+   const desktopFiles=orderedDigitalItems(report.desktop_files).filter(hasDigitalFileContent).slice(0,100);
    const folderCount=folders.length;
    const folderWord=folderCount===1?'CARPETA':'CARPETAS';
    const topLabel=String(report.desktop_top_label||'ARCHIVO DIGITAL').trim()||'ARCHIVO DIGITAL';
    const rightLabel=String(report.desktop_right_label||report.summary||'DUB.SAR').trim()||'DUB.SAR';
-   const bottomLabel=String(report.desktop_bottom_label||'').trim().replace(/\{count\}/gi,String(folderCount)).replace(/\{carpetas\}/gi,folderWord)||folderCount+' '+folderWord+' // SELECCIONE UNA UNIDAD';
+   const bottomLabel=String(report.desktop_bottom_label||'').trim().replace(/\{count\}/gi,String(folderCount)).replace(/\{carpetas\}/gi,folderWord).replace(/\{archivos\}/gi,String(desktopFiles.length))||(folderCount+' '+folderWord+(desktopFiles.length?' · '+desktopFiles.length+' ARCHIVO'+(desktopFiles.length===1?'':'S'):'')+' // SELECCIONE UNA UNIDAD');
    const folderButtons=folders.map((folder,folderIndex)=>{
      const name=String(folder.title||('CARPETA '+String(folderIndex+1).padStart(2,'0')));
      return '<button type="button" class="retro-folder-icon" data-retro-folder="'+folderIndex+'"'+accessAttributes(folder,'carpeta',index+':'+folderIndex+':'+String(report.title||'')+' / '+name,folder.icon)+' aria-label="Abrir carpeta '+esc(name)+'">'+
@@ -1274,27 +1334,34 @@ function archiveDigitalReports(section,item){
        '<div class="retro-folder-notice-actions"><button type="button" data-folder-notice-cancel>'+esc(cancel)+'</button><button type="button" data-folder-notice-continue>'+esc(confirm)+'</button></div>'+
        '</section></div></template>';
    }).join('');
+   const renderEntry=(file,fileIndex,folder,folderIndex,onDesktop=false)=>{
+     const title=String(file.title||('ARCHIVO '+String(fileIndex+1).padStart(2,'0')));
+     const pages=digitalPages(file);
+     const firstType=pages.length?String(pages[0].type||'TEXTO').toUpperCase():String(file.kind||'').toUpperCase();
+     const isText=firstType==='TEXTO';
+     const isVideo=firstType==='VIDEO'||(!pages.length&&!isText&&Boolean(file.video&&!file.image));
+     const displayTypeLabel=String(file.display_type_label||'').trim()||(pages.length>1?'DOCUMENTO':isText?'TEXTO':isVideo?'VÍDEO':firstType==='GALERIA'?'GALERÍA':'IMAGEN');
+     const primary=digitalPrimaryImage(file);
+     const globalRule=globalCensorship.get(imagePath(primary));
+     const access=accessAttributes(file,'archivo',index+':'+folderIndex+':'+fileIndex+':'+String(report.title||'')+' / '+String(folder.title||'')+' / '+title,primary);
+     const locked=Boolean(access);
+     const thumb=locked?'':globalRule?.mode==='falso'?globalRule.fake:(!pages.length&&file.image_visibility==='falso'&&file.fake_pixel_image?file.fake_pixel_image:primary);
+     return '<button type="button" class="retro-file-entry'+(onDesktop?' retro-desktop-file':'')+'" data-retro-file="'+fileIndex+'"'+(onDesktop?' data-retro-container="'+folderIndex+'"':'')+' data-update-id="'+digitalFileUpdateId(section,item,report,folder,file)+'"'+access+' aria-label="Abrir '+esc(title)+'">'+
+       '<span class="retro-file-thumb">'+(thumb?'<img src="'+esc(thumb)+'" alt="" loading="lazy"'+(globalRule?.mode==='falso'?' data-original="'+esc(primary)+'"':'')+'>':'<span aria-hidden="true">'+(locked?'▣':isText?'▤':isVideo?'▶':'▧')+'</span>')+'</span>'+
+       '<span class="retro-file-name">'+esc(title)+'</span><small>'+esc(displayTypeLabel)+'</small></button>';
+   };
+   const desktopFolder={title:'ESCRITORIO',files:desktopFiles};
+   const desktopButtons=desktopFiles.map((file,fileIndex)=>renderEntry(file,fileIndex,desktopFolder,folders.length,true)).join('');
    const folderTemplates=folders.map((folder,folderIndex)=>{
-     const files=orderedDigitalItems(folder.files).filter(file=>file.image||file.video||file.annotated_image||String(file.kind||'').toUpperCase()==='TEXTO').slice(0,100);
-     const entries=files.map((file,fileIndex)=>{
-       const title=String(file.title||('ARCHIVO '+String(fileIndex+1).padStart(2,'0')));
-       const isText=String(file.kind||'').toUpperCase()==='TEXTO';
-       const isVideo=!isText&&Boolean(file.video && (String(file.kind||'').toUpperCase()==='VIDEO'||!file.image));
-       const displayTypeLabel=String(file.display_type_label||'').trim()||(isText?'TEXTO':isVideo?'VÍDEO':'IMAGEN');
-       const globalRule=globalCensorship.get(imagePath(file.image||file.annotated_image));
-       const access=accessAttributes(file,'archivo',index+':'+folderIndex+':'+fileIndex+':'+String(report.title||'')+' / '+String(folder.title||'')+' / '+title,file.image||file.poster);
-       const locked=Boolean(access);
-       const thumb=locked?'':isVideo?(file.poster||file.image):(globalRule?.mode==='falso'?globalRule.fake:(file.image_visibility==='falso'&&file.fake_pixel_image?file.fake_pixel_image:(file.image||file.annotated_image)));
-       return '<button type="button" class="retro-file-entry" data-retro-file="'+fileIndex+'" data-update-id="'+digitalFileUpdateId(section,item,report,folder,file)+'"'+access+' aria-label="Abrir '+esc(title)+'">'+
-         '<span class="retro-file-thumb">'+(thumb?'<img src="'+esc(thumb)+'" alt="" loading="lazy"'+(globalRule?.mode==='falso'?' data-original="'+esc(file.image||file.annotated_image)+'"':'')+'>':'<span aria-hidden="true">'+(locked?'▣':isText?'▤':'▶')+'</span>')+'</span>'+
-         '<span class="retro-file-name">'+esc(title)+'</span><small>'+esc(displayTypeLabel)+'</small></button>';
-     }).join('');
+     const files=orderedDigitalItems(folder.files).filter(hasDigitalFileContent).slice(0,100);
+     const entries=files.map((file,fileIndex)=>renderEntry(file,fileIndex,folder,folderIndex)).join('');
      const recovery=folder.show_recovery_placeholder===false?'':'<div class="retro-recovery-pending" role="status" aria-label="Recuperación de archivos en curso"><span class="retro-recovery-photo" aria-hidden="true"><i></i></span><strong>RECUPERANDO…</strong><small>La unidad sigue examinando fragmentos</small></div>';
      return '<template data-retro-folder-template="'+folderIndex+'"><div class="retro-file-grid">'+(entries||'<p class="retro-empty">No hay archivos en esta carpeta.</p>')+recovery+'</div></template>';
    }).join('');
-     const fileTemplates=folders.flatMap((folder,folderIndex)=>
-     orderedDigitalItems(folder.files).filter(file=>file.image||file.video||file.annotated_image||String(file.kind||'').toUpperCase()==='TEXTO').slice(0,100).map((file,fileIndex)=>{
+     const fileTemplates=[...folders,desktopFolder].flatMap((folder,folderIndex)=>
+     orderedDigitalItems(folder.files).filter(hasDigitalFileContent).slice(0,100).map((file,fileIndex)=>{
        const title=String(file.title||('ARCHIVO '+String(fileIndex+1).padStart(2,'0')));
+       const pages=digitalPages(file);
        const isText=String(file.kind||'').toUpperCase()==='TEXTO';
        const isVideo=!isText&&Boolean(file.video && (String(file.kind||'').toUpperCase()==='VIDEO'||!file.image));
        const image=file.image||file.annotated_image;
@@ -1304,7 +1371,7 @@ function archiveDigitalReports(section,item){
        const initialImage=concealMode==='falso'?(globalRule?.fake||file.fake_pixel_image):image;
        const attachments=(Array.isArray(file.attachments)?file.attachments:[])
          .filter(attachment=>attachment && (attachment.video || attachment.image)).slice(0,8);
-       if(!isVideo && file.video && !attachments.some(attachment=>attachment.video===file.video)){
+       if(!pages.length && !isVideo && file.video && !attachments.some(attachment=>attachment.video===file.video)){
          attachments.unshift({title:'Vídeo recuperado',video:file.video,image:file.poster});
        }
        const attachmentButtons=attachments.map((attachment,attachmentIndex)=>{
@@ -1327,21 +1394,22 @@ function archiveDigitalReports(section,item){
          ['FECHA Y HORA',file.date_time],['LUGAR',file.location],
          ['DISPOSITIVO',file.source_device],['ANÁLISIS',file.analysis_type],['ESTADO',file.status]
        ].filter(([,value])=>value).map(([label,value])=>'<div><dt>'+label+'</dt><dd>'+esc(value)+'</dd></div>').join('');
-       const media=isText
-         ? '<article class="retro-text-document">'+(file.body?markdownToHTML(file.body):'<p>Este documento todavía no contiene texto.</p>')+'</article>'
+       const media=pages.length?renderDigitalPages(pages,title):isText
+         ? '<article class="retro-text-document">'+(file.body_image?'<figure class="retro-text-illustration"><img src="'+esc(file.body_image)+'" alt="" loading="lazy">'+(file.body_image_caption?'<figcaption>'+esc(file.body_image_caption)+'</figcaption>':'')+'</figure>':'')+(file.body?markdownToHTML(file.body):'<p>Este documento todavía no contiene texto.</p>')+'</article>'
          : isVideo
            ? '<video controls playsinline preload="metadata"'+(file.poster?' poster="'+esc(file.poster)+'"':'')+' aria-label="'+esc(title)+'"><source src="'+esc(file.video)+'">Tu navegador no puede reproducir este vídeo.</video>'
            : '<div class="retro-image-scroll'+(translatedText?' has-translation':'')+(concealMode==='normal'?'':' is-concealed')+'" data-retro-image-wrap data-conceal-mode="'+concealMode+'">'+(translatedText?'<div class="retro-image-sheet">':'')+'<img src="'+esc(initialImage)+'" alt="'+esc(title)+'" data-retro-image data-original="'+esc(image)+'"'+(file.image&&file.annotated_image&&file.image!==file.annotated_image?' data-annotated="'+esc(file.annotated_image)+'"':'')+'>'+(translatedText?'<div class="retro-file-translation" data-retro-translation-overlay hidden><div class="retro-file-translation-heading">TRADUCCIÓN</div><div class="retro-file-translation-body">'+markdownToHTML(translatedText)+'</div></div></div>':'')+(concealMode!=='normal'?'<div class="retro-image-warning">'+(globalRule?'':'<p>Esta imagen puede resultar ofensiva o contener contenido sexual explícito.</p>')+'<button type="button" data-retro-reveal>'+(globalRule?'MOSTRAR':'DESBLOQUEAR IMAGEN')+'</button></div>':'')+'</div>';
-       return '<template data-retro-file-template="'+folderIndex+':'+fileIndex+'"><div class="retro-file-detail'+(isText?' is-text-document':'')+'">'+
-         '<div class="retro-file-media-column"><div class="retro-file-media'+(isText?' is-text-document':'')+(isChatScreenshot?' is-chat-screenshot':'')+'">'+media+'</div>'+
-         (!isVideo&&!isText?'<div class="retro-file-tools retro-file-media-tools" data-retro-primary-tools><button type="button" data-retro-zoom'+(concealMode!=='normal'?' hidden':'')+'>AMPLIAR</button>'+(translatedText?'<button type="button" data-retro-translate aria-pressed="false"'+(concealMode!=='normal'?' hidden':'')+'>TRADUCCIÓN</button>':'')+'</div>':'')+
+       return '<template data-retro-file-template="'+folderIndex+':'+fileIndex+'"><div class="retro-file-detail'+(isText&&!pages.length?' is-text-document':'')+'">'+
+         '<div class="retro-file-media-column"><div class="retro-file-media'+(pages.length?' has-pages':'')+(isText&&!pages.length?' is-text-document':'')+(isChatScreenshot&&!pages.length?' is-chat-screenshot':'')+'">'+media+'</div>'+
+         (pages.length>1?'<nav class="retro-page-navigation" aria-label="Páginas de este archivo"><button type="button" data-retro-page-prev aria-label="Página anterior">←</button><span data-retro-page-counter>PÁGINA 1 / '+pages.length+'</span><button type="button" data-retro-page-next aria-label="Página siguiente">→</button></nav>':'')+
+         (!pages.length&&!isVideo&&!isText?'<div class="retro-file-tools retro-file-media-tools" data-retro-primary-tools><button type="button" data-retro-zoom'+(concealMode!=='normal'?' hidden':'')+'>AMPLIAR</button>'+(translatedText?'<button type="button" data-retro-translate aria-pressed="false"'+(concealMode!=='normal'?' hidden':'')+'>TRADUCCIÓN</button>':'')+'</div>':'')+
          (attachments.length?'<div class="retro-file-tools retro-file-media-tools"><button type="button" data-retro-attachment-zoom data-retro-zoom hidden>AMPLIAR IMAGEN</button></div>':'')+
          '</div><aside class="retro-file-info">'+
          (file.masthead_image?'<img class="retro-file-masthead" src="'+esc(file.masthead_image)+'" alt="Membrete del archivo" loading="lazy">':'')+'<h3>'+esc(title)+'</h3>'+
-         (isVideo?'<div class="retro-file-tools retro-file-video-tools" data-retro-primary-tools><button type="button" data-retro-video-expand>⛶ VER VÍDEO ENTERO</button></div>':'')+
+         (!pages.length&&isVideo?'<div class="retro-file-tools retro-file-video-tools" data-retro-primary-tools><button type="button" data-retro-video-expand>⛶ VER VÍDEO ENTERO</button></div>':'')+
          '<dl>'+details+'</dl>'+
          (file.notes?'<div class="retro-file-notes"><strong>NOTAS DEL ARCHIVO</strong>'+plainTextToHTML(file.notes)+'</div>':'')+
-         (file.image&&file.annotated_image&&file.image!==file.annotated_image?'<div class="retro-file-tools" data-retro-primary-tools><button type="button" data-retro-annotated'+(concealMode!=='normal'?' hidden':'')+'>VER MARCAS</button></div>':'')+
+         (!pages.length&&file.image&&file.annotated_image&&file.image!==file.annotated_image?'<div class="retro-file-tools" data-retro-primary-tools><button type="button" data-retro-annotated'+(concealMode!=='normal'?' hidden':'')+'>VER MARCAS</button></div>':'')+
          (attachments.length?'<section class="retro-attachments"><h4>ARCHIVOS ADJUNTOS AL DOCUMENTO</h4><div class="retro-attachment-list">'+attachmentButtons+'</div><div class="retro-file-tools"><button type="button" data-retro-attachment-return hidden>VOLVER AL DOCUMENTO</button><button type="button" data-retro-attachment-expand data-retro-video-expand hidden>⛶ VER VÍDEO ENTERO</button></div></section>':'')+
          '</aside>'+attachmentTemplates+'</div></template>';
      })
@@ -1354,17 +1422,17 @@ function archiveDigitalReports(section,item){
      '<div hidden>'+standardBootMessages.map(line=>'<span data-retro-boot-standard-line>'+esc(line)+'</span>').join('')+bootMessages.map(line=>'<span data-retro-boot-line>'+esc(line)+'</span>').join('')+'</div></div><div class="retro-desktop" data-retro-desktop hidden'+desktopColorStyle+'>'+
      (desktopWallpaper?'<img class="retro-desktop-wallpaper" src="'+esc(desktopWallpaper)+'" alt="" aria-hidden="true">':'<img class="retro-desktop-mark" src="assets/img/sello-archivistas.png" alt="" aria-hidden="true" loading="lazy">')+
      '<div class="retro-desktop-header"><span>'+esc(topLabel)+' // '+String(index+1).padStart(2,'0')+'</span><span>'+esc(rightLabel)+'</span></div>'+
-     '<div class="retro-desktop-icons">'+folderButtons+'</div>'+
+     '<div class="retro-desktop-icons">'+folderButtons+desktopButtons+'</div>'+
      '<div class="retro-desktop-status">'+esc(bottomLabel)+'</div>'+
      folderNotices+folderTemplates+fileTemplates+
      '<section class="retro-window retro-folder-window" data-retro-folder-window hidden aria-label="Contenido de carpeta"><header class="retro-window-titlebar"><strong data-retro-folder-title>CARPETA</strong><button type="button" data-retro-folder-close aria-label="Cerrar carpeta">✕</button></header><div class="retro-window-content" data-retro-folder-content></div></section>'+
-     '<section class="retro-window retro-file-window" data-retro-file-window hidden aria-label="Archivo recuperado"><header class="retro-window-titlebar"><strong data-retro-file-title>ARCHIVO</strong><span class="retro-file-nav"><button type="button" data-retro-file-prev aria-label="Archivo anterior" title="Archivo anterior">←</button><button type="button" data-retro-file-next aria-label="Archivo siguiente" title="Archivo siguiente">→</button><button type="button" data-retro-file-close aria-label="Volver a la carpeta">✕</button></span></header><div class="retro-window-content" data-retro-file-content></div></section>'+
+     '<section class="retro-window retro-file-window" data-retro-file-window hidden aria-label="Archivo recuperado"><header class="retro-window-titlebar"><strong data-retro-file-title>ARCHIVO</strong><span class="retro-file-nav"><button type="button" data-retro-file-prev aria-label="Archivo anterior" title="Archivo anterior">←</button><button type="button" data-retro-file-next aria-label="Archivo siguiente" title="Archivo siguiente">→</button><button type="button" data-retro-file-close aria-label="Cerrar archivo">✕</button></span></header><div class="retro-window-content" data-retro-file-content></div></section>'+
      '</div></template>';
  }).join('');
    return {count:reports.length,html:'<div class="archive-digital-report-group" id="informes-digitales"><div class="archive-report-subheading">'+esc(digitalHeading)+' // '+String(reports.length).padStart(2,'0')+'</div>'+
    '<div class="archive-police-folder-grid archive-mmc-grid">'+cards+'</div>'+templates+
    '<dialog class="archive-digital-dialog" aria-label="Escritorio de informe digital"><div class="archive-digital-dialog-shell"><header class="archive-digital-dialog-header"><span data-digital-dialog-title>INFORME DIGITAL</span><button type="button" data-digital-close aria-label="Cerrar escritorio">✕</button></header><div data-digital-workspace></div></div></dialog></div>'+
-   '<script defer src="assets/js/circuit-puzzle.js?v=20261012b"></script><script defer src="assets/js/archive-access.js?v=20261019a"></script><script defer src="assets/js/digital-reports.js?v=traduccion-un-scroll-20261028"></script>'};
+   '<script defer src="assets/js/circuit-puzzle.js?v=20261012b"></script><script defer src="assets/js/archive-access.js?v=20261019a"></script><script defer src="assets/js/digital-reports.js?v=paginas-archivos-digitales-20261030"></script>'};
 }
 function archivePoliceReport(section,item){return archivePoliceReportV2(section,item);}
 
