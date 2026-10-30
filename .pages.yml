@@ -1138,6 +1138,44 @@ content:
 
 
 
+      - name: facts_side_left_image
+        label: Imagen decorativa a la izquierda de los datos
+        type: image
+        required: false
+        options:
+          media: default
+        description: "Solo se muestra cuando la ficha no tiene contenido principal junto a los datos. La imagen se recorta automáticamente a la altura de la tabla."
+      - name: facts_side_left_x
+        label: Encuadre horizontal de la imagen izquierda (0–100)
+        type: number
+        required: false
+        default: 50
+        description: "0 muestra el borde izquierdo; 50 centra; 100 muestra el borde derecho."
+      - name: facts_side_left_y
+        label: Encuadre vertical de la imagen izquierda (0–100)
+        type: number
+        required: false
+        default: 50
+        description: "0 muestra la parte superior; 50 centra; 100 muestra la inferior."
+      - name: facts_side_right_image
+        label: Imagen decorativa a la derecha de los datos
+        type: image
+        required: false
+        options:
+          media: default
+        description: "Solo se muestra cuando la ficha no tiene contenido principal junto a los datos. La imagen se recorta automáticamente a la altura de la tabla."
+      - name: facts_side_right_x
+        label: Encuadre horizontal de la imagen derecha (0–100)
+        type: number
+        required: false
+        default: 50
+        description: "0 muestra el borde izquierdo; 50 centra; 100 muestra el borde derecho."
+      - name: facts_side_right_y
+        label: Encuadre vertical de la imagen derecha (0–100)
+        type: number
+        required: false
+        default: 50
+        description: "0 muestra la parte superior; 50 centra; 100 muestra la inferior."
       - name: facts
         label: Datos de la ficha
         type: object
@@ -3180,6 +3218,44 @@ content:
 
 
 
+      - name: facts_side_left_image
+        label: Imagen decorativa a la izquierda de los datos
+        type: image
+        required: false
+        options:
+          media: default
+        description: "Solo se muestra cuando la ficha no tiene contenido principal junto a los datos. La imagen se recorta automáticamente a la altura de la tabla."
+      - name: facts_side_left_x
+        label: Encuadre horizontal de la imagen izquierda (0–100)
+        type: number
+        required: false
+        default: 50
+        description: "0 muestra el borde izquierdo; 50 centra; 100 muestra el borde derecho."
+      - name: facts_side_left_y
+        label: Encuadre vertical de la imagen izquierda (0–100)
+        type: number
+        required: false
+        default: 50
+        description: "0 muestra la parte superior; 50 centra; 100 muestra la inferior."
+      - name: facts_side_right_image
+        label: Imagen decorativa a la derecha de los datos
+        type: image
+        required: false
+        options:
+          media: default
+        description: "Solo se muestra cuando la ficha no tiene contenido principal junto a los datos. La imagen se recorta automáticamente a la altura de la tabla."
+      - name: facts_side_right_x
+        label: Encuadre horizontal de la imagen derecha (0–100)
+        type: number
+        required: false
+        default: 50
+        description: "0 muestra el borde izquierdo; 50 centra; 100 muestra el borde derecho."
+      - name: facts_side_right_y
+        label: Encuadre vertical de la imagen derecha (0–100)
+        type: number
+        required: false
+        default: 50
+        description: "0 muestra la parte superior; 50 centra; 100 muestra la inferior."
       - name: facts
         label: Datos de la ficha
         type: object

@@ -1776,8 +1776,18 @@ function archiveEntryPage(section,item){
  const fullInformation=(body||blocks||note) ? `${body?`<div class="archive-entry-main-text reveal">${body}</div>`:''}${blocks}${note}` : '';
  const factList=facts.length ? `<dl class="archive-entry-facts">${facts.map(f=>`<div><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div>`).join('')}</dl>` : '';
  const alongside=fullInformation||boardMarkup||testimonyMarkup;
- const detailsMarkup=(factList||alongside) ? `<div class="archive-entry-layout${factList&&alongside?'':' archive-entry-layout-single'}${factList&&!alongside?' archive-entry-layout-facts-only':''}">
+ const sideImage=(src,side)=>{
+   if(!src) return `<div class="archive-entry-side-art archive-entry-side-art--empty" aria-hidden="true"></div>`;
+   const percent=value=>{const number=Number(value);return Number.isFinite(number)?Math.max(0,Math.min(100,number)):50};
+   const x=percent(item[`facts_side_${side}_x`]);
+   const y=percent(item[`facts_side_${side}_y`]);
+   return `<figure class="archive-entry-side-art archive-entry-side-art--${side}" aria-hidden="true"><img src="${esc(src)}" alt="" style="object-position:${x}% ${y}%" loading="lazy"></figure>`;
+ };
+ const hasSideArt=Boolean(factList&&!alongside&&(item.facts_side_left_image||item.facts_side_right_image));
+ const detailsMarkup=(factList||alongside) ? `<div class="archive-entry-layout${factList&&alongside?'':' archive-entry-layout-single'}${factList&&!alongside?' archive-entry-layout-facts-only':''}${hasSideArt?' archive-entry-layout-decorated':''}">
+   ${hasSideArt?sideImage(item.facts_side_left_image,'left'):''}
    ${factList?`<aside class="archive-entry-sidebar reveal"><p class="archive-code">DATOS DEL EXPEDIENTE</p><h2>${esc(section.typeLabel)}</h2>${factList}</aside>`:''}
+   ${hasSideArt?sideImage(item.facts_side_right_image,'right'):''}
    ${alongside?`<article class="archive-entry-content">${testimonyMarkup}${fullInformation?`<div class="section-label">INFORMACIÓN ARCHIVADA</div>${fullInformation}`:''}${boardMarkup}</article>`:''}
  </div>` : '';
  const heroClass=image?'':' no-image';

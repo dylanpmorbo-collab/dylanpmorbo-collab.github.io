@@ -1826,3 +1826,15 @@ body.archive-digital-dialog-open{overflow:hidden}
 .retro-page-gallery-item figcaption{padding-top:6px;color:#333;font:12px/1.35 Georgia,"Times New Roman",serif}
 .retro-page-empty{padding:20px;color:#555;font:14px Georgia,"Times New Roman",serif}
 @media(max-width:650px){.retro-page-gallery{grid-template-columns:1fr}.retro-file-page.is-gallery-page .retro-file-page-content{padding:9px}}
+
+/* Imágenes laterales opcionales: altura igual a la tabla de datos, sin medidas fijas. */
+.archive-entry-layout-facts-only.archive-entry-layout-decorated{grid-template-columns:minmax(0,1fr) minmax(0,520px) minmax(0,1fr);gap:clamp(16px,2.5vw,36px);align-items:stretch;justify-items:stretch}
+.archive-entry-layout-decorated .archive-entry-sidebar{width:100%;max-width:none}
+.archive-entry-layout-decorated::before,.archive-entry-layout-decorated::after{display:none}
+.archive-entry-side-art{position:relative;min-width:0;min-height:0;margin:0;overflow:hidden;border:1px solid var(--line);background:#0b0a08}
+.archive-entry-side-art img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover}
+.archive-entry-side-art--empty{border:0;background:transparent}
+.archive-entry-side-art--empty::after{content:"◉  ARCHIVO  ─";position:absolute;top:46%;width:70%;padding-top:12px;border-top:1px solid rgba(173,132,55,.22);color:rgba(173,132,55,.42);font:600 10px var(--display);letter-spacing:.16em}
+.archive-entry-side-art--empty:first-child::after{right:0;text-align:right}
+.archive-entry-side-art--empty:nth-child(3)::after{left:0;text-align:left}
+@media(max-width:900px){.archive-entry-layout-facts-only.archive-entry-layout-decorated{grid-template-columns:minmax(0,1fr)}.archive-entry-layout-decorated .archive-entry-side-art{display:none}}
