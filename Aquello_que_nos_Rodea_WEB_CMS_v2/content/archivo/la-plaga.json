@@ -189,6 +189,23 @@
             }
           ]
         }
+      ],
+      "desktop_files": [
+        {
+          "title": "Diario de investigación ",
+          "notify_new": true,
+          "kind": "TEXTO",
+          "circuit_difficulty": "ninguno",
+          "access_method": "automatico",
+          "pages": [
+            {
+              "title": "7 de mayo 2023",
+              "type": "TEXTO",
+              "image_visibility": "normal"
+            }
+          ],
+          "image_visibility": "normal"
+        }
       ]
     }
   ],
