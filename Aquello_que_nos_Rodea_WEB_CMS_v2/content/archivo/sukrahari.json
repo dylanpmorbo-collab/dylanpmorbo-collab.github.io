@@ -7,10 +7,12 @@
   "image": "/assets/uploads/entidades/ŚUKRAHĀRĪ/amenaza-web.webp",
   "hero_image_frame": true,
   "status": "ACCESO PARCIAL",
-  "summary": "Ser de apariencia híbrida entre rata y primate. La información disponible procede de testimonios incompletos y de individuos vinculados a LA PLAGA.",
-  "facts_side_left_x": 50,
+  "summary": "Las víctimas no aportan nada. \nLas que no saben lo que les pasó no pueden decir nada y las que sí lo saben no quieren.",
+  "facts_side_left_image": "/assets/uploads/archivo/GIFT/retratodelmonstruodemandbulacircular-webdistorsion.webp",
+  "facts_side_left_x": 0,
   "facts_side_left_y": 50,
-  "facts_side_right_x": 50,
+  "facts_side_right_image": "/assets/uploads/archivo/GIFT/retratodelmonstruodemandbulacircular-webdistorsion.webp",
+  "facts_side_right_x": 100,
   "facts_side_right_y": 50,
   "facts": [
     {
@@ -30,7 +32,6 @@
       "value": "Energía vital a través del █████ humano."
     }
   ],
-  "body": "Las víctimas no aportan nada. \n\nLas que no saben lo que les pasó no pueden decir nada y las que sí lo saben no quieren.",
   "gallery": [
     {
       "image": "/assets/uploads/entidades/ŚUKRAHĀRĪ/reunioonex-web.webp",
