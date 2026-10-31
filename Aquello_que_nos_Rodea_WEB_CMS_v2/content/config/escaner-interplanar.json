@@ -110,6 +110,10 @@
       "icon_subtitle": "Archivo Encriptado",
       "icon_image": "/assets/uploads/archivo/ICONOS/plantilla-iconos-archivo-secreto-copia-web.webp",
       "icon_size": 110
+    },
+    {
+      "target": "archivo-entidades-sukrahari.html",
+      "enabled": true
     }
   ],
   "signals": [
