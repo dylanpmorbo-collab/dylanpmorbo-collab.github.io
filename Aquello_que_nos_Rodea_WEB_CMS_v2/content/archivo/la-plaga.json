@@ -54,12 +54,13 @@
       ]
     }
   ],
-  "facts_side_left_image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/WEB/estandarte-gotico-bordado-del-monstruo-y-el-hombre-web.webp",
+  "facts_side_left_image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/WEB/estandarte-gotico-carmesi-del-guardian-monstruoso-web.webp",
   "facts_side_left_x": 50,
   "facts_side_left_y": 50,
-  "facts_side_right_image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/WEB/estandarte-gotico-bordado-del-monstruo-y-el-hombre-web-copia.webp",
+  "facts_side_right_image": "/assets/uploads/SECTAS Y ORGANIZACIONES/LA PLAGA/WEB/estandarte-gotico-carmesi-del-guardian-monstruoso-web-copia.webp",
   "facts_side_right_x": 50,
   "facts_side_right_y": 50,
+  "facts_side_hide_border": false,
   "facts": [
     {
       "label": "Número de miembros",
