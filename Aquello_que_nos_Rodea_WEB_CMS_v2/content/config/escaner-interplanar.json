@@ -113,7 +113,10 @@
     },
     {
       "target": "archivo-entidades-sukrahari.html",
-      "enabled": true
+      "enabled": true,
+      "access_type": "code",
+      "code": "1234",
+      "dialog_image": "/assets/uploads/archivo/LOGOS/emblema-arcano-sobre-fondo-burdeos-web.webp"
     }
   ],
   "signals": [
