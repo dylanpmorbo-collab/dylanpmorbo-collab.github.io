@@ -8,7 +8,10 @@
   "hero_image_frame": true,
   "status": "ACCESO PARCIAL",
   "summary": "Ser de apariencia híbrida entre rata y primate. La información disponible procede de testimonios incompletos y de individuos vinculados a LA PLAGA.",
-  "note": "Información adicional bloqueada hasta que el archivo narrativo la revele.",
+  "facts_side_left_x": 50,
+  "facts_side_left_y": 50,
+  "facts_side_right_x": 50,
+  "facts_side_right_y": 50,
   "facts": [
     {
       "label": "Tipo",
