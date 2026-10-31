@@ -61,7 +61,21 @@
     prompt(ficha, scannerRoot || document.body, navigate);
   }
   window.AQNRSecretFichas = { open, isUnlocked };
+  function syncRelatedConnections() {
+    document.querySelectorAll('[data-secret-ficha-connection]').forEach(card => {
+      const target = card.getAttribute('data-secret-ficha-connection');
+      let unlocked = false;
+      try { unlocked = localStorage.getItem(storagePrefix + target) === card.dataset.secretFichaFingerprint; } catch {}
+      card.hidden = !unlocked;
+    });
+    document.querySelectorAll('.related-archive-gateway').forEach(gate => {
+      const count = gate.querySelectorAll('.related-archive-card:not([hidden])').length;
+      const label = gate.querySelector('.related-archive-heading .section-label');
+      if (label) label.textContent = 'ARCHIVOS RELACIONADOS // ' + String(count).padStart(2, '0');
+    });
+  }
   function initializePage() {
+    syncRelatedConnections();
     document.querySelectorAll('[data-secret-ficha-card]').forEach(card => {
       const target = card.getAttribute('data-secret-ficha-card');
       try { if (localStorage.getItem(storagePrefix + target) !== card.dataset.secretFichaFingerprint) return; } catch { return; }
@@ -85,4 +99,6 @@
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initializePage);
   else initializePage();
+  window.addEventListener('pageshow', syncRelatedConnections);
+  window.addEventListener('storage', event => { if (event.key?.startsWith(storagePrefix)) syncRelatedConnections(); });
 })();

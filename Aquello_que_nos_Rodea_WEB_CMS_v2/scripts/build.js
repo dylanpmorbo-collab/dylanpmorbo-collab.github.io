@@ -122,7 +122,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=ampliacion-imagen-completa-20261030"><link rel="stylesheet" href="assets/css/secret-fichas.css?v=1"><script defer src="assets/js/secret-fichas.js?v=1"></script><script defer src="assets/js/main.js?v=sandbox-compacto-20261028"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=conexiones-secretas-20261031"><link rel="stylesheet" href="assets/css/secret-fichas.css?v=1"><script defer src="assets/js/secret-fichas.js?v=conexiones-20261031"></script><script defer src="assets/js/main.js?v=sandbox-compacto-20261028"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -248,10 +248,18 @@ function relatedLinkWithReturn(url,sourceHref='',sourceLabel=''){
  const returnPoint=from.includes('#')?from:`${from}#archivos-relacionados`;
  return `${base}${sep}aqnr_from=${encodeURIComponent(returnPoint)}&aqnr_from_label=${encodeURIComponent(String(sourceLabel||'EXPEDIENTE DE ORIGEN'))}${hash}`;
 }
+function secretRelatedTarget(url){
+  try{
+    const parsed=new URL(String(url||'').trim(),'https://dylanpmorbo-collab.github.io/');
+    if(parsed.origin!=='https://dylanpmorbo-collab.github.io')return null;
+    return secretFichaByTarget.get(decodeURIComponent(parsed.pathname).slice(1))||null;
+  }catch(e){return null}
+}
 function relatedArchiveMarkup(item,sourceHref='',sourceLabel=''){
  if(!item || item.show_related_archive!==true) return '';
  const related=(Array.isArray(item.related_archive)?item.related_archive:[])
    .filter(x=>x && x.title && x.url);
+ const visibleCount=related.filter(link=>!secretRelatedTarget(link.url)).length;
  if(!related.length) return '';
  return `<section class="related-archive-gateway reveal" id="archivos-relacionados" aria-label="Acceso a conexiones">
    <div class="related-archive-actions">
@@ -268,7 +276,7 @@ function relatedArchiveMarkup(item,sourceHref='',sourceLabel=''){
    <div class="related-archive-heading">
      <div>
        <p class="related-archive-kicker">TRAZAS DETECTADAS</p>
-       <div class="section-label">ARCHIVOS RELACIONADOS // ${String(related.length).padStart(2,'0')}</div>
+       <div class="section-label">ARCHIVOS RELACIONADOS // ${String(visibleCount).padStart(2,'0')}</div>
      </div>
      <span class="related-archive-sigil" aria-hidden="true">◉</span>
    </div>
@@ -276,7 +284,9 @@ function relatedArchiveMarkup(item,sourceHref='',sourceLabel=''){
      ${related.map(link=>{
        const thumb=String(link.thumbnail||link.image||'').trim();
        const contextualUrl=relatedLinkWithReturn(link.url,sourceHref,sourceLabel);
-       return `<a class="related-archive-card${thumb?' has-thumbnail':''}" href="${esc(contextualUrl)}">
+       const secret=secretRelatedTarget(link.url);
+       const secretAttrs=secret?` hidden data-secret-ficha-connection="${esc(secret.target)}" data-secret-ficha-fingerprint="${esc(secret.codeHash||'open')}"`:'';
+       return `<a class="related-archive-card${thumb?' has-thumbnail':''}"${secretAttrs} href="${esc(contextualUrl)}">
          <div class="related-archive-media">
            ${thumb?`<img src="${esc(thumb)}" alt="" loading="lazy">`:`<span class="related-archive-placeholder" aria-hidden="true">◉</span>`}
            <span class="related-archive-type">${esc(link.type||'ARCHIVO')}</span>
