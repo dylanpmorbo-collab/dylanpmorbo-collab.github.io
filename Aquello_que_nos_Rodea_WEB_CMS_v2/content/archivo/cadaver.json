@@ -8,6 +8,11 @@
   "hero_image_frame": true,
   "status": "NO RESUELTO",
   "summary": "La madrugada del 1 de septiembre de 2024, Richard Alcoy, un joven zaragozano de 26 años, se separó de sus amigos después de una noche de fiesta y emprendió solo el camino de regreso a casa.\nNunca llegó.",
+  "facts_side_left_x": 50,
+  "facts_side_left_y": 50,
+  "facts_side_right_x": 50,
+  "facts_side_right_y": 50,
+  "facts_side_hide_border": false,
   "facts": [
     {
       "label": "Clasificación:",
@@ -331,7 +336,7 @@
           ]
         },
         {
-          "title": "Imágenes Recuperadas.",
+          "title": "Imágenes",
           "order": 2,
           "description": "Volcado de imágenes y videos Richard Alcoy",
           "circuit_difficulty": "ninguno",
@@ -343,7 +348,47 @@
           "opening_notice_accent": "#d7ae63",
           "opening_notice_confirm": "VER IMÁGENES",
           "opening_notice_cancel": "VOLVER",
-          "opening_notice_frequency": "always"
+          "opening_notice_frequency": "always",
+          "files": [
+            {
+              "title": "Imágenes recuperadas",
+              "notify_new": true,
+              "kind": "IMAGEN",
+              "display_type_label": "GALERÍA",
+              "circuit_difficulty": "ninguno",
+              "access_method": "automatico",
+              "pages": [
+                {
+                  "title": "GALERÍA",
+                  "type": "GALERIA",
+                  "image_visibility": "normal",
+                  "gallery_images": [
+                    {
+                      "title": "IMG_2297",
+                      "image": "/assets/uploads/personajes/Richard/Volcado de imágenes/GALERÍA/img2297-web.webp"
+                    },
+                    {
+                      "title": "IMG_3998",
+                      "image": "/assets/uploads/personajes/Richard/Volcado de imágenes/GALERÍA/img3498-web.webp"
+                    },
+                    {
+                      "title": "IMG_7058",
+                      "image": "/assets/uploads/personajes/Richard/Volcado de imágenes/GALERÍA/img7058-web.webp"
+                    },
+                    {
+                      "title": "IMG_7957",
+                      "image": "/assets/uploads/personajes/Richard/Volcado de imágenes/GALERÍA/img7957-web.webp"
+                    },
+                    {
+                      "title": "IMG_8799",
+                      "image": "/assets/uploads/personajes/Richard/Volcado de imágenes/GALERÍA/img8799-web.webp"
+                    }
+                  ]
+                }
+              ],
+              "image_visibility": "normal"
+            }
+          ]
         }
       ]
     }
