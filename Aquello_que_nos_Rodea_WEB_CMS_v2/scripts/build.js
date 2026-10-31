@@ -1781,7 +1781,7 @@ function archiveEntryPage(section,item){
    const percent=value=>{const number=Number(value);return Number.isFinite(number)?Math.max(0,Math.min(100,number)):50};
    const x=percent(item[`facts_side_${side}_x`]);
    const y=percent(item[`facts_side_${side}_y`]);
-   return `<figure class="archive-entry-side-art archive-entry-side-art--${side}" aria-hidden="true"><img src="${esc(src)}" alt="" style="object-position:${x}% ${y}%" loading="lazy"></figure>`;
+   return `<figure class="archive-entry-side-art archive-entry-side-art--${side}${item.facts_side_hide_border?' archive-entry-side-art--borderless':''}" aria-hidden="true"><img src="${esc(src)}" alt="" style="object-position:${x}% ${y}%" loading="lazy"></figure>`;
  };
  const hasSideArt=Boolean(factList&&!alongside&&(item.facts_side_left_image||item.facts_side_right_image));
  const detailsMarkup=(factList||alongside) ? `<div class="archive-entry-layout${factList&&alongside?'':' archive-entry-layout-single'}${factList&&!alongside?' archive-entry-layout-facts-only':''}${hasSideArt?' archive-entry-layout-decorated':''}">

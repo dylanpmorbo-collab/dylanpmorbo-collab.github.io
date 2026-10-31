@@ -1176,6 +1176,11 @@ content:
         required: false
         default: 50
         description: "0 muestra la parte superior; 50 centra; 100 muestra la inferior."
+      - name: facts_side_hide_border
+        label: Quitar el borde dorado de las ilustraciones laterales
+        type: boolean
+        required: false
+        default: false
       - name: facts
         label: Datos de la ficha
         type: object
@@ -3256,6 +3261,11 @@ content:
         required: false
         default: 50
         description: "0 muestra la parte superior; 50 centra; 100 muestra la inferior."
+      - name: facts_side_hide_border
+        label: Quitar el borde dorado de las ilustraciones laterales
+        type: boolean
+        required: false
+        default: false
       - name: facts
         label: Datos de la ficha
         type: object
