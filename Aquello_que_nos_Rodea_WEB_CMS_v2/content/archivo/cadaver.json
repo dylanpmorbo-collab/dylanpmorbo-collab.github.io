@@ -387,6 +387,43 @@
                 }
               ],
               "image_visibility": "normal"
+            },
+            {
+              "title": "IMÁGENES RECUPERADAS",
+              "notify_new": true,
+              "kind": "IMAGEN",
+              "circuit_difficulty": "ninguno",
+              "access_method": "automatico",
+              "pages": [
+                {
+                  "title": "GALERÍA",
+                  "type": "GALERIA",
+                  "image_visibility": "normal",
+                  "gallery_images": [
+                    {
+                      "title": "IMG_2341",
+                      "image": "/assets/uploads/personajes/Richard/Volcado de imágenes/IMAGENES RECUPERADAS/nochepalmahotelsalidamarcha2-web-recuperada.png"
+                    },
+                    {
+                      "title": "IMG_4088",
+                      "image": "/assets/uploads/personajes/Richard/Volcado de imágenes/IMAGENES RECUPERADAS/img4088-web-recuperada.png"
+                    },
+                    {
+                      "title": "IMG_4089",
+                      "image": "/assets/uploads/personajes/Richard/Volcado de imágenes/IMAGENES RECUPERADAS/img4089-web-recuperada.png"
+                    },
+                    {
+                      "title": "IMG_4090",
+                      "image": "/assets/uploads/personajes/Richard/Volcado de imágenes/IMAGENES RECUPERADAS/img4090-web-recuperada.png"
+                    },
+                    {
+                      "title": "IMG_4091",
+                      "image": "/assets/uploads/personajes/Richard/Volcado de imágenes/IMAGENES RECUPERADAS/img4091-web-recuperada.png"
+                    }
+                  ]
+                }
+              ],
+              "image_visibility": "normal"
             }
           ]
         }
