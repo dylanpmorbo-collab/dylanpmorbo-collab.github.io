@@ -1347,7 +1347,7 @@ function archiveDigitalReports(section,item){
      const locked=Boolean(access);
      const thumb=locked?'':globalRule?.mode==='falso'?globalRule.fake:(!pages.length&&file.image_visibility==='falso'&&file.fake_pixel_image?file.fake_pixel_image:primary);
      return '<button type="button" class="retro-file-entry'+(onDesktop?' retro-desktop-file':'')+'" data-retro-file="'+fileIndex+'"'+(onDesktop?' data-retro-container="'+folderIndex+'"':'')+' data-update-id="'+digitalFileUpdateId(section,item,report,folder,file)+'"'+access+' aria-label="Abrir '+esc(title)+'">'+
-       '<span class="retro-file-thumb">'+(thumb?'<img src="'+esc(thumb)+'" alt="" loading="lazy"'+(globalRule?.mode==='falso'?' data-original="'+esc(primary)+'"':'')+'>':'<span aria-hidden="true">'+(locked?'▣':isText?'▤':isVideo?'▶':'▧')+'</span>')+'</span>'+
+       '<span class="retro-file-thumb'+(file.thumbnail_image?' retro-file-thumb--custom':'')+'">'+(thumb?'<img src="'+esc(thumb)+'" alt="" loading="lazy"'+(globalRule?.mode==='falso'?' data-original="'+esc(primary)+'"':'')+'>':'<span aria-hidden="true">'+(locked?'▣':isText?'▤':isVideo?'▶':'▧')+'</span>')+'</span>'+
        '<span class="retro-file-name">'+esc(title)+'</span><small>'+esc(displayTypeLabel)+'</small></button>';
    };
    const desktopFolder={title:'ESCRITORIO',files:desktopFiles};
