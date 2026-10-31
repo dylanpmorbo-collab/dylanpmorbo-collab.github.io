@@ -11,6 +11,8 @@
     let primaryMediaNodes=null;
     let imageZoomDialog=null;
     let imageZoomReturnButton=null;
+    let imageZoomItems=[];
+    let imageZoomIndex=0;
     let bootTimers=[];
     let noticeTrigger=null;
     const seenFolderNotices=new Set();
@@ -106,28 +108,79 @@
       if(image.complete)draw();
       else image.addEventListener('load',draw,{once:true});
     }
+    function zoomSource(image){return image?.currentSrc||image?.src||'';}
+    function updateZoomImage(){
+      const item=imageZoomItems[imageZoomIndex];
+      if(!item || !imageZoomDialog)return;
+      const enlarged=imageZoomDialog.querySelector('.retro-image-full-scroll img');
+      enlarged.src=zoomSource(item);
+      enlarged.alt=item.alt||'Imagen del archivo';
+      const navigation=imageZoomDialog.querySelector('[data-retro-image-full-navigation]');
+      navigation.hidden=imageZoomItems.length<2;
+      navigation.querySelector('[data-retro-image-full-counter]').textContent=(imageZoomIndex+1)+' / '+imageZoomItems.length;
+      navigation.querySelector('[data-retro-image-full-prev]').disabled=imageZoomIndex===0;
+      navigation.querySelector('[data-retro-image-full-next]').disabled=imageZoomIndex===imageZoomItems.length-1;
+    }
+    function stepZoomImage(offset){
+      const next=imageZoomIndex+offset;
+      if(next<0 || next>=imageZoomItems.length)return;
+      imageZoomIndex=next;
+      updateZoomImage();
+    }
     function expandImage(button){
       const image=button.closest('.retro-page-gallery-item')?.querySelector('img')||button.closest('[data-retro-page]')?.querySelector('.retro-image-scroll img')||button.closest('.retro-file-detail')?.querySelector('.retro-file-media .retro-image-scroll img');
       if(!image || image.closest('.is-concealed'))return;
+      const gallery=button.closest('.retro-page-gallery');
+      const detail=button.closest('.retro-file-detail');
+      const items=[];
+      const add=img=>{
+        if(img && !img.closest('.is-concealed') && zoomSource(img) && !items.includes(img))items.push(img);
+      };
+      if(gallery)gallery.querySelectorAll('.retro-page-gallery-item img').forEach(add);
+      else if(detail){
+        detail.querySelectorAll('[data-retro-page]').forEach(page=>{
+          page.querySelectorAll('.retro-page-gallery-item img, [data-retro-image]').forEach(img=>{
+            if(img.hasAttribute('data-retro-image') && page.querySelector('[data-retro-zoom]')?.hidden)return;
+            add(img);
+          });
+        });
+        if(!detail.querySelector('[data-retro-page]'))add(detail.querySelector('.retro-file-media [data-retro-image]'));
+        detail.querySelectorAll('template[data-retro-attachment-kind="image"]').forEach(template=>add(template.content.querySelector('img')));
+      }
+      if(!items.length)add(image);
+      imageZoomItems=items;
+      imageZoomIndex=items.indexOf(image);
+      if(imageZoomIndex<0){
+        const source=zoomSource(image);
+        imageZoomIndex=items.findIndex(item=>zoomSource(item)===source);
+      }
+      if(imageZoomIndex<0)imageZoomIndex=0;
       if(!imageZoomDialog){
         imageZoomDialog=document.createElement('dialog');
         imageZoomDialog.className='retro-image-full-dialog';
         imageZoomDialog.setAttribute('aria-label','Imagen ampliada');
-        imageZoomDialog.innerHTML='<div class="retro-image-full-header"><strong>IMAGEN AMPLIADA</strong><button type="button" data-retro-image-full-close aria-label="Cerrar imagen ampliada">✕</button></div><div class="retro-image-full-scroll"><img alt=""></div>';
+        imageZoomDialog.innerHTML='<div class="retro-image-full-header"><strong>IMAGEN AMPLIADA</strong><nav class="retro-image-full-navigation" data-retro-image-full-navigation aria-label="Imágenes de esta galería o archivo"><button type="button" data-retro-image-full-prev aria-label="Imagen anterior">←</button><span data-retro-image-full-counter aria-live="polite"></span><button type="button" data-retro-image-full-next aria-label="Imagen siguiente">→</button></nav><button type="button" data-retro-image-full-close aria-label="Cerrar imagen ampliada">✕</button></div><div class="retro-image-full-scroll"><img alt=""></div>';
         document.body.append(imageZoomDialog);
         imageZoomDialog.addEventListener('click',event=>{
           if(event.target===imageZoomDialog || event.target.closest('[data-retro-image-full-close]'))imageZoomDialog.close();
+          else if(event.target.closest('[data-retro-image-full-prev]'))stepZoomImage(-1);
+          else if(event.target.closest('[data-retro-image-full-next]'))stepZoomImage(1);
+        });
+        imageZoomDialog.addEventListener('keydown',event=>{
+          if(event.key==='ArrowLeft' || event.key==='ArrowRight'){
+            event.preventDefault();
+            stepZoomImage(event.key==='ArrowLeft'?-1:1);
+          }
         });
         imageZoomDialog.addEventListener('close',()=>{
           imageZoomDialog.querySelector('img').removeAttribute('src');
+          imageZoomItems=[];
+          imageZoomIndex=0;
           if(imageZoomReturnButton?.isConnected)imageZoomReturnButton.focus();
           imageZoomReturnButton=null;
         });
       }
-      const enlarged=imageZoomDialog.querySelector('img');
-      enlarged.src=image.currentSrc||image.src;
-      enlarged.alt=image.alt||'Imagen del archivo';
-      imageZoomDialog.querySelector('.retro-image-full-scroll').scrollTop=0;
+      updateZoomImage();
       imageZoomReturnButton=button;
       imageZoomDialog.showModal();
       imageZoomDialog.querySelector('[data-retro-image-full-close]').focus();

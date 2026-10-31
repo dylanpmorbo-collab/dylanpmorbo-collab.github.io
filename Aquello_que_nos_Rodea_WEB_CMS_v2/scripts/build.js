@@ -122,7 +122,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=conexiones-secretas-20261031"><link rel="stylesheet" href="assets/css/secret-fichas.css?v=1"><script defer src="assets/js/secret-fichas.js?v=conexiones-20261031"></script><script defer src="assets/js/main.js?v=sandbox-compacto-20261028"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=navegacion-ampliaciones-20261031"><link rel="stylesheet" href="assets/css/secret-fichas.css?v=1"><script defer src="assets/js/secret-fichas.js?v=conexiones-20261031"></script><script defer src="assets/js/main.js?v=sandbox-compacto-20261028"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -1442,7 +1442,7 @@ function archiveDigitalReports(section,item){
    return {count:reports.length,html:'<div class="archive-digital-report-group" id="informes-digitales"><div class="archive-report-subheading">'+esc(digitalHeading)+' // '+String(reports.length).padStart(2,'0')+'</div>'+
    '<div class="archive-police-folder-grid archive-mmc-grid">'+cards+'</div>'+templates+
    '<dialog class="archive-digital-dialog" aria-label="Escritorio de informe digital"><div class="archive-digital-dialog-shell"><header class="archive-digital-dialog-header"><span data-digital-dialog-title>INFORME DIGITAL</span><button type="button" data-digital-close aria-label="Cerrar escritorio">✕</button></header><div data-digital-workspace></div></div></dialog></div>'+
-   '<script defer src="assets/js/circuit-puzzle.js?v=20261012b"></script><script defer src="assets/js/archive-access.js?v=20261019a"></script><script defer src="assets/js/digital-reports.js?v=paginas-archivos-digitales-20261030"></script>'};
+   '<script defer src="assets/js/circuit-puzzle.js?v=20261012b"></script><script defer src="assets/js/archive-access.js?v=20261019a"></script><script defer src="assets/js/digital-reports.js?v=navegacion-ampliaciones-20261031"></script>'};
 }
 function archivePoliceReport(section,item){return archivePoliceReportV2(section,item);}
 
