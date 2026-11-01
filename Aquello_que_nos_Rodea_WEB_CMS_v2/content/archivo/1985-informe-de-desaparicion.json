@@ -170,7 +170,7 @@
       {
         "id": "nota1",
         "type": "nota",
-        "image": "/assets/uploads/SUCESOS/desapariciones techo/web/nota-de-papel-copia.webp",
+        "note_image": "/assets/uploads/SUCESOS/desapariciones techo/web/nota-de-papel-copia.webp",
         "x": 50,
         "y": 68.9
       }
