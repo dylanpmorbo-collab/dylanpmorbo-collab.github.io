@@ -7,7 +7,12 @@
   "image": "/assets/uploads/SUCESOS/desapariciones techo/informe-policial-desaparicion-1985-web.webp",
   "hero_image_frame": true,
   "status": "Documentado",
-  "summary": "Cuatro informes policiales, cuatro lugares distintos, cuatro épocas distintas... mismos patrones.",
+  "summary": "Cinco informes policiales, cinco lugares distintos, cinco épocas distintas... mismos patrones.",
+  "facts_side_left_x": 50,
+  "facts_side_left_y": 50,
+  "facts_side_right_x": 50,
+  "facts_side_right_y": 50,
+  "facts_side_hide_border": false,
   "show_documents": true,
   "show_police_report": true,
   "police_reports": [
