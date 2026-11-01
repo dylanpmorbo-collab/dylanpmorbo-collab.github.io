@@ -290,6 +290,13 @@ content:
                 required: false
                 options:
                   media: default
+              - name: note_image
+                label: Imagen de la nota (PNG o WebP transparente)
+                type: image
+                required: false
+                description: "Para una nota, sustituye el papel y el texto por esta imagen. Si queda vacío, se usa la nota de texto habitual."
+                options:
+                  media: default
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -302,23 +309,47 @@ content:
                 label: Giro en grados (-12 a 12)
                 type: number
                 required: false
+          - name: loose_pins
+            label: Chinchetas sueltas
+            type: object
+            required: false
+            description: "Colócalas sobre la corchera y usa su identificador como extremo de un hilo. Así puedes unir las piezas sin que el hilo atraviese una foto."
+            list:
+              max: 24
+              collapsible:
+                collapsed: true
+                summary: "{id}"
+            fields:
+              - name: id
+                label: Identificador de la chincheta
+                type: string
+                required: true
+                description: "Único en esta corchera. Escribe este nombre en Desde o Hasta de un hilo."
+              - name: x
+                label: Posición horizontal (0–100)
+                type: number
+                required: true
+              - name: y
+                label: Posición vertical (0–100)
+                type: number
+                required: true
           - name: threads
             label: Hilos rojos
             type: object
             required: false
-            description: "Une los identificadores de dos piezas de esta corchera."
+            description: "Une fotos, notas o chinchetas sueltas por sus identificadores."
             list:
-              max: 18
+              max: 30
               collapsible:
                 collapsed: true
                 summary: "{from} → {to}"
             fields:
               - name: from
-                label: Desde la pieza
+                label: Desde la pieza o chincheta
                 type: string
                 required: true
               - name: to
-                label: Hasta la pieza
+                label: Hasta la pieza o chincheta
                 type: string
                 required: true
 
@@ -507,6 +538,13 @@ content:
                 required: false
                 options:
                   media: default
+              - name: note_image
+                label: Imagen de la nota (PNG o WebP transparente)
+                type: image
+                required: false
+                description: "Para una nota, sustituye el papel y el texto por esta imagen. Si queda vacío, se usa la nota de texto habitual."
+                options:
+                  media: default
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -519,23 +557,47 @@ content:
                 label: Giro en grados (-12 a 12)
                 type: number
                 required: false
+          - name: loose_pins
+            label: Chinchetas sueltas
+            type: object
+            required: false
+            description: "Colócalas sobre la corchera y usa su identificador como extremo de un hilo. Así puedes unir las piezas sin que el hilo atraviese una foto."
+            list:
+              max: 24
+              collapsible:
+                collapsed: true
+                summary: "{id}"
+            fields:
+              - name: id
+                label: Identificador de la chincheta
+                type: string
+                required: true
+                description: "Único en esta corchera. Escribe este nombre en Desde o Hasta de un hilo."
+              - name: x
+                label: Posición horizontal (0–100)
+                type: number
+                required: true
+              - name: y
+                label: Posición vertical (0–100)
+                type: number
+                required: true
           - name: threads
             label: Hilos rojos
             type: object
             required: false
-            description: "Une los identificadores de dos piezas de esta corchera."
+            description: "Une fotos, notas o chinchetas sueltas por sus identificadores."
             list:
-              max: 18
+              max: 30
               collapsible:
                 collapsed: true
                 summary: "{from} → {to}"
             fields:
               - name: from
-                label: Desde la pieza
+                label: Desde la pieza o chincheta
                 type: string
                 required: true
               - name: to
-                label: Hasta la pieza
+                label: Hasta la pieza o chincheta
                 type: string
                 required: true
 
@@ -2723,6 +2785,13 @@ content:
                 required: false
                 options:
                   media: default
+              - name: note_image
+                label: Imagen de la nota (PNG o WebP transparente)
+                type: image
+                required: false
+                description: "Para una nota, sustituye el papel y el texto por esta imagen. Si queda vacío, se usa la nota de texto habitual."
+                options:
+                  media: default
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -2735,23 +2804,47 @@ content:
                 label: Giro en grados (-12 a 12)
                 type: number
                 required: false
+          - name: loose_pins
+            label: Chinchetas sueltas
+            type: object
+            required: false
+            description: "Colócalas sobre la corchera y usa su identificador como extremo de un hilo. Así puedes unir las piezas sin que el hilo atraviese una foto."
+            list:
+              max: 24
+              collapsible:
+                collapsed: true
+                summary: "{id}"
+            fields:
+              - name: id
+                label: Identificador de la chincheta
+                type: string
+                required: true
+                description: "Único en esta corchera. Escribe este nombre en Desde o Hasta de un hilo."
+              - name: x
+                label: Posición horizontal (0–100)
+                type: number
+                required: true
+              - name: y
+                label: Posición vertical (0–100)
+                type: number
+                required: true
           - name: threads
             label: Hilos rojos
             type: object
             required: false
-            description: "Une los identificadores de dos piezas de esta corchera."
+            description: "Une fotos, notas o chinchetas sueltas por sus identificadores."
             list:
-              max: 18
+              max: 30
               collapsible:
                 collapsed: true
                 summary: "{from} → {to}"
             fields:
               - name: from
-                label: Desde la pieza
+                label: Desde la pieza o chincheta
                 type: string
                 required: true
               - name: to
-                label: Hasta la pieza
+                label: Hasta la pieza o chincheta
                 type: string
                 required: true
 
@@ -5005,6 +5098,13 @@ content:
                 required: false
                 options:
                   media: default
+              - name: note_image
+                label: Imagen de la nota (PNG o WebP transparente)
+                type: image
+                required: false
+                description: "Para una nota, sustituye el papel y el texto por esta imagen. Si queda vacío, se usa la nota de texto habitual."
+                options:
+                  media: default
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -5017,23 +5117,47 @@ content:
                 label: Giro en grados (-12 a 12)
                 type: number
                 required: false
+          - name: loose_pins
+            label: Chinchetas sueltas
+            type: object
+            required: false
+            description: "Colócalas sobre la corchera y usa su identificador como extremo de un hilo. Así puedes unir las piezas sin que el hilo atraviese una foto."
+            list:
+              max: 24
+              collapsible:
+                collapsed: true
+                summary: "{id}"
+            fields:
+              - name: id
+                label: Identificador de la chincheta
+                type: string
+                required: true
+                description: "Único en esta corchera. Escribe este nombre en Desde o Hasta de un hilo."
+              - name: x
+                label: Posición horizontal (0–100)
+                type: number
+                required: true
+              - name: y
+                label: Posición vertical (0–100)
+                type: number
+                required: true
           - name: threads
             label: Hilos rojos
             type: object
             required: false
-            description: "Une los identificadores de dos piezas de esta corchera."
+            description: "Une fotos, notas o chinchetas sueltas por sus identificadores."
             list:
-              max: 18
+              max: 30
               collapsible:
                 collapsed: true
                 summary: "{from} → {to}"
             fields:
               - name: from
-                label: Desde la pieza
+                label: Desde la pieza o chincheta
                 type: string
                 required: true
               - name: to
-                label: Hasta la pieza
+                label: Hasta la pieza o chincheta
                 type: string
                 required: true
 
@@ -5098,6 +5222,13 @@ content:
                 required: false
                 options:
                   media: default
+              - name: note_image
+                label: Imagen de la nota (PNG o WebP transparente)
+                type: image
+                required: false
+                description: "Para una nota, sustituye el papel y el texto por esta imagen. Si queda vacío, se usa la nota de texto habitual."
+                options:
+                  media: default
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -5113,23 +5244,47 @@ content:
                 type: number
                 required: false
                 description: "Opcional. Un giro ligero da aspecto de papel colocado a mano."
+          - name: loose_pins
+            label: Chinchetas sueltas
+            type: object
+            required: false
+            description: "Colócalas sobre la corchera y usa su identificador como extremo de un hilo. Así puedes unir las piezas sin que el hilo atraviese una foto."
+            list:
+              max: 24
+              collapsible:
+                collapsed: true
+                summary: "{id}"
+            fields:
+              - name: id
+                label: Identificador de la chincheta
+                type: string
+                required: true
+                description: "Único en esta corchera. Escribe este nombre en Desde o Hasta de un hilo."
+              - name: x
+                label: Posición horizontal (0–100)
+                type: number
+                required: true
+              - name: y
+                label: Posición vertical (0–100)
+                type: number
+                required: true
           - name: threads
             label: Hilos rojos
             type: object
             required: false
-            description: "Cada hilo une los identificadores de dos fotos o notas de este tablón."
+            description: "Une fotos, notas o chinchetas sueltas por sus identificadores."
             list:
-              max: 18
+              max: 30
               collapsible:
                 collapsed: true
                 summary: "{from} → {to}"
             fields:
               - name: from
-                label: Desde la pieza
+                label: Desde la pieza o chincheta
                 type: string
                 required: true
               - name: to
-                label: Hasta la pieza
+                label: Hasta la pieza o chincheta
                 type: string
                 required: true
       - name: personajes
@@ -5187,6 +5342,13 @@ content:
                 required: false
                 options:
                   media: default
+              - name: note_image
+                label: Imagen de la nota (PNG o WebP transparente)
+                type: image
+                required: false
+                description: "Para una nota, sustituye el papel y el texto por esta imagen. Si queda vacío, se usa la nota de texto habitual."
+                options:
+                  media: default
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -5202,23 +5364,47 @@ content:
                 type: number
                 required: false
                 description: "Opcional. Un giro ligero da aspecto de papel colocado a mano."
+          - name: loose_pins
+            label: Chinchetas sueltas
+            type: object
+            required: false
+            description: "Colócalas sobre la corchera y usa su identificador como extremo de un hilo. Así puedes unir las piezas sin que el hilo atraviese una foto."
+            list:
+              max: 24
+              collapsible:
+                collapsed: true
+                summary: "{id}"
+            fields:
+              - name: id
+                label: Identificador de la chincheta
+                type: string
+                required: true
+                description: "Único en esta corchera. Escribe este nombre en Desde o Hasta de un hilo."
+              - name: x
+                label: Posición horizontal (0–100)
+                type: number
+                required: true
+              - name: y
+                label: Posición vertical (0–100)
+                type: number
+                required: true
           - name: threads
             label: Hilos rojos
             type: object
             required: false
-            description: "Cada hilo une los identificadores de dos fotos o notas de este tablón."
+            description: "Une fotos, notas o chinchetas sueltas por sus identificadores."
             list:
-              max: 18
+              max: 30
               collapsible:
                 collapsed: true
                 summary: "{from} → {to}"
             fields:
               - name: from
-                label: Desde la pieza
+                label: Desde la pieza o chincheta
                 type: string
                 required: true
               - name: to
-                label: Hasta la pieza
+                label: Hasta la pieza o chincheta
                 type: string
                 required: true
       - name: lugares
@@ -5276,6 +5462,13 @@ content:
                 required: false
                 options:
                   media: default
+              - name: note_image
+                label: Imagen de la nota (PNG o WebP transparente)
+                type: image
+                required: false
+                description: "Para una nota, sustituye el papel y el texto por esta imagen. Si queda vacío, se usa la nota de texto habitual."
+                options:
+                  media: default
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -5291,23 +5484,47 @@ content:
                 type: number
                 required: false
                 description: "Opcional. Un giro ligero da aspecto de papel colocado a mano."
+          - name: loose_pins
+            label: Chinchetas sueltas
+            type: object
+            required: false
+            description: "Colócalas sobre la corchera y usa su identificador como extremo de un hilo. Así puedes unir las piezas sin que el hilo atraviese una foto."
+            list:
+              max: 24
+              collapsible:
+                collapsed: true
+                summary: "{id}"
+            fields:
+              - name: id
+                label: Identificador de la chincheta
+                type: string
+                required: true
+                description: "Único en esta corchera. Escribe este nombre en Desde o Hasta de un hilo."
+              - name: x
+                label: Posición horizontal (0–100)
+                type: number
+                required: true
+              - name: y
+                label: Posición vertical (0–100)
+                type: number
+                required: true
           - name: threads
             label: Hilos rojos
             type: object
             required: false
-            description: "Cada hilo une los identificadores de dos fotos o notas de este tablón."
+            description: "Une fotos, notas o chinchetas sueltas por sus identificadores."
             list:
-              max: 18
+              max: 30
               collapsible:
                 collapsed: true
                 summary: "{from} → {to}"
             fields:
               - name: from
-                label: Desde la pieza
+                label: Desde la pieza o chincheta
                 type: string
                 required: true
               - name: to
-                label: Hasta la pieza
+                label: Hasta la pieza o chincheta
                 type: string
                 required: true
       - name: planos
@@ -5365,6 +5582,13 @@ content:
                 required: false
                 options:
                   media: default
+              - name: note_image
+                label: Imagen de la nota (PNG o WebP transparente)
+                type: image
+                required: false
+                description: "Para una nota, sustituye el papel y el texto por esta imagen. Si queda vacío, se usa la nota de texto habitual."
+                options:
+                  media: default
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -5380,23 +5604,47 @@ content:
                 type: number
                 required: false
                 description: "Opcional. Un giro ligero da aspecto de papel colocado a mano."
+          - name: loose_pins
+            label: Chinchetas sueltas
+            type: object
+            required: false
+            description: "Colócalas sobre la corchera y usa su identificador como extremo de un hilo. Así puedes unir las piezas sin que el hilo atraviese una foto."
+            list:
+              max: 24
+              collapsible:
+                collapsed: true
+                summary: "{id}"
+            fields:
+              - name: id
+                label: Identificador de la chincheta
+                type: string
+                required: true
+                description: "Único en esta corchera. Escribe este nombre en Desde o Hasta de un hilo."
+              - name: x
+                label: Posición horizontal (0–100)
+                type: number
+                required: true
+              - name: y
+                label: Posición vertical (0–100)
+                type: number
+                required: true
           - name: threads
             label: Hilos rojos
             type: object
             required: false
-            description: "Cada hilo une los identificadores de dos fotos o notas de este tablón."
+            description: "Une fotos, notas o chinchetas sueltas por sus identificadores."
             list:
-              max: 18
+              max: 30
               collapsible:
                 collapsed: true
                 summary: "{from} → {to}"
             fields:
               - name: from
-                label: Desde la pieza
+                label: Desde la pieza o chincheta
                 type: string
                 required: true
               - name: to
-                label: Hasta la pieza
+                label: Hasta la pieza o chincheta
                 type: string
                 required: true
       - name: organizaciones
@@ -5454,6 +5702,13 @@ content:
                 required: false
                 options:
                   media: default
+              - name: note_image
+                label: Imagen de la nota (PNG o WebP transparente)
+                type: image
+                required: false
+                description: "Para una nota, sustituye el papel y el texto por esta imagen. Si queda vacío, se usa la nota de texto habitual."
+                options:
+                  media: default
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -5469,23 +5724,47 @@ content:
                 type: number
                 required: false
                 description: "Opcional. Un giro ligero da aspecto de papel colocado a mano."
+          - name: loose_pins
+            label: Chinchetas sueltas
+            type: object
+            required: false
+            description: "Colócalas sobre la corchera y usa su identificador como extremo de un hilo. Así puedes unir las piezas sin que el hilo atraviese una foto."
+            list:
+              max: 24
+              collapsible:
+                collapsed: true
+                summary: "{id}"
+            fields:
+              - name: id
+                label: Identificador de la chincheta
+                type: string
+                required: true
+                description: "Único en esta corchera. Escribe este nombre en Desde o Hasta de un hilo."
+              - name: x
+                label: Posición horizontal (0–100)
+                type: number
+                required: true
+              - name: y
+                label: Posición vertical (0–100)
+                type: number
+                required: true
           - name: threads
             label: Hilos rojos
             type: object
             required: false
-            description: "Cada hilo une los identificadores de dos fotos o notas de este tablón."
+            description: "Une fotos, notas o chinchetas sueltas por sus identificadores."
             list:
-              max: 18
+              max: 30
               collapsible:
                 collapsed: true
                 summary: "{from} → {to}"
             fields:
               - name: from
-                label: Desde la pieza
+                label: Desde la pieza o chincheta
                 type: string
                 required: true
               - name: to
-                label: Hasta la pieza
+                label: Hasta la pieza o chincheta
                 type: string
                 required: true
       - name: documentos
@@ -5543,6 +5822,13 @@ content:
                 required: false
                 options:
                   media: default
+              - name: note_image
+                label: Imagen de la nota (PNG o WebP transparente)
+                type: image
+                required: false
+                description: "Para una nota, sustituye el papel y el texto por esta imagen. Si queda vacío, se usa la nota de texto habitual."
+                options:
+                  media: default
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -5558,23 +5844,47 @@ content:
                 type: number
                 required: false
                 description: "Opcional. Un giro ligero da aspecto de papel colocado a mano."
+          - name: loose_pins
+            label: Chinchetas sueltas
+            type: object
+            required: false
+            description: "Colócalas sobre la corchera y usa su identificador como extremo de un hilo. Así puedes unir las piezas sin que el hilo atraviese una foto."
+            list:
+              max: 24
+              collapsible:
+                collapsed: true
+                summary: "{id}"
+            fields:
+              - name: id
+                label: Identificador de la chincheta
+                type: string
+                required: true
+                description: "Único en esta corchera. Escribe este nombre en Desde o Hasta de un hilo."
+              - name: x
+                label: Posición horizontal (0–100)
+                type: number
+                required: true
+              - name: y
+                label: Posición vertical (0–100)
+                type: number
+                required: true
           - name: threads
             label: Hilos rojos
             type: object
             required: false
-            description: "Cada hilo une los identificadores de dos fotos o notas de este tablón."
+            description: "Une fotos, notas o chinchetas sueltas por sus identificadores."
             list:
-              max: 18
+              max: 30
               collapsible:
                 collapsed: true
                 summary: "{from} → {to}"
             fields:
               - name: from
-                label: Desde la pieza
+                label: Desde la pieza o chincheta
                 type: string
                 required: true
               - name: to
-                label: Hasta la pieza
+                label: Hasta la pieza o chincheta
                 type: string
                 required: true
       - name: sucesos
@@ -5632,6 +5942,13 @@ content:
                 required: false
                 options:
                   media: default
+              - name: note_image
+                label: Imagen de la nota (PNG o WebP transparente)
+                type: image
+                required: false
+                description: "Para una nota, sustituye el papel y el texto por esta imagen. Si queda vacío, se usa la nota de texto habitual."
+                options:
+                  media: default
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -5647,23 +5964,47 @@ content:
                 type: number
                 required: false
                 description: "Opcional. Un giro ligero da aspecto de papel colocado a mano."
+          - name: loose_pins
+            label: Chinchetas sueltas
+            type: object
+            required: false
+            description: "Colócalas sobre la corchera y usa su identificador como extremo de un hilo. Así puedes unir las piezas sin que el hilo atraviese una foto."
+            list:
+              max: 24
+              collapsible:
+                collapsed: true
+                summary: "{id}"
+            fields:
+              - name: id
+                label: Identificador de la chincheta
+                type: string
+                required: true
+                description: "Único en esta corchera. Escribe este nombre en Desde o Hasta de un hilo."
+              - name: x
+                label: Posición horizontal (0–100)
+                type: number
+                required: true
+              - name: y
+                label: Posición vertical (0–100)
+                type: number
+                required: true
           - name: threads
             label: Hilos rojos
             type: object
             required: false
-            description: "Cada hilo une los identificadores de dos fotos o notas de este tablón."
+            description: "Une fotos, notas o chinchetas sueltas por sus identificadores."
             list:
-              max: 18
+              max: 30
               collapsible:
                 collapsed: true
                 summary: "{from} → {to}"
             fields:
               - name: from
-                label: Desde la pieza
+                label: Desde la pieza o chincheta
                 type: string
                 required: true
               - name: to
-                label: Hasta la pieza
+                label: Hasta la pieza o chincheta
                 type: string
                 required: true
       - name: testimonios
@@ -5721,6 +6062,13 @@ content:
                 required: false
                 options:
                   media: default
+              - name: note_image
+                label: Imagen de la nota (PNG o WebP transparente)
+                type: image
+                required: false
+                description: "Para una nota, sustituye el papel y el texto por esta imagen. Si queda vacío, se usa la nota de texto habitual."
+                options:
+                  media: default
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -5736,23 +6084,47 @@ content:
                 type: number
                 required: false
                 description: "Opcional. Un giro ligero da aspecto de papel colocado a mano."
+          - name: loose_pins
+            label: Chinchetas sueltas
+            type: object
+            required: false
+            description: "Colócalas sobre la corchera y usa su identificador como extremo de un hilo. Así puedes unir las piezas sin que el hilo atraviese una foto."
+            list:
+              max: 24
+              collapsible:
+                collapsed: true
+                summary: "{id}"
+            fields:
+              - name: id
+                label: Identificador de la chincheta
+                type: string
+                required: true
+                description: "Único en esta corchera. Escribe este nombre en Desde o Hasta de un hilo."
+              - name: x
+                label: Posición horizontal (0–100)
+                type: number
+                required: true
+              - name: y
+                label: Posición vertical (0–100)
+                type: number
+                required: true
           - name: threads
             label: Hilos rojos
             type: object
             required: false
-            description: "Cada hilo une los identificadores de dos fotos o notas de este tablón."
+            description: "Une fotos, notas o chinchetas sueltas por sus identificadores."
             list:
-              max: 18
+              max: 30
               collapsible:
                 collapsed: true
                 summary: "{from} → {to}"
             fields:
               - name: from
-                label: Desde la pieza
+                label: Desde la pieza o chincheta
                 type: string
                 required: true
               - name: to
-                label: Hasta la pieza
+                label: Hasta la pieza o chincheta
                 type: string
                 required: true
       - name: relatos
@@ -5810,6 +6182,13 @@ content:
                 required: false
                 options:
                   media: default
+              - name: note_image
+                label: Imagen de la nota (PNG o WebP transparente)
+                type: image
+                required: false
+                description: "Para una nota, sustituye el papel y el texto por esta imagen. Si queda vacío, se usa la nota de texto habitual."
+                options:
+                  media: default
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -5825,23 +6204,47 @@ content:
                 type: number
                 required: false
                 description: "Opcional. Un giro ligero da aspecto de papel colocado a mano."
+          - name: loose_pins
+            label: Chinchetas sueltas
+            type: object
+            required: false
+            description: "Colócalas sobre la corchera y usa su identificador como extremo de un hilo. Así puedes unir las piezas sin que el hilo atraviese una foto."
+            list:
+              max: 24
+              collapsible:
+                collapsed: true
+                summary: "{id}"
+            fields:
+              - name: id
+                label: Identificador de la chincheta
+                type: string
+                required: true
+                description: "Único en esta corchera. Escribe este nombre en Desde o Hasta de un hilo."
+              - name: x
+                label: Posición horizontal (0–100)
+                type: number
+                required: true
+              - name: y
+                label: Posición vertical (0–100)
+                type: number
+                required: true
           - name: threads
             label: Hilos rojos
             type: object
             required: false
-            description: "Cada hilo une los identificadores de dos fotos o notas de este tablón."
+            description: "Une fotos, notas o chinchetas sueltas por sus identificadores."
             list:
-              max: 18
+              max: 30
               collapsible:
                 collapsed: true
                 summary: "{from} → {to}"
             fields:
               - name: from
-                label: Desde la pieza
+                label: Desde la pieza o chincheta
                 type: string
                 required: true
               - name: to
-                label: Hasta la pieza
+                label: Hasta la pieza o chincheta
                 type: string
                 required: true
       - name: microrrelatos
@@ -5899,6 +6302,13 @@ content:
                 required: false
                 options:
                   media: default
+              - name: note_image
+                label: Imagen de la nota (PNG o WebP transparente)
+                type: image
+                required: false
+                description: "Para una nota, sustituye el papel y el texto por esta imagen. Si queda vacío, se usa la nota de texto habitual."
+                options:
+                  media: default
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -5914,23 +6324,47 @@ content:
                 type: number
                 required: false
                 description: "Opcional. Un giro ligero da aspecto de papel colocado a mano."
+          - name: loose_pins
+            label: Chinchetas sueltas
+            type: object
+            required: false
+            description: "Colócalas sobre la corchera y usa su identificador como extremo de un hilo. Así puedes unir las piezas sin que el hilo atraviese una foto."
+            list:
+              max: 24
+              collapsible:
+                collapsed: true
+                summary: "{id}"
+            fields:
+              - name: id
+                label: Identificador de la chincheta
+                type: string
+                required: true
+                description: "Único en esta corchera. Escribe este nombre en Desde o Hasta de un hilo."
+              - name: x
+                label: Posición horizontal (0–100)
+                type: number
+                required: true
+              - name: y
+                label: Posición vertical (0–100)
+                type: number
+                required: true
           - name: threads
             label: Hilos rojos
             type: object
             required: false
-            description: "Cada hilo une los identificadores de dos fotos o notas de este tablón."
+            description: "Une fotos, notas o chinchetas sueltas por sus identificadores."
             list:
-              max: 18
+              max: 30
               collapsible:
                 collapsed: true
                 summary: "{from} → {to}"
             fields:
               - name: from
-                label: Desde la pieza
+                label: Desde la pieza o chincheta
                 type: string
                 required: true
               - name: to
-                label: Hasta la pieza
+                label: Hasta la pieza o chincheta
                 type: string
                 required: true
 

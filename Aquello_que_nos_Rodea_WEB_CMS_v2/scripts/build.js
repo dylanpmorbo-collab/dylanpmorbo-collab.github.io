@@ -122,7 +122,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=navegacion-ampliaciones-20261031"><link rel="stylesheet" href="assets/css/secret-fichas.css?v=1"><script defer src="assets/js/secret-fichas.js?v=conexiones-20261031"></script><script defer src="assets/js/main.js?v=sandbox-compacto-20261028"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=corcheras-chinchetas-20261101"><link rel="stylesheet" href="assets/css/secret-fichas.css?v=1"><script defer src="assets/js/secret-fichas.js?v=conexiones-20261031"></script><script defer src="assets/js/main.js?v=sandbox-compacto-20261028"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -1971,40 +1971,50 @@ const archivePage=`${head(`El Archivo | ${site.site_title}`,'Índice general del
 fs.writeFileSync(path.join(DIST,'archivo.html'),archivePage);
 
 function renderCorkboard(board,label,entry=false){
-if(!board || board.enabled!==true) return '';
-const design=['b','c','d'].includes(String(board.design||'').toLowerCase())?String(board.design).toLowerCase():'a';
-const positions=[[15,12],[38,12],[61,12],[84,12],[15,40],[38,40],[61,40],[84,40],[15,68],[38,68],[61,68],[84,68]];
-const clamp=(value,min,max,fallback)=>{const n=Number(value);return value===null||value===undefined||value===''||!Number.isFinite(n)?fallback:Math.min(max,Math.max(min,n));};
-const pieces=(Array.isArray(board.pieces)?board.pieces:[]).slice(0,12).map((piece,index)=>{
- if(!piece || typeof piece!=='object') return null;
- const id=String(piece.id||('pieza-'+(index+1))).trim();
- const type=piece.type==='foto'?'foto':'nota';
- const image=String(piece.image||'').trim(), text=String(piece.text||'').trim(), title=String(piece.title||'').trim();
- if(type==='foto'?!image:(!text&&!title)) return null;
- return {id,type,image,text,title,x:clamp(piece.x,12,88,positions[index][0]),y:clamp(piece.y,8,72,positions[index][1]),rotation:clamp(piece.rotation,-12,12,[-3,2,-2,4][index%4])};
-}).filter(Boolean);
-if(!pieces.length) return '';
-const byId=new Map(pieces.map(piece=>[piece.id,piece]));
-const threads=(Array.isArray(board.threads)?board.threads:[]).slice(0,18).map(thread=>{
- const from=byId.get(String(thread&&thread.from||'').trim()),to=byId.get(String(thread&&thread.to||'').trim());
- if(!from||!to||from===to) return '';
- return '<path d="M '+from.x+' '+from.y+' Q '+((from.x+to.x)/2)+' '+((from.y+to.y)/2+3)+' '+to.x+' '+to.y+'"/>';
-}).join('');
-const cards=pieces.map(piece=>{
- const content=piece.type==='foto'
- ? '<img src="'+esc(piece.image)+'" alt="'+esc(piece.title||'Fotografía del tablón')+'" loading="lazy">'+(piece.title?'<figcaption>'+esc(piece.title)+'</figcaption>':'')
- : (piece.title?'<strong>'+esc(piece.title)+'</strong>':'')+(piece.text?'<p>'+esc(piece.text).replace(/\r?\n/g,'<br>')+'</p>':'');
- return '<article class="archive-corkboard-piece archive-corkboard-'+piece.type+'" style="--piece-x:'+piece.x+'%;--piece-y:'+piece.y+'%;--piece-rotation:'+piece.rotation+'deg" aria-label="'+esc(piece.title||'Pieza del tablón')+'">'+
- content+'</article>';
-}).join('');
-const pins=pieces.map(piece=>'<span class="archive-corkboard-pin" style="--piece-x:'+piece.x+'%;--piece-y:'+piece.y+'%" aria-hidden="true"></span>').join('');
-return '<section class="section archive-corkboard-section'+(entry?' archive-entry-corkboard':'')+'" aria-label="Tablón de conexiones de '+esc(label)+'">'+
-'<div class="section-label">'+(design==='d'?'PANEL MAGNÉTICO // ':'CORCHERA // ')+esc(label)+'</div>'+
-'<h2>'+esc(String(board.title||'TABLÓN DE CONEXIONES'))+'</h2>'+
-'<p class="archive-corkboard-hint">Desliza para explorar el tablón →</p>'+
-'<div class="archive-corkboard-scroll"><div class="archive-corkboard-stage archive-corkboard-design-'+design+'">'+
-'<svg class="archive-corkboard-threads" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">'+threads+'</svg>'+
-cards+pins+'</div></div></section>';
+ if(!board || board.enabled!==true) return '';
+ const design=['b','c','d'].includes(String(board.design||'').toLowerCase())?String(board.design).toLowerCase():'a';
+ const positions=[[15,12],[38,12],[61,12],[84,12],[15,40],[38,40],[61,40],[84,40],[15,68],[38,68],[61,68],[84,68]];
+ const clamp=(value,min,max,fallback)=>{const n=Number(value);return value===null||value===undefined||value===''||!Number.isFinite(n)?fallback:Math.min(max,Math.max(min,n));};
+ const pieces=(Array.isArray(board.pieces)?board.pieces:[]).slice(0,12).map((piece,index)=>{
+  if(!piece || typeof piece!=='object') return null;
+  const id=String(piece.id||('pieza-'+(index+1))).trim();
+  const type=piece.type==='foto'?'foto':'nota';
+  const image=String(piece.image||'').trim(), noteImage=String(piece.note_image||'').trim(), text=String(piece.text||'').trim(), title=String(piece.title||'').trim();
+  if(type==='foto'?!image:(!text&&!title&&!noteImage)) return null;
+  return {id,type,image,noteImage,text,title,x:clamp(piece.x,12,88,positions[index][0]),y:clamp(piece.y,8,72,positions[index][1]),rotation:clamp(piece.rotation,-12,12,[-3,2,-2,4][index%4])};
+ }).filter(Boolean);
+ if(!pieces.length) return '';
+ const byId=new Map(pieces.map(piece=>[piece.id,piece]));
+ const loosePins=(Array.isArray(board.loose_pins)?board.loose_pins:[]).slice(0,24).map(pin=>{
+  if(!pin || typeof pin!=='object')return null;
+  const id=String(pin.id||'').trim();
+  if(!id || byId.has(id))return null;
+  const item={id,x:clamp(pin.x,5,95,50),y:clamp(pin.y,5,95,50)};
+  byId.set(id,item);
+  return item;
+ }).filter(Boolean);
+ const threads=(Array.isArray(board.threads)?board.threads:[]).slice(0,30).map(thread=>{
+  const from=byId.get(String(thread&&thread.from||'').trim()),to=byId.get(String(thread&&thread.to||'').trim());
+  if(!from||!to||from===to) return '';
+  return '<path d="M '+from.x+' '+from.y+' Q '+((from.x+to.x)/2)+' '+((from.y+to.y)/2+3)+' '+to.x+' '+to.y+'"/>';
+ }).join('');
+ const cards=pieces.map(piece=>{
+  const content=piece.type==='foto'
+   ? '<img src="'+esc(piece.image)+'" alt="'+esc(piece.title||'Fotografía del tablón')+'" loading="lazy">'+(piece.title?'<figcaption>'+esc(piece.title)+'</figcaption>':'')
+   : piece.noteImage
+    ? '<img class="archive-corkboard-note-image" src="'+esc(piece.noteImage)+'" alt="'+esc(piece.title||piece.text||'Nota del tablón')+'" loading="lazy">'
+    : (piece.title?'<strong>'+esc(piece.title)+'</strong>':'')+(piece.text?'<p>'+esc(piece.text).replace(/\r?\n/g,'<br>')+'</p>':'');
+  return '<article class="archive-corkboard-piece archive-corkboard-'+piece.type+(piece.type==='nota'&&piece.noteImage?' has-image':'')+'" style="--piece-x:'+piece.x+'%;--piece-y:'+piece.y+'%;--piece-rotation:'+piece.rotation+'deg" aria-label="'+esc(piece.title||'Pieza del tablón')+'">'+
+   content+'</article>';
+ }).join('');
+ const pins=[...pieces,...loosePins].map(piece=>'<span class="archive-corkboard-pin" style="--piece-x:'+piece.x+'%;--piece-y:'+piece.y+'%" aria-hidden="true"></span>').join('');
+ return '<section class="section archive-corkboard-section'+(entry?' archive-entry-corkboard':'')+'" aria-label="Tablón de conexiones de '+esc(label)+'">'+
+ '<div class="section-label">'+(design==='d'?'PANEL MAGNÉTICO // ':'CORCHERA // ')+esc(label)+'</div>'+
+ '<h2>'+esc(String(board.title||'TABLÓN DE CONEXIONES'))+'</h2>'+
+ '<p class="archive-corkboard-hint">Desliza para explorar el tablón →</p>'+
+ '<div class="archive-corkboard-scroll"><div class="archive-corkboard-stage archive-corkboard-design-'+design+'">'+
+ '<svg class="archive-corkboard-threads" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">'+threads+'</svg>'+
+ cards+pins+'</div></div></section>';
 }
 function archiveCorkboard(section){return renderCorkboard(archiveCorkboards[section.key],section.label);}
 
