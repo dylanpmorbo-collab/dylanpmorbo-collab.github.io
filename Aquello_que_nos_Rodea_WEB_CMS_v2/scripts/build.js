@@ -122,7 +122,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=corcheras-chinchetas-20261101"><link rel="stylesheet" href="assets/css/secret-fichas.css?v=1"><script defer src="assets/js/secret-fichas.js?v=conexiones-20261031"></script><script defer src="assets/js/main.js?v=sandbox-compacto-20261028"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=notas-png-ajuste-20261101"><link rel="stylesheet" href="assets/css/secret-fichas.css?v=1"><script defer src="assets/js/secret-fichas.js?v=conexiones-20261031"></script><script defer src="assets/js/main.js?v=sandbox-compacto-20261028"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -1981,7 +1981,7 @@ function renderCorkboard(board,label,entry=false){
   const type=piece.type==='foto'?'foto':'nota';
   const image=String(piece.image||'').trim(), noteImage=String(piece.note_image||'').trim(), text=String(piece.text||'').trim(), title=String(piece.title||'').trim();
   if(type==='foto'?!image:(!text&&!title&&!noteImage)) return null;
-  return {id,type,image,noteImage,text,title,x:clamp(piece.x,12,88,positions[index][0]),y:clamp(piece.y,8,72,positions[index][1]),rotation:clamp(piece.rotation,-12,12,[-3,2,-2,4][index%4])};
+  return {id,type,image,noteImage,text,title,x:clamp(piece.x,12,88,positions[index][0]),y:clamp(piece.y,8,72,positions[index][1]),rotation:clamp(piece.rotation,-12,12,[-3,2,-2,4][index%4]),noteWidth:clamp(piece.note_width,120,360,190),notePinOffset:clamp(piece.note_pin_offset,0,100,10)};
  }).filter(Boolean);
  if(!pieces.length) return '';
  const byId=new Map(pieces.map(piece=>[piece.id,piece]));
@@ -2004,7 +2004,7 @@ function renderCorkboard(board,label,entry=false){
    : piece.noteImage
     ? '<img class="archive-corkboard-note-image" src="'+esc(piece.noteImage)+'" alt="'+esc(piece.title||piece.text||'Nota del tablón')+'" loading="lazy">'
     : (piece.title?'<strong>'+esc(piece.title)+'</strong>':'')+(piece.text?'<p>'+esc(piece.text).replace(/\r?\n/g,'<br>')+'</p>':'');
-  return '<article class="archive-corkboard-piece archive-corkboard-'+piece.type+(piece.type==='nota'&&piece.noteImage?' has-image':'')+'" style="--piece-x:'+piece.x+'%;--piece-y:'+piece.y+'%;--piece-rotation:'+piece.rotation+'deg" aria-label="'+esc(piece.title||'Pieza del tablón')+'">'+
+  return '<article class="archive-corkboard-piece archive-corkboard-'+piece.type+(piece.type==='nota'&&piece.noteImage?' has-image':'')+'" style="--piece-x:'+piece.x+'%;--piece-y:'+piece.y+'%;--piece-rotation:'+piece.rotation+'deg;--note-width:'+piece.noteWidth+'px;--note-pin-offset:'+piece.notePinOffset+'px" aria-label="'+esc(piece.title||'Pieza del tablón')+'">'+
    content+'</article>';
  }).join('');
  const pins=[...pieces,...loosePins].map(piece=>'<span class="archive-corkboard-pin" style="--piece-x:'+piece.x+'%;--piece-y:'+piece.y+'%" aria-hidden="true"></span>').join('');

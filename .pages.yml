@@ -297,6 +297,16 @@ content:
                 description: "Para una nota, sustituye el papel y el texto por esta imagen. Si queda vacío, se usa la nota de texto habitual."
                 options:
                   media: default
+              - name: note_width
+                label: Ancho de la nota PNG/WebP (px)
+                type: number
+                required: false
+                description: "Ajusta el tamaño visible de la nota. Si lo dejas vacío, se usan 190 píxeles."
+              - name: note_pin_offset
+                label: Subir la nota hacia la chincheta (px)
+                type: number
+                required: false
+                description: "Compensa los márgenes transparentes de la imagen para que la chincheta se apoye sobre el papel. Si lo dejas vacío, se usan 10 píxeles."
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -545,6 +555,16 @@ content:
                 description: "Para una nota, sustituye el papel y el texto por esta imagen. Si queda vacío, se usa la nota de texto habitual."
                 options:
                   media: default
+              - name: note_width
+                label: Ancho de la nota PNG/WebP (px)
+                type: number
+                required: false
+                description: "Ajusta el tamaño visible de la nota. Si lo dejas vacío, se usan 190 píxeles."
+              - name: note_pin_offset
+                label: Subir la nota hacia la chincheta (px)
+                type: number
+                required: false
+                description: "Compensa los márgenes transparentes de la imagen para que la chincheta se apoye sobre el papel. Si lo dejas vacío, se usan 10 píxeles."
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -2792,6 +2812,16 @@ content:
                 description: "Para una nota, sustituye el papel y el texto por esta imagen. Si queda vacío, se usa la nota de texto habitual."
                 options:
                   media: default
+              - name: note_width
+                label: Ancho de la nota PNG/WebP (px)
+                type: number
+                required: false
+                description: "Ajusta el tamaño visible de la nota. Si lo dejas vacío, se usan 190 píxeles."
+              - name: note_pin_offset
+                label: Subir la nota hacia la chincheta (px)
+                type: number
+                required: false
+                description: "Compensa los márgenes transparentes de la imagen para que la chincheta se apoye sobre el papel. Si lo dejas vacío, se usan 10 píxeles."
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -5105,6 +5135,16 @@ content:
                 description: "Para una nota, sustituye el papel y el texto por esta imagen. Si queda vacío, se usa la nota de texto habitual."
                 options:
                   media: default
+              - name: note_width
+                label: Ancho de la nota PNG/WebP (px)
+                type: number
+                required: false
+                description: "Ajusta el tamaño visible de la nota. Si lo dejas vacío, se usan 190 píxeles."
+              - name: note_pin_offset
+                label: Subir la nota hacia la chincheta (px)
+                type: number
+                required: false
+                description: "Compensa los márgenes transparentes de la imagen para que la chincheta se apoye sobre el papel. Si lo dejas vacío, se usan 10 píxeles."
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -5229,6 +5269,16 @@ content:
                 description: "Para una nota, sustituye el papel y el texto por esta imagen. Si queda vacío, se usa la nota de texto habitual."
                 options:
                   media: default
+              - name: note_width
+                label: Ancho de la nota PNG/WebP (px)
+                type: number
+                required: false
+                description: "Ajusta el tamaño visible de la nota. Si lo dejas vacío, se usan 190 píxeles."
+              - name: note_pin_offset
+                label: Subir la nota hacia la chincheta (px)
+                type: number
+                required: false
+                description: "Compensa los márgenes transparentes de la imagen para que la chincheta se apoye sobre el papel. Si lo dejas vacío, se usan 10 píxeles."
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -5349,6 +5399,16 @@ content:
                 description: "Para una nota, sustituye el papel y el texto por esta imagen. Si queda vacío, se usa la nota de texto habitual."
                 options:
                   media: default
+              - name: note_width
+                label: Ancho de la nota PNG/WebP (px)
+                type: number
+                required: false
+                description: "Ajusta el tamaño visible de la nota. Si lo dejas vacío, se usan 190 píxeles."
+              - name: note_pin_offset
+                label: Subir la nota hacia la chincheta (px)
+                type: number
+                required: false
+                description: "Compensa los márgenes transparentes de la imagen para que la chincheta se apoye sobre el papel. Si lo dejas vacío, se usan 10 píxeles."
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -5469,6 +5529,16 @@ content:
                 description: "Para una nota, sustituye el papel y el texto por esta imagen. Si queda vacío, se usa la nota de texto habitual."
                 options:
                   media: default
+              - name: note_width
+                label: Ancho de la nota PNG/WebP (px)
+                type: number
+                required: false
+                description: "Ajusta el tamaño visible de la nota. Si lo dejas vacío, se usan 190 píxeles."
+              - name: note_pin_offset
+                label: Subir la nota hacia la chincheta (px)
+                type: number
+                required: false
+                description: "Compensa los márgenes transparentes de la imagen para que la chincheta se apoye sobre el papel. Si lo dejas vacío, se usan 10 píxeles."
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -5589,6 +5659,16 @@ content:
                 description: "Para una nota, sustituye el papel y el texto por esta imagen. Si queda vacío, se usa la nota de texto habitual."
                 options:
                   media: default
+              - name: note_width
+                label: Ancho de la nota PNG/WebP (px)
+                type: number
+                required: false
+                description: "Ajusta el tamaño visible de la nota. Si lo dejas vacío, se usan 190 píxeles."
+              - name: note_pin_offset
+                label: Subir la nota hacia la chincheta (px)
+                type: number
+                required: false
+                description: "Compensa los márgenes transparentes de la imagen para que la chincheta se apoye sobre el papel. Si lo dejas vacío, se usan 10 píxeles."
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -5709,6 +5789,16 @@ content:
                 description: "Para una nota, sustituye el papel y el texto por esta imagen. Si queda vacío, se usa la nota de texto habitual."
                 options:
                   media: default
+              - name: note_width
+                label: Ancho de la nota PNG/WebP (px)
+                type: number
+                required: false
+                description: "Ajusta el tamaño visible de la nota. Si lo dejas vacío, se usan 190 píxeles."
+              - name: note_pin_offset
+                label: Subir la nota hacia la chincheta (px)
+                type: number
+                required: false
+                description: "Compensa los márgenes transparentes de la imagen para que la chincheta se apoye sobre el papel. Si lo dejas vacío, se usan 10 píxeles."
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -5829,6 +5919,16 @@ content:
                 description: "Para una nota, sustituye el papel y el texto por esta imagen. Si queda vacío, se usa la nota de texto habitual."
                 options:
                   media: default
+              - name: note_width
+                label: Ancho de la nota PNG/WebP (px)
+                type: number
+                required: false
+                description: "Ajusta el tamaño visible de la nota. Si lo dejas vacío, se usan 190 píxeles."
+              - name: note_pin_offset
+                label: Subir la nota hacia la chincheta (px)
+                type: number
+                required: false
+                description: "Compensa los márgenes transparentes de la imagen para que la chincheta se apoye sobre el papel. Si lo dejas vacío, se usan 10 píxeles."
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -5949,6 +6049,16 @@ content:
                 description: "Para una nota, sustituye el papel y el texto por esta imagen. Si queda vacío, se usa la nota de texto habitual."
                 options:
                   media: default
+              - name: note_width
+                label: Ancho de la nota PNG/WebP (px)
+                type: number
+                required: false
+                description: "Ajusta el tamaño visible de la nota. Si lo dejas vacío, se usan 190 píxeles."
+              - name: note_pin_offset
+                label: Subir la nota hacia la chincheta (px)
+                type: number
+                required: false
+                description: "Compensa los márgenes transparentes de la imagen para que la chincheta se apoye sobre el papel. Si lo dejas vacío, se usan 10 píxeles."
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -6069,6 +6179,16 @@ content:
                 description: "Para una nota, sustituye el papel y el texto por esta imagen. Si queda vacío, se usa la nota de texto habitual."
                 options:
                   media: default
+              - name: note_width
+                label: Ancho de la nota PNG/WebP (px)
+                type: number
+                required: false
+                description: "Ajusta el tamaño visible de la nota. Si lo dejas vacío, se usan 190 píxeles."
+              - name: note_pin_offset
+                label: Subir la nota hacia la chincheta (px)
+                type: number
+                required: false
+                description: "Compensa los márgenes transparentes de la imagen para que la chincheta se apoye sobre el papel. Si lo dejas vacío, se usan 10 píxeles."
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -6189,6 +6309,16 @@ content:
                 description: "Para una nota, sustituye el papel y el texto por esta imagen. Si queda vacío, se usa la nota de texto habitual."
                 options:
                   media: default
+              - name: note_width
+                label: Ancho de la nota PNG/WebP (px)
+                type: number
+                required: false
+                description: "Ajusta el tamaño visible de la nota. Si lo dejas vacío, se usan 190 píxeles."
+              - name: note_pin_offset
+                label: Subir la nota hacia la chincheta (px)
+                type: number
+                required: false
+                description: "Compensa los márgenes transparentes de la imagen para que la chincheta se apoye sobre el papel. Si lo dejas vacío, se usan 10 píxeles."
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
@@ -6309,6 +6439,16 @@ content:
                 description: "Para una nota, sustituye el papel y el texto por esta imagen. Si queda vacío, se usa la nota de texto habitual."
                 options:
                   media: default
+              - name: note_width
+                label: Ancho de la nota PNG/WebP (px)
+                type: number
+                required: false
+                description: "Ajusta el tamaño visible de la nota. Si lo dejas vacío, se usan 190 píxeles."
+              - name: note_pin_offset
+                label: Subir la nota hacia la chincheta (px)
+                type: number
+                required: false
+                description: "Compensa los márgenes transparentes de la imagen para que la chincheta se apoye sobre el papel. Si lo dejas vacío, se usan 10 píxeles."
               - name: x
                 label: Posición horizontal (0–100)
                 type: number
