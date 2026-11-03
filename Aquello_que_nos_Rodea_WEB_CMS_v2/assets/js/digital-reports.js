@@ -65,6 +65,10 @@
       if(!button)return false;
       const label=button.querySelector('.retro-file-name')?.textContent||button.querySelector('strong')?.textContent||button.textContent.trim()||'Archivo digital';
       const cancel=()=>{onCancel?.();button.focus();};
+      if(button.dataset.accessType==='numerico'&&window.ArchiveNumericPuzzle){
+        const key=location.pathname+'|'+button.dataset.accessKey+'|numerico|'+button.dataset.accessLevel;
+        return window.ArchiveNumericPuzzle.guard({host:workspace,key,level:button.dataset.accessLevel,label,onSolve,onCancel:cancel});
+      }
       if(button.dataset.accessType && window.ArchiveAccess){
         const key=location.pathname+'|'+button.dataset.accessKey+'|'+button.dataset.accessType+'|'+(button.dataset.accessLevel||button.dataset.accessHash||'')+'|'+(button.dataset.accessImage||'');
         if(button.dataset.accessType==='imagen')return window.ArchiveAccess.guardImage({host:workspace,key,level:button.dataset.accessLevel,label,image:button.dataset.accessImage,onSolve,onCancel:cancel});
@@ -390,7 +394,7 @@
       if(button && group.contains(button))openReport(button);
     });
     workspace.addEventListener('click',event=>{
-      if(event.target.closest('[data-circuit-overlay],[data-access-overlay]'))return;
+      if(event.target.closest('[data-circuit-overlay],[data-access-overlay],[data-numeric-overlay]'))return;
       const notice=event.target.closest('[data-folder-notice-overlay]');
       if(notice){
         if(event.target.closest('[data-folder-notice-continue]')){
@@ -474,8 +478,8 @@
     closeReport.addEventListener('click',()=>dialog.close());
     dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close();});
     dialog.addEventListener('cancel',event=>{
-      const puzzle=workspace.querySelector('[data-circuit-overlay],[data-access-overlay]');
-      if(puzzle){event.preventDefault();puzzle.querySelector('[data-circuit-cancel],[data-access-cancel]')?.click();return;}
+      const puzzle=workspace.querySelector('[data-circuit-overlay],[data-access-overlay],[data-numeric-overlay]');
+      if(puzzle){event.preventDefault();puzzle.querySelector('[data-circuit-cancel],[data-access-cancel],[data-numeric-cancel]')?.click();return;}
       if(workspace.querySelector('[data-folder-notice-overlay]')){event.preventDefault();closeFolderNotice();return;}
       if(fullscreenReturnPending || Date.now()-fullscreenExitAt<500){
         event.preventDefault();

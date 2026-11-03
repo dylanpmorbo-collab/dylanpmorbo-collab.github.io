@@ -1729,16 +1729,16 @@ content:
               media: default
             description: "Prepara 600 × 300 píxeles (2:1). Se ajusta entera, sin recorte, dentro de la pegatina; el título se escribe aparte."
           - name: circuit_difficulty
-            label: Dificultad del puzle de corriente o imagen
+            label: Dificultad del puzle (circuito, imagen o cifras)
             type: select
             required: false
             default: ninguno
             options:
               values:
                 - { value: ninguno, label: Sin puzle }
-                - { value: basico, label: Básico · 4 × 4 }
-                - { value: medio, label: Medio · 6 × 6 }
-                - { value: dificil, label: Difícil · 8 × 8 }
+                - { value: basico, label: Básico · 4 × 4 / 4 cifras }
+                - { value: medio, label: Medio · 6 × 6 / 5 cifras }
+                - { value: dificil, label: Difícil · 8 × 8 / 6 cifras }
           - name: access_method
             label: Tipo de bloqueo para abrir el informe
             type: select
@@ -1750,6 +1750,8 @@ content:
                 - { value: ninguno, label: Sin bloqueo }
                 - { value: corriente, label: Circuito eléctrico }
                 - { value: imagen, label: Reconstruir imagen }
+
+                - { value: numerico, label: Descifrar combinación numérica }
                 - { value: codigo, label: Introducir código }
           - name: access_image
             label: Imagen para el puzle de cuadrados
@@ -1870,16 +1872,16 @@ content:
                 type: string
                 required: false
               - name: circuit_difficulty
-                label: Dificultad del puzle de corriente o imagen
+                label: Dificultad del puzle (circuito, imagen o cifras)
                 type: select
                 required: false
                 default: ninguno
                 options:
                   values:
                     - { value: ninguno, label: Sin puzle }
-                    - { value: basico, label: Básico · 4 × 4 }
-                    - { value: medio, label: Medio · 6 × 6 }
-                    - { value: dificil, label: Difícil · 8 × 8 }
+                    - { value: basico, label: Básico · 4 × 4 / 4 cifras }
+                    - { value: medio, label: Medio · 6 × 6 / 5 cifras }
+                    - { value: dificil, label: Difícil · 8 × 8 / 6 cifras }
               - name: access_method
                 label: Tipo de bloqueo para abrir la carpeta
                 type: select
@@ -1891,6 +1893,8 @@ content:
                     - { value: ninguno, label: Sin bloqueo }
                     - { value: corriente, label: Circuito eléctrico }
                     - { value: imagen, label: Reconstruir imagen }
+
+                    - { value: numerico, label: Descifrar combinación numérica }
                     - { value: codigo, label: Introducir código }
               - name: access_image
                 label: Imagen para el puzle de cuadrados
@@ -2058,16 +2062,16 @@ content:
                     required: false
                     description: "Por defecto: IMAGEN, VÍDEO o TEXTO según el archivo. Puedes escribir CARTA, MEMORANDO, FOTOGRAFÍA, etc."
                   - name: circuit_difficulty
-                    label: Dificultad del puzle de corriente o imagen
+                    label: Dificultad del puzle (circuito, imagen o cifras)
                     type: select
                     required: false
                     default: ninguno
                     options:
                       values:
                         - { value: ninguno, label: Sin puzle }
-                        - { value: basico, label: Básico · 4 × 4 }
-                        - { value: medio, label: Medio · 6 × 6 }
-                        - { value: dificil, label: Difícil · 8 × 8 }
+                        - { value: basico, label: Básico · 4 × 4 / 4 cifras }
+                        - { value: medio, label: Medio · 6 × 6 / 5 cifras }
+                        - { value: dificil, label: Difícil · 8 × 8 / 6 cifras }
                   - name: access_method
                     label: Tipo de bloqueo para abrir este archivo
                     type: select
@@ -2079,6 +2083,8 @@ content:
                         - { value: ninguno, label: Sin bloqueo }
                         - { value: corriente, label: Circuito eléctrico }
                         - { value: imagen, label: Reconstruir imagen }
+
+                        - { value: numerico, label: Descifrar combinación numérica }
                         - { value: codigo, label: Introducir código }
                   - name: access_image
                     label: Imagen para el puzle de cuadrados
@@ -2401,16 +2407,16 @@ content:
                 required: false
                 description: "Por defecto: IMAGEN, VÍDEO o TEXTO según el archivo. Puedes escribir CARTA, MEMORANDO, FOTOGRAFÍA, etc."
               - name: circuit_difficulty
-                label: Dificultad del puzle de corriente o imagen
+                label: Dificultad del puzle (circuito, imagen o cifras)
                 type: select
                 required: false
                 default: ninguno
                 options:
                   values:
                     - { value: ninguno, label: Sin puzle }
-                    - { value: basico, label: Básico · 4 × 4 }
-                    - { value: medio, label: Medio · 6 × 6 }
-                    - { value: dificil, label: Difícil · 8 × 8 }
+                    - { value: basico, label: Básico · 4 × 4 / 4 cifras }
+                    - { value: medio, label: Medio · 6 × 6 / 5 cifras }
+                    - { value: dificil, label: Difícil · 8 × 8 / 6 cifras }
               - name: access_method
                 label: Tipo de bloqueo para abrir este archivo
                 type: select
@@ -2422,6 +2428,8 @@ content:
                     - { value: ninguno, label: Sin bloqueo }
                     - { value: corriente, label: Circuito eléctrico }
                     - { value: imagen, label: Reconstruir imagen }
+
+                    - { value: numerico, label: Descifrar combinación numérica }
                     - { value: codigo, label: Introducir código }
               - name: access_image
                 label: Imagen para el puzle de cuadrados
@@ -4056,16 +4064,16 @@ content:
             type: string
             required: false
           - name: circuit_difficulty
-            label: Dificultad del puzle de corriente o imagen
+            label: Dificultad del puzle (circuito, imagen o cifras)
             type: select
             required: false
             default: ninguno
             options:
               values:
                 - { value: ninguno, label: Sin puzle }
-                - { value: basico, label: Básico · 4 × 4 }
-                - { value: medio, label: Medio · 6 × 6 }
-                - { value: dificil, label: Difícil · 8 × 8 }
+                - { value: basico, label: Básico · 4 × 4 / 4 cifras }
+                - { value: medio, label: Medio · 6 × 6 / 5 cifras }
+                - { value: dificil, label: Difícil · 8 × 8 / 6 cifras }
           - name: access_method
             label: Tipo de bloqueo para abrir el informe
             type: select
@@ -4077,6 +4085,8 @@ content:
                 - { value: ninguno, label: Sin bloqueo }
                 - { value: corriente, label: Circuito eléctrico }
                 - { value: imagen, label: Reconstruir imagen }
+
+                - { value: numerico, label: Descifrar combinación numérica }
                 - { value: codigo, label: Introducir código }
           - name: access_image
             label: Imagen para el puzle de cuadrados
@@ -4193,16 +4203,16 @@ content:
                 type: string
                 required: false
               - name: circuit_difficulty
-                label: Dificultad del puzle de corriente o imagen
+                label: Dificultad del puzle (circuito, imagen o cifras)
                 type: select
                 required: false
                 default: ninguno
                 options:
                   values:
                     - { value: ninguno, label: Sin puzle }
-                    - { value: basico, label: Básico · 4 × 4 }
-                    - { value: medio, label: Medio · 6 × 6 }
-                    - { value: dificil, label: Difícil · 8 × 8 }
+                    - { value: basico, label: Básico · 4 × 4 / 4 cifras }
+                    - { value: medio, label: Medio · 6 × 6 / 5 cifras }
+                    - { value: dificil, label: Difícil · 8 × 8 / 6 cifras }
               - name: access_method
                 label: Tipo de bloqueo para abrir la carpeta
                 type: select
@@ -4214,6 +4224,8 @@ content:
                     - { value: ninguno, label: Sin bloqueo }
                     - { value: corriente, label: Circuito eléctrico }
                     - { value: imagen, label: Reconstruir imagen }
+
+                    - { value: numerico, label: Descifrar combinación numérica }
                     - { value: codigo, label: Introducir código }
               - name: access_image
                 label: Imagen para el puzle de cuadrados
@@ -4381,16 +4393,16 @@ content:
                     required: false
                     description: "Por defecto: IMAGEN, VÍDEO o TEXTO según el archivo. Puedes escribir CARTA, MEMORANDO, FOTOGRAFÍA, etc."
                   - name: circuit_difficulty
-                    label: Dificultad del puzle de corriente o imagen
+                    label: Dificultad del puzle (circuito, imagen o cifras)
                     type: select
                     required: false
                     default: ninguno
                     options:
                       values:
                         - { value: ninguno, label: Sin puzle }
-                        - { value: basico, label: Básico · 4 × 4 }
-                        - { value: medio, label: Medio · 6 × 6 }
-                        - { value: dificil, label: Difícil · 8 × 8 }
+                        - { value: basico, label: Básico · 4 × 4 / 4 cifras }
+                        - { value: medio, label: Medio · 6 × 6 / 5 cifras }
+                        - { value: dificil, label: Difícil · 8 × 8 / 6 cifras }
                   - name: access_method
                     label: Tipo de bloqueo para abrir este archivo
                     type: select
@@ -4402,6 +4414,8 @@ content:
                         - { value: ninguno, label: Sin bloqueo }
                         - { value: corriente, label: Circuito eléctrico }
                         - { value: imagen, label: Reconstruir imagen }
+
+                        - { value: numerico, label: Descifrar combinación numérica }
                         - { value: codigo, label: Introducir código }
                   - name: access_image
                     label: Imagen para el puzle de cuadrados
@@ -4724,16 +4738,16 @@ content:
                 required: false
                 description: "Por defecto: IMAGEN, VÍDEO o TEXTO según el archivo. Puedes escribir CARTA, MEMORANDO, FOTOGRAFÍA, etc."
               - name: circuit_difficulty
-                label: Dificultad del puzle de corriente o imagen
+                label: Dificultad del puzle (circuito, imagen o cifras)
                 type: select
                 required: false
                 default: ninguno
                 options:
                   values:
                     - { value: ninguno, label: Sin puzle }
-                    - { value: basico, label: Básico · 4 × 4 }
-                    - { value: medio, label: Medio · 6 × 6 }
-                    - { value: dificil, label: Difícil · 8 × 8 }
+                    - { value: basico, label: Básico · 4 × 4 / 4 cifras }
+                    - { value: medio, label: Medio · 6 × 6 / 5 cifras }
+                    - { value: dificil, label: Difícil · 8 × 8 / 6 cifras }
               - name: access_method
                 label: Tipo de bloqueo para abrir este archivo
                 type: select
@@ -4745,6 +4759,8 @@ content:
                     - { value: ninguno, label: Sin bloqueo }
                     - { value: corriente, label: Circuito eléctrico }
                     - { value: imagen, label: Reconstruir imagen }
+
+                    - { value: numerico, label: Descifrar combinación numérica }
                     - { value: codigo, label: Introducir código }
               - name: access_image
                 label: Imagen para el puzle de cuadrados

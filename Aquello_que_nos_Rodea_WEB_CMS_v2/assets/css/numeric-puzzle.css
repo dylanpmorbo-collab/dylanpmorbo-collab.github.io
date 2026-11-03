@@ -1,0 +1,16 @@
+.numeric-overlay{position:absolute;inset:0;z-index:22;display:grid;place-items:center;padding:14px;overflow:auto;background:#06110bf2;color:#b5eab8;font-family:"Courier New",monospace}
+.numeric-panel{width:min(100%,620px);padding:clamp(14px,3vw,25px);border:2px ridge #64856c;background:#07170d;box-shadow:0 0 38px #53dd6b33,inset 0 0 28px #153d21}
+.numeric-panel>small{color:#74c580;font-size:11px;letter-spacing:.13em}
+.numeric-panel h2{margin:8px 0;color:#e2f5dc;font:700 clamp(16px,3vw,23px)/1.2 "Courier New",monospace}
+.numeric-panel p{font-size:12px;line-height:1.5}
+.numeric-slots,.numeric-attempt{display:flex;justify-content:center;gap:clamp(5px,1.8vw,12px)}
+.numeric-slots input,.numeric-digit{box-sizing:border-box;width:clamp(38px,8vw,58px);height:clamp(46px,9vw,64px);border:2px solid #618269;border-radius:0;background:#020b06;color:#edffeb;text-align:center;font:700 clamp(24px,5vw,35px) "Courier New",monospace}
+.numeric-slots input:focus-visible,.numeric-actions button:focus-visible{outline:2px solid #bbffbf;outline-offset:3px}
+.numeric-slots input.is-locked,.numeric-digit.is-exacto{border-color:#7ced95;background:#14331d;color:#eaffdf}
+.numeric-slots input.is-present,.numeric-digit.is-presente{border-color:#e27070;background:#3a1115;color:#ffe7e7}
+.numeric-digit{display:grid;place-items:center;height:36px;font-size:22px}
+.numeric-digit.is-ausente{border-color:#314037;color:#718276}
+.numeric-status{min-height:20px;margin:12px 0;color:#d0e7bc;text-align:center;font-weight:700}
+.numeric-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:10px}
+.numeric-actions button{min-height:34px;padding:6px 12px;border:2px outset #b7c7b9;border-radius:0;background:#bac9bd;color:#06170b;font:700 11px "Courier New",monospace;cursor:pointer}
+.numeric-history{display:grid;gap:8px;max-height:145px;overflow:auto;margin-top:15px}
