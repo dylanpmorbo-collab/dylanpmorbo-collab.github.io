@@ -3,7 +3,7 @@
   "archive_number": "001",
   "category": "ORGANIZACIÓN",
   "published": true,
-  "notify_new": true,
+  "notify_new": false,
   "image": "/assets/uploads/archivo/LOGOS/emblema-gotico-del-roedor-dorado-web.webp",
   "hero_image_frame": false,
   "status": "ACCESO PARCIAL",
