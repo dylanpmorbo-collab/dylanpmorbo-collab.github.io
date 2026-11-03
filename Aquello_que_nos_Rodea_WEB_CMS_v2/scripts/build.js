@@ -465,9 +465,16 @@ const archiveSectionDefs=[
  {key:'microrrelatos',label:'MICRORRELATOS',typeLabel:'MICRORRELATO',eyebrow:'FICCIÓN BREVE // MICRORRELATOS',desc:'Historias mínimas recuperadas del Archivo. Se entienden solas; las conexiones pueden aparecer mucho después.',items:micros,file:'archivo-microrrelatos.html',image:String(archiveSectionImages.microrrelatos||'/assets/img/archivo-secciones/conexiones.png').trim()}
 ];
 
-function itemTitle(section,item){
+function itemTitleSource(section,item){
  if(!item) return 'SIN ANOTACIONES';
  return section.key==='personajes' ? (item.name||item.title||'SIN NOMBRE') : (item.title||item.name||'SIN TÍTULO');
+}
+function itemTitle(section,item){
+ return String(itemTitleSource(section,item)).replace(/\s*\|\s*/g,' ').replace(/\s+/g,' ').trim();
+}
+function itemTitleMarkup(section,item,uppercase=false){
+ const parts=String(itemTitleSource(section,item)).split('|').map(part=>part.trim()).filter(Boolean);
+ return (parts.length?parts:[itemTitle(section,item)]).map(part=>esc(uppercase?part.toUpperCase():part)).join('<br>');
 }
 function itemSummary(section,item){
  if(!item) return 'Todavía no hay información pública en esta sección.';
@@ -1662,7 +1669,7 @@ function microEntryPage(section,item){
  <section class="micro-story-hero${image?'':' no-image'}">
    <div class="micro-story-heading">
      <div class="story-label-row"><p class="eyebrow">MICRORRELATO // ${esc(itemArchiveNumber(item))}</p>${newBadge(item)}</div>
-     <h1>${esc(String(title).toUpperCase())}</h1>
+     <h1>${itemTitleMarkup(section,item,true)}</h1>
      <p class="micro-story-excerpt">${esc(excerpt)}</p>
      <div class="meta-row"><span>${wordCount(item.body||'').toLocaleString('es-ES')} palabras</span><span>${esc(microReadingTime(item))}</span></div>
      <a class="btn primary" href="#lectura">LEER</a>
@@ -1758,7 +1765,7 @@ function planeEntryPage(section,item){
  <body class="archive-area plane-entry-page${isPlace?' place-entry-page':''}">${header('archivo')}${archiveTopNav(section.key)}<main>
  <section class="plane-hero${image?'':' no-image'}" aria-labelledby="plane-title">
    ${image?`<img class="plane-hero-image" src="${esc(image)}" alt="">`:''}
-   <div class="plane-hero-content"><p class="eyebrow">${esc(eyebrow)}${archiveNumber?` · EXPEDIENTE ${esc(archiveNumber)}`:''}</p><h1 id="plane-title">${esc(title)}</h1>${summary?`<p>${esc(summary)}</p>`:''}</div>
+   <div class="plane-hero-content"><p class="eyebrow">${esc(eyebrow)}${archiveNumber?` · EXPEDIENTE ${esc(archiveNumber)}`:''}</p><h1 id="plane-title">${itemTitleMarkup(section,item)}</h1>${summary?`<p>${esc(summary)}</p>`:''}</div>
  </section>
  <div class="section plane-body"><div class="archive-back-row"><a class="text-link" href="${esc(section.file)}">← VOLVER A LOS ${isPlace?'LUGARES':'PLANOS'}</a><a class="text-link" href="archivo.html">ÍNDICE GENERAL</a></div>
    ${definition?`<div class="plane-introduction"><h2>Qué es este ${isPlace?'lugar':'plano'}</h2><div>${plainTextToHTML(definition)}</div></div>`:''}
@@ -1806,7 +1813,7 @@ function archiveEntryPage(section,item){
  <section class="archive-entry-hero${heroClass}">
    <div class="archive-entry-hero-copy">
      <p class="eyebrow">${section.typeLabel} // EXPEDIENTE ${esc(itemArchiveNumber(item))}</p>
-     <h1>${esc(String(title).toUpperCase())}</h1>
+     <h1>${itemTitleMarkup(section,item,true)}</h1>
      <p>${esc(summary)}</p>
      ${itemStatus(item)?`<span class="archive-entry-hero-status">${esc(itemStatus(item))}</span>`:''}
    </div>
