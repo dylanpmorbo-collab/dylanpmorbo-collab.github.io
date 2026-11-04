@@ -1,6 +1,6 @@
 /* Carcasa horizontal completa: la imagen conserva siempre su proporción original. */
 .hack-device-overlay{position:fixed!important;inset:0!important;z-index:20000!important;display:grid!important;place-items:center!important;overflow:hidden!important;padding:6px!important;background:rgba(0,5,4,.94)!important}
-.hack-device{position:relative;box-sizing:border-box;width:min(1100px,calc(100vw - 12px),calc((100dvh - 12px)*1.2991));aspect-ratio:1429/1100;background:url('../img/dispositivo-hackeo-neolin-horizontal.png') center/contain no-repeat;filter:drop-shadow(0 16px 30px #000b);isolation:isolate}
+.hack-device{position:relative;box-sizing:border-box;width:min(1100px,calc(100vw - 12px),calc(129.91dvh - 15.6px));aspect-ratio:1429/1100;background:url('../img/dispositivo-hackeo-neolin-horizontal.png') center/contain no-repeat;filter:drop-shadow(0 16px 30px #000b);isolation:isolate}
 .hack-device__screen{position:absolute;inset:16.35% 8.45% 16.45% 8%;display:flex;flex-direction:column;min-height:0;overflow:hidden;background:#020b08;color:#bbebc0;box-shadow:inset 0 0 22px #43f66b22}
 .hack-device__hud{display:flex;align-items:center;gap:8px;min-height:31px;padding:4px 10px;border-bottom:1px solid #36734c;background:linear-gradient(90deg,#0e2416,#05130b);color:#8dffa5;font:700 10px/1.2 'Courier New',monospace;letter-spacing:.09em;text-shadow:0 0 8px #50ef72}
 .hack-device__hud strong{flex:1;font:inherit}
