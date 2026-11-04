@@ -1451,7 +1451,7 @@ function archiveDigitalReports(section,item){
    return {count:reports.length,html:'<div class="archive-digital-report-group" id="informes-digitales"><div class="archive-report-subheading">'+esc(digitalHeading)+' // '+String(reports.length).padStart(2,'0')+'</div>'+
    '<div class="archive-police-folder-grid archive-mmc-grid">'+cards+'</div>'+templates+
    '<dialog class="archive-digital-dialog" aria-label="Escritorio de informe digital"><div class="archive-digital-dialog-shell"><header class="archive-digital-dialog-header"><span data-digital-dialog-title>INFORME DIGITAL</span><button type="button" data-digital-close aria-label="Cerrar escritorio">✕</button></header><div data-digital-workspace></div></div></dialog></div>'+
-   '<link rel="stylesheet" href="assets/css/numeric-puzzle.css?v=20261103"><link rel="stylesheet" href="assets/css/hack-device.css?v=20261104"><script defer src="assets/js/hack-device.js?v=20261104"></script><script defer src="assets/js/circuit-puzzle.js?v=20261104"></script><script defer src="assets/js/archive-access.js?v=20261104"></script><script defer src="assets/js/numeric-puzzle.js?v=20261104"></script><script defer src="assets/js/digital-reports.js?v=20261103"></script>'};
+   '<link rel="stylesheet" href="assets/css/numeric-puzzle.css?v=20261103"><link rel="stylesheet" href="assets/css/hack-device.css?v=20261104b"><script defer src="assets/js/hack-device.js?v=20261104"></script><script defer src="assets/js/circuit-puzzle.js?v=20261104"></script><script defer src="assets/js/archive-access.js?v=20261104"></script><script defer src="assets/js/numeric-puzzle.js?v=20261104"></script><script defer src="assets/js/digital-reports.js?v=20261103"></script>'};
 }
 function archivePoliceReport(section,item){return archivePoliceReportV2(section,item);}
 
@@ -2117,4 +2117,5 @@ fs.writeFileSync(path.join(DIST,'sobre.html'),about);
 fs.writeFileSync(path.join(DIST,'robots.txt'),'User-agent: *\\nAllow: /\\n');
 buildPhotoCensorship({root:ROOT, dist:DIST, entries:globalCensorship});
 console.log(`Construida web con ${stories.length} relato(s) y ${micros.length} microrrelato(s).`);
+
 
