@@ -111,6 +111,7 @@
     overlay.dataset.circuitOverlay='';
     overlay.setAttribute('aria-label','Desencriptar '+label);
     overlay.innerHTML='<div class="circuit-panel"><header><small>ARCHIVO // ACCESO CIFRADO</small><h2></h2><p>Gira las piezas móviles para conducir la corriente desde A hasta B. Los módulos remachados son fijos.</p><div class="circuit-legend"><span><b>A</b> ENTRADA · lado izquierdo</span><span><b>B</b> SALIDA · lado derecho</span></div></header><div class="circuit-play"><div class="circuit-rail"><span class="circuit-terminal circuit-terminal-a" aria-label="Entrada A">A <b aria-hidden="true">▶</b></span></div><div class="circuit-board" role="group" aria-label="Circuito giratorio"></div><div class="circuit-rail"><span class="circuit-terminal circuit-terminal-b" aria-label="Salida B"><b aria-hidden="true">▶</b> B</span></div></div><p class="circuit-status" aria-live="polite"></p><div class="circuit-actions"><button type="button" data-circuit-reset>OTRO CIRCUITO</button><button type="button" data-circuit-cancel>VOLVER</button></div></div>';
+    root.ArchiveHackDevice?.mount(overlay,overlay.querySelector('.circuit-panel'));
     overlay.querySelector('h2').textContent=label;
     const grid=overlay.querySelector('.circuit-board');
     grid.style.setProperty('--circuit-size',String(board.size));

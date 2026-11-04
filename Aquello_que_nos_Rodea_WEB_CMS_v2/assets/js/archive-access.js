@@ -55,6 +55,7 @@
     save(key,{board,solved:false});
     const overlay=createOverlay(host,label,'Reconstruir imagen');
     overlay.innerHTML='<div class="access-panel"><header><small>ARCHIVO // RECONSTRUCCIÓN VISUAL</small><h2></h2><p>Mueve una pieza contigua al hueco para reconstruir la imagen. Cada movimiento desplaza una sola pieza.</p></header><div class="access-picture-board" role="group" aria-label="Rompecabezas deslizante"></div><p class="access-status" aria-live="polite"></p><div class="access-actions"><button type="button" data-access-shuffle>MEZCLAR DE NUEVO</button><button type="button" data-access-cancel>VOLVER</button></div></div>';
+    root.ArchiveHackDevice?.mount(overlay,overlay.querySelector('.access-panel'));
     overlay.querySelector('h2').textContent=label;
     const grid=overlay.querySelector('.access-picture-board');grid.style.setProperty('--picture-size',board.size);
     const buttons=[];

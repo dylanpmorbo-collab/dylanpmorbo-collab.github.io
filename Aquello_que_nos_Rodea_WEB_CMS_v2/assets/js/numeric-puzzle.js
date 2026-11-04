@@ -47,7 +47,7 @@
     const panel=document.createElement('div');panel.className='numeric-panel';
     panel.innerHTML='<small>ARCHIVO // ACCESO CIFRADO</small><h2></h2><p>Descifra la combinación. Las cifras correctas quedan fijas; las que pertenecen al código, pero ocupan otra posición, se marcan en rojo. Las demás desaparecen.</p><form><div class="numeric-slots" role="group" aria-label="Combinación"></div><p class="numeric-status" role="status" aria-live="polite"></p><div class="numeric-actions"><button type="submit">COMPROBAR CIFRAS</button><button type="button" data-numeric-cancel>VOLVER</button></div></form><div class="numeric-history" aria-label="Intentos anteriores"></div>';
     panel.querySelector('h2').textContent=label;
-    overlay.append(panel);host.append(overlay);
+    overlay.append(panel);root.ArchiveHackDevice?.mount(overlay,panel);host.append(overlay);
     const slots=panel.querySelector('.numeric-slots');
     const inputs=Array.from({length},(_,index)=>{
       const input=document.createElement('input');
