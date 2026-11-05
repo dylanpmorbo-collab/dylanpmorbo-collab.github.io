@@ -797,6 +797,26 @@ content:
             default: MEDIOS_PRIMERO
             options:
               values: [MEDIOS_PRIMERO, TEXTO_PRIMERO]
+          - name: layout
+            label: Disposición de esta caja
+            type: select
+            default: VERTICAL
+            options:
+              values:
+                - value: VERTICAL
+                  label: Vertical · una columna
+                - value: HORIZONTAL
+                  label: Horizontal · ocupa las dos columnas
+          - name: horizontal_media_side
+            label: En horizontal, colocar imágenes y vídeos
+            type: select
+            default: IZQUIERDA
+            options:
+              values:
+                - value: IZQUIERDA
+                  label: A la izquierda del texto
+                - value: DERECHA
+                  label: A la derecha del texto
           - name: media
             label: Carrusel de imágenes y vídeos
             type: block
@@ -1018,6 +1038,26 @@ content:
             default: MEDIOS_PRIMERO
             options:
               values: [MEDIOS_PRIMERO, TEXTO_PRIMERO]
+          - name: layout
+            label: Disposición de esta caja
+            type: select
+            default: VERTICAL
+            options:
+              values:
+                - value: VERTICAL
+                  label: Vertical · una columna
+                - value: HORIZONTAL
+                  label: Horizontal · ocupa las dos columnas
+          - name: horizontal_media_side
+            label: En horizontal, colocar imágenes y vídeos
+            type: select
+            default: IZQUIERDA
+            options:
+              values:
+                - value: IZQUIERDA
+                  label: A la izquierda del texto
+                - value: DERECHA
+                  label: A la derecha del texto
           - name: media
             label: Carrusel de imágenes y vídeos
             type: block
@@ -1169,6 +1209,26 @@ content:
             default: MEDIOS_PRIMERO
             options:
               values: [MEDIOS_PRIMERO, TEXTO_PRIMERO]
+          - name: layout
+            label: Disposición de esta caja
+            type: select
+            default: VERTICAL
+            options:
+              values:
+                - value: VERTICAL
+                  label: Vertical · una columna
+                - value: HORIZONTAL
+                  label: Horizontal · ocupa las dos columnas
+          - name: horizontal_media_side
+            label: En horizontal, colocar imágenes y vídeos
+            type: select
+            default: IZQUIERDA
+            options:
+              values:
+                - value: IZQUIERDA
+                  label: A la izquierda del texto
+                - value: DERECHA
+                  label: A la derecha del texto
           - name: media
             label: Carrusel de imágenes y vídeos
             type: block
@@ -3303,6 +3363,26 @@ content:
             default: MEDIOS_PRIMERO
             options:
               values: [MEDIOS_PRIMERO, TEXTO_PRIMERO]
+          - name: layout
+            label: Disposición de esta caja
+            type: select
+            default: VERTICAL
+            options:
+              values:
+                - value: VERTICAL
+                  label: Vertical · una columna
+                - value: HORIZONTAL
+                  label: Horizontal · ocupa las dos columnas
+          - name: horizontal_media_side
+            label: En horizontal, colocar imágenes y vídeos
+            type: select
+            default: IZQUIERDA
+            options:
+              values:
+                - value: IZQUIERDA
+                  label: A la izquierda del texto
+                - value: DERECHA
+                  label: A la derecha del texto
           - name: media
             label: Carrusel de imágenes y vídeos
             type: block

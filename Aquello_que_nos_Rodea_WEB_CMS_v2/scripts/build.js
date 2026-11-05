@@ -122,7 +122,7 @@ function head(title, desc, image='/assets/img/hero.webp'){
 <meta property="og:image" content="${esc(image)}"><link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=notas-png-ajuste-20261101"><link rel="stylesheet" href="assets/css/secret-fichas.css?v=1"><script defer src="assets/js/secret-fichas.js?v=conexiones-20261031"></script><script defer src="assets/js/main.js?v=sandbox-compacto-20261028"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
+<link rel="stylesheet" href="assets/css/styles.css?v=sandbox-horizontal-20261105"><link rel="stylesheet" href="assets/css/secret-fichas.css?v=1"><script defer src="assets/js/secret-fichas.js?v=conexiones-20261031"></script><script defer src="assets/js/main.js?v=sandbox-compacto-20261028"></script><script defer src="assets/js/updates-data.js?v=novedades-20261015"></script><script defer src="assets/js/updates.js?v=novedades-20261015"></script><script defer src="assets/js/digital-zoom.js?v=20260920"></script><script defer src="assets/js/digital-layout.js?v=alto-fijo-20260921"></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-published-date]').forEach(function(el){
@@ -1740,8 +1740,11 @@ function sandboxCards(item){
    });
    const gallery=slides.length?`<div class="sandbox-carousel"${slides.length>1?' data-sandbox-carousel tabindex="0"':''} aria-label="Galería de ${esc(title)}"><div class="sandbox-carousel-viewport">${slides.join('')}</div>${slides.length>1?`<div class="sandbox-carousel-controls"><button type="button" data-sandbox-prev aria-label="Anterior imagen o vídeo">←</button><span data-sandbox-counter aria-live="polite">1 / ${slides.length}</span><button type="button" data-sandbox-next aria-label="Siguiente imagen o vídeo">→</button></div>`:''}</div>`:'';
    const text=body?`<div class="sandbox-card-text">${markdownToHTML(body)}</div>`:'';
-   const contents=block.content_order==='TEXTO_PRIMERO'?text+gallery:gallery+text;
-   return `<article class="sandbox-card reveal"><h2>${esc(title)}</h2>${contents}</article>`;
+   const horizontal=block.layout==='HORIZONTAL';
+   const contents=horizontal&&gallery&&text
+     ? `<div class="sandbox-card-columns">${block.horizontal_media_side==='DERECHA'?text+gallery:gallery+text}</div>`
+     : block.content_order==='TEXTO_PRIMERO'?text+gallery:gallery+text;
+   return `<article class="sandbox-card${horizontal?' sandbox-card--wide':''} reveal"><h2>${esc(title)}</h2>${contents}</article>`;
  }).join('');
  return `<div class="sandbox-grid">${cards}</div>`;
 }

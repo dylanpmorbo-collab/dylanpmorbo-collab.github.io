@@ -18,7 +18,7 @@ try {
     summary: '', definition: '', perception: '', machinery_role: '', contact: '',
     sandbox: [
       { title: 'Solo texto', text: 'Descripción libre.' },
-      { title: 'Pruebas visuales', text: 'Texto e imágenes y vídeo.', content_order: 'TEXTO_PRIMERO', media: [
+      { title: 'Pruebas visuales', text: 'Texto e imágenes y vídeo.', layout: 'HORIZONTAL', horizontal_media_side: 'DERECHA', content_order: 'TEXTO_PRIMERO', media: [
         { kind: 'image', image: '/foto-1.jpg', caption: 'Primera' },
         { kind: 'video', video: '/clip.mp4', poster: '/portada.jpg' },
         { kind: 'image', image: '/foto-2.jpg', caption: 'Segunda' }
@@ -28,7 +28,7 @@ try {
   const place = {
     title: 'Torre hundida', slug: 'torre-hundida', place_order: 1, published: true,
     panorama: '/torre-panorama.jpg', summary: 'Un lugar de prueba.',
-    sandbox: [{ title: 'Hallazgos', media: [
+    sandbox: [{ title: 'Hallazgos', text: 'La galería va a la izquierda.', layout: 'HORIZONTAL', media: [
       { kind: 'video', video: '/hallazgo.mp4' },
       { kind: 'image', image: '/hallazgo.jpg' }
     ] }]
@@ -47,6 +47,7 @@ try {
 
   assert.match(planeHtml, /<h2>Solo texto<\/h2>/);
   assert.match(planeHtml, /<h2>Pruebas visuales<\/h2>/);
+  assert.match(planeHtml, /class="sandbox-card sandbox-card--wide reveal"><h2>Pruebas visuales<\/h2><div class="sandbox-card-columns"><div class="sandbox-card-text">/);
   assert.match(planeHtml, /data-sandbox-counter[^>]*>1 \/ 3</);
   assert.match(planeHtml, /<video controls playsinline/);
   assert.match(planeHtml, /<img src="\/foto-1.jpg"/);
@@ -61,6 +62,7 @@ try {
   assert.match(placeHtml, /<img class="plane-hero-image" src="\/torre-panorama.jpg"/);
   assert.match(placeHtml, /← VOLVER A LOS LUGARES/);
   assert.match(placeHtml, /<h2>Hallazgos<\/h2>/);
+  assert.match(placeHtml, /class="sandbox-card sandbox-card--wide reveal"><h2>Hallazgos<\/h2><div class="sandbox-card-columns"><div class="sandbox-carousel"/);
   assert.match(placeHtml, /data-sandbox-counter[^>]*>1 \/ 2</);
   assert.doesNotMatch(placeHtml, /<div class="plane-introduction">/);
   assert.doesNotMatch(placeHtml, />Sandbox</);
