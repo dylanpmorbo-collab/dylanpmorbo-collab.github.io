@@ -26,8 +26,8 @@
       "title": "Creencias y culto",
       "text": "Los **Śukrahārī** constituyen el elemento central de las creencias conocidas de La Plaga.\n\nLa organización no parece considerarlos simples animales o seres extraordinarios, sino **entidades merecedoras de veneración**, a las que reconoce facultades que exceden las capacidades humanas.\n\nLa naturaleza exacta de este culto, sus posibles jerarquías religiosas y la existencia de ceremonias o prácticas rituales permanecen insuficientemente documentadas.",
       "content_order": "MEDIOS_PRIMERO",
-      "layout": "VERTICAL",
-      "horizontal_media_side": "IZQUIERDA",
+      "layout": "HORIZONTAL",
+      "horizontal_media_side": "DERECHA",
       "media": [
         {
           "kind": "image",
