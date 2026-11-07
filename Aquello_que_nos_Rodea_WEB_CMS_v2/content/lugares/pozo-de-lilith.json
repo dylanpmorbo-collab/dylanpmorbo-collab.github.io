@@ -3,16 +3,22 @@
   "slug": "pozo-de-lilith",
   "place_order": 1,
   "archive_number": "001",
-  "published": true,
+  "published": false,
   "notify_new": true,
   "panorama": "/assets/uploads/lugares/pozo-de-lilith-panorama.jpg",
   "summary": "Una prisión construida por humanos para encerrar a Lilith. Permaneció sellada durante una parte inmensa del segundo ciclo.",
   "definition": "La estirpe de cazadores capturó a Lilith y la encerró en un pozo profundo, sellado con cemento. Creían que procedía de otro plano y que su existencia representaba una amenaza. Lilith era, en realidad, la primera mujer creada para el segundo ciclo.\n\nEl encierro se prolongó tanto que varias generaciones de cazadores heredaron la vigilancia de una prisionera a la que nunca habían visto libre. No conocemos la duración exacta ni el lugar donde se levantó la prisión.\n\nLa destrucción del mundo al final del segundo ciclo fracturó el sello y permitió la salida de Lilith. El pozo fue una obra humana: no era un plano ni una estructura de la Maquinaria.",
   "perception": "No se conserva una descripción fiable del interior. Sabemos que era profundo y que quedó cerrado con cemento; su forma, dimensiones y entorno siguen sin documentarse. Las imágenes de esta ficha son reconstrucciones conceptuales.",
   "open_questions": [
-    { "question": "¿Dónde se encontraba el pozo y qué restos, si los hay, sobrevivieron al final del segundo ciclo?" },
-    { "question": "¿Quién dirigió su construcción y cómo se transmitió su custodia entre las cuatro familias?" },
-    { "question": "¿Cuánto tiempo permaneció Lilith encerrada antes de la fractura del sello?" }
+    {
+      "question": "¿Dónde se encontraba el pozo y qué restos, si los hay, sobrevivieron al final del segundo ciclo?"
+    },
+    {
+      "question": "¿Quién dirigió su construcción y cómo se transmitió su custodia entre las cuatro familias?"
+    },
+    {
+      "question": "¿Cuánto tiempo permaneció Lilith encerrada antes de la fractura del sello?"
+    }
   ],
   "show_related_archive": false,
   "sandbox": [
@@ -20,6 +26,8 @@
       "title": "Reconstrucción del encierro",
       "text": "La sección ilustra la única disposición que consta: una cavidad profunda y un cierre de cemento. La figura y las proporciones sirven para entender el encierro; no reproducen un plano recuperado.",
       "content_order": "MEDIOS_PRIMERO",
+      "layout": "VERTICAL",
+      "horizontal_media_side": "IZQUIERDA",
       "media": [
         {
           "kind": "image",
@@ -31,4 +39,3 @@
     }
   ]
 }
-
