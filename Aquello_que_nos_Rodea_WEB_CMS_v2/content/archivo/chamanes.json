@@ -3,28 +3,20 @@
   "slug": "chamanes",
   "archive_number": "002",
   "category": "ENTIDAD",
-  "published": true,
+  "published": false,
   "notify_new": true,
   "image": "/assets/uploads/entidades/CHAMANES/despertar-adolescente-carboncillo.webp",
   "hero_image_frame": false,
   "status": "DOCUMENTADO",
   "summary": "Humanos capaces de producir fenómenos que desafían las leyes conocidas. No forman una especie, una orden ni una alianza: comparten una condición, no un propósito.",
   "note": "La denominación «chamán» agrupa a individuos muy distintos. Las ilustraciones de esta ficha son reconstrucciones conceptuales, no registros de sucesos concretos.",
-  "facts": [
-    { "label": "Naturaleza", "value": "Humana; condición interplanar" },
-    { "label": "Origen", "value": "Alteración prenatal por exposición materna a radiación interplanar general" },
-    { "label": "Manifestación habitual", "value": "Entre los 13 y los 16 años" },
-    { "label": "Manifestación temprana", "value": "Excepcional; puede ser involuntaria ante peligro o trauma" },
-    { "label": "Dones", "value": "Variables, sin relación fija con un plano concreto" },
-    { "label": "Reproducción", "value": "Estériles" }
-  ],
   "sandbox": [
     {
       "title": "Una condición, no una estirpe",
       "text": "Un **chamán** es un ser humano cuyo desarrollo prenatal quedó alterado tras la exposición de la madre a radiación interplanar. La exposición no siempre afecta al feto. Cuando lo hace, altera su ADN y lo vuelve compatible con propiedades de una realidad en la que existen otros planos. No constituye una mejora biológica.\n\nLa radiación actúa en términos generales: **el don no procede necesariamente de un plano determinado**. Dos chamanes pueden producir efectos parecidos y tener límites completamente distintos. Su existencia tampoco implica una ideología compartida. Algunos viven sin conocer a ningún otro chamán; otros entran en organizaciones con fines propios.\n\nLos chamanes son **estériles**. No transmiten su condición por descendencia.",
+      "content_order": "TEXTO_PRIMERO",
       "layout": "HORIZONTAL",
       "horizontal_media_side": "DERECHA",
-      "content_order": "TEXTO_PRIMERO",
       "media": [
         {
           "kind": "image",
@@ -37,16 +29,16 @@
     {
       "title": "El despertar",
       "text": "En el **99,9 % de los casos**, el uso voluntario del don comienza en la adolescencia, habitualmente entre los **13 y los 16 años**. Antes pueden producirse manifestaciones involuntarias, especialmente ante una situación traumática o de peligro. Existen excepciones aún más tempranas: algunos efectos se manifiestan desde la infancia e incluso desde el nacimiento, aunque son raros.\n\nLa aparición del don no establece por sí sola su alcance ni el carácter de quien lo posee. Un adolescente puede aprovecharlo, ocultarlo, temerlo o perder el control. Ese margen de elección es parte esencial de cada historia.\n\n**La ropa y los objetos corrientes no comparten el don.** Si alguien atraviesa una pared, su ropa queda atrás; si su velocidad destruye el tejido, no existe un traje especial que lo preserve por arte de magia.",
-      "layout": "VERTICAL",
       "content_order": "TEXTO_PRIMERO",
-      "media": []
+      "layout": "VERTICAL",
+      "horizontal_media_side": "IZQUIERDA"
     },
     {
       "title": "Un fenómeno, muchas respuestas",
       "text": "La telequinesis, la piroquinesis y otras alteraciones son formas de describir lo observado, **no categorías cerradas ni una lista de poderes posibles**. La misma palabra puede ocultar mecanismos, costes y límites distintos. La física de este mundo es una construcción del Primigenio; los dones muestran que sus reglas admiten excepciones.\n\nEl incidente de una carretera, un objeto suspendido o una temperatura imposible pueden llegar al público como rumores, testimonios contradictorios o una noticia sin explicación. Ninguna de esas fuentes basta, por sí sola, para identificar a un chamán.",
+      "content_order": "MEDIOS_PRIMERO",
       "layout": "HORIZONTAL",
       "horizontal_media_side": "IZQUIERDA",
-      "content_order": "MEDIOS_PRIMERO",
       "media": [
         {
           "kind": "image",
@@ -59,17 +51,74 @@
     {
       "title": "Cuando se pierde el don",
       "text": "El Vértice, dirigente de Los Amos del Mundo, puede **consumir la radiación interplanar que sustenta un don**. Nunca adquiere las facultades de sus víctimas. La pérdida no causa una muerte inmediata: el organismo se deteriora desde dentro y puede desarrollar enfermedades y cánceres. Según el caso, el proceso dura **meses o años**.\n\nLa organización suele matar a quienes rechazan su invitación cuando juzga prescindible su don. Presenta ese asesinato también como una forma de evitarles el deterioro posterior. Esa justificación pertenece a la organización; no convierte el acto en compasión. Un chamán con un don que consideran imprescindible puede ser sometido a hostigamiento para forzar su incorporación. **Los Amos del Mundo no representan a todos los chamanes.**",
-      "layout": "VERTICAL",
       "content_order": "TEXTO_PRIMERO",
-      "media": []
+      "layout": "VERTICAL",
+      "horizontal_media_side": "IZQUIERDA"
     }
   ],
+  "facts_side_left_x": 50,
+  "facts_side_left_y": 50,
+  "facts_side_right_x": 50,
+  "facts_side_right_y": 50,
+  "facts_side_hide_border": false,
+  "facts": [
+    {
+      "label": "Naturaleza",
+      "value": "Humana; condición interplanar"
+    },
+    {
+      "label": "Origen",
+      "value": "Alteración prenatal por exposición materna a radiación interplanar general"
+    },
+    {
+      "label": "Manifestación habitual",
+      "value": "Entre los 13 y los 16 años"
+    },
+    {
+      "label": "Manifestación temprana",
+      "value": "Excepcional; puede ser involuntaria ante peligro o trauma"
+    },
+    {
+      "label": "Dones",
+      "value": "Variables, sin relación fija con un plano concreto"
+    },
+    {
+      "label": "Reproducción",
+      "value": "Estériles"
+    }
+  ],
+  "gallery": [
+    {
+      "image": "/assets/uploads/entidades/CHAMANES/despertar-adolescente-carboncillo.webp",
+      "notify_new": true,
+      "caption": "Despertar de un don · ilustración conceptual",
+      "description": "Carboncillo creado para explicar una posible manifestación temprana. No documenta un suceso concreto."
+    },
+    {
+      "image": "/assets/uploads/entidades/CHAMANES/frenazo-carretera-carboncillo.webp",
+      "notify_new": true,
+      "caption": "Incidente de carretera · ilustración conceptual",
+      "description": "Reconstrucción visual de un fenómeno inexplicable; no es una fotografía del incidente relatado por The Unseen."
+    }
+  ],
+  "show_documents": false,
+  "show_police_report": false,
+  "show_digital_reports": false,
+  "show_related_archive": false,
+  "corkboard": {
+    "enabled": false,
+    "design": "A",
+    "title": "TABLÓN DE CONEXIONES"
+  },
+  "show_physical_press": false,
+  "physical_press_title": "PRENSA FÍSICA",
   "show_digital_press": true,
   "digital_press": [
     {
       "outlet": "THE UNSEEN · EDICIÓN ESPAÑOLA",
       "kind": "NOTICIA",
       "headline": "Un camión se detuvo en seco ante una mujer en una carretera nevada",
+      "notify_new": true,
       "byline": "Redacción de The Unseen",
       "date": "17 de febrero de 2025",
       "summary": "Dos conductores aseguran que el vehículo frenó sin que las ruedas dejaran marcas proporcionales a su velocidad. La mujer situada en la calzada abandonó el lugar antes de ser identificada. El examen mecánico no ha ofrecido una causa concluyente; las versiones de los testigos difieren sobre la distancia a la que se produjo la detención.",
@@ -80,6 +129,7 @@
       "outlet": "THE UNSEEN · EDICIÓN ESPAÑOLA",
       "kind": "REPORTAJE",
       "headline": "Lo que ocurrió en el pasillo del instituto sigue sin explicación",
+      "notify_new": true,
       "byline": "Redacción de The Unseen",
       "date": "9 de octubre de 2024",
       "summary": "Alumnos y personal describen una sacudida breve, papeles suspendidos en el aire y un mueble desplazado sin contacto visible. El centro atribuye el episodio a una alteración estructural, aunque no consta ningún desperfecto. Ningún testimonio permite reconstruir con seguridad el orden de los hechos.",
@@ -90,24 +140,12 @@
       "outlet": "THE UNSEEN · EDICIÓN ESPAÑOLA",
       "kind": "NOTICIA",
       "headline": "Una fuente se congeló en minutos durante una tarde templada",
+      "notify_new": true,
       "byline": "Redacción de The Unseen",
       "date": "4 de abril de 2023",
       "summary": "Varias personas afirman haber visto cómo el agua de una fuente comenzó a helarse sin que descendiera la temperatura ambiente. Las imágenes compartidas después muestran hielo, pero no el momento en que se formó. No se ha podido descartar una intervención previa ni establecer una explicación física completa.",
       "status": "ORIGEN NO DETERMINADO",
       "archive_note": "Pieza narrativa inspirada en la imagen «El agua se congela de repente»."
     }
-  ],
-  "gallery": [
-    {
-      "image": "/assets/uploads/entidades/CHAMANES/despertar-adolescente-carboncillo.webp",
-      "caption": "Despertar de un don · ilustración conceptual",
-      "description": "Carboncillo creado para explicar una posible manifestación temprana. No documenta un suceso concreto."
-    },
-    {
-      "image": "/assets/uploads/entidades/CHAMANES/frenazo-carretera-carboncillo.webp",
-      "caption": "Incidente de carretera · ilustración conceptual",
-      "description": "Reconstrucción visual de un fenómeno inexplicable; no es una fotografía del incidente relatado por The Unseen."
-    }
   ]
 }
-
