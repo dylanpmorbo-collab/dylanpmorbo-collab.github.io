@@ -14,6 +14,7 @@
   "facts_side_right_image": "/assets/uploads/archivo/GIFT/retratodelmonstruodemandbulacircular-webdistorsion.webp",
   "facts_side_right_x": 100,
   "facts_side_right_y": 50,
+  "facts_side_hide_border": false,
   "facts": [
     {
       "label": "Tipo",
@@ -70,7 +71,7 @@
       "type": "ORGANIZACIÓN",
       "title": "LA PLAGA",
       "thumbnail": "/assets/uploads/archivo/LOGOS/emblema-gotico-del-roedor-dorado-web.webp",
-      "url": "https://dylanpmorbo-collab.github.io/archivo-organizaciones-la-plaga.html"
+      "url": "https://dylanpmorbo-collab.github.io/archivo-organizaciones-nam-us-la-plaga.html"
     },
     {
       "type": "RELATO",
